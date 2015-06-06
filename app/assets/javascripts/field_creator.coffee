@@ -45,3 +45,6 @@ class TournamentApp.FieldCreator
       url: @savePath
       data: data
       dataType: 'json'
+      success: (response) ->
+        TournamentApp.Flash.notice('Fields Updated')
+      error: (response) ->

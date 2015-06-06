@@ -6,8 +6,10 @@ class FieldsController < ApplicationController
 
   def create
     if @tournament.update_attributes(tournament_params)
-      head :ok
+      flash.now[:notice] = "Fields Updated!"
+      render json: {}
     else
+      flash.now[:notice] = "Error!"
       head :unprocessible_entity
     end
   end
