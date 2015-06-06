@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Gen loc</th>
       <th>Description</th>
       <th colspan="3"></th>
     </tr>
@@ -16,7 +15,6 @@
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= tournament.name %></td>
-        <td><%= tournament.gen_loc %></td>
         <td><%= tournament.description %></td>
         <td><%= link_to 'Show', tournament %></td>
         <td><%= link_to 'Edit', edit_tournament_path(tournament) %></td>
