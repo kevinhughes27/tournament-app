@@ -13,15 +13,23 @@
 
 ActiveRecord::Schema.define(version: 20150606161525) do
 
+  create_table "fields", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "lat",        precision: 15, scale: 10, default: 0.0
+    t.decimal  "long",       precision: 15, scale: 10, default: 0.0
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+  end
+
   create_table "games", force: :cascade do |t|
-    t.integer  "home_score"
-    t.integer  "away_score"
+    t.integer  "home_score",      default: 0
+    t.integer  "away_score",      default: 0
     t.datetime "start"
     t.datetime "finished"
     t.boolean  "score_confirmed"
     t.integer  "field_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "games", ["field_id"], name: "index_games_on_field_id"
