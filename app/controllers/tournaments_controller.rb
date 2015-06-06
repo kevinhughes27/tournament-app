@@ -45,6 +45,11 @@ class TournamentsController < ApplicationController
     @tournament.destroy
     redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.'
   end
+
+    def import_team
+      Team.import(params[:file], params[:tournament_id])
+      redirect_to tournament_path(params[:tournament_id]), notice: "Products imported."
+    end
  
 
   private
