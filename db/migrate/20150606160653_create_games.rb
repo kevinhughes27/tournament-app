@@ -1,8 +1,8 @@
 class CreateGames < ActiveRecord::Migration
   def change
     create_table :games do |t|
-      t.integer :home_score
-      t.integer :away_score
+      t.integer :home_score, default: 0
+      t.integer :away_score, default: 0
       t.datetime :start
       t.datetime :finished
       t.boolean :score_confirmed
