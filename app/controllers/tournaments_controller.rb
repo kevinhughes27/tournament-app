@@ -44,6 +44,7 @@ class TournamentsController < ApplicationController
     @tournament.destroy
     redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.'
   end
+ 
 
   private
     # Use callbacks to share common setup or constraints between actions.

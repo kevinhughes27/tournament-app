@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'tournaments#index'
 
+  get 'download_csv_template', to: 'application#download_csv_template'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
