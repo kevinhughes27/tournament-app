@@ -1,58 +1,34 @@
 class FieldsController < ApplicationController
-  before_action :set_field, only: [:show, :edit, :update, :destroy]
+  before_action :load_tournament, only: [:index, :create]
 
-  # GET /fields
   def index
-    @fields = Field.all
   end
 
-  # GET /fields/1
-  def show
-  end
-
-  # GET /fields/new
-  def new
-    @tournament = Tournament.find(params[:tournament_id])
-  end
-
-  # GET /fields/1/edit
-  def edit
-  end
-
-  # POST /fields
   def create
-    @field = Field.new(field_params)
-
-    if @field.save
-      redirect_to @field, notice: 'Field was successfully created.'
+    if @tournament.update_attributes(tournament_params)
+      flash.now[:notice] = "Fields Updated!"
+      render json: {}
     else
-      render :new
+      flash.now[:notice] = "Error!"
+      head :unprocessible_entity
     end
-  end
-
-  # PATCH/PUT /fields/1
-  def update
-    if @field.update(field_params)
-      redirect_to @field, notice: 'Field was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  # DELETE /fields/1
-  def destroy
-    @field.destroy
-    redirect_to fields_url, notice: 'Field was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_field
-      @field = Field.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def field_params
-      params.require(:field).permit(:name, :location)
-    end
+  def load_tournament
+    @tournament = Tournament.find(params[:tournament_id])
+  end
+
+  def tournament_params
+    params.require(:tournament).permit(
+      :zoom,
+      :lat,
+      :long
+    )
+  end
+
+  def field_params
+    params.require(:field).permit(:name, :location)
+  end
 end
