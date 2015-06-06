@@ -7,4 +7,6 @@ class Tournament < ActiveRecord::Base
     "[#{lat}, #{long}]"
   end
 
+
+
 end

@@ -49,7 +49,7 @@
 </table>
 <% end %>
 <%= link_to 'Download Template', download_csv_template_path %>
-       <%= form_tag tournament_team_import_path(@tournament,@teams.first.id), multipart: true do %>
+       <%= form_tag tournament_import_team_path(@tournament), multipart: true do %>
           <%= file_field_tag :file %>
           <%= submit_tag "Import CSV" %>
         <% end %>

@@ -3,9 +3,8 @@ Rails.application.routes.draw do
     resources :spirits
     resources :fields
     resources :games
-    resources :teams do
-    	post :import
-    end
+    resources :teams
+    post :import_team
   end
 
   root 'tournaments#index'
