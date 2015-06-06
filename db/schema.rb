@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,35 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606161525) do
+ActiveRecord::Schema.define(version: 20150606171603) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
-    t.decimal  "lat",        precision: 15, scale: 10, default: 0.0
-    t.decimal  "long",       precision: 15, scale: 10, default: 0.0
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.decimal  "lat",           precision: 15, scale: 10, default: 0.0
+    t.decimal  "long",          precision: 15, scale: 10, default: 0.0
+    t.integer  "tournament_id"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
+  add_index "fields", ["tournament_id"], name: "index_fields_on_tournament_id"
+
   create_table "games", force: :cascade do |t|
+    t.integer  "home_id"
+    t.integer  "away_id"
     t.integer  "home_score",      default: 0
     t.integer  "away_score",      default: 0
     t.datetime "start"
     t.datetime "finished"
     t.boolean  "score_confirmed"
     t.integer  "field_id"
+    t.integer  "tournament_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
 
   add_index "games", ["field_id"], name: "index_games_on_field_id"
+  add_index "games", ["tournament_id"], name: "index_games_on_tournament_id"
 
-  create_table "games_teams", id: false, force: :cascade do |t|
-    t.integer "game_id", null: false
-    t.integer "team_id", null: false
+  create_table "spirits", force: :cascade do |t|
+    t.integer  "author_id"
+    t.integer  "subject_id"
+    t.integer  "rule",       limit: 1
+    t.integer  "foul",       limit: 1
+    t.integer  "fair",       limit: 1
+    t.integer  "tude",       limit: 1
+    t.integer  "comm",       limit: 1
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
-
-  add_index "games_teams", ["game_id", "team_id"], name: "game_team_join_index", unique: true
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -47,9 +58,12 @@ ActiveRecord::Schema.define(version: 20150606161525) do
     t.string   "sms"
     t.string   "twitter"
     t.string   "division"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "tournament_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
+
+  add_index "teams", ["tournament_id"], name: "index_teams_on_tournament_id"
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"

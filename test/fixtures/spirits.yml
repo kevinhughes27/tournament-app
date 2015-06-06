@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  author_id: 
+  subject_id: 
+  rule: 1
+  foul: 1
+  fair: 1
+  tude: 1
+  comm: 1
+
+two:
+  author_id: 
+  subject_id: 
+  rule: 1
+  foul: 1
+  fair: 1
+  tude: 1
+  comm: 1

@@ -6,7 +6,7 @@ class CreateTeams < ActiveRecord::Migration
       t.string :sms
       t.string :twitter
       t.string :division
-
+      t.belongs_to :tournament, index: true
       t.timestamps null: false
     end
   end

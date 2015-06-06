@@ -1,0 +1,45 @@
+<%= form_for(@spirit) do |f| %>
+  <% if @spirit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@spirit.errors.count, "error") %> prohibited this spirit from being saved:</h2>
+
+      <ul>
+      <% @spirit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :author_id %><br>
+    <%= f.text_field :author_id %>
+  </div>
+  <div class="field">
+    <%= f.label :subject_id %><br>
+    <%= f.text_field :subject_id %>
+  </div>
+  <div class="field">
+    <%= f.label :rule %><br>
+    <%= f.number_field :rule %>
+  </div>
+  <div class="field">
+    <%= f.label :foul %><br>
+    <%= f.number_field :foul %>
+  </div>
+  <div class="field">
+    <%= f.label :fair %><br>
+    <%= f.number_field :fair %>
+  </div>
+  <div class="field">
+    <%= f.label :tude %><br>
+    <%= f.number_field :tude %>
+  </div>
+  <div class="field">
+    <%= f.label :comm %><br>
+    <%= f.number_field :comm %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
