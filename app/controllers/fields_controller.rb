@@ -21,13 +21,10 @@ class FieldsController < ApplicationController
 
   # POST /fields
   def create
-    @field = Field.new(field_params)
+    @tournament = Tournament.find(params[:tournament_id])
+    @tournament.update_attributes(tournament_params)
 
-    if @field.save
-      redirect_to @field, notice: 'Field was successfully created.'
-    else
-      render :new
-    end
+    redirect_to new_tournament_field_path(@tournament), notice: 'Fields updated'
   end
 
   # PATCH/PUT /fields/1
@@ -46,6 +43,14 @@ class FieldsController < ApplicationController
   end
 
   private
+    def tournament_params
+      params.require(:tournament).permit(
+        :zoom,
+        :lat,
+        :long
+      )
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_field
       @field = Field.find(params[:id])

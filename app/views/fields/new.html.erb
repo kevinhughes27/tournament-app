@@ -7,6 +7,15 @@
 </style>
 
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
+<div id="control-div" class="control-div">
+  <div id= "control-ui" class="control-ui" title="Save">
+    <div id="control-text" class="control-text">
+      <p>Save</p>
+    </div>
+  </div>
+</div>
+
 <div id="map-canvas"></div>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
@@ -14,7 +23,8 @@
   $( document ).ready(function() {
     fieldCreator = new TournamentApp.FieldCreator(
       <%= @tournament.location %>,
-      <%= @tournament.zoom %>
+      <%= @tournament.zoom %>,
+      '<%= tournament_fields_path(@tournament) %>'
     );
   });
 </script>
