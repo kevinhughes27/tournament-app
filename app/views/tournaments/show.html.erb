@@ -6,9 +6,19 @@
 </p>
 
 <p>
+  <strong>Lat and Long:</strong>
+  
+</p>
+
+<p>
   <strong>Description:</strong>
   <%= @tournament.description %>
 </p>
+
+<% if @teams.count == 0 %>
+	<p>Please Download the template, insert your team info, save your changes and upload your saved file.</p>
+
+<% else %>
 
 <table>
   <thead>
@@ -30,16 +40,19 @@
         <td><%= team.sms %></td>
         <td><%= team.twitter %></td>
         <td><%= team.division %></td>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', tournament_team_path(@tournament,team) %></td>
+        <td><%= link_to 'Edit', edit_tournament_team_path(@tournament, team) %></td>
+        <td><%= link_to 'Destroy', tournament_team_path(@tournament, team), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<% end %>
 <%= link_to 'Download Template', download_csv_template_path %>
-
+       <%= form_tag tournament_team_import_path(@tournament,@teams.first.id), multipart: true do %>
+          <%= file_field_tag :file %>
+          <%= submit_tag "Import CSV" %>
+        <% end %>
 
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>

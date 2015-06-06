@@ -45,6 +45,11 @@ class TeamsController < ApplicationController
     redirect_to teams_url, notice: 'Team was successfully destroyed.'
   end
 
+  def import
+    Team.import(params[:file])
+    redirect_to tournament_teams_path, notice: "Products imported."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
