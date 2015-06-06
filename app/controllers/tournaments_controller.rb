@@ -8,6 +8,7 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments/1
   def show
+    @teams = Team.where(tournament_id: @tournament)
   end
 
   # GET /tournaments/new
