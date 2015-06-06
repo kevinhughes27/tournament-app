@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606171603) do
+ActiveRecord::Schema.define(version: 20150606175647) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -67,10 +68,12 @@ ActiveRecord::Schema.define(version: 20150606171603) do
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
-    t.string   "gen_loc"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.decimal  "lat",         precision: 15, scale: 10, default: 0.0
+    t.decimal  "long",        precision: 15, scale: 10, default: 0.0
+    t.integer  "zoom",                                  default: 15
   end
 
 end

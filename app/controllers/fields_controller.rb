@@ -12,7 +12,7 @@ class FieldsController < ApplicationController
 
   # GET /fields/new
   def new
-    @field = Field.new
+    @tournament = Tournament.find(params[:tournament_id])
   end
 
   # GET /fields/1/edit

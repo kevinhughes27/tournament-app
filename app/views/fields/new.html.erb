@@ -1,5 +1,20 @@
-<h1>New Field</h1>
+<style>
+  html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+  }
+</style>
 
-<%= render 'form' %>
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<div id="map-canvas"></div>
 
-<%= link_to 'Back', fields_path %>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script>
+  $( document ).ready(function() {
+    fieldCreator = new TournamentApp.FieldCreator(
+      <%= @tournament.location %>,
+      <%= @tournament.zoom %>
+    );
+  });
+</script>
