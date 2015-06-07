@@ -5,7 +5,7 @@ class TournamentApp.FieldCreator
     console.log "Got here"
     script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&callback=initializeMap';
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=drawing&callback=initializeMap';
     document.body.appendChild(script);
 
   initializeMap: =>
@@ -15,17 +15,33 @@ class TournamentApp.FieldCreator
       mapTypeId: google.maps.MapTypeId.SATELLITE
     })
 
-    #@initializeDrawing()
-###
-  initializeDrawing: ->
-    google.maps.event.addListener(drawingManager, 'polylinecomplete', function(polyline) {
-         @shape = polyline;
-         @latLngObject = shape.getPath();
-         @input = prompt("Please enter a name for the field");
-         if(input !== undefined) {
-           console.log input
-         }
-     });
-    drawingManager.setMap(map);
+    @initializeDrawingManager()
 
-###
+  initializeDrawingManager: ->
+    @drawingManager = new google.maps.drawing.DrawingManager
+      drawingMode: google.maps.drawing.OverlayType.MARKER,
+      drawingControl: true,
+      drawingControlOptions:
+        position: google.maps.ControlPosition.BOTTOM_RIGHT,
+        drawingModes: [
+          google.maps.drawing.OverlayType.MARKER,
+          google.maps.drawing.OverlayType.CIRCLE,
+          google.maps.drawing.OverlayType.POLYGON,
+          google.maps.drawing.OverlayType.POLYLINE,
+          google.maps.drawing.OverlayType.RECTANGLE
+        ]
+      markerOptions:
+        icon: 'images/beachflag.png'
+      circleOptions:
+        fillColor: '#ffff00',
+        fillOpacity: 1,
+        strokeWeight: 5,
+        clickable: false,
+        editable: true,
+        zIndex: 1
+
+    google.maps.event.addListener @drawingManager, 'polygoncomplete', (shape) =>
+      latLngObject = shape.getPath()
+      input = prompt("Please enter a name for the field")
+
+    @drawingManager.setMap(@map);
