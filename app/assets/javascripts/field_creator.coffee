@@ -1,6 +1,6 @@
 class TournamentApp.FieldCreator
 
-  constructor: (@tournmanentLocation, @zoom) ->
+  constructor: (@tournmanentLocation, @zoom, @savePath) ->
     google.maps.event.addDomListener(window, 'load', @initializeMap)
 
   initializeMap: =>
@@ -11,8 +11,9 @@ class TournamentApp.FieldCreator
     })
 
     @initSearchBar()
+    @initSaveButton()
 
-  initSearchBar: =>
+  initSearchBar: ->
     input = document.getElementById('pac-input')
     @map.controls[google.maps.ControlPosition.TOP_LEFT].push(input)
 
@@ -27,19 +28,23 @@ class TournamentApp.FieldCreator
 
       @map.fitBounds(bounds);
 
-  drawRectangles: =>
-    # rectangle = new google.maps.Rectangle({
-    #   strokeColor: '#FF0000',
-    #   strokeOpacity: 0.8,
-    #   strokeWeight: 2,
-    #   fillColor: '#FF0000',
-    #   fillOpacity: 0.35,
-    #   map: @map,
-    #   bounds: new google.maps.LatLngBounds(
-    #     new google.maps.LatLng(33.671068, -116.25128),
-    #     new google.maps.LatLng(33.685282, -116.233942))
-    # });
+  initSaveButton: ->
+    input = document.getElementById('control-div')
+    @map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input)
+    google.maps.event.addDomListener input, 'click', @save
 
-  save: ->
-    @map.zoom
-    @map.center
+  save: =>
+    data =
+      tournament:
+        zoom: @map.zoom
+        lat: @map.center.lat()
+        long: @map.center.lng()
+
+    $.ajax
+      type: 'POST'
+      url: @savePath
+      data: data
+      dataType: 'json'
+      success: (response) ->
+        TournamentApp.Flash.notice('Fields Updated')
+      error: (response) ->

@@ -42,13 +42,9 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   def destroy
     @team.destroy
-    redirect_to teams_url, notice: 'Team was successfully destroyed.'
+    redirect_to tournament_path(params[:tournament_id]), notice: 'Team was successfully destroyed.'
   end
 
-  def import
-    Team.import(params[:file])
-    redirect_to tournament_teams_path, notice: "Products imported."
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
