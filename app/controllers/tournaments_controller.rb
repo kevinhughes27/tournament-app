@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-  before_action :set_tournament, only: [:show, :edit, :update, :destroy]
+  before_action :set_tournament, only: [:show, :edit, :update, :destroy, :import_team, :set_tournament]
 
   # GET /tournaments
   def index
@@ -51,14 +51,19 @@ class TournamentsController < ApplicationController
   end
 
   def import_team
-    Team.import(params[:file], params[:tournament_id])
-    redirect_to tournament_path(params[:tournament_id]), notice: "Products imported."
+
+    Team.import(params[:file], @tournament.id)
+    redirect_to tournament_path(params[:tournament_id]), notice: "Teams imported."
   end
 
   private
 
   def set_tournament
-    @tournament = Tournament.friendly.find(params[:id])
+    if params[:tournament_id]
+      @tournament = Tournament.friendly.find(params[:tournament_id])
+    else
+      @tournament = Tournament.friendly.find(params[:id])
+    end
   end
 
   def tournament_params
