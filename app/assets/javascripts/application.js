@@ -13,5 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require twitter/bootstrap
 //= require namespace
 //= require_tree .
+
+$(function() {
+  $(".flash").delay(500).fadeIn("normal", function() {
+     $(this).delay(1500).fadeOut();
+   });
+});
