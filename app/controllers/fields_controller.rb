@@ -1,10 +1,7 @@
 class FieldsController < ApplicationController
   before_action :load_tournament, only: [:index, :create]
 
-  def index
-  end
-
-  def create
+  def new
   end
 
   private

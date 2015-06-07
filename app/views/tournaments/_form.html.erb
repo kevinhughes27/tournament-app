@@ -37,8 +37,7 @@
   $( document ).ready(function() {
     fieldCreator = new TournamentApp.TournmanentMap(
       <%= @tournament.location %>,
-      <%= @tournament.zoom %>,
-      '<%= tournament_fields_path(@tournament) %>'
+      <%= @tournament.zoom %>
     );
   });
 </script>
