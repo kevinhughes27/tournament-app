@@ -166,4 +166,10 @@ BUNDLED WITH
    1.10.3
 =======
   whenever
+<<<<<<< HEAD
 >>>>>>> 41c9b98... Cron inittial gem commit
+=======
+
+BUNDLED WITH
+   1.10.3
+>>>>>>> 4ce6235... Bundle line
