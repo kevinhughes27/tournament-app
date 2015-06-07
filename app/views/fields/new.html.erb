@@ -1,14 +1,14 @@
-<div id="map-canvas"></div>
+<div id="map-canvas" style="width:100%;"></div>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&libraries=drawing"></script>
 <script>
 $( document ).ready(function() {
   function initialize() {
       var mapOptions = {
-        center: new google.maps.LatLng(-34.397, 150.644),
-        zoom: 8
+        center: new google.maps.LatLng(45.246112,-75.6152621),
+        zoom: 16
       };
       var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-      google.maps.event.addListener(drawingManager, 'polylinecomplete', function(polyline) {
+      google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polyline) {
           console.log("Boop");
           var shape = polyline;
           console.dir(shape);
