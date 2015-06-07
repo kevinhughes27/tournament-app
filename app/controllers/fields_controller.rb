@@ -1,32 +1,10 @@
 class FieldsController < ApplicationController
   before_action :load_tournament, only: [:index, :create]
 
-  def index
-  end
-
-  def create
-    if @tournament.update_attributes(tournament_params)
-      flash.now[:notice] = "Fields Updated!"
-      render json: {}
-    else
-      flash.now[:notice] = "Error!"
-      head :unprocessible_entity
-    end
+  def new
   end
 
   private
-
-  def load_tournament
-    @tournament = Tournament.find(params[:tournament_id])
-  end
-
-  def tournament_params
-    params.require(:tournament).permit(
-      :zoom,
-      :lat,
-      :long
-    )
-  end
 
   def field_params
     params.require(:field).permit(:name, :location)

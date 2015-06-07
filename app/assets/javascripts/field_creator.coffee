@@ -1,7 +1,11 @@
 class TournamentApp.FieldCreator
 
-  constructor: (@tournmanentLocation, @zoom, @savePath) ->
-    google.maps.event.addDomListener(window, 'load', @initializeMap)
+  constructor: (@tournmanentLocation, @zoom) ->
+    window.initializeMap = @initializeMap
+    script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&callback=initializeMap';
+    document.body.appendChild(script);
 
   initializeMap: =>
     @map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -10,41 +14,7 @@ class TournamentApp.FieldCreator
       mapTypeId: google.maps.MapTypeId.SATELLITE
     })
 
-    @initSearchBar()
-    @initSaveButton()
+    @initializeDrawing()
 
-  initSearchBar: ->
-    input = document.getElementById('pac-input')
-    @map.controls[google.maps.ControlPosition.TOP_LEFT].push(input)
-
-    @searchBox = new google.maps.places.SearchBox(input)
-
-    google.maps.event.addListener @searchBox, 'places_changed', =>
-      places = @searchBox.getPlaces()
-      bounds = new google.maps.LatLngBounds()
-
-      for place in places
-        bounds.extend(place.geometry.location);
-
-      @map.fitBounds(bounds);
-
-  initSaveButton: ->
-    input = document.getElementById('control-div')
-    @map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input)
-    google.maps.event.addDomListener input, 'click', @save
-
-  save: =>
-    data =
-      tournament:
-        zoom: @map.zoom
-        lat: @map.center.lat()
-        long: @map.center.lng()
-
-    $.ajax
-      type: 'POST'
-      url: @savePath
-      data: data
-      dataType: 'json'
-      success: (response) ->
-        TournamentApp.Flash.notice('Fields Updated')
-      error: (response) ->
+  initializeDrawing: ->
+    #...

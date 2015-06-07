@@ -8,7 +8,7 @@
 
 require 'csv'
 
-CSV.foreach(File.join(Rails.root, "template.csv"), :headers => true, :encoding => 'UTF-8') do |row|
+CSV.foreach(File.join(Rails.root, "public/template.csv"), :headers => true, :encoding => 'UTF-8') do |row|
 team = Team.create([{
   name: row[0],
   email: row[1],

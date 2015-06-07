@@ -19,7 +19,25 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
+
+  <div >
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map-canvas"></div>
+    <%= f.hidden_field :lat %>
+    <%= f.hidden_field :long %>
+    <%= f.hidden_field :zoom %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  $( document ).ready(function() {
+    fieldCreator = new TournamentApp.TournmanentMap(
+      <%= @tournament.location %>,
+      <%= @tournament.zoom %>
+    );
+  });
+</script>
