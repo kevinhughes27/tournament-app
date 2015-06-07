@@ -9,7 +9,7 @@ class Team < ActiveRecord::Base
   	name: row[0],
   	email: row[1],
   	division: row[2],
-  	tournament_id: params[:touranment_id]
+  	tournament_id: id
 	}])
   end
 end
