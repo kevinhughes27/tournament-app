@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 
   root 'statics#index'
   get 'download_csv_template', to: 'application#download_csv_template'
+
+  get '*tournament_id' => 'app#show'
 end
