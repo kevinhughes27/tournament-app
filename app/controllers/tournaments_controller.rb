@@ -13,7 +13,11 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments/new
   def new
-    @tournament = Tournament.new
+    @tournament = Tournament.new(
+      lat: 56.0,
+      long: -96.0,
+      zoom: 4
+    )
   end
 
   # GET /tournaments/1/edit
