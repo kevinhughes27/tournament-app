@@ -51,7 +51,6 @@ class TournamentsController < ApplicationController
   end
 
   def import_team
-
     Team.import(params[:file], @tournament.id)
     redirect_to tournament_path(params[:tournament_id]), notice: "Teams imported."
   end
