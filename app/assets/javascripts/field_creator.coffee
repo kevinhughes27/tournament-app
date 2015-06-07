@@ -4,7 +4,7 @@ class TournamentApp.FieldCreator
     window.initializeMap = @initializeMap
     script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=drawing&callback=initializeMap';
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=initializeMap';
     document.body.appendChild(script);
 
   initializeMap: =>
@@ -12,6 +12,11 @@ class TournamentApp.FieldCreator
       zoom: @zoom,
       center: new google.maps.LatLng(@tournmanentLocation...),
       mapTypeId: google.maps.MapTypeId.SATELLITE
+      disableDefaultUI: true
+      zoomControl: true
+      zoomControlOptions:
+        style: google.maps.ZoomControlStyle.LARGE
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
     })
 
     @initializeDrawingManager()
@@ -21,7 +26,7 @@ class TournamentApp.FieldCreator
       drawingMode: google.maps.drawing.OverlayType.MARKER,
       drawingControl: true,
       drawingControlOptions:
-        position: google.maps.ControlPosition.BOTTOM_RIGHT,
+        position: google.maps.ControlPosition.TOP_RIGHT,
         drawingModes: [ google.maps.drawing.OverlayType.POLYGON ]
 
     google.maps.event.addListener @drawingManager, 'polygoncomplete', (shape) =>

@@ -4,7 +4,7 @@ class TournamentApp.TournmanentMap
     window.initializeMap = @initializeMap
     script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&callback=initializeMap';
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=initializeMap';
     document.body.appendChild(script);
 
   initializeMap: =>
@@ -12,6 +12,11 @@ class TournamentApp.TournmanentMap
       zoom: @zoom,
       center: new google.maps.LatLng(@tournmanentLocation...),
       mapTypeId: google.maps.MapTypeId.SATELLITE
+      disableDefaultUI: true
+      zoomControl: true
+      zoomControlOptions:
+        style: google.maps.ZoomControlStyle.LARGE
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
     })
 
     @initSearchBar()
