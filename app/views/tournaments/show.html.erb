@@ -40,7 +40,6 @@
         <td><%= team.sms %></td>
         <td><%= team.twitter %></td>
         <td><%= team.division %></td>
-        <td><%= link_to 'Show', tournament_team_path(@tournament,team) %></td>
         <td><%= link_to 'Edit', edit_tournament_team_path(@tournament, team) %></td>
         <td><%= link_to 'Destroy', tournament_team_path(@tournament, team), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -48,6 +47,9 @@
   </tbody>
 </table>
 <% end %>
+<br>
+<%= link_to 'Add a Team to this Tournament', new_tournament_team_path(@tournament) %>
+<br><br>
 <%= link_to 'Download Template', download_csv_template_path %>
        <%= form_tag tournament_import_team_path(@tournament), multipart: true do %>
           <%= file_field_tag :file %>
