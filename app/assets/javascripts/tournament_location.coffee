@@ -1,6 +1,6 @@
 class TournamentApp.TournmanentMap
 
-  constructor: (@tournmanentLocation, @zoom, @savePath) ->
+  constructor: (@tournmanentLocation, @zoom) ->
     window.initializeMap = @initializeMap
     script = document.createElement('script');
     script.type = 'text/javascript';
