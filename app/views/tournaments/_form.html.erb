@@ -19,7 +19,27 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
+
+  <div >
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map-canvas"></div>
+    <%= f.hidden_field :lat %>
+    <%= f.hidden_field :long %>
+    <%= f.hidden_field :zoom %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places" data-turbolinks-eval="always"></script>
+<script>
+  $( document ).ready(function() {
+    fieldCreator = new TournamentApp.TournmanentMap(
+      <%= @tournament.location %>,
+      <%= @tournament.zoom %>,
+      '<%= tournament_fields_path(@tournament) %>'
+    );
+  });
+</script>

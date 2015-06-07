@@ -1,4 +1,4 @@
-class TournamentApp.FieldCreator
+class TournamentApp.TournmanentMap
 
   constructor: (@tournmanentLocation, @zoom, @savePath) ->
     google.maps.event.addDomListener(window, 'load', @initializeMap)
@@ -11,7 +11,7 @@ class TournamentApp.FieldCreator
     })
 
     @initSearchBar()
-    @initSaveButton()
+    @initCallbacks()
 
   initSearchBar: ->
     input = document.getElementById('pac-input')
@@ -28,23 +28,10 @@ class TournamentApp.FieldCreator
 
       @map.fitBounds(bounds);
 
-  initSaveButton: ->
-    input = document.getElementById('control-div')
-    @map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input)
-    google.maps.event.addDomListener input, 'click', @save
+  initCallbacks: ->
+    google.maps.event.addListener @map, 'center_changed', =>
+      $('#tournament_lat').val( @map.center.lat() )
+      $('#tournament_long').val( @map.center.lng() )
 
-  save: =>
-    data =
-      tournament:
-        zoom: @map.zoom
-        lat: @map.center.lat()
-        long: @map.center.lng()
-
-    $.ajax
-      type: 'POST'
-      url: @savePath
-      data: data
-      dataType: 'json'
-      success: (response) ->
-        TournamentApp.Flash.notice('Fields Updated')
-      error: (response) ->
+    google.maps.event.addListener @map, 'zoom_changed', =>
+      $('#tournament_zoom').val( @map.zoom )
