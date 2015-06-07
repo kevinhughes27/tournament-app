@@ -5,6 +5,7 @@ built during Random Hacks of Kindness 05/2015
 
 A web application for running ultimate tournaments
 
+prod:[http://ulti-tournament-app.herokuapp.com/](http://ulti-tournament-app.herokuapp.com/)
 
 Ideas
 -----

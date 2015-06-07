@@ -25,5 +25,5 @@
   <%= @team.division %>
 </p>
 
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
+<%= link_to 'Edit', edit_tournament_team_path(@tournament,@team) %> |
+<%= link_to 'Back', tournament_teams_path(@tournament, @team) %>

@@ -13,7 +13,11 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments/new
   def new
-    @tournament = Tournament.new
+    @tournament = Tournament.new(
+      lat: 56.0,
+      long: -96.0,
+      zoom: 4
+    )
   end
 
   # GET /tournaments/1/edit
@@ -54,7 +58,7 @@ class TournamentsController < ApplicationController
   private
 
   def set_tournament
-    @tournament = Tournament.find(params[:id])
+    @tournament = Tournament.friendly.find(params[:id])
   end
 
   def tournament_params
