@@ -8,6 +8,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails'
+gem 'whenever', :require => false
 
 group :production do
   gem 'pg'
