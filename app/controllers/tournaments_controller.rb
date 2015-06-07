@@ -54,7 +54,7 @@ class TournamentsController < ApplicationController
   private
 
   def set_tournament
-    @tournament = Tournament.find(params[:id])
+    @tournament = Tournament.friendly.find(params[:id])
   end
 
   def tournament_params

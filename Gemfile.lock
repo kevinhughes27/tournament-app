@@ -165,6 +165,7 @@ DEPENDENCIES
   web-console (~> 2.0)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 BUNDLED WITH
    1.10.3
@@ -179,3 +180,5 @@ BUNDLED WITH
 >>>>>>> 4ce6235... Bundle line
 =======
 >>>>>>> de6e4da... The map function within the tournament#new page is great, but was not intuitive.  Has not been explained.
+=======
+>>>>>>> a6394d7... add friendly id
