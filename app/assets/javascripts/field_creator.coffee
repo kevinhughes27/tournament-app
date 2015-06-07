@@ -1,7 +1,11 @@
 class TournamentApp.TournmanentMap
 
   constructor: (@tournmanentLocation, @zoom, @savePath) ->
-    google.maps.event.addDomListener(window, 'load', @initializeMap)
+    window.initializeMap = @initializeMap
+    script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&callback=initializeMap';
+    document.body.appendChild(script);
 
   initializeMap: =>
     @map = new google.maps.Map(document.getElementById('map-canvas'), {
