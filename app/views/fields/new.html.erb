@@ -2,14 +2,15 @@
   html, body, #map-canvas {
     height: 100%;
     margin: 0px;
-    padding: 0px
+    padding: 0px;
   }
 </style>
 
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas"></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&libraries=drawing"></script>
+
 <script>
   $( document ).ready(function() {
     fieldCreator = new TournamentApp.FieldCreator(
@@ -18,3 +19,8 @@
     );
   });
 </script>
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<div id="map-canvas"></div>
+
+<script src="../assets/javascripts/mapsTest.js"> </script>
+
