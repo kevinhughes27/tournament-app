@@ -50,7 +50,8 @@
 <br>
 <%= link_to 'Add a Team to this Tournament', new_tournament_team_path(@tournament) %>
 <br><br>
-<%= link_to 'Download Template', download_csv_template_path %>
+<button type="button" class="btn btn-primary"><%= link_to 'Download Template', download_csv_template_path %></button>
+
        <%= form_tag tournament_import_team_path(@tournament), multipart: true do %>
           <%= file_field_tag :file %>
           <div id="submit" style="display: none"><%= submit_tag "Import CSV" %></div>

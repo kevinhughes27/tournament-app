@@ -33,7 +33,7 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: 'Team was successfully updated.'
+      redirect_to tournament_path(params[:tournament_id]), notice: 'Team was successfully updated.'
     else
       render :edit
     end
