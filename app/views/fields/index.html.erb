@@ -1,0 +1,10 @@
+<div id="map-canvas" style="width:100%;"></div>
+
+<script>
+  $( document ).ready(function() {
+    fieldCreator = new TournamentApp.FieldCreator(
+      <%= @tournament.location %>,
+      <%= @tournament.zoom %>
+    );
+  });
+</script>
