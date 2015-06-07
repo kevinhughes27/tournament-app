@@ -1,37 +1,45 @@
 <%= form_for(@tournament) do |f| %>
-  <% if @tournament.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+  <div class="row">
+    <% if @tournament.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
 
-      <ul>
-      <% @tournament.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @tournament.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="col-md-6">
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-<br>
-<h3>Find your fields on the map below.  Whatever you see on this map will be what shows whenever someone asks for  the location of your tournament.<br><br>Just scroll and zoom, we'll do the rest.</h3>
-<br>
-  <div >
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-    <div id="map-canvas"></div>
-    <%= f.hidden_field :lat %>
-    <%= f.hidden_field :long %>
-    <%= f.hidden_field :zoom %>
+    <div class="col-md-6">
+      <h3>Find your fields on the map below.  Whatever you see on this map will be what shows whenever someone asks for  the location of your tournament.<br><br>Just scroll and zoom, we'll do the rest.</h3>
+      <div>
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <div id="map-canvas" style="height: 600px;"></div>
+        <%= f.hidden_field :lat %>
+        <%= f.hidden_field :long %>
+        <%= f.hidden_field :zoom %>
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="actions">
+      <%= f.submit %>
+      <%= link_to 'Back', tournaments_path %>
+    </div>
   </div>
 <% end %>
 
