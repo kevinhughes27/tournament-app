@@ -18,7 +18,7 @@ class Tournament < ActiveRecord::Base
   private
 
   def set_handle
-    self.handle = self.name.gsub(' ', '-').downcase
+    self.handle = self.name.gsub(/[^a-zA-Z0-9\-]/,"").downcase
   end
 
 end
