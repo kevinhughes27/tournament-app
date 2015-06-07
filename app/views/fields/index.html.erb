@@ -1,29 +1,30 @@
-<p id="notice"><%= notice %></p>
+<style>
+  html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+  }
+</style>
 
-<h1>Listing Fields</h1>
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Location</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div id="control-div" class="control-div">
+  <div id= "control-ui" class="control-ui" title="Save">
+    <div id="control-text" class="control-text">
+      <p>Save</p>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @fields.each do |field| %>
-      <tr>
-        <td><%= field.name %></td>
-        <td><%= field.location %></td>
-        <td><%= link_to 'Show', field %></td>
-        <td><%= link_to 'Edit', edit_field_path(field) %></td>
-        <td><%= link_to 'Destroy', field, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="map-canvas"></div>
 
-<br>
-
-<%= link_to 'New Field', new_field_path %>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&libraries=drawing"></script>
+<script>
+  $( document ).ready(function() {
+    fieldCreator = new TournamentApp.FieldCreator(
+      <%= @tournament.location %>,
+      <%= @tournament.zoom %>,
+      '<%= tournament_fields_path(@tournament) %>'
+    );
+  });
+</script>
