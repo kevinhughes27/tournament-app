@@ -1,18 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @tournament.name %>
-</p>
-
-<p>
-  <strong>Lat and Long: <%= @tournament.lat %>, <%= @tournament.long %></strong>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @tournament.description %>
-</p>
+<%= render 'form' %>
 
 <% if @teams.count == 0 %>
   <p>Please Download the template, insert your team info, save your changes and upload your saved file.</p>
@@ -30,7 +18,6 @@
           <div id="submit" style="display: none"><%= submit_tag "Import CSV" %></div>
         <% end %>
 
-<%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>
 
 <script>

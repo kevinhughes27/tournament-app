@@ -20,10 +20,6 @@ class TournamentsController < ApplicationController
     )
   end
 
-  # GET /tournaments/1/edit
-  def edit
-  end
-
   # POST /tournaments
   def create
     @tournament = Tournament.new(tournament_params)
