@@ -48,6 +48,7 @@ class TournamentApp.FieldCreator
       shape.setMap(null)
       return
 
+    shape.setOptions({fillColor: '#7FC013'})
     latLngPts = shape.getPath().getArray()
 
     valid = latLngPts.length == 4
@@ -74,6 +75,17 @@ class TournamentApp.FieldCreator
     fieldName
 
 
+  _fieldHoverOn: (event) => @_fieldHover(event, true)
+  _fieldHoverOut: (event) => @_fieldHover(event, false)
+  _fieldHover: (event, over) =>
+    index = $(event.target).parents('tr').data('index')
+    field = @fields[index]
+
+    if over
+      field.shape.setOptions({fillColor: '#4096EE'})
+    else
+      field.shape.setOptions({fillColor: '#7FC013'})
+
   _deleteField: (event) =>
     index = $(event.target).data('index')
     field = @fields.splice(index, 1)[0]
@@ -87,7 +99,7 @@ class TournamentApp.FieldCreator
 
     @fields.reverse().forEach (field, index) ->
       tr = """
-      <tr>
+      <tr id="field" data-index='#{index}'>
         <td>#{field.name}</td>
         <td>#{field.points[0]}</td>
         <td>#{field.points[1]}</td>
@@ -98,4 +110,5 @@ class TournamentApp.FieldCreator
       """
       node.append(tr)
 
+    $('tr#field').hover @_fieldHoverOn, @_fieldHoverOut
     $('td#x').click @_deleteField
