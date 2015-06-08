@@ -36,8 +36,18 @@ class TournamentApp.FieldCreator
 
     google.maps.event.addListener @drawingManager, 'polygoncomplete', @_newField
 
+    # quit drawing if esc pressed
+    google.maps.event.addDomListener document, 'keyup', (e) =>
+      code = if e.keyCode then e.keyCode else e.which
+      @_cancelled = true
+      @drawingManager.setDrawingMode(null) if code == 27
 
   _newField: (shape) =>
+    if @_cancelled
+      delete @_cancelled
+      shape.setMap(null)
+      return
+
     latLngPts = shape.getPath().getArray()
 
     valid = latLngPts.length == 4
