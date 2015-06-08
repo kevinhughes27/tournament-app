@@ -16,6 +16,7 @@
         <%= f.label :name %><br>
         <%= f.text_field :name, class: 'form-control' %>
       </div>
+      <div id="handle_example"></div>
 
       <div class="from-group">
         <%= f.label :description %><br>
@@ -50,4 +51,24 @@
       <%= @tournament.zoom %>
     );
   });
+
+  $(document).on("change", '#tournament_name', function() {
+    $.ajax({
+                 url: "<%= handle_example_path %>", // Route to the Script Controller method
+                type: "GET",
+            dataType: "json",
+                data: { name: $('#tournament_name').val() }, // This goes to Controller in params hash, i.e. params[:file_name]
+            complete: function() {},
+             success: function(data, textStatus, xhr) {
+                        // Do something with the response here
+                        $('#handle_example').text(data.handle_example) // Show the file contents in our editor.
+                                                           // editor is defined somewhere above 
+                                                           // 'file_content' is the key we use to respond
+                                                           // in the controller function below
+                      },
+               error: function() {
+                        alert("Ajax error!")
+                      }
+    });
+});
 </script>
