@@ -19,18 +19,45 @@ class TournamentApp.FieldCreator
         position: google.maps.ControlPosition.RIGHT_BOTTOM
     })
 
+    @fields = []
     @initializeDrawingManager()
 
   initializeDrawingManager: ->
     @drawingManager = new google.maps.drawing.DrawingManager
-      drawingMode: google.maps.drawing.OverlayType.MARKER,
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions:
         position: google.maps.ControlPosition.TOP_RIGHT,
         drawingModes: [ google.maps.drawing.OverlayType.POLYGON ]
 
-    google.maps.event.addListener @drawingManager, 'polygoncomplete', (shape) =>
-      latLngObject = shape.getPath()
-      input = prompt("Please enter a name for the field")
+    @drawingManager.setMap(@map)
 
-    @drawingManager.setMap(@map);
+    google.maps.event.addListener @drawingManager, 'polygoncomplete', @_newField
+
+
+  _newField: (shape) =>
+    latLngPts = shape.getPath().getArray()
+    fieldName = prompt("Please enter a name for the field")
+
+    @fields.push(
+      name: fieldName
+      points: latLngPts
+    )
+
+    @_renderFields()
+
+  _renderFields: ->
+    node = $("#fields > tbody")
+    node.find("tr").remove()
+
+    @fields.reverse().forEach (field) ->
+      tr = """
+      <tr>
+        <td>#{field.name}</td>
+        <td>#{field.points[0]}</td>
+        <td>#{field.points[1]}</td>
+        <td>#{field.points[2]}</td>
+        <td>#{field.points[3]}</td>
+      </tr>
+      """
+      node.append(tr)
