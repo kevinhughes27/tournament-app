@@ -7,6 +7,7 @@ class TournamentApp.FieldCreator
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=initializeMap';
     document.body.appendChild(script);
 
+
   initializeMap: =>
     @map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: @zoom,
@@ -21,6 +22,7 @@ class TournamentApp.FieldCreator
 
     @fields = []
     @initializeDrawingManager()
+
 
   initializeDrawingManager: ->
     @drawingManager = new google.maps.drawing.DrawingManager
@@ -37,14 +39,29 @@ class TournamentApp.FieldCreator
 
   _newField: (shape) =>
     latLngPts = shape.getPath().getArray()
-    fieldName = prompt("Please enter a name for the field")
 
-    @fields.push(
-      name: fieldName
-      points: latLngPts
-    )
+    valid = latLngPts.length == 4
 
-    @_renderFields()
+    if !valid
+      alert("A field must have 4 points")
+      shape.setMap(null)
+    else
+      fieldName = @_promptForFieldName()
+
+      @fields.push(
+        name: fieldName
+        points: latLngPts
+      )
+
+      @_renderFields()
+
+
+  _promptForFieldName: ->
+    fieldName = null
+    while !fieldName
+      fieldName = prompt("Please enter a name for the field")
+    fieldName
+
 
   _renderFields: ->
     node = $("#fields > tbody")
