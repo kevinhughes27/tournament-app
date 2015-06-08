@@ -165,3 +165,5 @@ DEPENDENCIES
   web-console (~> 2.0)
   whenever
 
+BUNDLED WITH
+   1.10.0.rc

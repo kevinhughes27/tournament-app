@@ -4,26 +4,4 @@
 
 <hr>
 
-<div class="well">
-  <p>team csv upload stuff</p>
-  <% if @teams.count == 0 %>
-    <p>Please Download the template, insert your team info, save your changes and upload your saved file.</p>
-  <% else %>
-    <%= render 'teams/index', locals: {teams: @teams} %>
-  <% end %>
-
-  <button type="button" class="btn btn-primary">
-    <%= link_to 'Download Template', download_csv_template_path %>
-  </button>
-
-  <%= form_tag tournament_import_team_path(@tournament), multipart: true do %>
-    <%= file_field_tag :file %>
-    <div id="submit" style="display: none"><%= submit_tag "Import CSV" %></div>
-  <% end %>
-
-  <script>
-    $("#file").change(function() {
-      $("#submit").toggle();
-    });
-  </script>
-</div>
+<%= link_to 'Teams', tournament_teams_path(@tournament) %>
