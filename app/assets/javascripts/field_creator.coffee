@@ -61,6 +61,7 @@ class TournamentApp.FieldCreator
       @fields.push(
         name: fieldName
         points: latLngPts
+        shape: shape
       )
 
       @_renderFields()
@@ -73,11 +74,18 @@ class TournamentApp.FieldCreator
     fieldName
 
 
+  _deleteField: (event) =>
+    index = $(event.target).data('index')
+    field = @fields.splice(index, 1)[0]
+    field.shape.setMap(null)
+    @_renderFields()
+
+
   _renderFields: ->
     node = $("#fields > tbody")
     node.find("tr").remove()
 
-    @fields.reverse().forEach (field) ->
+    @fields.reverse().forEach (field, index) ->
       tr = """
       <tr>
         <td>#{field.name}</td>
@@ -85,6 +93,9 @@ class TournamentApp.FieldCreator
         <td>#{field.points[1]}</td>
         <td>#{field.points[2]}</td>
         <td>#{field.points[3]}</td>
+        <td id="x"><a href='#' data-index='#{index}'>x</a></td>
       </tr>
       """
       node.append(tr)
+
+    $('td#x').click @_deleteField
