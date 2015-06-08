@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_action :load_tournament, only: [:index, :show, :edit, :update, :destroy]
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   # GET /teams
@@ -30,6 +31,11 @@ class TeamsController < ApplicationController
     end
   end
 
+  def import
+    Team.import(params[:file], @tournament.id)
+    redirect_to tournament_path(params[:tournament_id]), notice: "Teams imported."
+  end
+
   # PATCH/PUT /teams/1
   def update
     if @team.update(team_params)
@@ -45,15 +51,21 @@ class TeamsController < ApplicationController
     redirect_to tournament_path(params[:tournament_id]), notice: 'Team was successfully destroyed.'
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def team_params
-      params.require(:team).permit(:name, :email, :sms, :twitter, :division)
+  def load_tournament
+    if params[:tournament_id]
+      @tournament = Tournament.friendly.find(params[:tournament_id])
+    else
+      @tournament = Tournament.friendly.find(params[:id])
     end
+  end
+
+  def set_team
+    @team = Team.find(params[:id])
+  end
+
+  def team_params
+    params.require(:team).permit(:name, :email, :sms, :twitter, :division)
+  end
 end
