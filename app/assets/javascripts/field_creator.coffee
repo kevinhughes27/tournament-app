@@ -139,6 +139,8 @@ class TournamentApp.FieldCreator
         <td>#{field.points[3]}</td>
         <td id="x"><a href="#" data-index="#{index}">x</a></td>
 
+        #{ if field.id then "<input type='hidden' name='fields[][id]' value='#{field.id}'>" else ""}
+
         <input type="hidden" name="fields[][name]" value="#{field.name}">
         <input type="hidden" name="fields[][lat]" value="#{field.center.lat()}">
         <input type="hidden" name="fields[][long]" value="#{field.center.lng()}">
