@@ -53,6 +53,10 @@ class TournamentApp.FieldCreator
 
     valid = latLngPts.length == 4
 
+    bounds = new google.maps.LatLngBounds()
+    bounds.extend(pt) for pt in latLngPts
+    center = bounds.getCenter()
+
     if !valid
       alert("A field must have 4 points")
       shape.setMap(null)
@@ -61,6 +65,7 @@ class TournamentApp.FieldCreator
 
       @fields.push(
         name: fieldName
+        center: center
         points: latLngPts
         shape: shape
       )
@@ -99,13 +104,18 @@ class TournamentApp.FieldCreator
 
     @fields.reverse().forEach (field, index) ->
       tr = """
-      <tr id="field" data-index='#{index}'>
+      <tr id="field" data-index="#{index}">
         <td>#{field.name}</td>
         <td>#{field.points[0]}</td>
         <td>#{field.points[1]}</td>
         <td>#{field.points[2]}</td>
         <td>#{field.points[3]}</td>
-        <td id="x"><a href='#' data-index='#{index}'>x</a></td>
+        <td id="x"><a href="#" data-index="#{index}">x</a></td>
+
+        <input type="hidden" name="fields[][name]" value="#{field.name}">
+        <input type="hidden" name="fields[][lat]" value="#{field.center.lat()}">
+        <input type="hidden" name="fields[][long]" value="#{field.center.lng()}">
+        <input type="hidden" name="fields[][polygon]" value='#{JSON.stringify(field.points)}'>
       </tr>
       """
       node.append(tr)

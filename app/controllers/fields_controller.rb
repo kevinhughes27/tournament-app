@@ -1,7 +1,16 @@
 class FieldsController < ApplicationController
-  before_action :load_tournament, only: [:index]
+  before_action :load_tournament, only: [:index, :create]
 
   def index
+  end
+
+  def create
+    fields_params.each do |field_params|
+      field = @tournament.fields.build(field_params)
+      field.save
+    end
+
+    redirect_to tournament_fields_path(@tournament), notice: 'Fields saved.'
   end
 
   private
@@ -14,7 +23,16 @@ class FieldsController < ApplicationController
     end
   end
 
-  def field_params
-    params.require(:field).permit(:name, :location)
+  def fields_params
+    @fields_params ||= params.permit(
+      fields: [
+        :name,
+        :lat,
+        :long,
+        :polygon
+      ]
+    )
+
+    @fields_params[:fields]
   end
 end
