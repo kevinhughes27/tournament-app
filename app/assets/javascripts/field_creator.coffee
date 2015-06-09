@@ -1,6 +1,6 @@
 class TournamentApp.FieldCreator
 
-  constructor: (@tournmanentLocation, @zoom) ->
+  constructor: (@tournmanentLocation, @zoom, @fields) ->
     window.initializeMap = @initializeMap
     script = document.createElement('script');
     script.type = 'text/javascript';
@@ -20,8 +20,8 @@ class TournamentApp.FieldCreator
         position: google.maps.ControlPosition.RIGHT_BOTTOM
     })
 
-    @fields = []
     @initializeDrawingManager()
+    @initializeExistingFields()
 
 
   initializeDrawingManager: ->
@@ -41,6 +41,33 @@ class TournamentApp.FieldCreator
       code = if e.keyCode then e.keyCode else e.which
       @_cancelled = true
       @drawingManager.setDrawingMode(null) if code == 27
+
+
+  initializeExistingFields: ->
+    for field in @fields
+      @_initField(field)
+      @_drawField(field)
+
+    @_renderFields()
+
+
+  _initField: (field) ->
+    field.center = new google.maps.LatLng(field.lat, field.long)
+
+    field.points = []
+    for pt in JSON.parse(field.polygon)
+      field.points.push new google.maps.LatLng(pt.A, pt.F)
+
+
+  _drawField: (field) ->
+    polygon = new google.maps.Polygon(
+      paths: field.points,
+      fillColor: '#7FC013'
+    )
+
+    field.shape = polygon
+    polygon.setMap(@map)
+
 
   _newField: (shape) =>
     if @_cancelled

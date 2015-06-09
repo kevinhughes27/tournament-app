@@ -2,6 +2,7 @@ class FieldsController < ApplicationController
   before_action :load_tournament, only: [:index, :create]
 
   def index
+    @fields = @tournament.fields
   end
 
   def create

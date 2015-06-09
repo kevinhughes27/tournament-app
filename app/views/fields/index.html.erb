@@ -34,7 +34,8 @@
   $( document ).ready(function() {
     fieldCreator = new TournamentApp.FieldCreator(
       <%= @tournament.location %>,
-      <%= @tournament.zoom %>
+      <%= @tournament.zoom %>,
+      <%= raw @fields.to_json %>
     );
   });
 </script>
