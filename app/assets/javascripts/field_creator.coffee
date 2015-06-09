@@ -87,22 +87,26 @@ class TournamentApp.FieldCreator
     if !valid
       alert("A field must have 4 points")
       shape.setMap(null)
-    else
-      fieldName = @_promptForFieldName()
+      return
 
-      @fields.push(
-        name: fieldName
-        center: center
-        points: latLngPts
-        shape: shape
-      )
+    fieldName = @_promptForFieldName()
+    if fieldName == null
+      shape.setMap(null)
+      return
 
-      @_renderFields()
+    @fields.push(
+      name: fieldName
+      center: center
+      points: latLngPts
+      shape: shape
+    )
+
+    @_renderFields()
 
 
   _promptForFieldName: ->
-    fieldName = null
-    while !fieldName
+    fieldName = ''
+    while fieldName == ''
       fieldName = prompt("Please enter a name for the field")
     fieldName
 
