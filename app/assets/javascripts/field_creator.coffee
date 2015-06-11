@@ -136,7 +136,9 @@ class TournamentApp.FieldCreator
     @fields.reverse().forEach (field, index) ->
       tr = """
       <tr id="field" data-index="#{index}">
-        <td>#{field.name}</td>
+        <td>
+          <input type="text" name="fields[][name]" value="#{field.name}">
+        </td>
         <td>#{field.points[0]}</td>
         <td>#{field.points[1]}</td>
         <td>#{field.points[2]}</td>
@@ -145,7 +147,6 @@ class TournamentApp.FieldCreator
 
         #{ if field.id then "<input type='hidden' name='fields[][id]' value='#{field.id}'>" else ""}
 
-        <input type="hidden" name="fields[][name]" value="#{field.name}">
         <input type="hidden" name="fields[][lat]" value="#{field.center.lat()}">
         <input type="hidden" name="fields[][long]" value="#{field.center.lng()}">
         <input type="hidden" name="fields[][polygon]" value='#{JSON.stringify(field.points)}'>
