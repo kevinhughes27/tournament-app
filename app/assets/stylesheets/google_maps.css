@@ -2,6 +2,22 @@
   width: 100%;
 }
 
+.gmnoprint a, .gmnoprint span {
+  display:none;
+}
+
+.gmnoprint div {
+  background:none !important;
+}
+
+.gm-style-cc div {
+  display:none;
+}
+
+#GMapsID div div a div img{
+  display:none;
+}
+
 .controls {
   margin-top: 16px;
   border: 1px solid transparent;

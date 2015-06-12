@@ -1,41 +1,43 @@
-<div class="row">
-  <h1>Fields</h1>
-  <p>Draw your fields by clicking on the map below:</p>
-</div>
-
-<div class="row">
-  <div id="map-canvas" style="width:100%; height: 700px;"></div>
-</div>
-
-<%= form_tag tournament_fields_path(@tournament), method: :post do %>
+<div class="container">
   <div class="row">
-    <table id="fields" class="table table-striped">
-      <thead>
-        <tr>
-          <th>Field</th>
-          <th>p1</th>
-          <th>p2</th>
-          <th>p3</th>
-          <th>p4</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+    <h1>Fields</h1>
+    <p>Draw your fields by clicking on the map below:</p>
   </div>
 
   <div class="row">
-    <%= submit_tag 'Save fields', class: "btn btn-primary pull-right" %>
-    <%= link_to 'Back to tournament', tournaments_path, class: "btn btn-default" %>
+    <div id="map-canvas" style="width:100%; height: 700px;"></div>
   </div>
-<% end %>
 
-<script>
-  $( document ).ready(function() {
-    fieldCreator = new TournamentApp.FieldCreator(
-      <%= @tournament.location %>,
-      <%= @tournament.zoom %>,
-      <%= raw @fields.to_json %>
-    );
-  });
-</script>
+  <%= form_tag tournament_fields_path(@tournament), method: :post do %>
+    <div class="row">
+      <table id="fields" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>p1</th>
+            <th>p2</th>
+            <th>p3</th>
+            <th>p4</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <%= submit_tag 'Save fields', class: "btn btn-primary pull-right" %>
+      <%= link_to 'Back to tournament', tournaments_path, class: "btn btn-default" %>
+    </div>
+  <% end %>
+
+  <script>
+    $( document ).ready(function() {
+      fieldCreator = new TournamentApp.FieldCreator(
+        <%= @tournament.location %>,
+        <%= @tournament.zoom %>,
+        <%= raw @fields.to_json %>
+      );
+    });
+  </script>
+</div>

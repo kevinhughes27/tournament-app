@@ -2,10 +2,10 @@ class TournamentApp.FieldCreator
 
   constructor: (@tournmanentLocation, @zoom, @fields) ->
     window.initializeMap = @initializeMap
-    script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=initializeMap';
-    document.body.appendChild(script);
+    script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=initializeMap'
+    document.body.appendChild(script)
 
 
   initializeMap: =>

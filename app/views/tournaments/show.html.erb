@@ -1,8 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<hr>
+  <hr>
 
-<%= link_to 'Teams', tournament_teams_path(@tournament) %> |
-<%= link_to 'Fields', tournament_fields_path(@tournament) %>
+  <%= link_to 'Teams', tournament_teams_path(@tournament) %> |
+  <%= link_to 'Fields', tournament_fields_path(@tournament) %>
+</div>
