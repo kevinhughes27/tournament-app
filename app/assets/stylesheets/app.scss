@@ -1,5 +1,10 @@
-.pull-br {
-    position: absolute;
-    bottom: 0;
-    right: 0
+.find-btn {
+  margin-right: 15px;
+}
+
+.search-container {
+  position: absolute;
+  top: 15px;
+  width: 100%;
+  z-index: 10000;
 }

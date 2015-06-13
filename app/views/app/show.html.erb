@@ -1,19 +1,18 @@
+<div class='search-container container-fluid hidden'>
+  <select title='Search...'data-live-search="true" class="selectpicker" data-width="100%"></select>
+</div>
+
 <div id="map-canvas" style="position: absolute; width:100%; height: 100%;"></div>
 
-<div class="container-fluid">
-  <nav class="navbar transparent navbar-fixed-bottom">
-    <div class="container">
-
-        <button class="btn dropdown pull-right">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Find <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Fields</a></li>
-          </ul>
-        </button>
-
-    </div>
-  </nav>
-</div>
+<nav class="navbar transparent navbar-fixed-bottom">
+  <button class="btn find-btn dropdown pull-right">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Find <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="#" id="find-field">Field</a></li>
+      <li><a href="#" id="find-team">Team</a></li>
+    </ul>
+  </button>
+</nav>
 
 <script>
   $( document ).ready(function() {

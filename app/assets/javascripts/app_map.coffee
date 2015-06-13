@@ -16,6 +16,7 @@ class TournamentApp.AppMap
     })
 
     @drawFields()
+    @initApp()
 
   drawFields: ->
     for field in @fields
@@ -38,3 +39,33 @@ class TournamentApp.AppMap
 
     field.shape = polygon
     polygon.setMap(@map)
+
+  initApp: ->
+    @$searchNode = $('.search-container')
+
+    @$selectNode = @$searchNode.find('select')
+    @$selectNode.selectpicker();
+
+    $('#find-field').click @_showFieldSelect
+    $('#find-team').click @_showTeamSelect
+
+  _showFieldSelect: =>
+    @$selectNode.empty()
+
+    for field in @fields
+      @$selectNode.append("<option value='#{field.name}'>#{field.name}</option>")
+
+    @$selectNode.selectpicker('refresh');
+    @$searchNode.removeClass('hidden')
+
+  _fieldSelected: ->
+    debugger
+
+  _showTeamSelect: =>
+    @$selectNode.empty()
+
+    for team in ['Swift', 'Shrike', 'Iron Crow']
+      @$selectNode.append("<option value='#{team}'>#{team}</option>")
+
+    @$selectNode.selectpicker('refresh');
+    @$searchNode.removeClass('hidden')
