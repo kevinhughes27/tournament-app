@@ -47,6 +47,9 @@ class TournamentApp.AppMap
     @$selectNode.selectpicker();
     @$selectNode.on('change', @selectedCallback)
 
+    compassModal = $('#compass-modal')
+    @pointMeThere = new TournamentApp.PointMeThere(compassModal, @map)
+
     $('#find-field').click @_showFieldSelect
     $('#find-team').click @_showTeamSelect
 
@@ -76,8 +79,11 @@ class TournamentApp.AppMap
 
   _fieldSelected: (selected) =>
     @$searchContainer.addClass('hidden')
-    debugger
+    field = _.find(@fields, (field) -> field.name is selected)
+
+    @pointMeThere.setDestination(field)
+    @pointMeThere.start()
 
   _teamSelected: (selected) =>
     @$searchContainer.addClass('hidden')
-    debugger
+    #ToDo lookup schedule
