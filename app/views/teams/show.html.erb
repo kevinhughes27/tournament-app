@@ -1,29 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @team.name %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @team.name %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @team.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @team.email %>
+  </p>
 
-<p>
-  <strong>Sms:</strong>
-  <%= @team.sms %>
-</p>
+  <p>
+    <strong>Sms:</strong>
+    <%= @team.sms %>
+  </p>
 
-<p>
-  <strong>Twitter:</strong>
-  <%= @team.twitter %>
-</p>
+  <p>
+    <strong>Twitter:</strong>
+    <%= @team.twitter %>
+  </p>
 
-<p>
-  <strong>Division:</strong>
-  <%= @team.division %>
-</p>
+  <p>
+    <strong>Division:</strong>
+    <%= @team.division %>
+  </p>
 
-<%= link_to 'Edit', edit_tournament_team_path(@tournament,@team) %> |
-<%= link_to 'Back', tournament_teams_path(@tournament, @team) %>
+  <%= link_to 'Edit', edit_tournament_team_path(@tournament,@team) %> |
+  <%= link_to 'Back', tournament_teams_path(@tournament, @team) %>
+</div>

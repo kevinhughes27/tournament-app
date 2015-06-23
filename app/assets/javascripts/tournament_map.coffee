@@ -33,9 +33,9 @@ class TournamentApp.TournmanentMap
       bounds = new google.maps.LatLngBounds()
 
       for place in places
-        bounds.extend(place.geometry.location);
+        bounds.extend(place.geometry.location)
 
-      @map.fitBounds(bounds);
+      @map.fitBounds(bounds)
 
   initCallbacks: ->
     google.maps.event.addListener @map, 'center_changed', =>

@@ -1,3 +1,4 @@
+<div class="container">
 <%= form_for(@tournament) do |f| %>
   <div class="row">
     <% if @tournament.errors.any? %>
@@ -62,7 +63,7 @@
              success: function(data, textStatus, xhr) {
                         // Do something with the response here
                         $('#handle_example').text(data.handle_example) // Show the file contents in our editor.
-                                                           // editor is defined somewhere above 
+                                                           // editor is defined somewhere above
                                                            // 'file_content' is the key we use to respond
                                                            // in the controller function below
                       },
@@ -72,3 +73,4 @@
     });
 });
 </script>
+</div>
