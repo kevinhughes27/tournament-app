@@ -1,51 +1,41 @@
 class TournamentApp.PointMeThere
 
-  constructor: (@$modal, @map) ->
+  constructor: (@$modal) ->
     @$arrow = $('#arrow')
 
-  setDestination: (destination) ->
-    @destination = destination
-    @$modal.find('.modal-title').text(@destination.name)
+  setDestination: (lat, lng, name = 'destination') ->
+    @dstLat = lat
+    @dstLng = lng
+    @dstName = name
+    @$modal.find('.modal-title').text(@dstName)
 
   start: ->
     setInterval(@_getLocation, 500)
-    @_show()
+    window.addEventListener('deviceorientation', @_calcArrow)
+    @_calcArrow()
+    @show()
 
-  _show: ->
+  show: ->
     @$modal.modal('show')
 
   _getLocation: =>
     if navigator.geolocation
-      navigator.geolocation.getCurrentPosition(@_calcArrow)
+      navigator.geolocation.getCurrentPosition (location) =>
+        @lat = location.coords.latitude
+        @long = location.coords.longitude
     else
       alert("Geolocation is not supported by this browser.")
 
-  _calcArrow: (location) =>
-    lat = location.coords.latitude
-    long = location.coords.longitude
-
-    dstLat = @destination.lat
-    dstLng = @destination.long
-
-    # for debuging
-    @_drawPoint(lat, long, 'You are here.')
-    @_drawPoint(dstLat, dstLng, @destination.name)
-
-    bearing = @_getBearing(lat, long, dstLat, dstLng)
-    angle = bearing - location.coords.heading
+  _calcArrow: (event) =>
+    bearing = @_getBearing(@lat, @long, @dstLat, @dstLng)
+    heading = event.alpha if event
+    angle = heading + bearing
     @_animateArrow(angle)
 
-    distance = @_getDistance(lat, long, dstLat, dstLng)
-    @$modal.find('.modal-footer').text("#{distance.toFixed(2)} meters")
+    distance = @_getDistance(@lat, @long, @dstLat, @dstLng)
 
-  _drawPoint: (lat, lng, title) ->
-    latLng = new google.maps.LatLng(lat, lng)
-
-    point = new google.maps.Marker(
-      position: latLng,
-      map: @map
-      title: title
-    )
+    @$modal.find('.modal-footer').empty()
+    @$modal.find('.modal-footer').append("<p>distance: #{distance.toFixed(2)} meters<p>")
 
   _getBearing: (lat, lng, dstLat, dstLng) =>
     dLng = toRad(dstLng-lng)
@@ -67,9 +57,8 @@ class TournamentApp.PointMeThere
         Math.sin(dLng/2) * Math.sin(dLng/2)
 
     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-    d = R * c * 1000 # Distance in meter
+    d = R * c * 1000 # Distance in meters
     return d
-
 
   _animateArrow: (bearing) ->
     @$arrow.css('-webkit-transform', "rotate(#{bearing}deg)");
