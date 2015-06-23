@@ -44,7 +44,7 @@ class TournamentApp.AppMap
     @$searchContainer = $('.search-container')
 
     @$selectNode = @$searchContainer.find('select')
-    @$selectNode.selectpicker();
+    @$selectNode.selectpicker()
     @$selectNode.on('change', @selectedCallback)
 
     pointMeThereModal = $('#point-me-there-modal')
@@ -60,7 +60,7 @@ class TournamentApp.AppMap
     for field in @fields
       @$selectNode.append("<option value='#{field.name}'>#{field.name}</option>")
 
-    @$selectNode.selectpicker('refresh');
+    @$selectNode.selectpicker('refresh')
     @$searchContainer.removeClass('hidden')
 
   _showTeamSelect: =>
@@ -70,7 +70,7 @@ class TournamentApp.AppMap
     for team in ['Swift', 'Shrike', 'Iron Crow']
       @$selectNode.append("<option value='#{team}'>#{team}</option>")
 
-    @$selectNode.selectpicker('refresh');
+    @$selectNode.selectpicker('refresh')
     @$searchContainer.removeClass('hidden')
 
   selectedCallback: (event) =>
