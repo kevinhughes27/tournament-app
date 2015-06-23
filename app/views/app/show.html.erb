@@ -1,11 +1,15 @@
+<% content_for :head do %>
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<% end %>
+
 <div id="app">
   <div class='search-container container-fluid hidden'>
-    <select title='Search...'data-live-search="true" class="selectpicker" data-width="100%"></select>
+    <select title='Search...' data-live-search="true" class="selectpicker" data-width="100%"></select>
   </div>
 
   <div id="map-canvas" style="position: absolute; width:100%; height: 100%;"></div>
 
-  <div class="modal fade" id="compass-modal" tabindex="-1">
+  <div class="modal fade" id="point-me-there-modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
