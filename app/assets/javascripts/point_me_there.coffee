@@ -2,6 +2,8 @@ class TournamentApp.PointMeThere
 
   constructor: (@$modal) ->
     @$arrow = $('#arrow')
+    @defaultOrientation = "portrait"
+    @defaultOrientation = "landscape" if screen.width > screen.height
 
   setDestination: (lat, lng, name = 'destination') ->
     @dstLat = lat
@@ -10,32 +12,58 @@ class TournamentApp.PointMeThere
     @$modal.find('.modal-title').text(@dstName)
 
   start: ->
-    setInterval(@_getLocation, 500)
-    window.addEventListener('deviceorientation', @_calcArrow)
+    window.addEventListener('deviceorientation', @_getHeading)
+    navigator.geolocation.watchPosition(@_locationUpdate, @_locationUpdateFail)
     @_calcArrow()
     @show()
 
   show: ->
     @$modal.modal('show')
 
-  _getLocation: =>
-    if navigator.geolocation
-      navigator.geolocation.getCurrentPosition (location) =>
-        @lat = location.coords.latitude
-        @long = location.coords.longitude
+  _locationUpdate: (position) =>
+    @lat = position.coords.latitude
+    @long = position.coords.longitude
+
+  _locationUpdateFail: =>
+    alert("Geolocation is not supported by this browser.")
+
+  _getHeading: (event) =>
+    heading = event.alpha
+    heading = event.webkitCompassHeading if event.webkitCompassHeading
+    heading = @_correctForOrientation(heading)
+
+    @_calcArrow(heading)
+
+  _correctForOrientation: (heading) ->
+    adjustment  = 0
+    adjustment -= 90 if @defaultOrientation == "landscape"
+
+    orientation = @_getBrowserOrientation()
+    return unless orientation
+
+    currentOrientation = orientation.split("-")
+
+    if @defaultOrientation != currentOrientation[0]
+      adjustment -= 270 if @defaultOrientation == "landscape"
+      adjustment -= 90  if @defaultOrientation == "portrait"
+
+    adjustment -= 180 if currentOrientation[1] == "secondary"
+
+    return heading + adjustment
+
+  _getBrowserOrientation: ->
+    if screen.orientation && screen.orientation.type
+      screen.orientation.type
     else
-      alert("Geolocation is not supported by this browser.")
+      screen.orientation || screen.mozOrientation || screen.msOrientation
 
-  _calcArrow: (event) =>
+  _calcArrow: (heading) ->
     bearing = @_getBearing(@lat, @long, @dstLat, @dstLng)
-    heading = event.alpha if event
-    angle = heading + bearing
-    @_animateArrow(angle)
-
     distance = @_getDistance(@lat, @long, @dstLat, @dstLng)
+    angle = heading + bearing
 
-    @$modal.find('.modal-footer').empty()
-    @$modal.find('.modal-footer').append("<p>distance: #{distance.toFixed(2)} meters<p>")
+    @_animateArrow(angle)
+    @_renderInfo(@lat, @long, bearing, heading, angle, distance)
 
   _getBearing: (lat, lng, dstLat, dstLng) =>
     dLng = toRad(dstLng-lng)
@@ -60,10 +88,21 @@ class TournamentApp.PointMeThere
     d = R * c * 1000 # Distance in meters
     return d
 
-  _animateArrow: (bearing) ->
-    @$arrow.css('-webkit-transform', "rotate(#{bearing}deg)");
-    @$arrow.css('-moz-transform', "rotate(#{bearing}deg)");
-    @$arrow.css('transform', "rotate(#{bearing}deg)");
+  _animateArrow: (angle) ->
+    @$arrow.css('webkit-transform', "rotate(#{angle}deg)")
+    @$arrow.css('moz-transform', "rotate(#{angle}deg)")
+    @$arrow.css('transform', "rotate(#{angle}deg)")
+
+  _renderInfo: (lat, long, bearing, heading, angle, distance)->
+    @$modal.find('.modal-footer').empty()
+    @$modal.find('.modal-footer').append("<p>lat: #{@_round(lat)} long: #{@_round(long)}<p>")
+    @$modal.find('.modal-footer').append("<p>heading: #{@_round(heading)} bearing: #{@_round(bearing)}<p>")
+    @$modal.find('.modal-footer').append("<p>angle: #{@_round(angle)}<p>")
+    @$modal.find('.modal-footer').append("<p>distance: #{@_round(distance)} meters<p>")
+
+  _round: (val) ->
+    val ?= 0
+    val.toFixed(3)
 
 window.toRad = (deg) ->
   deg * Math.PI / 180
