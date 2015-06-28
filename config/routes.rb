@@ -6,9 +6,12 @@ Rails.application.routes.draw do
       resources :maps
       resources :fields
       resources :games
-      resources :teams
+      resources :teams do
+        collection do
+          post :import
+        end
+      end
       resources :spirits
-      post :import_team
     end
 
     get 'download_csv_template', to: 'application#download_csv_template'

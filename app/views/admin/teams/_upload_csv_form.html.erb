@@ -4,7 +4,7 @@
   <%= link_to 'Download Template', admin_download_csv_template_path %>
 </button>
 
-<%= form_tag admin_tournament_import_team_path(@tournament), multipart: true do %>
+<%= form_tag import_admin_tournament_teams_path(@tournament), multipart: true do %>
   <%= file_field_tag :file %>
   <div id="submit" style="display: none"><%= submit_tag "Import CSV" %></div>
 <% end %>

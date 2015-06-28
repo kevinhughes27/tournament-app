@@ -32,7 +32,7 @@ class Admin::TeamsController < AdminController
 
   def import
     Team.import(params[:file], @tournament.id)
-    redirect_to tournament_path(params[:tournament_id]), notice: "Teams imported."
+    redirect_to admin_tournament__teams_path(@tournament), notice: "Teams imported."
   end
 
   # PATCH/PUT /teams/1
