@@ -1,5 +1,4 @@
 class Admin::FieldsController < AdminController
-  before_action :load_tournament, only: [:index, :create]
 
   def index
     @fields = @tournament.fields
@@ -32,14 +31,6 @@ class Admin::FieldsController < AdminController
       next if field_params[:id]
       field = @tournament.fields.build(field_params)
       field.save
-    end
-  end
-
-  def load_tournament
-    if params[:tournament_id]
-      @tournament = Tournament.friendly.find(params[:tournament_id])
-    else
-      @tournament = Tournament.friendly.find(params[:id])
     end
   end
 

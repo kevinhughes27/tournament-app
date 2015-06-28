@@ -1,5 +1,4 @@
 class Admin::TeamsController < AdminController
-  before_action :load_tournament, only: [:index, :show, :edit, :update, :destroy]
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   # GET /teams
@@ -52,14 +51,6 @@ class Admin::TeamsController < AdminController
   end
 
   private
-
-  def load_tournament
-    if params[:tournament_id]
-      @tournament = Tournament.friendly.find(params[:tournament_id])
-    else
-      @tournament = Tournament.friendly.find(params[:id])
-    end
-  end
 
   def set_team
     @team = Team.find(params[:id])

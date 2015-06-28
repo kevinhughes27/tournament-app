@@ -1,5 +1,4 @@
 class Admin::TournamentsController < AdminController
-  before_action :set_tournament, only: [:show, :edit, :update, :destroy, :import_team, :set_tournament]
 
   # GET /tournaments
   def index
@@ -43,14 +42,6 @@ class Admin::TournamentsController < AdminController
   end
 
   private
-
-  def set_tournament
-    if params[:tournament_id]
-      @tournament = Tournament.friendly.find(params[:tournament_id])
-    else
-      @tournament = Tournament.friendly.find(params[:id])
-    end
-  end
 
   def tournament_params
     params.require(:tournament).permit(
