@@ -7,8 +7,9 @@ class Admin::FieldsController < AdminController
 
   def create
     @map = @tournament.map
+    delete_unused_fields
     @fields = @tournament.fields
-    update_fields && delete_unused_fields && create_fields
+    update_fields && create_fields
 
     render :index
   end
@@ -24,14 +25,10 @@ class Admin::FieldsController < AdminController
   end
 
   def delete_unused_fields
-    old_fields = @fields.pluck(:id)
+    old_fields = @tournament.fields.pluck(:id)
     new_fields = fields_params.map{ |p| p[:id].to_i }
     unused = old_fields - new_fields
-
-    unused.each do |id|
-      Field.where(id: id).destroy
-      @fields.delete_if{ |f| f.id == id }
-    end
+    Field.where(id: unused).destroy_all
   end
 
   def create_fields
@@ -39,7 +36,6 @@ class Admin::FieldsController < AdminController
       next if field_params[:id]
       field = @tournament.fields.build(field_params)
       field.save
-      @fields << field
     end
   end
 
