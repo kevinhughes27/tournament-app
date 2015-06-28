@@ -1,0 +1,10 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <%= render 'form' %>
+
+  <hr>
+
+  <%= link_to 'Teams', admin_tournament_teams_path(@tournament) %> |
+  <%= link_to 'Fields', admin_tournament_fields_path(@tournament) %>
+</div>

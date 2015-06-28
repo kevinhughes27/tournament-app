@@ -12,10 +12,6 @@ class Tournament < ActiveRecord::Base
 
   before_validation :set_handle
 
-  def location
-    "[#{lat}, #{long}]"
-  end
-
   private
 
   def set_handle

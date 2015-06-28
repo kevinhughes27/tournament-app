@@ -1,4 +1,4 @@
-class FieldsController < ApplicationController
+class Admin::FieldsController < AdminController
   before_action :load_tournament, only: [:index, :create]
 
   def index

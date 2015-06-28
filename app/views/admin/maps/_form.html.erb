@@ -1,0 +1,25 @@
+<div class="container">
+  <%= form_for(@map) do |f| %>
+    <div class="row">
+      <div class="col-md-6">
+        <p>Find your fields on the map below. Whatever you see on this map will be what is shown whenever someone asks for  the location of your tournament.</p>
+        <p>Just scroll and zoom, we'll do the rest.</p>
+
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <div id="map-canvas" style="height: 600px;"></div>
+        <%= f.hidden_field :lat %>
+        <%= f.hidden_field :long %>
+        <%= f.hidden_field :zoom %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $( document ).ready(function() {
+    tournamentMap = new TournamentApp.TournmanentMap(
+      <%= @map.location %>,
+      <%= @map.zoom %>
+    );
+  });
+</script>

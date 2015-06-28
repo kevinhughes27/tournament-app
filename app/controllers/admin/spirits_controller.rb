@@ -1,4 +1,4 @@
-class SpiritsController < ApplicationController
+class Admin::SpiritsController < AdminController
   before_action :set_spirit, only: [:show, :edit, :update, :destroy]
 
   # GET /spirits

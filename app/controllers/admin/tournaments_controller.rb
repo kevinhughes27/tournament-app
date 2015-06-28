@@ -1,4 +1,4 @@
-class TournamentsController < ApplicationController
+class Admin::TournamentsController < AdminController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy, :import_team, :set_tournament]
 
   # GET /tournaments
@@ -13,11 +13,7 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments/new
   def new
-    @tournament = Tournament.new(
-      lat: 56.0,
-      long: -96.0,
-      zoom: 4
-    )
+    @tournament = Tournament.new
   end
 
   # POST /tournaments
@@ -46,8 +42,6 @@ class TournamentsController < ApplicationController
     redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.'
   end
 
-
-
   private
 
   def set_tournament
@@ -62,9 +56,6 @@ class TournamentsController < ApplicationController
     params.require(:tournament).permit(
       :name,
       :description,
-      :lat,
-      :long,
-      :zoom
     )
   end
 end

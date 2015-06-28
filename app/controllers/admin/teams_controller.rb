@@ -1,4 +1,4 @@
-class TeamsController < ApplicationController
+class Admin::TeamsController < AdminController
   before_action :load_tournament, only: [:index, :show, :edit, :update, :destroy]
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
