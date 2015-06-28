@@ -1,4 +1,4 @@
-class TournamentApp.TournmanentMap
+class TournamentApp.Map
 
   constructor: (@tournmanentLocation, @zoom) ->
     window.initializeMap = @initializeMap
@@ -39,8 +39,8 @@ class TournamentApp.TournmanentMap
 
   initCallbacks: ->
     google.maps.event.addListener @map, 'center_changed', =>
-      $('#tournament_lat').val( @map.center.lat() )
-      $('#tournament_long').val( @map.center.lng() )
+      $('#map_lat').val( @map.center.lat() )
+      $('#map_long').val( @map.center.lng() )
 
     google.maps.event.addListener @map, 'zoom_changed', =>
-      $('#tournament_zoom').val( @map.zoom )
+      $('#map_zoom').val( @map.zoom )

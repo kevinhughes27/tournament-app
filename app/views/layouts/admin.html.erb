@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <%= render '/admin/sidebar' %>
+  <%= render '/admin/sidebar', locals: {tournament: @tournament} %>
   <%= yield %>
   <%= render '/admin/flash_messages' %>
 </body>

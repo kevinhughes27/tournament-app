@@ -12,6 +12,10 @@ class Tournament < ActiveRecord::Base
 
   before_validation :set_handle
 
+  def app_link
+    "/#{handle}"
+  end
+
   private
 
   def set_handle

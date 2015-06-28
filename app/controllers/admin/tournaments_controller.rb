@@ -1,41 +1,35 @@
 class Admin::TournamentsController < AdminController
+  skip_before_filter :load_tournament, only: [:new, :create]
 
-  # GET /tournaments
   def index
     @tournaments = Tournament.all
   end
 
-  # GET /tournaments/1
   def show
-    @teams = Team.where(tournament_id: @tournament)
   end
 
-  # GET /tournaments/new
   def new
     @tournament = Tournament.new
   end
 
-  # POST /tournaments
   def create
     @tournament = Tournament.new(tournament_params)
 
     if @tournament.save
-      redirect_to @tournament, notice: 'Tournament was successfully created.'
+      redirect_to new_admin_tournament_map_path(@tournament), notice: 'Tournament was successfully created.'
     else
       render :new
     end
   end
 
-  # PATCH/PUT /tournaments/1
   def update
     if @tournament.update(tournament_params)
-      redirect_to @tournament, notice: 'Tournament was successfully updated.'
+      redirect_to [:admin, @tournament], notice: 'Tournament was successfully updated.'
     else
-      render :edit
+      render :show
     end
   end
 
-  # DELETE /tournaments/1
   def destroy
     @tournament.destroy
     redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.'

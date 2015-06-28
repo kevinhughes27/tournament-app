@@ -1,57 +1,22 @@
-<div class="container">
-  <%= form_for [:admin, @tournament] do |f| %>
-    <div class="row">
-      <% if @tournament.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
-          <ul>
-            <% @tournament.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+<%= form_for [:admin, @tournament] do |f| %>
+  <%= render 'admin/errors', object: @tournament %>
 
-
-      <div class="from-group">
-        <%= f.label :name %><br>
-        <%= f.text_field :name, class: 'form-control' %>
-      </div>
-      <div id="handle_example"></div>
-
-      <div class="from-group">
-        <%= f.label :description %><br>
-        <%= f.text_area :description, class: 'form-control',  rows: "10" %>
-      </div>
+  <div class="row">
+    <div class="from-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
-    <hr>
-    <div class="row">
-      <div class="actions">
-        <%= f.submit 'Save', class: "btn btn-primary" %>
-        <%= link_to 'Back', admin_tournaments_path, class: "btn btn-default" %>
-      </div>
-    </div>
-  <% end %>
-</div>
+    <div id="handle_example"></div>
 
-<script>
-  $(document).on("change", '#tournament_name', function() {
-    $.ajax({
-                 url: "<%= admin_handle_example_path %>", // Route to the Script Controller method
-                type: "GET",
-            dataType: "json",
-                data: { name: $('#tournament_name').val() }, // This goes to Controller in params hash, i.e. params[:file_name]
-            complete: function() {},
-             success: function(data, textStatus, xhr) {
-                        // Do something with the response here
-                        $('#handle_example').text(data.handle_example) // Show the file contents in our editor.
-                                                           // editor is defined somewhere above
-                                                           // 'file_content' is the key we use to respond
-                                                           // in the controller function below
-                      },
-               error: function() {
-                        alert("Ajax error!")
-                      }
-    });
-});
-</script>
+    <div class="from-group">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, class: 'form-control',  rows: "10" %>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="actions">
+      <%= f.submit 'Save', class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

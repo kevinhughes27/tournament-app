@@ -1,5 +1,7 @@
 <div class="container">
-  <%= form_for(@map) do |f| %>
+  <%= form_for [:admin, @tournament, @map] do |f| %>
+    <%= render 'admin/errors', object: @map %>
+
     <div class="row">
       <div class="col-md-6">
         <p>Find your fields on the map below. Whatever you see on this map will be what is shown whenever someone asks for  the location of your tournament.</p>
@@ -12,12 +14,22 @@
         <%= f.hidden_field :zoom %>
       </div>
     </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="actions">
+        <%= f.submit 'Save', class: "btn btn-primary" %>
+        <%= link_to 'Back', admin_tournaments_path, class: "btn btn-default" %>
+      </div>
+    </div>
+
   <% end %>
 </div>
 
 <script>
   $( document ).ready(function() {
-    tournamentMap = new TournamentApp.TournmanentMap(
+    tournamentMap = new TournamentApp.Map(
       <%= @map.location %>,
       <%= @map.zoom %>
     );

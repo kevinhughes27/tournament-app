@@ -8,13 +8,27 @@ class Admin::MapsController < AdminController
     )
   end
 
+  def show
+    @map = @tournament.map
+  end
+
   def create
     @map = @tournament.build_map(map_params)
 
     if @map.save
-      redirect_to @map, notice: 'Map was successfully created.'
+      redirect_to admin_tournament_fields_path(@tournament), notice: 'Map was successfully saved.'
     else
       render :new
+    end
+  end
+
+  def update
+    @map = @tournament.map
+
+    if @map.update(map_params)
+      redirect_to [:admin, @tournament, @map], notice: 'Map was successfully updated.'
+    else
+      render :show
     end
   end
 

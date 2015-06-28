@@ -1,29 +1,37 @@
 class Admin::FieldsController < AdminController
 
   def index
+    @map = @tournament.map
     @fields = @tournament.fields
   end
 
   def create
+    @map = @tournament.map
+    @fields = @tournament.fields
     update_fields && delete_unused_fields && create_fields
-    redirect_to tournament_fields_path(@tournament), notice: 'Fields saved.'
+
+    render :index
   end
 
   private
 
   def update_fields
-    fields_params.each do |field_params|
+    fields_params.map do |field_params|
       next unless field_params[:id]
-      field = Field.find(field_params[:id])
+      field = @fields.detect{ |f| f.id == field_params[:id].to_i }
       field.update_attributes(field_params)
     end
   end
 
   def delete_unused_fields
-    old_fields = @tournament.fields.pluck(:id)
+    old_fields = @fields.pluck(:id)
     new_fields = fields_params.map{ |p| p[:id].to_i }
     unused = old_fields - new_fields
-    Field.where(id: unused).destroy_all
+
+    unused.each do |id|
+      Field.where(id: id).destroy
+      @fields.delete_if{ |f| f.id == id }
+    end
   end
 
   def create_fields
@@ -31,6 +39,7 @@ class Admin::FieldsController < AdminController
       next if field_params[:id]
       field = @tournament.fields.build(field_params)
       field.save
+      @fields << field
     end
   end
 

@@ -1,15 +1,5 @@
-<%= form_for(@team, :url => tournament_team_path(params[:tournament_id],@team), :html => { :multipart => true }) do |f| %>
-  <% if @team.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
-
-      <ul>
-      <% @team.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@team, :url => admin_tournament_team_path(params[:tournament_id], @team), :html => { :multipart => true }) do |f| %>
+  <%= render 'admin/errors', object: @team %>
 
   <div class="field">
     <%= f.label :name %><br>

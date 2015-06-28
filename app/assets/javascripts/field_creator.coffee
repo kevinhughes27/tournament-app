@@ -135,7 +135,7 @@ class TournamentApp.FieldCreator
 
     @fields.reverse().forEach (field, index) ->
       tr = """
-      <tr id="field" data-index="#{index}">
+      <tr id="field" class="#{if !$.isEmptyObject(field.errors) then 'danger' else ''}"data-index="#{index}">
         <td>
           <input type="text" name="fields[][name]" value="#{field.name}">
         </td>

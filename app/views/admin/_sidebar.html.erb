@@ -1,30 +1,39 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
       <li class="sidebar-brand">
-          <a href="#">
-              Start Bootstrap
-          </a>
+        <% if @tournament.persisted? %>
+          <%= link_to sidebar_brand(@tournament), admin_tournament_path(@tournament) %>
+        <% else %>
+          Tournmanent App
+        <% end %>
       </li>
+
       <li>
-          <a href="#">Dashboard</a>
+        <% if @tournament.persisted? %>
+          <%= link_to 'Tournament', admin_tournament_path(@tournament) %>
+        <% else %>
+          Tournament
+        <% end %>
       </li>
+
       <li>
-          <a href="#">Shortcuts</a>
+        <% if @tournament.map.try(:persisted?) %>
+          <%= link_to 'Map', admin_tournament_map_path(@tournament, @tournament.map) %>
+        <% elsif @tournament.persisted? %>
+          <%= link_to 'Map', new_admin_tournament_map_path(@tournament) %>
+        <% else %>
+          Map
+        <% end %>
       </li>
+
       <li>
-          <a href="#">Overview</a>
+        <% if @tournament.map.try(:persisted?) %>
+          <%= link_to 'Fields', admin_tournament_fields_path(@tournament) %>
+        <% else %>
+          Fields
+        <% end %>
       </li>
-      <li>
-          <a href="#">Events</a>
-      </li>
-      <li>
-          <a href="#">About</a>
-      </li>
-      <li>
-          <a href="#">Services</a>
-      </li>
-      <li>
-          <a href="#">Contact</a>
-      </li>
+
+      <li><%= link_to 'App', @tournament.app_link %></li>
   </ul>
 </div>
