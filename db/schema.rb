@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609003842) do
+ActiveRecord::Schema.define(version: 20150628143755) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20150609003842) do
 
   add_index "games", ["field_id"], name: "index_games_on_field_id"
   add_index "games", ["tournament_id"], name: "index_games_on_tournament_id"
+
+  create_table "maps", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.decimal "lat",           precision: 15, scale: 10, default: 56.0,  null: false
+    t.decimal "long",          precision: 15, scale: 10, default: -96.0, null: false
+    t.integer "zoom",                                    default: 4,     null: false
+  end
 
   create_table "spirits", force: :cascade do |t|
     t.integer  "author_id"
@@ -77,11 +84,8 @@ ActiveRecord::Schema.define(version: 20150609003842) do
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
-    t.decimal  "lat",         precision: 15, scale: 10, default: 0.0
-    t.decimal  "long",        precision: 15, scale: 10, default: 0.0
-    t.integer  "zoom",                                  default: 15
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "handle"
   end
 
