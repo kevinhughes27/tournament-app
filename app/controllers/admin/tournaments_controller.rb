@@ -1,5 +1,5 @@
 class Admin::TournamentsController < AdminController
-  skip_before_filter :load_tournament, only: [:new, :create]
+  skip_before_filter :load_tournament, only: [:new, :create, :index]
 
   def index
     @tournaments = Tournament.all
