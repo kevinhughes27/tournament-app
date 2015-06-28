@@ -3,6 +3,7 @@ class Admin::TournamentsController < AdminController
 
   def index
     @tournaments = Tournament.all
+    render :index, layout: 'application'
   end
 
   def show
