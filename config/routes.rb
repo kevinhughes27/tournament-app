@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
-  resources :tournaments do
-    resources :spirits
-    resources :fields
-    resources :games
-    resources :teams
-    post :import_team
-  end
+  root 'home#index'
 
-  root 'statics#index'
-  get 'download_csv_template', to: 'application#download_csv_template'
-  get 'handle_example', to: 'application#handle_example'
+  namespace :admin do
+    resources :tournaments do
+      resources :maps
+      resources :fields
+      resources :games
+      resources :teams
+      resources :spirits
+      post :import_team
+    end
+
+    get 'download_csv_template', to: 'application#download_csv_template'
+    get 'handle_example', to: 'application#handle_example'
+  end
 
   get '*tournament_id' => 'app#show'
 end

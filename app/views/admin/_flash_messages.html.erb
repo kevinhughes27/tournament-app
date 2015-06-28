@@ -1,0 +1,9 @@
+<% if flash[:notice] %>
+  <p class="flash flash-message notice"><%= flash[:notice] %></p>
+<% end %>
+
+<% if flash[:error] %>
+  <p class="flash flash-message error"><%= flash[:error] %></p>
+<% end %>
+
+<p class='js-flash flash-message' style="display: none;"></p>

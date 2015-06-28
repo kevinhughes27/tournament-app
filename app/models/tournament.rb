@@ -2,6 +2,7 @@ class Tournament < ActiveRecord::Base
   extend FriendlyId
   friendly_id :handle
 
+  has_one :map
   has_many :games
   has_many :teams
   has_many :fields
@@ -11,8 +12,8 @@ class Tournament < ActiveRecord::Base
 
   before_validation :set_handle
 
-  def location
-    "[#{lat}, #{long}]"
+  def app_link
+    "/#{handle}"
   end
 
   private

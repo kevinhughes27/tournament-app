@@ -5,9 +5,16 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= yield :head %>
 </head>
 
 <body>
-  <%= yield %>
+  <div id="wrapper">
+    <%= render '/admin/sidebar', locals: {tournament: @tournament} %>
+    <div id="page-content-wrapper">
+      <%= yield %>
+    </div>
+    <%= render '/admin/flash_messages' %>
+  </div>
 </body>
 </html>

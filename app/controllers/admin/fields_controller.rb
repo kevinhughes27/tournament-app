@@ -1,21 +1,25 @@
-class FieldsController < ApplicationController
-  before_action :load_tournament, only: [:index, :create]
+class Admin::FieldsController < AdminController
 
   def index
+    @map = @tournament.map
     @fields = @tournament.fields
   end
 
   def create
-    update_fields && delete_unused_fields && create_fields
-    redirect_to tournament_fields_path(@tournament), notice: 'Fields saved.'
+    @map = @tournament.map
+    delete_unused_fields
+    @fields = @tournament.fields
+    update_fields && create_fields
+
+    render :index
   end
 
   private
 
   def update_fields
-    fields_params.each do |field_params|
+    fields_params.map do |field_params|
       next unless field_params[:id]
-      field = Field.find(field_params[:id])
+      field = @fields.detect{ |f| f.id == field_params[:id].to_i }
       field.update_attributes(field_params)
     end
   end
@@ -32,14 +36,6 @@ class FieldsController < ApplicationController
       next if field_params[:id]
       field = @tournament.fields.build(field_params)
       field.save
-    end
-  end
-
-  def load_tournament
-    if params[:tournament_id]
-      @tournament = Tournament.friendly.find(params[:tournament_id])
-    else
-      @tournament = Tournament.friendly.find(params[:id])
     end
   end
 

@@ -1,4 +1,4 @@
-class TournamentApp.AppMap
+class TournamentApp.App
 
   constructor: (@tournmanentLocation, @zoom, @fields) ->
     window.initializeMap = @initializeMap
