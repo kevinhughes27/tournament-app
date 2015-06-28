@@ -28,7 +28,7 @@
 
   <br>
 
-  <%= link_to 'Add a Team to this Tournament', new_tournament_team_path(@tournament) %>
+  <%= link_to 'Add a Team to this Tournament', new_admin_tournament_team_path(@tournament) %>
 <% else %>
-  <%= render 'teams/upload_csv_form', locals: {tournament: @tournament} %>
+  <%= render 'admin/teams/upload_csv_form', locals: {tournament: @tournament} %>
 <% end %>
