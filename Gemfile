@@ -9,6 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'underscore-rails'
+gem 'twine-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
 gem 'twitter-bootstrap-rails'
 gem 'whenever', :require => false
@@ -23,4 +24,3 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-

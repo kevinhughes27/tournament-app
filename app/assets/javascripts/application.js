@@ -14,8 +14,10 @@
 //= require jquery_ujs
 //= require underscore
 //= require turbolinks
+//= require twine
 //= require twitter/bootstrap
 //= require bootstrap-select
+//= require mindmup-editabletable
 //= require namespace
 //= require_tree .
 

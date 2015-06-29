@@ -20,5 +20,7 @@ class Admin::TeamsController < AdminController
       :twitter,
       :division
     ])
+
+    @teams_params[:teams] || []
   end
 end

@@ -1,5 +1,5 @@
 class Field < ActiveRecord::Base
-  include BulkSet
+  include UpdateSet
 
   has_many :games
   belongs_to :tournament

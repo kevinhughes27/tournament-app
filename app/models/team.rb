@@ -1,4 +1,4 @@
 class Team < ActiveRecord::Base
-  include BulkSet
+  include UpdateSet
   belongs_to :tournament
 end
