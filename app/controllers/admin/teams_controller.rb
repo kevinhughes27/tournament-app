@@ -1,31 +1,24 @@
 class Admin::TeamsController < AdminController
 
   def index
-    @teams = Team.all
+    @teams = @tournament.teams
   end
 
   def create
-    @team = Team.new(team_params)
-
-    if @team.save
-      redirect_to @team, notice: 'Team was successfully created.'
-    else
-      render :new
-    end
+    @teams = Team.update_set(@tournament.teams, teams_params)
+    render :index
   end
 
   private
 
   def teams_params
-    @teams_params ||= params.permit(
-      teams: [
-        :id,
-        :name,
-        :email,
-        :sms,
-        :twitter,
-        :division
-      ]
-    )
+    @teams_params ||= params.permit(teams: [
+      :id,
+      :name,
+      :email,
+      :sms,
+      :twitter,
+      :division
+    ])
   end
 end
