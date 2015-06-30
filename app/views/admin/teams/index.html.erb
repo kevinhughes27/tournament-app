@@ -37,6 +37,12 @@
       </tbody>
     </table>
 
+    <div id="table-menu">
+      <ul class="dropdown-menu">
+        <li><a data-action="delete" href="#">Delete Row</a></li>
+      </ul>
+    </div>
+
     <div class="row">
       <%= submit_tag 'Save Teams', class: "btn btn-primary pull-right" %>
     </div>
@@ -45,6 +51,7 @@
 
 <script>
   $( document ).ready(function() {
-    $('.editable-table').editableTableWidget();
+    tableNode = $('.editable-table');
+    editableTable = new TournamentApp.EditableTable(tableNode);
   });
 </script>

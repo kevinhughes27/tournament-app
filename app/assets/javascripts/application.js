@@ -17,6 +17,7 @@
 //= require twine
 //= require twitter/bootstrap
 //= require bootstrap-select
+//= require bootstrap-contextmenu
 //= require mindmup-editabletable
 //= require namespace
 //= require_tree .
