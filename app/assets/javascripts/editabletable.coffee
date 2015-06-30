@@ -21,8 +21,7 @@ class TournamentApp.EditableTable
   addRow: ->
     row = @$tableNode.find('tr')[1]
     row = $(row).clone()
-    row.find('td.hide').html(" ")
-    #row.find('td').html(" ") # why does this make the table row short?
+    row.find('td').html("")
     @$tableNode.append(row[0])
 
 
