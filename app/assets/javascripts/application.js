@@ -18,6 +18,7 @@
 //= require twitter/bootstrap
 //= require bootstrap-select
 //= require bootstrap-contextmenu
+//= require jquery.tabletojson
 //= require mindmup-editabletable
 //= require namespace
 //= require_tree .

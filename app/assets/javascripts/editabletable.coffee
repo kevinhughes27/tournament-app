@@ -2,6 +2,7 @@ class TournamentApp.EditableTable
 
   constructor: (@$tableNode) ->
     @$tableNode.editableTableWidget()
+    @newIdx = 1
 
     @$tableNode.contextmenu
       target: '#table-menu'
@@ -13,9 +14,28 @@ class TournamentApp.EditableTable
 
   menuSelect: (context, e) =>
     switch $(e.target).data('action')
-      when 'delete' then @_deleteRow()
+      when 'add' then @addRow()
+      when 'delete' then @deleteRow()
       else null
 
-  _deleteRow: ->
+  addRow: ->
+    row = @$tableNode.find('tr')[1]
+    row = $(row).clone()
+    row.find('td.hide').html(" ")
+    #row.find('td').html(" ")
+    @$tableNode.append(row[0])
+
+
+  deleteRow: ->
     row = $(@currentCell).parent('tr')
     row.remove()
+
+  save: (form) ->
+    Turbolinks.ProgressBar.start()
+    $.ajax
+      type: 'POST'
+      url: form.action
+      data: {teams: @$tableNode.tableToJSON()}
+      success: (response) ->
+         Turbolinks.replace(response)
+         Turbolinks.ProgressBar.done()

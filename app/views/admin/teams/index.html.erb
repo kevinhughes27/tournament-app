@@ -1,36 +1,30 @@
 <div class="container">
   <h1>Teams</h1>
 
-  <%= form_tag admin_tournament_teams_path(@tournament), method: :post do %>
+  <%= form_tag admin_tournament_teams_path(@tournament), "bind-event-submit" => "editableTable.save(this)" do %>
     <table class="table table-bordered table-striped table-hover editable-table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Sms</th>
-          <th>Twitter</th>
-          <th>Division</th>
+          <th class="hide">id</th>
+          <th data-override="name">Name</th>
+          <th data-override="email">Email</th>
+          <th data-override="sms">Sms</th>
+          <th data-override="twitter">Twitter</th>
+          <th data-override="division">Division</th>
         </tr>
       </thead>
       <!-- order is kind of dumb, division should come before contact info -->
-      <!-- this can be sorted server side as well eh. or using some jquert I guess -->
-      <!-- might have been easier to jquery submit and have jquery get the table from the dom -->
+      <!-- this can be sorted server side as well eh. or using some jquery I guess -->
       <tbody>
         <% @teams.each do |team| %>
           <%= fields_for 'teams[]', team do |f| %>
-            <tr id="team-<%= team.id %>" context="team-<%= team.id %>">
-              <td bind-event-change="name = $(this).text()"><%= team.name %></td>
-              <td bind-event-change="team = $(this).text()"><%= team.email %></td>
-              <td bind-event-change="sms = $(this).text()"><%= team.sms %></td>
-              <td bind-event-change="twitter = $(this).text()"><%= team.twitter %></td>
-              <td bind-event-change="division = $(this).text()"><%= team.division %></td>
-
-              <%= f.hidden_field :id %>
-              <%= f.hidden_field :name, bind: "name" %>
-              <%= f.hidden_field :email, bind: "email" %>
-              <%= f.hidden_field :sms, bind: "sms" %>
-              <%= f.hidden_field :twitter, bind: "twitter" %>
-              <%= f.hidden_field :division, bind: "division" %>
+            <tr>
+              <td class="hide"><%= team.id %></td>
+              <td><%= team.name %></td>
+              <td><%= team.email %></td>
+              <td><%= team.sms %></td>
+              <td><%= team.twitter %></td>
+              <td><%= team.division %></td>
             </tr>
           <% end %>
         <% end %>
@@ -39,6 +33,7 @@
 
     <div id="table-menu">
       <ul class="dropdown-menu">
+        <li><a data-action="add" href="#">Add Row</a></li>
         <li><a data-action="delete" href="#">Delete Row</a></li>
       </ul>
     </div>
