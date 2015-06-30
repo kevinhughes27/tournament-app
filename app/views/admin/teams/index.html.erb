@@ -18,7 +18,7 @@
       <tbody>
         <% @teams.each do |team| %>
           <%= fields_for 'teams[]', team do |f| %>
-            <tr>
+            <tr class="<%= 'danger' if team.errors.present? %>">
               <td class="hide"><%= team.id %></td>
               <td><%= team.name %></td>
               <td><%= team.email %></td>
