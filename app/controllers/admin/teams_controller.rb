@@ -2,6 +2,7 @@ class Admin::TeamsController < AdminController
 
   def index
     @teams = @tournament.teams
+    @teams = [@tournament.teams.build] if @teams.blank?
   end
 
   def create
@@ -20,7 +21,7 @@ class Admin::TeamsController < AdminController
       :twitter,
       :division
     ])
-
-    @teams_params[:teams] || []
+    @teams_params[:teams] ||= []
+    @teams_params[:teams].each{ |t| t[1][:tournament_id] = @tournament.id }
   end
 end

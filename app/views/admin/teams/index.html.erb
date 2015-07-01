@@ -1,6 +1,21 @@
 <div class="container">
   <h1>Teams</h1>
 
+  <% if @teams.any?{ |team| team.errors.present? } %>
+    <div class="alert alert-danger">
+      <% @teams.each do |team| %>
+        <% if team.errors.present? %>
+            <p><%= team.name %></p>
+            <ul>
+              <% team.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
   <%= form_tag admin_tournament_teams_path(@tournament), "bind-event-submit" => "editableTable.save(this)" do %>
     <table class="table table-bordered table-striped table-hover editable-table">
       <thead>
@@ -8,13 +23,11 @@
           <th class="hide">id</th>
           <th data-override="name">Name</th>
           <th data-override="email">Email</th>
+          <th data-override="division">Division</th>
           <th data-override="sms">Sms</th>
           <th data-override="twitter">Twitter</th>
-          <th data-override="division">Division</th>
         </tr>
       </thead>
-      <!-- order is kind of dumb, division should come before contact info -->
-      <!-- this can be sorted server side as well eh. or using some jquery I guess -->
       <tbody>
         <% @teams.each do |team| %>
           <%= fields_for 'teams[]', team do |f| %>
@@ -22,9 +35,9 @@
               <td class="hide"><%= team.id %></td>
               <td><%= team.name %></td>
               <td><%= team.email %></td>
+              <td><%= team.division %></td>
               <td><%= team.sms %></td>
               <td><%= team.twitter %></td>
-              <td><%= team.division %></td>
             </tr>
           <% end %>
         <% end %>
@@ -39,9 +52,10 @@
     </div>
 
     <div class="row">
+      <input type="file" accept=".csv" bind-event-change="editableTable.uploadCsv(event)" />
+
       <%= submit_tag 'Save Teams', class: "btn btn-primary pull-right" %>
       <button type="button" class="btn btn-primary pull-right" bind-event-click="editableTable.addRow()">Add Team</button>
-      <button type="button" class="btn btn-primary pull-right">Import CSV</button>
     </div>
   <% end %>
 </div>

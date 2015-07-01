@@ -19,6 +19,7 @@
 //= require bootstrap-select
 //= require bootstrap-contextmenu
 //= require jquery.tabletojson
+//= require jquery.csv
 //= require mindmup-editabletable
 //= require namespace
 //= require_tree .
