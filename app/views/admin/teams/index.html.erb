@@ -1,7 +1,68 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <h1>Teams</h1>
 
-  <h1>Listing Teams</h1>
+  <% if @teams.any?{ |team| team.errors.present? } %>
+    <div class="alert alert-danger">
+      <% @teams.each do |team| %>
+        <% if team.errors.present? %>
+            <p><%= team.name %></p>
+            <ul>
+              <% team.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 
-  <%= render 'admin/teams/index', locals: {teams: @teams} %>
+  <%= form_tag admin_tournament_teams_path(@tournament), "bind-event-submit" => "editableTable.save(this)" do %>
+    <table class="table table-bordered table-striped table-hover editable-table">
+      <thead>
+        <tr>
+          <th class="hide">id</th>
+          <th data-override="name">Name</th>
+          <th data-override="email">Email</th>
+          <th data-override="division">Division</th>
+          <th data-override="sms">Sms</th>
+          <th data-override="twitter">Twitter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @teams.each do |team| %>
+          <%= fields_for 'teams[]', team do |f| %>
+            <tr class="<%= 'danger' if team.errors.present? %>">
+              <td class="hide"><%= team.id %></td>
+              <td><%= team.name %></td>
+              <td><%= team.email %></td>
+              <td><%= team.division %></td>
+              <td><%= team.sms %></td>
+              <td><%= team.twitter %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div id="table-menu">
+      <ul class="dropdown-menu">
+        <li><a data-action="add" href="#">Add Row</a></li>
+        <li><a data-action="delete" href="#">Delete Row</a></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <input type="file" accept=".csv" bind-event-change="editableTable.uploadCsv(event)" />
+
+      <%= submit_tag 'Save Teams', class: "btn btn-primary pull-right" %>
+      <button type="button" class="btn btn-primary pull-right" bind-event-click="editableTable.addRow()">Add Team</button>
+    </div>
+  <% end %>
 </div>
+
+<script>
+  $( document ).ready(function() {
+    tableNode = $('.editable-table');
+    editableTable = new TournamentApp.EditableTable(tableNode);
+  });
+</script>

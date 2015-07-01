@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :admin do
-    resources :tournaments do
+    resources :tournaments, path: '' do
       resources :maps
       resources :fields
       resources :games
