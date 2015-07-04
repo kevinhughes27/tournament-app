@@ -30,6 +30,7 @@
       </thead>
       <tbody>
         <% @teams.each do |team| %>
+          <!-- this fields for is not needed since it is a js submit now -->
           <%= fields_for 'teams[]', team do |f| %>
             <tr class="<%= 'danger' if team.errors.present? %>">
               <td class="hide"><%= team.id %></td>
@@ -63,6 +64,6 @@
 <script>
   $( document ).ready(function() {
     tableNode = $('.editable-table');
-    editableTable = new TournamentApp.EditableTable(tableNode);
+    editableTable = new TournamentApp.TeamTable(tableNode);
   });
 </script>

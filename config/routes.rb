@@ -5,12 +5,13 @@ Rails.application.routes.draw do
     resources :tournaments, path: '' do
       resources :maps
       resources :fields
-      resources :games
       resources :teams do
         collection do
           post :import
         end
       end
+      get '/schedule', to: 'schedule#index'
+      post '/schedule', to: 'schedule#create'
       resources :spirits
     end
 

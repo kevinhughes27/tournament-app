@@ -42,6 +42,14 @@
         <% end %>
       </li>
 
+      <li>
+        <% if @tournament.teams.present? %>
+          <%= link_to 'Schedule', admin_tournament_schedule_path(@tournament) %>
+        <% else %>
+          Schedule
+        <% end %>
+      </li>
+
       <li><%= link_to 'App', @tournament.app_link %></li>
   </ul>
 </div>

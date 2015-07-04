@@ -1,0 +1,49 @@
+<div class="container">
+  <h1>Schedule</h1>
+
+  <% if @games.any?{ |game| game.errors.present? } %>
+    <div class="alert alert-danger">
+      <% @games.each do |game| %>
+        <% if game.errors.present? %>
+            <p><%= game.name %></p>
+            <ul>
+              <% game.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <% @fields.each do |field| %>
+          <th><%= field.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @fields.each do |field| %>
+          <td><%= render 'field', field: field %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="table-menu">
+    <ul class="dropdown-menu">
+      <li><a data-action="add" href="#">Add Row</a></li>
+      <li><a data-action="delete" href="#">Delete Row</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  $( document ).ready(function() {
+    tableNode = $('.schedule-table');
+    scheduleTable = new TournamentApp.ScheduleTable(tableNode);
+  });
+</script>
