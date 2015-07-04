@@ -54,3 +54,24 @@ class TournamentApp.ScheduleTable
 
   _currentRowIdx: ->
     $(@currentCell).parent('tr').index() + 1 # off by one for dom ops
+
+  save: (form) ->
+    Turbolinks.ProgressBar.start()
+
+    games = []
+    for table in @$fieldTables
+      $table = $(table)
+      fieldId = $table.data('field-id')
+      fieldGames = $table.tableToJSON()
+
+      for game in fieldGames
+        game.field_id = fieldId
+        games.push game
+
+    $.ajax
+      type: 'POST'
+      url: form.action
+      data: {games: games}
+      success: (response) ->
+         Turbolinks.replace(response)
+         Turbolinks.ProgressBar.done()

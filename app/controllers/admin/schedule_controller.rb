@@ -8,6 +8,7 @@ class Admin::ScheduleController < AdminController
   end
 
   def create
+    byebug
     @games = Game.update_set(@tournament.games, games_params)
     render :index
   end
@@ -15,13 +16,14 @@ class Admin::ScheduleController < AdminController
   private
 
   def games_params
-    @games_params ||= params.permit(teams: [
+    @games_params ||= params.permit(games: [
       :id,
       :field_id,
+      :time,
       :home,
       :away
     ])
-    @games_params[:teams] ||= []
-    @games_params[:teams].each{ |t| t[1][:tournament_id] = @tournament.id }
+    @games_params[:games] ||= []
+    @games_params[:games].each{ |t| t[1][:tournament_id] = @tournament.id }
   end
 end
