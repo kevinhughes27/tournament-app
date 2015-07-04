@@ -10,6 +10,8 @@ class TournamentApp.ScheduleTable
       before: @menuLoad
       onItem: @menuSelect
 
+    $('td#time').on('change', @timeCellChanged)
+
   menuLoad: (e, context) =>
     @currentCell = e.target
 
@@ -36,7 +38,19 @@ class TournamentApp.ScheduleTable
     return tr
 
   deleteRow: ->
-    rowIdx = $(@currentCell).parent('tr').index() + 1
+    rowIdx = @_currentRowIdx()
     for table in @$fieldTables
       row = $(table).find("tr:eq(#{rowIdx})")
       row.remove()
+
+  timeCellChanged: (event) =>
+    @currentCell = event.target
+    newTime = @currentCell.innerHTML
+    rowIdx = rowIdx = @_currentRowIdx()
+    for table in @$fieldTables
+      row = $(table).find("tr:eq(#{rowIdx})")
+      td = $(row).find('td#time')
+      td.html(newTime)
+
+  _currentRowIdx: ->
+    $(@currentCell).parent('tr').index() + 1 # off by one for dom ops
