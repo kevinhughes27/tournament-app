@@ -7,6 +7,7 @@ class Admin::TeamsController < AdminController
 
   def create
     @teams = Team.update_set(@tournament.teams, teams_params)
+    @teams = [@tournament.teams.build] if @teams.blank?
     render :index
   end
 

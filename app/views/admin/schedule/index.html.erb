@@ -1,19 +1,21 @@
 <div class="container">
   <h1>Schedule</h1>
 
-  <% if @games.any?{ |game| game.errors.present? } %>
-    <div class="alert alert-danger">
-      <% @games.each do |game| %>
-        <% if game.errors.present? %>
-            <p><%= game.name %></p>
-            <ul>
-              <% game.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
+  <% @fields.each do |field| %>
+    <% if field.games.any?{ |game| game.errors.present? } %>
+      <div class="alert alert-danger">
+        <% @games.each do |game| %>
+          <% if game.errors.present? %>
+              <p><%= game.name %></p>
+              <ul>
+                <% game.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 
   <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "scheduleTable.save(this)" do %>

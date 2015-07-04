@@ -2,9 +2,9 @@
   <thead>
     <tr>
       <th class="hide">id</th>
-      <th data-override="time">Time</th>
-      <th data-override="home">Home</th>
-      <th data-override="away">Away</th>
+      <th data-override="start_time">Time</th>
+      <th data-override="home_id">Home</th>
+      <th data-override="away_id">Away</th>
     </tr>
   </thead>
   <tbody>
@@ -12,9 +12,9 @@
     <% games.each do |game| %>
       <tr class="<%= 'danger' if game.errors.present? %>">
         <td class="hide"><%= game.id %></td>
-        <td id="time"><%= game.start %></td>
-        <td><%= game.home %></td>
-        <td><%= game.away %></td>
+        <td id="time"><%= game.start_time %></td>
+        <td><%= game.home_id %></td>
+        <td><%= game.away_id %></td>
       </tr>
     <% end %>
   </tbody>

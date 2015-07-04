@@ -4,12 +4,12 @@ class Admin::ScheduleController < AdminController
   def index
     @teams = @tournament.teams
     @fields = @tournament.fields.includes(:games)
-    @games = [@tournament.games.build] if @games.blank?
   end
 
   def create
-    byebug
-    @games = Game.update_set(@tournament.games, games_params)
+    Game.update_set(@tournament.games, games_params)
+    @teams = @tournament.teams
+    @fields = @tournament.fields.includes(:games)
     render :index
   end
 
@@ -19,9 +19,9 @@ class Admin::ScheduleController < AdminController
     @games_params ||= params.permit(games: [
       :id,
       :field_id,
-      :time,
-      :home,
-      :away
+      :start_time,
+      :home_id,
+      :away_id
     ])
     @games_params[:games] ||= []
     @games_params[:games].each{ |t| t[1][:tournament_id] = @tournament.id }
