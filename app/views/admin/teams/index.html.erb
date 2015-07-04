@@ -30,17 +30,14 @@
       </thead>
       <tbody>
         <% @teams.each do |team| %>
-          <!-- this fields for is not needed since it is a js submit now -->
-          <%= fields_for 'teams[]', team do |f| %>
-            <tr class="<%= 'danger' if team.errors.present? %>">
-              <td class="hide"><%= team.id %></td>
-              <td><%= team.name %></td>
-              <td><%= team.email %></td>
-              <td><%= team.division %></td>
-              <td><%= team.sms %></td>
-              <td><%= team.twitter %></td>
-            </tr>
-          <% end %>
+          <tr class="<%= 'danger' if team.errors.present? %>">
+            <td class="hide"><%= team.id %></td>
+            <td><%= team.name %></td>
+            <td><%= team.email %></td>
+            <td><%= team.division %></td>
+            <td><%= team.sms %></td>
+            <td><%= team.twitter %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
