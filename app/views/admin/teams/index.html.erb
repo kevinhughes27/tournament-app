@@ -16,7 +16,7 @@
     </div>
   <% end %>
 
-  <%= form_tag admin_tournament_teams_path(@tournament), "bind-event-submit" => "editableTable.save(this)" do %>
+  <%= form_tag admin_tournament_teams_path(@tournament), "bind-event-submit" => "teamTable.save(this)" do %>
     <table class="table table-bordered table-striped table-hover editable-table">
       <thead>
         <tr>
@@ -30,16 +30,14 @@
       </thead>
       <tbody>
         <% @teams.each do |team| %>
-          <%= fields_for 'teams[]', team do |f| %>
-            <tr class="<%= 'danger' if team.errors.present? %>">
-              <td class="hide"><%= team.id %></td>
-              <td><%= team.name %></td>
-              <td><%= team.email %></td>
-              <td><%= team.division %></td>
-              <td><%= team.sms %></td>
-              <td><%= team.twitter %></td>
-            </tr>
-          <% end %>
+          <tr class="<%= 'danger' if team.errors.present? %>">
+            <td class="hide"><%= team.id %></td>
+            <td><%= team.name %></td>
+            <td><%= team.email %></td>
+            <td><%= team.division %></td>
+            <td><%= team.sms %></td>
+            <td><%= team.twitter %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
@@ -52,10 +50,10 @@
     </div>
 
     <div class="row">
-      <input type="file" accept=".csv" bind-event-change="editableTable.uploadCsv(event)" />
+      <input type="file" accept=".csv" bind-event-change="teamTable.uploadCsv(event)" />
 
       <%= submit_tag 'Save Teams', class: "btn btn-primary pull-right" %>
-      <button type="button" class="btn btn-primary pull-right" bind-event-click="editableTable.addRow()">Add Team</button>
+      <button type="button" class="btn btn-primary pull-right" bind-event-click="teamTable.addRow()">Add Team</button>
     </div>
   <% end %>
 </div>
@@ -63,6 +61,6 @@
 <script>
   $( document ).ready(function() {
     tableNode = $('.editable-table');
-    editableTable = new TournamentApp.EditableTable(tableNode);
+    teamTable = new TournamentApp.TeamTable(tableNode);
   });
 </script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628143755) do
+ActiveRecord::Schema.define(version: 20150704170419) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -30,8 +30,7 @@ ActiveRecord::Schema.define(version: 20150628143755) do
     t.integer  "away_id"
     t.integer  "home_score",      default: 0
     t.integer  "away_score",      default: 0
-    t.datetime "start"
-    t.datetime "finished"
+    t.datetime "start_time"
     t.boolean  "score_confirmed"
     t.integer  "field_id"
     t.integer  "tournament_id"

@@ -1,4 +1,4 @@
-class TournamentApp.EditableTable
+class TournamentApp.TeamTable
 
   constructor: (@$tableNode) ->
     @$tableNode.editableTableWidget()
@@ -18,14 +18,14 @@ class TournamentApp.EditableTable
       when 'delete' then @deleteRow()
       else null
 
-  addRow: (row = null)->
+  addRow: (rowData = null)->
     tr = @$tableNode.find('tr')[1]
     tr = $(tr).clone()
     tds = tr.find('td')
     tds.html("")
-
-    if row
-      $(td).html(row[idx]) for td, idx in tds.not('.hide')
+    # I can use specific knowledge of the markup here now..
+    if rowData
+      $(td).html(rowData[idx]) for td, idx in tds.not('.hide')
 
     @$tableNode.append(tr[0])
 
@@ -45,7 +45,7 @@ class TournamentApp.EditableTable
         csvData = event.target.result
         data = $.csv.toArrays(csvData)
         old_trs = @$tableNode.find('tbody > tr')
-        @addRow(row) for row in data[1..-1]
+        @addRow(rowData) for rowData in data[1..-1] # skip header
         old_trs.remove()
 
   browserSupportFileUpload: ->

@@ -38,7 +38,11 @@ module UpdateSet
     end
 
     def self.force_set_params_to_array(set_params)
-      set_params.keys.collect{ |k| set_params[k] } if set_params.is_a?(Hash)
+      if set_params.is_a?(Hash)
+        set_params.keys.collect{ |k| set_params[k] }
+      else
+        set_params
+      end
     end
 
   end
