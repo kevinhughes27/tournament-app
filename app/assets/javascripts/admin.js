@@ -1,0 +1,12 @@
+//= require jquery
+//= require jquery_ujs
+//= require jquery.tabletojson
+//= require jquery.csv
+//= require mindmup-editabletable
+//= require twitter/bootstrap
+//= require bootstrap-contextmenu
+//= require turbolinks
+//= require underscore
+//= require twine
+//= require namespace
+//= require_tree ./admin

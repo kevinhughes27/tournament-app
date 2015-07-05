@@ -1,0 +1,9 @@
+/*
+ *= require_tree ./app
+ *
+ *= require admin/bootstrap_and_overrides
+ *= require bootstrap-select
+ *
+ *= require google_maps
+ *= require_self
+ */
