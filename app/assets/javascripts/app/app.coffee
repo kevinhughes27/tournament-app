@@ -41,17 +41,19 @@ class TournamentApp.App
     polygon.setMap(@map)
 
   initApp: ->
-    @$searchContainer = $('.search-container')
+    @$findDrawer = $('#find-drawer')
 
-    @$selectNode = @$searchContainer.find('select')
+    @$searchBar = $('#search-bar')
+
+    @$selectNode = @$searchBar.find('select')
     @$selectNode.selectpicker()
     @$selectNode.on('change', @selectedCallback)
 
     pointMeThereModal = $('#point-me-there-modal')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThereModal)
 
-    $('#find-field').click @_showFieldSelect
-    $('#find-team').click @_showTeamSelect
+    $('#find-field').on 'touchend', @_showFieldSelect
+    $('#find-team').on 'touchend', @_showTeamSelect
 
   _showFieldSelect: =>
     @_selectedCallback = @_fieldSelected
@@ -61,7 +63,8 @@ class TournamentApp.App
       @$selectNode.append("<option value='#{field.name}'>#{field.name}</option>")
 
     @$selectNode.selectpicker('refresh')
-    @$searchContainer.removeClass('hidden')
+    @$searchBar.removeClass('hidden')
+    @$findDrawer.removeClass('active')
 
   _showTeamSelect: =>
     @_selectedCallback = @_teamSelected
@@ -71,19 +74,20 @@ class TournamentApp.App
       @$selectNode.append("<option value='#{team}'>#{team}</option>")
 
     @$selectNode.selectpicker('refresh')
-    @$searchContainer.removeClass('hidden')
+    @$searchBar.removeClass('hidden')
+    @$findDrawer.removeClass('active')
 
   selectedCallback: (event) =>
     selected = $(event.target).val()
     @_selectedCallback(selected)
 
   _fieldSelected: (selected) =>
-    @$searchContainer.addClass('hidden')
+    @$searchBar.addClass('hidden')
     field = _.find(@fields, (field) -> field.name is selected)
 
     @pointMeThere.setDestination(field.lat, field.long, field.name)
     @pointMeThere.start()
 
   _teamSelected: (selected) =>
-    @$searchContainer.addClass('hidden')
+    @$searchBar.addClass('hidden')
     #ToDo lookup schedule

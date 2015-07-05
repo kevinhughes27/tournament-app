@@ -12,7 +12,6 @@ gem 'underscore-rails'
 gem 'twine-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
 gem 'twitter-bootstrap-rails'
-gem 'whenever', :require => false
 
 group :production do
   gem 'pg'

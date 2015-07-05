@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= @tournament.name %></title>
-  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <%= stylesheet_link_tag    'app', media: 'all' %>
-  <%= javascript_include_tag 'app' %>
-  <%= csrf_meta_tags %>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title><%= @tournament.name %></title>
 
-<body>
-  <%= yield %>
-</body>
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <%= stylesheet_link_tag    'app', media: 'all' %>
+    <%= javascript_include_tag 'app' %>
+  </head>
+
+  <body>
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+      <h1 class="title"><%= @tournament.name %></h1>
+    </header>
+
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

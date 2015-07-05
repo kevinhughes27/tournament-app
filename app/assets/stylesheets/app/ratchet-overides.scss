@@ -1,0 +1,15 @@
+// overrides for rails asset pipeline
+@font-face {
+  font-family: Ratchicons;
+  font-weight: normal;
+  font-style: normal;
+  src: asset-url('ratchicons.eot');
+  src: asset-url('ratchicons.eot?#iefix') format('embedded-opentype'),
+       asset-url('ratchicons.woff') format('woff'),
+       asset-url('ratchicons.ttf') format('truetype'),
+       asset-url('ratchicons.svg#svgFontName') format('svg');
+}
+
+.content > .table-view:first-child {
+  margin-top: 0px;
+}
