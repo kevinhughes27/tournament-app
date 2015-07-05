@@ -100,6 +100,34 @@ class TournamentApp.ScheduleTable
   browserSupportFileUpload: ->
     window.File && window.FileReader && window.FileList && window.Blob
 
+  exportCsv: ->
+    trs = @$fieldTables.find('tbody > tr')
+    colsPerFields = $(trs[0]).find('td').not('hide').length - 1
+
+    header = ( "#{field.innerHTML}#{Array(colsPerFields).join(', ')}," for field in @$tableNode.find('th#field')).join('')
+
+    headerRow = []
+    for table in @$fieldTables
+      row = $(table).find("tr:eq(0)")
+      headerRow.push ( th.innerHTML for th in row.find('th').not('.hide'))...
+    header2 = "#{headerRow}\n"
+
+    body = ""
+    numRows = $(@$fieldTables[0]).find('tbody > tr').length
+    for rowIdx in [1..numRows] # skip header row
+      bodyRow = []
+      for table in @$fieldTables
+        row = $(table).find("tr:eq(#{rowIdx})")
+        bodyRow.push ( td.innerHTML for td in row.find('td').not('.hide'))...
+      body += "#{bodyRow}\n"
+
+    csv = "data:text/csv;charset=utf-8,#{header}\n#{header2}#{body}"
+    encodedUri = encodeURI(csv)
+    link = document.createElement("a")
+    link.setAttribute("href", encodedUri)
+    link.setAttribute("download", "schedule.csv")
+    link.click()
+
   save: (form) ->
     Turbolinks.ProgressBar.start()
     @teamNamesToIds()

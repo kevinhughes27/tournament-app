@@ -31,7 +31,7 @@
       <thead>
         <tr>
           <% @fields.each do |field| %>
-            <th><%= field.name %></th>
+            <th id="field"><%= field.name %></th>
           <% end %>
         </tr>
       </thead>
@@ -53,6 +53,7 @@
 
     <div class="row">
       <input type="file" accept=".csv" bind-event-change="scheduleTable.uploadCsv(event)" />
+      <button type="button" class="btn" bind-event-click="scheduleTable.exportCsv()">Export CSV</button>
 
       <%= submit_tag 'Save Schedule', class: "btn btn-primary pull-right" %>
       <button type="button" class="btn btn-primary pull-right" bind-event-click="scheduleTable.addRow()">Add Game</button>
