@@ -18,7 +18,13 @@
     <% end %>
   <% end %>
 
-  <%= render 'teams', teams: @teams %>
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'teams', teams: @teams %>
+    </div>
+  </div>
+
+  <hr>
 
   <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "scheduleTable.save(this)" do %>
     <table class="schedule-table">
@@ -46,6 +52,8 @@
     </div>
 
     <div class="row">
+      <input type="file" accept=".csv" bind-event-change="scheduleTable.uploadCsv(event)" />
+
       <%= submit_tag 'Save Schedule', class: "btn btn-primary pull-right" %>
       <button type="button" class="btn btn-primary pull-right" bind-event-click="scheduleTable.addRow()">Add Game</button>
     </div>

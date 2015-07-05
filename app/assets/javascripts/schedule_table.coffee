@@ -12,10 +12,12 @@ class TournamentApp.ScheduleTable
 
     @teamIdsToNames()
 
-    $('td#team').on 'change', (event) =>
-      @teamIdToName(event.target)
-
-    $('td#time').on('change', @timeCellChanged)
+    @$tableNode.on 'change', (event) =>
+      @currentCell = event.target
+      switch @currentCell.getAttribute('id')
+        when 'team' then @teamIdToName(@currentCell)
+        when 'time' then @timeCellChanged()
+        else null
 
   menuLoad: (e, context) =>
     @currentCell = e.target
@@ -48,8 +50,7 @@ class TournamentApp.ScheduleTable
       row = $(table).find("tr:eq(#{rowIdx})")
       row.remove()
 
-  timeCellChanged: (event) =>
-    @currentCell = event.target
+  timeCellChanged: ->
     newTime = @currentCell.innerHTML
     rowIdx = rowIdx = @_currentRowIdx()
     for table in @$fieldTables
