@@ -87,9 +87,15 @@ class TournamentApp.ScheduleTable
       reader.onload = (event) =>
         csvData = event.target.result
         data = $.csv.toArrays(csvData)
-        old_trs = @$tableNode.find('tbody > tr')
-        @addRow(rowData) for rowData in data[1..-1] # skip header
+
+        old_trs = @$fieldTables.find('tbody > tr')
+        chunkSize = $(old_trs[0]).find('td').not('hide').length - 1
+
+        for fullRowData in data[1..-1] # skip header
+          @addRow(chunk) for chunk in fullRowData.chunk(chunkSize)
+
         old_trs.remove()
+        @teamIdsToNames()
 
   browserSupportFileUpload: ->
     window.File && window.FileReader && window.FileList && window.Blob
@@ -115,3 +121,9 @@ class TournamentApp.ScheduleTable
       success: (response) ->
          Turbolinks.replace(response)
          Turbolinks.ProgressBar.done()
+
+Array::chunk = (chunkSize) ->
+  array = this
+  [].concat.apply [], array.map((elem, i) ->
+    (if i % chunkSize then [] else [array.slice(i, i + chunkSize)])
+  )
