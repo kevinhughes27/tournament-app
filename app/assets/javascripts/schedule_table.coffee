@@ -77,6 +77,23 @@ class TournamentApp.ScheduleTable
     team = _.find(@teams, (team) -> team.name == cell.innerHTML)
     cell.innerHTML = team.id if team
 
+  uploadCsv: (evt) ->
+    if !@browserSupportFileUpload()
+      alert('File upload not supported by this browser')
+    else
+      file = evt.target.files[0]
+      reader = new FileReader()
+      reader.readAsText(file)
+      reader.onload = (event) =>
+        csvData = event.target.result
+        data = $.csv.toArrays(csvData)
+        old_trs = @$tableNode.find('tbody > tr')
+        @addRow(rowData) for rowData in data[1..-1] # skip header
+        old_trs.remove()
+
+  browserSupportFileUpload: ->
+    window.File && window.FileReader && window.FileList && window.Blob
+
   save: (form) ->
     Turbolinks.ProgressBar.start()
     @teamNamesToIds()
