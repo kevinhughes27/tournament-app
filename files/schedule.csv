@@ -1,5 +1,14 @@
-time ,upi1,,time ,upi2,,time ,upi3,
-10:00:00,11,12,10:00:00,13,14,10:00:00,15,16
-11:45:00,11,15,11:45:00,16,14,11:45:00,15,13
-13:30:00,11,13,13:30:00,15,14,13:30:00,12,16
-15:15:00,11,16,15:15:00,12,13,15:15:00,14,15
+upi2, , ,upi1, , ,upi3, , ,
+Time,Home,Away,Time,Home,Away,Time,Home,Away
+2015-07-05 10:00:00 UTC,mmasse's Masters!,I don't know,2015-07-05 10:00:00 UTC,mmasse's Masters!,I don't know,2015-07-05 10:00:00 UTC,mmasse's Masters!,I don't know
+2015-07-05 10:00:00 UTC,Panthers,Storm,2015-07-05 10:00:00 UTC,Panthers,Storm,2015-07-05 10:00:00 UTC,Panthers,Storm
+2015-07-05 10:00:00 UTC,Swift,Spartans,2015-07-05 10:00:00 UTC,Swift,Spartans,2015-07-05 10:00:00 UTC,Swift,Spartans
+2015-07-05 11:45:00 UTC,mmasse's Masters!,Swift,2015-07-05 11:45:00 UTC,mmasse's Masters!,Swift,2015-07-05 11:45:00 UTC,mmasse's Masters!,Swift
+2015-07-05 11:45:00 UTC,Spartans,Storm,2015-07-05 11:45:00 UTC,Spartans,Storm,2015-07-05 11:45:00 UTC,Spartans,Storm
+2015-07-05 11:45:00 UTC,Swift,Panthers,2015-07-05 11:45:00 UTC,Swift,Panthers,2015-07-05 11:45:00 UTC,Swift,Panthers
+2015-07-05 13:30:00 UTC,mmasse's Masters!,Panthers,2015-07-05 13:30:00 UTC,mmasse's Masters!,Panthers,2015-07-05 13:30:00 UTC,mmasse's Masters!,Panthers
+2015-07-05 13:30:00 UTC,Swift,Storm,2015-07-05 13:30:00 UTC,Swift,Storm,2015-07-05 13:30:00 UTC,Swift,Storm
+2015-07-05 13:30:00 UTC,I don't know,Spartans,2015-07-05 13:30:00 UTC,I don't know,Spartans,2015-07-05 13:30:00 UTC,I don't know,Spartans
+2015-07-05 15:15:00 UTC,mmasse's Masters!,Spartans,2015-07-05 15:15:00 UTC,mmasse's Masters!,Spartans,2015-07-05 15:15:00 UTC,mmasse's Masters!,Spartans
+2015-07-05 15:15:00 UTC,I don't know,Panthers,2015-07-05 15:15:00 UTC,I don't know,Panthers,2015-07-05 15:15:00 UTC,I don't know,Panthers
+2015-07-05 15:15:00 UTC,Storm,Swift,2015-07-05 15:15:00 UTC,Storm,Swift,2015-07-05 15:15:00 UTC,Storm,Swift

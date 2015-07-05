@@ -95,6 +95,7 @@ class TournamentApp.ScheduleTable
           @addRow(chunk) for chunk in fullRowData.chunk(chunkSize)
 
         old_trs.remove()
+        @teamNamesToIds()
         @teamIdsToNames()
 
   browserSupportFileUpload: ->
