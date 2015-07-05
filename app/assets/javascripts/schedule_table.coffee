@@ -1,6 +1,6 @@
 class TournamentApp.ScheduleTable
 
-  constructor: (@$tableNode) ->
+  constructor: (@$tableNode, @teams) ->
     @$fieldTables = @$tableNode.find('.editable-table')
     @$fieldTables.editableTableWidget()
     @newIdx = 1
@@ -9,6 +9,11 @@ class TournamentApp.ScheduleTable
       target: '#table-menu'
       before: @menuLoad
       onItem: @menuSelect
+
+    @teamIdsToNames()
+
+    $('td#team').on 'change', (event) =>
+      @teamIdToName(event.target)
 
     $('td#time').on('change', @timeCellChanged)
 
@@ -55,8 +60,25 @@ class TournamentApp.ScheduleTable
   _currentRowIdx: ->
     $(@currentCell).parent('tr').index() + 1 # off by one for dom ops
 
+  teamIdsToNames: ->
+    for table in @$fieldTables
+      @teamIdToName(cell) for cell in $(table).find('td#team')
+
+  teamIdToName: (cell) ->
+    team = _.find(@teams, (team) -> "#{team.id}" == cell.innerHTML)
+    cell.innerHTML = team.name if team
+
+  teamNamesToIds: ->
+    for table in @$fieldTables
+      @teamNameToId(cell) for cell in $(table).find('td#team')
+
+  teamNameToId: (cell) ->
+    team = _.find(@teams, (team) -> team.name == cell.innerHTML)
+    cell.innerHTML = team.id if team
+
   save: (form) ->
     Turbolinks.ProgressBar.start()
+    @teamNamesToIds()
 
     games = []
     for table in @$fieldTables

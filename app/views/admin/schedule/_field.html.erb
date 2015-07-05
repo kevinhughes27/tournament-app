@@ -13,8 +13,8 @@
       <tr class="<%= 'danger' if game.errors.present? %>">
         <td class="hide"><%= game.id %></td>
         <td id="time"><%= game.start_time %></td>
-        <td><%= game.home_id %></td>
-        <td><%= game.away_id %></td>
+        <td id="team"><%= game.home_id %></td>
+        <td id="team"><%= game.away_id %></td>
       </tr>
     <% end %>
   </tbody>
