@@ -2,19 +2,20 @@
   <h1 class="title"><%= @tournament.name %></h1>
 </header>
 
-<div class="content">
-  <div id="search-bar" class="bar bar-standard bar-header-secondary hidden">
-    <select placeholder="Search ..."></select>
-  </div>
-
-  <div id="map-canvas" style="position: absolute; width:100%; height: 100%;"></div>
-
-  <div class="bar bar-standard bar-footer">
-    <a href="#find-drawer" class="btn btn-find pull-right">
-      Find <i class="fa fa-caret-up"></i>
-    </a>
-  </div>
+<div id="search-bar" class="bar bar-standard bar-header-secondary hidden">
+  <select placeholder="Search ..."></select>
 </div>
+
+<div class="bar bar-standard bar-footer">
+  <a href="#find-drawer" class="btn btn-find pull-right">
+    Find <i class="fa fa-caret-up"></i>
+  </a>
+</div>
+
+<div class="content">
+</div>
+
+<div id="map-canvas" style="position: absolute; width:100%; height: 100%;"></div>
 
 <div class="modal" id="pointMeThereModal" tabindex="-1">
   <header class="bar bar-nav">
