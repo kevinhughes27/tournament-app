@@ -9,7 +9,7 @@ class TournamentApp.PointMeThere
     @dstLat = lat
     @dstLng = lng
     @dstName = name
-    @$modal.find('.modal-title').text(@dstName)
+    @$modal.find('.title').text(@dstName)
 
   start: ->
     window.addEventListener('deviceorientation', @_getHeading)
@@ -18,7 +18,7 @@ class TournamentApp.PointMeThere
     @show()
 
   show: ->
-    @$modal.modal('show')
+    @$modal.addClass('active')
 
   _locationUpdate: (position) =>
     @lat = position.coords.latitude
@@ -94,14 +94,12 @@ class TournamentApp.PointMeThere
     @$arrow.css('transform', "rotate(#{angle}deg)")
 
   _renderInfo: (lat, long, bearing, heading, angle, distance)->
-    @$modal.find('.modal-footer').empty()
-    @$modal.find('.modal-footer').append("<p>lat: #{@_round(lat)} long: #{@_round(long)}<p>")
-    @$modal.find('.modal-footer').append("<p>heading: #{@_round(heading)} bearing: #{@_round(bearing)}<p>")
-    @$modal.find('.modal-footer').append("<p>angle: #{@_round(angle)}<p>")
-    @$modal.find('.modal-footer').append("<p>distance: #{@_round(distance)} meters<p>")
+    node = @$modal.find('.bar-footer')
+    node.empty()
+    node.append("<p>distance: #{@_round(distance)} meters<p>")
 
   _round: (val) ->
-    val ?= 0
+    val ||= 0
     val.toFixed(3)
 
 window.toRad = (deg) ->

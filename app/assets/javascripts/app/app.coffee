@@ -42,39 +42,39 @@ class TournamentApp.App
 
   initApp: ->
     @$findDrawer = $('#find-drawer')
-
     @$searchBar = $('#search-bar')
-
     @$selectNode = @$searchBar.find('select')
-    @$selectNode.selectpicker()
     @$selectNode.on('change', @selectedCallback)
 
-    pointMeThereModal = $('#point-me-there-modal')
+    @$selectNode.selectize(
+      valueField: 'name',
+      labelField: 'name',
+      searchField: 'name',
+    )
+    @selectize = @$selectNode[0].selectize
+
+    pointMeThereModal = $('#pointMeThereModal')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThereModal)
 
     $('#find-field').on 'touchend', @_showFieldSelect
     $('#find-team').on 'touchend', @_showTeamSelect
 
   _showFieldSelect: =>
+    @selectize.clearOptions()
+    @selectize.addOption(@fields)
+    @selectize.refreshOptions(false)
     @_selectedCallback = @_fieldSelected
-    @$selectNode.empty()
-
-    for field in @fields
-      @$selectNode.append("<option value='#{field.name}'>#{field.name}</option>")
-
-    @$selectNode.selectpicker('refresh')
     @$searchBar.removeClass('hidden')
+    @selectize.focus()
     @$findDrawer.removeClass('active')
 
   _showTeamSelect: =>
+    @selectize.clearOptions()
+    @selectize.addOption([{name: 'Swift'}, {name: 'Shrike'}, {name: 'Iron Crow'}])
+    @selectize.refreshOptions(false)
     @_selectedCallback = @_teamSelected
-    @$selectNode.empty()
-
-    for team in ['Swift', 'Shrike', 'Iron Crow']
-      @$selectNode.append("<option value='#{team}'>#{team}</option>")
-
-    @$selectNode.selectpicker('refresh')
     @$searchBar.removeClass('hidden')
+    @selectize.focus()
     @$findDrawer.removeClass('active')
 
   selectedCallback: (event) =>
