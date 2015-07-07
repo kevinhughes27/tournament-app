@@ -88,4 +88,14 @@ class TournamentApp.App
     team = _.find(@teams, (team) -> team.name is selected)
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
     games = _.sortBy(games, (game) -> game.start_time)
-    debugger
+    cutOffIdx = _.findIndex(games, (game) -> Date.parse(game.start_time) > Date.now())
+    # cut off is all games with start time ahead of time now.
+    # I could rewind this by one which is *likey* the current game.
+    # Games should have a duration (tournaments have hard cap so why not give them that?)
+
+    currentGame = games[cutOffIdx - 1]
+    field = _.find(@fields, (field) -> field.id == currentGame.field_id)
+
+    if field
+      @pointMeThere.setDestination(field.lat, field.long, field.name)
+      @pointMeThere.start()
