@@ -85,4 +85,7 @@ class TournamentApp.App
 
   _teamSelected: (selected) =>
     @$searchBar.addClass('hidden')
-    #ToDo lookup schedule
+    team = _.find(@teams, (team) -> team.name is selected)
+    games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
+    games = _.sortBy(games, (game) -> game.start_time)
+    debugger
