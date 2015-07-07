@@ -2,10 +2,5 @@
 //= require underscore
 //= require selectize
 //= require ratchet/modals
-//= require ratchet/popovers
-//= require ratchet/push
-//= require ratchet/segmented-controllers
-//= require ratchet/sliders
-//= require ratchet/toggles
 //= require namespace
 //= require_tree ./app

@@ -85,8 +85,9 @@ class TournamentApp.App
     @$searchBar.addClass('hidden')
     field = _.find(@fields, (field) -> field.name is selected)
 
-    @pointMeThere.setDestination(field.lat, field.long, field.name)
-    @pointMeThere.start()
+    if field
+      @pointMeThere.setDestination(field.lat, field.long, field.name)
+      @pointMeThere.start()
 
   _teamSelected: (selected) =>
     @$searchBar.addClass('hidden')
