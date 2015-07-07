@@ -57,7 +57,7 @@
 
 <script>
   $( document ).ready(function() {
-    appMap = new TournamentApp.App(
+    app = new TournamentApp.App(
       <%= @map.location %>,
       <%= @map.zoom %>,
       <%= raw @fields.to_json %>,
