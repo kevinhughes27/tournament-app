@@ -45,17 +45,11 @@ class TournamentApp.App
     @$searchBar = $('#search-bar')
     @$selectNode = @$searchBar.find('select')
     @$selectNode.on('change', @selectedCallback)
-
-    @$selectNode.selectize(
-      valueField: 'name',
-      labelField: 'name',
-      searchField: 'name',
-    )
+    @$selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
     @selectize = @$selectNode[0].selectize
-
+    @selectize.on 'blur', (event) => @$searchBar.addClass('hidden')
     pointMeThereModal = $('#pointMeThereModal')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThereModal)
-
     $('#find-field').on 'touchend', @_showFieldSelect
     $('#find-team').on 'touchend', @_showTeamSelect
 
