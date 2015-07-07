@@ -1,14 +1,6 @@
-upi2, , ,upi1, , ,upi3, , ,
+upi2, , ,upi1, , ,upi3, , 
 Time,Home,Away,Time,Home,Away,Time,Home,Away
-2015-07-05 10:00:00 UTC,mmasse's Masters!,I don't know,2015-07-05 10:00:00 UTC,mmasse's Masters!,I don't know,2015-07-05 10:00:00 UTC,mmasse's Masters!,I don't know
-2015-07-05 10:00:00 UTC,Panthers,Storm,2015-07-05 10:00:00 UTC,Panthers,Storm,2015-07-05 10:00:00 UTC,Panthers,Storm
-2015-07-05 10:00:00 UTC,Swift,Spartans,2015-07-05 10:00:00 UTC,Swift,Spartans,2015-07-05 10:00:00 UTC,Swift,Spartans
-2015-07-05 11:45:00 UTC,mmasse's Masters!,Swift,2015-07-05 11:45:00 UTC,mmasse's Masters!,Swift,2015-07-05 11:45:00 UTC,mmasse's Masters!,Swift
-2015-07-05 11:45:00 UTC,Spartans,Storm,2015-07-05 11:45:00 UTC,Spartans,Storm,2015-07-05 11:45:00 UTC,Spartans,Storm
-2015-07-05 11:45:00 UTC,Swift,Panthers,2015-07-05 11:45:00 UTC,Swift,Panthers,2015-07-05 11:45:00 UTC,Swift,Panthers
-2015-07-05 13:30:00 UTC,mmasse's Masters!,Panthers,2015-07-05 13:30:00 UTC,mmasse's Masters!,Panthers,2015-07-05 13:30:00 UTC,mmasse's Masters!,Panthers
-2015-07-05 13:30:00 UTC,Swift,Storm,2015-07-05 13:30:00 UTC,Swift,Storm,2015-07-05 13:30:00 UTC,Swift,Storm
-2015-07-05 13:30:00 UTC,I don't know,Spartans,2015-07-05 13:30:00 UTC,I don't know,Spartans,2015-07-05 13:30:00 UTC,I don't know,Spartans
-2015-07-05 15:15:00 UTC,mmasse's Masters!,Spartans,2015-07-05 15:15:00 UTC,mmasse's Masters!,Spartans,2015-07-05 15:15:00 UTC,mmasse's Masters!,Spartans
-2015-07-05 15:15:00 UTC,I don't know,Panthers,2015-07-05 15:15:00 UTC,I don't know,Panthers,2015-07-05 15:15:00 UTC,I don't know,Panthers
-2015-07-05 15:15:00 UTC,Storm,Swift,2015-07-05 15:15:00 UTC,Storm,Swift,2015-07-05 15:15:00 UTC,Storm,Swift
+2015-07-05 10:00:00 UTC,mmasse's Masters!,I don't know,2015-07-05 10:00:00 UTC,Panthers,Storm,2015-07-05 10:00:00 UTC,Swift,Spartans
+2015-07-05 11:45:00 UTC,mmasse's Masters!,Swift,2015-07-05 11:45:00 UTC,Spartans,Storm,2015-07-05 11:45:00 UTC,Swift,Panthers
+2015-07-05 13:30:00 UTC,mmasse's Masters!,Panthers,2015-07-05 13:30:00 UTC,Swift,Storm,2015-07-05 13:30:00 UTC,I don't know,Spartans
+2015-07-05 15:15:00 UTC,mmasse's Masters!,Spartans,2015-07-05 15:15:00 UTC,I don't know,Panthers,2015-07-05 15:15:00 UTC,Storm,Swift

@@ -24,14 +24,19 @@ class TournamentApp.ScheduleTable
 
   menuSelect: (context, e) =>
     switch $(e.target).data('action')
-      when 'add' then @addRow()
-      when 'delete' then @deleteRow()
+      when 'add' then @addRows()
+      when 'delete' then @deleteRows()
       else nul
 
-  addRow: (rowData = null) ->
-    tr = @_newRow(rowData)
+  addRows: ->
+    tr = @_newRow()
     for table in @$fieldTables
       $(table).append(tr.clone()[0])
+
+  addRow: (tableIdx, rowData) ->
+    tr = @_newRow(rowData)
+    table = @$fieldTables[tableIdx]
+    $(table).append(tr[0])
 
   _newRow: (rowData) ->
     tr = @$fieldTables.find('tbody tr')[0]
@@ -44,7 +49,7 @@ class TournamentApp.ScheduleTable
 
     return tr
 
-  deleteRow: ->
+  deleteRows: ->
     rowIdx = @_currentRowIdx()
     for table in @$fieldTables
       row = $(table).find("tr:eq(#{rowIdx})")
@@ -91,8 +96,8 @@ class TournamentApp.ScheduleTable
         old_trs = @$fieldTables.find('tbody > tr')
         chunkSize = $(old_trs[0]).find('td').not('hide').length - 1
 
-        for fullRowData in data[1..-1] # skip header
-          @addRow(chunk) for chunk in fullRowData.chunk(chunkSize)
+        for fullRowData in data[2..-1] # skip headers
+          @addRow(idx, chunk) for chunk, idx in fullRowData.chunk(chunkSize)
 
         old_trs.remove()
         @teamNamesToIds()

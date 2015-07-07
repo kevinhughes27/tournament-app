@@ -1,6 +1,6 @@
 class TournamentApp.App
 
-  constructor: (@tournmanentLocation, @zoom, @fields) ->
+  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games) ->
     window.initializeMap = @initializeMap
     script = document.createElement('script')
     script.type = 'text/javascript'
@@ -48,8 +48,8 @@ class TournamentApp.App
     @$selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
     @selectize = @$selectNode[0].selectize
     @selectize.on 'blur', (event) => @$searchBar.addClass('hidden')
-    pointMeThereModal = $('#pointMeThereModal')
-    @pointMeThere = new TournamentApp.PointMeThere(pointMeThereModal)
+    pointMeThere = $('#point-me-there')
+    @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
     $('#find-field').on 'touchend', @_showFieldSelect
     $('#find-team').on 'touchend', @_showTeamSelect
 
@@ -64,7 +64,7 @@ class TournamentApp.App
 
   _showTeamSelect: =>
     @selectize.clearOptions()
-    @selectize.addOption([{name: 'Swift'}, {name: 'Shrike'}, {name: 'Iron Crow'}])
+    @selectize.addOption(@teams)
     @selectize.refreshOptions(false)
     @_selectedCallback = @_teamSelected
     @$searchBar.removeClass('hidden')
@@ -85,4 +85,17 @@ class TournamentApp.App
 
   _teamSelected: (selected) =>
     @$searchBar.addClass('hidden')
-    #ToDo lookup schedule
+    team = _.find(@teams, (team) -> team.name is selected)
+    games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
+    games = _.sortBy(games, (game) -> game.start_time)
+    cutOffIdx = _.findIndex(games, (game) -> Date.parse(game.start_time) > Date.now())
+    # cut off is all games with start time ahead of time now.
+    # I could rewind this by one which is *likey* the current game.
+    # Games should have a duration (tournaments have hard cap so why not give them that?)
+
+    currentGame = games[cutOffIdx - 1]
+    field = _.find(@fields, (field) -> field.id == currentGame.field_id)
+
+    if field
+      @pointMeThere.setDestination(field.lat, field.long, field.name)
+      @pointMeThere.start()
