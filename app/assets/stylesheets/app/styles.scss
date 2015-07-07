@@ -1,3 +1,9 @@
+@mixin transform($transform...) {
+  -webkit-transform: $transform;
+      -ms-transform: $transform;
+          transform: $transform;
+}
+
 .hidden {
   display: none;
   visibility: hidden;
@@ -10,6 +16,14 @@
 .btn-find {
   background-color: rgba(0, 122, 255, 0.5);
   color: white;
+  font-size: 17px;
+  border-width: 2px;
+  .icon-caret {
+    position: relative;
+    top: 0px !important;
+    @include transform(rotate(180deg));
+    font-size: 1em;
+  }
 }
 
 .arrow {
