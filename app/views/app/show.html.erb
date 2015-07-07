@@ -60,7 +60,9 @@
     appMap = new TournamentApp.App(
       <%= @map.location %>,
       <%= @map.zoom %>,
-      <%= raw @fields.to_json %>
+      <%= raw @fields.to_json %>,
+      <%= raw @teams.to_json %>,
+      <%= raw @games.to_json %>
     );
   });
 </script>

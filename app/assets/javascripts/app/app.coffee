@@ -1,6 +1,6 @@
 class TournamentApp.App
 
-  constructor: (@tournmanentLocation, @zoom, @fields) ->
+  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games) ->
     window.initializeMap = @initializeMap
     script = document.createElement('script')
     script.type = 'text/javascript'
@@ -64,7 +64,7 @@ class TournamentApp.App
 
   _showTeamSelect: =>
     @selectize.clearOptions()
-    @selectize.addOption([{name: 'Swift'}, {name: 'Shrike'}, {name: 'Iron Crow'}])
+    @selectize.addOption(@teams)
     @selectize.refreshOptions(false)
     @_selectedCallback = @_teamSelected
     @$searchBar.removeClass('hidden')

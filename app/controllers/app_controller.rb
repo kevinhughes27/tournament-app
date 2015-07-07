@@ -6,6 +6,7 @@ class AppController < ApplicationController
 
     @map = @tournament.map
     @fields = @tournament.fields
+    @teams = @tournament.teams
     @games = @tournament.games
 
     render :show
