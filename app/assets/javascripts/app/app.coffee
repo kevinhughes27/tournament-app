@@ -41,49 +41,48 @@ class TournamentApp.App
     polygon.setMap(@map)
 
   initApp: ->
-    @$searchContainer = $('.search-container')
-
-    @$selectNode = @$searchContainer.find('select')
-    @$selectNode.selectpicker()
+    @$findDrawer = $('#find-drawer')
+    @$searchBar = $('#search-bar')
+    @$selectNode = @$searchBar.find('select')
     @$selectNode.on('change', @selectedCallback)
-
-    pointMeThereModal = $('#point-me-there-modal')
+    @$selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
+    @selectize = @$selectNode[0].selectize
+    @selectize.on 'blur', (event) => @$searchBar.addClass('hidden')
+    pointMeThereModal = $('#pointMeThereModal')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThereModal)
-
-    $('#find-field').click @_showFieldSelect
-    $('#find-team').click @_showTeamSelect
+    $('#find-field').on 'touchend', @_showFieldSelect
+    $('#find-team').on 'touchend', @_showTeamSelect
 
   _showFieldSelect: =>
+    @selectize.clearOptions()
+    @selectize.addOption(@fields)
+    @selectize.refreshOptions(false)
     @_selectedCallback = @_fieldSelected
-    @$selectNode.empty()
-
-    for field in @fields
-      @$selectNode.append("<option value='#{field.name}'>#{field.name}</option>")
-
-    @$selectNode.selectpicker('refresh')
-    @$searchContainer.removeClass('hidden')
+    @$searchBar.removeClass('hidden')
+    @selectize.focus()
+    @$findDrawer.removeClass('active')
 
   _showTeamSelect: =>
+    @selectize.clearOptions()
+    @selectize.addOption([{name: 'Swift'}, {name: 'Shrike'}, {name: 'Iron Crow'}])
+    @selectize.refreshOptions(false)
     @_selectedCallback = @_teamSelected
-    @$selectNode.empty()
-
-    for team in ['Swift', 'Shrike', 'Iron Crow']
-      @$selectNode.append("<option value='#{team}'>#{team}</option>")
-
-    @$selectNode.selectpicker('refresh')
-    @$searchContainer.removeClass('hidden')
+    @$searchBar.removeClass('hidden')
+    @selectize.focus()
+    @$findDrawer.removeClass('active')
 
   selectedCallback: (event) =>
     selected = $(event.target).val()
     @_selectedCallback(selected)
 
   _fieldSelected: (selected) =>
-    @$searchContainer.addClass('hidden')
+    @$searchBar.addClass('hidden')
     field = _.find(@fields, (field) -> field.name is selected)
 
-    @pointMeThere.setDestination(field.lat, field.long, field.name)
-    @pointMeThere.start()
+    if field
+      @pointMeThere.setDestination(field.lat, field.long, field.name)
+      @pointMeThere.start()
 
   _teamSelected: (selected) =>
-    @$searchContainer.addClass('hidden')
+    @$searchBar.addClass('hidden')
     #ToDo lookup schedule

@@ -20,3 +20,6 @@ TournamentApp.Flash = Flash =
     $node.text('')
     $node.css('display', 'none')
 
+$ ->
+  $(".flash").delay(500).fadeIn "normal", ->
+    $(this).delay(1500).fadeOut()

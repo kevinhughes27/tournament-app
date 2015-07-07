@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= @tournament.name %></title>
-  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title><%= @tournament.name %></title>
 
-<body>
-  <%= yield %>
-</body>
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <%= stylesheet_link_tag    'app', media: 'all' %>
+    <%= javascript_include_tag 'app' %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+
+  <% if Rails.env.development? %>
+    <%= javascript_include_tag 'fingerblast' %>
+    <script>
+      var fingerBlast = new FingerBlast('body');
+    </script>
+  <% end %>
+</html>

@@ -1,0 +1,6 @@
+/*
+ *= require ratchet/ratchet
+ *= require_tree ./app
+ *= require google_maps
+ *= require_self
+ */

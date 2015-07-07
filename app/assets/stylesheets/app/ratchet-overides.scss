@@ -1,0 +1,40 @@
+// overrides for rails asset pipeline
+@font-face {
+  font-family: Ratchicons;
+  font-weight: normal;
+  font-style: normal;
+  src: asset-url('ratchicons.eot');
+  src: asset-url('ratchicons.eot?#iefix') format('embedded-opentype'),
+       asset-url('ratchicons.woff') format('woff'),
+       asset-url('ratchicons.ttf') format('truetype'),
+       asset-url('ratchicons.svg#svgFontName') format('svg');
+}
+
+.bar-nav {
+  opacity: 0.7;
+}
+
+.bar-footer {
+  background-color: transparent;
+  border: none;
+}
+
+.bar-header-secondary {
+  background-color: transparent;
+  border: none;
+  margin-top: 10px;
+}
+
+.content > .table-view:first-child {
+  margin-top: 0px;
+}
+
+.modal {
+  &.active {
+    opacity: 0.7;
+  }
+}
+
+.btn {
+  font-size: 17px;
+}

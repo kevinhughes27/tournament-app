@@ -10,9 +10,9 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'underscore-rails'
 gem 'twine-rails'
+gem "selectize-rails"
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
 gem 'twitter-bootstrap-rails'
-gem 'whenever', :require => false
 
 group :production do
   gem 'pg'
