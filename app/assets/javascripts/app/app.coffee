@@ -48,8 +48,8 @@ class TournamentApp.App
     @$selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
     @selectize = @$selectNode[0].selectize
     @selectize.on 'blur', (event) => @$searchBar.addClass('hidden')
-    pointMeThereModal = $('#pointMeThereModal')
-    @pointMeThere = new TournamentApp.PointMeThere(pointMeThereModal)
+    pointMeThere = $('#point-me-there')
+    @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
     $('#find-field').on 'touchend', @_showFieldSelect
     $('#find-team').on 'touchend', @_showTeamSelect
 

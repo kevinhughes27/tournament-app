@@ -1,4 +1,4 @@
-<!-- main view -->
+<!-- main-view -->
 <header class="bar bar-nav">
   <h1 class="title"><%= @tournament.name %></h1>
 </header>
@@ -16,9 +16,11 @@
 <div class="content">
 </div>
 <div id="map-canvas" style="position: absolute; width: 100%; height: 100%;"></div>
+<!-- end main-view -->
 
-<!-- point me there modal -->
-<div class="modal" id="pointMeThereModal" tabindex="-1">
+
+<!-- point-me-there modal -->
+<div class="modal" id="point-me-there" tabindex="-1">
   <header class="bar bar-standard bar-header-secondary">
     <a class="icon icon-close pull-right" href="#pointMeThereModal"></a>
     <h1 class="title">Title</h1>
@@ -32,8 +34,10 @@
     <p>Footer</p>
   </div>
 </div>
+<!-- end point-me-there modal -->
 
-<!-- find drawer -->
+
+<!-- find-drawer -->
 <div id="find-drawer" class="drawer">
   <div class="content">
     <ul class="table-view">
@@ -54,6 +58,7 @@
     <a class="pull-right" href="#find-drawer">Back to map</a>
   </div>
 </div>
+<!-- end find-drawer -->
 
 <script>
   $( document ).ready(function() {
