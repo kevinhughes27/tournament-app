@@ -1,8 +1,5 @@
-@mixin transform($transform...) {
-  -webkit-transform: $transform;
-      -ms-transform: $transform;
-          transform: $transform;
-}
+@import 'ratchet/variables';
+@import 'ratchet/mixins';
 
 .hide {
   display: none;
@@ -15,6 +12,23 @@
 
 .center {
   text-align: center;
+}
+
+.nav-btn {
+  padding: 0 10px 0 10px;
+  margin: 0 (-$bar-side-spacing);
+  font-size: $font-size-default;
+  font-weight: $font-weight;
+  line-height: $bar-base-height;
+  color: white;
+
+  &:active {
+    color: white;
+  }
+
+  .icon {
+    font-size: 1em;
+  }
 }
 
 .btn-find {

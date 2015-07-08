@@ -1,9 +1,14 @@
 <!-- main-view -->
 <header class="bar bar-nav">
-  <h1 class="title"><%= @tournament.name %></h1>
+  <a class="nav-btn pull-left" href="#">
+    <span class="icon icon-bars"></span> Schedule
+  </a>
+  <a class="nav-btn pull-right" href="#">
+    Submit a score <span class="icon icon-star"></span>
+  </a>
 </header>
 
-<div id="search-bar" class="bar bar-standard bar-header-secondary" bind-show="!!app.searchOpen">
+<div id="search-bar" class="bar bar-standard bar-header-secondary transparent" bind-show="!!app.searchOpen">
   <select placeholder="Search ..." bind-event-change="app.selectedCallback(event)"></select>
 </div>
 
@@ -27,7 +32,7 @@
     <h1 class="title">Title</h1>
   </header>
 
-  <div class="content center">
+  <div class="content center transparent">
     <%= image_tag 'point-me-there.png', id: 'arrow', class: 'arrow' %>
   </div>
 

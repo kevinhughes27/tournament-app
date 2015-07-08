@@ -53,7 +53,9 @@ class TournamentApp.App
     $selectNode = $('#search-bar > select')
     $selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
     @selectize = $selectNode[0].selectize
-    @selectize.on 'blur', (event) => @searchOpen = false
+    @selectize.on 'blur', (event) =>
+      @searchOpen = false
+      Twine.refresh()
 
   showFieldSelect: =>
     @_selectizeUpdate(@fields)
