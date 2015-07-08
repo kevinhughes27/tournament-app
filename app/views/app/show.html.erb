@@ -3,26 +3,27 @@
   <h1 class="title"><%= @tournament.name %></h1>
 </header>
 
-<div id="search-bar" class="bar bar-standard bar-header-secondary hidden">
-  <select placeholder="Search ..."></select>
+<div id="search-bar" class="bar bar-standard bar-header-secondary" bind-show="!!app.searchOpen">
+  <select placeholder="Search ..." bind-event-change="app.selectedCallback(event)"></select>
 </div>
 
 <div class="bar bar-standard bar-footer">
-  <a href="#find-drawer" class="btn btn-find pull-right">
+  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true">
     Find <span class="icon icon-caret"></span>
   </a>
 </div>
 
 <div class="content">
 </div>
+
 <div id="map-canvas" style="position: absolute; width: 100%; height: 100%;"></div>
 <!-- end main-view -->
 
 
 <!-- point-me-there modal -->
-<div class="modal" id="point-me-there" tabindex="-1">
+<div class="modal" id="point-me-there" bind-class="{active: app.modalOpen}">
   <header class="bar bar-standard bar-header-secondary">
-    <a class="icon icon-close pull-right" href="#point-me-there"></a>
+    <a class="icon icon-close pull-right" href="#" bind-event-click="app.modalOpen = false"></a>
     <h1 class="title">Title</h1>
   </header>
 
@@ -38,16 +39,16 @@
 
 
 <!-- find-drawer -->
-<div id="find-drawer" class="drawer">
+<div class="drawer" bind-class="{active: app.drawerOpen}">
   <div class="content">
     <ul class="table-view">
       <li class="table-view-cell">
-        <a href="#" id="find-field" class="navigate-right">
+        <a href="#" class="navigate-right" bind-event-click="app.showFieldSelect()">
           Find a field
         </a>
       </li>
       <li href="#" class="table-view-cell">
-        <a id="find-team" class="navigate-right">
+        <a class="navigate-right" bind-event-click="app.showTeamSelect()">
           Find a team
         </a>
       </li>
@@ -55,7 +56,7 @@
   </div>
 
   <div class="bar bar-standard bar-footer">
-    <a class="pull-right" href="#find-drawer">Back to map</a>
+    <a class="pull-right" href="#" bind-event-click="app.drawerOpen = false">Back to map</a>
   </div>
 </div>
 <!-- end find-drawer -->
