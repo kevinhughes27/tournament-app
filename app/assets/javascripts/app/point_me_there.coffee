@@ -15,10 +15,6 @@ class TournamentApp.PointMeThere
     window.addEventListener('deviceorientation', @_getHeading)
     navigator.geolocation.watchPosition(@_locationUpdate, @_locationUpdateFail)
     @_calcArrow()
-    @show()
-
-  show: ->
-    @$modal.addClass('active')
 
   _locationUpdate: (position) =>
     @lat = position.coords.latitude

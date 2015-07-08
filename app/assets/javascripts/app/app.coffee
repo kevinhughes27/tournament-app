@@ -1,6 +1,10 @@
 class TournamentApp.App
 
   constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games) ->
+    @drawerOpen = false
+    @modalOpen = false
+    @searchOpen = false
+
     window.initializeMap = @initializeMap
     script = document.createElement('script')
     script.type = 'text/javascript'
@@ -41,50 +45,57 @@ class TournamentApp.App
     polygon.setMap(@map)
 
   initApp: ->
-    @$findDrawer = $('#find-drawer')
-    @$searchBar = $('#search-bar')
-    @$selectNode = @$searchBar.find('select')
-    @$selectNode.on('change', @selectedCallback)
-    @$selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
-    @selectize = @$selectNode[0].selectize
-    @selectize.on 'blur', (event) => @$searchBar.addClass('hidden')
+    @_initSelectize()
     pointMeThere = $('#point-me-there')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
-    $('#find-field').on 'touchend', @_showFieldSelect
-    $('#find-team').on 'touchend', @_showTeamSelect
 
-  _showFieldSelect: =>
-    @selectize.clearOptions()
-    @selectize.addOption(@fields)
-    @selectize.refreshOptions(false)
+  _initSelectize: ->
+    $selectNode = $('#search-bar > select')
+    $selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
+    @selectize = $selectNode[0].selectize
+    @selectize.on 'blur', (event) =>
+      @searchOpen = false
+      Twine.refresh()
+
+  showFieldSelect: =>
+    @_selectizeUpdate(@fields)
     @_selectedCallback = @_fieldSelected
-    @$searchBar.removeClass('hidden')
+    @searchOpen = true
+    @drawerOpen = false
+    Twine.refresh()
     @selectize.focus()
-    @$findDrawer.removeClass('active')
 
-  _showTeamSelect: =>
-    @selectize.clearOptions()
-    @selectize.addOption(@teams)
-    @selectize.refreshOptions(false)
+  showTeamSelect: =>
+    @_selectizeUpdate(@teams)
     @_selectedCallback = @_teamSelected
-    @$searchBar.removeClass('hidden')
+    @searchOpen = true
+    @drawerOpen = false
+    Twine.refresh()
     @selectize.focus()
-    @$findDrawer.removeClass('active')
+
+  _selectizeUpdate: (options) ->
+    @selectize.clearOptions()
+    @selectize.addOption(options)
+    @selectize.refreshOptions(false)
 
   selectedCallback: (event) =>
     selected = $(event.target).val()
+    @selectize.blur()
     @_selectedCallback(selected)
 
   _fieldSelected: (selected) =>
-    @$searchBar.addClass('hidden')
+    @searchOpen = false
     field = _.find(@fields, (field) -> field.name is selected)
 
     if field
       @pointMeThere.setDestination(field.lat, field.long, field.name)
       @pointMeThere.start()
+      @modalOpen = true
+
+    Twine.refresh()
 
   _teamSelected: (selected) =>
-    @$searchBar.addClass('hidden')
+    @searchOpen = false
     team = _.find(@teams, (team) -> team.name is selected)
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
     games = _.sortBy(games, (game) -> game.start_time)
@@ -99,3 +110,6 @@ class TournamentApp.App
     if field
       @pointMeThere.setDestination(field.lat, field.long, field.name)
       @pointMeThere.start()
+      @modalOpen = true
+
+    Twine.refresh()

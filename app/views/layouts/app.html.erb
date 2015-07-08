@@ -19,10 +19,10 @@
     <%= yield %>
   </body>
 
-  <% if Rails.env.development? %>
-    <%= javascript_include_tag 'fingerblast' %>
-    <script>
-      var fingerBlast = new FingerBlast('body');
-    </script>
-  <% end %>
+  <script type="text/javascript">
+    var context = {};
+    $(function() {
+      Twine.reset(context).bind().refresh()
+    });
+  </script>
 </html>

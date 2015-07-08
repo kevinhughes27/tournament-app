@@ -11,12 +11,9 @@
 }
 
 .bar-nav {
-  opacity: 0.7;
-}
-
-.bar-footer {
-  background-color: transparent;
+  background-color: rgba(0, 122, 255, 0.5);
   border: none;
+  color: white;
 }
 
 .bar-header-secondary {
@@ -25,16 +22,20 @@
   margin-top: 10px;
 }
 
+.bar-standard {
+  border: none;
+}
+
+.bar-footer {
+  background-color: transparent;
+  border: none;
+  bottom: 5px;
+}
+
+.bar-footer-secondary {
+  border: none;
+}
+
 .content > .table-view:first-child {
   margin-top: 0px;
-}
-
-.modal {
-  &.active {
-    opacity: 0.7;
-  }
-}
-
-.btn {
-  font-size: 17px;
 }

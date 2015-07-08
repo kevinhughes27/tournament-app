@@ -4,25 +4,22 @@
 
 .modal {
   position: fixed;
-  top: 0;
+  top: $bar-base-height;
   z-index: 11;
   width: 100%;
   min-height: 100%;
   overflow: hidden;
   background-color: #fff;
   opacity: 0;
-  -webkit-transition: -webkit-transform .25s, opacity 1ms .25s;
-     -moz-transition: -moz-transform .25s, opacity 1ms .25s;
-          transition: transform .25s, opacity 1ms .25s;
-  @include transform(translate3d(0, 100%, 0));
+  visibility: hidden;
+  @include transition(all 0.25s ease-in-out);
+  @include transform(scale(0.9));
 
   // Active modal
   &.active {
     height: 100%;
-    opacity: 1;
-    -webkit-transition: -webkit-transform .25s;
-       -moz-transition: -moz-transform .25s;
-            transition: transform .25s;
-    @include transform(translate3d(0, 0, 0));
+    opacity: 0.7;
+    visibility: visible;
+    @include transform(scale(1.0));
   }
 }
