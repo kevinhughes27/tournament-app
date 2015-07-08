@@ -13,7 +13,7 @@
 </div>
 
 <div class="bar bar-standard bar-footer">
-  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!app.drawerOpen">
+  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!(app.drawerOpen || app.modalOpen)">
     Find <span class="icon icon-caret"></span>
   </a>
 </div>
@@ -27,7 +27,7 @@
 
 <!-- point-me-there modal -->
 <div class="modal" id="point-me-there" bind-class="{active: app.modalOpen}">
-  <header class="bar bar-standard bar-header-secondary">
+  <header class="bar bar-standard">
     <a class="icon icon-close pull-right" href="#" bind-event-click="app.modalOpen = false"></a>
     <h1 class="title">Title</h1>
   </header>
@@ -36,7 +36,7 @@
     <%= image_tag 'point-me-there.png', id: 'arrow', class: 'arrow' %>
   </div>
 
-  <div class="bar bar-standard bar-footer">
+  <div class="bar bar-standard bar-footer-secondary">
     <p>Footer</p>
   </div>
 </div>

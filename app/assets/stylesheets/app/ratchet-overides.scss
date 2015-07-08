@@ -16,16 +16,24 @@
   color: white;
 }
 
+.bar-header-secondary {
+  background-color: transparent;
+  border: none;
+  margin-top: 10px;
+}
+
+.bar-standard {
+  border: none;
+}
+
 .bar-footer {
   background-color: transparent;
   border: none;
   bottom: 5px;
 }
 
-.bar-header-secondary {
-  background-color: transparent;
+.bar-footer-secondary {
   border: none;
-  margin-top: 10px;
 }
 
 .content > .table-view:first-child {
