@@ -8,7 +8,7 @@
 </div>
 
 <div class="bar bar-standard bar-footer">
-  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true">
+  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!app.drawerOpen">
     Find <span class="icon icon-caret"></span>
   </a>
 </div>
@@ -40,7 +40,7 @@
 
 <!-- find-drawer -->
 <div class="drawer" bind-class="{active: app.drawerOpen}">
-  <div class="content">
+  <div class="content transparent">
     <ul class="table-view">
       <li class="table-view-cell">
         <a href="#" class="navigate-right" bind-event-click="app.showFieldSelect()">
