@@ -1,9 +1,9 @@
 <!-- main-view -->
 <header class="bar bar-nav">
-  <a class="nav-btn pull-left" href="#">
+  <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = true">
     <span class="icon icon-bars"></span> Schedule
   </a>
-  <a class="nav-btn pull-right" href="#">
+  <a class="nav-btn pull-right" href="#" bind-event-click="app.submitScoreScreen = true">
     Submit a score <span class="icon icon-star"></span>
   </a>
 </header>
@@ -66,6 +66,34 @@
   </div>
 </div>
 <!-- end find-drawer -->
+
+
+<!-- schedule-screen -->
+<div class="left-screen" bind-class="{active: app.scheduleScreen}">
+  <header class="bar bar-standard">
+    <a class="icon icon-close pull-left" href="#" bind-event-click="app.scheduleScreen = false"></a>
+    <h1 class="title">Left Screen</h1>
+  </header>
+
+  <div class="content">
+    content
+  </div>
+</div>
+<!-- end schedule-screen -->
+
+
+<!-- submit-score-screen -->
+<div class="right-screen" bind-class="{active: app.submitScoreScreen}">
+  <header class="bar bar-standard">
+    <a class="icon icon-close pull-right" href="#" bind-event-click="app.submitScoreScreen = false"></a>
+    <h1 class="title">Right Screen</h1>
+  </header>
+
+  <div class="content">
+    content
+  </div>
+</div>
+<!-- end submit-score-screen -->
 
 <script>
   $( document ).ready(function() {

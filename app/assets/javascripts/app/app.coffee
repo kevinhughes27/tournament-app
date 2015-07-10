@@ -4,6 +4,8 @@ class TournamentApp.App
     @drawerOpen = false
     @modalOpen = false
     @searchOpen = false
+    @scheduleScreen = false
+    @submitScoreScreen = false
 
     window.initializeMap = @initializeMap
     script = document.createElement('script')
