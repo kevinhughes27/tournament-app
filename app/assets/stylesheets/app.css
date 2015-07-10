@@ -1,6 +1,9 @@
 /*
- *= require ratchet/ratchet
- *= require_tree ./app
+ *= require app/ratchet/ratchet
+ *= require app/ratchet-overides
+ *= require app/selectize
+ *= require app/selectize-overides
+ *= require app/styles
  *= require google_maps
  *= require_self
  */
