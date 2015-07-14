@@ -87,12 +87,12 @@
   <div class="content">
     <ul class="table-view">
       <% @games.group_by{|g| g.start_time }.each do |time, games| %>
-        <li class="table-view-divider">
+        <li class="table-view-divider"  bind-show="app.scheduleFilter('<%= games.map{|g| [g.home.name, g.away.name]}.flatten.join %>')">
           <%= time.strftime("%l:%M %P") %>
         </li>
         <% games.each do |game| %>
         <!-- passing game.home.name to js needs proper escaping. this breaks on single quotes atm -->
-          <li class="table-view-cell" bind-show="app.scheduleFilter('<%= game.home.name %>', '<%= game.away.name %>')">
+          <li class="table-view-cell" bind-show="app.scheduleFilter('<%= [game.home.name, game.away.name].join %>')">
             <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
             <a class="btn btn-invis btn-green" href="#">
               <%= game.field.name %>

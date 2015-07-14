@@ -122,8 +122,8 @@ class TournamentApp.App
     @lastScheduleSearch = $(event.target).val()
     Twine.refresh()
 
-  scheduleFilter: (homeName, awayName) ->
+  scheduleFilter: (teamNames) ->
     if @lastScheduleSearch
-      homeName.match("#{@lastScheduleSearch}") || awayName.match("#{@lastScheduleSearch}")
+      teamNames.match("#{@lastScheduleSearch}")
     else
       true
