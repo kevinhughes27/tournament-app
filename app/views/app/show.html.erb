@@ -8,7 +8,6 @@
   </a>
 </header>
 
-<!-- this doesn't need to be a bar (I think) -->
 <div class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.searchOpen">
   <select id="main-search" placeholder="Search ..." bind-event-change="app.selectedCallback(event)"></select>
 </div>
@@ -77,6 +76,14 @@
     <h1 class="title">Schedule</h1>
   </header>
 
+  <div class="bar bar-standard bar-header-secondary bar-blue">
+    <select class="schedule-search" placeholder="Search ..." bind-event-change="app.scheduleSearchChange(event)">
+      <% @teams.each do |team| %>
+        <option value="<%= team.name %>"><%= team.name %></option>
+      <% end %>
+    </select>
+  </div>
+
   <div class="content">
     <ul class="table-view">
       <% @games.group_by{|g| g.start_time }.each do |time, games| %>
@@ -84,7 +91,8 @@
           <%= time.strftime("%l:%M %P") %>
         </li>
         <% games.each do |game| %>
-          <li class="table-view-cell media">
+        <!-- passing game.home.name to js needs proper escaping. this breaks on single quotes atm -->
+          <li class="table-view-cell" bind-show="app.scheduleFilter('<%= game.home.name %>', '<%= game.away.name %>')">
             <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
             <a class="btn btn-invis btn-green" href="#">
               <%= game.field.name %>
@@ -121,4 +129,6 @@
       <%= raw @games.to_json %>
     );
   });
+
+  $('.schedule-search').selectize();
 </script>

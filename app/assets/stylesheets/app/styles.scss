@@ -53,6 +53,17 @@
   margin-top: 10px;
 }
 
+.schedule-search {
+  margin-top: 5px;
+  height: 65%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+
+  .selectize-dropdown-content {
+    background-color: rgba(255, 255, 255, 1);
+  }
+}
+
 .btn-find {
   background-color: rgba(0, 122, 255, 0.5);
   color: white;

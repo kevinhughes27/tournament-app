@@ -115,3 +115,15 @@ class TournamentApp.App
       @modalOpen = true
 
     Twine.refresh()
+
+
+  # Schedule view
+  scheduleSearchChange: (event)->
+    @lastScheduleSearch = $(event.target).val()
+    Twine.refresh()
+
+  scheduleFilter: (homeName, awayName) ->
+    if @lastScheduleSearch
+      homeName.match("#{@lastScheduleSearch}") || awayName.match("#{@lastScheduleSearch}")
+    else
+      true
