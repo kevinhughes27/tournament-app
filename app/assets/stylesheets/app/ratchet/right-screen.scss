@@ -1,0 +1,20 @@
+.right-screen {
+  position: fixed;
+  top: 0;
+  z-index: 11;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  @include transition(all 0.25s ease-in-out);
+  @include transform(translate3d(100%, 0, 0));;
+
+  &.active {
+    height: 100%;
+    opacity: 1;
+    visibility: visible;
+    @include transform(scale(1.0));
+  }
+}

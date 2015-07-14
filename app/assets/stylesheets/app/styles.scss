@@ -6,8 +6,24 @@
   visibility: hidden;
 }
 
+.bar-tblue {
+  background-color: rgba(0, 122, 255, 0.5);
+  border: none;
+  color: white;
+}
+
+.bar-blue {
+  background-color: rgb(0, 122, 255);
+  border: none;
+  color: white;
+}
+
 .transparent {
   opacity: 0.8;
+}
+
+.subdued {
+  color: rgb(128,128,128);
 }
 
 .center {
@@ -31,6 +47,23 @@
   }
 }
 
+.search-bar {
+  background-color: transparent;
+  border: none;
+  margin-top: 10px;
+}
+
+.schedule-search {
+  margin-top: 5px;
+  height: 65%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+
+  .selectize-dropdown-content {
+    background-color: rgba(255, 255, 255, 1);
+  }
+}
+
 .btn-find {
   background-color: rgba(0, 122, 255, 0.5);
   color: white;
@@ -41,6 +74,17 @@
     top: 0px !important;
     @include transform(rotate(180deg));
     font-size: 1em;
+  }
+}
+
+.btn-green {
+  color: #78A874;
+}
+
+.btn-invis {
+  border: none;
+  &:active {
+    background-color: white;
   }
 }
 

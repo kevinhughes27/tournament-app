@@ -1,16 +1,15 @@
 <!-- main-view -->
-<header class="bar bar-nav">
-  <a class="nav-btn pull-left" href="#">
+<header class="bar bar-nav bar-tblue" bind-show="!(app.scheduleScreen || app.submitScoreScreen)">
+  <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = true">
     <span class="icon icon-bars"></span> Schedule
   </a>
-  <a class="nav-btn pull-right" href="#">
+  <a class="nav-btn pull-right" href="#" bind-event-click="app.submitScoreScreen = true">
     Submit a score <span class="icon icon-star"></span>
   </a>
 </header>
 
-<!-- this doesn't need to be a bar (I think) -->
-<div id="search-bar" class="bar bar-standard bar-header-secondary transparent" bind-show="!!app.searchOpen">
-  <select placeholder="Search ..." bind-event-change="app.selectedCallback(event)"></select>
+<div class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.searchOpen">
+  <select id="main-search" placeholder="Search ..." bind-event-change="app.selectedCallback(event)"></select>
 </div>
 
 <div class="bar bar-standard bar-footer">
@@ -67,6 +66,59 @@
 </div>
 <!-- end find-drawer -->
 
+
+<!-- schedule-screen -->
+<div class="left-screen" bind-class="{active: app.scheduleScreen}">
+  <header class="bar bar-nav bar-blue">
+    <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = false">
+      <span class="icon icon-left"></span> Map
+    </a>
+    <h1 class="title">Schedule</h1>
+  </header>
+
+  <div class="bar bar-standard bar-header-secondary bar-blue">
+    <select class="schedule-search" placeholder="Search ..." bind-event-change="app.scheduleSearchChange(event)">
+      <% @teams.each do |team| %>
+        <option value="<%= team.name %>"><%= team.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="content">
+    <ul class="table-view">
+      <% @games.group_by{|g| g.start_time }.each do |time, games| %>
+        <li class="table-view-divider"  bind-show="app.scheduleFilter('<%= games.map{|g| [g.home.name, g.away.name]}.flatten.join %>')">
+          <%= time.strftime("%l:%M %P") %>
+        </li>
+        <% games.each do |game| %>
+        <!-- passing game.home.name to js needs proper escaping. this breaks on single quotes atm -->
+          <li class="table-view-cell" bind-show="app.scheduleFilter('<%= [game.home.name, game.away.name].join %>')">
+            <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
+            <a class="btn btn-invis btn-green" href="#">
+              <%= game.field.name %>
+            </a>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<!-- end schedule-screen -->
+
+
+<!-- submit-score-screen -->
+<div class="right-screen" bind-class="{active: app.submitScoreScreen}">
+  <header class="bar bar-standard">
+    <a class="icon icon-close pull-right" href="#" bind-event-click="app.submitScoreScreen = false"></a>
+    <h1 class="title">Right Screen</h1>
+  </header>
+
+  <div class="content">
+    content
+  </div>
+</div>
+<!-- end submit-score-screen -->
+
 <script>
   $( document ).ready(function() {
     app = new TournamentApp.App(
@@ -77,4 +129,6 @@
       <%= raw @games.to_json %>
     );
   });
+
+  $('.schedule-search').selectize();
 </script>

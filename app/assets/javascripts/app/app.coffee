@@ -4,6 +4,8 @@ class TournamentApp.App
     @drawerOpen = false
     @modalOpen = false
     @searchOpen = false
+    @scheduleScreen = false
+    @submitScoreScreen = false
 
     window.initializeMap = @initializeMap
     script = document.createElement('script')
@@ -50,7 +52,7 @@ class TournamentApp.App
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
 
   _initSelectize: ->
-    $selectNode = $('#search-bar > select')
+    $selectNode = $('select#main-search')
     $selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
     @selectize = $selectNode[0].selectize
     @selectize.on 'blur', (event) =>
@@ -113,3 +115,15 @@ class TournamentApp.App
       @modalOpen = true
 
     Twine.refresh()
+
+
+  # Schedule view
+  scheduleSearchChange: (event)->
+    @lastScheduleSearch = $(event.target).val()
+    Twine.refresh()
+
+  scheduleFilter: (teamNames) ->
+    if @lastScheduleSearch
+      teamNames.match("#{@lastScheduleSearch}")
+    else
+      true
