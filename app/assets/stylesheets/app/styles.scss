@@ -22,6 +22,10 @@
   opacity: 0.8;
 }
 
+.subdued {
+  color: rgb(128,128,128);
+}
+
 .center {
   text-align: center;
 }
@@ -59,6 +63,17 @@
     top: 0px !important;
     @include transform(rotate(180deg));
     font-size: 1em;
+  }
+}
+
+.btn-green {
+  color: #78A874;
+}
+
+.btn-invis {
+  border: none;
+  &:active {
+    background-color: white;
   }
 }
 

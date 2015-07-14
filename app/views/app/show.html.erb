@@ -78,8 +78,16 @@
   </header>
 
   <div class="content">
-    <% @games.each do |game| %>
-    <% end %>
+    <ul class="table-view">
+      <% @games.each do |game| %>
+        <li class="table-view-cell media">
+          <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
+          <a class="btn btn-invis btn-green" href="#">
+            <%= game.field.name %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
 <!-- end schedule-screen -->
