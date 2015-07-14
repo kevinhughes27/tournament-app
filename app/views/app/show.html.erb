@@ -1,5 +1,5 @@
 <!-- main-view -->
-<header class="bar bar-nav">
+<header class="bar bar-nav" bind-show="!(app.scheduleScreen || app.submitScoreScreen)">
   <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = true">
     <span class="icon icon-bars"></span> Schedule
   </a>
