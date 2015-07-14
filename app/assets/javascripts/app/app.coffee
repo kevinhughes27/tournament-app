@@ -124,6 +124,6 @@ class TournamentApp.App
 
   scheduleFilter: (teamNames) ->
     if @lastScheduleSearch
-      teamNames.match("#{@lastScheduleSearch}")
+      teamNames.join(',').match("#{@lastScheduleSearch}")
     else
       true
