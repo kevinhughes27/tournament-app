@@ -79,13 +79,18 @@
 
   <div class="content">
     <ul class="table-view">
-      <% @games.each do |game| %>
-        <li class="table-view-cell media">
-          <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
-          <a class="btn btn-invis btn-green" href="#">
-            <%= game.field.name %>
-          </a>
+      <% @games.group_by{|g| g.start_time }.each do |time, games| %>
+        <li class="table-view-divider">
+          <%= time.strftime("%l:%M %P") %>
         </li>
+        <% games.each do |game| %>
+          <li class="table-view-cell media">
+            <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
+            <a class="btn btn-invis btn-green" href="#">
+              <%= game.field.name %>
+            </a>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
