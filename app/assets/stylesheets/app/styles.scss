@@ -6,6 +6,18 @@
   visibility: hidden;
 }
 
+.bar-tblue {
+  background-color: rgba(0, 122, 255, 0.5);
+  border: none;
+  color: white;
+}
+
+.bar-blue {
+  background-color: rgb(0, 122, 255);
+  border: none;
+  color: white;
+}
+
 .transparent {
   opacity: 0.8;
 }

@@ -52,7 +52,7 @@ class TournamentApp.App
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
 
   _initSelectize: ->
-    $selectNode = $('#search-bar > select')
+    $selectNode = $('select#main-search')
     $selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
     @selectize = $selectNode[0].selectize
     @selectize.on 'blur', (event) =>

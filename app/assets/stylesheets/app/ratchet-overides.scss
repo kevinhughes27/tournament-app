@@ -10,14 +10,12 @@
        asset-url('ratchicons.svg#svgFontName') format('svg');
 }
 
-.bar-nav {
-  background-color: rgba(0, 122, 255, 0.5);
-  border: none;
-  color: white;
-}
-
 .bar-standard {
   border: none;
+}
+
+.title {
+  color: inherit;
 }
 
 .bar-footer {

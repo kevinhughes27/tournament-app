@@ -1,5 +1,5 @@
 <!-- main-view -->
-<header class="bar bar-nav" bind-show="!(app.scheduleScreen || app.submitScoreScreen)">
+<header class="bar bar-nav bar-tblue" bind-show="!(app.scheduleScreen || app.submitScoreScreen)">
   <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = true">
     <span class="icon icon-bars"></span> Schedule
   </a>
@@ -9,8 +9,8 @@
 </header>
 
 <!-- this doesn't need to be a bar (I think) -->
-<div id="search-bar" class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.searchOpen">
-  <select placeholder="Search ..." bind-event-change="app.selectedCallback(event)"></select>
+<div class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.searchOpen">
+  <select id="main-search" placeholder="Search ..." bind-event-change="app.selectedCallback(event)"></select>
 </div>
 
 <div class="bar bar-standard bar-footer">
@@ -70,13 +70,16 @@
 
 <!-- schedule-screen -->
 <div class="left-screen" bind-class="{active: app.scheduleScreen}">
-  <header class="bar bar-standard">
-    <a class="icon icon-close pull-left" href="#" bind-event-click="app.scheduleScreen = false"></a>
-    <h1 class="title">Left Screen</h1>
+  <header class="bar bar-nav bar-blue">
+    <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = false">
+      <span class="icon icon-left"></span> Map
+    </a>
+    <h1 class="title">Schedule</h1>
   </header>
 
   <div class="content">
-    content
+    <% @games.each do |game| %>
+    <% end %>
   </div>
 </div>
 <!-- end schedule-screen -->
