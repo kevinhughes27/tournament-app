@@ -37,6 +37,8 @@
   font-weight: $font-weight;
   line-height: $bar-base-height;
   color: white;
+  position: relative;
+  z-index: 11;
 
   &:active {
     color: white;
@@ -50,7 +52,6 @@
 .search-bar {
   background-color: transparent;
   border: none;
-  margin-top: 10px;
 }
 
 .schedule-search {
@@ -62,6 +63,10 @@
   .selectize-dropdown-content {
     background-color: rgba(255, 255, 255, 1);
   }
+}
+
+.score-input {
+    width: 45%;
 }
 
 .btn-find {
@@ -91,4 +96,37 @@
 .arrow {
   height: 85%;
   padding-top: 20%;
+}
+
+.score-inputs {
+  display: flex;
+  text-align: center;
+  padding-top: 10%;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.score-label {
+  display: inline-block;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+input.score-input {
+  font-size: 24px;
+  height: 48px;
+  text-align: center;
+}
+
+.form-grid {
+  flex: 0 1 47%;
+}
+
+.form-grid-spacer {
+  flex-basis: 14%;
+  line-height: 104px;
+}
+
+.radio-control {
+  padding: 5px 0 5px 10px;
 }
