@@ -92,9 +92,11 @@
         </li>
         <% games.each do |game| %>
           <li class="table-view-cell" bind-show="app.scheduleFilter(<%= [game.home.name, game.away.name].to_json %>)">
-            <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
-            <a class="btn btn-invis btn-green" href="#">
-              <%= game.field.name %>
+            <a class="navigate-right" bind-event-click="app.fieldSelected('<%= game.field.name %>')">
+              <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
+              <a class="btn btn-invis btn-green">
+                <%= game.field.name %>
+              </a>
             </a>
           </li>
         <% end %>

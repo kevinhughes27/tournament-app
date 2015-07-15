@@ -61,7 +61,7 @@ class TournamentApp.App
 
   showFieldSelect: =>
     @_selectizeUpdate(@fields)
-    @_selectedCallback = @_fieldSelected
+    @_selectedCallback = @fieldSelected
     @searchOpen = true
     @drawerOpen = false
     Twine.refresh()
@@ -85,8 +85,9 @@ class TournamentApp.App
     @selectize.blur()
     @_selectedCallback(selected)
 
-  _fieldSelected: (selected) =>
+  fieldSelected: (selected) =>
     @searchOpen = false
+    @scheduleScreen = false
     field = _.find(@fields, (field) -> field.name is selected)
 
     if field
