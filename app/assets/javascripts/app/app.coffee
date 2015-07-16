@@ -47,47 +47,36 @@ class TournamentApp.App
     polygon.setMap(@map)
 
   initApp: ->
-    @_initSelectize()
+    $node = $('#field-search > select')
+    $node.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
+    @fieldSelectize = $node[0].selectize
+    @fieldSelectize.on 'blur', (event) =>
+      @fieldSearchOpen = false
+      Twine.refresh()
+
+    $node = $('#team-search > select')
+    $node.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
+    @teamSelectize = $node[0].selectize
+    @teamSelectize.on 'blur', (event) =>
+      @teamSearchOpen = false
+      Twine.refresh()
+
+    $('.schedule-search').selectize();
+
     pointMeThere = $('#point-me-there')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
 
-  _initSelectize: ->
-    $selectNode = $('select#main-search')
-    $selectNode.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
-    @selectize = $selectNode[0].selectize
-    @selectize.on 'blur', (event) =>
-      @searchOpen = false
-      Twine.refresh()
-
   showFieldSelect: =>
-    @_selectizeUpdate(@fields)
-    @_selectedCallback = @fieldSelected
-    @searchOpen = true
+    @fieldSearchOpen = true
     @drawerOpen = false
     Twine.refresh()
-    @selectize.focus()
+    @fieldSelectize.focus()
 
-  showTeamSelect: =>
-    @_selectizeUpdate(@teams)
-    @_selectedCallback = @_teamSelected
-    @searchOpen = true
-    @drawerOpen = false
-    Twine.refresh()
-    @selectize.focus()
-
-  _selectizeUpdate: (options) ->
-    @selectize.clearOptions()
-    @selectize.addOption(options)
-    @selectize.refreshOptions(false)
-
-  selectedCallback: (event) =>
-    selected = $(event.target).val()
-    @selectize.blur()
-    @_selectedCallback(selected)
-
-  fieldSelected: (selected) =>
-    @searchOpen = false
+  fieldSelected: (event) =>
+    @fieldSearchOpen = false
     @scheduleScreen = false
+
+    selected = $(event.target).val()
     field = _.find(@fields, (field) -> field.name is selected)
 
     if field
@@ -97,18 +86,27 @@ class TournamentApp.App
 
     Twine.refresh()
 
-  _teamSelected: (selected) =>
-    @searchOpen = false
+  showTeamSelect: =>
+    @teamSearchOpen = true
+    @drawerOpen = false
+    Twine.refresh()
+    @teamSelectize.focus()
+
+  teamSelected: (event) =>
+    @teamSearchOpen = false
+    selected = $(event.target).val()
     team = _.find(@teams, (team) -> team.name is selected)
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
     games = _.sortBy(games, (game) -> game.start_time)
+
     cutOffIdx = _.findIndex(games, (game) -> Date.parse(game.start_time) > Date.now())
     # cut off is all games with start time ahead of time now.
     # I could rewind this by one which is *likey* the current game.
     # Games should have a duration (tournaments have hard cap so why not give them that?)
-
     currentGame = games[cutOffIdx - 1]
-    field = _.find(@fields, (field) -> field.id == currentGame.field_id)
+
+    if currentGame
+      field = _.find(@fields, (field) -> field.id == currentGame.field_id)
 
     if field
       @pointMeThere.setDestination(field.lat, field.long, field.name)
