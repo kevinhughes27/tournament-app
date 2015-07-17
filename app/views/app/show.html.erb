@@ -1,10 +1,10 @@
 <!-- main-view -->
 <div class="bar bar-nav bar-tblue" bind-show="!(app.scheduleScreen || app.submitScoreScreen)">
   <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = true">
-    <span class="icon icon-bars"></span> Schedule
+    <i class="fa fa-list-alt"></i> Schedule
   </a>
   <a class="nav-btn pull-right" href="#" bind-event-click="app.submitScoreScreen = true">
-    Submit a score <span class="icon icon-star"></span>
+    Submit a score <i class="fa fa-star-half-o"></i>
   </a>
 </div>
 
@@ -14,7 +14,7 @@
 
 <div class="bar bar-standard bar-footer">
   <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!(app.drawerOpen || app.modalOpen)">
-    Find <span class="icon icon-caret"></span>
+    Find <i class="fa fa-caret-up"></i>
   </a>
 </div>
 
