@@ -206,6 +206,7 @@ _.prototype = {
 				this.replace(selected.textContent);
 				this.close();
 				$.fire(this.input, "awesomplete-selectcomplete");
+				$.fire(this.input, "change");
 			}
 		}
 	},
@@ -237,6 +238,7 @@ _.prototype = {
 			}
 		}
 		else {
+			$.fire(this.input, "change");
 			this.close();
 		}
 	}
