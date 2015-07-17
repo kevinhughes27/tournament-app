@@ -50,6 +50,40 @@
   }
 }
 
+.screen-schedule {
+  background-color: rgba(255, 255, 255, 0.9);
+  .content, .table-view {
+    background: none;
+  }
+  .table-view-cell, .table-view-divider {
+    font-size: 15px;
+  }
+  .btn-field {
+    border: none;
+    background: none;
+    font-size: 13px;
+    right: 10px;
+    margin-top: 5px;
+    padding: 0;
+    &:after {
+      display: none;
+    }
+    .fa {
+      font-size: 20px;
+      position: relative;
+      bottom: 4px;
+      padding-left: 2px;
+    }
+  }
+  .table-view-cell {
+    padding: 8px 65px 9px 15px;
+  }
+  .table-view-divider {
+    padding: 2px 15px 2px 15px;
+    color: black;
+  }
+}
+
 .search-bar {
   padding-top: 10px;
   background-color: transparent;
@@ -78,13 +112,6 @@
 
 .btn-green {
   color: #78A874;
-}
-
-.btn-invis {
-  border: none;
-  &:active {
-    background-color: white;
-  }
 }
 
 .arrow {
