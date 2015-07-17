@@ -1,26 +1,12 @@
 tournament-app (working title)
 ==============
 
-built during Random Hacks of Kindness 05/2015
-
 A web application for running ultimate tournaments
 
-production:[http://ulti-tournament-app.herokuapp.com/](http://ulti-tournament-app.herokuapp.com/)
+production:[http://ultimate-tournament.herokuapp.com/](http://ulti-tournament-app.herokuapp.com/)
 
-slack channel [https://ocua.slack.com](https://ocua.slack.com)
-
-Ideas
+Links
 -----
-
-* compass pointing to a given field from current location (like trip advisor point me there)
-
-* SMS / Email score reporting for captains. Online submit form or respond to a text / email
-  * what about twitter?
-
-* Online form to request water / food / observers or report an emergency
-
-* slick JS based tournament bracket drawing
-
-* Social and photographer integrations?
-
-* needs to be super mobile friendly
+[![heroku](http://i.imgur.com/5VVREDx.png)](https://dashboard.heroku.com/apps/ultimate-tournament)
+[![newrelic](http://i.imgur.com/X4OJe4r.png)](https://rpm.newrelic.com/accounts/1045852/applications/9539779)
+[![slack](http://i.imgur.com/FAx0EGq.png)](https://ocua.slack.com)
