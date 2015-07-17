@@ -3,7 +3,7 @@
   <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = true">
     <i class="fa fa-list-alt"></i> Schedule
   </a>
-  <a class="nav-btn pull-right" href="#" bind-event-click="app.submitScoreScreen = true">
+  <a class="nav-btn pull-right" href="#" bind-event-click="app.submitScoreScreenA = true">
     Submit a score <i class="fa fa-star-half-o"></i>
   </a>
 </div>
@@ -124,13 +124,52 @@
 <!-- end schedule-screen -->
 
 
-<!-- submit-score-screen -->
-<div class="right-screen" bind-class="{active: app.submitScoreScreen}">
+<!-- submit-score-screen A -->
+<div class="right-screen" bind-class="{active: app.submitScoreScreenA}">
+  <div class="bar bar-nav bar-blue">
+    <a class="nav-btn pull-left" href="#" bind-event-click="app.submitScoreScreenA = false">
+      <span class="icon icon-left"></span> Map
+    </a>
+    <h1 class="title">Submit a score</h1>
+  </div>
+
+  <div class="content">
+    <div class="submit-search">
+      <div class="team-search">
+        <p>Our Team:<p>
+        <input class="awesomplete" placeholder="Search ..."
+          data-minchars="1"
+          data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
+          bind-event-change="app.submitSearchChange(event)">
+      </div>
+    </div>
+    <div class="content-padded">
+      <p>Submit a score for each team played</p>
+    </div>
+    <div class="card">
+      <ul class="table-view">
+        <% @games.each do |game| %>
+          <li class="table-view-cell" bind-show="app.submitFilter(<%= [game.home.name, game.away.name].to_json %>)">
+            <a class="navigate-right" bind-event-click='app.submitScoreForm("<%= game.home.name %>", "<%= game.away.name %>")'>
+              <span bind='app.vsTeam("<%= game.home.name %>", "<%= game.away.name %>")'></span>
+              <span class="subdued">(<%= game.start_time.strftime("%l:%M %P") %>)</span>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    <div>
+  </div>
+</div>
+<!-- end submit-score-screen A -->
+
+
+<!-- submit-score-screen B -->
+<div class="right-screen" bind-class="{active: app.submitScoreScreenB}">
   <div class="bar bar-nav bar-blue">
     <h1 class="title">Submit a score</h1>
 
-    <a class="nav-btn pull-right" href="#" bind-event-click="app.submitScoreScreen = false">
-      Map <span class="icon icon-right"></span>
+    <a class="nav-btn pull-left" href="#" bind-event-click="app.submitScoreScreenB = false">
+      <span class="icon icon-right"></span> Games
     </a>
   </div>
 
@@ -183,7 +222,7 @@
   </div>
 
 </div>
-<!-- end submit-score-screen -->
+<!-- end submit-score-screen B -->
 
 <script>
   $( document ).ready(function() {

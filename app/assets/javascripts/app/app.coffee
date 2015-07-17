@@ -4,8 +4,9 @@ class TournamentApp.App
     @drawerOpen = false
     @modalOpen = false
     @searchOpen = false
-    @scheduleScreen = true
-    @submitScoreScreen = false
+    @scheduleScreen = false
+    @submitScoreScreenA = false
+    @submitScoreScreenB = false
 
     window.initializeMap = @initializeMap
     script = document.createElement('script')
@@ -139,3 +140,29 @@ class TournamentApp.App
       teamNames.join(',').match("#{@lastScheduleSearch}")
     else
       true
+
+
+  # Submit score A view
+  submitSearchChange: (event) ->
+    @lastSubmitSearch = $(event.target).val()
+    Twine.refresh()
+
+  submitFilter: (teamNames) ->
+    if @lastSubmitSearch
+      teamNames.join(',').match("#{@lastSubmitSearch}")
+
+  vsTeam: (home, away) ->
+    return unless @lastSubmitSearch == home ||
+                  @lastSubmitSearch == away
+
+    "#{home}#{away}".replace @lastSubmitSearch, ""
+
+  submitScoreForm: (home, away) ->
+    team = @lastSubmitSearch
+    vsTeam = @vsTeam(home, away)
+
+    $('.score-label')[0].innerHTML = team
+    $('.score-label')[1].innerHTML = vsTeam
+
+    @submitScoreScreenB = true
+    Twine.refresh()
