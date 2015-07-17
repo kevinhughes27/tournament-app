@@ -74,12 +74,23 @@ class TournamentApp.App
     Twine.refresh()
     @fieldSelectize.focus()
 
-  fieldSelected: (event) =>
-    @fieldSearchOpen = false
-    @scheduleScreen = false
+  fieldSelected: (event)
 
+  fieldSelected: (event) ->
+    @fieldSearchOpen = false
     selected = $(event.target).val()
     field = _.find(@fields, (field) -> field.name is selected)
+
+    if field
+      @pointMeThere.setDestination(field.lat, field.long, field.name)
+      @pointMeThere.start()
+      @modalOpen = true
+
+    Twine.refresh()
+
+  findField: (fieldName) ->
+    @scheduleScreen = false
+    field = _.find(@fields, (field) -> field.name is fieldName)
 
     if field
       @pointMeThere.setDestination(field.lat, field.long, field.name)

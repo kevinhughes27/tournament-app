@@ -105,7 +105,7 @@
         </li>
         <% games.each do |game| %>
           <li class="table-view-cell" bind-show="app.scheduleFilter(<%= [game.home.name, game.away.name].to_json %>)">
-            <a class="navigate-right" bind-event-click="app.fieldSelected('<%= game.field.name %>')">
+            <a class="navigate-right" bind-event-click="app.findField('<%= game.field.name %>')">
               <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
               <% if game.score_confirmed %>
                 <%= "(#{game.home_score}/#{game.away_score})" %>
