@@ -3,6 +3,7 @@
  *= require app/ratchet-overides
  *= require app/selectize
  *= require app/selectize-overides
+ *= require awesomplete
  *= require app/styles
  *= require google_maps
  *= require_self
