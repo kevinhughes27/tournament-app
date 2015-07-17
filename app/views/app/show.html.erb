@@ -109,7 +109,6 @@
             <% if game.score_confirmed %>
               <%= "(#{game.home_score}/#{game.away_score})" %>
             <% end %>
-            <!-- this should not be an anchor but just pulled right -->
             <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click="app.findField('<%= game.field.name %>')">
               <%= game.field.name %>
               <i class="fa fa-map-marker"></i>
