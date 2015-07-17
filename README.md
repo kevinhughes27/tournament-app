@@ -3,7 +3,7 @@ tournament-app (working title)
 
 A web application for running ultimate tournaments
 
-production:[http://ultimate-tournament.herokuapp.com/](http://ulti-tournament-app.herokuapp.com/)
+production:[http://ultimate-tournament.herokuapp.com/](http://ultimate-tournament.herokuapp.com/)
 
 Links
 -----
