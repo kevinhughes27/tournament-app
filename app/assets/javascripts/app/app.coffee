@@ -157,12 +157,22 @@ class TournamentApp.App
 
     "#{home}#{away}".replace @lastSubmitSearch, ""
 
-  submitScoreForm: (home, away) ->
+  submitScoreForm: (gameId, home, away) ->
     team = @lastSubmitSearch
     vsTeam = @vsTeam(home, away)
 
     $('.score-label')[0].innerHTML = team
     $('.score-label')[1].innerHTML = vsTeam
-
+    $('input#game_id').val(gameId)
     @submitScoreScreenB = true
     Twine.refresh()
+
+  submitScore: (form) ->
+    $.ajax
+      url: form.action
+      type: 'POST'
+      data: $(form).serialize()
+      complete: =>
+        @submitScoreScreenA = false
+        @submitScoreScreenB = false
+        Twine.refresh()

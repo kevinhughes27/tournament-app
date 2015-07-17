@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   end
 
   get '*tournament_id' => 'app#show'
+  post '*tournament_id/submit_score' => 'app#score_submit', as: 'app_score_submit'
 end

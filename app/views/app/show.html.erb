@@ -149,7 +149,7 @@
       <ul class="table-view">
         <% @games.each do |game| %>
           <li class="table-view-cell" bind-show="app.submitFilter(<%= [game.home.name, game.away.name].to_json %>)">
-            <a class="navigate-right" bind-event-click='app.submitScoreForm("<%= game.home.name %>", "<%= game.away.name %>")'>
+            <a class="navigate-right" bind-event-click='app.submitScoreForm(<%= game.id %>, "<%= game.home.name %>", "<%= game.away.name %>")'>
               <span bind='app.vsTeam("<%= game.home.name %>", "<%= game.away.name %>")'></span>
               <span class="subdued">(<%= game.start_time.strftime("%l:%M %P") %>)</span>
             </a>
@@ -173,12 +173,13 @@
   </div>
 
   <div class="content">
-    <form>
+    <%= form_tag app_score_submit_path, method: :post, 'bind-event-submit' => 'app.submitScore(this)' do |form| %>
+      <%= hidden_field_tag 'game_id' %>
 
       <div class="score-inputs">
         <div class="form-grid">
-          <label class="score-label">Phoenix</label>
-          <input class="score-input" type="number">
+          <%= label_tag 'home_score', '', class:"score-label" %>
+          <%= number_field_tag 'home_score', nil, class:"score-input" %>
         </div>
 
         <div class="form-grid form-grid-spacer">
@@ -186,8 +187,8 @@
         </div>
 
         <div class="form-grid">
-          <label class="score-label">Firebird</label>
-          <input class="score-input" type="number">
+          <%= label_tag 'away_score', '', class:"score-label" %>
+          <%= number_field_tag 'away_score', nil, class:"score-input" %>
         </div>
       </div>
 
@@ -200,24 +201,26 @@
         <h4>1. Rules knowledge and Use</h4>
         <p>Examples: They did purposefully misinterpret the rules. They kept to time limits. When they didn't know the rules they showed a real willingness to learn</p>
         <div class="radio-control">
-          <input name="rules_knowledge" id="poor" type="radio">
+          <%= radio_button_tag 'rules_knowledge', 'poor' %>
           <label for="poor">Poor</label>
         </div>
         <div class="radio-control">
-          <input name="rules_knowledge" id="not-good" type="radio">
+          <%= radio_button_tag 'rules_knowledge', 'not-good' %>
           <label for="not-good">Not Good</label>
         </div>
         <div class="radio-control">
-          <input name="rules_knowledge" id="good" type="radio">
+          <%= radio_button_tag 'rules_knowledge', 'good', true %>
           <label for="good">Good</label>
         </div>
         <div class="radio-control">
-          <input name="rules_knowledge" id="very-good" type="radio">
+          <%= radio_button_tag 'rules_knowledge', 'very-good' %>
           <label for="very-good">Very Good</label>
         </div>
       </div>
 
-    </form>
+      <%= submit_tag "Submit", class: 'btn pull-right' %>
+
+    <% end %>
   </div>
 
 </div>

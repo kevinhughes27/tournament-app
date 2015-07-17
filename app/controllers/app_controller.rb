@@ -12,4 +12,10 @@ class AppController < ApplicationController
     render :show
   end
 
+  def score_submit
+    # do stuff with the post
+    # byebug
+    render json: true
+  end
+
 end
