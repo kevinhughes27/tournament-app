@@ -90,7 +90,7 @@
   </div>
 
   <div class="bar bar-standard bar-header-secondary bar-blue">
-    <select class="schedule-search" placeholder="Search ..." bind-event-change="app.scheduleSearchChange(event)">
+    <select id="schedule-team-search" placeholder="Search ..." bind-event-change="app.scheduleSearchChange(event)">
       <% @teams.each do |team| %>
         <option value="<%= team.name %>"><%= team.name %></option>
       <% end %>

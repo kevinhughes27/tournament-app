@@ -50,19 +50,9 @@
 }
 
 .search-bar {
+  padding-top: 10px;
   background-color: transparent;
   border: none;
-}
-
-.schedule-search {
-  margin-top: 5px;
-  height: 65%;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: none;
-
-  .selectize-dropdown-content {
-    background-color: rgba(255, 255, 255, 1);
-  }
 }
 
 .score-input {
