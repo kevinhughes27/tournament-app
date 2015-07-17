@@ -25,7 +25,7 @@
 </div>
 
 <div class="bar bar-standard bar-footer">
-  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!(app.drawerOpen || app.modalOpen)">
+  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!(app.drawerOpen || app.modalOpen || app.scheduleScreen)">
     Find <i class="fa fa-caret-up"></i>
   </a>
 </div>
@@ -80,7 +80,7 @@
 
 
 <!-- schedule-screen -->
-<div class="left-screen" bind-class="{active: app.scheduleScreen}">
+<div class="left-screen screen-schedule" bind-class="{active: app.scheduleScreen}">
   <div class="bar bar-nav bar-blue">
     <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = false">
       <span class="icon icon-left"></span> Map
@@ -105,15 +105,14 @@
         </li>
         <% games.each do |game| %>
           <li class="table-view-cell" bind-show="app.scheduleFilter(<%= [game.home.name, game.away.name].to_json %>)">
-            <a class="navigate-right" bind-event-click="app.findField('<%= game.field.name %>')">
-              <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
-              <% if game.score_confirmed %>
-                <%= "(#{game.home_score}/#{game.away_score})" %>
-              <% end %>
-              <!-- this should not be an anchor but just pulled right -->
-              <a class="btn btn-invis btn-green">
-                <%= game.field.name %>
-              </a>
+            <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
+            <% if game.score_confirmed %>
+              <%= "(#{game.home_score}/#{game.away_score})" %>
+            <% end %>
+            <!-- this should not be an anchor but just pulled right -->
+            <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click="app.findField('<%= game.field.name %>')">
+              <%= game.field.name %>
+              <i class="fa fa-map-marker"></i>
             </a>
           </li>
         <% end %>
