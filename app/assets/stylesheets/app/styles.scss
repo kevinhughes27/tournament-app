@@ -1,5 +1,6 @@
 @import 'ratchet/variables';
 @import 'ratchet/mixins';
+@import 'mixins';
 
 .hide {
   display: none;
@@ -59,16 +60,19 @@
     width: 45%;
 }
 
-.btn-find {
+.bar .btn-find {
   background-color: rgba(0, 122, 255, 0.5);
   color: white;
-  font-size: 17px;
-  border-width: 2px;
-  .icon-caret {
+  font-size: 18px;
+  border-width: 1.5px;
+  padding: 8px 12px;
+  @include border-radius(7.5px);
+  position: relative;
+  top: -8px;
+  .fa {
     position: relative;
-    top: 0px !important;
-    @include transform(rotate(180deg));
-    font-size: 1em;
+    bottom: 1px;
+    padding-left: 2px;
   }
 }
 
