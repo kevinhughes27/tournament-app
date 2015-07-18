@@ -17,4 +17,12 @@ class Game < ActiveRecord::Base
     )
   end
 
+  def update_score(home_score, away_score)
+    update_attributes(
+      home_score: home_score,
+      away_score: away_score,
+      score_confirmed: true
+    )
+  end
+
 end

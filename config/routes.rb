@@ -14,7 +14,8 @@ Rails.application.routes.draw do
       post '/schedule', to: 'schedule#create'
       resources :games do
         member do
-          post :confirm_score
+          put :confirm_score
+          put :update_score
         end
       end
       resources :score_reports

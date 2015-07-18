@@ -52,6 +52,14 @@
 
     <li>
       <% if @tournament.games.present? %>
+        <%= link_to 'Games', admin_tournament_games_path(@tournament) %>
+      <% else %>
+        Games
+      <% end %>
+    </li>
+
+    <li>
+      <% if @tournament.games.present? %>
         <%= link_to 'Score Reports', admin_tournament_score_reports_path(@tournament) %>
       <% else %>
         Score Reports
