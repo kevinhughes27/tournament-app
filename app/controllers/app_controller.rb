@@ -1,9 +1,8 @@
 class AppController < ApplicationController
+  before_action :load_tournament
   layout 'app'
 
   def show
-    @tournament = Tournament.friendly.find(params[:tournament_id])
-
     @map = @tournament.map
     @fields = @tournament.fields
     @teams = @tournament.teams
@@ -13,12 +12,19 @@ class AppController < ApplicationController
   end
 
   def score_submit
-    @tournament = Tournament.friendly.find(params[:tournament_id])
     ScoreReport.create!(score_report_params)
     render json: true
   end
 
   private
+
+  def load_tournament
+    if params[:tournament_id]
+      @tournament = Tournament.friendly.find(params[:tournament_id])
+    else
+      @tournament = Tournament.friendly.find(params[:id])
+    end
+  end
 
   def score_report_params
     @score_report_params ||= params.permit(
