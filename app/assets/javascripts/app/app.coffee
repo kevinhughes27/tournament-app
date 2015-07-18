@@ -62,10 +62,6 @@ class TournamentApp.App
       @teamSearchOpen = false
       Twine.refresh()
 
-    # $node = $('#schedule-team-search')
-    # $node.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
-    # $node[0].selectize.clear()
-
     pointMeThere = $('#point-me-there')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
 

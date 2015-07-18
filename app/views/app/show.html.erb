@@ -167,7 +167,7 @@
     <h1 class="title">Submit a score</h1>
 
     <a class="nav-btn pull-left" href="#" bind-event-click="app.submitScoreScreenB = false">
-      <span class="icon icon-right"></span> Games
+      <span class="icon icon-left"></span> Games
     </a>
   </div>
 
@@ -177,8 +177,8 @@
 
       <div class="score-inputs">
         <div class="form-grid">
-          <%= label_tag 'home_score', '', class:"score-label" %>
-          <%= number_field_tag 'home_score', nil, class:"score-input" %>
+          <%= label_tag 'team_score', '', class:"score-label" %>
+          <%= number_field_tag 'team_score', nil, class:"score-input" %>
         </div>
 
         <div class="form-grid form-grid-spacer">
@@ -186,8 +186,8 @@
         </div>
 
         <div class="form-grid">
-          <%= label_tag 'away_score', '', class:"score-label" %>
-          <%= number_field_tag 'away_score', nil, class:"score-input" %>
+          <%= label_tag 'opponent_score', '', class:"score-label" %>
+          <%= number_field_tag 'opponent_score', nil, class:"score-input" %>
         </div>
       </div>
 
@@ -199,26 +199,26 @@
       <div class="content-padded">
         <h4>1. Rules knowledge and Use</h4>
         <p>Examples: They did purposefully misinterpret the rules. They kept to time limits. When they didn't know the rules they showed a real willingness to learn</p>
-        <div class="radio-control">
-          <%= radio_button_tag 'rules_knowledge', 'poor' %>
-          <label for="poor">Poor</label>
-        </div>
-        <div class="radio-control">
-          <%= radio_button_tag 'rules_knowledge', 'not-good' %>
-          <label for="not-good">Not Good</label>
-        </div>
-        <div class="radio-control">
-          <%= radio_button_tag 'rules_knowledge', 'good', true %>
-          <label for="good">Good</label>
-        </div>
-        <div class="radio-control">
-          <%= radio_button_tag 'rules_knowledge', 'very-good' %>
-          <label for="very-good">Very Good</label>
-        </div>
+        <%= render 'spirit_question', field: 'rules_knowledge' %>
+
+        <h4>2. Fouls and Body Contact</h4>
+        <p>Examples: They avoided fouling, contact, and dangerous plays.</p>
+        <%= render 'spirit_question', field: 'fouls' %>
+
+        <h4>3. Fair-Mindedness</h4>
+        <p>Examples: They apologized in situations where it was appropriate, informed teammates about wrong/unnecessary calls. Only called significant breaches</p>
+        <%= render 'spirit_question', field: 'fairness' %>
+
+        <h4>4. Positive Attitude and Self-Control</h4>
+        <p>Examples: They were polite. They played with appropriate intensity irrespective of the score. They left an overall positive impression during and after the game.</p>
+        <%= render 'spirit_question', field: 'attitude' %>
+
+        <h4>5. Communication</h4>
+        <p>Examples: They communicated respectfully. They listened. They kept to discussion time limits.</p>
+        <%= render 'spirit_question', field: 'communication' %>
       </div>
 
-      <%= submit_tag "Submit", class: 'btn pull-right' %>
-
+      <%= submit_tag "Submit", class: 'btn btn-positive btn-block btn-bottom' %>
     <% end %>
   </div>
 
