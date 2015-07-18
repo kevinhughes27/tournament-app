@@ -7,7 +7,7 @@ class AppController < ApplicationController
     @map = @tournament.map
     @fields = @tournament.fields
     @teams = @tournament.teams
-    @games = @tournament.games
+    @games = @tournament.games.includes(:home, :away, :field)
 
     render :show
   end
