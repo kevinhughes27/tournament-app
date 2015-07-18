@@ -218,6 +218,9 @@
         <h4>5. Communication</h4>
         <p>Examples: They communicated respectfully. They listened. They kept to discussion time limits.</p>
         <%= render 'spirit_question', field: 'communication' %>
+
+        <h4>Comments</h4>
+        <%= text_area_tag 'comments', nil, rows: 5 %>
       </div>
 
       <%= submit_tag "Submit", class: 'btn btn-positive btn-block btn-bottom' %>

@@ -39,6 +39,7 @@ class AppController < ApplicationController
       :fairness,
       :attitude,
       :communication,
+      :comments,
     )
 
     @score_report_params[:tournament_id] = @tournament.id

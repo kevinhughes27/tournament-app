@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718181735) do
+ActiveRecord::Schema.define(version: 20150718204032) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20150718181735) do
     t.integer  "communication",         limit: 1
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "comments"
   end
 
   create_table "teams", force: :cascade do |t|
