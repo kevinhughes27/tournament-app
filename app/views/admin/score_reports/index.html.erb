@@ -12,6 +12,7 @@
         <th>Fair-Mindedness</th>
         <th>Positive Attitude and Self-Control</th>
         <th>Communication</th>
+        <th>Confirmed</th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,17 @@
           <td><%= report.fairness %></td>
           <td><%= report.attitude %></td>
           <td><%= report.communication %></td>
+          <td>
+            <% if report.game.unconfirmed? %>
+              <%= form_tag confirm_score_admin_tournament_game_path(@tournament, report.game), method: :post, remote: true  do |form| %>
+                <%= hidden_field_tag 'home_score', report.home_score %>
+                <%= hidden_field_tag 'away_score', report.away_score %>
+                <%= submit_tag 'Confirm', class: 'btn btn-primary' %>
+              <% end %>
+            <% else %>
+              <i class="fa fa-check" style="color:green"></i>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

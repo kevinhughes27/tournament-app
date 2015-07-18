@@ -12,6 +12,11 @@ Rails.application.routes.draw do
       end
       get '/schedule', to: 'schedule#index'
       post '/schedule', to: 'schedule#create'
+      resources :games do
+        member do
+          post :confirm_score
+        end
+      end
       resources :score_reports
     end
 

@@ -8,10 +8,22 @@ class ScoreReport < ActiveRecord::Base
   end
 
   def score
+    "#{home_score} - #{away_score}"
+  end
+
+  def home_score
     if team == game.home
-      "#{team_score} - #{opponent_score}"
+      team_score
     else
-      "#{opponent_score} - #{team_score}"
+      opponent_score
+    end
+  end
+
+  def away_score
+    if team == game.home
+      opponent_score
+    else
+      team_score
     end
   end
 
