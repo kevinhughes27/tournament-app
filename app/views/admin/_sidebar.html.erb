@@ -1,63 +1,63 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
-      <li class="sidebar-brand">
-        <% if @tournament.persisted? %>
-          <%= link_to sidebar_brand(@tournament), admin_tournament_path(@tournament) %>
-        <% else %>
-          Tournmanent App
-        <% end %>
-      </li>
+    <li class="sidebar-brand">
+      <% if @tournament.persisted? %>
+        <%= link_to sidebar_brand(@tournament), admin_tournament_path(@tournament) %>
+      <% else %>
+        Tournmanent App
+      <% end %>
+    </li>
 
-      <li>
-        <% if @tournament.persisted? %>
-          <%= link_to 'Tournament', admin_tournament_path(@tournament) %>
-        <% else %>
-          Tournament
-        <% end %>
-      </li>
+    <li>
+      <% if @tournament.persisted? %>
+        <%= link_to 'Tournament', admin_tournament_path(@tournament) %>
+      <% else %>
+        Tournament
+      <% end %>
+    </li>
 
-      <li>
-        <% if @tournament.map.try(:persisted?) %>
-          <%= link_to 'Map', admin_tournament_map_path(@tournament, @tournament.map) %>
-        <% elsif @tournament.persisted? %>
-          <%= link_to 'Map', new_admin_tournament_map_path(@tournament) %>
-        <% else %>
-          Map
-        <% end %>
-      </li>
+    <li>
+      <% if @tournament.map.try(:persisted?) %>
+        <%= link_to 'Map', admin_tournament_map_path(@tournament, @tournament.map) %>
+      <% elsif @tournament.persisted? %>
+        <%= link_to 'Map', new_admin_tournament_map_path(@tournament) %>
+      <% else %>
+        Map
+      <% end %>
+    </li>
 
-      <li>
-        <% if @tournament.map.try(:persisted?) %>
-          <%= link_to 'Fields', admin_tournament_fields_path(@tournament) %>
-        <% else %>
-          Fields
-        <% end %>
-      </li>
+    <li>
+      <% if @tournament.map.try(:persisted?) %>
+        <%= link_to 'Fields', admin_tournament_fields_path(@tournament) %>
+      <% else %>
+        Fields
+      <% end %>
+    </li>
 
-      <li>
-        <% if @tournament.fields.present? %>
-          <%= link_to 'Teams', admin_tournament_teams_path(@tournament) %>
-        <% else %>
-          Teams
-        <% end %>
-      </li>
+    <li>
+      <% if @tournament.fields.present? %>
+        <%= link_to 'Teams', admin_tournament_teams_path(@tournament) %>
+      <% else %>
+        Teams
+      <% end %>
+    </li>
 
-      <li>
-        <% if @tournament.teams.present? %>
-          <%= link_to 'Schedule', admin_tournament_schedule_path(@tournament) %>
-        <% else %>
-          Schedule
-        <% end %>
-      </li>
+    <li>
+      <% if @tournament.teams.present? %>
+        <%= link_to 'Schedule', admin_tournament_schedule_path(@tournament) %>
+      <% else %>
+        Schedule
+      <% end %>
+    </li>
 
-      <li>
-        <% if @tournament.games.present? %>
-          <%= link_to 'Score Reports', admin_tournament_score_reports_path(@tournament) %>
-        <% else %>
-          Score Reports
-        <% end %>
-      </li>
+    <li>
+      <% if @tournament.games.present? %>
+        <%= link_to 'Score Reports', admin_tournament_score_reports_path(@tournament) %>
+      <% else %>
+        Score Reports
+      <% end %>
+    </li>
 
-      <li><%= link_to 'App', @tournament.app_link, target: '_blank' %></li>
+    <li><%= link_to 'App', @tournament.app_link, target: '_blank' %></li>
   </ul>
 </div>
