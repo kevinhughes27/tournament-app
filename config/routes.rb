@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
       get '/schedule', to: 'schedule#index'
       post '/schedule', to: 'schedule#create'
-      resources :spirits
+      resources :score_reports
     end
 
     get 'download_csv_template', to: 'application#download_csv_template'

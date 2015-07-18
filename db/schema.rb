@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20150718181735) do
     t.integer  "game_id"
     t.integer  "team_id"
     t.string   "submitter_fingerprint"
+    t.integer  "team_score",            limit: 2
+    t.integer  "opponent_score",        limit: 2
     t.integer  "rules_knowledge",       limit: 1
     t.integer  "fouls",                 limit: 1
     t.integer  "fairness",              limit: 1

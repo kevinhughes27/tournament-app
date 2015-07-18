@@ -154,12 +154,14 @@ class TournamentApp.App
     "#{home}#{away}".replace @lastSubmitSearch, ""
 
   submitScoreForm: (gameId, home, away) ->
-    team = @lastSubmitSearch
+    team = _.find(@teams, (team) => team.name is @lastSubmitSearch)
     vsTeam = @vsTeam(home, away)
 
-    $('.score-label')[0].innerHTML = team
+    $('.score-label')[0].innerHTML = team.name
     $('.score-label')[1].innerHTML = vsTeam
     $('input#game_id').val(gameId)
+    $('input#team_id').val(team.id)
+
     @submitScoreScreenB = true
     Twine.refresh()
 
