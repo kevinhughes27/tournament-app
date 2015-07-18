@@ -19,7 +19,11 @@
         <tr>
           <td><%= report.game_name %></td>
           <td><%= report.score %></td>
-          <td><%= report.submitted_by %></td>
+          <td>
+            <a href="#" data-toggle="tooltip" data-placement="top" data-container="body" title="fingerprint: <%= report.submitter_fingerprint %>">
+              <%= report.submitted_by %>
+            </a>
+          </td>
           <td><%= report.rules_knowledge %></td>
           <td><%= report.fouls %></td>
           <td><%= report.fairness %></td>

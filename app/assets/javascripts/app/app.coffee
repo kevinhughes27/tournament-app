@@ -65,6 +65,10 @@ class TournamentApp.App
     pointMeThere = $('#point-me-there')
     @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
 
+    @fingerprint = new Fingerprint2()
+    @fingerprint.get (result) ->
+      $('input#submitter_fingerprint').val(result)
+
   showFieldSelect: =>
     @fieldSearchOpen = true
     @drawerOpen = false

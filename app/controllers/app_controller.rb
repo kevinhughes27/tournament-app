@@ -31,6 +31,7 @@ class AppController < ApplicationController
       :tournament_id,
       :game_id,
       :team_id,
+      :submitter_fingerprint,
       :team_score,
       :opponent_score,
       :rules_knowledge,

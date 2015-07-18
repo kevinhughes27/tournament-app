@@ -175,6 +175,7 @@
     <%= form_tag app_score_submit_path, method: :post, 'bind-event-submit' => 'app.submitScore(this)' do |form| %>
       <%= hidden_field_tag 'game_id' %>
       <%= hidden_field_tag 'team_id' %>
+      <%= hidden_field_tag 'submitter_fingerprint' %>
 
       <div class="score-inputs">
         <div class="form-grid">
