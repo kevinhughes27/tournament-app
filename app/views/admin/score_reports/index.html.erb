@@ -26,11 +26,11 @@
               <%= report.submitted_by %>
             </a>
           </td>
-          <td><%= report.rules_knowledge %></td>
-          <td><%= report.fouls %></td>
-          <td><%= report.fairness %></td>
-          <td><%= report.attitude %></td>
-          <td><%= report.communication %></td>
+          <td bind-class="{danger: <%= report.rules_knowledge %> <= 2}"><%= report.rules_knowledge %></td>
+          <td bind-class="{danger: <%= report.fouls %> <= 2}"><%= report.fouls %></td>
+          <td bind-class="{danger: <%= report.fairness %> <= 2}"><%= report.fairness %></td>
+          <td bind-class="{danger: <%= report.attitude %> <= 2}"><%= report.attitude %></td>
+          <td bind-class="{danger: <%= report.communication %> <= 2}"><%= report.communication %></td>
           <td><%= report.comments %></td>
           <td>
             <% if report.game.unconfirmed? %>
