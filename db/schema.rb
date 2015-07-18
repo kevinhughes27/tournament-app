@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704170419) do
+ActiveRecord::Schema.define(version: 20150718181735) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -48,24 +48,19 @@ ActiveRecord::Schema.define(version: 20150704170419) do
     t.integer "zoom",                                    default: 4,     null: false
   end
 
-  create_table "spirits", force: :cascade do |t|
-    t.integer  "author_id"
-    t.integer  "subject_id"
-    t.integer  "rule",       limit: 1
-    t.integer  "foul",       limit: 1
-    t.integer  "fair",       limit: 1
-    t.integer  "tude",       limit: 1
-    t.integer  "comm",       limit: 1
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+  create_table "score_reports", force: :cascade do |t|
+    t.integer  "tournament_id"
+    t.integer  "game_id"
+    t.integer  "team_id"
+    t.string   "submitter_fingerprint"
+    t.integer  "rules_knowledge",       limit: 1
+    t.integer  "fouls",                 limit: 1
+    t.integer  "fairness",              limit: 1
+    t.integer  "attitude",              limit: 1
+    t.integer  "communication",         limit: 1
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
-
-  create_table "spirits_teams", id: false, force: :cascade do |t|
-    t.integer "spirit_id", null: false
-    t.integer "team_id",   null: false
-  end
-
-  add_index "spirits_teams", ["spirit_id", "team_id"], name: "spirits_teams_join_index"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"

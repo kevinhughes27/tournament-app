@@ -16,4 +16,10 @@ class AppController < ApplicationController
     render json: true
   end
 
+  private
+
+  def score_report_params
+    params
+  end
+
 end
