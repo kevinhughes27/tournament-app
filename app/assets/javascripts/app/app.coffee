@@ -167,7 +167,9 @@ class TournamentApp.App
       bounds.extend(destination)
 
       @map.fitBounds(bounds)
-      @map.setZoom(@zoom)
+
+      if event.distance < 1000
+        @map.setZoom(@zoom)
 
   getFindText: ->
     @findText
