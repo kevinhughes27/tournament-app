@@ -114,12 +114,14 @@ class TournamentApp.App
     @fieldSearchOpen = false
     selected = $(event.target).val()
     field = _.find(@fields, (field) -> field.name is selected)
+    @findText = "showing field #{field.name}"
     @pointToField(field) if field
     Twine.refresh()
 
-  findField: (fieldName) ->
+  findField: (fieldName, home, away) ->
     @scheduleScreen = false
     field = _.find(@fields, (field) -> field.name is fieldName)
+    @findText = "showing field for #{home} vs #{away}"
     @pointToField(field) if field
     Twine.refresh()
 
@@ -145,12 +147,12 @@ class TournamentApp.App
     if currentGame
       field = _.find(@fields, (field) -> field.id == currentGame.field_id)
 
+    @findText = "showing field for team #{team.name}"
     @pointToField(field) if field
     Twine.refresh()
 
   pointToField: (field) ->
     @findingField = true
-    @findText = "finding field #{field.name}"
 
     @pointMeThere.setDestination(field.lat, field.long, field.name)
     @pointMeThere.start (event) =>
