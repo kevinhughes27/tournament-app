@@ -1,5 +1,7 @@
 class UpdateFields < ActiveRecord::Migration
   # push upi coords to prod
+  # not not in order ... (slash my sort might not have been enough)
+  # gist to get data https://gist.github.com/kevinhughes27/b80c387faf6ea38ea144
 
   def change
     polygons = [

@@ -2,7 +2,7 @@ class Admin::FieldsController < AdminController
 
   def index
     @map = @tournament.map
-    @fields = @tournament.fields
+    @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }.reverse
   end
 
   def create
