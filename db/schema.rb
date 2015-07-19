@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719201538) do
+ActiveRecord::Schema.define(version: 20150719205501) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20150719201538) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "handle"
-    t.time     "time_cap"
+    t.float    "time_cap"
   end
 
 end
