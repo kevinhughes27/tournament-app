@@ -1,20 +1,18 @@
 class TournamentApp.PointMeThere
 
-  constructor: (@$modal) ->
-    @$arrow = $('#arrow')
+  constructor: ->
     @defaultOrientation = "portrait"
     @defaultOrientation = "landscape" if screen.width > screen.height
 
-  setDestination: (lat, lng, name = 'destination') ->
+  setDestination: (lat, lng) ->
     @dstLat = lat
     @dstLng = lng
-    @dstName = name
-    @$modal.find('.title').text(@dstName)
 
-  start: ->
-    window.addEventListener('deviceorientation', @_getHeading)
+  start: (callback) ->
+    @callback = callback
     navigator.geolocation.watchPosition(@_locationUpdate, @_locationUpdateFail)
-    @_calcArrow()
+    window.addEventListener('deviceorientation', @_getHeading)
+    # how to init before location data is available?
 
   _locationUpdate: (position) =>
     @lat = position.coords.latitude
@@ -28,7 +26,20 @@ class TournamentApp.PointMeThere
     heading = event.webkitCompassHeading if event.webkitCompassHeading
     heading = @_correctForOrientation(heading)
 
-    @_calcArrow(heading)
+    bearing = @_getBearing(@lat, @long, @dstLat, @dstLng)
+    distance = @_getDistance(@lat, @long, @dstLat, @dstLng)
+    angle = heading + bearing
+
+    @callback({
+      lat: @lat,
+      long: @long,
+      dstLat: @dstLat,
+      dstLng: @dstLng,
+      bearing: bearing,
+      heading: heading,
+      angle: angle,
+      distance: distance
+    })
 
   _correctForOrientation: (heading) ->
     adjustment  = 0
@@ -53,14 +64,6 @@ class TournamentApp.PointMeThere
     else
       screen.orientation || screen.mozOrientation || screen.msOrientation
 
-  _calcArrow: (heading) ->
-    bearing = @_getBearing(@lat, @long, @dstLat, @dstLng)
-    distance = @_getDistance(@lat, @long, @dstLat, @dstLng)
-    angle = heading + bearing
-
-    @_animateArrow(angle)
-    @_renderInfo(@lat, @long, bearing, heading, angle, distance)
-
   _getBearing: (lat, lng, dstLat, dstLng) =>
     dLng = toRad(dstLng-lng)
     lat = toRad(lat)
@@ -83,20 +86,6 @@ class TournamentApp.PointMeThere
     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
     d = R * c * 1000 # Distance in meters
     return d
-
-  _animateArrow: (angle) ->
-    @$arrow.css('webkit-transform', "rotate(#{angle}deg)")
-    @$arrow.css('moz-transform', "rotate(#{angle}deg)")
-    @$arrow.css('transform', "rotate(#{angle}deg)")
-
-  _renderInfo: (lat, long, bearing, heading, angle, distance)->
-    node = @$modal.find('.bar-footer')
-    node.empty()
-    node.append("<p>distance: #{@_round(distance)} meters<p>")
-
-  _round: (val) ->
-    val ||= 0
-    val.toFixed(3)
 
 window.toRad = (deg) ->
   deg * Math.PI / 180

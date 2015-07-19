@@ -23,6 +23,7 @@ class TournamentApp.App
     })
 
     @drawFields()
+    @markers = []
     @initApp()
 
   drawFields: ->
@@ -41,11 +42,26 @@ class TournamentApp.App
   _drawField: (field) ->
     polygon = new google.maps.Polygon(
       paths: field.points,
-      fillColor: '#7FC013'
+      strokeColor: '#29617D'
+      strokeWeight: 5
+      fillOpacity: 0
     )
 
     field.shape = polygon
     polygon.setMap(@map)
+
+  _addMarker: (lat, lng, title) ->
+    latLng = new google.maps.LatLng(lat, lng)
+
+    @markers.push new google.maps.Marker(
+      position: latLng,
+      map: @map
+      title: title
+    )
+
+  _clearMarkers: ->
+    marker.setMap(null) for marker in @markers
+    @markers = []
 
   initApp: ->
     $node = $('#field-search > select')
@@ -62,8 +78,7 @@ class TournamentApp.App
       @teamSearchOpen = false
       Twine.refresh()
 
-    pointMeThere = $('#point-me-there')
-    @pointMeThere = new TournamentApp.PointMeThere(pointMeThere)
+    @pointMeThere = new TournamentApp.PointMeThere()
 
     @fingerprint = new Fingerprint2()
     @fingerprint.get (result) ->
@@ -75,29 +90,17 @@ class TournamentApp.App
     Twine.refresh()
     @fieldSelectize.focus()
 
-  fieldSelected: (event)
-
   fieldSelected: (event) ->
     @fieldSearchOpen = false
     selected = $(event.target).val()
     field = _.find(@fields, (field) -> field.name is selected)
-
-    if field
-      @pointMeThere.setDestination(field.lat, field.long, field.name)
-      @pointMeThere.start()
-      @modalOpen = true
-
+    @pointToField(field) if field
     Twine.refresh()
 
   findField: (fieldName) ->
     @scheduleScreen = false
     field = _.find(@fields, (field) -> field.name is fieldName)
-
-    if field
-      @pointMeThere.setDestination(field.lat, field.long, field.name)
-      @pointMeThere.start()
-      @modalOpen = true
-
+    @pointToField(field) if field
     Twine.refresh()
 
   showTeamSelect: =>
@@ -122,13 +125,23 @@ class TournamentApp.App
     if currentGame
       field = _.find(@fields, (field) -> field.id == currentGame.field_id)
 
-    if field
-      @pointMeThere.setDestination(field.lat, field.long, field.name)
-      @pointMeThere.start()
-      @modalOpen = true
-
+    @pointToField(field) if field
     Twine.refresh()
 
+  pointToField: (field) ->
+    @pointMeThere.setDestination(field.lat, field.long, field.name)
+    @pointMeThere.start (event) =>
+      @_clearMarkers()
+      @_addMarker(event.lat, event.long, 'Location')
+      @_addMarker(event.dstLat, event.dstLng, 'Destination')
+
+      bounds = new google.maps.LatLngBounds()
+      location = new google.maps.LatLng(event.lat, event.long)
+      bounds.extend(location)
+      destination = new google.maps.LatLng(event.dstLat, event.dstLng)
+      bounds.extend(destination)
+      @map.fitBounds(bounds)
+      @map.setZoom(@zoom)
 
   # Schedule view
   scheduleSearchChange: (event)->
