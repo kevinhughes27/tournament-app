@@ -132,14 +132,17 @@ class TournamentApp.App
     @pointMeThere.setDestination(field.lat, field.long, field.name)
     @pointMeThere.start (event) =>
       @_clearMarkers()
-      @_addMarker(event.lat, event.long, 'Location')
-      @_addMarker(event.dstLat, event.dstLng, 'Destination')
-
       bounds = new google.maps.LatLngBounds()
-      location = new google.maps.LatLng(event.lat, event.long)
-      bounds.extend(location)
+
+      if event.lat && event.long
+        @_addMarker(event.lat, event.long, 'Location')
+        location = new google.maps.LatLng(event.lat, event.long)
+        bounds.extend(location)
+
+      @_addMarker(event.dstLat, event.dstLng, 'Destination')
       destination = new google.maps.LatLng(event.dstLat, event.dstLng)
       bounds.extend(destination)
+
       @map.fitBounds(bounds)
       @map.setZoom(@zoom)
 

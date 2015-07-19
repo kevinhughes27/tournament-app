@@ -12,7 +12,18 @@ class TournamentApp.PointMeThere
     @callback = callback
     navigator.geolocation.watchPosition(@_locationUpdate, @_locationUpdateFail)
     window.addEventListener('deviceorientation', @_getHeading)
-    # how to init before location data is available?
+
+    # init before location data is available
+    @callback({
+      lat: null,
+      long: null,
+      dstLat: @dstLat,
+      dstLng: @dstLng,
+      bearing: null,
+      heading: null,
+      angle: null,
+      distance: null
+    })
 
   _locationUpdate: (position) =>
     @lat = position.coords.latitude
