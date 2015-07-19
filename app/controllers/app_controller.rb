@@ -4,7 +4,7 @@ class AppController < ApplicationController
 
   def show
     @map = @tournament.map
-    @fields = @tournament.fields
+    @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
     @teams = @tournament.teams
     @games = @tournament.games.includes(:home, :away, :field)
 

@@ -3,7 +3,7 @@ class Admin::ScheduleController < AdminController
 
   def index
     @teams = @tournament.teams
-    @fields = @tournament.fields.includes(:games)
+    @fields = @tournament.fields.includes(:games).sort_by{|f| f.name.gsub(/\D/, '').to_i }
   end
 
   def create
