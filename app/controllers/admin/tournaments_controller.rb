@@ -41,7 +41,9 @@ class Admin::TournamentsController < AdminController
   def tournament_params
     params.require(:tournament).permit(
       :name,
+      :handle,
       :description,
+      :time_cap
     )
   end
 end

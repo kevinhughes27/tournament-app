@@ -1,6 +1,6 @@
 class TournamentApp.App
 
-  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games) ->
+  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap) ->
     @drawerOpen = false
     @findingField = false
     @findText = ''
