@@ -1,6 +1,6 @@
 class TournamentApp.App
 
-  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap) ->
+  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, timeCap) ->
     @drawerOpen = false
     @findingField = false
     @findText = ''
@@ -8,6 +8,8 @@ class TournamentApp.App
     @scheduleScreen = false
     @submitScoreScreenA = false
     @submitScoreScreenB = false
+
+    @timeCap = new Date(timeCap)
 
     window.initializeMap = @initializeMap
     script = document.createElement('script')
@@ -114,14 +116,14 @@ class TournamentApp.App
     @fieldSearchOpen = false
     selected = $(event.target).val()
     field = _.find(@fields, (field) -> field.name is selected)
-    @findText = "showing field #{field.name}"
+    @findText = "Showing field #{field.name}"
     @pointToField(field) if field
     Twine.refresh()
 
   findField: (fieldName, home, away) ->
     @scheduleScreen = false
     field = _.find(@fields, (field) -> field.name is fieldName)
-    @findText = "showing field for #{home} vs #{away}"
+    @findText = "Showing field for #{home} vs #{away}"
     @pointToField(field) if field
     Twine.refresh()
 
@@ -147,7 +149,7 @@ class TournamentApp.App
     if currentGame
       field = _.find(@fields, (field) -> field.id == currentGame.field_id)
 
-    @findText = "showing field for team #{team.name}"
+    @findText = "Showing field for team #{team.name}"
     @pointToField(field) if field
     Twine.refresh()
 
