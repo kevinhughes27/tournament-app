@@ -60,21 +60,18 @@ class TournamentApp.App
     )
 
   _addPointer: (lat, lng, rotation, title) ->
-    image = {
-      url: 'assets/orientation-pointer.png',
-      size: new google.maps.Size(27, 39),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0, 0)
-    }
-
     latLng = new google.maps.LatLng(lat, lng)
 
     @markers.push new google.maps.Marker(
+      title: title
       position: latLng,
       map: @map,
-      icon: image,
-      rotation: rotation,
-      title: title
+      icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+        strokeColor: "#FFFFFF",
+        scale: 3
+        rotation: rotation,
+      },
     )
 
   _clearMarkers: ->
@@ -153,8 +150,8 @@ class TournamentApp.App
       bounds = new google.maps.LatLngBounds()
 
       if event.lat && event.long
-        @_addPointer(event.lat, event.long, 'Location')
-        location = new google.maps.LatLng(event.lat, event.long, event.heading)
+        @_addPointer(event.lat, event.long, event.heading, 'Location')
+        location = new google.maps.LatLng(event.lat, event.long)
         bounds.extend(location)
 
       @_addMarker(event.dstLat, event.dstLng, 'Destination')
