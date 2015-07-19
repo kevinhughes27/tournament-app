@@ -24,6 +24,13 @@
   </select>
 </div>
 
+<div class="bar bar-standard bar-header-secondary transparent" bind-show="!!app.findingField">
+  <a class="nav-btn pull-right" href="#" bind-event-click="app.finishPointToField()">
+    <i class="fa fa-times-circle"></i>
+  </a>
+  <h1 class="title" bind="app.getFindText()"></h1>
+</div>
+
 <div class="bar bar-standard bar-footer">
   <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!(app.drawerOpen || app.modalOpen || app.scheduleScreen)">
     Find <i class="fa fa-caret-up"></i>
@@ -35,24 +42,6 @@
 
 <div id="map-canvas" style="position: absolute; width: 100%; height: 100%;"></div>
 <!-- end main-view -->
-
-
-<!-- point-me-there modal -->
-<div class="modal" id="point-me-there" bind-class="{active: app.modalOpen}">
-  <div class="bar bar-standard">
-    <h1 class="title">Title</h1>
-    <a class="icon icon-close pull-right" href="#" bind-event-click="app.modalOpen = false"></a>
-  </div>
-
-  <div class="content center transparent">
-    <%= image_tag 'point-me-there.png', id: 'arrow', class: 'arrow' %>
-  </div>
-
-  <div class="bar bar-standard bar-footer-secondary">
-    <p>Footer</p>
-  </div>
-</div>
-<!-- end point-me-there modal -->
 
 
 <!-- find-drawer -->

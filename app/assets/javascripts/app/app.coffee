@@ -2,7 +2,8 @@ class TournamentApp.App
 
   constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games) ->
     @drawerOpen = false
-    @modalOpen = false
+    @findingField = false
+    @findText = ''
     @searchOpen = false
     @scheduleScreen = false
     @submitScoreScreenA = false
@@ -25,6 +26,10 @@ class TournamentApp.App
     @drawFields()
     @markers = []
     @initApp()
+
+  centerMap: ->
+    @map.setCenter(new google.maps.LatLng(@tournmanentLocation...))
+    @map.setZoom(@zoom)
 
   drawFields: ->
     for field in @fields
@@ -144,6 +149,9 @@ class TournamentApp.App
     Twine.refresh()
 
   pointToField: (field) ->
+    @findingField = true
+    @findText = "finding field #{field.name}"
+
     @pointMeThere.setDestination(field.lat, field.long, field.name)
     @pointMeThere.start (event) =>
       @_clearMarkers()
@@ -160,6 +168,15 @@ class TournamentApp.App
 
       @map.fitBounds(bounds)
       @map.setZoom(@zoom)
+
+  getFindText: ->
+    @findText
+
+  finishPointToField: ->
+    @findingField = false
+    @_clearMarkers()
+    @centerMap()
+    Twine.refresh()
 
   # Schedule view
   scheduleSearchChange: (event)->
