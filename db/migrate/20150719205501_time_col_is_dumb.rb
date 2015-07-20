@@ -1,5 +1,6 @@
 class TimeColIsDumb < ActiveRecord::Migration
   def change
-    change_column :tournaments, :time_cap, :float
+    remove_column :tournaments, :time_cap
+    add_column :tournaments, :time_cap, :float
   end
 end
