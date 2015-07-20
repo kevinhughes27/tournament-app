@@ -4,5 +4,6 @@
 //= require twine
 //= require awesomplete
 //= require fingerprint2
+//= require moment
 //= require namespace
 //= require_tree ./app

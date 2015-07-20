@@ -1,6 +1,6 @@
 class TournamentApp.App
 
-  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, timeCap) ->
+  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap) ->
     @drawerOpen = false
     @findingField = false
     @findText = ''
@@ -8,8 +8,6 @@ class TournamentApp.App
     @scheduleScreen = false
     @submitScoreScreenA = false
     @submitScoreScreenB = false
-
-    @timeCap = new Date(timeCap)
 
     window.initializeMap = @initializeMap
     script = document.createElement('script')
@@ -137,21 +135,24 @@ class TournamentApp.App
     @teamSearchOpen = false
     selected = $(event.target).val()
     team = _.find(@teams, (team) -> team.name is selected)
+
+    # filter games where the team isn't playing
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
+
+    # filter games that aren't over
+    games = _.filter(games, (game) => moment() < moment(game.start_time).add(@timeCap, 'hours'))
     games = _.sortBy(games, (game) -> game.start_time)
 
-    cutOffIdx = _.findIndex(games, (game) -> Date.parse(game.start_time) > Date.now())
-    # cut off is all games with start time ahead of time now.
-    # I could rewind this by one which is *likey* the current game.
-    # Games should have a duration (tournaments have hard cap so why not give them that?)
-    currentGame = games[cutOffIdx - 1]
+    nextOrCurrentGame = games[0]
 
-    if currentGame
-      field = _.find(@fields, (field) -> field.id == currentGame.field_id)
+    if nextOrCurrentGame
+      field = _.find(@fields, (field) -> field.id == nextOrCurrentGame.field_id)
+      gameTime = moment(nextOrCurrentGame.start_time).format('h:mm')
+      @findText = "Showing field for team #{team.name} @ #{gameTime}"
+      @pointToField(field) if field
 
-    @findText = "Showing field for team #{team.name}"
-    @pointToField(field) if field
     Twine.refresh()
+
 
   pointToField: (field) ->
     @findingField = true
