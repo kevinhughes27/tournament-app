@@ -167,9 +167,18 @@
       <%= hidden_field_tag 'team_id' %>
       <%= hidden_field_tag 'submitter_fingerprint' %>
 
+      <div class="score-labels">
+        <div class="form-grid">
+          <%= label_tag 'team_score', '', class: "score-label" %>
+        </div>
+        <div class="form-grid form-grid-spacer"></div>
+        <div class="form-grid">
+          <%= label_tag 'opponent_score', '', class: "score-label" %>
+        </div>
+      </div>
+
       <div class="score-inputs">
         <div class="form-grid">
-          <%= label_tag 'team_score', '', class:"score-label" %>
           <%= number_field_tag 'team_score', nil, class:"score-input" %>
         </div>
 
@@ -178,7 +187,6 @@
         </div>
 
         <div class="form-grid">
-          <%= label_tag 'opponent_score', '', class:"score-label" %>
           <%= number_field_tag 'opponent_score', nil, class:"score-input" %>
         </div>
       </div>

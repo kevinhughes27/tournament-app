@@ -130,10 +130,17 @@
   padding-top: 20%;
 }
 
-.score-inputs {
+.score-labels {
   display: flex;
   text-align: center;
   padding-top: 10%;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.score-inputs {
+  display: flex;
+  text-align: center;
   padding-left: 15%;
   padding-right: 15%;
 }
@@ -156,7 +163,7 @@ input.score-input {
 
 .form-grid-spacer {
   flex-basis: 14%;
-  line-height: 104px;
+  line-height: 48px;
 }
 
 .radio-control {
