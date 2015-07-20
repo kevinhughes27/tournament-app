@@ -1,5 +1,5 @@
 <!-- main-view -->
-<div class="bar bar-nav bar-tblue" bind-show="!(app.scheduleScreen || app.submitScoreScreen)">
+<div class="bar bar-nav bar-tblue">
   <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen = true">
     <i class="fa fa-list-alt"></i> Schedule
   </a>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="bar bar-standard bar-footer">
-  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!(app.drawerOpen || app.modalOpen || app.scheduleScreen)">
+  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!app.drawerOpen">
     Find <i class="fa fa-caret-up"></i>
   </a>
 </div>
