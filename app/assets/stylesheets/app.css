@@ -5,6 +5,9 @@
  *= require app/selectize-overides
  *= require awesomplete
  *= require app/styles
+ *= require app/main_screen
+ *= require app/schedule_screen
+ *= require app/submit_score_screen
  *= require google_maps
  *= require_self
  */

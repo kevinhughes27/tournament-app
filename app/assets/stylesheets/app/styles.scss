@@ -1,22 +1,9 @@
 @import 'ratchet/variables';
-@import 'ratchet/mixins';
 @import 'mixins';
 
 .hide {
   display: none;
   visibility: hidden;
-}
-
-.bar-tblue {
-  background-color: rgba(0, 122, 255, 0.5);
-  border: none;
-  color: white;
-}
-
-.bar-blue {
-  background-color: rgb(0, 122, 255);
-  border: none;
-  color: white;
 }
 
 .transparent {
@@ -29,6 +16,18 @@
 
 .center {
   text-align: center;
+}
+
+.bar-tblue {
+  background-color: rgba(0, 122, 255, 0.5);
+  border: none;
+  color: white;
+}
+
+.bar-blue {
+  background-color: rgb(0, 122, 255);
+  border: none;
+  color: white;
 }
 
 .nav-btn {
@@ -61,123 +60,6 @@
   }
 }
 
-.screen-schedule {
-  background-color: rgba(255, 255, 255, 0.9);
-  .content, .table-view {
-    background: none;
-  }
-  .table-view-cell, .table-view-divider {
-    font-size: 15px;
-  }
-  .btn-field {
-    border: none;
-    background: none;
-    font-size: 13px;
-    right: 10px;
-    margin-top: 5px;
-    padding: 0;
-    &:after {
-      display: none;
-    }
-    .fa {
-      font-size: 20px;
-      position: relative;
-      bottom: 4px;
-      padding-left: 2px;
-    }
-  }
-  .table-view-cell {
-    padding: 8px 65px 9px 15px;
-  }
-  .table-view-divider {
-    padding: 2px 15px 2px 15px;
-    color: black;
-  }
-}
-
-.search-bar {
-  padding-top: 10px;
-  background-color: transparent;
-  border: none;
-}
-
-.score-input {
-    width: 45%;
-}
-
-.bar .btn-find {
-  background-color: rgba(0, 122, 255, 0.5);
-  color: white;
-  font-size: 18px;
-  border-width: 1.5px;
-  padding: 8px 12px;
-  @include border-radius(7.5px);
-  position: relative;
-  top: -8px;
-  .fa {
-    position: relative;
-    bottom: 1px;
-    padding-left: 2px;
-  }
-}
-
-.btn-green {
-  color: #78A874;
-}
-
-.arrow {
-  height: 85%;
-  padding-top: 20%;
-}
-
-.score-labels {
-  display: flex;
-  text-align: center;
-  padding-top: 10%;
-  padding-left: 15%;
-  padding-right: 15%;
-}
-
-.score-inputs {
-  display: flex;
-  text-align: center;
-  padding-left: 15%;
-  padding-right: 15%;
-}
-
-.score-label {
-  display: inline-block;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-input.score-input {
-  font-size: 24px;
-  height: 48px;
-  text-align: center;
-}
-
-.form-grid {
-  flex: 0 1 47%;
-}
-
-.form-grid-spacer {
-  flex-basis: 14%;
-  line-height: 48px;
-}
-
-.radio-control {
-  padding: 5px 0 5px 10px;
-}
-
-.radio-group {
-  padding-bottom: 24px;
-}
-
-.btn-bottom {
-  margin-bottom: 0px;
-}
-
 .team-search {
   padding-top: 5px;
   color: black;
@@ -188,13 +70,4 @@ input.score-input {
   padding-left: 5px;
   line-height: 1.5;
   border-radius: 5px;
-}
-
-.submit-search {
-  padding-top: 20px;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-bottom: 20px;
-  position: relative;
-  z-index: 15;
 }
