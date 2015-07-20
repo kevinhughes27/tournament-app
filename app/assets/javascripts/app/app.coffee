@@ -140,7 +140,7 @@ class TournamentApp.App
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
 
     # filter games that aren't over
-    games = _.filter(games, (game) => moment() < moment(game.start_time).add(@timeCap, 'hours'))
+    games = _.filter(games, (game) => moment() < moment(game.start_time).add(@timeCap, 'minutes'))
     games = _.sortBy(games, (game) -> game.start_time)
 
     nextOrCurrentGame = games[0]
