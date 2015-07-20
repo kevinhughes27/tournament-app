@@ -81,10 +81,10 @@ ActiveRecord::Schema.define(version: 20150719205501) do
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "handle"
-    t.float    "time_cap"
+    t.decimal  "time_cap",    precision: 5, scale: 2
   end
 
 end
