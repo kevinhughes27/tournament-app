@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719205501) do
+ActiveRecord::Schema.define(version: 20150720215110) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -81,10 +81,10 @@ ActiveRecord::Schema.define(version: 20150719205501) do
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "handle"
-    t.decimal  "time_cap",    precision: 5, scale: 2
+    t.integer  "time_cap"
   end
 
 end
