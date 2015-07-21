@@ -93,17 +93,17 @@ class TournamentApp.App
     node = $('#app')[0]
     @hammertime = new Hammer(node)
 
-    @hammertime.on 'swipeleft', (event) =>
+    @hammertime.on 'panright', (event) =>
       # if main screen
       @scheduleScreen = true
       Twine.refresh()
 
-    @hammertime.on 'swiperight', (event) =>
+    @hammertime.on 'panleft', (event) =>
       # if main screen
       @submitScoreScreenA = true
       Twine.refresh()
 
-    @hammertime.on 'swipeup', (event) =>
+    @hammertime.on 'panup', (event) =>
       # if main screen
       @drawerOpen = true
       Twine.refresh()
