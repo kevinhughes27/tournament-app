@@ -95,9 +95,10 @@ class TournamentApp.App
 
   showFieldSelect: =>
     @fieldSearchOpen = true
+    @teamSearchOpen = false
     @drawerOpen = false
     Twine.refresh()
-    $('#main-field-search > input').focus()
+    _.defer -> $('#main-field-search').select()
 
   fieldSelected: (event) ->
     @fieldSearchOpen = false
@@ -116,9 +117,10 @@ class TournamentApp.App
 
   showTeamSelect: =>
     @teamSearchOpen = true
+    @fieldSearchOpen = false
     @drawerOpen = false
     Twine.refresh()
-    $('#main-team-search > input').focus()
+    _.defer -> $('#main-team-search').select()
 
   teamSelected: (event) =>
     @teamSearchOpen = false
