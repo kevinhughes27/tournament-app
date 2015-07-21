@@ -15,6 +15,9 @@ class TournamentApp.App
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=initializeMap'
     document.body.appendChild(script)
 
+  mainScreen: ->
+    !@scheduleScreen && !@submitScoreScreenA && !@submitScoreScreenB
+
   initializeMap: =>
     @map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: @zoom,
@@ -94,12 +97,12 @@ class TournamentApp.App
     @hammertime = new Hammer(node)
 
     @hammertime.on 'panright', (event) =>
-      # if main screen
+      return unless @mainScreen()
       @scheduleScreen = true
       Twine.refresh()
 
     @hammertime.on 'panleft', (event) =>
-      # if main screen
+      return unless @mainScreen()
       @submitScoreScreenA = true
       Twine.refresh()
 
