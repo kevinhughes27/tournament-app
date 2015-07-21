@@ -7,13 +7,20 @@
         <th>Game</th>
         <th>Score</th>
         <th>Submitted by</th>
+        <th>Submitted at</th>
         <th>Rules Knowledge</th>
         <th>Fouls and Body Contact</th>
         <th>Fair-Mindedness</th>
         <th>Positive Attitude and Self-Control</th>
         <th>Communication</th>
         <th>Comments</th>
-        <th>Confirmed</th>
+        <th>
+          <a data-toggle="tooltip" data-placement="bottom" data-container="body" data-html="true"
+           title="<p>the games score has been confirmed (not neccessarily that this report is.)</p>
+           <p>View the games screen to update the score if required</p>">
+            Game Confirmed
+          </a>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +31,7 @@
           <td data-toggle="tooltip" data-placement="top" data-container="body" title="fingerprint: <%= report.submitter_fingerprint %>">
             <%= report.submitted_by %>
           </td>
+          <td><%= report.created_at.strftime("%A %l:%M %P") %></td>
           <td bind-class="{danger: <%= report.rules_knowledge %> <= 2}"><%= report.rules_knowledge %></td>
           <td bind-class="{danger: <%= report.fouls %> <= 2}"><%= report.fouls %></td>
           <td bind-class="{danger: <%= report.fairness %> <= 2}"><%= report.fairness %></td>
