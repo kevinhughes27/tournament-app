@@ -1,13 +1,7 @@
 /*
- *= require app/ratchet/ratchet
- *= require app/ratchet-overides
- *= require app/selectize
- *= require app/selectize-overides
+ *= require ratchet/ratchet
  *= require awesomplete
- *= require app/styles
- *= require app/main_screen
- *= require app/schedule_screen
- *= require app/submit_score_screen
  *= require google_maps
+ *= require_tree ./app
  *= require_self
  */

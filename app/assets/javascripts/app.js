@@ -1,9 +1,8 @@
 //= require jquery
-//= require underscore
-//= require selectize
 //= require twine
+//= require moment
+//= require underscore
 //= require awesomplete
 //= require fingerprint2
-//= require moment
 //= require namespace
 //= require_tree ./app
