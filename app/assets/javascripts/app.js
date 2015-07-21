@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery.scrollTo
 //= require twine
 //= require moment
 //= require underscore

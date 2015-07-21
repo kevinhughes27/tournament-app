@@ -176,7 +176,29 @@ class TournamentApp.App
     @centerMap()
     Twine.refresh()
 
+
   # Schedule view
+  showScheduleScreen: ->
+    @scheduleScreen = true
+    nodes = $('.divider-container')
+
+    # unless scrolled set already? (try and remember scroll if they leave this page)
+    if true
+      # ensure scroll has run at least once so scroll buffer is resolved
+      @_scrollSchedule(nodes[0])
+
+      nowNode = _.find(nodes, (node) ->
+        timeString = $(node).find('.divider-time').data('time')
+        moment.utc() < moment.utc(timeString).add(@timeCap, 'minutes')
+      )
+
+      @_scrollSchedule(nowNode)
+
+    Twine.refresh()
+
+  _scrollSchedule: (node) ->
+    $('.left-screen > .content').scrollTo(node).offset({top: 88}) # 2 x $bar-base-height
+
   scheduleSearchChange: (event)->
     @lastScheduleSearch = $(event.target).val()
     Twine.refresh()

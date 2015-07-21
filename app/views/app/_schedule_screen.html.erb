@@ -23,7 +23,7 @@
 
         <li class="table-view-divider"  bind-show="app.scheduleFilter(<%= games.map{|g| [g.home.name, g.away.name]}.flatten.to_json %>)">
           <div class='divider-container'>
-            <div class="divider-time">
+            <div class="divider-time" data-time="<%= time%>">
               <strong><%= time.strftime("%l:%M %P") %></strong>
             </div>
             <div class="divider-day">
