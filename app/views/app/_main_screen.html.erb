@@ -9,21 +9,17 @@
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.fieldSearchOpen">
-  <div class="main-search">
-    <input id="main-field-search" class="awesomplete" type="text" placeholder="Search ..."
-      data-minchars="1"
-      data-list="<%= @fields.map{ |t| t.name }.join(', ') %>"
-      bind-event-change="app.fieldSelected(event)">
-  </div>
+  <input id="main-field-search" class="awesomplete" type="text" placeholder="Search ..."
+    data-minchars="1"
+    data-list="<%= @fields.map{ |t| t.name }.join(', ') %>"
+    bind-event-change="app.fieldSelected(event)">
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.teamSearchOpen">
-  <div class="main-search">
-    <input id="main-team-search" class="awesomplete" type="text" placeholder="Search ..."
-      data-minchars="1"
-      data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
-      bind-event-change="app.teamSelected(event)">
-  </div>
+  <input id="main-team-search" class="awesomplete" type="text" placeholder="Search ..."
+    data-minchars="1"
+    data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
+    bind-event-change="app.teamSelected(event)">
 </div>
 
 <div class="bar bar-standard bar-header-secondary transparent" bind-show="!!app.findingField">
