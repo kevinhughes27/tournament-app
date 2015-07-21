@@ -144,15 +144,14 @@ class TournamentApp.App
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
 
     # filter games that aren't over
-    games = _.filter(games, (game) => moment() < moment(game.start_time).add(@timeCap, 'minutes'))
+    games = _.filter(games, (game) => moment.utc() < moment.utc(game.start_time).add(@timeCap, 'minutes'))
     games = _.sortBy(games, (game) -> game.start_time)
 
     nextOrCurrentGame = games[0]
 
     if nextOrCurrentGame
       field = _.find(@fields, (field) -> field.id == nextOrCurrentGame.field_id)
-      gameTime = moment(nextOrCurrentGame.start_time).format('h:mm')
-      debugger
+      gameTime = moment.utc(nextOrCurrentGame.start_time).format('h:mm')
       @findText = "#{team.name} @ #{gameTime}"
       @pointToField(field) if field
 
