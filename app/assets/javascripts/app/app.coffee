@@ -182,8 +182,10 @@ class TournamentApp.App
     @scheduleScreen = true
     nodes = $('.divider-container')
 
-    # unless scrolled set already? (try and remember scroll if they leave this page)
-    if true
+    unless @scheduleScrolled
+      # only run this once. then remember the users scroll
+      @scheduleScrolled = true
+
       # ensure scroll has run at least once so scroll buffer is resolved
       @_scrollSchedule(nodes[0])
 
