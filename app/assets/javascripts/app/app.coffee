@@ -103,11 +103,6 @@ class TournamentApp.App
       @submitScoreScreenA = true
       Twine.refresh()
 
-    @hammertime.on 'panup', (event) =>
-      # if main screen
-      @drawerOpen = true
-      Twine.refresh()
-
     @fingerprint = new Fingerprint2()
     @fingerprint.get (result) ->
       $('input#submitter_fingerprint').val(result)
