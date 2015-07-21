@@ -32,6 +32,21 @@
   }
 }
 
+.divider-container {
+  display: flex;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.divider-time {
+  text-align: left;
+  width: 40%;
+}
+
+.divider-day {
+  text-align: center;
+}
+
 .btn-green {
   color: #78A874;
 }
