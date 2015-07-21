@@ -5,5 +5,6 @@
 //= require underscore
 //= require awesomplete
 //= require fingerprint2
+//= require hammer
 //= require namespace
 //= require_tree ./app

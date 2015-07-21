@@ -89,6 +89,25 @@ class TournamentApp.App
 
   initApp: ->
     @pointMeThere = new TournamentApp.PointMeThere()
+
+    node = $('#app')[0]
+    @hammertime = new Hammer(node)
+
+    @hammertime.on 'swipeleft', (event) =>
+      # if main screen
+      @scheduleScreen = true
+      Twine.refresh()
+
+    @hammertime.on 'swiperight', (event) =>
+      # if main screen
+      @submitScoreScreenA = true
+      Twine.refresh()
+
+    @hammertime.on 'swipeup', (event) =>
+      # if main screen
+      @drawerOpen = true
+      Twine.refresh()
+
     @fingerprint = new Fingerprint2()
     @fingerprint.get (result) ->
       $('input#submitter_fingerprint').val(result)
