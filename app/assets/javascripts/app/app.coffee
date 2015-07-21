@@ -88,22 +88,7 @@ class TournamentApp.App
     @markers = []
 
   initApp: ->
-    $node = $('#field-search > select')
-    $node.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
-    @fieldSelectize = $node[0].selectize
-    @fieldSelectize.on 'blur', (event) =>
-      @fieldSearchOpen = false
-      Twine.refresh()
-
-    $node = $('#team-search > select')
-    $node.selectize(valueField: 'name', labelField: 'name', searchField: 'name')
-    @teamSelectize = $node[0].selectize
-    @teamSelectize.on 'blur', (event) =>
-      @teamSearchOpen = false
-      Twine.refresh()
-
     @pointMeThere = new TournamentApp.PointMeThere()
-
     @fingerprint = new Fingerprint2()
     @fingerprint.get (result) ->
       $('input#submitter_fingerprint').val(result)
@@ -112,7 +97,7 @@ class TournamentApp.App
     @fieldSearchOpen = true
     @drawerOpen = false
     Twine.refresh()
-    @fieldSelectize.focus()
+    $('#main-field-search > input').focus()
 
   fieldSelected: (event) ->
     @fieldSearchOpen = false
@@ -133,7 +118,7 @@ class TournamentApp.App
     @teamSearchOpen = true
     @drawerOpen = false
     Twine.refresh()
-    @teamSelectize.focus()
+    $('#main-team-search > input').focus()
 
   teamSelected: (event) =>
     @teamSearchOpen = false
