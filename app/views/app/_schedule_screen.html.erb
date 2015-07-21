@@ -39,7 +39,7 @@
             <% if game.score_confirmed %>
               <%= "(#{game.home_score}/#{game.away_score})" %>
             <% end %>
-            <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click="app.findField('<%= game.field.name %>', '<%= game.home.name %>', '<%= game.away.name %>')">
+            <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='app.findField("<%= game.field.name %>", "<%= game.home.name %>", "<%= game.away.name %>")'>
               <%= game.field.name %>
               <i class="fa fa-map-marker"></i>
             </a>
