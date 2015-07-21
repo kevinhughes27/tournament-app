@@ -98,7 +98,7 @@ class TournamentApp.App
     @teamSearchOpen = false
     @drawerOpen = false
     Twine.refresh()
-    _.defer -> $('#main-field-search').select()
+    _.defer -> $('#main-field-search').focus()
 
   fieldSelected: (event) ->
     @fieldSearchOpen = false
@@ -120,7 +120,7 @@ class TournamentApp.App
     @fieldSearchOpen = false
     @drawerOpen = false
     Twine.refresh()
-    _.defer -> $('#main-team-search').select()
+    _.defer -> $('#main-team-search').focus()
 
   teamSelected: (event) =>
     @teamSearchOpen = false
