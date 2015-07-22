@@ -22,8 +22,9 @@
         <tr>
           <th class="hide">id</th>
           <th data-override="name">Name</th>
-          <th data-override="email">Email</th>
           <th data-override="division">Division</th>
+          <th data-override="seed">Seed</th>
+          <th data-override="email">Email</th>
           <th data-override="sms">Sms</th>
           <th data-override="twitter">Twitter</th>
         </tr>
@@ -33,8 +34,9 @@
           <tr class="<%= 'danger' if team.errors.present? %>">
             <td class="hide"><%= team.id %></td>
             <td><%= team.name %></td>
-            <td><%= team.email %></td>
             <td><%= team.division %></td>
+            <td><%= team.seed %></td>
+            <td><%= team.email %></td>
             <td><%= team.sms %></td>
             <td><%= team.twitter %></td>
           </tr>

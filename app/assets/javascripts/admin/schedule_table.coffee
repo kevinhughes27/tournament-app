@@ -10,7 +10,7 @@ class TournamentApp.ScheduleTable
       before: @menuLoad
       onItem: @menuSelect
 
-    @teamIdsToNames()
+    @teamIdsToSeeds()
 
     @$tableNode.on 'change', (event) =>
       @currentCell = event.target
@@ -66,20 +66,20 @@ class TournamentApp.ScheduleTable
   _currentRowIdx: ->
     $(@currentCell).parent('tr').index() + 1 # off by one for dom ops
 
-  teamIdsToNames: ->
+  teamIdsToSeeds: ->
     for table in @$fieldTables
-      @teamIdToName(cell) for cell in $(table).find('td#team')
+      @teamIdToSeed(cell) for cell in $(table).find('td#team')
 
-  teamIdToName: (cell) ->
+  teamIdToSeed: (cell) ->
     team = _.find(@teams, (team) -> "#{team.id}" == cell.innerHTML)
-    cell.innerHTML = team.name if team
+    cell.innerHTML = team.seed if team
 
-  teamNamesToIds: ->
+  teamSeedsToIds: ->
     for table in @$fieldTables
-      @teamNameToId(cell) for cell in $(table).find('td#team')
+      @teamSeedToId(cell) for cell in $(table).find('td#team')
 
-  teamNameToId: (cell) ->
-    team = _.find(@teams, (team) -> team.name == cell.innerHTML)
+  teamSeedToId: (cell) ->
+    team = _.find(@teams, (team) -> team.seed == cell.innerHTML)
     cell.innerHTML = team.id if team
 
   uploadCsv: (evt) ->
@@ -100,8 +100,8 @@ class TournamentApp.ScheduleTable
           @addRow(idx, chunk) for chunk, idx in fullRowData.chunk(chunkSize)
 
         old_trs.remove()
-        @teamNamesToIds()
-        @teamIdsToNames()
+        @teamSeedsToIds()
+        @teamIdsToSeeds()
 
   browserSupportFileUpload: ->
     window.File && window.FileReader && window.FileList && window.Blob
@@ -136,7 +136,7 @@ class TournamentApp.ScheduleTable
 
   save: (form) ->
     Turbolinks.ProgressBar.start()
-    @teamNamesToIds()
+    @teamSeedsToIds()
 
     games = []
     for table in @$fieldTables
