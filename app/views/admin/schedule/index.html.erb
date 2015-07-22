@@ -1,6 +1,17 @@
 <div class="container">
   <h1>Schedule</h1>
 
+  <div class="row">
+    <% @teams.group_by{ |t| t.division }.each do |division, teams| %>
+      <div class="col-md-3">
+        <h3><%= division %></h3>
+        <%= render 'teams', teams: teams %>
+      </div>
+    <% end %>
+  </div>
+
+  <hr>
+
   <% @fields.each do |field| %>
     <% if field.games.any?{ |game| game.errors.present? } %>
       <div class="alert alert-danger">
@@ -17,14 +28,6 @@
       </div>
     <% end %>
   <% end %>
-
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'teams', teams: @teams %>
-    </div>
-  </div>
-
-  <hr>
 
   <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "scheduleTable.save(this)" do %>
     <table class="schedule-table">
