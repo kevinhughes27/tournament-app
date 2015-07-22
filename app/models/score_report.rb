@@ -3,9 +3,7 @@ class ScoreReport < ActiveRecord::Base
   belongs_to :game
   belongs_to :team
 
-  def game_name
-    "#{game.home.name} vs #{game.away.name}"
-  end
+  delegate :game_name, to: :game
 
   def score
     "#{home_score} - #{away_score}"

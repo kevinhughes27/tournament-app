@@ -1,0 +1,2 @@
+class BracketGame < Game
+end

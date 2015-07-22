@@ -1,0 +1,2 @@
+class PoolGame < Game
+end

@@ -1,0 +1,2 @@
+class ByeGame < Game
+end

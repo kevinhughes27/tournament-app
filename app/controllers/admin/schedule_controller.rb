@@ -9,7 +9,7 @@ class Admin::ScheduleController < AdminController
   def create
     Game.update_set(@tournament.games, games_params)
     @teams = @tournament.teams
-    @fields = @tournament.fields.includes(:games)
+    @fields = @tournament.fields.includes(:games).sort_by{|f| f.name.gsub(/\D/, '').to_i }
     render :index
   end
 
