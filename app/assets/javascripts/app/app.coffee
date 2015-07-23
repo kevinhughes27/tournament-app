@@ -1,6 +1,6 @@
 class TournamentApp.App
 
-  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap) ->
+  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap, @mapMarkerSvg) ->
     @drawerOpen = false
     @findingField = false
     @findText = ''
@@ -66,7 +66,7 @@ class TournamentApp.App
       position: latLng,
       map: @map,
       icon: {
-        url: "/assets/fa-map-marker.svg",
+        url: @mapMarkerSvg,
         strokeColor: "#FFFFFF",
       }
     )

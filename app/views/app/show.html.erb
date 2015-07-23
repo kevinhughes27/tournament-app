@@ -13,7 +13,8 @@
       <%= raw @fields.to_json %>,
       <%= raw @teams.to_json %>,
       <%= raw @games.to_json %>,
-      <%= @tournament.time_cap %>
+      <%= @tournament.time_cap %>,
+      '<%= asset_path('fa-map-marker.svg') %>'
     );
   });
 </script>
