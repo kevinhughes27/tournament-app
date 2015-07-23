@@ -13,7 +13,7 @@
     <tbody>
       <% @games.group_by{|g| g.start_time }.each do |time, games| %>
         <tr class="active">
-          <td><strong><%= time.strftime("%l:%M %P") %></strong></td>
+          <td><strong><%= time %></strong></td>
           <td></td>
           <td></td>
           <td></td>

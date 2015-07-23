@@ -33,6 +33,96 @@ games push their results forward using these codes
 # FIND REPLACE FIELD NAME FOR PROD
 
 namespace :nobo do
+  task :create_womens_bracket => :environment do
+    nobo_task do |noborders|
+      # clear
+      BracketGame.where(tournament: noborders, division: 'Womens').destroy_all
+
+      # build
+      bracket = build_bracket(noborders, 'Womens')
+
+      # Quarter Finals
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'upi6'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'upi8'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'upi9'), start_time: '10:10')
+
+      # Semi Finals
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'upi6'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '11:50')
+
+      # Consolation Semi Finals
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'upi8'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'upi9'), start_time: '11:50')
+
+      # Finals
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '3:10')
+
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'upi6'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'upi8'), start_time: '1:30')
+    end
+  end
+
+  task :create_womens_9_16_bracket => :environment do
+    nobo_task do |noborders|
+      # clear
+      BracketGame.where(tournament: noborders, division: 'Womens 9 - 16').destroy_all
+
+      # build
+      playing_for = 9
+      bracket = build_bracket(noborders, 'Womens 9 - 16', playing_for)
+
+      # Quarter Finals
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'upi10'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'upi11'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'upi12'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'upi13'), start_time: '10:10')
+
+      # Semi Finals
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'upi10'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'upi11'), start_time: '11:50')
+
+      # Consolation Semi Finals
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'upi12'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'upi13'), start_time: '11:50')
+
+      # Finals
+      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes(field: Field.find_by(name: 'upi9'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes(field: Field.find_by(name: 'upi10'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes(field: Field.find_by(name: 'upi11'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes(field: Field.find_by(name: 'upi12'), start_time: '1:30')
+    end
+  end
+
+  # Note - pool is not something this understands yet
+  # (top two of each pool go into winner bracket)
+  # but I do raw sort (not gaureenteed to work I think)
+  # Make sure the list sorts right before running this on
+  # saturday night
+
+  # works cause division can be different on the game and the team right now...
+
+  task :seed_womens_bracket => :environment do
+    nobo_task do |noborders|
+      teams = noborders.teams.where(division: 'Women')
+      teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
+      teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
+
+      seed_bracket(noborders, 'Womens', teams[0..8])
+    end
+  end
+
+  task :seed_womens_9_16_bracket => :environment do
+    nobo_task do |noborders|
+      teams = noborders.teams.where(division: 'Women')
+      teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
+      teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
+
+      seed_bracket(noborders, 'Womens 9 - 6', teams[9..16])
+    end
+  end
+
   task :create_open_bracket => :environment do
     nobo_task do |noborders|
       # clear
