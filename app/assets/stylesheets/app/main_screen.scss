@@ -1,5 +1,13 @@
 @import 'mixins';
 
+.content.loading {
+  z-index: 9;
+}
+
+.loading-gif {
+  margin-top: 40%;
+}
+
 .search-bar {
   padding-top: 10px;
   background-color: transparent;

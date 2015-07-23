@@ -15,11 +15,15 @@ class TournamentApp.App
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=initializeMap'
     document.body.appendChild(script)
 
+    @initApp()
+
   mainScreen: ->
     !@scheduleScreen && !@submitScoreScreenA && !@submitScoreScreenB
 
   initializeMap: =>
-    @map = new google.maps.Map(document.getElementById('map-canvas'), {
+    @mapNode = document.getElementById('map-canvas')
+
+    @map = new google.maps.Map(@mapNode, {
       zoom: @zoom,
       center: new google.maps.LatLng(@tournmanentLocation...),
       mapTypeId: google.maps.MapTypeId.SATELLITE
@@ -28,7 +32,9 @@ class TournamentApp.App
 
     @drawFields()
     @markers = []
-    @initApp()
+
+    google.maps.event.addListenerOnce @map, 'tilesloaded', =>
+      $('.loading-gif').fadeOut(1000)
 
   centerMap: ->
     @map.setCenter(new google.maps.LatLng(@tournmanentLocation...))
@@ -173,20 +179,21 @@ class TournamentApp.App
       @_clearMarkers()
       bounds = new google.maps.LatLngBounds()
 
-      if event.lat && event.long
-        @_addPointer(event.lat, event.long, event.heading, 'Location')
-        location = new google.maps.LatLng(event.lat, event.long)
-        bounds.extend(location)
-
+      # always center on desired
       @_addMarker(event.dstLat, event.dstLng, 'Destination')
       destination = new google.maps.LatLng(event.dstLat, event.dstLng)
       bounds.extend(destination)
 
-      if event.distance > 1000
-        alert("You're too far away!")
-      else
-        @map.fitBounds(bounds)
-        @map.setZoom(@zoom) if @map.getZoom() > @zoom
+      if event.lat && event.long
+        if event.distance > 1000
+          alert("You're too far away!")
+        else
+          @_addPointer(event.lat, event.long, event.heading, 'Location')
+          location = new google.maps.LatLng(event.lat, event.long)
+          bounds.extend(location)
+
+      @map.fitBounds(bounds)
+      @map.setZoom(@zoom) if @map.getZoom() > @zoom
 
   getFindText: ->
     @findText
