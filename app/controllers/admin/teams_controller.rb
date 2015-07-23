@@ -21,7 +21,9 @@ class Admin::TeamsController < AdminController
       :sms,
       :twitter,
       :division,
-      :seed
+      :seed,
+      :wins,
+      :points_for
     ])
     @teams_params[:teams] ||= []
     @teams_params[:teams].each{ |t| t[1][:tournament_id] = @tournament.id }

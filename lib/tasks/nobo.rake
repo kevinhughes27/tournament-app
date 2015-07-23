@@ -68,7 +68,7 @@ namespace :nobo do
 
     noborders = Tournament.find_by(name: 'No Borders')
     teams = noborders.teams.where(division: 'Coed Rec')
-    teams = teams.sort{ |team| team.wins * 1000 + team.points_for }
+    teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
     teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
 
     seed_bracket(noborders, 'Coed Rec', teams)
