@@ -111,15 +111,15 @@ namespace :nobo do
     end
   end
 
-    task :seed_open_9_16_bracket => :environment do
-      nobo_task do |noborders|
-        teams = noborders.teams.where(division: 'Open')
-        teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
-        teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
+  task :seed_open_9_16_bracket => :environment do
+    nobo_task do |noborders|
+      teams = noborders.teams.where(division: 'Open')
+      teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
+      teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
 
-        seed_bracket(noborders, 'Open 9 - 6', teams[9..16])
-      end
+      seed_bracket(noborders, 'Open 9 - 6', teams[9..16])
     end
+  end
 
   task :create_coed_rec_bracket => :environment do
     nobo_task do |noborders|
