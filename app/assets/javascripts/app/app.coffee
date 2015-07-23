@@ -182,10 +182,11 @@ class TournamentApp.App
       destination = new google.maps.LatLng(event.dstLat, event.dstLng)
       bounds.extend(destination)
 
-      @map.fitBounds(bounds)
-
-      if event.distance < 1000
-        @map.setZoom(@zoom)
+      if event.distance > 1000
+        alert("You're too far away!")
+      else
+        @map.fitBounds(bounds)
+        @map.setZoom(@zoom) if @map.getZoom() > @zoom
 
   getFindText: ->
     @findText
