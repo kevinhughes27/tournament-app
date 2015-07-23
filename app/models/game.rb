@@ -14,6 +14,16 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def winner
+    home_score > away_score ? home : away
+  end
+
+  def loser
+    home_score < away_score ? home : away
+  end
+
+
+  # ToDo update after I add name column
   def game_name
     "#{home.name} vs #{away.name}"
   end
@@ -23,19 +33,49 @@ class Game < ActiveRecord::Base
   end
 
   def confirm_score(home_score, away_score)
-    update_attributes(
+    update_attributes!(
       home_score: home_score,
       away_score: away_score,
       score_confirmed: true
     )
+
+    home.points_for += home_score
+    away.points_for += away_score
+
+    if home_score > away_score
+      home.wins += 1
+    else
+      away.wins += 1
+    end
+
+    home.save!
+    away.save!
   end
 
   def update_score(home_score, away_score)
-    update_attributes(
+    winner_changed = (self.home_score > self.away_score) && (home_score > away_score)
+    home_delta = home_score - self.home_score
+    away_delta = away_score - self.away_score
+
+    update_attributes!(
       home_score: home_score,
       away_score: away_score,
       score_confirmed: true
     )
+
+    home.points_for += home_delta
+    away.points_for += away_delta
+
+    if winner_changed && home_score > away_score
+      away.wins -= 1
+      home.wins += 1
+    elsif winner_changed
+      home.wins -= 1
+      away.wins += 1
+    end
+
+    home.save!
+    away.save!
   end
 
 end
