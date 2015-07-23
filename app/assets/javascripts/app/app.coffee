@@ -128,10 +128,10 @@ class TournamentApp.App
     @pointToField(field) if field
     Twine.refresh()
 
-  findField: (fieldName, home, away) ->
+  findField: (fieldName) ->
     @scheduleScreen = false
     field = _.find(@fields, (field) -> field.name is fieldName)
-    @findText = "#{home} vs #{away}"
+    @findText = "#{field.name}"
     @pointToField(field) if field
     Twine.refresh()
 

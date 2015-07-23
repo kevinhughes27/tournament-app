@@ -23,12 +23,14 @@
     <div class="card">
       <ul class="table-view">
         <% @games.each do |game| %>
-          <li class="table-view-cell" bind-show="app.submitFilter(<%= [game.home.name, game.away.name].to_json %>)">
-            <a class="navigate-right" bind-event-click='app.submitScoreForm(<%= game.id %>, "<%= game.home.name %>", "<%= game.away.name %>")'>
-              <span bind='app.vsTeam("<%= game.home.name %>", "<%= game.away.name %>")'></span>
-              <span class="subdued">(<%= game.start_time.strftime("%l:%M %P") %>)</span>
-            </a>
-          </li>
+          <% if game.home && game.away %>
+            <li class="table-view-cell" bind-show="app.submitFilter(<%= [game.name].to_json %>)">
+              <a class="navigate-right" bind-event-click='app.submitScoreForm(<%= game.id %>, "<%= game.home.name %>", "<%= game.away.name %>")'>
+                <span bind='app.vsTeam("<%= game.home.name %>", "<%= game.away.name %>")'></span>
+                <span class="subdued">(<%= game.start_time.strftime("%l:%M %P") %>)</span>
+              </a>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </div>

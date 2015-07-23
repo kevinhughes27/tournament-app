@@ -4,8 +4,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Home Team</th>
-        <th>Away Team</th>
+        <th>Name</th>
         <th>Field</th>
         <th>Score</th>
       </tr>
@@ -22,8 +21,7 @@
 
         <% games.each do |game| %>
           <tr>
-            <td><%= game.home.name %></td>
-            <td><%= game.away.name %></td>
+            <td><%= game.name %></td>
             <td><%= game.field.name %></td>
             <td>
               <a href="#" data-toggle="popover" data-placement="bottom" title="Edit score" data-content='<%= render "score_form", tournament: @tournament, game: game %>'>

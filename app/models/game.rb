@@ -22,10 +22,17 @@ class Game < ActiveRecord::Base
     home_score < away_score ? home : away
   end
 
-
-  # ToDo update after I add name column
-  def game_name
-    "#{home.name} vs #{away.name}"
+  def name
+    case type
+    when 'ByeGame'
+      'Bye'
+    when 'PoolGame'
+      "#{home.name} vs #{away.name}"
+    when 'BracketGame'
+      "#{division} Bracket"
+    else
+      nil
+    end
   end
 
   def unconfirmed?
