@@ -9,14 +9,14 @@
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.fieldSearchOpen">
-  <input id="main-field-search" class="awesomplete" type="text" placeholder="Search ..."
+  <input id="main-field-search" class="awesomplete" type="text" placeholder="Start typing a field name or number..."
     data-minchars="1"
     data-list="<%= @fields.map{ |t| t.name }.join(', ') %>"
     bind-event-change="app.fieldSelected(event)">
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar" bind-show="!!app.teamSearchOpen">
-  <input id="main-team-search" class="awesomplete" type="text" placeholder="Search ..."
+  <input id="main-team-search" class="awesomplete" type="text" placeholder="Start typing a team name..."
     data-minchars="1"
     data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
     bind-event-change="app.teamSelected(event)">
@@ -45,18 +45,8 @@
 <!-- find-drawer -->
 <div class="drawer" bind-class="{active: app.drawerOpen}">
   <div class="content transparent">
-    <ul class="table-view">
-      <li class="table-view-cell">
-        <a href="#" class="navigate-right" bind-event-click="app.showFieldSelect()">
-          Find a field
-        </a>
-      </li>
-      <li href="#" class="table-view-cell">
-        <a class="navigate-right" bind-event-click="app.showTeamSelect()">
-          Find a team
-        </a>
-      </li>
-    </ul>
+    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="app.showFieldSelect()">Find a field</button>
+    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="app.showTeamSelect()">Find a team</button>
   </div>
 
   <div class="bar bar-standard bar-footer">
