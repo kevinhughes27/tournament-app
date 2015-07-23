@@ -30,51 +30,144 @@ prefix 'w' for winner and 'l' for loser
 games push their results forward using these codes
 """
 
+# FIND REPLACE FIELD NAME FOR PROD
+
 namespace :nobo do
+  task :create_open_bracket => :environment do
+    nobo_task do |noborders|
+      # clear
+      BracketGame.where(tournament: noborders, division: 'Open').destroy_all
+
+      # build
+      bracket = build_bracket(noborders, 'Open')
+
+      # Quarter Finals
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'upi14'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'upi15'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'upi16'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'upi17'), start_time: '8:30')
+
+      # Semi Finals
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'upi14'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'upi15'), start_time: '11:50')
+
+      # Consolation Semi Finals
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'upi16'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'upi17'), start_time: '11:50')
+
+      # Finals
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'upi2'), start_time: '3:10')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '3:10')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'upi4'), start_time: '3:10')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'upi5'), start_time: '3:10')
+    end
+  end
+
+  task :create_open_9_16_bracket => :environment do
+    nobo_task do |noborders|
+      # clear
+      BracketGame.where(tournament: noborders, division: 'Open 9 - 16').destroy_all
+
+      # build
+      playing_for = 9
+      bracket = build_bracket(noborders, 'Open 9 - 16', playing_for)
+
+      # Quarter Finals
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'upi6'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'upi8'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'upi9'), start_time: '8:30')
+
+      # Semi Finals
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'upi6'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '11:50')
+
+      # Consolation Semi Finals
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'upi8'), start_time: '11:50')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'upi9'), start_time: '11:50')
+
+      # Finals
+      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '1:30')
+
+      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes(field: Field.find_by(name: 'upi6'), start_time: '3:10')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '3:10')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes(field: Field.find_by(name: 'upi8'), start_time: '3:10')
+    end
+  end
+
+  # Note - pool is not something this understands yet
+  # (top two of each pool go into winner bracket)
+  # but I do raw sort (not gaureenteed to work I think)
+  # Make sure the list sorts right before running this on
+  # saturday night
+
+  task :seed_open_bracket => :environment do
+    nobo_task do |noborders|
+      teams = noborders.teams.where(division: 'Open')
+      teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
+      teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
+
+      seed_bracket(noborders, 'Open', teams[0..8])
+    end
+  end
+
+    task :seed_open_9_16_bracket => :environment do
+      nobo_task do |noborders|
+        teams = noborders.teams.where(division: 'Open')
+        teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
+        teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
+
+        seed_bracket(noborders, 'Open 9 - 6', teams[9..16])
+      end
+    end
+
   task :create_coed_rec_bracket => :environment do
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    nobo_task do |noborders|
+      # clear
+      BracketGame.where(tournament: noborders, division: 'Coed Rec').destroy_all
 
-    noborders = Tournament.find_by(name: 'No Borders')
+      # build
+      bracket = build_bracket(noborders, 'Coed Rec')
 
-    # clear
-    BracketGame.where(tournament: noborders, division: 'Coed Rec').destroy_all
+      # Quarter Finals
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '11:30')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'upi2'), start_time: '11:30')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '11:30')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '11:30')
 
-    # build
-    bracket = build_bracket(noborders, 'Coed Rec')
+      # Semi Finals
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '1:00')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'upi2'), start_time: '1:00')
 
-    # Quarter Finals
-    bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '11:30')
-    bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'upi2'), start_time: '11:30')
-    bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '11:30')
-    bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '11:30')
+      # Consolation Semi Finals
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '1:00')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '1:00')
 
-    # Semi Finals
-    bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '1:00')
-    bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'upi2'), start_time: '1:00')
-
-    # Consolation Semi Finals
-    bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '1:00')
-    bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '1:00')
-
-    # Finals
-    bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '4:00')
-    bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'upi2'), start_time: '4:00')
-    bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '4:00')
-    bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '4:00')
+      # Finals
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '4:00')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'upi2'), start_time: '4:00')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'upi3'), start_time: '4:00')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'upi7'), start_time: '4:00')
+    end
   end
 
   task :seed_coed_rec_bracket => :environment do
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    nobo_task do |noborders|
+      teams = noborders.teams.where(division: 'Coed Rec')
+      teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
+      teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
 
-    noborders = Tournament.find_by(name: 'No Borders')
-    teams = noborders.teams.where(division: 'Coed Rec')
-    teams = teams.sort_by{ |team| team.wins * 1000 + team.points_for }.reverse
-    teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
-
-    seed_bracket(noborders, 'Coed Rec', teams)
+      seed_bracket(noborders, 'Coed Rec', teams)
+    end
   end
 
-  def build_bracket(tournament, division)
+  def nobo_task(&block)
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    noborders = Tournament.find_by(name: 'No Borders')
+    yield noborders
+  end
+
+  def build_bracket(tournament, division, playing_for = 1)
     bracket = []
 
     # Quarter Finals
@@ -92,10 +185,10 @@ namespace :nobo do
     bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 'c2', bracket_top: 'lq3', bracket_bottom: 'lq4')
 
     # Finals
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: '1st', bracket_top: 'ws1', bracket_bottom: 'ws2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: '3rd', bracket_top: 'ls1', bracket_bottom: 'ls2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: '5th', bracket_top: 'wc1', bracket_bottom: 'wc2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: '7th', bracket_top: 'lc1', bracket_bottom: 'lc2')
+    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: playing_for.ordinalize, bracket_top: 'ws1', bracket_bottom: 'ws2')
+    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: (playing_for + 2).ordinalize, bracket_top: 'ls1', bracket_bottom: 'ls2')
+    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: (playing_for + 4).ordinalize, bracket_top: 'wc1', bracket_bottom: 'wc2')
+    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: (playing_for + 6).ordinalize, bracket_top: 'lc1', bracket_bottom: 'lc2')
 
     bracket
   end
