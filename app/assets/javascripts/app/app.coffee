@@ -81,7 +81,10 @@ class TournamentApp.App
       icon: {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
         strokeColor: "#FFFFFF",
-        scale: 3
+        strokeWeight: 2,
+        fillColor: '#FFFFFF',
+        fillOpacity: 1,
+        scale: 4,
         rotation: rotation,
       },
     )
