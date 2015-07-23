@@ -12,7 +12,7 @@
     <% games.each do |game| %>
       <tr class="<%= 'danger' if game.errors.present? %>">
         <td class="hide"><%= game.id %></td>
-        <td id="time"><%= game.start_time.try(:strftime, "%l:%M %P") %></td>
+        <td id="time"><%= game.start_time %></td>
         <td id="team"><%= game.home_id %></td>
         <td id="team"><%= game.away_id %></td>
       </tr>
