@@ -91,7 +91,7 @@ class TournamentApp.App
     })
 
   clearPointer: ->
-    @pointer.setMap(null)
+    @pointer.setMap(null) if @pointer
     @pointer = null
 
   clearMarkers: ->
