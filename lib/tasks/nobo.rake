@@ -140,6 +140,27 @@ namespace :nobo do
     end
   end
 
+  # 6 team bracket - can't use functions ...
+  task :create_womens_17_bracket  => :environment do
+    nobo_task do |noborders|
+      BracketGame.where(tournament: noborders, division: 'Womens').destroy_all
+
+      # Quarter Finals
+      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 'q1', bracket_top: 'I6', bracket_bottom: 'L5', field: Field.find_by(name: 'upi18'), start_time: '8:30')
+      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 'q2', bracket_top: 'J6', bracket_bottom: 'K5', field: Field.find_by(name: 'upi19'), start_time: '8:30')
+
+      # Semi Finals
+      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 's1', bracket_top: 'J5', bracket_bottom: 'wq1', field: Field.find_by(name: 'upi2'), start_time: '11:50')
+      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 's2', bracket_top: 'I5', bracket_bottom: 'wq2', field: Field.find_by(name: 'upi3'), start_time: '11:50')
+
+      # Finals
+      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: '17th', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'upi18'), start_time: '1:30')
+      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: '19th', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'upi19'), start_time: '1:30')
+
+      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: '21st', bracket_top: 'lq1', bracket_bottom: 'lq2', field: Field.find_by(name: 'upi19'), start_time: '10:10')
+    end
+  end
+
   task :seed_womens_bracket => :environment do
     nobo_task do |noborders|
       teams = noborders.teams.where(division: 'Women')
@@ -157,6 +178,12 @@ namespace :nobo do
       teams = teams.unshift('placeholder') # shift so the indices line up nice for the next part
 
       seed_bracket(noborders, 'Womens 9 - 6', teams[9..16])
+    end
+  end
+
+  task :seed_womens_17_bracket => :environment do
+    nobo_task do |noborders|
+      #TODO
     end
   end
 
