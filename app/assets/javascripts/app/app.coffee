@@ -185,6 +185,7 @@ class TournamentApp.App
 
   pointToField: (field) ->
     @findingField = true
+    @tooFarAlert = false
 
     @clearMarkers()
     @addMarker(field.lat, field.long, field.name)
@@ -198,7 +199,8 @@ class TournamentApp.App
     bounds.extend(destination)
 
     if event.distance > 1000
-      alert("You're too far away!")
+      alert("You're too far away!") unless @tooFarAlert
+      @tooFarAlert = true
     else if event.lat && event.long
       @drawPointer(event.lat, event.long, event.heading, 'Location')
       location = new google.maps.LatLng(event.lat, event.long)
