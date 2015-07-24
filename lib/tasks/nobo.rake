@@ -32,7 +32,52 @@ games push their results forward using these codes
 
 # FIND REPLACE FIELD NAME FOR PROD
 
+# Note - pool is not something this understands yet
+# (top two of each pool go into winner bracket)
+# but I do raw sort (not gaureenteed to work I think)
+# Make sure the list sorts right before running this on
+# saturday night
+
+# BracketGame.division is really a bracket (not the same as Team.division)
+
 namespace :nobo do
+
+  # 10 team bracket - can't use functions ...
+  task :create_coed_comp_bracket  => :environment do
+    nobo_task do |noborders|
+      BracketGame.where(tournament: noborders, division: 'Coed Comp').destroy_all
+
+      # Quarter Finals
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q1', bracket_top: 'a3', bracket_bottom: 'b2', field: Field.find_by(name: 'upi2'), start_time: '8:30')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q2', bracket_top: 'b3', bracket_bottom: 'a2', field: Field.find_by(name: 'upi3'), start_time: '8:30')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q3', bracket_top: 'b4', bracket_bottom: 'a5', field: Field.find_by(name: 'upi4'), start_time: '8:30')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q4', bracket_top: 'a4', bracket_bottom: 'b5', field: Field.find_by(name: 'upi5'), start_time: '8:30')
+
+      # Semi Finals
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 's1', bracket_top: 'a1', bracket_bottom: 'wq1', field: Field.find_by(name: 'upi2'), start_time: '10:10')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 's2', bracket_top: 'b1', bracket_bottom: 'wq2', field: Field.find_by(name: 'upi3'), start_time: '10:10')
+
+      # Consolation Semi Finals
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'c1', bracket_top: 'lq1', bracket_bottom: 'wq3', field: Field.find_by(name: 'upi4'), start_time: '10:10')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'c2', bracket_top: 'lq2', bracket_bottom: 'wq4', field: Field.find_by(name: 'upi5'), start_time: '10:10')
+
+      # this game for 9th
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'c3', bracket_top: 'lq3', bracket_bottom: 'lq4', field: Field.find_by(name: 'upi1'), start_time: '10:10')
+
+      # Finals
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '1st', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'upi2'), start_time: '1:30')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '3rd', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'upi4'), start_time: '1:30')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '5th', bracket_top: 'wc1', bracket_bottom: 'wc2', field: Field.find_by(name: 'upi5'), start_time: '1:30')
+      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '7th', bracket_top: 'lc1', bracket_bottom: 'lc2', field: Field.find_by(name: 'upi1'), start_time: '11:50')
+    end
+  end
+
+  task :seed_coed_comp_bracket  => :environment do
+    nobo_task do |noborders|
+      #TODO
+    end
+  end
+
   task :create_womens_bracket => :environment do
     nobo_task do |noborders|
       # clear
@@ -94,14 +139,6 @@ namespace :nobo do
       bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes(field: Field.find_by(name: 'upi12'), start_time: '1:30')
     end
   end
-
-  # Note - pool is not something this understands yet
-  # (top two of each pool go into winner bracket)
-  # but I do raw sort (not gaureenteed to work I think)
-  # Make sure the list sorts right before running this on
-  # saturday night
-
-  # works cause division can be different on the game and the team right now...
 
   task :seed_womens_bracket => :environment do
     nobo_task do |noborders|
@@ -184,12 +221,6 @@ namespace :nobo do
       bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes(field: Field.find_by(name: 'upi8'), start_time: '3:10')
     end
   end
-
-  # Note - pool is not something this understands yet
-  # (top two of each pool go into winner bracket)
-  # but I do raw sort (not gaureenteed to work I think)
-  # Make sure the list sorts right before running this on
-  # saturday night
 
   task :seed_open_bracket => :environment do
     nobo_task do |noborders|
