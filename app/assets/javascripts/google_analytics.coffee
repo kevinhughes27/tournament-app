@@ -30,6 +30,21 @@ class @GoogleAnalytics
         window._gaq.push ["_trackPageview"]
       window._gaq.push ["_trackPageLoadTime"]
 
+  @trackEvent: (event) ->
+    data = event.currentTarget.getAttribute('track-click')
+
+    try
+      fn = new Function("return " + data)
+    catch error
+      trackClickError("track-click: was unable to make a function with #{data}", target)
+
+    obj = fn.call()
+
+    if !(obj.action? && obj.category?)
+      trackClickError("track-click: must have an action and a category, you supplied #{data}", target)
+
+    window._gaq.push ["_trackEvent", obj.category, obj.action]
+
   @isLocalRequest: ->
     GoogleAnalytics.documentDomainIncludes "local"
 
@@ -41,3 +56,6 @@ class @GoogleAnalytics
     'UA-65432378-1'
 
 GoogleAnalytics.load()
+
+$(document).on 'click', '[track-click]', (event) ->
+  GoogleAnalytics.trackEvent(event)
