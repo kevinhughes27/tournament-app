@@ -61,27 +61,27 @@ namespace :nobo do
       BracketGame.where(tournament: noborders, division: 'Coed Comp').destroy_all
 
       # Quarter Finals
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q1', bracket_top: 'a3', bracket_bottom: 'b2', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 8:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q2', bracket_top: 'b3', bracket_bottom: 'a2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 8:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q3', bracket_top: 'b4', bracket_bottom: 'a5', field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 8:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'q4', bracket_top: 'a4', bracket_bottom: 'b5', field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 'q1', bracket_top: 'a3', bracket_bottom: 'b2', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 'q2', bracket_top: 'b3', bracket_bottom: 'a2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 'q3', bracket_top: 'b4', bracket_bottom: 'a5', field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 'q4', bracket_top: 'a4', bracket_bottom: 'b5', field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 8:30 UTC')
 
       # Semi Finals
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 's1', bracket_top: 'a1', bracket_bottom: 'wq1', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 10:10 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 's2', bracket_top: 'b1', bracket_bottom: 'wq2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 10:10 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 's1', bracket_top: 'a1', bracket_bottom: 'wq1', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 10:10 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 's2', bracket_top: 'b1', bracket_bottom: 'wq2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 10:10 UTC')
 
       # Consolation Semi Finals
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'c1', bracket_top: 'lq1', bracket_bottom: 'wq3', field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 10:10 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'c2', bracket_top: 'lq2', bracket_bottom: 'wq4', field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 10:10 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 'c1', bracket_top: 'lq1', bracket_bottom: 'wq3', field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 10:10 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 'c2', bracket_top: 'lq2', bracket_bottom: 'wq4', field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 10:10 UTC')
 
       # this game for 9th
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: 'c3', bracket_top: 'lq3', bracket_bottom: 'lq4', field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 10:10 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: 'c3', bracket_top: 'lq3', bracket_bottom: 'lq4', field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 10:10 UTC')
 
       # Finals
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '1st', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 13:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '3rd', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 13:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '5th', bracket_top: 'wc1', bracket_bottom: 'wc2', field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 13:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Coed Comp', bracket_code: '7th', bracket_top: 'lc1', bracket_bottom: 'lc2', field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 11:50 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: '1st', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 13:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: '3rd', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 13:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: '5th', bracket_top: 'wc1', bracket_bottom: 'wc2', field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 13:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Coed Comp', bracket_code: '7th', bracket_top: 'lc1', bracket_bottom: 'lc2', field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 11:50 UTC')
     end
   end
 
@@ -100,25 +100,25 @@ namespace :nobo do
       bracket = build_bracket(noborders, 'Womens')
 
       # Quarter Finals
-      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes!(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes!(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes!(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 10:10 UTC')
 
       # Semi Finals
-      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes!(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 11:50 UTC')
 
       # Consolation Semi Finals
-      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes!(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes!(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 11:50 UTC')
 
       # Finals
-      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes!(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 15:10 UTC')
 
-      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes!(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes!(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 13:30 UTC')
     end
   end
 
@@ -132,24 +132,24 @@ namespace :nobo do
       bracket = build_bracket(noborders, 'Womens 9 - 16', playing_for)
 
       # Quarter Finals
-      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes!(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes!(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes!(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes!(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 10:10 UTC')
 
       # Semi Finals
-      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes!(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes!(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 11:50 UTC')
 
       # Consolation Semi Finals
-      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes!(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes!(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 11:50 UTC')
 
       # Finals
-      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes!(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 13:30 UTC')
     end
   end
 
@@ -159,18 +159,18 @@ namespace :nobo do
       BracketGame.where(tournament: noborders, division: 'Womens').destroy_all
 
       # Quarter Finals
-      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 'q1', bracket_top: 'I6', bracket_bottom: 'L5', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 8:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 'q2', bracket_top: 'J6', bracket_bottom: 'K5', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 'q1', bracket_top: 'I6', bracket_bottom: 'L5', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 'q2', bracket_top: 'J6', bracket_bottom: 'K5', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 8:30 UTC')
 
       # Semi Finals
-      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 's1', bracket_top: 'J5', bracket_bottom: 'wq1', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 11:50 UTC')
-      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: 's2', bracket_top: 'I5', bracket_bottom: 'wq2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 11:50 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 's1', bracket_top: 'J5', bracket_bottom: 'wq1', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 11:50 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 's2', bracket_top: 'I5', bracket_bottom: 'wq2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 11:50 UTC')
 
       # Finals
-      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: '17th', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 13:30 UTC')
-      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: '19th', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 13:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: '17th', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 13:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: '19th', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 13:30 UTC')
 
-      BracketGame.create(tournament: noborders, division: 'Womens', bracket_code: '21st', bracket_top: 'lq1', bracket_bottom: 'lq2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 10:10 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: '21st', bracket_top: 'lq1', bracket_bottom: 'lq2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 10:10 UTC')
     end
   end
 
@@ -209,24 +209,24 @@ namespace :nobo do
       bracket = build_bracket(noborders, 'Open')
 
       # Quarter Finals
-      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'UPI16'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'UPI17'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes!(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes!(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes!(field: Field.find_by(name: 'UPI16'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes!(field: Field.find_by(name: 'UPI17'), start_time: '2015-07-26 8:30 UTC')
 
       # Semi Finals
-      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes!(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes!(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 11:50 UTC')
 
       # Consolation Semi Finals
-      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'UPI16'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'UPI17'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes!(field: Field.find_by(name: 'UPI16'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes!(field: Field.find_by(name: 'UPI17'), start_time: '2015-07-26 11:50 UTC')
 
       # Finals
-      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes!(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes!(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes!(field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes!(field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 15:10 UTC')
     end
   end
 
@@ -240,25 +240,25 @@ namespace :nobo do
       bracket = build_bracket(noborders, 'Open 9 - 16', playing_for)
 
       # Quarter Finals
-      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes!(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes!(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes!(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 8:30 UTC')
 
       # Semi Finals
-      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes!(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 11:50 UTC')
 
       # Consolation Semi Finals
-      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 11:50 UTC')
-      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes!(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 11:50 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes!(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 11:50 UTC')
 
       # Finals
-      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes!(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 13:30 UTC')
 
-      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI8'), start_time: '2015-07-26 15:10 UTC')
     end
   end
 
@@ -294,24 +294,24 @@ namespace :nobo do
       bracket = build_bracket(noborders, 'Junior Open')
 
       # Quarter Finals
-      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 8:30 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes!(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes!(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes!(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 8:30 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes!(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 8:30 UTC')
 
       # Semi Finals
-      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes!(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes!(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 10:10 UTC')
 
       # Consolation Semi Finals
-      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'UPI16'), start_time: '2015-07-26 10:10 UTC')
-      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'UPI17'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes!(field: Field.find_by(name: 'UPI16'), start_time: '2015-07-26 10:10 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes!(field: Field.find_by(name: 'UPI17'), start_time: '2015-07-26 10:10 UTC')
 
       # Finals
-      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes!(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes!(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes!(field: Field.find_by(name: 'UPI14'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes!(field: Field.find_by(name: 'UPI15'), start_time: '2015-07-26 13:30 UTC')
     end
   end
 
@@ -334,24 +334,24 @@ namespace :nobo do
       bracket = build_bracket(noborders, 'Coed Rec')
 
       # Quarter Finals
-      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-25 11:30:00 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-25 11:30:00 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-25 11:30:00 UTC')
-      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-25 11:30:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes!(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-25 11:30:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes!(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-25 11:30:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes!(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-25 11:30:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-25 11:30:00 UTC')
 
       # Semi Finals
-      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-25 13:00:00 UTC')
-      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-25 13:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes!(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-25 13:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes!(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-25 13:00:00 UTC')
 
       # Consolation Semi Finals
-      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-25 13:00:00 UTC')
-      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-25 13:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes!(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-25 13:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-25 13:00:00 UTC')
 
       # Finals
-      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-25 16:00:00 UTC')
-      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-25 16:00:00 UTC')
-      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-25 16:00:00 UTC')
-      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-25 16:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes!(field: Field.find_by(name: 'UPI1'), start_time: '2015-07-25 16:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes!(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-25 16:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes!(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-25 16:00:00 UTC')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-25 16:00:00 UTC')
     end
   end
 
@@ -375,42 +375,42 @@ namespace :nobo do
     bracket = []
 
     # Quarter Finals
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 'q1', bracket_top: 's1', bracket_bottom: 's8')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 'q2', bracket_top: 's2', bracket_bottom: 's7')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 'q3', bracket_top: 's3', bracket_bottom: 's6')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 'q4', bracket_top: 's4', bracket_bottom: 's5')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 'q1', bracket_top: 's1', bracket_bottom: 's8')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 'q2', bracket_top: 's2', bracket_bottom: 's7')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 'q3', bracket_top: 's3', bracket_bottom: 's6')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 'q4', bracket_top: 's4', bracket_bottom: 's5')
 
     # Semi Finals
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 's1', bracket_top: 'wq1', bracket_bottom: 'wq2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 's2', bracket_top: 'wq3', bracket_bottom: 'wq4')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 's1', bracket_top: 'wq1', bracket_bottom: 'wq2')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 's2', bracket_top: 'wq3', bracket_bottom: 'wq4')
 
     # Consolation Semi Finals
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 'c1', bracket_top: 'lq1', bracket_bottom: 'lq2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: 'c2', bracket_top: 'lq3', bracket_bottom: 'lq4')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 'c1', bracket_top: 'lq1', bracket_bottom: 'lq2')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: 'c2', bracket_top: 'lq3', bracket_bottom: 'lq4')
 
     # Finals
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: playing_for.ordinalize, bracket_top: 'ws1', bracket_bottom: 'ws2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: (playing_for + 2).ordinalize, bracket_top: 'ls1', bracket_bottom: 'ls2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: (playing_for + 4).ordinalize, bracket_top: 'wc1', bracket_bottom: 'wc2')
-    bracket << BracketGame.create(tournament: tournament, division: division, bracket_code: (playing_for + 6).ordinalize, bracket_top: 'lc1', bracket_bottom: 'lc2')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: playing_for.ordinalize, bracket_top: 'ws1', bracket_bottom: 'ws2')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: (playing_for + 2).ordinalize, bracket_top: 'ls1', bracket_bottom: 'ls2')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: (playing_for + 4).ordinalize, bracket_top: 'wc1', bracket_bottom: 'wc2')
+    bracket << BracketGame.create!(tournament: tournament, division: division, bracket_code: (playing_for + 6).ordinalize, bracket_top: 'lc1', bracket_bottom: 'lc2')
 
     bracket
   end
 
   def seed_bracket(tournament, division, teams)
-    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q1').update_attributes(
+    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q1').update_attributes!(
       home: teams[1], away: teams[8]
     )
 
-    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q2').update_attributes(
+    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q2').update_attributes!(
       home: teams[2], away: teams[7]
     )
 
-    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q3').update_attributes(
+    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q3').update_attributes!(
       home: teams[3], away: teams[6]
     )
 
-    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q4').update_attributes(
+    BracketGame.find_by(tournament: tournament, division: division, bracket_code: 'q4').update_attributes!(
       home: teams[4], away: teams[5]
     )
   end
