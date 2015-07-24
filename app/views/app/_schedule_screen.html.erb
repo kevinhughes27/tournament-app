@@ -12,7 +12,8 @@
       <input class="awesomplete" placeholder="Search ..."
         data-minchars="1"
         data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
-        bind-event-change="app.scheduleSearchChange(event)">
+        bind-event-change="app.scheduleSearchChange(event)"
+        track-click="{category: 'ScheduleScreen', action: 'Search'}">
     </div>
   </div>
 
@@ -44,7 +45,7 @@
             <% if game.score_confirmed %>
               <%= "(#{game.home_score}/#{game.away_score})" %>
             <% end %>
-            <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='app.findField("<%= game.field.name %>")'>
+            <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='app.findField("<%= game.field.name %>")' track-click="{category: 'ScheduleScreen', action: 'FindField'}">
               <%= game.field.name %>
               <i class="fa fa-map-marker"></i>
             </a>
