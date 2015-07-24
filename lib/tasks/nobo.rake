@@ -156,21 +156,21 @@ namespace :nobo do
   # 6 team bracket - can't use functions ...
   task :create_womens_17_bracket  => :environment do
     nobo_task do |noborders|
-      BracketGame.where(tournament: noborders, division: 'Womens').destroy_all
+      BracketGame.where(tournament: noborders, division: 'Womens 17 - 21').destroy_all
 
       # Quarter Finals
-      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 'q1', bracket_top: 'I6', bracket_bottom: 'L5', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 8:30 UTC')
-      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 'q2', bracket_top: 'J6', bracket_bottom: 'K5', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens 17 - 21', bracket_code: 'q1', bracket_top: 'I6', bracket_bottom: 'L5', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 8:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens 17 - 21', bracket_code: 'q2', bracket_top: 'J6', bracket_bottom: 'K5', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 8:30 UTC')
 
       # Semi Finals
-      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 's1', bracket_top: 'J5', bracket_bottom: 'wq1', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 11:50 UTC')
-      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: 's2', bracket_top: 'I5', bracket_bottom: 'wq2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 11:50 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens 17 - 21', bracket_code: 's1', bracket_top: 'J5', bracket_bottom: 'wq1', field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 11:50 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens 17 - 21', bracket_code: 's2', bracket_top: 'I5', bracket_bottom: 'wq2', field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 11:50 UTC')
 
       # Finals
-      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: '17th', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 13:30 UTC')
-      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: '19th', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 13:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens 17 - 21', bracket_code: '17th', bracket_top: 'ws1', bracket_bottom: 'ws2', field: Field.find_by(name: 'UPI18'), start_time: '2015-07-26 13:30 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens 17 - 21', bracket_code: '19th', bracket_top: 'ls1', bracket_bottom: 'ls2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 13:30 UTC')
 
-      BracketGame.create!(tournament: noborders, division: 'Womens', bracket_code: '21st', bracket_top: 'lq1', bracket_bottom: 'lq2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 10:10 UTC')
+      BracketGame.create!(tournament: noborders, division: 'Womens 17 - 21', bracket_code: '21st', bracket_top: 'lq1', bracket_bottom: 'lq2', field: Field.find_by(name: 'UPI19'), start_time: '2015-07-26 10:10 UTC')
     end
   end
 
