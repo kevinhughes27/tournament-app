@@ -190,21 +190,22 @@ class TournamentApp.App
     @addMarker(field.lat, field.long, field.name)
 
     @pointMeThere.setDestination(field.lat, field.long, field.name)
+    @pointMeThere.start (event) => _.throttle(@_pointToFieldCallback(event), 500)
 
-    @pointMeThere.start (event) =>
-      bounds = new google.maps.LatLngBounds()
-      destination = new google.maps.LatLng(event.dstLat, event.dstLng)
-      bounds.extend(destination)
+  _pointToFieldCallback: (event) ->
+    bounds = new google.maps.LatLngBounds()
+    destination = new google.maps.LatLng(event.dstLat, event.dstLng)
+    bounds.extend(destination)
 
-      if event.distance > 1000
-        alert("You're too far away!")
-      else if event.lat && event.long
-        @drawPointer(event.lat, event.long, event.heading, 'Location')
-        location = new google.maps.LatLng(event.lat, event.long)
-        bounds.extend(location)
+    if event.distance > 1000
+      alert("You're too far away!")
+    else if event.lat && event.long
+      @drawPointer(event.lat, event.long, event.heading, 'Location')
+      location = new google.maps.LatLng(event.lat, event.long)
+      bounds.extend(location)
 
-      @map.fitBounds(bounds)
-      @map.setZoom(@zoom) if @map.getZoom() > @zoom
+    @map.fitBounds(bounds)
+    @map.setZoom(@zoom) if @map.getZoom() > @zoom
 
   finishPointToField: ->
     @findingField = false
