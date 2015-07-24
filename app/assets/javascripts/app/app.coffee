@@ -206,7 +206,7 @@ class TournamentApp.App
       location = new google.maps.LatLng(event.lat, event.long)
       bounds.extend(location)
 
-    @map.fitBounds(bounds)
+    @map.panToBounds(bounds)
     @map.setZoom(@zoom) if @map.getZoom() > @zoom
 
   finishPointToField: ->
