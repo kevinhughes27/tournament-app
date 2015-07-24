@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  #root 'home#index'
+  root :to => redirect('/no-borders')
 
   namespace :admin do
     resources :tournaments, path: '' do
