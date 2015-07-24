@@ -242,6 +242,46 @@ namespace :nobo do
     end
   end
 
+  task :create_junior_open_bracket => :environment do
+    nobo_task do |noborders|
+      # clear
+      BracketGame.where(tournament: noborders, division: 'Junior Open').destroy_all
+
+      # build
+      bracket = build_bracket(noborders, 'Junior Open')
+
+      # Quarter Finals
+      bracket.detect{ |b| b.bracket_code == 'q1'}.update_attributes(field: Field.find_by(name: 'upi10'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q2'}.update_attributes(field: Field.find_by(name: 'upi11'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q3'}.update_attributes(field: Field.find_by(name: 'upi12'), start_time: '8:30')
+      bracket.detect{ |b| b.bracket_code == 'q4'}.update_attributes(field: Field.find_by(name: 'upi13'), start_time: '8:30')
+
+      # Semi Finals
+      bracket.detect{ |b| b.bracket_code == 's1'}.update_attributes(field: Field.find_by(name: 'upi14'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 's2'}.update_attributes(field: Field.find_by(name: 'upi15'), start_time: '10:10')
+
+      # Consolation Semi Finals
+      bracket.detect{ |b| b.bracket_code == 'c1'}.update_attributes(field: Field.find_by(name: 'upi16'), start_time: '10:10')
+      bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes(field: Field.find_by(name: 'upi17'), start_time: '10:10')
+
+      # Finals
+      bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes(field: Field.find_by(name: 'upi1'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes(field: Field.find_by(name: 'upi13'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes(field: Field.find_by(name: 'upi14'), start_time: '1:30')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes(field: Field.find_by(name: 'upi15'), start_time: '1:30')
+    end
+  end
+
+  task :seed_junior_open_bracket => :environment do
+    nobo_task do |noborders|
+      #TODO
+      # C1 vs D4
+      # D1 vs C4
+      # C2 vs D3
+      # D2 vs C3
+    end
+  end
+
   task :create_coed_rec_bracket => :environment do
     nobo_task do |noborders|
       # clear
