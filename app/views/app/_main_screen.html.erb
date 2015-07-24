@@ -12,14 +12,20 @@
   <input id="main-field-search" class="awesomplete" type="text" placeholder="Start typing a field name or number..."
     data-minchars="1"
     data-list="<%= @fields.map{ |t| t.name }.join(', ') %>"
-    bind-event-change="app.fieldSelected(event)">
+    bind-event-change="app.fieldSelected(event)"
+    bind-event-click="app.fieldSelected(event)"
+    bind-event-keyup="app.fieldSelected(event)"
+    bind-event-blur="app.searchBlur()">
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!app.teamSearchOpen">
   <input id="main-team-search" class="awesomplete" type="text" placeholder="Start typing a team name..."
     data-minchars="1"
     data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
-    bind-event-change="app.teamSelected(event)">
+    bind-event-change="app.teamSelected(event)"
+    bind-event-click="app.teamSelected(event)"
+    bind-event-keyup="app.teamSelected(event)"
+    bind-event-blur="app.searchBlur()">
 </div>
 
 <div class="bar bar-standard bar-header-secondary transparent hide" bind-show="!!app.findingField">

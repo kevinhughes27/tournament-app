@@ -122,32 +122,41 @@ class TournamentApp.App
     @fieldSearchOpen = true
     @teamSearchOpen = false
     @drawerOpen = false
+    @finishPointToField()
     Twine.refresh()
     _.defer -> $('#main-field-search').focus()
-
-  fieldSelected: (event) ->
-    @fieldSearchOpen = false
-    selected = $(event.target).val()
-    field = _.find(@fields, (field) -> field.name is selected)
-    @findText = "#{field.name}"
-    @pointToField(field) if field
-    Twine.refresh()
-
-  findField: (fieldName) ->
-    @scheduleScreen = false
-    field = _.find(@fields, (field) -> field.name is fieldName)
-    @findText = "#{field.name}"
-    @pointToField(field) if field
-    Twine.refresh()
 
   showTeamSelect: =>
     @teamSearchOpen = true
     @fieldSearchOpen = false
     @drawerOpen = false
+    @finishPointToField()
     Twine.refresh()
     _.defer -> $('#main-team-search').focus()
 
+  searchBlur: ->
+    @fieldSearchOpen = false
+    @teamSearchOpen = false
+    Twine.refresh()
+
+  fieldSelected: (event) ->
+    return if event.type == 'keyup' && event.keyCode != 13
+    return if event.type == 'change' && $(event.target).val() == ''
+
+    @fieldSearchOpen = false
+    selected = $(event.target).val()
+    field = _.find(@fields, (field) -> field.name is selected)
+
+    if field
+      @findText = "#{field.name}"
+      @pointToField(field)
+
+    Twine.refresh()
+
   teamSelected: (event) =>
+    return if event.type == 'keyup' && event.keyCode != 13
+    return if event.type == 'change' && $(event.target).val() == ''
+
     @teamSearchOpen = false
     selected = $(event.target).val()
     team = _.find(@teams, (team) -> team.name is selected)
@@ -166,6 +175,8 @@ class TournamentApp.App
       gameTime = moment.utc(nextOrCurrentGame.start_time).format('h:mm')
       @findText = "#{team.name} @ #{gameTime}"
       @pointToField(field) if field
+    else
+      alert("No Upcoming games for #{selected}")
 
     Twine.refresh()
 
@@ -234,6 +245,16 @@ class TournamentApp.App
       teamNames.join(',').match("#{@lastScheduleSearch}")
     else
       true
+
+  findField: (fieldName) ->
+    @scheduleScreen = false
+    field = _.find(@fields, (field) -> field.name is fieldName)
+
+    if field
+      @findText = "#{field.name}"
+      @pointToField(field)
+
+    Twine.refresh()
 
 
   # Submit score A view
