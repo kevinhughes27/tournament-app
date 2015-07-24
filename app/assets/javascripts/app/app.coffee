@@ -64,7 +64,7 @@ class TournamentApp.App
     field.shape = polygon
     polygon.setMap(@map)
 
-  _addMarker: (lat, lng, title) ->
+  addMarker: (lat, lng, title) ->
     latLng = new google.maps.LatLng(lat, lng)
 
     @markers.push new google.maps.Marker(
@@ -77,25 +77,24 @@ class TournamentApp.App
       }
     )
 
-  _addPointer: (lat, lng, rotation, title) ->
-    latLng = new google.maps.LatLng(lat, lng)
+  drawPointer: (lat, lng, rotation, title) ->
+    @pointer ?= new google.maps.Marker(title: title, map: @map)
+    @pointer.setPosition( new google.maps.LatLng(lat, lng) )
+    @pointer.setIcon({
+      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+      strokeColor: "#FFFFFF",
+      strokeWeight: 2,
+      fillColor: '#FFFFFF',
+      fillOpacity: 1,
+      scale: 4,
+      rotation: rotation,
+    })
 
-    @markers.push new google.maps.Marker(
-      title: title
-      position: latLng,
-      map: @map,
-      icon: {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-        strokeColor: "#FFFFFF",
-        strokeWeight: 2,
-        fillColor: '#FFFFFF',
-        fillOpacity: 1,
-        scale: 4,
-        rotation: rotation,
-      },
-    )
+  clearPointer: ->
+    @pointer.setMap(null)
+    @pointer = null
 
-  _clearMarkers: ->
+  clearMarkers: ->
     marker.setMap(null) for marker in @markers
     @markers = []
 
@@ -170,37 +169,36 @@ class TournamentApp.App
 
     Twine.refresh()
 
+  getFindText: ->
+    @findText
 
   pointToField: (field) ->
     @findingField = true
 
-    @pointMeThere.setDestination(field.lat, field.long, field.name)
-    @pointMeThere.start (event) =>
-      @_clearMarkers()
-      bounds = new google.maps.LatLngBounds()
+    @clearMarkers()
+    @addMarker(field.lat, field.long, field.name)
 
-      # always center on desired
-      @_addMarker(event.dstLat, event.dstLng, 'Destination')
+    @pointMeThere.setDestination(field.lat, field.long, field.name)
+
+    @pointMeThere.start (event) =>
+      bounds = new google.maps.LatLngBounds()
       destination = new google.maps.LatLng(event.dstLat, event.dstLng)
       bounds.extend(destination)
 
-      if event.lat && event.long
-        if event.distance > 1000
-          alert("You're too far away!")
-        else
-          @_addPointer(event.lat, event.long, event.heading, 'Location')
-          location = new google.maps.LatLng(event.lat, event.long)
-          bounds.extend(location)
+      if event.distance > 1000
+        alert("You're too far away!")
+      else if event.lat && event.long
+        @drawPointer(event.lat, event.long, event.heading, 'Location')
+        location = new google.maps.LatLng(event.lat, event.long)
+        bounds.extend(location)
 
       @map.fitBounds(bounds)
       @map.setZoom(@zoom) if @map.getZoom() > @zoom
 
-  getFindText: ->
-    @findText
-
   finishPointToField: ->
     @findingField = false
-    @_clearMarkers()
+    @clearMarkers()
+    @clearPointer()
     @centerMap()
     Twine.refresh()
 
