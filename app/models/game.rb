@@ -29,7 +29,11 @@ class Game < ActiveRecord::Base
     when 'PoolGame'
       "#{home.name} vs #{away.name}"
     when 'BracketGame'
-      "#{division} Bracket"
+      if title = copy_for_bracket_code[bracket_code]
+        "#{division} #{title}"
+      else
+        "#{division} Bracket"
+      end
     else
       nil
     end
@@ -87,6 +91,17 @@ class Game < ActiveRecord::Base
 
     home.save!
     away.save!
+  end
+
+  private
+
+  def copy_for_bracket_code
+    @copy_for_bracket_code = {
+      's1' => 'semi Final',
+      's2' => 'semi Final',
+      '1st' => 'Final',
+      '3rd' => '3rd place',
+    }
   end
 
 end

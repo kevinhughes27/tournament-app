@@ -39,7 +39,7 @@
             <% if game.home && game.away %>
               <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
             <% else %>
-              <%= game.division %> Bracket
+              <%= game.name %>
             <% end %>
 
             <% if game.score_confirmed %>
