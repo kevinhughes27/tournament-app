@@ -22,7 +22,7 @@
     </div>
     <div class="card">
       <ul class="table-view">
-        <% @games.each do |game| %>
+        <% @games.sort_by{ |g| g.start_time }.each do |game| %>
           <% if game.home && game.away %>
             <li class="table-view-cell" bind-show="app.submitFilter(<%= [game.name].to_json %>)">
               <a class="navigate-right" bind-event-click='app.submitScoreForm(<%= game.id %>, "<%= game.home.name %>", "<%= game.away.name %>")' track-click="{category: 'SubmitScore', action: 'ViewForm'}">
