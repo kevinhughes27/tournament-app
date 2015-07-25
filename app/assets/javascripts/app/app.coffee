@@ -118,6 +118,14 @@ class TournamentApp.App
     @fingerprint.get (result) ->
       $('input#submitter_fingerprint').val(result)
 
+    window.addEventListener "hashchange", (event) =>
+      # back button pretty much just resets to main
+      if location.hash == ""
+        @scheduleScreen = false
+        @submitScoreScreenA = false
+        @submitScoreScreenB = false
+        Twine.refresh()
+
   showFieldSelect: =>
     @fieldSearchOpen = true
     @teamSearchOpen = false
@@ -220,6 +228,7 @@ class TournamentApp.App
   # Schedule view
   showScheduleScreen: ->
     @scheduleScreen = true
+    location.hash = "schedule"
     # unless @scheduleScrolled
     #   # only run this once. then remember the users scroll
     #   @scheduleScrolled = true
@@ -238,6 +247,11 @@ class TournamentApp.App
 
   # _scrollSchedule: (node) ->
   #   $('.left-screen > .content').scrollTo(node).offset({top: 88}) # 2 x $bar-base-height
+
+  closeScheduleScreen: ->
+    @scheduleScreen = false
+    location.hash = ""
+    Twine.refresh()
 
   scheduleSearchChange: (event)->
     @lastScheduleSearch = $.trim( $(event.target).val() )
@@ -262,6 +276,16 @@ class TournamentApp.App
 
 
   # Submit score A view
+  showSubmitScoreScreen: ->
+    @submitScoreScreenA = true
+    location.hash = "submit-score"
+    Twine.refresh()
+
+  closeSubmitScoreScreen: ->
+    @submitScoreScreenA = false
+    location.hash = ""
+    Twine.refresh()
+
   submitSearchChange: (event) ->
     @lastSubmitSearch = $.trim( $(event.target).val() )
     Twine.refresh()
