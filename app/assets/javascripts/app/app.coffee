@@ -204,9 +204,9 @@ class TournamentApp.App
     @pointMeThere.start (event) => _.throttle(@_pointToFieldCallback(event), 500)
 
   _pointToFieldCallback: (event) ->
-    destination = new google.maps.LatLng(event.dstLat, event.dstLng)
-    @map.setCenter(destination)
-    @map.setZoom(@zoom)
+    #destination = new google.maps.LatLng(event.dstLat, event.dstLng)
+    #@map.setCenter(destination)
+    #@map.setZoom(@zoom)
 
     #bounds = new google.maps.LatLngBounds()
     #bounds.extend(destination)
