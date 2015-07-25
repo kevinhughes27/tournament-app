@@ -240,12 +240,13 @@ class TournamentApp.App
   #   $('.left-screen > .content').scrollTo(node).offset({top: 88}) # 2 x $bar-base-height
 
   scheduleSearchChange: (event)->
-    @lastScheduleSearch = $(event.target).val()
+    @lastScheduleSearch = $.trim( $(event.target).val() )
     Twine.refresh()
 
   scheduleFilter: (teamNames) ->
     if @lastScheduleSearch
-      teamNames.join(',').match("#{@lastScheduleSearch}")
+      # prevent accidently matching a substring
+      teamNames.join(',').match("#{@lastScheduleSearch} vs") || teamNames.join(',').endsWith("vs #{@lastScheduleSearch}")
     else
       true
 
@@ -262,12 +263,13 @@ class TournamentApp.App
 
   # Submit score A view
   submitSearchChange: (event) ->
-    @lastSubmitSearch = $(event.target).val()
+    @lastSubmitSearch = $.trim( $(event.target).val() )
     Twine.refresh()
 
   submitFilter: (teamNames) ->
     if @lastSubmitSearch
-      teamNames.join(',').match("#{@lastSubmitSearch}")
+      # prevent accidently matching a substring
+      teamNames.join(',').match("#{@lastSubmitSearch} vs") || teamNames.join(',').endsWith("vs #{@lastSubmitSearch}")
 
   vsTeam: (home, away) ->
     return unless @lastSubmitSearch == home ||
