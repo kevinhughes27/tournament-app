@@ -174,7 +174,8 @@ class TournamentApp.App
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
 
     # filter games that aren't over
-    games = _.filter(games, (game) => moment.utc() < moment.utc(game.start_time).add(@timeCap, 'minutes'))
+    currentTime = moment.utc().subtract(4, 'hours') # quick no borders time zone fix
+    games = _.filter(games, (game) => currentTime < moment.utc(game.start_time).add(@timeCap, 'minutes'))
     games = _.sortBy(games, (game) -> game.start_time)
 
     nextOrCurrentGame = games[0]
