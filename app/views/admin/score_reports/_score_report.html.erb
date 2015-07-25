@@ -1,0 +1,25 @@
+<tr>
+  <td><%= report.name %></td>
+  <td><%= report.score %></td>
+  <td data-toggle="tooltip" data-placement="top" data-container="body" title="fingerprint: <%= report.submitter_fingerprint %>">
+    <%= report.submitted_by %>
+  </td>
+  <td><%= report.created_at.strftime("%A %l:%M %P") %></td>
+  <td bind-class="{danger: <%= report.rules_knowledge %> <= 2}"><%= report.rules_knowledge %></td>
+  <td bind-class="{danger: <%= report.fouls %> <= 2}"><%= report.fouls %></td>
+  <td bind-class="{danger: <%= report.fairness %> <= 2}"><%= report.fairness %></td>
+  <td bind-class="{danger: <%= report.attitude %> <= 2}"><%= report.attitude %></td>
+  <td bind-class="{danger: <%= report.communication %> <= 2}"><%= report.communication %></td>
+  <td><%= report.comments %></td>
+  <td>
+    <% if report.game.unconfirmed? %>
+      <%= form_tag confirm_score_admin_tournament_game_path(@tournament, report.game), method: :put, remote: true  do |form| %>
+        <%= hidden_field_tag 'home_score', report.home_score %>
+        <%= hidden_field_tag 'away_score', report.away_score %>
+        <%= submit_tag 'Confirm', class: 'btn btn-primary' %>
+      <% end %>
+    <% else %>
+      <i class="fa fa-check" style="color:green"></i>
+    <% end %>
+  </td>
+</tr>

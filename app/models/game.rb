@@ -35,6 +35,10 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def confirmed?
+    score_confirmed
+  end
+
   def unconfirmed?
     !score_confirmed
   end
