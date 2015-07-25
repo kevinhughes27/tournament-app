@@ -1,6 +1,7 @@
 class TournamentApp.App
 
   constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap, @mapMarkerSvg) ->
+    location.hash = ""
     @drawerOpen = false
     @findingField = false
     @findText = ''
