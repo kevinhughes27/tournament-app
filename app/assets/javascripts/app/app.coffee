@@ -266,7 +266,7 @@ class TournamentApp.App
   scheduleFilter: (teamNames) ->
     if @lastScheduleSearch
       # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastScheduleSearch} vs") || teamNames.join(',').endsWith("vs #{@lastScheduleSearch}")
+      teamNames.join(',').match("#{@lastScheduleSearch} vs") || teamNames.join(',').match(" vs #{@lastScheduleSearch}")
     else
       true
 
@@ -299,7 +299,7 @@ class TournamentApp.App
   submitFilter: (teamNames) ->
     if @lastSubmitSearch
       # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastSubmitSearch} vs") || teamNames.join(',').endsWith("vs #{@lastSubmitSearch}")
+      teamNames.join(',').match("#{@lastSubmitSearch} vs") || teamNames.join(',').match(" vs #{@lastSubmitSearch}")
 
   vsTeam: (home, away) ->
     return unless @lastSubmitSearch == home ||
