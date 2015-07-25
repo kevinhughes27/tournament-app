@@ -144,7 +144,7 @@ class TournamentApp.App
     return if event.type == 'change' && $(event.target).val() == ''
 
     @fieldSearchOpen = false
-    selected = $(event.target).val()
+    selected = $.trim( $(event.target).val() )
     field = _.find(@fields, (field) -> field.name is selected)
 
     if field
@@ -158,7 +158,7 @@ class TournamentApp.App
     return if event.type == 'change' && $(event.target).val() == ''
 
     @teamSearchOpen = false
-    selected = $(event.target).val()
+    selected = $.trim( $(event.target).val() )
     team = _.find(@teams, (team) -> team.name is selected)
 
     # filter games where the team isn't playing
