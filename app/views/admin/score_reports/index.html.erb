@@ -26,7 +26,7 @@
     <tbody>
       <% @score_reports.each do |report| %>
         <tr>
-          <td><%= report.game_name %></td>
+          <td><%= report.name %></td>
           <td><%= report.score %></td>
           <td data-toggle="tooltip" data-placement="top" data-container="body" title="fingerprint: <%= report.submitter_fingerprint %>">
             <%= report.submitted_by %>
