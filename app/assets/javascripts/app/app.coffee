@@ -204,24 +204,11 @@ class TournamentApp.App
     @pointMeThere.start (event) => _.throttle(@_pointToFieldCallback(event), 500)
 
   _pointToFieldCallback: (event) ->
-    #destination = new google.maps.LatLng(event.dstLat, event.dstLng)
-    #@map.setCenter(destination)
-    #@map.setZoom(@zoom)
-
-    #bounds = new google.maps.LatLngBounds()
-    #bounds.extend(destination)
-
     if event.distance > 1000
       alert("You're too far away!") unless @tooFarAlert
       @tooFarAlert = true
     else if event.lat && event.long
       @drawPointer(event.lat, event.long, event.heading, 'Location')
-      #location = new google.maps.LatLng(event.lat, event.long)
-      #bounds.extend(location)
-
-    # pan was jumpy
-    #@map.panToBounds(bounds)
-    #@map.setZoom(@zoom) if @map.getZoom() > @zoom
 
   finishPointToField: ->
     @findingField = false
