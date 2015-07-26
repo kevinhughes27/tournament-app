@@ -314,4 +314,6 @@ class TournamentApp.App
       complete: =>
         @submitScoreScreenA = false
         @submitScoreScreenB = false
+        $(form)[0].reset();
+        $('div#score-form').scrollTo(0)
         Twine.refresh()
