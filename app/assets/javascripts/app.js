@@ -7,5 +7,6 @@
 //= require fingerprint2
 //= require hammer
 //= require google_analytics
+//= require turbolinks
 //= require namespace
 //= require_tree ./app

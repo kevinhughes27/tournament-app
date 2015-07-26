@@ -119,6 +119,11 @@ class TournamentApp.App
     #   @submitScoreScreenA = true
     #   Twine.refresh()
 
+    # refresh data every ten mins
+    setInterval =>
+      window.Turbolinks.visit(window.location)
+    , 10 * 60 * 1000
+
     window.addEventListener "hashchange", (event) =>
       # back button pretty much just resets to main
       if location.hash == ""
