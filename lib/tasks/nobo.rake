@@ -146,10 +146,11 @@ namespace :nobo do
       bracket.detect{ |b| b.bracket_code == 'c2'}.update_attributes!(field: Field.find_by(name: 'UPI13'), start_time: '2015-07-26 11:50 UTC')
 
       # Finals
-      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes!(field: Field.find_by(name: 'UPI9'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 13:30 UTC')
-      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == playing_for.ordinalize}.update_attributes!(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 13:30 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 2).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI11'), start_time: '2015-07-26 13:30 UTC')
+
+      bracket.detect{ |b| b.bracket_code == (playing_for + 4).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI10'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == (playing_for + 6).ordinalize }.update_attributes!(field: Field.find_by(name: 'UPI12'), start_time: '2015-07-26 15:10 UTC')
     end
   end
 
@@ -224,9 +225,9 @@ namespace :nobo do
 
       # Finals
       bracket.detect{ |b| b.bracket_code == '1st'}.update_attributes!(field: Field.find_by(name: 'UPI2'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes!(field: Field.find_by(name: 'UPI3'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes!(field: Field.find_by(name: 'UPI4'), start_time: '2015-07-26 15:10 UTC')
-      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes!(field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '3rd'}.update_attributes!(field: Field.find_by(name: 'UPI5'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '5th'}.update_attributes!(field: Field.find_by(name: 'UPI6'), start_time: '2015-07-26 15:10 UTC')
+      bracket.detect{ |b| b.bracket_code == '7th'}.update_attributes!(field: Field.find_by(name: 'UPI7'), start_time: '2015-07-26 15:10 UTC')
     end
   end
 
