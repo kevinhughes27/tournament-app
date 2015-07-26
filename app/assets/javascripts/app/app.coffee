@@ -102,6 +102,10 @@ class TournamentApp.App
   initApp: ->
     @pointMeThere = new TournamentApp.PointMeThere()
 
+    @fingerprint = new Fingerprint2()
+    @fingerprint.get (result) ->
+      $('input#submitter_fingerprint').val(result)
+
     # node = $('#app')[0]
     # @hammertime = new Hammer(node)
     #
@@ -114,10 +118,6 @@ class TournamentApp.App
     #   return unless @mainScreen()
     #   @submitScoreScreenA = true
     #   Twine.refresh()
-
-    @fingerprint = new Fingerprint2()
-    @fingerprint.get (result) ->
-      $('input#submitter_fingerprint').val(result)
 
     window.addEventListener "hashchange", (event) =>
       # back button pretty much just resets to main
