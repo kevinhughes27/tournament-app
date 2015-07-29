@@ -106,19 +106,6 @@ class TournamentApp.App
     @fingerprint.get (result) ->
       $('input#submitter_fingerprint').val(result)
 
-    # node = $('#app')[0]
-    # @hammertime = new Hammer(node)
-    #
-    # @hammertime.on 'panright', (event) =>
-    #   return unless @mainScreen()
-    #   @scheduleScreen = true
-    #   Twine.refresh()
-    #
-    # @hammertime.on 'panleft', (event) =>
-    #   return unless @mainScreen()
-    #   @submitScoreScreenA = true
-    #   Twine.refresh()
-
     # refresh data every ten mins
     setInterval =>
       window.Turbolinks.visit(window.location)
