@@ -112,8 +112,8 @@ class TournamentApp.App
       # back button pretty much just resets to main
       if location.hash == ""
         @scheduleScreen.active = false
-        @submitScoreScreenA = false
-        @submitScoreScreenB = false
+        @submitScoreScreen.active = false
+        @submitScoreScreen.formActive = false
         Twine.refresh()
 
   showFieldSelect: =>
