@@ -1,42 +1,42 @@
 <!-- main-view -->
 <div class="bar bar-nav bar-tblue">
-  <a class="nav-btn pull-left" href="#" bind-event-click="app.showScheduleScreen()" track-click="{category: 'Main', action: 'ViewSchedule'}">
+  <a class="nav-btn pull-left" href="#" bind-event-click="scheduleScreen.show()" track-click="{category: 'Main', action: 'ViewSchedule'}">
     <i class="fa fa-list-alt"></i> Schedule
   </a>
-  <a class="nav-btn pull-right" href="#" bind-event-click="app.showSubmitScoreScreen()" track-click="{category: 'Main', action: 'SubmitScore'}">
+  <a class="nav-btn pull-right" href="#" bind-event-click="submitScoreScreen.show()" track-click="{category: 'Main', action: 'SubmitScore'}">
     Submit a score <i class="fa fa-star-half-o"></i>
   </a>
 </div>
 
-<div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!app.fieldSearchOpen">
+<div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!fieldSearchOpen">
   <input id="main-field-search" class="awesomplete" type="text" placeholder="Start typing a field name or number..."
     data-minchars="1"
     data-list="<%= @fields.map{ |t| t.name }.join(', ') %>"
-    bind-event-change="app.fieldSelected(event)"
-    bind-event-click="app.fieldSelected(event)"
-    bind-event-keyup="app.fieldSelected(event)"
-    bind-event-blur="app.searchBlur()">
+    bind-event-change="fieldSelected(event)"
+    bind-event-click="fieldSelected(event)"
+    bind-event-keyup="fieldSelected(event)"
+    bind-event-blur="searchBlur()">
 </div>
 
-<div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!app.teamSearchOpen">
+<div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!teamSearchOpen">
   <input id="main-team-search" class="awesomplete" type="text" placeholder="Start typing a team name..."
     data-minchars="1"
     data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
-    bind-event-change="app.teamSelected(event)"
-    bind-event-click="app.teamSelected(event)"
-    bind-event-keyup="app.teamSelected(event)"
-    bind-event-blur="app.searchBlur()">
+    bind-event-change="teamSelected(event)"
+    bind-event-click="teamSelected(event)"
+    bind-event-keyup="teamSelected(event)"
+    bind-event-blur="searchBlur()">
 </div>
 
-<div class="bar bar-standard bar-header-secondary transparent hide" bind-show="!!app.findingField">
-  <a class="nav-btn pull-right" href="#" bind-event-click="app.finishPointToField()">
+<div class="bar bar-standard bar-header-secondary transparent hide" bind-show="!!findingField">
+  <a class="nav-btn pull-right" href="#" bind-event-click="finishPointToField()">
     <i class="fa fa-times-circle fa-lg"></i>
   </a>
-  <h1 class="title" bind="app.getFindText()"></h1>
+  <h1 class="title" bind="findText"></h1>
 </div>
 
 <div class="bar bar-standard bar-footer">
-  <a class="btn btn-find pull-right" href="#" bind-event-click="app.drawerOpen = true" bind-show="!(app.drawerOpen || app.scheduleScreen)">
+  <a class="btn btn-find pull-right" href="#" bind-event-click="drawerOpen = true" bind-show="!(drawerOpen || scheduleScreen.active)">
     Find <i class="fa fa-caret-up"></i>
   </a>
 </div>
@@ -52,14 +52,14 @@
 
 
 <!-- find-drawer -->
-<div class="drawer" bind-class="{active: app.drawerOpen}">
+<div class="drawer" bind-class="{active: drawerOpen}">
   <div class="content transparent">
-    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="app.showFieldSelect()" track-click="{category: 'Main', action: 'FindField'}">Find a field</button>
-    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="app.showTeamSelect()" track-click="{category: 'Main', action: 'FindTeam'}">Find a team</button>
+    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showFieldSelect()" track-click="{category: 'Main', action: 'FindField'}">Find a field</button>
+    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showTeamSelect()" track-click="{category: 'Main', action: 'FindTeam'}">Find a team</button>
   </div>
 
   <div class="bar bar-standard bar-footer">
-    <a class="pull-right" href="#" bind-event-click="app.drawerOpen = false" track-click="{category: 'Main', action: 'CloseDrawer'}">Back to map</a>
+    <a class="pull-right" href="#" bind-event-click="drawerOpen = false" track-click="{category: 'Main', action: 'CloseDrawer'}">Back to map</a>
   </div>
 </div>
 <!-- end find-drawer -->
