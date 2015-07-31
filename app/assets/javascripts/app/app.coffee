@@ -179,9 +179,6 @@ class TournamentApp.App
 
     Twine.refresh()
 
-  getFindText: ->
-    @findText
-
   pointToField: (field) ->
     @findingField = true
     @tooFarAlert = false

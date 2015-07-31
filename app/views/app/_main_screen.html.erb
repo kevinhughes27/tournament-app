@@ -32,11 +32,11 @@
   <a class="nav-btn pull-right" href="#" bind-event-click="finishPointToField()">
     <i class="fa fa-times-circle fa-lg"></i>
   </a>
-  <h1 class="title" bind="getFindText()"></h1>
+  <h1 class="title" bind="findText"></h1>
 </div>
 
 <div class="bar bar-standard bar-footer">
-  <a class="btn btn-find pull-right" href="#" bind-event-click="drawerOpen = true" bind-show="!(drawerOpen || scheduleScreen)">
+  <a class="btn btn-find pull-right" href="#" bind-event-click="drawerOpen = true" bind-show="!(drawerOpen || scheduleScreen.active)">
     Find <i class="fa fa-caret-up"></i>
   </a>
 </div>
