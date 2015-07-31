@@ -1,15 +1,15 @@
 <!-- submit-score-screen B -->
-<div class="right-screen" bind-class="{active: app.submitScoreScreenB}">
+<div class="right-screen" bind-class="{active: app.submitScoreScreen.formActive}">
   <div class="bar bar-nav bar-blue">
     <h1 class="title">Submit a score</h1>
 
-    <a class="nav-btn pull-left" href="#" bind-event-click="app.submitScoreScreenB = false">
+    <a class="nav-btn pull-left" href="#" bind-event-click="app.submitScoreScreen.closeForm()">
       <span class="icon icon-left"></span> Games
     </a>
   </div>
 
   <div id="score-form" class="content">
-    <%= form_tag app_score_submit_path, method: :post, 'bind-event-submit' => 'app.submitScore(this)' do |form| %>
+    <%= form_tag app_score_submit_path, method: :post, 'bind-event-submit' => 'app.submitScoreScreen.submitScore(this)' do |form| %>
       <%= hidden_field_tag 'game_id' %>
       <%= hidden_field_tag 'team_id' %>
       <%= hidden_field_tag 'submitter_fingerprint' %>

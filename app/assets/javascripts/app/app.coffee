@@ -5,8 +5,8 @@ class TournamentApp.App
     @drawerOpen = false
     @findingField = false
     @findText = ''
-    @searchOpen = false
-    @scheduleScreen = false
+    @fieldSearchOpen = false
+    @teamSearchOpen = false
     @submitScoreScreenA = false
     @submitScoreScreenB = false
 
@@ -19,7 +19,7 @@ class TournamentApp.App
     @initApp()
 
   mainScreen: ->
-    !@scheduleScreen && !@submitScoreScreenA && !@submitScoreScreenB
+    !@scheduleScreen.active && !@submitScoreScreenA && !@submitScoreScreenB
 
   initializeMap: =>
     @mapNode = document.getElementById('map-canvas')
@@ -100,6 +100,8 @@ class TournamentApp.App
     @markers = []
 
   initApp: ->
+    @scheduleScreen = new TournamentApp.ScheduleScreen(@)
+    @submitScoreScreen = new TournamentApp.SubmitScoreScreen(@)
     @pointMeThere = new TournamentApp.PointMeThere()
 
     @fingerprint = new Fingerprint2()
@@ -114,7 +116,7 @@ class TournamentApp.App
     window.addEventListener "hashchange", (event) =>
       # back button pretty much just resets to main
       if location.hash == ""
-        @scheduleScreen = false
+        @scheduleScreen.active = false
         @submitScoreScreenA = false
         @submitScoreScreenB = false
         Twine.refresh()
@@ -208,104 +210,3 @@ class TournamentApp.App
     @clearPointer()
     @centerMap()
     Twine.refresh()
-
-
-  # Schedule view
-  showScheduleScreen: ->
-    @scheduleScreen = true
-    location.hash = "schedule"
-    # unless @scheduleScrolled
-    #   # only run this once. then remember the users scroll
-    #   @scheduleScrolled = true
-    #
-    #   # ensure scroll has run at least once so scroll buffer is resolved
-    #   nodes = $('.divider-container')
-    #   @_scrollSchedule(nodes[0])
-    #
-    #   nowNode = _.find(nodes, (node) ->
-    #     timeString = $(node).find('.divider-time').data('time')
-    #     moment.utc() < moment.utc(timeString).add(@timeCap, 'minutes')
-    #   )
-    #
-    #   @_scrollSchedule(nowNode)
-    Twine.refresh()
-
-  # _scrollSchedule: (node) ->
-  #   $('.left-screen > .content').scrollTo(node).offset({top: 88}) # 2 x $bar-base-height
-
-  closeScheduleScreen: ->
-    @scheduleScreen = false
-    location.hash = ""
-    Twine.refresh()
-
-  scheduleSearchChange: (event)->
-    @lastScheduleSearch = $.trim( $(event.target).val() )
-    Twine.refresh()
-
-  scheduleFilter: (teamNames) ->
-    if @lastScheduleSearch
-      # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastScheduleSearch} vs") || teamNames.join(',').endsWith("vs #{@lastScheduleSearch}")
-    else
-      true
-
-  findField: (fieldName) ->
-    @scheduleScreen = false
-    field = _.find(@fields, (field) -> field.name is fieldName)
-
-    if field
-      @findText = "#{field.name}"
-      @pointToField(field)
-
-    Twine.refresh()
-
-
-  # Submit score A view
-  showSubmitScoreScreen: ->
-    @submitScoreScreenA = true
-    location.hash = "submit-score"
-    Twine.refresh()
-
-  closeSubmitScoreScreen: ->
-    @submitScoreScreenA = false
-    location.hash = ""
-    Twine.refresh()
-
-  submitSearchChange: (event) ->
-    @lastSubmitSearch = $.trim( $(event.target).val() )
-    Twine.refresh()
-
-  submitFilter: (teamNames) ->
-    if @lastSubmitSearch
-      # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastSubmitSearch} vs") || teamNames.join(',').endsWith("vs #{@lastSubmitSearch}")
-
-  vsTeam: (home, away) ->
-    return unless @lastSubmitSearch == home ||
-                  @lastSubmitSearch == away
-
-    "#{home}#{away}".replace @lastSubmitSearch, ""
-
-  submitScoreForm: (gameId, home, away) ->
-    team = _.find(@teams, (team) => team.name is @lastSubmitSearch)
-    vsTeam = @vsTeam(home, away)
-
-    $('.score-label')[0].innerHTML = team.name
-    $('.score-label')[1].innerHTML = vsTeam
-    $('input#game_id').val(gameId)
-    $('input#team_id').val(team.id)
-
-    @submitScoreScreenB = true
-    Twine.refresh()
-
-  submitScore: (form) ->
-    $.ajax
-      url: form.action
-      type: 'POST'
-      data: $(form).serialize()
-      complete: =>
-        @submitScoreScreenA = false
-        @submitScoreScreenB = false
-        $(form)[0].reset();
-        $('div#score-form').scrollTo(0)
-        Twine.refresh()
