@@ -18,9 +18,6 @@ class TournamentApp.App
 
     @initApp()
 
-  mainScreen: ->
-    !@scheduleScreen.active && !@submitScoreScreenA && !@submitScoreScreenB
-
   initializeMap: =>
     @mapNode = document.getElementById('map-canvas')
 
