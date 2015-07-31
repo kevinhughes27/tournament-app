@@ -7,8 +7,6 @@ class TournamentApp.App
     @findText = ''
     @fieldSearchOpen = false
     @teamSearchOpen = false
-    @submitScoreScreenA = false
-    @submitScoreScreenB = false
 
     window.initializeMap = @initializeMap
     script = document.createElement('script')
