@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   #root 'home#index'
   root :to => redirect('/no-borders')
 
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+
   namespace :admin do
     resources :tournaments, path: '' do
       resources :maps
