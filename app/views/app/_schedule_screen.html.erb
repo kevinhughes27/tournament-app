@@ -1,61 +1,62 @@
-<!-- schedule-screen -->
-<div class="left-screen screen-schedule" bind-class="{active: app.scheduleScreen.active}">
-  <div class="bar bar-nav bar-blue">
-    <a class="nav-btn pull-left" href="#" bind-event-click="app.scheduleScreen.close()">
-      <span class="icon icon-left"></span> Map
-    </a>
-    <h1 class="title">Schedule</h1>
-  </div>
+<div context="scheduleScreen">
+  <div class="left-screen screen-schedule" bind-class="{active: active}">
 
-  <div class="bar bar-standard bar-header-secondary bar-blue">
-    <div class="team-search">
-      <input class="awesomplete" placeholder="Search ..."
-        data-minchars="1"
-        data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
-        bind-event-change="app.scheduleScreen.searchChange(event)"
-        track-click="{category: 'ScheduleScreen', action: 'Search'}">
+    <div class="bar bar-nav bar-blue">
+      <a class="nav-btn pull-left" href="#" bind-event-click="close()">
+        <span class="icon icon-left"></span> Map
+      </a>
+      <h1 class="title">Schedule</h1>
     </div>
-  </div>
 
-  <div class="content">
-    <ul class="table-view">
+    <div class="bar bar-standard bar-header-secondary bar-blue">
+      <div class="team-search">
+        <input class="awesomplete" placeholder="Search ..."
+          data-minchars="1"
+          data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
+          bind-event-change="searchChange(event)"
+          track-click="{category: 'ScheduleScreen', action: 'Search'}">
+      </div>
+    </div>
 
-      <% @games.group_by{ |g| g.start_time }.sort.each do |time, games| %>
+    <div class="content">
+      <ul class="table-view">
 
-        <li class="table-view-divider"  bind-show="app.scheduleScreen.filter(<%= games.map{|g| [g.name]}.flatten.to_json %>)">
-          <div class='divider-container'>
-            <div class="divider-time" data-time="<%= time%>">
-              <strong><%= time.strftime("%l:%M %P") %></strong>
+        <% @games.group_by{ |g| g.start_time }.sort.each do |time, games| %>
+
+          <li class="table-view-divider"  bind-show="filter(<%= games.map{|g| [g.name]}.flatten.to_json %>)">
+            <div class='divider-container'>
+              <div class="divider-time" data-time="<%= time%>">
+                <strong><%= time.strftime("%l:%M %P") %></strong>
+              </div>
+              <div class="divider-day">
+                <strong><%= time.strftime("%A") %></strong>
+              </div>
             </div>
-            <div class="divider-day">
-              <strong><%= time.strftime("%A") %></strong>
-            </span>
-          </div>
-        </li>
-
-        <% games.each do |game| %>
-
-          <li class="table-view-cell" bind-show="app.scheduleScreen.filter(<%= [game.name].to_json %>)">
-            <% if game.home && game.away %>
-              <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
-            <% else %>
-              <%= game.name %>
-            <% end %>
-
-            <% if game.score_confirmed %>
-              <%= "(#{game.home_score}/#{game.away_score})" %>
-            <% end %>
-            <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='app.scheduleScreen.findField("<%= game.field.name %>")' track-click="{category: 'ScheduleScreen', action: 'FindField'}">
-              <%= game.field.name %>
-              <i class="fa fa-map-marker"></i>
-            </a>
           </li>
 
+          <% games.each do |game| %>
+
+            <li class="table-view-cell" bind-show="filter(<%= [game.name].to_json %>)">
+              <% if game.home && game.away %>
+                <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
+              <% else %>
+                <%= game.name %>
+              <% end %>
+
+              <% if game.score_confirmed %>
+                <%= "(#{game.home_score}/#{game.away_score})" %>
+              <% end %>
+              <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='findField("<%= game.field.name %>")' track-click="{category: 'ScheduleScreen', action: 'FindField'}">
+                <%= game.field.name %>
+                <i class="fa fa-map-marker"></i>
+              </a>
+            </li>
+
+          <% end %>
         <% end %>
-      <% end %>
 
-    </ul>
+      </ul>
+    </div>
+
   </div>
-
 </div>
-<!-- end schedule-screen -->

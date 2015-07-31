@@ -1,20 +1,16 @@
-<div id="app">
+<div id="app" define='{
+  app: new TournamentApp.App(
+    <%= @map.location %>,
+    <%= @map.zoom %>,
+    <%= @fields.to_json %>,
+    <%= @teams.to_json %>,
+    <%= @games.to_json %>,
+    <%= @tournament.time_cap %>,
+    "<%= asset_path('fa-map-marker.svg') %>"
+  )}'
+  context='app'>
   <%= render 'main_screen', locals: { games: @games, teams: @teams, fields: @fields } %>
   <%= render 'schedule_screen', locals: { games: @games, teams: @teams } %>
   <%= render 'submit_score_screen_a', locals: { games: @games, teams: @teams } %>
   <%= render 'submit_score_screen_b' %>
 </div>
-
-<script>
-  $( document ).ready(function() {
-    app = new TournamentApp.App(
-      <%= @map.location %>,
-      <%= @map.zoom %>,
-      <%= raw @fields.to_json %>,
-      <%= raw @teams.to_json %>,
-      <%= raw @games.to_json %>,
-      <%= @tournament.time_cap %>,
-      '<%= asset_path('fa-map-marker.svg') %>'
-    );
-  });
-</script>

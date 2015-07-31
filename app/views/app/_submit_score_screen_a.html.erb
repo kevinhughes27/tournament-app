@@ -1,39 +1,41 @@
-<!-- submit-score-screen A -->
-<div class="right-screen" bind-class="{active: app.submitScoreScreen.active}">
-  <div class="bar bar-nav bar-blue">
-    <a class="nav-btn pull-left" href="#" bind-event-click="app.submitScoreScreen.close()">
-      <span class="icon icon-left"></span> Map
-    </a>
-    <h1 class="title">Submit a score</h1>
-  </div>
+<div context="submitScoreScreen">
+  <div class="right-screen" bind-class="{active: active}">
 
-  <div class="content">
-    <div class="submit-search">
-      <div class="team-search">
-        <p>Our Team:<p>
-        <input class="awesomplete" placeholder="Search ..."
-          data-minchars="1"
-          data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
-          bind-event-change="app.submitScoreScreen.searchChange(event)">
+    <div class="bar bar-nav bar-blue">
+      <a class="nav-btn pull-left" href="#" bind-event-click="close()">
+        <span class="icon icon-left"></span> Map
+      </a>
+      <h1 class="title">Submit a score</h1>
+    </div>
+
+    <div class="content">
+      <div class="submit-search">
+        <div class="team-search">
+          <p>Our Team:<p>
+          <input class="awesomplete" placeholder="Search ..."
+            data-minchars="1"
+            data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
+            bind-event-change="searchChange(event)">
+        </div>
+      </div>
+      <div class="content-padded">
+        <p>Submit a score for each team played</p>
+      </div>
+      <div class="card">
+        <ul class="table-view">
+          <% @games.sort_by{ |g| g.start_time }.each do |game| %>
+            <% if game.home && game.away %>
+              <li class="table-view-cell" bind-show="filter(<%= [game.name].to_json %>)">
+                <a class="navigate-right" bind-event-click='showForm(<%= game.id %>, "<%= game.home.name %>", "<%= game.away.name %>")' track-click="{category: 'SubmitScore', action: 'ViewForm'}">
+                  <span bind='vsTeam("<%= game.home.name %>", "<%= game.away.name %>")'></span>
+                  <span class="subdued">(<%= game.start_time.strftime("%l:%M %P") %>)</span>
+                </a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
       </div>
     </div>
-    <div class="content-padded">
-      <p>Submit a score for each team played</p>
-    </div>
-    <div class="card">
-      <ul class="table-view">
-        <% @games.sort_by{ |g| g.start_time }.each do |game| %>
-          <% if game.home && game.away %>
-            <li class="table-view-cell" bind-show="app.submitScoreScreen.filter(<%= [game.name].to_json %>)">
-              <a class="navigate-right" bind-event-click='app.submitScoreScreen.showForm(<%= game.id %>, "<%= game.home.name %>", "<%= game.away.name %>")' track-click="{category: 'SubmitScore', action: 'ViewForm'}">
-                <span bind='app.submitScoreScreen.vsTeam("<%= game.home.name %>", "<%= game.away.name %>")'></span>
-                <span class="subdued">(<%= game.start_time.strftime("%l:%M %P") %>)</span>
-              </a>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
+
   </div>
 </div>
-<!-- end submit-score-screen A -->
