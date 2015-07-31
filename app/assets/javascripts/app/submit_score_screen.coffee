@@ -14,10 +14,6 @@ class TournamentApp.SubmitScoreScreen
     location.hash = ""
     Twine.refresh()
 
-  closeForm: ->
-    @formActive = false
-    Twine.refresh()
-
   searchChange: (event) ->
     @lastSearch = $.trim( $(event.target).val() )
     Twine.refresh()
@@ -43,6 +39,10 @@ class TournamentApp.SubmitScoreScreen
     $('input#team_id').val(team.id)
 
     @formActive = true
+    Twine.refresh()
+
+  closeForm: ->
+    @formActive = false
     Twine.refresh()
 
   submitScore: (form) ->

@@ -1,5 +1,3 @@
-#= require app
-
 describe 'App', ->
   it "initialize", ->
     app = new TournamentApp.App()

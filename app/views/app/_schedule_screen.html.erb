@@ -36,6 +36,7 @@
 
           <% games.each do |game| %>
 
+            <!-- how do I test to ensure that this function is called with the right params? -->
             <li class="table-view-cell" bind-show="filter(<%= [game.name].to_json %>)">
               <% if game.home && game.away %>
                 <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
