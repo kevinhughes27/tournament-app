@@ -1,11 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  gen_loc: MyString
-  description: MyText
-
-two:
-  name: MyString
-  gen_loc: MyString
-  description: MyText
+noborders:
+  name: No Borders
+  handle: no-borders
+  description: An Ultimate tournament in Ottawa
+  time_cap: 80

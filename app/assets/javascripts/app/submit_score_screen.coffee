@@ -1,4 +1,4 @@
-class TournamentApp.SubmitScoreScreen
+class App.SubmitScoreScreen
 
   constructor: (@app) ->
     @active = false
@@ -14,35 +14,33 @@ class TournamentApp.SubmitScoreScreen
     location.hash = ""
     Twine.refresh()
 
-  closeForm: ->
-    @formActive = false
-    Twine.refresh()
-
   searchChange: (event) ->
     @lastSearch = $.trim( $(event.target).val() )
     Twine.refresh()
 
   filter: (teamNames) ->
     if @lastSearch
-      # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastSearch} vs") || teamNames.join(',').endsWith("vs #{@lastSearch}")
+      teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
 
   vsTeam: (home, away) ->
-    return unless @lastSearch == home ||
-                  @lastSearch == away
-
+    return unless @lastSearch == home || @lastSearch == away
     "#{home}#{away}".replace @lastSearch, ""
 
   showForm: (gameId, home, away) ->
     team = _.find(@app.teams, (team) => team.name is @lastSearch)
     vsTeam = @vsTeam(home, away)
+    @_prepareForm(team.name, vsTeam, gameId, team.id)
+    @formActive = true
+    Twine.refresh()
 
-    $('.score-label')[0].innerHTML = team.name
+  _prepareForm: (teamName, vsTeam, gameId, teamId) ->
+    $('.score-label')[0].innerHTML = teamName
     $('.score-label')[1].innerHTML = vsTeam
     $('input#game_id').val(gameId)
-    $('input#team_id').val(team.id)
+    $('input#team_id').val(teamId)
 
-    @formActive = true
+  closeForm: ->
+    @formActive = false
     Twine.refresh()
 
   submitScore: (form) ->
@@ -53,6 +51,9 @@ class TournamentApp.SubmitScoreScreen
       complete: =>
         @active = false
         @formActive = false
-        $(form)[0].reset();
-        $('div#score-form').scrollTo(0)
+        @_resetForm(form)
         Twine.refresh()
+
+  _resetForm: (form) ->
+    $(form)[0].reset();
+    $('div#score-form').scrollTo(0)

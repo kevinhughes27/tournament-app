@@ -67,7 +67,7 @@
 <script>
   $( document ).ready(function() {
     tableNode = $('.schedule-table');
-    scheduleTable = new TournamentApp.ScheduleTable(
+    scheduleTable = new Admin.ScheduleTable(
       tableNode,
       <%= raw @teams.to_json %>
     );

@@ -47,12 +47,16 @@
   </div>
 </div>
 
-<div id="map-canvas" style="position: absolute; width: 100%; height: 100%;" data-turbolinks-permanent></div>
+<div id="map-canvas"
+     style="position: absolute; width: 100%; height: 100%;"
+     define="initializeMap()"
+     data-turbolinks-permanent>
+</div>
 <!-- end main-view -->
 
 
 <!-- find-drawer -->
-<div class="drawer" bind-class="{active: drawerOpen}">
+<div id="drawer" class="drawer" bind-class="{active: drawerOpen}">
   <div class="content transparent">
     <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showFieldSelect()" track-click="{category: 'Main', action: 'FindField'}">Find a field</button>
     <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showTeamSelect()" track-click="{category: 'Main', action: 'FindTeam'}">Find a team</button>

@@ -1,4 +1,4 @@
-class TournamentApp.PointMeThere
+class App.PointMeThere
 
   constructor: ->
     @defaultOrientation = "portrait"

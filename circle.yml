@@ -1,0 +1,24 @@
+machine:
+  environment:
+    ENV: circleci
+    RACK_ENV: test
+    RAILS_ENV: test
+  ruby:
+    version:
+      2.2.2
+
+dependencies:
+  pre:
+    - mkdir -p tmp/cache
+  override:
+    - bundle install --path .bundle --without production --without development
+  cache_directories:
+    - ".bundle"
+
+database:
+  override:
+    - bundle exec rake db:setup --trace
+
+test:
+  post:
+    - bundle exec rake spec:javascript

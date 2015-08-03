@@ -1,4 +1,4 @@
-TournamentApp.Flash = Flash =
+Admin.Flash = Flash =
   error: (message, duration = 3000) ->
     Flash.display message, true, duration
 

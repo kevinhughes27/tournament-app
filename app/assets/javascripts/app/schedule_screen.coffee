@@ -1,4 +1,4 @@
-class TournamentApp.ScheduleScreen
+class App.ScheduleScreen
 
   constructor: (@app) ->
     @active = false
@@ -35,18 +35,16 @@ class TournamentApp.ScheduleScreen
     Twine.refresh()
 
   filter: (teamNames) ->
+    teamNames = teamNames.join(',') if $.isArray(teamNames)
+
     if @lastSearch
-      # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastSearch} vs") || teamNames.join(',').endsWith("vs #{@lastSearch}")
+      teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
     else
       true
 
   findField: (fieldName) ->
-    @active = false
-    field = _.find(@app.fields, (field) -> field.name is fieldName)
-
-    if field
+    if field = _.find(@app.fields, (field) -> field.name is fieldName)
       @app.findText = "#{field.name}"
       @app.pointToField(field)
 
-    Twine.refresh()
+    @close()

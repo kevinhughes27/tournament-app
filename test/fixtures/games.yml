@@ -1,15 +1,21 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  home_score: 1
+swift_goose:
+  tournament: noborders
+  home: swift
+  away: goose
+  field: upi1
+  type: 'PoolGame'
+  home_score: 2
   away_score: 1
-  start: 2015-06-06 12:06:53
-  finished: 2015-06-06 12:06:53
+  start_time: 2015-06-06 12:06:53
   score_confirmed: false
 
-two:
-  home_score: 1
-  away_score: 1
-  start: 2015-06-06 12:06:53
-  finished: 2015-06-06 12:06:53
-  score_confirmed: false
+pheonix_mavericks:
+  tournament: noborders
+  home: pheonix
+  away: maverick
+  field: upi2
+  type: 'PoolGame'
+  home_score: 15
+  away_score: 13
+  start_time: 2015-06-06 12:06:53
+  score_confirmed: true

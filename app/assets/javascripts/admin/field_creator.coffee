@@ -1,4 +1,4 @@
-class TournamentApp.FieldCreator
+class Admin.FieldCreator
 
   constructor: (@tournmanentLocation, @zoom, @fields) ->
     window.initializeMap = @initializeMap

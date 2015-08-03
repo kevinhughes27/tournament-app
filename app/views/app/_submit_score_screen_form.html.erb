@@ -1,5 +1,5 @@
 <div context="submitScoreScreen">
-  <div class="right-screen" bind-class="{active: app.submitScoreScreen.formActive}">
+  <div id="submit-score-form" class="right-screen" bind-class="{active: app.submitScoreScreen.formActive}">
 
     <div class="bar bar-nav bar-blue">
       <h1 class="title">Submit a score</h1>
@@ -75,3 +75,10 @@
 
   </div>
 </div>
+
+<script>
+  var fingerprint = new Fingerprint2()
+  fingerprint.get(function(result) {
+    $('input#submitter_fingerprint').val(result)
+  });
+</script>

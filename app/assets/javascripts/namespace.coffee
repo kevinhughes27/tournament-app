@@ -1,1 +1,2 @@
-window.TournamentApp ||= {}
+window.Admin ||= {}
+window.App ||= {}

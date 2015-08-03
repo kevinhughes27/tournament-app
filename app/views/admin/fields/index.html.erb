@@ -33,7 +33,7 @@
 
 <script>
   $( document ).ready(function() {
-    fieldCreator = new TournamentApp.FieldCreator(
+    fieldCreator = new Admin.FieldCreator(
       <%= @map.location %>,
       <%= @map.zoom %>,
       <%= raw @fields.to_json %>
