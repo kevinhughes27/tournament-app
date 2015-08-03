@@ -1,6 +1,8 @@
 tournament-app (working title)
 ==============
 
+[![Circle CI](https://circleci.com/gh/kevinhughes27/ultimate-tournament.svg?style=svg&circle-token=4cdbaf7bb8107c054bbb6d22c52aa6bef97eb8e3)](https://circleci.com/gh/kevinhughes27/ultimate-tournament)
+
 A web application for running ultimate tournaments
 
 production:[http://ultimate-tournament.herokuapp.com/](http://ultimate-tournament.herokuapp.com/)
