@@ -21,7 +21,7 @@ class TournamentApp.SubmitScoreScreen
   filter: (teamNames) ->
     if @lastSearch
       # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastSearch} vs") || teamNames.join(',').endsWith("vs #{@lastSearch}")
+      teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
 
   vsTeam: (home, away) ->
     return unless @lastSearch == home ||

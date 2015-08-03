@@ -42,20 +42,20 @@ describe 'SubmitScoreScreen', ->
 
   it "filter returns true if the last search matches the input", ->
     screen.lastSearch = "Swift"
-    filter = screen.filter(["Swift vs Goose"])
+    filter = screen.filter("Swift vs Goose")
     expect(filter).toBeTruthy()
 
   it "filter returns false when no lastSearch", ->
     screen.lastSearch = ""
-    filter = screen.filter(["Swift vs Goose"])
+    filter = screen.filter("Swift vs Goose")
     expect(filter).toBeFalsy()
 
   it "filter returns false if the lastSearch doesn't match", ->
     screen.lastSearch = "Goat"
-    filter = screen.filter(["Swift vs Goose"])
+    filter = screen.filter("Swift vs Goose")
     expect(filter).toBeFalsy()
 
   it "filter isn't fooled by substring team matches", ->
     screen.lastSearch = "Magma"
-    filter = screen.filter(["Magma2 vs Goose"])
+    filter = screen.filter("Magma2 vs Goose")
     expect(filter).toBeFalsy()

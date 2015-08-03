@@ -35,9 +35,11 @@ class TournamentApp.ScheduleScreen
     Twine.refresh()
 
   filter: (teamNames) ->
+    teamNames = teamNames.join(',') if $.isArray(teamNames)
+
     if @lastSearch
       # prevent accidently matching a substring
-      teamNames.join(',').match("#{@lastSearch} vs") || teamNames.join(',').endsWith("vs #{@lastSearch}")
+      teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
     else
       true
 
