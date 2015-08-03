@@ -20,7 +20,6 @@ class TournamentApp.SubmitScoreScreen
 
   filter: (teamNames) ->
     if @lastSearch
-      # prevent accidently matching a substring
       teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
 
   vsTeam: (home, away) ->

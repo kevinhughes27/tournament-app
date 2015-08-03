@@ -38,7 +38,6 @@ class TournamentApp.ScheduleScreen
     teamNames = teamNames.join(',') if $.isArray(teamNames)
 
     if @lastSearch
-      # prevent accidently matching a substring
       teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
     else
       true
