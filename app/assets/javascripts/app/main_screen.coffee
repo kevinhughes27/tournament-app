@@ -77,8 +77,7 @@ class App.MainScreen
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
 
     # filter games that aren't over
-    currentTime = moment.utc().subtract(4, 'hours') # quick no borders time zone fix
-    games = _.filter(games, (game) => currentTime < moment.utc(game.start_time).add(@timeCap, 'minutes'))
+    games = _.filter(games, (game) => @_currentTime() < moment.utc(game.start_time).add(@timeCap, 'minutes'))
     games = _.sortBy(games, (game) -> game.start_time)
 
     nextOrCurrentGame = games[0]
@@ -92,6 +91,9 @@ class App.MainScreen
       alert("No Upcoming games for #{selected}")
 
     Twine.refresh()
+
+  _currentTime: ->
+    moment.utc() # I had to hack this to be -4 hours for nobo
 
   pointToField: (field) ->
     @findingField = true

@@ -1,8 +1,12 @@
 describe 'MainScreen', ->
   app = null
-  fields = [{name: 'UPI1'}]
-  teams = [{name: 'Swift'}]
-  games = []
+  fields = [{name: 'UPI1', id: 1}, {name: 'UPI2', id: 2}, {name: 'UPI3', id: 3}]
+  teams = [{name: 'Swift', id: 1}, {name: 'Goose', id: 2}]
+  games = [
+    { home_id: 1, away_id: 2, field_id: 1, start_time: moment.utc() },
+    { home_id: 1, away_id: 2, field_id: 2, start_time: moment.utc().subtract(3, 'hours') },
+    { home_id: 1, away_id: 2, field_id: 3, start_time: moment.utc().add(3, 'hours') },
+  ]
 
   beforeEach ->
     app = new App.MainScreen(
@@ -94,7 +98,35 @@ describe 'MainScreen', ->
     expect(app.fieldSearchOpen).toBe(false)
     expect(Twine.refresh).toHaveBeenCalled()
 
-  # teamSelected tests ...
+  it "teamSelected finds the next game for the team", ->
+    node = document.createElement("input")
+    node.setAttribute("value", "Swift")
+    event = {type: 'change', target: node}
+    spyOn(app, 'pointToField')
+
+    app.teamSelected(event)
+
+    field = app.pointToField.calls.mostRecent().args[0]
+    expect(field.name).toEqual('UPI1')
+
+    # advance time to the next game
+    spyOn(app, '_currentTime').and.returnValue( moment.utc().add(2, 'hours') )
+
+    app.teamSelected(event)
+
+    field = app.pointToField.calls.mostRecent().args[0]
+    expect(field.name).toEqual('UPI3')
+
+  it "teamSelected alerts if no upcoming games", ->
+    node = document.createElement("input")
+    node.setAttribute("value", "Swift")
+    event = {type: 'change', target: node}
+    spyOn(app, '_currentTime').and.returnValue( moment.utc().add(2, 'days') )
+    spyOn(window, 'alert')
+
+    app.teamSelected(event)
+
+    expect(window.alert).toHaveBeenCalledWith("No Upcoming games for Swift")
 
   it "pointToField adds markers and starts pointMeThere", ->
     app.map = jasmine.createSpyObj('map', ['clearMarkers', 'addMarker'])
