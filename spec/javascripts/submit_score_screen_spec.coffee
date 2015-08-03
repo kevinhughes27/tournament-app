@@ -7,7 +7,7 @@ describe 'SubmitScoreScreen', ->
       teams: [{name: 'Swift', id: 14}, {name: 'Goose'}, {name: 'Magma'}]
     }
 
-    screen = new TournamentApp.SubmitScoreScreen(app)
+    screen = new App.SubmitScoreScreen(app)
     spyOn(Twine, 'refresh')
 
   it "show sets active and calls Twine.refresh", ->

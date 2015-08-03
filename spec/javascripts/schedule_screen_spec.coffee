@@ -8,7 +8,7 @@ describe 'ScheduleScreen', ->
       pointToField: (field) -> {}
     }
 
-    screen = new TournamentApp.ScheduleScreen(app)
+    screen = new App.ScheduleScreen(app)
     spyOn(Twine, 'refresh')
 
   it "show sets active and calls Twine.refresh", ->

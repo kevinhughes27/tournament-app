@@ -1,4 +1,4 @@
-class TournamentApp.ScheduleScreen
+class App.ScheduleScreen
 
   constructor: (@app) ->
     @active = false

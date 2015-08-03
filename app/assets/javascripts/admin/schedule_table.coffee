@@ -1,4 +1,4 @@
-class TournamentApp.ScheduleTable
+class Admin.ScheduleTable
 
   constructor: (@$tableNode, @teams) ->
     @$fieldTables = @$tableNode.find('.editable-table')

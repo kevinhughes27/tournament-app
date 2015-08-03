@@ -1,4 +1,4 @@
-class TournamentApp.TeamTable
+class Admin.TeamTable
 
   constructor: (@$tableNode) ->
     @$tableNode.editableTableWidget()

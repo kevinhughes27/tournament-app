@@ -1,11 +1,11 @@
-describe 'App', ->
+describe 'MainScreen', ->
   app = null
   fields = [{name: 'UPI1'}]
   teams = [{name: 'Swift'}]
   games = []
 
   beforeEach ->
-    app = new TournamentApp.App(
+    app = new App.MainScreen(
       [45.2466442,-75.6149635],
       17,
       fields,

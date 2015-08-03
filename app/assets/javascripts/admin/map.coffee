@@ -1,4 +1,4 @@
-class TournamentApp.Map
+class Admin.Map
 
   constructor: (@tournmanentLocation, @zoom) ->
     window.initializeMap = @initializeMap

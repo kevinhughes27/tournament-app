@@ -1,4 +1,4 @@
-class TournamentApp.App
+class App.MainScreen
 
   constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap, @mapMarkerSvg) ->
     location.hash = ""
@@ -95,9 +95,9 @@ class TournamentApp.App
     @markers = []
 
   initApp: ->
-    @scheduleScreen = new TournamentApp.ScheduleScreen(@)
-    @submitScoreScreen = new TournamentApp.SubmitScoreScreen(@)
-    @pointMeThere = new TournamentApp.PointMeThere()
+    @scheduleScreen = new App.ScheduleScreen(@)
+    @submitScoreScreen = new App.SubmitScoreScreen(@)
+    @pointMeThere = new App.PointMeThere()
 
     # refresh data every ten mins
     setInterval =>

@@ -1,4 +1,4 @@
-class TournamentApp.SubmitScoreScreen
+class App.SubmitScoreScreen
 
   constructor: (@app) ->
     @active = false
