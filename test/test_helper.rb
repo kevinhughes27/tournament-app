@@ -3,8 +3,14 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 require 'capybara/rails'
-Capybara.current_driver = :webkit
-#Capybara.current_driver = :selenium
+
+# circle ci uses older webkit and it doesn't work
+if ENV['CIRCLECI']
+  Capybara.current_driver = :selenium
+else
+  Capybara.current_driver = :webkit
+end
+
 Capybara.ignore_hidden_elements = false
 
 Capybara::Webkit.configure do |config|
