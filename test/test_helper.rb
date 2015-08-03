@@ -10,7 +10,6 @@ Capybara::Webkit.configure do |config|
   config.allow_url("maps.gstatic.com")
   config.allow_url("maxcdn.bootstrapcdn.com")
   config.allow_url("www.google-analytics.com")
-
 end
 
 require 'rails/test_help'
