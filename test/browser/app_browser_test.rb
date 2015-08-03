@@ -1,6 +1,7 @@
 require "test_helper"
 
 class AppBrowserTest < ActionDispatch::IntegrationTest
+  include Capybara::DSL
   self.use_transactional_fixtures = false
 
   setup do
