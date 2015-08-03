@@ -93,3 +93,48 @@ describe 'MainScreen', ->
 
     expect(app.fieldSearchOpen).toBe(false)
     expect(Twine.refresh).toHaveBeenCalled()
+
+  # teamSelected tests ...
+
+  it "pointToField adds markers and starts pointMeThere", ->
+    app.map = jasmine.createSpyObj('map', ['clearMarkers', 'addMarker'])
+    spyOn(app.pointMeThere, 'setDestination')
+    spyOn(app.pointMeThere, 'start')
+
+    app.pointToField({lat: 45, long: -72, name: 'UPI1'})
+
+    expect(app.map.clearMarkers).toHaveBeenCalled()
+    expect(app.map.addMarker).toHaveBeenCalledWith(45, -72, 'UPI1')
+
+    expect(app.pointMeThere.setDestination).toHaveBeenCalledWith(45, -72, 'UPI1')
+    expect(app.pointMeThere.start).toHaveBeenCalled()
+
+  it "pointToField callback only alerts about distance once", ->
+    event = {distance: 2000}
+    spyOn(window, 'alert')
+
+    app._pointToFieldCallback(event)
+    app._pointToFieldCallback(event)
+    app._pointToFieldCallback(event)
+
+    expect(window.alert.calls.count()).toEqual(1)
+
+  it "pointToField callback drawsPointer", ->
+    app.map = jasmine.createSpyObj('map', ['drawPointer'])
+    event = {distance: 500, lat: 45, long: -72, heading: 90}
+
+    app._pointToFieldCallback(event)
+
+    expect(app.map.drawPointer).toHaveBeenCalledWith(45, -72, 90, 'Location')
+
+  it "finishPointToField clears map", ->
+    app.findingField = true
+    app.map = jasmine.createSpyObj('map', ['clearMarkers', 'clearPointer', 'centerMap'])
+
+    app.finishPointToField()
+
+    expect(app.findingField).toBe(false)
+    expect(app.map.clearMarkers).toHaveBeenCalled()
+    expect(app.map.clearPointer).toHaveBeenCalled()
+    expect(app.map.centerMap).toHaveBeenCalled()
+    expect(Twine.refresh).toHaveBeenCalled()
