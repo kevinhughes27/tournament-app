@@ -18,30 +18,14 @@ nsom:
   tournament: noborders
   name: NSOM
 
-elements:
-  tournament: noborders
-  name: Elements
-
 maverick:
   tournament: noborders
   name: Maverick
-
-borderline:
-  tournament: noborders
-  name: Borderline
 
 shrike:
   tournament: noborders
   name: Shrike
 
-toro:
-  tournament: noborders
-  name: TORO
-
 the_forgotten:
   tournament: noborders
   name: The Forgotten
-
-quake:
-  tournament: noborders
-  name: Quake
