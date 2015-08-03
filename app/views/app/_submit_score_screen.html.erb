@@ -1,5 +1,5 @@
 <div context="submitScoreScreen">
-  <div class="right-screen" bind-class="{active: active}">
+  <div id="submit-score-screen" class="right-screen" bind-class="{active: active}">
 
     <div class="bar bar-nav bar-blue">
       <a class="nav-btn pull-left" href="#" bind-event-click="close()">
@@ -25,7 +25,7 @@
         <ul class="table-view">
           <% @games.sort_by{ |g| g.start_time }.each do |game| %>
             <% if game.home && game.away %>
-              <li class="table-view-cell" bind-show="filter(<%= game.name.to_json %>)">
+              <li id="game-<%= game.id %>" class="table-view-cell" bind-show="filter(<%= game.name.to_json %>)">
                 <a class="navigate-right" bind-event-click='showForm(<%= game.id %>, "<%= game.home.name %>", "<%= game.away.name %>")' track-click="{category: 'SubmitScore', action: 'ViewForm'}">
                   <span bind='vsTeam("<%= game.home.name %>", "<%= game.away.name %>")'></span>
                   <span class="subdued">(<%= game.start_time.strftime("%l:%M %P") %>)</span>

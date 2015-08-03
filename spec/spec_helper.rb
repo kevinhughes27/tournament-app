@@ -4,12 +4,10 @@ require File.expand_path("../../config/environment", __FILE__)
 
 require 'capybara/rspec'
 Capybara.javascript_driver = :webkit
+Capybara.ignore_hidden_elements = false
 
 Capybara::Webkit.configure do |config|
-  config.allow_url("maps.googleapis.com")
-  config.allow_url("maps.gstatic.com")
-  config.allow_url("maxcdn.bootstrapcdn.com")
-  config.allow_url("www.google-analytics.com")
+  config.allow_unknown_urls
 end
 
 require 'rspec/rails'

@@ -1,5 +1,5 @@
 <div context="scheduleScreen">
-  <div class="left-screen screen-schedule" bind-class="{active: active}">
+  <div id="schedule-screen" class="left-screen screen-schedule" bind-class="{active: active}">
 
     <div class="bar bar-nav bar-blue">
       <a class="nav-btn pull-left" href="#" bind-event-click="close()">
@@ -10,7 +10,7 @@
 
     <div class="bar bar-standard bar-header-secondary bar-blue">
       <div class="team-search">
-        <input class="awesomplete" placeholder="Search ..."
+        <input id="search" class="awesomplete" placeholder="Search ..."
           data-minchars="1"
           data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
           bind-event-change="searchChange(event)"
@@ -36,7 +36,7 @@
 
           <% games.each do |game| %>
 
-            <li class="table-view-cell" bind-show="filter(<%= game.name.to_json %>)">
+            <li id="game-<%= game.id %>" class="table-view-cell" bind-show="filter(<%= game.name.to_json %>)">
               <% if game.home && game.away %>
                 <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
               <% else %>

@@ -29,5 +29,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'jasmine-rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'capybara-webkit'
+  gem 'launchy'
 end

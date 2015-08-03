@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe "the mobile app", type: :feature do
+feature "the mobile app" do
   fixtures :all
 
   before :each do
     @tournament = Tournament.find_by(handle: 'no-borders')
   end
 
-   it "opens the drawer when the user clicks find", js: true do
+  scenario "user clicks find and opens the drawer", js: true do
     visit("/#{@tournament.handle}")
     expect(page.find("#drawer")[:class].include?("active")).to be false
     click_on('Find')
