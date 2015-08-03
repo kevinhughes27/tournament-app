@@ -1,8 +1,13 @@
 describe 'SubmitScoreScreen', ->
+  app = null
   screen = null
 
   beforeEach ->
-    screen = new TournamentApp.SubmitScoreScreen()
+    app = {
+      teams: [{name: 'Swift', id: 14}, {name: 'Goose'}, {name: 'Magma'}]
+    }
+
+    screen = new TournamentApp.SubmitScoreScreen(app)
     spyOn(Twine, 'refresh')
 
   it "show sets active and calls Twine.refresh", ->
@@ -59,3 +64,50 @@ describe 'SubmitScoreScreen', ->
     screen.lastSearch = "Magma"
     filter = screen.filter("Magma2 vs Goose")
     expect(filter).toBeFalsy()
+
+  it "vsTeam returns undefined unless one of the teams is searched", ->
+    screen.lastSearch = "Swift"
+    team = screen.vsTeam("Goose", "Magma")
+    expect(team).toBe(undefined)
+
+  it "vsTeam returns the opponent of the requested team (team is away)", ->
+    screen.lastSearch = "Swift"
+    team = screen.vsTeam("Goose", "Swift")
+    expect(team).toEqual("Goose")
+
+  it "vsTeam returns the opponent of the requested team (team is home)", ->
+    screen.lastSearch = "Swift"
+    team = screen.vsTeam("Swift", "Goose")
+    expect(team).toEqual("Goose")
+
+  it "showForm sets the game and team data and shows the form", ->
+    screen.lastSearch = "Swift"
+    expect(screen.formActive).toBe(false)
+    spyOn(screen, '_prepareForm')
+
+    screen.showForm(27, 'Swift', 'Goose')
+
+    expect(screen.formActive).toBe(true)
+    expect(screen._prepareForm).toHaveBeenCalledWith('Swift', 'Goose', 27, 14)
+    expect(Twine.refresh).toHaveBeenCalled()
+
+  it "closeForm closes the form", ->
+    screen.formActive = true
+
+    screen.closeForm()
+
+    expect(screen.formActive).toBe(false)
+    expect(Twine.refresh).toHaveBeenCalled()
+
+  it "submitForm makes an ajax request and closes the form", ->
+    spyOn($, 'ajax').and.callFake( (params) -> params.complete({}) )
+    spyOn(screen, '_resetForm')
+    screen.active = true
+    screen.formActive = true
+
+    screen.submitScore({})
+
+    expect(screen.active).toBe(false)
+    expect(screen.formActive).toBe(false)
+    expect(screen._resetForm).toHaveBeenCalled()
+    expect(Twine.refresh).toHaveBeenCalled()

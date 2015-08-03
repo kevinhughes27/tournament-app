@@ -1,6 +1,6 @@
 describe 'ScheduleScreen', ->
-  screen = null
   app = null
+  screen = null
 
   beforeEach ->
     app = {

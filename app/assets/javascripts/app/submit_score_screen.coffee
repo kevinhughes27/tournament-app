@@ -23,22 +23,21 @@ class TournamentApp.SubmitScoreScreen
       teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
 
   vsTeam: (home, away) ->
-    return unless @lastSearch == home ||
-                  @lastSearch == away
-
+    return unless @lastSearch == home || @lastSearch == away
     "#{home}#{away}".replace @lastSearch, ""
 
   showForm: (gameId, home, away) ->
     team = _.find(@app.teams, (team) => team.name is @lastSearch)
     vsTeam = @vsTeam(home, away)
-
-    $('.score-label')[0].innerHTML = team.name
-    $('.score-label')[1].innerHTML = vsTeam
-    $('input#game_id').val(gameId)
-    $('input#team_id').val(team.id)
-
+    @_prepareForm(team.name, vsTeam, gameId, team.id)
     @formActive = true
     Twine.refresh()
+
+  _prepareForm: (teamName, vsTeam, gameId, teamId) ->
+    $('.score-label')[0].innerHTML = teamName
+    $('.score-label')[1].innerHTML = vsTeam
+    $('input#game_id').val(gameId)
+    $('input#team_id').val(teamId)
 
   closeForm: ->
     @formActive = false
@@ -52,6 +51,9 @@ class TournamentApp.SubmitScoreScreen
       complete: =>
         @active = false
         @formActive = false
-        $(form)[0].reset();
-        $('div#score-form').scrollTo(0)
+        @_resetForm(form)
         Twine.refresh()
+
+  _resetForm: (form) ->
+    $(form)[0].reset();
+    $('div#score-form').scrollTo(0)
