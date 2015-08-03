@@ -1,8 +1,14 @@
 describe 'ScheduleScreen', ->
   screen = null
+  app = null
 
   beforeEach ->
-    screen = new TournamentApp.ScheduleScreen()
+    app = {
+      fields: [{name: 'UPI1'}, {name: 'UPI2'}, {name: 'UPI3'}]
+      pointToField: (field) -> {}
+    }
+
+    screen = new TournamentApp.ScheduleScreen(app)
     spyOn(Twine, 'refresh')
 
   it "show sets active and calls Twine.refresh", ->
@@ -60,3 +66,24 @@ describe 'ScheduleScreen', ->
     screen.lastSearch = "Magma"
     filter = screen.filter(["Magma2 vs Goose"])
     expect(filter).toBeFalsy()
+
+  it "findField finds the field and call pointToField", ->
+    spyOn(app, 'pointToField')
+
+    screen.findField("UPI1")
+
+    field = app.pointToField.calls.mostRecent().args[0]
+    expect(field.name).toEqual('UPI1')
+    expect(app.findText).toEqual("UPI1")
+
+  it "findField returns if field not found", ->
+    spyOn(app, 'pointToField')
+
+    screen.findField("Not a valid field")
+
+    expect(app.pointToField).not.toHaveBeenCalled()
+
+  it "findField closes the scheduleScreen", ->
+    spyOn(screen, 'close')
+    screen.findField("Not a valid field")
+    expect(screen.close).toHaveBeenCalled()

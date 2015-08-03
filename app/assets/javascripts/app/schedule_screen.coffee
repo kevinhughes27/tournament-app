@@ -42,11 +42,8 @@ class TournamentApp.ScheduleScreen
       true
 
   findField: (fieldName) ->
-    @active = false
-    field = _.find(@app.fields, (field) -> field.name is fieldName)
-
-    if field
+    if field = _.find(@app.fields, (field) -> field.name is fieldName)
       @app.findText = "#{field.name}"
       @app.pointToField(field)
 
-    Twine.refresh()
+    @close()
