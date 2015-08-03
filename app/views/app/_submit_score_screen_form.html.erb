@@ -75,3 +75,10 @@
 
   </div>
 </div>
+
+<script>
+  var fingerprint = new Fingerprint2()
+  fingerprint.get(function(result) {
+    $('input#submitter_fingerprint').val(result)
+  });
+</script>

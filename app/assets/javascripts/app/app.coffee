@@ -7,16 +7,16 @@ class TournamentApp.App
     @findText = ''
     @fieldSearchOpen = false
     @teamSearchOpen = false
-
-    window.initializeMap = @initializeMap
-    script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=initializeMap'
-    document.body.appendChild(script)
-
     @initApp()
 
-  initializeMap: =>
+  initializeMap: ->
+    window.mapCallback = @mapCallback
+    script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=mapCallback'
+    document.body.appendChild(script)
+
+  mapCallback: =>
     @mapNode = document.getElementById('map-canvas')
 
     @map = new google.maps.Map(@mapNode, {
@@ -98,10 +98,6 @@ class TournamentApp.App
     @scheduleScreen = new TournamentApp.ScheduleScreen(@)
     @submitScoreScreen = new TournamentApp.SubmitScoreScreen(@)
     @pointMeThere = new TournamentApp.PointMeThere()
-
-    @fingerprint = new Fingerprint2()
-    @fingerprint.get (result) ->
-      $('input#submitter_fingerprint').val(result)
 
     # refresh data every ten mins
     setInterval =>
