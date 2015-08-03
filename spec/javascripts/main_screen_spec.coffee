@@ -49,3 +49,47 @@ describe 'MainScreen', ->
     expect(app.teamSearchOpen).toBe(false)
     expect(app.fieldSearchOpen).toBe(false)
     expect(Twine.refresh).toHaveBeenCalled()
+
+  it "fieldSelected returns if event is keyup is not enter", ->
+    event = {type: 'keyup', keyCode: 14} # enter is 13
+    val = app.fieldSelected(event)
+    expect(val).toBe(undefined)
+
+  it "fieldSelected returns if event is change and values is empty", ->
+    node = document.createElement("input")
+    node.setAttribute("value", "")
+    event = {type: 'change', target: node}
+
+    val = app.fieldSelected(event)
+
+    expect(val).toBe(undefined)
+
+  it "fieldSelected returns if no field found", ->
+    node = document.createElement("input")
+    node.setAttribute("value", "Not a field")
+    event = {type: 'change', target: node}
+    spyOn(app, 'pointToField')
+
+    app.fieldSelected(event)
+
+    expect(app.pointToField).not.toHaveBeenCalled()
+
+  it "fieldSelected points to field if field found", ->
+    node = document.createElement("input")
+    node.setAttribute("value", "UPI1")
+    event = {type: 'change', target: node}
+    spyOn(app, 'pointToField')
+
+    app.fieldSelected(event)
+
+    field = app.pointToField.calls.mostRecent().args[0]
+    expect(field.name).toEqual('UPI1')
+    expect(app.findText).toEqual('UPI1')
+
+  it "fieldSelected hides field search", ->
+    app.fieldSearchOpen = true
+
+    app.fieldSelected(event)
+
+    expect(app.fieldSearchOpen).toBe(false)
+    expect(Twine.refresh).toHaveBeenCalled()
