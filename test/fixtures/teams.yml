@@ -1,15 +1,47 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+boat:
+  tournament: noborders
+  name: BOAT
 
-one:
-  name: MyString
-  email: MyString
-  sms: MyString
-  twitter: MyString
-  division: MyString
+goose:
+  tournament: noborders
+  name: Goose
 
-two:
-  name: MyString
-  email: MyString
-  sms: MyString
-  twitter: MyString
-  division: MyString
+swift:
+  tournament: noborders
+  name: Swift
+
+pheonix:
+  tournament: noborders
+  name: Pheonix
+
+nsom:
+  tournament: noborders
+  name: NSOM
+
+elements:
+  tournament: noborders
+  name: Elements
+
+maverick:
+  tournament: noborders
+  name: Maverick
+
+borderline:
+  tournament: noborders
+  name: Borderline
+
+shrike:
+  tournament: noborders
+  name: Shrike
+
+toro:
+  tournament: noborders
+  name: TORO
+
+the_forgotten:
+  tournament: noborders
+  name: The Forgotten
+
+quake:
+  tournament: noborders
+  name: Quake

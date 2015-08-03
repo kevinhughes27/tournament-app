@@ -1,15 +1,8 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
+swift_goose:
+  home: swift
+  away: goose
+  field: upi1
   home_score: 1
   away_score: 1
-  start: 2015-06-06 12:06:53
-  finished: 2015-06-06 12:06:53
-  score_confirmed: false
-
-two:
-  home_score: 1
-  away_score: 1
-  start: 2015-06-06 12:06:53
-  finished: 2015-06-06 12:06:53
+  start_time: 2015-06-06 12:06:53
   score_confirmed: false

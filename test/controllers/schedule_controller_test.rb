@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::TeamsControllerTest < ActionController::TestCase
+class Admin::ScheduleControllerTest < ActionController::TestCase
 
   setup do
     http_login('admin', 'nobo')
@@ -10,7 +10,6 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index, tournament_id: @tournament.id
     assert_response :success
-    assert_not_nil assigns(:teams)
   end
 
 end

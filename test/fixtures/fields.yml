@@ -1,9 +1,113 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+upi1:
+  tournament: noborders
+  name: UPI1
+  lat: 45.2442971314328
+  long: -75.6138271093369
 
-one:
-  name: MyString
-  location: 
+upi2:
+  tournament: noborders
+  name: UPI2
+  lat: 45.2448674568474
+  long: -75.6124377250671
 
-two:
-  name: MyString
-  location: 
+upi3:
+  tournament: noborders
+  name: UPI3
+  lat: 45.2444973125285
+  long: -75.6122714281082
+
+upi8:
+  tournament: noborders
+  name: UPI8
+  lat: 45.2438929900901
+  long: -75.6149053573608
+
+upi6:
+  tournament: noborders
+  name: UPI8
+  lat: 45.2452338218084
+  long: -75.6141436100006
+
+upi4:
+  tournament: noborders
+  name: UPI4
+  lat: 45.2455548613268
+  long: -75.6144225597382
+
+upi5:
+  tournament: noborders
+  name: UPI5
+  lat: 45.2446861619721
+  long: -75.6156241893768
+
+upi7:
+  tournament: noborders
+  name: UPI17
+  lat: 45.2437947870867
+  long: -75.6153827905655
+
+upi19:
+  tournament: noborders
+  name: UPI19
+  lat: 45.2449958737006
+  long: -75.6158602237701
+
+upi17:
+  tournament: noborders
+  name: UPI17
+  lat: 45.2459098911521
+  long: -75.6147336959839
+
+upi15:
+  tournament: noborders
+  name: UPI15
+  lat: 45.2471751389741
+  long: -75.6135696172714
+
+upi13:
+  tournament: noborders
+  name: UPI13
+  lat: 45.2468050096916
+  long: -75.6144922971725
+
+upi11:
+  tournament: noborders
+  name: UPI11
+  lat: 45.2464348779974
+  long: -75.6154149770737
+
+upi9:
+  tournament: noborders
+  name: UPI9
+  lat: 45.2441007266534
+  long: -75.6143206357956
+
+upi10:
+  tournament: noborders
+  name: UPI10
+  lat: 45.2456681689589
+  long: -75.6163644790649
+
+upi12:
+  tournament: noborders
+  name: UPI12
+  lat: 45.2466048367279
+  long: -75.6149965524673
+
+upi14:
+  tournament: noborders
+  name: UPI14
+  lat: 45.2469749673147
+  long: -75.6140792369843
+
+upi16:
+  tournament: noborders
+  name: UPI16
+  lat: 45.2453584608957
+  long: -75.6161284446716
+
+upi18:
+  tournament: noborders
+  name: UPI8
+  lat: 45.2464197705301
+  long: -75.613489151001
