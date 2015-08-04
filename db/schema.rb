@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723024728) do
+ActiveRecord::Schema.define(version: 20150804031217) do
+
+  create_table "brackets", force: :cascade do |t|
+    t.integer  "tournament_id"
+    t.string   "bracket_type",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -36,11 +43,10 @@ ActiveRecord::Schema.define(version: 20150723024728) do
     t.integer  "tournament_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "type"
-    t.string   "division"
-    t.string   "bracket_code"
+    t.string   "bracket_uid"
     t.string   "bracket_top"
     t.string   "bracket_bottom"
+    t.integer  "bracket_id"
   end
 
   add_index "games", ["field_id"], name: "index_games_on_field_id"
