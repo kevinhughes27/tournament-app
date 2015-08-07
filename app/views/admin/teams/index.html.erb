@@ -1,21 +1,7 @@
 <div class="container-fluid">
   <h1>Teams</h1>
 
-  <% if @teams.any?{ |team| team.errors.present? } %>
-    <div class="alert alert-danger">
-      <% @teams.each do |team| %>
-        <% if team.errors.present? %>
-            <p><%= team.name %></p>
-            <ul>
-              <% team.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
-
+  <%= render 'shared/set_errors', set: @teams %>
   <%= form_tag admin_tournament_teams_path(@tournament), "bind-event-submit" => "teamTable.save(this)" do %>
     <table class="table table-bordered table-striped table-hover table-condensed editable-table">
       <thead>
@@ -23,12 +9,9 @@
           <th class="hide">id</th>
           <th data-override="name">Name</th>
           <th data-override="division">Division</th>
-          <th data-override="seed">Seed</th>
           <th data-override="email">Email</th>
           <th data-override="sms">Sms</th>
           <th data-override="twitter">Twitter</th>
-          <th data-override="wins">Wins</th>
-          <th data-override="points_for">Points for</th>
         </tr>
       </thead>
       <tbody>
@@ -37,12 +20,9 @@
             <td class="hide"><%= team.id %></td>
             <td><%= team.name %></td>
             <td><%= team.division %></td>
-            <td><%= team.seed %></td>
             <td><%= team.email %></td>
             <td><%= team.sms %></td>
             <td><%= team.twitter %></td>
-            <td><%= team.wins %></td>
-            <td><%= team.points_for %></td>
           </tr>
         <% end %>
       </tbody>

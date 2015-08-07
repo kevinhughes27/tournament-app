@@ -44,6 +44,14 @@
 
     <li>
       <% if @tournament.teams.present? %>
+        <%= link_to 'Seeds', admin_tournament_seeds_path(@tournament) %>
+      <% else %>
+        Seeds
+      <% end %>
+    </li>
+
+    <li>
+      <% if @tournament.teams.present? %>
         <%= link_to 'Schedule', admin_tournament_schedule_path(@tournament) %>
       <% else %>
         Schedule

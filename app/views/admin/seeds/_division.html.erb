@@ -1,0 +1,18 @@
+<table class="table table-bordered table-striped table-hover table-condensed editable-table">
+  <thead>
+    <tr>
+      <th class="hide">id</th>
+      <th>Team</th>
+      <th data-override="seed">seed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% teams.each do |team| %>
+      <tr>
+        <td class="hide"><%= team.id %></td>
+        <td><%= team.name %></td>
+        <td><%= team.seed %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

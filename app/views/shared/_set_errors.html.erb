@@ -1,0 +1,20 @@
+<% if set.any?{ |m| m.errors.present? } %>
+  <div class="alert alert-danger">
+
+    <% set.each do |m| %>
+      <% if m.errors.present? %>
+
+          <p>
+            <%= m.name %>
+          </p>
+          <ul>
+            <% m.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+
+      <% end %>
+    <% end %>
+
+  </div>
+<% end %>
