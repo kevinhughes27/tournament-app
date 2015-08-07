@@ -23,6 +23,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :brackets
+
       get '/schedule', to: 'schedule#index'
       post '/schedule', to: 'schedule#create'
 
