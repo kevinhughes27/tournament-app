@@ -2,7 +2,7 @@ class Bracket < ActiveRecord::Base
   TEMPLATE_PATH = Rails.root.join("db/brackets").freeze
 
   belongs_to :tournament
-  has_many :games
+  has_many :games, dependent: :destroy #test me
 
   after_save :create_games
 
@@ -13,6 +13,7 @@ class Bracket < ActiveRecord::Base
   end
 
   # assumes that teams are already sorted by seed
+  # I think seed should reset rounds past it
   def seed(teams, round = 1)
     game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }
     games = Game.where(bracket_id: id, bracket_uid: game_uids)
