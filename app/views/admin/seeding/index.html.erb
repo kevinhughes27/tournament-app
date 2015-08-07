@@ -2,7 +2,7 @@
   <h1>Seeds</h1>
 
   <%= render 'shared/set_errors', set: @teams %>
-  <%= form_tag admin_tournament_seeds_path(@tournament), "bind-event-submit" => "seedsTables.save(this)" do %>
+  <%= form_tag admin_tournament_seeding_index_path(@tournament), "bind-event-submit" => "seedsTables.save(this)" do %>
     <div class="row">
       <% @teams.group_by{ |t| t.division }.each do |division, teams| %>
         <div class="col-md-3">

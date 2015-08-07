@@ -17,7 +17,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :seeds do
+      resources :seeding do
         collection do
           put :update
         end

@@ -1,4 +1,4 @@
-class Admin::SeedsController < AdminController
+class Admin::SeedingController < AdminController
 
   def index
     @teams = @tournament.teams

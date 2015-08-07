@@ -4,9 +4,11 @@
       <% if @tournament.persisted? %>
         <%= link_to sidebar_brand(@tournament), admin_tournament_path(@tournament) %>
       <% else %>
-        Tournmanent App
+        Ultimate Tournmanent
       <% end %>
     </li>
+
+    <hr>
 
     <li>
       <% if @tournament.persisted? %>
@@ -44,9 +46,17 @@
 
     <li>
       <% if @tournament.teams.present? %>
-        <%= link_to 'Seeds', admin_tournament_seeds_path(@tournament) %>
+        <%= link_to 'Seeding', admin_tournament_seeding_index_path(@tournament) %>
       <% else %>
-        Seeds
+        Seeding
+      <% end %>
+    </li>
+
+    <li>
+      <% if @tournament.teams.present? %>
+        <%= link_to 'Bracket', admin_tournament_schedule_path(@tournament) %>
+      <% else %>
+        Bracket
       <% end %>
     </li>
 
@@ -57,6 +67,8 @@
         Schedule
       <% end %>
     </li>
+
+    <hr>
 
     <li>
       <% if @tournament.games.present? %>
@@ -73,6 +85,8 @@
         Score Reports
       <% end %>
     </li>
+
+    <hr>
 
     <li><%= link_to 'App', @tournament.app_link, target: '_blank' %></li>
   </ul>
