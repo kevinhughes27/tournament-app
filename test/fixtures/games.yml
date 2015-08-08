@@ -3,7 +3,6 @@ swift_goose:
   home: swift
   away: goose
   field: upi1
-  type: 'PoolGame'
   home_score: 2
   away_score: 1
   start_time: 2015-06-06 12:06:53
@@ -14,7 +13,6 @@ pheonix_mavericks:
   home: pheonix
   away: maverick
   field: upi2
-  type: 'PoolGame'
   home_score: 15
   away_score: 13
   start_time: 2015-06-06 12:06:53

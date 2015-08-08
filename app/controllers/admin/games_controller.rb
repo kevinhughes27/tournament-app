@@ -1,7 +1,7 @@
 class Admin::GamesController < AdminController
 
   def index
-    @games = @tournament.games.where.not(type: 'ByeGame')
+    @games = @tournament.games
   end
 
   def confirm_score
