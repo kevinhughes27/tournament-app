@@ -2,7 +2,7 @@ class Bracket < ActiveRecord::Base
   TEMPLATE_PATH = Rails.root.join("db/brackets").freeze
 
   belongs_to :tournament
-  has_many :games, dependent: :destroy #test me
+  has_many :games, dependent: :destroy
 
   after_save :create_games
 

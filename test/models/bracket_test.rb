@@ -15,6 +15,15 @@ class BracketTest < ActiveSupport::TestCase
     end
   end
 
+  test "bracket deletes games when it is deleted" do
+    type = 'single_elimination_8'
+    bracket = Bracket.create(tournament: @tournament, bracket_type: type)
+
+    assert_difference "Game.count", -12 do
+      bracket.destroy
+    end
+  end
+
   test "bracket creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
     template = load_template(type)
