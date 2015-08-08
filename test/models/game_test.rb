@@ -2,6 +2,11 @@ require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
 
+  setup do
+    @home = teams(:swift)
+    @away = teams(:goose)
+  end
+
   test "valid_for_seed_round? returns true if both top and bottom are integers" do
     game = Game.new(bracket_top: 1, bracket_bottom: 8)
     assert game.valid_for_seed_round?
@@ -20,28 +25,42 @@ class GameTest < ActiveSupport::TestCase
     refute game.valid_for_seed_round?
   end
 
-  test "game pushes its winner through the bracket when its score is confirmed" do
-    home = teams(:swift)
-    away = teams(:goose)
+  test "confirm score updates the bracket" do
+    game = Game.create(bracket_uid: 'q1', home: @home, away: @away)
+    game.expects(:update_bracket).once
+    game.confirm_score(15, 11)
+  end
 
-    game1 = Game.create(bracket_uid: 'q1', home: home, away: away)
+  test "confirm score updates the teams wins and points_for" do
+    game = Game.create(bracket_uid: 'q1', home: @home, away: @away)
+    game.expects(:update_bracket).once
+    game.confirm_score(15, 11)
+
+    @home.reload
+    @away.reload
+
+    assert_equal 1, @home.wins
+    assert_equal 0, @away.wins
+    assert_equal 15, @home.points_for
+    assert_equal 11, @away.points_for
+  end
+
+  test "game pushes its winner through the bracket when its score is confirmed" do
+    game1 = Game.create(bracket_uid: 'q1', home: @home, away: @away)
     game2 = Game.create(bracket_uid: 'q1', bracket_top: 'wq1', bracket_bottom: 'wq2')
 
     game1.confirm_score(15, 11)
 
-    assert_equal home, game2.reload.home
+    assert_equal @home, game2.reload.home
   end
 
   test "game pushes its loser through the bracket when its score is confirmed" do
-    home = teams(:swift)
-    away = teams(:goose)
-
-    game1 = Game.create(bracket_uid: 'q1', home: home, away: away)
+    game1 = Game.create(bracket_uid: 'q1', home: @home, away: @away)
     game2 = Game.create(bracket_uid: 'q1', bracket_top: 'lq2', bracket_bottom: 'lq1')
 
     game1.confirm_score(15, 11)
 
-    assert_equal away, game2.reload.away
+    assert_equal @away, game2.reload.away
   end
 
 end

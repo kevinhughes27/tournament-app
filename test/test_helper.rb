@@ -1,21 +1,10 @@
 ENV['RAILS_ENV'] ||= 'test'
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'mocha/mini_test'
 
-require 'capybara/rails'
-
-# circle ci uses older webkit and it doesn't work
-if ENV['CIRCLECI']
-  Capybara.current_driver = :selenium
-else
-  Capybara.current_driver = :webkit
-end
-
-Capybara.ignore_hidden_elements = false
-
-Capybara::Webkit.configure do |config|
-  config.allow_unknown_urls
-end
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 class ActiveSupport::TestCase
   fixtures :all
