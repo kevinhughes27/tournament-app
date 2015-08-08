@@ -25,13 +25,13 @@ class GameTest < ActiveSupport::TestCase
     refute game.valid_for_seed_round?
   end
 
-  test "confirm score updates the bracket" do
+  test "confirm_score updates the bracket" do
     game = Game.create(bracket_uid: 'q1', home: @home, away: @away)
     game.expects(:update_bracket).once
     game.confirm_score(15, 11)
   end
 
-  test "confirm score updates the teams wins and points_for" do
+  test "confirm_score updates the teams wins and points_for" do
     game = Game.create(bracket_uid: 'q1', home: @home, away: @away)
     game.expects(:update_bracket).once
     game.confirm_score(15, 11)
@@ -61,6 +61,47 @@ class GameTest < ActiveSupport::TestCase
     game1.confirm_score(15, 11)
 
     assert_equal @away, game2.reload.away
+  end
+
+  test "update_score updates the teams wins and points_for" do
+    game = Game.create(bracket_uid: 'q1', home: @home, away: @away)
+    game.expects(:update_bracket).twice
+    game.confirm_score(15, 11)
+    game.update_score(14, 12)
+
+    @home.reload
+    @away.reload
+
+    assert_equal 1, @home.wins
+    assert_equal 0, @away.wins
+    assert_equal 14, @home.points_for
+    assert_equal 12, @away.points_for
+  end
+
+  test "update_score can flip the winner" do
+    game = Game.create(bracket_uid: 'q1', home: @home, away: @away)
+    game.expects(:update_bracket).twice
+    game.confirm_score(15, 11)
+    game.update_score(10, 13)
+
+    @home.reload
+    @away.reload
+
+    assert_equal 0, @home.wins
+    assert_equal 1, @away.wins
+    assert_equal 10, @home.points_for
+    assert_equal 13, @away.points_for
+  end
+
+  test "update_score updates the bracket if the winner is changed" do
+    game1 = Game.create(bracket_uid: 'q1', home: @home, away: @away)
+    game2 = Game.create(bracket_uid: 'q1', bracket_top: 'wq1', bracket_bottom: 'wq2')
+
+    game1.confirm_score(15, 11)
+    assert_equal @home, game2.reload.home
+
+    game1.update_score(10, 13)
+    assert_equal @away, game2.reload.home
   end
 
 end

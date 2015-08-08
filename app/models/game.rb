@@ -54,7 +54,7 @@ class Game < ActiveRecord::Base
   end
 
   def update_score(home_score, away_score)
-    winner_changed = (self.home_score > self.away_score) && (home_score > away_score)
+    winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
     home_delta = home_score - self.home_score
     away_delta = away_score - self.away_score
 
