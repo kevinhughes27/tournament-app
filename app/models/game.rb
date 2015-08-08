@@ -83,31 +83,28 @@ class Game < ActiveRecord::Base
 
   def update_bracket
     return unless self.score_confirmed
+    #TODO return if pool game
     advanceWinner
-    advanceLose
+    advanceLoser
   end
 
   def advanceWinner
-    if game = BracketGame.find_by(tournament_id: tournament_id, division: division, bracket_top: "w#{bracket_code}")
+    if game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_top: "w#{bracket_uid}")
       game.home = winner
       game.save!
-    elsif game = BracketGame.find_by(tournament_id: tournament_id, division: division, bracket_bottom: "w#{bracket_code}")
+    elsif game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_bottom: "w#{bracket_uid}")
       game.away = winner
       game.save
-    else
-      raise BracketGameNotFound
     end
   end
 
-  def advanceLose
-    if game = BracketGame.find_by(tournament_id: tournament_id, division: division, bracket_top: "l#{bracket_code}") ||
+  def advanceLoser
+    if game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_top: "l#{bracket_uid}")
       game.home = loser
       game.save!
-    elsif game = BracketGame.find_by(tournament_id: tournament_id, division: division, bracket_bottom: "l#{bracket_code}")
+    elsif game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_bottom: "l#{bracket_uid}")
       game.away = loser
       game.save
-    else
-      raise BracketGameNotFound
     end
   end
 

@@ -20,4 +20,28 @@ class GameTest < ActiveSupport::TestCase
     refute game.valid_for_seed_round?
   end
 
+  test "game pushes its winner through the bracket when its score is confirmed" do
+    home = teams(:swift)
+    away = teams(:goose)
+
+    game1 = Game.create(bracket_uid: 'q1', home: home, away: away)
+    game2 = Game.create(bracket_uid: 'q1', bracket_top: 'wq1', bracket_bottom: 'wq2')
+
+    game1.confirm_score(15, 11)
+
+    assert_equal home, game2.reload.home
+  end
+
+  test "game pushes its loser through the bracket when its score is confirmed" do
+    home = teams(:swift)
+    away = teams(:goose)
+
+    game1 = Game.create(bracket_uid: 'q1', home: home, away: away)
+    game2 = Game.create(bracket_uid: 'q1', bracket_top: 'lq2', bracket_bottom: 'lq1')
+
+    game1.confirm_score(15, 11)
+
+    assert_equal away, game2.reload.away
+  end
+
 end
