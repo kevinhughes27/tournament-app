@@ -25,6 +25,22 @@ class GameTest < ActiveSupport::TestCase
     refute game.valid_for_seed_round?
   end
 
+  test "winner returns the team with more points" do
+    game = Game.new(home: @home, away: @away, home_score: 15, away_score: 11)
+    assert_equal @home, game.winner
+
+    game = Game.new(home: @home, away: @away, home_score: 11, away_score: 15)
+    assert_equal @away, game.winner
+  end
+
+  test "loser returns the team with less points" do
+    game = Game.new(home: @home, away: @away, home_score: 15, away_score: 11)
+    assert_equal @away, game.loser
+
+    game = Game.new(home: @home, away: @away, home_score: 11, away_score: 15)
+    assert_equal @home, game.loser
+  end
+
   test "confirm_score updates the bracket" do
     game = Game.create(bracket_uid: 'q1', home: @home, away: @away)
     game.expects(:update_bracket).once
