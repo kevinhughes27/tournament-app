@@ -7,6 +7,10 @@ class BracketTest < ActiveSupport::TestCase
     @teams = @tournament.teams
   end
 
+  test "types returns all templates" do
+    assert_equal ['single_elimination_8'], Bracket.types
+  end
+
   test "bracket creates all required games" do
     type = 'single_elimination_8'
 

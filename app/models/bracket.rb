@@ -8,6 +8,17 @@ class Bracket < ActiveRecord::Base
 
   class InvalidSeedRound < StandardError; end
 
+  class << self
+    #TODO return num_teams so I can filter the selection
+    def types
+      @types ||= begin
+        types = Dir.entries(TEMPLATE_PATH)
+        types.reject!{ |f| f == "." || f == ".."}
+        types.map{ |t| t.gsub('.json', '') }
+      end
+    end
+  end
+
   def template
     @template ||= load_template
   end
