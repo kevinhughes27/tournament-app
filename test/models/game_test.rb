@@ -120,4 +120,13 @@ class GameTest < ActiveSupport::TestCase
     assert_equal @away, game2.reload.home
   end
 
+  test "when a game is destroyed its score reports are too" do
+    game = games(:swift_goose)
+    assert_equal 1, game.score_reports.count
+
+    assert_difference "ScoreReport.count", -1 do
+      game.destroy
+    end
+  end
+
 end

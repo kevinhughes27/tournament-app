@@ -1,0 +1,6 @@
+swift_goose:
+  tournament: noborders
+  game: swift_goose
+  team: swift
+  team_score: 15
+  opponent_score: 11
