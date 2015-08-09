@@ -3,7 +3,7 @@
 //= require jquery.tabletojson
 //= require jquery.csv
 //= require mindmup-editabletable
-//= require twitter/bootstrap
+//= require bootstrap
 //= require bootstrap-contextmenu
 //= require turbolinks
 //= require underscore

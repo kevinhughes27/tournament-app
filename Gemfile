@@ -12,7 +12,6 @@ gem 'underscore-rails'
 gem 'twine-rails'
 gem 'momentjs-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
-gem 'twitter-bootstrap-rails'
 
 group :production do
   gem 'pg'
