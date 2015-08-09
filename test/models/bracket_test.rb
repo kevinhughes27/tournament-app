@@ -45,15 +45,15 @@ class BracketTest < ActiveSupport::TestCase
   test "seed takes a sorted list of teams and enters the first round of the bracket" do
     type = 'single_elimination_8'
     bracket = Bracket.create(tournament: @tournament, bracket_type: type)
-    bracket.seed(teams)
+    bracket.seed(@teams, 1)
 
-    game1 = bracket.games.first
-    game2 = bracket.games.last
+    @teams.sort_by{ |t| t.seed }
+    games = bracket.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
 
-    assert_equal game1.home, teams[game1.bracket_top.to_i + 1]
-    assert_equal game1.away, teams[game1.bracket_bottom.to_i + 1]
-    assert_equal game2.home, teams[game2.bracket_top.to_i + 1]
-    assert_equal game2.away, teams[game2.bracket_bottom.to_i + 1]
+    games.each do |game|
+      assert_equal game.home, @teams[game.bracket_top.to_i - 1]
+      assert_equal game.away, @teams[game.bracket_bottom.to_i - 1]
+    end
   end
 
   test "seed raises if any games are invalid for a seed round" do
@@ -61,7 +61,7 @@ class BracketTest < ActiveSupport::TestCase
     bracket = Bracket.create(tournament: @tournament, bracket_type: type)
 
     assert_raises Bracket::InvalidSeedRound do
-      bracket.seed(teams, 2)
+      bracket.seed(@teams, 2)
     end
   end
 

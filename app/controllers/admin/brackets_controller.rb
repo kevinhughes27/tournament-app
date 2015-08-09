@@ -17,6 +17,18 @@ class Admin::BracketsController < AdminController
     render partial: 'form', locals: {bracket: @bracket}
   end
 
+  def seed
+    @bracket = Bracket.find(params[:id])
+    @teams = @tournament.teams.where(division: @bracket.division).order(:seed)
+
+    begin
+      @bracket.seed(@teams)
+      head :ok
+    rescue => e
+      head :unprocessible_entity
+    end
+  end
+
   private
 
   def ensure_bracket_per_division

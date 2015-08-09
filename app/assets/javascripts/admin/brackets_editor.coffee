@@ -13,3 +13,8 @@ class Admin.BracketEditor
       success: (response) ->
          Turbolinks.replace(response, change: [refreshKey])
          Turbolinks.ProgressBar.done()
+
+  seedBracket: (path) ->
+    $.ajax
+      type: 'PUT'
+      url: path

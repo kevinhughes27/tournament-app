@@ -23,7 +23,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :brackets
+      resources :brackets do
+        member do
+          put :seed
+        end
+      end
 
       get '/schedule', to: 'schedule#index'
       post '/schedule', to: 'schedule#create'

@@ -1,31 +1,39 @@
 boat:
   tournament: noborders
   name: BOAT
+  seed: 6
 
 goose:
   tournament: noborders
   name: Goose
+  seed: 7
 
 swift:
   tournament: noborders
   name: Swift
+  seed: 8
 
 pheonix:
   tournament: noborders
   name: Pheonix
+  seed: 1
 
 nsom:
   tournament: noborders
   name: NSOM
+  seed : 2
 
 maverick:
   tournament: noborders
   name: Maverick
+  seed: 3
 
 shrike:
   tournament: noborders
   name: Shrike
+  seed: 4
 
 the_forgotten:
   tournament: noborders
   name: The Forgotten
+  seed: 5
