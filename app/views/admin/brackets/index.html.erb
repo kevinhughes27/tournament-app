@@ -1,12 +1,11 @@
-<div class="container-fluid">
+<div class="container-fluid" define='{
+  bracketEditor: new Admin.BracketEditor(
+  )}'
+  context='bracketEditor'>
   <h1>Brackets</h1>
 
-    <% @teams.group_by{ |t| t.division }.each do |division, teams| %>
-      <p><%= division %></p>
-      <%= bracket_select %>
-      <p>save</p>
-      <p>seed</p>
-      <hr>
+    <% @brackets.each do |bracket| %>
+      <%= render 'form', bracket: bracket %>
     <% end %>
 
 </div>

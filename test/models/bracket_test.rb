@@ -8,7 +8,7 @@ class BracketTest < ActiveSupport::TestCase
   end
 
   test "types returns all templates" do
-    assert_equal ['single_elimination_8'], Bracket.types
+    assert_equal ['single_elimination_8','single_elimination_4'], Bracket.types
   end
 
   test "bracket creates all required games" do
@@ -63,6 +63,13 @@ class BracketTest < ActiveSupport::TestCase
     assert_raises Bracket::InvalidSeedRound do
       bracket.seed(teams, 2)
     end
+  end
+
+  test "updating the bracket_type clears the previous games" do
+    bracket = Bracket.create(tournament: @tournament, bracket_type: 'single_elimination_8')
+    assert_equal 12, bracket.games.count
+    bracket.update_attributes(bracket_type: 'single_elimination_4')
+    assert_equal 4, bracket.games.count
   end
 
   private

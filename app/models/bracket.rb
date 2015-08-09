@@ -4,7 +4,8 @@ class Bracket < ActiveRecord::Base
   belongs_to :tournament
   has_many :games, dependent: :destroy
 
-  after_save :create_games
+  after_create :create_games
+  after_update :update_games
 
   class InvalidSeedRound < StandardError; end
 
@@ -48,6 +49,13 @@ class Bracket < ActiveRecord::Base
         bracket_bottom: game[:bottom]
       )
     end
+  end
+
+  def update_games
+    return unless self.bracket_type_changed?
+    self.games.destroy_all
+    @template = load_template
+    create_games
   end
 
   def load_template

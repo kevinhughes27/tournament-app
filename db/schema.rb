@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807025215) do
+ActiveRecord::Schema.define(version: 20150809145055) do
 
   create_table "brackets", force: :cascade do |t|
     t.integer  "tournament_id"
     t.string   "bracket_type",  null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "division"
   end
 
   create_table "fields", force: :cascade do |t|
