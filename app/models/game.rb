@@ -18,7 +18,11 @@ class Game < ActiveRecord::Base
   end
 
   def name
-    "#{home.name} vs #{away.name}"
+    if home.present? && away.present?
+      "#{home.name} vs #{away.name}"
+    else
+      "#{bracket.division} #{bracket_uid} (#{bracket_top} vs #{bracket_bottom})"
+    end
   end
 
   def confirmed?

@@ -44,6 +44,7 @@ class Bracket < ActiveRecord::Base
   def create_games
     template[:games].each do |game|
       self.games.create!(
+        tournament_id: tournament_id,
         bracket_uid: game[:uid],
         bracket_top: game[:top],
         bracket_bottom: game[:bottom]
