@@ -2,7 +2,7 @@ class Admin::ScheduleController < AdminController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
   def index
-    @teams = @tournament.teams
+    @games = @tournament.games
     @fields = @tournament.fields.includes(:games).sort_by{|f| f.name.gsub(/\D/, '').to_i }
   end
 

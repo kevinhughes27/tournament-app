@@ -4,7 +4,22 @@
   context='scheduleEditor'>
   <h1>Schedule</h1>
 
-  <!-- render the games that can be dragged -->
+  <div class="row">
+    <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
+
+      <div class="col-md-2">
+        <h3>
+          <%= bracket.division %>
+        </h3>
+        <% games.each do |game| %>
+          <div id="game" class="draggable drag-drop">
+            <%= game.name %>
+          </div>
+        <% end %>
+      </div>
+
+    <% end %>
+  </div>
 
   <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "saveSchedule()" do %>
     <table class="table table-bordered table-striped table-hover table-condensed">
@@ -23,7 +38,7 @@
             <input type="text" placeholder="time">
           </td>
           <% @fields.each do |field| %>
-            <td></td>
+            <td class="dropzone"></td>
           <% end %>
         </tr>
       </tbody>

@@ -3,6 +3,7 @@
 //= require jquery.tabletojson
 //= require jquery.csv
 //= require mindmup-editabletable
+//= require interact
 //= require bootstrap
 //= require bootstrap-contextmenu
 //= require turbolinks
