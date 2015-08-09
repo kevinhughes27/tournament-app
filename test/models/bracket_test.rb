@@ -8,7 +8,8 @@ class BracketTest < ActiveSupport::TestCase
   end
 
   test "types returns all templates" do
-    assert_equal ['single_elimination_8','single_elimination_4'], Bracket.types
+    assert Bracket.types.include? 'single_elimination_8'
+    assert Bracket.types.include? 'single_elimination_4'
   end
 
   test "bracket creates all required games" do
