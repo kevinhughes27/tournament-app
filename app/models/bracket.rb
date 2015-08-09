@@ -25,6 +25,8 @@ class Bracket < ActiveRecord::Base
     @template ||= load_template
   end
 
+  # assumes teams are sorted by seed
+  # can't sort here for re-seed
   def seed(teams, round = 1)
     game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
     games = Game.where(bracket_id: id, bracket_uid: game_uids)
@@ -32,8 +34,6 @@ class Bracket < ActiveRecord::Base
 
     raise InvalidNumberOfTeams, "#{seats} seats but #{teams.size} teams present" unless seats == teams.size
     raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
-
-    teams.sort_by{ |t| t.seed }
 
     games.each do |game|
       game.home = teams[ game.bracket_top.to_i - 1 ]
