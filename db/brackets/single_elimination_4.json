@@ -1,0 +1,10 @@
+{
+  "num_teams": 4,
+  "games": [
+    {"round": 1, "uid": "s1", "top":"1", "bottom":"4"},
+    {"round": 1, "uid": "s2", "top":"2", "bottom":"3"},
+
+    {"round": 2, "uid": "f1", "top":"ws1", "bottom":"ws2"},
+    {"round": 2, "uid": "f2", "top":"ls1", "bottom":"ls2"}
+  ]
+}

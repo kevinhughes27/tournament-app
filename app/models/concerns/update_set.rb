@@ -27,7 +27,8 @@ module UpdateSet
       set_params.map do |params|
         if params[:id].present?
           model = set.detect{ |m| m.id == params[:id].to_i }
-          model.update_attributes(params)
+          model.assign_attributes(params)
+          model.save if model.changed?
         else
           model = self.create(params)
           set << model

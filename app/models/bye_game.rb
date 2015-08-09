@@ -1,2 +1,0 @@
-class ByeGame < Game
-end

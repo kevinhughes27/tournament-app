@@ -1,18 +1,13 @@
 class Game < ActiveRecord::Base
-  include UpdateSet
+  belongs_to :bracket
+
   belongs_to :field
   belongs_to :tournament
+
   belongs_to :home, :class_name => "Team", :foreign_key => :home_id
   belongs_to :away, :class_name => "Team", :foreign_key => :away_id
 
-  before_create :ensure_game_type
-
-  def ensure_game_type
-    unless self.type
-      self.type = 'PoolGame'
-      self.type = 'ByeGame' if home_id.nil? && away_id.nil?
-    end
-  end
+  after_save :update_bracket
 
   def winner
     home_score > away_score ? home : away
@@ -23,19 +18,10 @@ class Game < ActiveRecord::Base
   end
 
   def name
-    case type
-    when 'ByeGame'
-      'Bye'
-    when 'PoolGame'
+    if home.present? && away.present?
       "#{home.name} vs #{away.name}"
-    when 'BracketGame'
-      if title = copy_for_bracket_code[bracket_code]
-        "#{division} #{title}"
-      else
-        "#{division} Bracket"
-      end
     else
-      nil
+      "#{bracket.division} #{bracket_uid} (#{bracket_top} vs #{bracket_bottom})"
     end
   end
 
@@ -45,6 +31,10 @@ class Game < ActiveRecord::Base
 
   def unconfirmed?
     !score_confirmed
+  end
+
+  def valid_for_seed_round?
+    bracket_top.match(/\A\d+\z/) && bracket_bottom.match(/\A\d+\z/)
   end
 
   def confirm_score(home_score, away_score)
@@ -68,7 +58,7 @@ class Game < ActiveRecord::Base
   end
 
   def update_score(home_score, away_score)
-    winner_changed = (self.home_score > self.away_score) && (home_score > away_score)
+    winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
     home_delta = home_score - self.home_score
     away_delta = away_score - self.away_score
 
@@ -95,13 +85,31 @@ class Game < ActiveRecord::Base
 
   private
 
-  def copy_for_bracket_code
-    @copy_for_bracket_code = {
-      's1' => 'semi Final',
-      's2' => 'semi Final',
-      '1st' => 'Final',
-      '3rd' => '3rd place',
-    }
+  def update_bracket
+    return unless self.score_confirmed
+    #TODO return if pool game
+    advanceWinner
+    advanceLoser
+  end
+
+  def advanceWinner
+    if game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_top: "w#{bracket_uid}")
+      game.home = winner
+      game.save!
+    elsif game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_bottom: "w#{bracket_uid}")
+      game.away = winner
+      game.save
+    end
+  end
+
+  def advanceLoser
+    if game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_top: "l#{bracket_uid}")
+      game.home = loser
+      game.save!
+    elsif game = Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_bottom: "l#{bracket_uid}")
+      game.away = loser
+      game.save
+    end
   end
 
 end

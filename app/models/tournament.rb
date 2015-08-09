@@ -4,8 +4,9 @@ class Tournament < ActiveRecord::Base
 
   has_one :map
   has_many :fields
-  has_many :games
   has_many :teams
+  has_many :brackets
+  has_many :games
   has_many :score_reports
 
   validates_presence_of :handle

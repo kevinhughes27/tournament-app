@@ -1,0 +1,32 @@
+<% refresh_key = "#{bracket.division}-bracket" %>
+
+<div id="<%= refresh_key %>">
+  <h3><%= bracket.division %></h3>
+
+  <% method = bracket.id ? :put : :post %>
+  <% url = bracket.id ? admin_tournament_bracket_path(@tournament, bracket) :  admin_tournament_brackets_path(@tournament) %>
+  <%= form_for bracket,
+    url: url,
+    method: method,
+    html: {
+      class: 'form-inline',
+      'bind-event-submit' => "saveBracket(this, '#{refresh_key}')"
+    } do |form| %>
+
+    <%= form.hidden_field :tournament_id %>
+    <%= form.hidden_field :division %>
+    <%= bracket_select form, class: 'form-control' %>
+
+    <% if bracket.id %>
+      <button type="submit" class="btn btn-default">Update</button>
+    <% else %>
+      <button type="submit" class="btn btn-default">Create</button>
+    <% end %>
+
+    <% if bracket.id %>
+      <a href="#" class="btn btn-default" bind-event-click="seedBracket('<%= seed_admin_tournament_bracket_path(@tournament, bracket) %>')">seed</a>
+    <% else %>
+      <a href="#" class="btn btn-default disabled">seed</a>
+    <% end %>
+  <% end %>
+</div>

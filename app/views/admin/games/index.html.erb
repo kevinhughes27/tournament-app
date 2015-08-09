@@ -13,7 +13,15 @@
     <tbody>
       <% @games.group_by{|g| g.start_time }.each do |time, games| %>
         <tr class="active">
-          <td><strong><%= time %></strong></td>
+          <td>
+            <strong>
+              <% if time.present? %>
+                <%= time %>
+              <% else %>
+                To be scheduled
+              <% end %>
+            </strong>
+          </td>
           <td></td>
           <td></td>
           <td></td>
@@ -22,7 +30,13 @@
         <% games.each do |game| %>
           <tr>
             <td><%= game.name %></td>
-            <td><%= game.field.name %></td>
+            <td>
+              <% if game.field.present? %>
+                <%= game.field.name %>
+              <% else %>
+                TBD
+              <% end %>
+            </td>
             <td>
               <a href="#" data-toggle="popover" data-placement="bottom" title="Edit score" data-content='<%= render "score_form", tournament: @tournament, game: game %>'>
                 <%= "#{game.home_score} - #{game.away_score}" %>

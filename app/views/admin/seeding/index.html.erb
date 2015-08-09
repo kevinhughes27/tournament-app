@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <h1>Seeds</h1>
+
+  <%= render 'shared/set_errors', set: @teams %>
+  <%= form_tag admin_tournament_seeding_index_path(@tournament), "bind-event-submit" => "seedsTables.save(this)" do %>
+    <div class="row">
+      <% @teams.group_by{ |t| t.division }.each do |division, teams| %>
+        <div class="col-md-3">
+          <h3><%= division %></h3>
+          <%= render 'division', teams: teams %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $( document ).ready(function() {
+    tableNodes = $('.editable-table');
+    seedsTables = new Admin.SeedsTable(tableNodes);
+  });
+</script>

@@ -1,0 +1,11 @@
+<div class="container-fluid" define='{
+  bracketEditor: new Admin.BracketEditor(
+  )}'
+  context='bracketEditor'>
+  <h1>Brackets</h1>
+
+    <% @brackets.each do |bracket| %>
+      <%= render 'form', bracket: bracket %>
+    <% end %>
+
+</div>
