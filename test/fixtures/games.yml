@@ -1,5 +1,9 @@
 swift_goose:
   tournament: noborders
+  bracket: open
+  bracket_uid: 'q1'
+  bracket_top: '1'
+  bracket_bottom: '8'
   home: swift
   away: goose
   field: upi1
@@ -10,6 +14,10 @@ swift_goose:
 
 pheonix_mavericks:
   tournament: noborders
+  bracket: open
+  bracket_uid: 'q2'
+  bracket_top: '2'
+  bracket_bottom: '7'
   home: pheonix
   away: maverick
   field: upi2

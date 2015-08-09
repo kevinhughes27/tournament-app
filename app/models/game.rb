@@ -8,6 +8,9 @@ class Game < ActiveRecord::Base
   belongs_to :home, :class_name => "Team", :foreign_key => :home_id
   belongs_to :away, :class_name => "Team", :foreign_key => :away_id
 
+  validates_presence_of :tournament
+  validates_presence_of :bracket, :bracket_uid, :bracket_top, :bracket_bottom
+
   after_save :update_bracket
 
   def winner
