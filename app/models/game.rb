@@ -29,6 +29,10 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def unassigned?
+    field_id.nil? && start_time.blank?
+  end
+
   def confirmed?
     score_confirmed
   end

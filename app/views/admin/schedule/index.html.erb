@@ -13,9 +13,11 @@
           <%= bracket.division %>
         </h3>
         <% games.each do |game| %>
-          <div class="game draggable drag-drop" data-game-id="<%= game.id %>">
-            <%= game.bracket_uid %>
-          </div>
+          <% if game.unassigned? %>
+            <div class="game draggable drag-drop" data-game-id="<%= game.id %>">
+              <%= game.bracket_uid %>
+            </div>
+          <% end %>
         <% end %>
       </div>
 
