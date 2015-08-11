@@ -35,17 +35,18 @@
         </thead>
 
         <tbody>
-          <!-- render row per time slot -->
-          <tr>
-            <td>
-              <input type="text" placeholder="time" bind-event-change="timeUpdated(event)">
-            </td>
-            <% @fields.each do |field| %>
-              <td class="dropzone" data-field-id="<%= field.id %>">
-                <!-- render game with dropped state if there is a game for this slot -->
+          <% @times.each do |time| %>
+            <tr>
+              <td>
+                <input type="text" placeholder="time" value="<%= time %>" bind-event-change="timeUpdated(event)">
               </td>
-            <% end %>
-          </tr>
+              <% @fields.each do |field| %>
+                <td class="dropzone" data-field-id="<%= field.id %>">
+                  <!-- render game with dropped state if there is a game for this slot -->
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
         </tbody>
       </table>
 
