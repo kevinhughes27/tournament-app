@@ -37,14 +37,18 @@
         </thead>
 
         <tbody>
-          <% @times.each do |time| %>
+          <% @times.each_with_index do |time, index| %>
             <tr>
               <td>
                 <input type="text" placeholder="time" value="<%= time %>" bind-event-change="timeUpdated(event)">
               </td>
               <% @fields.each do |field| %>
                 <td class="dropzone" data-field-id="<%= field.id %>">
-                  <!-- render game with dropped state if there is a game for this slot -->
+                  <% if game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+                    <div class="game draggable drag-drop" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
+                      <%= game.bracket_uid %>
+                    </div>
+                  <% end %>
                 </td>
               <% end %>
             </tr>
