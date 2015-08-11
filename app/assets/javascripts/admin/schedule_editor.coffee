@@ -16,8 +16,9 @@ class Admin.ScheduleEditor
     rowIdx = $(slot).parent().index()
     startTime = $(slot).parent().find('input').val()
 
-    $(game).attr('data-field-id', fieldId)
+    $(game).attr('data-changed', true)
     $(game).attr('data-row-idx', rowIdx)
+    $(game).attr('data-field-id', fieldId)
     $(game).attr('data-start-time', startTime)
 
   timeUpdated: (event) ->
@@ -30,7 +31,7 @@ class Admin.ScheduleEditor
     # disable if times blank
     Turbolinks.ProgressBar.start()
 
-    games = _.filter $('.game'), (g) -> $(g).data('row-idx') != undefined
+    games = _.filter $('.game'), (g) -> $(g).data('changed') == true
     games = _.map games, (g) ->
       {
         id: $(g).data('game-id')
