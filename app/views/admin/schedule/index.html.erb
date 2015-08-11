@@ -13,7 +13,7 @@
           <%= bracket.division %>
         </h3>
         <% games.each do |game| %>
-          <div id="game" class="draggable drag-drop" data-game-id="<%= game.id %>">
+          <div class="game draggable drag-drop" data-game-id="<%= game.id %>">
             <%= game.bracket_uid %>
           </div>
         <% end %>
@@ -23,7 +23,7 @@
   </div>
 
   <div class="row">
-    <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "saveSchedule()" do %>
+    <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "saveSchedule(this)" do %>
       <table class="table table-bordered table-striped table-hover table-condensed">
         <thead>
           <tr>

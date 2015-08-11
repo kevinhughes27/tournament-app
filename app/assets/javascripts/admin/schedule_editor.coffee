@@ -14,21 +14,37 @@ class Admin.ScheduleEditor
   gameDropped: (game, slot) ->
     fieldId = $(slot).data('field-id')
     rowIdx = $(slot).parent().index()
-    time = $(slot).parent().find('input').val()
+    startTime = $(slot).parent().find('input').val()
 
     $(game).attr('data-field-id', fieldId)
     $(game).attr('data-row-idx', rowIdx)
-    $(game).attr('data-started-at', time)
+    $(game).attr('data-start-time', startTime)
 
   timeUpdated: (event) ->
     time = $(event.target).val()
     rowIdx = $(event.target).parent().index()
     games = $("[data-row-idx=#{rowIdx}]")
-    games.attr('data-started-at', time)
+    games.attr('data-start-time', time)
 
-  saveSchedule: ->
+  saveSchedule: (form) ->
     # disable if times blank
-    #debugger
+    Turbolinks.ProgressBar.start()
+
+    games = _.filter $('.game'), (g) -> $(g).data('row-idx') != undefined
+    games = _.map games, (g) ->
+      {
+        id: $(g).data('game-id')
+        field_id: $(g).data('field-id')
+        start_time: $(g).data('start-time')
+      }
+
+    $.ajax
+      type: 'POST'
+      url: form.action
+      data: {games: games}
+      success: (response) ->
+         Turbolinks.replace(response)
+         Turbolinks.ProgressBar.done()
 
   initDraggable: ->
     interact('.draggable').draggable({
@@ -56,7 +72,7 @@ class Admin.ScheduleEditor
 
   initDropzone: ->
     interact('.dropzone').dropzone({
-    accept: '#game',
+    accept: '.game',
     overlap: 0.5,
 
     ondropactivate: (event) ->
