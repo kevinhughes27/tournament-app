@@ -1,7 +1,7 @@
 class Admin::GamesController < AdminController
 
   def index
-    @games = @tournament.games
+    @games = @tournament.games.includes(:home, :away, :field, :bracket)
   end
 
   def confirm_score
