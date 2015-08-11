@@ -43,7 +43,6 @@ class Admin.ScheduleEditor
       url: form.action
       data: {games: games}
       success: (response) ->
-         Turbolinks.replace(response)
          Turbolinks.ProgressBar.done()
 
   initDraggable: ->

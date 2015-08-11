@@ -1,20 +1,17 @@
 class Admin::ScheduleController < AdminController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
 
   def index
     @games = @tournament.games.includes(:bracket)
     @fields = @tournament.fields.includes(:games).sort_by{|f| f.name.gsub(/\D/, '').to_i }
   end
 
-  def create
+  def update
     games_params.each do |p|
       game = Game.find(p[:id])
       game.update_attributes(p)
     end
 
-    @games = @tournament.games.includes(:bracket)
-    @fields = @tournament.fields.includes(:games).sort_by{|f| f.name.gsub(/\D/, '').to_i }
-    render :index
+    head :ok
   end
 
   private

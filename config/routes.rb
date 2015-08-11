@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       end
 
       get '/schedule', to: 'schedule#index'
-      post '/schedule', to: 'schedule#create'
+      post '/schedule', to: 'schedule#update'
 
       resources :games do
         member do
