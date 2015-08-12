@@ -30,6 +30,7 @@ class Admin.ScheduleEditor
   saveSchedule: (form) ->
     # disable if times blank
     Turbolinks.ProgressBar.start()
+    $(form).find(':submit').addClass('is-loading')
 
     games = _.filter $('.game'), (g) -> $(g).data('changed') == true
     games = _.map games, (g) ->
@@ -45,6 +46,7 @@ class Admin.ScheduleEditor
       data: {games: games}
       success: (response) ->
          Turbolinks.ProgressBar.done()
+         $(form).find(':submit').removeClass('is-loading')
 
   initDraggable: ->
     interact('.draggable').draggable({

@@ -1,0 +1,7 @@
+.btn {
+  &.is-loading {
+    background: white asset-data-url("loading-spinner.gif") 50% 50% no-repeat;
+    background-size: auto 100%;
+    color: transparent;
+  }
+}
