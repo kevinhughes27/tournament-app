@@ -2,6 +2,7 @@
  *= require ratchet/ratchet
  *= require awesomplete
  *= require google_maps
+ *= require font-awesome
  *= require_tree ./app
  *= require_self
  */
