@@ -23,6 +23,8 @@ class Admin::ScheduleController < AdminController
       :field_id,
       :start_time
     ])
-    @games_params[:games].values ||= []
+    @games_params[:games] ||= {}
+    @games_params[:games].values
   end
+
 end
