@@ -25,6 +25,7 @@ class Admin.ScheduleEditor
     time = $(event.target).val()
     rowIdx = $(event.target).parent().index()
     games = $("[data-row-idx=#{rowIdx}]")
+    games.attr('data-changed', true)
     games.attr('data-start-time', time)
 
   saveSchedule: (form) ->
