@@ -17,6 +17,8 @@ class Game < ActiveRecord::Base
 
   after_save :update_bracket
 
+  scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
+
   def winner
     home_score > away_score ? home : away
   end

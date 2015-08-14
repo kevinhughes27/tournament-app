@@ -1,9 +1,9 @@
 /*
  *= require google_maps
+ *= require awesomplete
  *= require_self
  */
 
-@import 'ratchet/ratchet/*';
-@import 'awesomeplete';
+@import 'ratchet/ratchet';
 @import 'font-awesome';
 @import 'app/*';
