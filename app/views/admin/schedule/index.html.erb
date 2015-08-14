@@ -1,6 +1,7 @@
 <div class="container-fluid" define='{
   scheduleEditor: new Admin.ScheduleEditor(
-    $(".table")
+    $(".table"),
+    <%= @tournament.time_cap %>
   )}'
   context='scheduleEditor'>
   <h1>Schedule</h1>

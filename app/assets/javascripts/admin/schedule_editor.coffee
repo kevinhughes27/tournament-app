@@ -1,16 +1,21 @@
 class Admin.ScheduleEditor
 
-  constructor: (@$tableNode) ->
+  constructor: (@$tableNode, @timeCap) ->
     @initDraggable()
     @initDropzone()
 
   addRow: ->
-    tr = @$tableNode.find('tr')[1]
+    trs = @$tableNode.find('tr')
+    tr = trs[trs.length - 1]
     tr = $(tr).clone()
+
     $tr = $(tr)
-    $tr.find('input').val('')
+    lastTime = $tr.find('input').val()
+    time = moment(lastTime).add(@timeCap, 'minutes').format('MM/DD/YYYY h:mm A')
+    $tr.find('input').val(time)
     $tr.find('.datetimepicker').datetimepicker()
     $tr.find('div.game').remove()
+
     @$tableNode.append(tr[0])
     Twine.bind()
 
