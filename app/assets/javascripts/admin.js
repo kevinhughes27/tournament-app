@@ -4,8 +4,10 @@
 //= require jquery.csv
 //= require mindmup-editabletable
 //= require interact
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require bootstrap-contextmenu
+//= require moment
+//= require bootstrap-datetimepicker
 //= require turbolinks
 //= require underscore
 //= require twine

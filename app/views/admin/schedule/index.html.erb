@@ -40,7 +40,7 @@
           <% @times.each_with_index do |time, index| %>
             <tr>
               <td>
-                <input type="text" placeholder="time" value="<%= time %>" bind-event-change="timeUpdated(event)">
+                <input type="text" class="datetimepicker" value="<%= time %>" bind-event-change="timeUpdated(event)">
               </td>
               <% @fields.each do |field| %>
                 <td class="dropzone" data-field-id="<%= field.id %>">
