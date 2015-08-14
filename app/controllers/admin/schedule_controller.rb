@@ -3,7 +3,7 @@ class Admin::ScheduleController < AdminController
   def index
     @games = @tournament.games.includes(:bracket)
     @fields = @tournament.fields.includes(:games).sort_by{|f| f.name.gsub(/\D/, '').to_i }
-    @times = @games.pluck(:start_time).uniq
+    @times = time_slots
   end
 
   def update
@@ -16,6 +16,12 @@ class Admin::ScheduleController < AdminController
   end
 
   private
+
+  def time_slots
+    times = @games.pluck(:start_time).uniq
+    times = times.compact if times.size > 1
+    times.sort!
+  end
 
   def games_params
     @games_params ||= params.permit(games: [

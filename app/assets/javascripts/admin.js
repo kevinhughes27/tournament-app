@@ -2,6 +2,9 @@
 //= require jquery_ujs
 //= require jquery.tabletojson
 //= require jquery.csv
+//= require jquery.cookie
+//= require jstz
+//= require browser_timezone_rails/set_time_zone
 //= require mindmup-editabletable
 //= require interact
 //= require bootstrap-sprockets

@@ -7,14 +7,19 @@ class Admin.ScheduleEditor
   addRow: ->
     tr = @$tableNode.find('tr')[1]
     tr = $(tr).clone()
-    $(tr).find('input').val('')
+    $tr = $(tr)
+    $tr.find('input').val('')
+    $tr.find('.datetimepicker').datetimepicker()
+    $tr.find('div.game').remove()
     @$tableNode.append(tr[0])
     Twine.bind()
 
   gameDropped: (game, slot) ->
     fieldId = $(slot).data('field-id')
     rowIdx = $(slot).parent().index()
+
     startTime = $(slot).parent().find('input').val()
+    startTime = moment(startTime).format()
 
     $(game).attr('data-changed', true)
     $(game).attr('data-row-idx', rowIdx)
@@ -22,11 +27,14 @@ class Admin.ScheduleEditor
     $(game).attr('data-start-time', startTime)
 
   timeUpdated: (event) ->
-    time = $(event.target).val()
-    rowIdx = $(event.target).parent().index()
+    rowIdx = $(event.target).closest('tr').index()
+
+    startTime = $(event.target).val()
+    startTime = moment(startTime).format()
+
     games = $("[data-row-idx=#{rowIdx}]")
     games.attr('data-changed', true)
-    games.attr('data-start-time', time)
+    games.attr('data-start-time', startTime)
 
   saveSchedule: (form) ->
     # disable if times blank

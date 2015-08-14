@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 gem 'unicorn'
 gem 'friendly_id'
+gem 'date_validator'
+gem 'browser-timezone-rails'
 
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
