@@ -11,11 +11,11 @@
 
       <div class="col-md-2">
         <h3>
-          <%= bracket.division %>
+          <span class="glyphicon glyphicon-stop" style="<%= color_for_bracket(bracket) %>"></span> <%= bracket.division %>
         </h3>
         <% games.each do |game| %>
           <% if game.unassigned? %>
-            <div class="game draggable drag-drop" data-game-id="<%= game.id %>">
+            <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
               <%= game.bracket_uid %>
             </div>
           <% end %>
@@ -48,7 +48,7 @@
               <% @fields.each do |field| %>
                 <td class="dropzone" data-field-id="<%= field.id %>">
                   <% if game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
-                    <div class="game draggable drag-drop" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
+                    <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
                       <%= game.bracket_uid %>
                     </div>
                   <% end %>
