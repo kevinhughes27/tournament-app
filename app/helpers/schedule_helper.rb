@@ -29,4 +29,5 @@ module ScheduleHelper
       ""
     end
   end
+
 end
