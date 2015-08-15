@@ -7,14 +7,23 @@ class Admin::BracketsController < AdminController
   end
 
   def create
-    @bracket = Bracket.create!(bracket_params)
-    render partial: 'form', locals: {bracket: @bracket}
+    @bracket = Bracket.create(bracket_params)
+
+    if @bracket.persisted?
+      render partial: 'form', locals: {bracket: @bracket}
+    else
+      render json: { errors: @bracket.errors.full_messages }, status: :unprocessible_entity
+    end
   end
 
   def update
     @bracket = Bracket.find(params[:id])
-    @bracket.update_attributes(bracket_params)
-    render partial: 'form', locals: {bracket: @bracket}
+
+    if @bracket.update_attributes(bracket_params)
+      render partial: 'form', locals: {bracket: @bracket}
+    else
+      render json: { errors: @bracket.errors.full_messages }, status: :unprocessible_entity
+    end
   end
 
   def seed
@@ -24,8 +33,8 @@ class Admin::BracketsController < AdminController
     begin
       @bracket.seed(@teams)
       head :ok
-    rescue => e
-      head :unprocessible_entity
+    rescue => error
+      render json: { error: error.message }, status: :unprocessible_entity
     end
   end
 

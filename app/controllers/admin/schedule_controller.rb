@@ -16,7 +16,7 @@ class Admin::ScheduleController < AdminController
 
     head :ok
   rescue => error
-    render json: {game_id: error.record.id, error: error.message}.to_json, status: :unprocessable_entity
+    render json: {game_id: error.record.id, error: error.message}, status: :unprocessable_entity
   end
 
   private
