@@ -61,16 +61,25 @@ class Admin.ScheduleEditor
     games
 
   _save: (form, games) ->
+    @_clearGameErrors()
+
     $.ajax
       type: 'POST'
       url: form.action
       data: {games: games}
       error: (response) =>
         @_finishLoading(form)
+        @_addGameErrors(response.responseJSON.game_id)
         Admin.Flash.error(response.responseJSON.error)
       success: (response) =>
         @_finishLoading(form)
         Admin.Flash.notice('Schedule saved')
+
+  _addGameErrors: (game_id) ->
+    $("[data-game-id=#{game_id}]").addClass('game-error')
+
+  _clearGameErrors: ->
+    $('.game').removeClass('game-error')
 
   _finishLoading: (form) ->
     Turbolinks.ProgressBar.done()
