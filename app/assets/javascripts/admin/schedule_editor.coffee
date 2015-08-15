@@ -19,17 +19,25 @@ class Admin.ScheduleEditor
     @$tableNode.append(tr[0])
     Twine.bind()
 
-  gameDropped: (game, slot) ->
+  gameAssigned: (game, slot) ->
     fieldId = $(slot).data('field-id')
     rowIdx = $(slot).parent().index()
 
     startTime = $(slot).parent().find('input').val()
     startTime = moment(startTime).format()
 
-    $(game).attr('data-changed', true)
-    $(game).attr('data-row-idx', rowIdx)
-    $(game).attr('data-field-id', fieldId)
-    $(game).attr('data-start-time', startTime)
+    $game = $(game)
+    $game.attr('data-changed', true)
+    $game.attr('data-row-idx', rowIdx)
+    $game.attr('data-field-id', fieldId)
+    $game.attr('data-start-time', startTime)
+
+  gameUnassigned: (game) ->
+    $game = $(game)
+    $game.attr('data-changed', true)
+    $game.attr('data-row-idx', -1)
+    $game.attr('data-field-id', '')
+    $game.attr('data-start-time', '')
 
   timeUpdated: (event) ->
     rowIdx = $(event.target).closest('tr').index()
@@ -114,8 +122,10 @@ class Admin.ScheduleEditor
     accept: '.game',
     overlap: 0.5,
     ondragenter: (event) -> event.target.classList.add('drop-target')
-    ondragleave: (event) -> event.target.classList.remove('drop-target')
+    ondragleave: (event) =>
+      event.target.classList.remove('drop-target')
+      @gameUnassigned(event.relatedTarget)
     ondropdeactivate: (event) -> event.target.classList.remove('drop-target')
     ondrop: (event) =>
-      @gameDropped(event.relatedTarget, event.target)
+      @gameAssigned(event.relatedTarget, event.target)
   })
