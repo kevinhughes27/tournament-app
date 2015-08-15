@@ -95,15 +95,11 @@ class Admin.ScheduleEditor
       event.target.classList.add('drop-active')
 
     ondragenter: (event) ->
-      draggableElement = event.relatedTarget
       dropzoneElement = event.target
-
       dropzoneElement.classList.add('drop-target')
-      draggableElement.classList.add('can-drop')
 
     ondragleave: (event) ->
       event.target.classList.remove('drop-target')
-      event.relatedTarget.classList.remove('can-drop')
 
     ondrop: (event) =>
       @gameDropped(event.relatedTarget, event.target)
