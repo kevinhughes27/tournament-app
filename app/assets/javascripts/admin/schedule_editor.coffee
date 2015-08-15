@@ -54,9 +54,9 @@ class Admin.ScheduleEditor
     games = _.filter $('.game'), (g) -> $(g).data('changed') == true
     games = _.map games, (g) ->
       {
-        id: $(g).data('game-id')
-        field_id: $(g).data('field-id')
-        start_time: $(g).data('start-time')
+        id: $(g).attr('data-game-id')
+        field_id: $(g).attr('data-field-id')
+        start_time: $(g).attr('data-start-time')
       }
     games
 
@@ -67,7 +67,7 @@ class Admin.ScheduleEditor
       data: {games: games}
       error: (response) =>
         @_finishLoading(form)
-        Admin.Flash.error('error')
+        Admin.Flash.error(response.responseJSON.error)
       success: (response) =>
         @_finishLoading(form)
         Admin.Flash.notice('Schedule saved')

@@ -7,12 +7,16 @@ class Admin::ScheduleController < AdminController
   end
 
   def update
-    games_params.each do |p|
-      game = Game.find(p[:id])
-      game.update_attributes(p)
+    ActiveRecord::Base.transaction do
+      games_params.each do |p|
+        game = Game.find(p[:id])
+        game.update_attributes!(p)
+      end
     end
 
     head :ok
+  rescue => error
+    render json: {error: error.message}.to_json, status: :unprocessable_entity
   end
 
   private
