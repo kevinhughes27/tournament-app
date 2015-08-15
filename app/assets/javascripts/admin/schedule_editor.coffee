@@ -90,21 +90,9 @@ class Admin.ScheduleEditor
     interact('.dropzone').dropzone({
     accept: '.game',
     overlap: 0.5,
-
-    ondropactivate: (event) ->
-      event.target.classList.add('drop-active')
-
-    ondragenter: (event) ->
-      dropzoneElement = event.target
-      dropzoneElement.classList.add('drop-target')
-
-    ondragleave: (event) ->
-      event.target.classList.remove('drop-target')
-
+    ondragenter: (event) -> event.target.classList.add('drop-target')
+    ondragleave: (event) -> event.target.classList.remove('drop-target')
+    ondropdeactivate: (event) -> event.target.classList.remove('drop-target')
     ondrop: (event) =>
       @gameDropped(event.relatedTarget, event.target)
-
-    ondropdeactivate: (event) ->
-      event.target.classList.remove('drop-active')
-      event.target.classList.remove('drop-target')
   })
