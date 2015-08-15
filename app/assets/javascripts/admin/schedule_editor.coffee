@@ -42,10 +42,15 @@ class Admin.ScheduleEditor
     games.attr('data-start-time', startTime)
 
   saveSchedule: (form) ->
-    # disable if times blank
+    @_startLoading(form)
+    games = @_collectGames()
+    @_save(form, games)
+
+  _startLoading: (form) ->
     Turbolinks.ProgressBar.start()
     $(form).find(':submit').addClass('is-loading')
 
+  _collectGames: ->
     games = _.filter $('.game'), (g) -> $(g).data('changed') == true
     games = _.map games, (g) ->
       {
@@ -53,14 +58,23 @@ class Admin.ScheduleEditor
         field_id: $(g).data('field-id')
         start_time: $(g).data('start-time')
       }
+    games
 
+  _save: (form, games) ->
     $.ajax
       type: 'POST'
       url: form.action
       data: {games: games}
-      success: (response) ->
-         Turbolinks.ProgressBar.done()
-         $(form).find(':submit').removeClass('is-loading')
+      error: (response) =>
+        @_finishLoading(form)
+        Admin.Flash.error('error')
+      success: (response) =>
+        @_finishLoading(form)
+        Admin.Flash.notice('Schedule saved')
+
+  _finishLoading: (form) ->
+    Turbolinks.ProgressBar.done()
+    $(form).find(':submit').removeClass('is-loading')
 
   initDraggable: ->
     interact('.draggable').draggable({

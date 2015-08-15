@@ -1,11 +1,11 @@
 Admin.Flash = Flash =
-  error: (message, duration = 3000) ->
+  error: (message, duration = 2200) ->
     Flash.display message, true, duration
 
-  notice: (message, duration = 3000) ->
+  notice: (message, duration = 2200) ->
     Flash.display message, false, duration
 
-  display: (message, isError, duration = 3000) ->
+  display: (message, isError, duration = 2200) ->
     clearTimeout(@timeout) if @timeout
 
     $node = $('.js-flash')
