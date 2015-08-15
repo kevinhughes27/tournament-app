@@ -6,7 +6,7 @@ class AppController < ApplicationController
     @map = @tournament.map
     @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
     @teams = @tournament.teams
-    @games = @tournament.games.includes(:home, :away, :field)
+    @games = @tournament.games.assigned.includes(:home, :away, :field)
 
     render :show
   end

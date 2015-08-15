@@ -1,16 +1,16 @@
 Admin.Flash = Flash =
-  error: (message, duration = 3000) ->
+  error: (message, duration = 2200) ->
     Flash.display message, true, duration
 
-  notice: (message, duration = 3000) ->
+  notice: (message, duration = 2200) ->
     Flash.display message, false, duration
 
-  display: (message, isError, duration = 3000) ->
+  display: (message, isError, duration = 2200) ->
     clearTimeout(@timeout) if @timeout
 
     $node = $('.js-flash')
     $node.text(message)
-    $node.toggleClass('errors', isError) if isError?
+    $node.toggleClass('error', isError) if isError?
     $node.css('display','block')
 
     @timeout = setTimeout Flash.hide.bind(@), duration

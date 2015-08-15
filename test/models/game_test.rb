@@ -9,6 +9,24 @@ class GameTest < ActiveSupport::TestCase
     @away = teams(:goose)
   end
 
+  test "game must have field if it has a start_time" do
+    game = games(:swift_goose)
+    game.update_attributes(field: nil)
+    assert_equal ["can't be blank"], game.errors[:field]
+  end
+
+  test "game must have start_time if it has a field" do
+    game = games(:swift_goose)
+    game.update_attributes(start_time: nil)
+    assert_equal ["can't be blank"], game.errors[:start_time]
+  end
+
+  test "can unassign a game from field and start_time" do
+    game = games(:swift_goose)
+    game.update_attributes(field: nil, start_time: nil)
+    assert game.errors.empty?
+  end
+
   test "valid_for_seed_round? returns true if both top and bottom are integers" do
     game = Game.new(bracket_top: 1, bracket_bottom: 8)
     assert game.valid_for_seed_round?

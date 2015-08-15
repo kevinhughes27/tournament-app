@@ -1,75 +1,68 @@
-<div class="container-fluid">
+<div class="container-fluid" define='{
+  scheduleEditor: new Admin.ScheduleEditor(
+    $(".table"),
+    <%= @tournament.time_cap %>
+  )}'
+  context='scheduleEditor'>
   <h1>Schedule</h1>
 
-  <div class="row">
-    <% @teams.group_by{ |t| t.division }.each do |division, teams| %>
-      <div class="col-md-3">
-        <h3><%= division %></h3>
-        <%= render 'teams', teams: teams %>
-      </div>
-    <% end %>
-  </div>
+  <div class="games row">
+    <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
 
-  <hr>
-
-  <% @fields.each do |field| %>
-    <% if field.games.any?{ |game| game.errors.present? } %>
-      <div class="alert alert-danger">
-        <% field.games.each do |game| %>
-          <% if game.errors.present? %>
-              <p><%= game.name %></p>
-              <ul>
-                <% game.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-                <% end %>
-              </ul>
+      <div class="col-md-2">
+        <h3>
+          <span class="glyphicon glyphicon-stop" style="<%= color_for_bracket(bracket) %>"></span> <%= bracket.division %>
+        </h3>
+        <% games.each do |game| %>
+          <% if game.unassigned? %>
+            <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
+              <%= game.bracket_uid %>
+            </div>
           <% end %>
         <% end %>
       </div>
+
     <% end %>
-  <% end %>
+  </div>
 
-  <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "scheduleTable.save(this)" do %>
-    <table class="schedule-table">
-      <thead>
-        <tr>
-          <% @fields.each do |field| %>
-            <th id="field"><%= field.name %></th>
+  <div class="row">
+    <%= form_tag admin_tournament_schedule_path(@tournament), "bind-event-submit" => "saveSchedule(this)" do %>
+      <table class="table table-bordered table-striped table-hover table-condensed">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <% @fields.each do |field| %>
+              <th><%= field.name %></th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @times.each_with_index do |time, index| %>
+            <tr>
+              <td class="time-input">
+                <div class="time-input">
+                  <input type="text" class="datetimepicker form-control" value="<%= time_for_datetimepicker(time) %>" bind-event-blur="timeUpdated(event)">
+                <div>
+              </td>
+              <% @fields.each do |field| %>
+                <td class="dropzone" data-field-id="<%= field.id %>">
+                  <% if game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+                    <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
+                      <%= game.bracket_uid %>
+                    </div>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
           <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <% @fields.each do |field| %>
-            <td><%= render 'field', field: field %></td>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-    <div id="table-menu">
-      <ul class="dropdown-menu">
-        <li><a data-action="add" href="#">Add Row</a></li>
-        <li><a data-action="delete" href="#">Delete Row</a></li>
-      </ul>
-    </div>
-
-    <div class="row">
-      <input type="file" accept=".csv" bind-event-change="scheduleTable.uploadCsv(event)" />
-      <button type="button" class="btn" bind-event-click="scheduleTable.exportCsv()">Export CSV</button>
-
-      <%= submit_tag 'Save Schedule', class: "btn btn-primary pull-right" %>
-      <button type="button" class="btn btn-primary pull-right" bind-event-click="scheduleTable.addRows()">Add Game</button>
-    </div>
-  <% end %>
+      <div class="row">
+        <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
+        <%= submit_tag 'Save Schedule', class: "btn btn-primary pull-right" %>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<script>
-  $( document ).ready(function() {
-    tableNode = $('.schedule-table');
-    scheduleTable = new Admin.ScheduleTable(
-      tableNode,
-      <%= raw @teams.to_json %>
-    );
-  });
-</script>

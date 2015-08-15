@@ -2,9 +2,15 @@
 //= require jquery_ujs
 //= require jquery.tabletojson
 //= require jquery.csv
+//= require jquery.cookie
+//= require jstz
+//= require browser_timezone_rails/set_time_zone
 //= require mindmup-editabletable
-//= require bootstrap
+//= require interact
+//= require bootstrap-sprockets
 //= require bootstrap-contextmenu
+//= require moment
+//= require bootstrap-datetimepicker
 //= require turbolinks
 //= require underscore
 //= require twine
