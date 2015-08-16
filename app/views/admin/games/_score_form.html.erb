@@ -1,6 +1,0 @@
-<%= form_tag update_score_admin_tournament_game_path(tournament, game), method: :put, class: "form-inline", remote: true  do |form| %>
-  <%= number_field_tag "home_score", game.home_score, class: "form-control score-input" %>
-  &mdash;
-  <%= number_field_tag "away_score", game.away_score, class: "form-control score-input" %>
-  <%= submit_tag "Save", class: "btn btn-default" %>
-<% end %>

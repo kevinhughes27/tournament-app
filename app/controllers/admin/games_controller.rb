@@ -20,8 +20,8 @@ class Admin::GamesController < AdminController
     home_score = params[:home_score].to_i
     away_score = params[:away_score].to_i
 
-    game.update_score(home_score,away_score)
-    redirect_to admin_tournament_games_path(@tournament)
+    game.update_score(home_score, away_score)
+    render json: game
   end
 
 end

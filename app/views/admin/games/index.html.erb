@@ -1,4 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid" define='{
+  gamesTable: new Admin.GamesTable(
+  )}'
+  context='gamesTable'>
   <h1>Games</h1>
 
   <table class="table table-hover">
@@ -16,7 +19,7 @@
           <td>
             <strong>
               <% if time.present? %>
-                <%= time %>
+                <%= time.to_formatted_s(:datetimepicker) %>
               <% else %>
                 To be scheduled
               <% end %>
@@ -24,25 +27,10 @@
           </td>
           <td></td>
           <td></td>
-          <td></td>
         </tr>
 
         <% games.each do |game| %>
-          <tr>
-            <td><%= game.name %></td>
-            <td>
-              <% if game.field.present? %>
-                <%= game.field.name %>
-              <% else %>
-                TBD
-              <% end %>
-            </td>
-            <td>
-              <a href="#" data-toggle="popover" data-placement="bottom" title="Edit score" data-content='<%= render "score_form", tournament: @tournament, game: game %>'>
-                <%= "#{game.home_score} - #{game.away_score}" %>
-              </a>
-            </td>
-          </tr>
+          <%= render 'game', tournament: @tournament, game: game %>
         <% end %>
       <% end %>
     </tbody>

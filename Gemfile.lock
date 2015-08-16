@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/turbolinks.git
-  revision: 63c78377985245704f89cb847a1758c357731257
+  revision: 4f99d6c6c80a1e0ce2815a6a912ed9fdb9ec795e
   branch: master
   specs:
     turbolinks (3.0.0)
@@ -85,7 +85,7 @@ GEM
       activemodel
     debug_inspector (0.0.2)
     erubis (2.7.0)
-    execjs (2.5.2)
+    execjs (2.6.0)
     ffi (1.9.10)
     font-awesome-rails (4.4.0.0)
       railties (>= 3.2, < 5.0)
@@ -117,7 +117,7 @@ GEM
     metaclass (0.0.4)
     mime-types (2.6.1)
     mini_portile (0.6.2)
-    minitest (5.7.0)
+    minitest (5.8.0)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     momentjs-rails (2.10.2)
@@ -128,7 +128,7 @@ GEM
       mini_portile (~> 0.6.0)
     pg (0.18.2)
     phantomjs (1.9.8.0)
-    rack (1.6.1)
+    rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -144,7 +144,7 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
