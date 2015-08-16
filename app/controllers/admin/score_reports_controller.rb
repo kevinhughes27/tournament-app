@@ -15,7 +15,7 @@ class Admin::ScoreReportsController < AdminController
     game.confirm_score(home_score, away_score)
 
     @score_reports = @tournament.score_reports.where(game_id: game.id)
-    render :index, turbolinks: true#, change: @score_reports.map{ |s| "score-report-#{s.id}" }
+    render :index, turbolinks: true, change: 'score-reports'
   end
 
 end
