@@ -31,12 +31,16 @@ Rails.application.routes.draw do
 
       resources :games do
         member do
-          put :confirm_score
           put :update_score
         end
       end
 
-      resources :score_reports
+      resources :score_reports do
+        member do
+          put :confirm
+        end
+      end
+
     end
   end
 
