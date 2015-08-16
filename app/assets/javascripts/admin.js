@@ -9,6 +9,7 @@
 //= require interact
 //= require bootstrap-sprockets
 //= require bootstrap-contextmenu
+//= require bootstrap-modal-x
 //= require moment
 //= require bootstrap-datetimepicker
 //= require turbolinks

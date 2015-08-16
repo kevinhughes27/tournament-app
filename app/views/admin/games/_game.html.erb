@@ -1,0 +1,39 @@
+<tr id="game-<%= game.id %>">
+  <td>
+    <%= game.name %>
+  </td>
+
+  <td>
+    <% if game.field.present? %>
+      <%= game.field.name %>
+    <% else %>
+      TBD
+    <% end %>
+  </td>
+
+  <td>
+    <a href="#score-form-<%= game.id %>" data-placement="bottom" data-toggle="popover-x">
+      <%= "#{game.home_score} - #{game.away_score}" %>
+    </a>
+
+    <div id="score-form-<%= game.id %>" class="popover popover-default">
+      <div class="arrow"></div>
+      <h3 class="popover-title">
+        <span class="close" data-dismiss="popover-x">&times;</span>
+        Update score
+      </h3>
+      <div class="popover-content">
+        <%= form_tag update_score_admin_tournament_game_path(tournament, game),
+          method: :put,
+          class: "form-inline",
+          'bind-event-submit' => "updateScore(this, 'game-#{game.id}')" do |form| %>
+
+          <%= number_field_tag "home_score", game.home_score, class: "form-control score-input" %>
+          &mdash;
+          <%= number_field_tag "away_score", game.away_score, class: "form-control score-input" %>
+          <%= submit_tag "Save", class: "btn btn-default" %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>
