@@ -5,12 +5,6 @@
     <%= report.submitted_by %>
   </td>
   <td class="submitted-at"><%= report.created_at.strftime("%A %l:%M %P") %></td>
-  <td bind-class="{danger: <%= report.rules_knowledge %> <= 2}"><%= report.rules_knowledge %></td>
-  <td bind-class="{danger: <%= report.fouls %> <= 2}"><%= report.fouls %></td>
-  <td bind-class="{danger: <%= report.fairness %> <= 2}"><%= report.fairness %></td>
-  <td bind-class="{danger: <%= report.attitude %> <= 2}"><%= report.attitude %></td>
-  <td bind-class="{danger: <%= report.communication %> <= 2}"><%= report.communication %></td>
-  <td class="comments"><%= report.comments %></td>
   <td class="confirmed">
     <% if report.game.unconfirmed? %>
       <%= form_tag confirm_score_admin_tournament_game_path(@tournament, report.game), method: :put, remote: true  do |form| %>
@@ -23,4 +17,10 @@
       <span class="hidden">unconfirmed</span>
     <% end %>
   </td>
+  <td bind-class="{danger: <%= report.rules_knowledge %> <= 2}"><%= report.rules_knowledge %></td>
+  <td bind-class="{danger: <%= report.fouls %> <= 2}"><%= report.fouls %></td>
+  <td bind-class="{danger: <%= report.fairness %> <= 2}"><%= report.fairness %></td>
+  <td bind-class="{danger: <%= report.attitude %> <= 2}"><%= report.attitude %></td>
+  <td bind-class="{danger: <%= report.communication %> <= 2}"><%= report.communication %></td>
+  <td class="comments"><%= report.comments %></td>
 </tr>
