@@ -16,7 +16,7 @@
       <% team_groups.each_with_index do |(division, teams), idx| %>
         <div class="tab-pane <%= 'active' if idx == 0 %>" id="<%= division_html_id(division) %>">
           <div class="row">
-            <div class="col-md-6 col-md-offset-1">
+            <div class="col-md-4 col-md-offset-1">
               <%= render 'division', teams: teams %>
             </div>
           </div>
