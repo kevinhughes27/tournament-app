@@ -1,9 +1,9 @@
 <tr id="game-<%= game.id %>">
-  <td>
+  <td class="name">
     <%= game.name %>
   </td>
 
-  <td>
+  <td class="field">
     <% if game.field.present? %>
       <%= game.field.name %>
     <% else %>
@@ -11,7 +11,7 @@
     <% end %>
   </td>
 
-  <td>
+  <td class="score">
     <a href="#score-form-<%= game.id %>" data-placement="bottom" data-toggle="popover-x">
       <%= "#{game.home_score} - #{game.away_score}" %>
     </a>

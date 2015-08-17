@@ -4,44 +4,39 @@
   context='gamesTable'>
   <h1>Games</h1>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Field</th>
-        <th>Score</th>
-      </tr>
-    </thead>
+  <div id="games">
+    <div class="input-group" style="padding-bottom: 15px;">
+      <div class="input-group-addon">
+        <i class="fa fa-search"></i>
+      </div>
+      <input class="search form-control" placeholder="Search" />
+    </div>
 
-    <tbody>
-      <% @games.group_by{|g| g.start_time }.each do |time, games| %>
-        <tr class="active">
-          <td>
-            <strong>
-              <% if time.present? %>
-                <%= time.to_formatted_s(:datetimepicker) %>
-              <% else %>
-                To be scheduled
-              <% end %>
-            </strong>
-          </td>
-          <td></td>
-          <td></td>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Field</th>
+          <th>Score</th>
         </tr>
+      </thead>
 
-        <% games.each do |game| %>
-          <%= render 'game', tournament: @tournament, game: game %>
+      <tbody class="list">
+        <% @games.group_by{|g| g.start_time }.each do |time, games| %>
+          <%= render "time_row", time: time %>
+          <% games.each do |game| %>
+            <%= render 'game', tournament: @tournament, game: game %>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
   $( document ).ready(function() {
-    $("[data-toggle=popover]").popover({
-      html: true
+    var gamesList = new List('games', {
+      valueNames: ['name', 'field', 'score']
     });
   });
 </script>

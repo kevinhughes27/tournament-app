@@ -16,6 +16,7 @@ gem 'twine-rails'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'interact-rails'
+gem 'listjs-rails'
 gem 'font-awesome-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
 
