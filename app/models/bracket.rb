@@ -9,6 +9,7 @@ class Bracket < ActiveRecord::Base
 
   class InvalidNumberOfTeams < StandardError; end
   class InvalidSeedRound < StandardError; end
+  class AmbiguousSeedList < StandardError; end
 
   class << self
     #TODO return num_teams so I can filter the selection

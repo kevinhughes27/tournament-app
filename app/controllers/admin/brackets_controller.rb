@@ -31,6 +31,11 @@ class Admin::BracketsController < AdminController
     @teams = @tournament.teams.where(division: @bracket.division).order(:seed)
 
     begin
+      seeds = @teams.pluck(:seed).sort
+      seeds.each_with_index do |seed, idx|
+        raise Bracket::AmbiguousSeedList.new('ambiguous seed list') unless seed == (idx+1)
+      end
+
       @bracket.seed(@teams)
       head :ok
     rescue => error
