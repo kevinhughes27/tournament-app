@@ -1,0 +1,13 @@
+<tr class="active">
+  <td>
+    <strong>
+      <% if time.present? %>
+        <%= time.to_formatted_s(:datetimepicker) %>
+      <% else %>
+        To be scheduled
+      <% end %>
+    </strong>
+  </td>
+  <td></td>
+  <td></td>
+</tr>
