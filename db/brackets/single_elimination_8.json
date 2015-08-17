@@ -7,7 +7,7 @@
     {"round": 1, "uid":"q4", "top":4, "bottom":"5"},
 
     {"round": 2, "uid": "s1", "top":"wq1", "bottom":"wq2"},
-    {"round": 2, "uid": "s2", "top":"wq3", "bottom":"wq3"},
+    {"round": 2, "uid": "s2", "top":"wq3", "bottom":"wq4"},
     {"round": 2, "uid": "c1", "top":"lq1", "bottom":"lq2"},
     {"round": 2, "uid": "c2", "top":"lq3", "bottom":"lq4"},
 
