@@ -72,6 +72,23 @@ class BracketTest < ActiveSupport::TestCase
     end
   end
 
+  test "seed resets any bracket games past the seed round" do
+    type = 'single_elimination_8'
+    bracket = Bracket.create(tournament: @tournament, bracket_type: type)
+    bracket.seed(@teams, 1)
+
+    round1_games = bracket.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
+    round2_games = bracket.games.where(bracket_uid: ['s1', 's2', 'c3', 'c4'])
+
+    round1_games.each do |game|
+      game.update_score(15,13)
+    end
+
+    assert = round2_games.all?{ |g| g.teams_present? }
+    bracket.seed(@teams, 1)
+    assert = round2_games.all?{ |g| not g.teams_present? }
+  end
+
   test "updating the bracket_type clears the previous games" do
     bracket = Bracket.create(tournament: @tournament, bracket_type: 'single_elimination_8')
     assert_equal 12, bracket.games.count

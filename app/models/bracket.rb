@@ -45,7 +45,18 @@ class Bracket < ActiveRecord::Base
       game.save
     end
 
-    #TODO reset rounds greater than the seed round
+    reset(round)
+  end
+
+  def reset(round = 1)
+    game_uids = template[:games].map{ |g| g[:uid] if g[:round] > round }.compact
+    games = Game.where(bracket_id: id, bracket_uid: game_uids)
+
+    games.each do |game|
+      game.home = nil
+      game.away = nil
+      game.save
+    end
   end
 
   private
