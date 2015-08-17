@@ -5,7 +5,14 @@ class Admin::SeedingController < AdminController
   end
 
   def update
-    @teams = Team.update_set(@tournament.teams, teams_params)
+    teams = Team.where(id: teams_params.map{ |p| p[:id] })
+
+    teams.each do |team|
+      attributes = teams_params.detect{ |p| p[:id] == "#{team.id}" }
+      team.update_attributes( attributes )
+    end
+
+    @teams = @tournament.teams
     render :index
   end
 
@@ -18,7 +25,7 @@ class Admin::SeedingController < AdminController
       :wins,
       :points_for
     ])
-    @teams_params[:teams] ||= []
-    @teams_params[:teams].each{ |t| t[1][:tournament_id] = @tournament.id }
+    @teams_params[:teams] ||= {}
+    @teams_params[:teams].values
   end
 end
