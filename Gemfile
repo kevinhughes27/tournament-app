@@ -4,6 +4,7 @@ gem 'rails', '4.2.1'
 gem 'unicorn'
 gem 'friendly_id'
 gem 'date_validator'
+gem 'json-schema'
 gem 'browser-timezone-rails'
 
 gem 'bootstrap-sass'
