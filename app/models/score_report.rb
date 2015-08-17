@@ -5,6 +5,15 @@ class ScoreReport < ActiveRecord::Base
 
   delegate :name, to: :game
 
+  validates_presence_of :tournament,
+                        :game,
+                        :team,
+                        :submitter_fingerprint,
+                        :team_score,
+                        :opponent_score
+
+  validates_numericality_of :team_score, :opponent_score
+
   def score
     "#{home_score} - #{away_score}"
   end

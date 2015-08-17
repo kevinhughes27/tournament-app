@@ -9,6 +9,14 @@ class GameTest < ActiveSupport::TestCase
     @away = teams(:goose)
   end
 
+  test "teams_present? is true if home and away are set" do
+    game = games(:swift_goose)
+    assert game.teams_present?
+
+    game.update_attributes(home_id: nil)
+    refute game.teams_present?
+  end
+
   test "game must have field if it has a start_time" do
     game = games(:swift_goose)
     game.update_attributes(field: nil)

@@ -12,6 +12,12 @@ class BracketTest < ActiveSupport::TestCase
     assert Bracket.types.include? 'single_elimination_4'
   end
 
+  test "bracket_uids_for_round returns the uids for the given round" do
+    type = 'single_elimination_8'
+    bracket = Bracket.create(tournament: @tournament, bracket_type: type)
+    assert_equal ['q1', 'q2', 'q3', 'q4'], bracket.bracket_uids_for_round(1)
+  end
+
   test "bracket creates all required games" do
     type = 'single_elimination_8'
 

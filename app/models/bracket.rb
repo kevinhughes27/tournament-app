@@ -25,6 +25,10 @@ class Bracket < ActiveRecord::Base
     @template ||= load_template
   end
 
+  def bracket_uids_for_round(round)
+    template['games'].map{ |g| g['uid'] if g['round'] == round }.compact
+  end
+
   # assumes teams are sorted by seed
   # can't sort here for re-seed
   def seed(teams, round = 1)

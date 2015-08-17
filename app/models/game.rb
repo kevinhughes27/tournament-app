@@ -15,6 +15,8 @@ class Game < ActiveRecord::Base
   validates_presence_of :field,      if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
 
+  validates_numericality_of :home_score, :away_score
+
   after_save :update_bracket
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
@@ -28,11 +30,15 @@ class Game < ActiveRecord::Base
   end
 
   def name
-    if home.present? && away.present?
+    if teams_present?
       "#{home.name} vs #{away.name}"
     else
       "#{bracket.division} #{bracket_uid} (#{bracket_top} vs #{bracket_bottom})"
     end
+  end
+
+  def teams_present?
+    home.present? && away.present?
   end
 
   def unassigned?
