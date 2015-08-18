@@ -20,7 +20,8 @@ class Admin::TeamsController < AdminController
       :email,
       :sms,
       :twitter,
-      :division
+      :division,
+      :seed
     ])
     @teams_params[:teams] ||= []
     @teams_params[:teams].each{ |t| t[1][:tournament_id] = @tournament.id }
