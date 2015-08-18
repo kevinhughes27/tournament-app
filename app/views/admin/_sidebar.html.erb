@@ -46,14 +46,6 @@
 
     <li>
       <% if @tournament.teams.present? %>
-        <%= link_to 'Seeding', admin_tournament_seeding_index_path(@tournament) %>
-      <% else %>
-        Seeding
-      <% end %>
-    </li>
-
-    <li>
-      <% if @tournament.teams.present? %>
         <%= link_to 'Brackets', admin_tournament_brackets_path(@tournament) %>
       <% else %>
         Brackets

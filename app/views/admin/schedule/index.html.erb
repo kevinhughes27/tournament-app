@@ -40,9 +40,9 @@
         <tbody>
           <% @times.each_with_index do |time, index| %>
             <tr>
-              <td class="time-input">
-                <div class="time-input">
-                  <input type="text" class="datetimepicker form-control" value="<%= time_for_datetimepicker(time) %>" bind-event-blur="timeUpdated(event)">
+              <td class="td-input">
+                <div class="td-input">
+                  <input type="text" class="td-input datetimepicker form-control" value="<%= time_for_datetimepicker(time) %>" bind-event-blur="timeUpdated(event)">
                 <div>
               </td>
               <% @fields.each do |field| %>

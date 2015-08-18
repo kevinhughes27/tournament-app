@@ -1,39 +1,47 @@
 boat:
   tournament: noborders
+  division: Open
   name: BOAT
   seed: 6
 
 goose:
   tournament: noborders
+  division: Open
   name: Goose
   seed: 7
 
 swift:
   tournament: noborders
+  division: Open
   name: Swift
   seed: 8
 
 pheonix:
   tournament: noborders
+  division: Open
   name: Pheonix
   seed: 1
 
 nsom:
   tournament: noborders
+  division: Open
   name: NSOM
   seed : 2
 
 maverick:
   tournament: noborders
+  division: Open
   name: Maverick
   seed: 3
 
 shrike:
   tournament: noborders
+  division: Open
   name: Shrike
   seed: 4
 
 the_forgotten:
   tournament: noborders
+  division: Open
   name: The Forgotten
   seed: 5
