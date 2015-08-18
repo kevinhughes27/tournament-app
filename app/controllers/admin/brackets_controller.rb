@@ -10,7 +10,7 @@ class Admin::BracketsController < AdminController
     @bracket = Bracket.create(bracket_params)
 
     if @bracket.persisted?
-      render partial: 'form', locals: {bracket: @bracket}
+      render partial: 'bracket', locals: {bracket: @bracket}
     else
       render json: { errors: @bracket.errors.full_messages }, status: :unprocessible_entity
     end
@@ -20,10 +20,20 @@ class Admin::BracketsController < AdminController
     @bracket = Bracket.find(params[:id])
 
     if @bracket.update_attributes(bracket_params)
-      render partial: 'form', locals: {bracket: @bracket}
+      render partial: 'bracket', locals: {bracket: @bracket}
     else
       render json: { errors: @bracket.errors.full_messages }, status: :unprocessible_entity
     end
+  end
+
+  def update_seeds
+    @teams = Team.where( id: params[:team_ids] )
+
+    @teams.each_with_index do |team, idx|
+      team.update_attribute( :seed, params[:seeds][idx] )
+    end
+
+    render partial: 'seeding', locals: {division: @teams[0].division, teams: @teams}
   end
 
   def seed

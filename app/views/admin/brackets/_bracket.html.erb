@@ -1,7 +1,7 @@
 <% refresh_key = "#{bracket.division}-bracket" %>
 
 <div id="<%= refresh_key %>">
-  <h3><%= bracket.division %></h3>
+  <h4>Bracket settings</h4>
 
   <% method = bracket.id ? :put : :post %>
   <% url = bracket.id ? admin_tournament_bracket_path(@tournament, bracket) :  admin_tournament_brackets_path(@tournament) %>

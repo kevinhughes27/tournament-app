@@ -17,15 +17,12 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :seeding do
-        collection do
-          put :update
-        end
-      end
-
       resources :brackets do
         member do
           put :seed
+        end
+        collection do
+          put :update_seeds
         end
       end
 

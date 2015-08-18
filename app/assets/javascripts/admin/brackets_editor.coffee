@@ -2,6 +2,22 @@ class Admin.BracketEditor
 
   constructor: ->
 
+  updateSeeds: (form, refreshKey) ->
+    @_startLoading(form)
+    data = $(form).serialize()
+
+    $.ajax
+      type: form.method
+      url: form.action
+      data: data
+      success: (response) =>
+        Turbolinks.replace(response, change: [refreshKey])
+        @_finishLoading(form)
+        Admin.Flash.notice('Seeding update')
+      error: (response) =>
+        @_finishLoading(form)
+        Admin.Flash.error(response.responseJSON.errors.join(', '))
+
   saveBracket: (form, refreshKey) ->
     @_startLoading(form)
     data = $(form).serialize()

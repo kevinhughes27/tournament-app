@@ -81,7 +81,7 @@ class BracketTest < ActiveSupport::TestCase
     round2_games = bracket.games.where(bracket_uid: ['s1', 's2', 'c3', 'c4'])
 
     round1_games.each do |game|
-      game.update_score(15,13)
+      game.confirm_score(15,13)
     end
 
     assert = round2_games.all?{ |g| g.teams_present? }

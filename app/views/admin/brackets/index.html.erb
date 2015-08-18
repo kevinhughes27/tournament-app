@@ -4,8 +4,35 @@
   context='bracketEditor'>
   <h1>Brackets</h1>
 
-    <% @brackets.each do |bracket| %>
-      <%= render 'form', bracket: bracket %>
+  <%= render 'shared/set_errors', set: @teams %>
+
+  <% team_groups = @teams.group_by{ |t| t.division } %>
+  <ul class="nav nav-tabs" style="padding-top: 20px;">
+    <% team_groups.each_with_index do |(division, teams), idx| %>
+      <li class="<%= 'active' if idx == 0 %>">
+        <a href="#<%= division_html_id(division) %>" data-toggle="tab"><%= division %></a>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="tab-content" style="padding-top: 30px;">
+
+    <% team_groups.each_with_index do |(division, teams), idx| %>
+      <div class="tab-pane <%= 'active' if idx == 0 %>" id="<%= division_html_id(division) %>">
+        <div class="col-md-3 col-md-offset-1">
+          <%= render 'seeding', division: division, teams: teams %>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+          <%= render 'bracket', bracket: @brackets.detect{ |b| b.division == division } %>
+        </div>
+      </div>
     <% end %>
 
+  </div>
 </div>
+
+<script>
+  $( document ).ready(function() {
+    $('.nav-tabs').stickyTabs();
+  });
+</script>
