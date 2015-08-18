@@ -1,17 +1,20 @@
-<table class="table table-bordered table-striped table-hover table-condensed editable-table">
+<table class="table table-bordered table-striped table-hover table-condensed">
   <thead>
     <tr>
-      <th class="hide">id</th>
       <th>Team</th>
-      <th data-override="seed">seed</th>
+      <th>seed</th>
     </tr>
   </thead>
   <tbody>
     <% teams.sort_by{ |t| t.seed.to_i }.each do |team| %>
       <tr>
-        <td class="hide"><%= team.id %></td>
+        <%= hidden_field_tag 'team_ids[]', team.id %>
         <td><%= team.name %></td>
-        <td><%= team.seed %></td>
+        <td class="td-input">
+          <div class="td-input">
+            <%= number_field_tag 'seeds[]', team.seed, class: 'td-input form-control' %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>

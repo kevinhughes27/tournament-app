@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
   validates_presence_of :field,      if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
 
-  validates_numericality_of :home_score, :away_score
+  validates_numericality_of :home_score, :away_score, allow_blank: true
 
   after_save :update_bracket
 

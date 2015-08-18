@@ -43,7 +43,10 @@ class Bracket < ActiveRecord::Base
     games.each do |game|
       game.home = teams[ game.bracket_top.to_i - 1 ]
       game.away = teams[ game.bracket_bottom.to_i - 1 ]
-      game.save
+      game.home_score = nil
+      game.away_score = nil
+      game.score_confirmed = false
+      game.save!
     end
 
     reset(round)
@@ -56,7 +59,10 @@ class Bracket < ActiveRecord::Base
     games.each do |game|
       game.home = nil
       game.away = nil
-      game.save
+      game.home_score = nil
+      game.away_score = nil
+      game.score_confirmed = false
+      game.save!
     end
   end
 
