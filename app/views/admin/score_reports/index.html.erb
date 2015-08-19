@@ -1,4 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid" define='{
+  scoreReportsTable: new Admin.ScoreReportsTable(
+  )}'
+  context='scoreReportsTable'>
   <h1>Score Reports</h1>
 
   <div id="score-reports">
@@ -9,7 +12,7 @@
       <input class="search form-control" placeholder="Search" />
     </div>
 
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover table-condensed">
       <thead>
         <tr>
           <th class="sort-header">
@@ -23,7 +26,7 @@
             <a href="#" class="sort" data-sort="submitted-at">Submitted at
           </th>
           <th class="sort-header">
-            <a href="#" class="sort" data-sort="submitted-at">
+            <a href="#" class="sort" data-sort="confirmed">
               Confirmed
               <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" data-container="body" data-html="true"
               title="<p>the games score has been confirmed (not neccessarily that this report is.)</p>
@@ -49,18 +52,23 @@
 
 <script>
   $( document ).ready(function() {
-    var reportList = new List('score-reports', {
+    reportList = new List('score-reports', {
       valueNames: [
         'name',
         'score',
         'submitted-by',
         'submitted-at',
-        'comments',
-        'confirmed'
+        'confirmed',
+        'comments'
       ]
     });
-    reportList.sort('submitted-at', { order: "desc" });
 
     $("[data-toggle=tooltip]").tooltip();
+  });
+</script>
+
+<script data-turbolinks-eval=false>
+  $( document ).ready(function() {
+    reportList.sort('submitted-at', { order: "desc" });
   });
 </script>

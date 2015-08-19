@@ -17,7 +17,7 @@ namespace :score_reports do
 
     games.each do |game|
       score = ScoreGenerator.new.score
-      ScoreReport.create!(
+      report = ScoreReport.create!(
         tournament: tournament,
         game: game,
         team: game.home,
@@ -30,6 +30,7 @@ namespace :score_reports do
         attitude: 3,
         communication: 3,
       )
+      puts report
     end
   end
 end
