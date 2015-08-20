@@ -3,8 +3,6 @@ class ScoreReport < ActiveRecord::Base
   belongs_to :game
   belongs_to :team
 
-  delegate :name, to: :game
-
   validates_presence_of :tournament,
                         :game,
                         :team,

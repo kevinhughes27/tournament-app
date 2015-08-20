@@ -1,14 +1,14 @@
 <tr id="score-reports:<%= report.id %>">
-  <td class="name"><%= report.name %></td>
+  <td class="name"><%= game.name %></td>
   <td class="score"><%= report.score %></td>
   <td class="submitted-by" data-toggle="tooltip" data-placement="top" data-container="body" title="fingerprint: <%= report.submitter_fingerprint %>">
     <%= report.submitted_by %>
   </td>
   <td class="submitted-at"><%= report.created_at.strftime("%A %l:%M %P") %></td>
   <td>
-    <span class="confirmed hidden"><%= report.game.unconfirmed? %></span>
+    <span class="confirmed hidden"><%= game.unconfirmed? %></span>
 
-    <% if report.game.unconfirmed? %>
+    <% if game.unconfirmed? %>
       <%= form_tag confirm_admin_tournament_score_report_path(@tournament, report),
           method: :put,
           remote: true,

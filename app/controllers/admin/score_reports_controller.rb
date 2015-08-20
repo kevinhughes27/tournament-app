@@ -1,7 +1,7 @@
 class Admin::ScoreReportsController < AdminController
 
   def index
-    @score_reports = @tournament.score_reports.includes(game: [:home, :away]).order(:game_id)
+    @games = @tournament.games.includes(:score_reports, :home, :away)
     render :index
   end
 

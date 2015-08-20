@@ -38,12 +38,15 @@
         </tr>
       </thead>
       <tbody class="list">
-        <% @score_reports.sort_by{ |r| r.game.confirmed? ? 1 : 0 }.each do |report| %>
-          <%= render 'score_report', report: report %>
+        <% @games.each do |game| %>
+          <% game.score_reports.each do |report| %>
+            <%= render 'score_report', game: game, report: report %>
+          <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
+
 </div>
 
 <script>
