@@ -14,6 +14,10 @@ class ScoreReport < ActiveRecord::Base
 
   validates_numericality_of :team_score, :opponent_score
 
+  def submitted_by
+    team.name
+  end
+
   def score
     "#{home_score} - #{away_score}"
   end
@@ -34,8 +38,12 @@ class ScoreReport < ActiveRecord::Base
     end
   end
 
-  def submitted_by
-    team.name
+  def sotg_score
+    [rules_knowledge, fouls, fairness, attitude, communication].join("-")
+  end
+
+  def sotg_warning?
+    [rules_knowledge, fouls, fairness, attitude, communication].any?{ |v| v <= 2 }
   end
 
 end
