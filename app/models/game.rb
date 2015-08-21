@@ -61,7 +61,21 @@ class Game < ActiveRecord::Base
     bracket_top.match(/\A\d+\z/) && bracket_bottom.match(/\A\d+\z/)
   end
 
-  def confirm_score(home_score, away_score)
+  def scores_present?
+    home_score.present? && away_score.present?
+  end
+
+  def update_score(home_score, away_score)
+    if scores_present?
+      adjust_score(home_score, away_score)
+    else
+      set_score(home_score, away_score)
+    end
+  end
+
+  private
+
+  def set_score(home_score, away_score)
     update_attributes!(
       home_score: home_score,
       away_score: away_score,
@@ -81,7 +95,7 @@ class Game < ActiveRecord::Base
     away.save!
   end
 
-  def update_score(home_score, away_score)
+  def adjust_score(home_score, away_score)
     winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
     home_delta = home_score - self.home_score
     away_delta = away_score - self.away_score
@@ -106,8 +120,6 @@ class Game < ActiveRecord::Base
     home.save!
     away.save!
   end
-
-  private
 
   def update_bracket
     return unless self.score_confirmed
