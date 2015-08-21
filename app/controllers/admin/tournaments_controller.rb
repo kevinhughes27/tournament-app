@@ -3,12 +3,6 @@ class Admin::TournamentsController < AdminController
 
   def index
     @tournaments = Tournament.all
-    @map = @tournament.build_map(
-      lat: 56.0,
-      long: -96.0,
-      zoom: 4
-    )
-
     render :index, layout: 'application'
   end
 
@@ -18,6 +12,11 @@ class Admin::TournamentsController < AdminController
 
   def new
     @tournament = Tournament.new
+    @map = @tournament.build_map(
+      lat: 56.0,
+      long: -96.0,
+      zoom: 4
+    )
   end
 
   def create
