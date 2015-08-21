@@ -20,16 +20,6 @@
 
     <li>
       <% if @tournament.map.try(:persisted?) %>
-        <%= link_to 'Map', admin_tournament_map_path(@tournament, @tournament.map) %>
-      <% elsif @tournament.persisted? %>
-        <%= link_to 'Map', new_admin_tournament_map_path(@tournament) %>
-      <% else %>
-        Map
-      <% end %>
-    </li>
-
-    <li>
-      <% if @tournament.map.try(:persisted?) %>
         <%= link_to 'Fields', admin_tournament_fields_path(@tournament) %>
       <% else %>
         Fields

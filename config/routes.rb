@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :tournaments, path: '' do
 
-      resources :maps
-
       resources :fields
 
       resources :teams do

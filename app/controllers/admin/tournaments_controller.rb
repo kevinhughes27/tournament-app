@@ -3,10 +3,17 @@ class Admin::TournamentsController < AdminController
 
   def index
     @tournaments = Tournament.all
+    @map = @tournament.build_map(
+      lat: 56.0,
+      long: -96.0,
+      zoom: 4
+    )
+
     render :index, layout: 'application'
   end
 
   def show
+    @map = @tournament.map
   end
 
   def new

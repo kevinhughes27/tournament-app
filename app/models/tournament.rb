@@ -3,6 +3,8 @@ class Tournament < ActiveRecord::Base
   friendly_id :handle
 
   has_one :map, dependent: :destroy
+  accepts_nested_attributes_for :map
+
   has_many :fields, dependent: :destroy
   has_many :teams, dependent: :destroy
   has_many :brackets, dependent: :destroy
