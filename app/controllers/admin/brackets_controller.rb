@@ -8,9 +8,10 @@ class Admin::BracketsController < AdminController
 
   def create
     @bracket = Bracket.create(bracket_params)
+    @num_teams = Team.where(division: @bracket.division).count
 
     if @bracket.persisted?
-      render partial: 'bracket', locals: {bracket: @bracket}
+      render partial: 'bracket', locals: {num_teams: @num_teams, bracket: @bracket}
     else
       render json: { errors: @bracket.errors.full_messages }, status: :unprocessible_entity
     end
@@ -18,9 +19,10 @@ class Admin::BracketsController < AdminController
 
   def update
     @bracket = Bracket.find(params[:id])
+    @num_teams = Team.where(division: @bracket.division).count
 
     if @bracket.update_attributes(bracket_params)
-      render partial: 'bracket', locals: {bracket: @bracket}
+      render partial: 'bracket', locals: {num_teams: @num_teams, bracket: @bracket}
     else
       render json: { errors: @bracket.errors.full_messages }, status: :unprocessible_entity
     end

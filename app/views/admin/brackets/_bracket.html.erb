@@ -15,7 +15,7 @@
 
     <%= form.hidden_field :tournament_id %>
     <%= form.hidden_field :division %>
-    <%= bracket_select form, class: 'form-control' %>
+    <%= form.select :bracket_type, bracket_options(num_teams), {}, class: 'form-control', bind: "bracket#{bracket.id}selected" %>
 
     <% if bracket.id %>
       <button type="submit" class="btn btn-default">Update</button>
@@ -28,5 +28,11 @@
     <% else %>
       <a href="#" class="btn btn-default disabled">seed</a>
     <% end %>
+  <% end %>
+
+  <% BracketDb.templates_for(num_teams).each do |name, template| %>
+    <code bind-show="'<%= name %>' == bracket<%= bracket.id %>selected">
+      <pre><%= pretty_print_template(template) %></pre>
+    </code>
   <% end %>
 </div>

@@ -1,6 +1,4 @@
 class Bracket < ActiveRecord::Base
-  TEMPLATE_PATH = Rails.root.join("db/brackets").freeze
-
   belongs_to :tournament
   has_many :games, dependent: :destroy
 
@@ -11,19 +9,8 @@ class Bracket < ActiveRecord::Base
   class InvalidSeedRound < StandardError; end
   class AmbiguousSeedList < StandardError; end
 
-  class << self
-    #TODO return num_teams so I can filter the selection
-    def types
-      @types ||= begin
-        types = Dir.entries(TEMPLATE_PATH)
-        types.reject!{ |f| f == "." || f == ".."}
-        types.map{ |t| t.gsub('.json', '') }
-      end
-    end
-  end
-
   def template
-    @template ||= load_template
+    @template ||= BracketDb[bracket_type]
   end
 
   def bracket_uids_for_round(round)
@@ -82,13 +69,7 @@ class Bracket < ActiveRecord::Base
   def update_games
     return unless self.bracket_type_changed?
     self.games.destroy_all
-    @template = load_template
+    @template = BracketDb[bracket_type]
     create_games
-  end
-
-  def load_template
-    path = File.join(TEMPLATE_PATH, "#{bracket_type}.json")
-    file = File.read(path)
-    JSON.parse(file).with_indifferent_access
   end
 end

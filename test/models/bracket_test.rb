@@ -7,11 +7,6 @@ class BracketTest < ActiveSupport::TestCase
     @teams = @tournament.teams
   end
 
-  test "types returns all templates" do
-    assert Bracket.types.include? 'single_elimination_8'
-    assert Bracket.types.include? 'single_elimination_4'
-  end
-
   test "bracket_uids_for_round returns the uids for the given round" do
     type = 'single_elimination_8'
     bracket = Bracket.create(tournament: @tournament, bracket_type: type)
@@ -20,7 +15,6 @@ class BracketTest < ActiveSupport::TestCase
 
   test "bracket creates all required games" do
     type = 'single_elimination_8'
-
     assert_difference "Game.count", +12 do
       Bracket.create(tournament: @tournament, bracket_type: type)
     end
@@ -37,7 +31,7 @@ class BracketTest < ActiveSupport::TestCase
 
   test "bracket creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
-    template = load_template(type)
+    template = BracketDb[type]
     template_game = template[:games].first
 
     bracket = Bracket.create(tournament: @tournament, bracket_type: type)
@@ -94,13 +88,5 @@ class BracketTest < ActiveSupport::TestCase
     assert_equal 12, bracket.games.count
     bracket.update_attributes(bracket_type: 'single_elimination_4')
     assert_equal 4, bracket.games.count
-  end
-
-  private
-
-  def load_template(type)
-    path = Rails.root.join("db/brackets/#{type}.json")
-    file = File.read(path)
-    JSON.parse(file).with_indifferent_access
   end
 end

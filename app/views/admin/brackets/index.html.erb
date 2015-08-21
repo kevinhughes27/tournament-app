@@ -23,7 +23,7 @@
           <%= render 'seeding', division: division, teams: teams %>
         </div>
         <div class="col-md-5 col-md-offset-1">
-          <%= render 'bracket', bracket: @brackets.detect{ |b| b.division == division } %>
+          <%= render 'bracket', num_teams: teams.size, bracket: @brackets.detect{ |b| b.division == division } %>
         </div>
       </div>
     <% end %>
