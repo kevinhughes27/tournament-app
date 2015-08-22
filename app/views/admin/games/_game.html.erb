@@ -36,7 +36,31 @@
     </div>
   </td>
 
-  <td class="col-md-2 score"><%= game.score %></td>
+  <td class="col-md-2 score">
+    <a href="#score-form-<%= game.id %>" data-placement="bottom" data-toggle="popover-x">
+      <%= game.score %>
+    </a>
+
+    <div id="score-form-<%= game.id %>" class="popover popover-default">
+      <div class="arrow"></div>
+      <h3 class="popover-title">
+        <span class="close" data-dismiss="popover-x">&times;</span>
+        Update score
+      </h3>
+      <div class="popover-content">
+        <%= form_tag admin_tournament_game_path(@tournament, game),
+            method: :put,
+            remote: true,
+            class: 'form-inline',
+            'bind-event-submit' => "updateScore(this)" do |form| %>
+          <%= number_field_tag "home_score", game.home_score, class: "form-control score-input" %>
+          &mdash;
+          <%= number_field_tag "away_score", game.away_score, class: "form-control score-input" %>
+          <%= submit_tag "Save", class: "btn btn-default" %>
+        <% end %>
+      </div>
+    </div>
+  </td>
 
   <td class="col-md-2">
     <span class="confirmed hidden"><%= game.unconfirmed? %></span>

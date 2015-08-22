@@ -2,7 +2,7 @@ class Admin.GamesTable
 
   constructor: ->
 
-  updateScore: (form, refreshKey) ->
+  updateScore: (form) ->
     @_startLoading(form)
     data = $(form).serialize()
 
@@ -10,15 +10,12 @@ class Admin.GamesTable
       type: form.method
       url: form.action
       data: data
-      dataType: 'json'
       success: (response) =>
-        node = $(form).parents('td').find('a')
-        node.text("#{response.home_score} - #{response.away_score}")
+        eval(response)
         @_finishLoading(form)
         Admin.Flash.notice('Score updated')
-        popover = $(form).parents('.popover')
-        popover.popoverX('hide')
       error: (response) =>
+        eval(response)
         @_finishLoading(form)
         Admin.Flash.error('Error updating score')
 

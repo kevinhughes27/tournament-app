@@ -1,10 +1,10 @@
 <div class="container-fluid" define='{
-  scoreReportsTable: new Admin.ScoreReportsTable(
+  gamesTable: new Admin.GamesTable(
   )}'
-  context='scoreReportsTable'>
-  <h1>Score Reports</h1>
+  context='gamesTable'>
+  <h1>Games</h1>
 
-  <div id="score-reports">
+  <div id="games">
     <div class="input-group" style="padding-bottom: 15px;">
       <div class="input-group-addon">
         <i class="fa fa-search"></i>
@@ -38,7 +38,7 @@
 
 <script>
   $( document ).ready(function() {
-    reportList = new List('score-reports', {
+    gamesList = new List('games', {
       valueNames: [
         'name',
         'score',
@@ -55,6 +55,6 @@
 
 <script data-turbolinks-eval=false>
   $( document ).ready(function() {
-    reportList.sort('submitted-at', { order: "desc" });
+    gamesList.sort('submitted-at', { order: "desc" });
   });
 </script>

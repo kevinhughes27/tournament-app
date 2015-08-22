@@ -14,7 +14,7 @@
     <%= form_tag admin_tournament_game_path(@tournament, game),
         method: :put,
         remote: true,
-        'bind-event-submit' => "confirmScore(this)" do |form| %>
+        'bind-event-submit' => "updateScore(this)" do |form| %>
       <%= hidden_field_tag 'home_score', report.home_score %>
       <%= hidden_field_tag 'away_score', report.away_score %>
       <%= submit_tag 'Accept', class: 'btn btn-xs' %>
