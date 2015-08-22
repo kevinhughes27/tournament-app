@@ -60,14 +60,6 @@
       <% end %>
     </li>
 
-    <li>
-      <% if @tournament.games.present? %>
-        <%= link_to 'Score Reports', admin_tournament_score_reports_path(@tournament) %>
-      <% else %>
-        Score Reports
-      <% end %>
-    </li>
-
     <hr>
 
     <li><%= link_to 'App', @tournament.app_link, target: '_blank' %></li>

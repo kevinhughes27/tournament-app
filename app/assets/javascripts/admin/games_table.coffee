@@ -1,8 +1,22 @@
 class Admin.GamesTable
 
   constructor: ->
+    Twine.afterBound =>
+      @_initGamesList()
 
-  updateScore: (form, refreshKey) ->
+  _initGamesList: ->
+    @gamesList = new List('games', {
+      valueNames: [
+        'name',
+        'score',
+        'submitted-by',
+        'submitted-at',
+        'confirmed',
+        'comments'
+      ]
+    })
+
+  updateScore: (form) ->
     @_startLoading(form)
     data = $(form).serialize()
 
@@ -10,15 +24,12 @@ class Admin.GamesTable
       type: form.method
       url: form.action
       data: data
-      dataType: 'json'
       success: (response) =>
-        node = $(form).parents('td').find('a')
-        node.text("#{response.home_score} - #{response.away_score}")
+        eval(response)
         @_finishLoading(form)
         Admin.Flash.notice('Score updated')
-        popover = $(form).parents('.popover')
-        popover.popoverX('hide')
       error: (response) =>
+        eval(response)
         @_finishLoading(form)
         Admin.Flash.error('Error updating score')
 

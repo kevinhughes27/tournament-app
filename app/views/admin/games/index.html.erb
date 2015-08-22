@@ -12,31 +12,34 @@
       <input class="search form-control" placeholder="Search" />
     </div>
 
-    <table class="table table-hover">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Field</th>
+          <th class="sort-header">
+            <a href="#" class="sort" data-sort="name">Game</a>
+          </th>
           <th>Score</th>
+          <th class="sort-header">
+            <a href="#" class="sort" data-sort="confirmed">
+              Confirmed
+            </a>
+          </th>
         </tr>
       </thead>
-
       <tbody class="list">
-        <% @games.group_by{|g| g.start_time }.each do |time, games| %>
-          <%= render "time_row", time: time %>
-          <% games.each do |game| %>
-            <%= render 'game', tournament: @tournament, game: game %>
-          <% end %>
+        <% @games.each do |game| %>
+          <%= render 'game', game: game %>
         <% end %>
       </tbody>
     </table>
   </div>
+
 </div>
 
-<script>
-  $( document ).ready(function() {
-    var gamesList = new List('games', {
-      valueNames: ['name', 'field', 'score']
+<% content_for :javascript do %>
+  <script>
+    $( document ).ready(function() {
+      $("[data-toggle=tooltip]").tooltip();
     });
-  });
-</script>
+  </script>
+<% end %>

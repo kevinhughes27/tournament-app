@@ -27,17 +27,7 @@ Rails.application.routes.draw do
       get '/schedule', to: 'schedule#index'
       post '/schedule', to: 'schedule#update'
 
-      resources :games do
-        member do
-          put :update_score
-        end
-      end
-
-      resources :score_reports do
-        member do
-          put :confirm
-        end
-      end
+      resources :games
 
     end
   end
