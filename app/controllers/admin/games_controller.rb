@@ -16,7 +16,7 @@ class Admin::GamesController < AdminController
     end
 
     @games = [game]
-    render :index, turbolinks: true, change: "games:#{game.id}"
+    render :index, turbolinks: true, change: "game:#{game.id}"
   end
 
 end

@@ -1,6 +1,20 @@
 class Admin.GamesTable
 
   constructor: ->
+    Twine.afterBound =>
+      @_initGamesList()
+
+  _initGamesList: ->
+    @gamesList = new List('games', {
+      valueNames: [
+        'name',
+        'score',
+        'submitted-by',
+        'submitted-at',
+        'confirmed',
+        'comments'
+      ]
+    })
 
   updateScore: (form) ->
     @_startLoading(form)

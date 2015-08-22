@@ -36,25 +36,10 @@
 
 </div>
 
-<script>
-  $( document ).ready(function() {
-    gamesList = new List('games', {
-      valueNames: [
-        'name',
-        'score',
-        'submitted-by',
-        'submitted-at',
-        'confirmed',
-        'comments'
-      ]
+<% content_for :javascript do %>
+  <script>
+    $( document ).ready(function() {
+      $("[data-toggle=tooltip]").tooltip();
     });
-
-    $("[data-toggle=tooltip]").tooltip();
-  });
-</script>
-
-<script data-turbolinks-eval=false>
-  $( document ).ready(function() {
-    gamesList.sort('submitted-at', { order: "desc" });
-  });
-</script>
+  </script>
+<% end %>
