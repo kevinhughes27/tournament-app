@@ -4,3 +4,8 @@ swift_goose:
   team: swift
   team_score: 15
   opponent_score: 11
+  rules_knowledge: 3
+  fouls: 3
+  fairness: 3
+  attitude: 3
+  communication: 3
