@@ -48,7 +48,7 @@
         Update score
       </h3>
       <div class="popover-content">
-        <%= form_tag admin_tournament_game_path(@tournament, game),
+        <%= form_tag tournament_admin_game_path(@tournament, game),
             method: :put,
             remote: true,
             class: 'form-inline',

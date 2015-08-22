@@ -3,7 +3,7 @@
 <div id="<%= refresh_key %>">
   <h4>Seeding</h4>
 
-  <%= form_tag update_seeds_admin_tournament_brackets_path(@tournament),
+  <%= form_tag update_seeds_tournament_admin_brackets_path(@tournament),
       method: :put,
       'bind-event-submit' => "updateSeeds(this, '#{refresh_key}')" do %>
 

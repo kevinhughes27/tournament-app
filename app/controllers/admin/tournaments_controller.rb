@@ -23,7 +23,7 @@ class Admin::TournamentsController < AdminController
     @tournament = Tournament.new(tournament_params)
 
     if @tournament.save
-      redirect_to new_admin_tournament_map_path(@tournament), notice: 'Tournament was successfully created.'
+      redirect_to new_tournament_admin_map_path(@tournament), notice: 'Tournament was successfully created.'
     else
       render :new
     end

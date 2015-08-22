@@ -4,8 +4,9 @@ Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
-  namespace :admin do
-    resources :tournaments, path: '' do
+  resources :tournaments, path: '', except: [:show] do
+    namespace :admin do
+      get "/" => "tournaments#show"
 
       resources :fields
 
@@ -28,10 +29,8 @@ Rails.application.routes.draw do
       post '/schedule', to: 'schedule#update'
 
       resources :games
-
     end
   end
-
   get '*tournament_id' => 'app#show'
   post '*tournament_id/submit_score' => 'app#score_submit', as: 'app_score_submit'
 end

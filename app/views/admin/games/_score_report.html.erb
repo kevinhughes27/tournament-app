@@ -11,7 +11,7 @@
   </td>
   <td class="comments"><%= report.comments %></td>
   <td>
-    <%= form_tag admin_tournament_game_path(@tournament, game),
+    <%= form_tag tournament_admin_game_path(@tournament, game),
         method: :put,
         remote: true,
         'bind-event-submit' => "updateScore(this)" do |form| %>

@@ -2,7 +2,7 @@
   <h1>Teams</h1>
 
   <%= render 'shared/set_errors', set: @teams %>
-  <%= form_tag admin_tournament_teams_path(@tournament), "bind-event-submit" => "teamTable.save(this)" do %>
+  <%= form_tag tournament_admin_teams_path(@tournament), "bind-event-submit" => "teamTable.save(this)" do %>
     <table class="table table-bordered table-striped table-hover table-condensed editable-table">
       <thead>
         <tr>
