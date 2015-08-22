@@ -1,7 +1,9 @@
 <tr id="score-reports:<%= report.id %>">
   <td class="score"><%= report.score %></td>
-  <td class="submitted-by" data-toggle="tooltip" data-placement="top" data-container="body" title="fingerprint: <%= report.submitter_fingerprint %>">
-    <%= report.submitted_by %>
+  <td class="submitted-by">
+    <span data-toggle="tooltip" data-placement="right" data-container="body" title="fingerprint: <%= report.submitter_fingerprint %>">
+      <%= report.submitted_by %>
+    </span>
   </td>
   <td class="submitted-at"><%= report.created_at.strftime("%A %l:%M %P") %></td>
   <td bind-class="{danger: <%= report.sotg_warning? %>}">
@@ -9,7 +11,7 @@
   </td>
   <td class="comments"><%= report.comments %></td>
   <td>
-    <%= form_tag confirm_admin_tournament_score_report_path(@tournament, report),
+    <%= form_tag admin_tournament_game_path(@tournament, game),
         method: :put,
         remote: true,
         'bind-event-submit' => "confirmScore(this)" do |form| %>
