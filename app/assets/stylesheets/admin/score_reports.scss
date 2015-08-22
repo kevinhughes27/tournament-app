@@ -1,0 +1,11 @@
+.table-row {
+  height: 40px;
+  &:hover {
+    background-color: $table-bg-hover;
+  }
+}
+
+.table-cell {
+  height: 100%;
+  outline: 1px solid $table-border-color;
+}
