@@ -15,18 +15,19 @@
     <div class="box-body">
 
       <% team_groups = @teams.group_by{ |t| t.division } %>
-      <ul class="nav nav-tabs">
-        <% team_groups.each_with_index do |(division, teams), idx| %>
-          <li class="<%= 'active' if idx == 0 %>">
-            <a href="#<%= division_html_id(division) %>" data-toggle="tab"><%= division %></a>
-          </li>
-        <% end %>
-      </ul>
-
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <% team_groups.each_with_index do |(division, teams), idx| %>
+            <li class="<%= 'active' if idx == 0 %>">
+              <a href="#<%= division_html_id(division) %>" data-toggle="tab"><%= division %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
       <div class="tab-content">
         <% team_groups.each_with_index do |(division, teams), idx| %>
           <div class="tab-pane <%= 'active' if idx == 0 %>" id="<%= division_html_id(division) %>">
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
               <%= render 'seeding', division: division, teams: teams %>
             </div>
             <div class="col-md-5 col-md-offset-1">
@@ -35,7 +36,6 @@
           </div>
         <% end %>
       </div>
-
     </div>
   </div>
 </section>
