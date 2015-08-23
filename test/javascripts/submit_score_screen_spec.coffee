@@ -9,6 +9,7 @@ describe 'SubmitScoreScreen', ->
 
     screen = new App.SubmitScoreScreen(app)
     spyOn(Twine, 'refresh')
+    spyOn(Twine, 'refreshImmediately')
 
   it "show sets active and calls Twine.refresh", ->
     expect(screen.active).toBe(false)
@@ -99,7 +100,7 @@ describe 'SubmitScoreScreen', ->
     expect(screen.formActive).toBe(false)
     expect(Twine.refresh).toHaveBeenCalled()
 
-  it "submitForm makes an ajax request and closes the form", ->
+  it "submitForm makes an ajax request and shows success when done", ->
     spyOn($, 'ajax').and.callFake( (params) -> params.complete({}) )
     spyOn(screen, '_resetForm')
     screen.active = true
@@ -107,7 +108,11 @@ describe 'SubmitScoreScreen', ->
 
     screen.submitScore({})
 
-    expect(screen.active).toBe(false)
-    expect(screen.formActive).toBe(false)
-    expect(screen._resetForm).toHaveBeenCalled()
-    expect(Twine.refresh).toHaveBeenCalled()
+    expect(screen.successActive).toBe(true)
+    expect(Twine.refreshImmediately).toHaveBeenCalled()
+
+    delay 1000, =>
+      expect(screen.active).toBe(false)
+      expect(screen.formActive).toBe(false)
+      expect(screen._resetForm).toHaveBeenCalled()
+      expect(Twine.refresh).toHaveBeenCalled()

@@ -18,9 +18,4 @@ class Admin::TournamentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should show tournament" do
-    get :show, id: @tournament
-    assert_response :success
-  end
-
 end

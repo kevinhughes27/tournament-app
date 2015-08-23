@@ -3,6 +3,7 @@ class App.SubmitScoreScreen
   constructor: (@app) ->
     @active = false
     @formActive = false
+    @successActive = false
 
   show: ->
     @active = true
@@ -49,11 +50,23 @@ class App.SubmitScoreScreen
       type: 'POST'
       data: $(form).serialize()
       complete: =>
-        @active = false
-        @formActive = false
-        @_resetForm(form)
-        Twine.refresh()
+        @showSuccess()
+        delay 1000, =>
+          @active = false
+          @formActive = false
+          @_resetForm(form)
+          Twine.refresh()
 
   _resetForm: (form) ->
     $(form)[0].reset();
     $('div#score-form').scrollTo(0)
+
+  showSuccess: ->
+    @successActive = true
+    Twine.refreshImmediately()
+    $('.success-icon').addClass('bounceIn')
+
+  closeSuccess: ->
+    @successActive = false
+    Twine.refresh()
+    $('.success-icon').removeClass('bounceIn')

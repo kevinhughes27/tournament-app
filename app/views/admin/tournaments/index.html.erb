@@ -15,13 +15,13 @@
       <tr>
       <td><%= tournament.name %></td>
       <td><%= tournament.description %></td>
-      <td><%= link_to 'Show', [:admin, tournament] %></td>
-      <td><%= link_to 'Destroy', [:admin, tournament], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Show', tournament %></td>
+      <td><%= link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
 
   <br>
-  <%= link_to 'New Tournament', new_tournament_admin_path %>
+  <%= link_to 'New Tournament', new_tournament_path %>
 </div>
