@@ -95,6 +95,9 @@ class GameTest < ActiveSupport::TestCase
 
   test "update_score updates the teams wins and points_for (no previous score)" do
     game = games(:swift_goose_no_score)
+    home_pts_for = @home.points_for
+    away_pts_for = @away.points_for
+
     game.expects(:update_bracket).once
     game.update_score(15, 11)
 
@@ -103,12 +106,17 @@ class GameTest < ActiveSupport::TestCase
 
     assert_equal 1, @home.wins
     assert_equal 0, @away.wins
-    assert_equal 17, @home.points_for
-    assert_equal 12, @away.points_for
+    assert_equal home_pts_for + 15, @home.points_for
+    assert_equal away_pts_for + 11, @away.points_for
   end
 
   test "update_score updates the teams wins and points_for" do
     game = games(:swift_goose)
+    home_pts_for = @home.points_for
+    away_pts_for = @away.points_for
+    home_score = game.home_score
+    away_score = game.away_score
+
     game.expects(:update_bracket).once
     game.update_score(14, 12)
 
@@ -117,12 +125,15 @@ class GameTest < ActiveSupport::TestCase
 
     assert_equal 1, @home.wins
     assert_equal 0, @away.wins
-    assert_equal 14, @home.points_for
-    assert_equal 12, @away.points_for
+    assert_equal home_pts_for + 14 - home_score, @home.points_for
+    assert_equal away_pts_for + 12 - away_score, @away.points_for
   end
 
   test "update_score can flip the winner" do
     game = Game.create(tournament: @tournament, bracket: @bracket, bracket_uid: 'q1', bracket_top: '1', bracket_bottom: '2', home: @home, away: @away)
+    home_pts_for = @home.points_for
+    away_pts_for = @away.points_for
+
     game.expects(:update_bracket).twice
     game.update_score(15, 11)
     game.update_score(10, 13)
@@ -132,8 +143,8 @@ class GameTest < ActiveSupport::TestCase
 
     assert_equal 0, @home.wins
     assert_equal 1, @away.wins
-    assert_equal 12, @home.points_for
-    assert_equal 14, @away.points_for
+    assert_equal home_pts_for + 10, @home.points_for
+    assert_equal away_pts_for + 13, @away.points_for
   end
 
   test "update_score updates the bracket if the winner is changed" do
