@@ -1,0 +1,60 @@
+<aside class="main-sidebar">
+
+  <section class="sidebar">
+
+    <ul class="sidebar-menu">
+      <li class="header">Setup</li>
+      <li>
+        <% if @tournament.persisted? %>
+          <%= link_to 'Tournament', tournament_admin_path(@tournament) %>
+        <% else %>
+          Tournament
+        <% end %>
+      </li>
+
+      <li>
+        <% if @tournament.map.try(:persisted?) %>
+          <%= link_to 'Fields', tournament_admin_fields_path(@tournament) %>
+        <% else %>
+          Fields
+        <% end %>
+      </li>
+
+      <li>
+        <% if @tournament.fields.present? %>
+          <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %>
+        <% else %>
+          Teams
+        <% end %>
+      </li>
+
+      <li>
+        <% if @tournament.teams.present? %>
+          <%= link_to 'Brackets', tournament_admin_brackets_path(@tournament) %>
+        <% else %>
+          Brackets
+        <% end %>
+      </li>
+
+      <li>
+        <% if @tournament.teams.present? %>
+          <%= link_to 'Schedule', tournament_admin_schedule_path(@tournament) %>
+        <% else %>
+          Schedule
+        <% end %>
+      </li>
+
+      <li class="header">Operation</li>
+      <li>
+        <% if @tournament.games.present? %>
+          <%= link_to 'Games', tournament_admin_games_path(@tournament) %>
+        <% else %>
+          Games
+        <% end %>
+      </li>
+
+      <li><%= link_to 'App', @tournament.app_link, target: '_blank' %></li>
+    </ul>>
+
+  </section>
+</aside>

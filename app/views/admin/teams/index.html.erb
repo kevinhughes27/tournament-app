@@ -1,72 +1,79 @@
-<div class="container-fluid" define='{
+<section class="content-header">
+  <h1>
+    Teams
+  </h1>
+</section>
+
+<section class="content" define='{
   teamsTable: new Admin.TeamsTable(
   )}'
   context='teamsTable'>
-  <h1>Teams</h1>
 
   <%= render 'shared/set_errors', set: @teams %>
 
-  <div id="teams">
-    <div class="input-group" style="padding-bottom: 30px;">
-      <div class="input-group-addon">
-        <i class="fa fa-search"></i>
-      </div>
-      <input class="search form-control" placeholder="Search" />
-    </div>
-
-    <%= form_tag tournament_admin_teams_path(@tournament), "bind-event-submit" => "save(this)" do %>
-      <table class="table table-bordered table-striped table-hover table-condensed editable-table">
-        <thead>
-          <tr>
-            <th class="hide">id</th>
-            <th class="sort-header" data-override="name">
-              <a href="#" class="sort" data-sort="name">Name</a>
-            </th>
-            <th class="sort-header" data-override="division">
-              <a href="#" class="sort" data-sort="division">Divison</a>
-            </th>
-            <th class="sort-header" data-override="seed">
-              <a href="#" class="sort" data-sort="seed">Seed</a>
-            </th>
-            <th class="sort-header" data-override="email">
-              <a href="#" class="sort" data-sort="email">Email</a>
-            </th>
-            <th class="sort-header" data-override="sms">
-              <a href="#" class="sort" data-sort="sms">Sms</a>
-            </th>
-            <th class="sort-header" data-override="twitter">
-              <a href="#" class="sort" data-sort="twitter">Twitter</a>
-            </th>
-          </tr>
-        </thead>
-        <tbody class="list">
-          <% @teams.each do |team| %>
-            <tr class="<%= 'danger' if team.errors.present? %>">
-              <td class="hide"><%= team.id %></td>
-              <td class="name"><%= team.name %></td>
-              <td class="division"><%= team.division %></td>
-              <td class="seed"><%= team.seed %></td>
-              <td class="email"><%= team.email %></td>
-              <td class="sms"><%= team.sms %></td>
-              <td class="twitter"><%= team.twitter %></td>
+  <%= form_tag tournament_admin_teams_path(@tournament), "bind-event-submit" => "save(this)" do %>
+    <div id="teams" class="box">
+      <div class="box-body">
+        <div class="input-group" style="padding-bottom: 30px;">
+          <div class="input-group-addon">
+            <i class="fa fa-search"></i>
+          </div>
+          <input class="search form-control" placeholder="Search" />
+        </div>
+        <table class="table table-bordered table-striped table-hover table-condensed editable-table">
+          <thead>
+            <tr>
+              <th class="hide">id</th>
+              <th class="sort-header" data-override="name">
+                <a href="#" class="sort" data-sort="name">Name</a>
+              </th>
+              <th class="sort-header" data-override="division">
+                <a href="#" class="sort" data-sort="division">Divison</a>
+              </th>
+              <th class="sort-header" data-override="seed">
+                <a href="#" class="sort" data-sort="seed">Seed</a>
+              </th>
+              <th class="sort-header" data-override="email">
+                <a href="#" class="sort" data-sort="email">Email</a>
+              </th>
+              <th class="sort-header" data-override="sms">
+                <a href="#" class="sort" data-sort="sms">Sms</a>
+              </th>
+              <th class="sort-header" data-override="twitter">
+                <a href="#" class="sort" data-sort="twitter">Twitter</a>
+              </th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody class="list">
+            <% @teams.each do |team| %>
+              <tr class="<%= 'danger' if team.errors.present? %>">
+                <td class="hide"><%= team.id %></td>
+                <td class="name"><%= team.name %></td>
+                <td class="division"><%= team.division %></td>
+                <td class="seed"><%= team.seed %></td>
+                <td class="email"><%= team.email %></td>
+                <td class="sms"><%= team.sms %></td>
+                <td class="twitter"><%= team.twitter %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
 
-      <div id="table-menu">
-        <ul class="dropdown-menu">
-          <li><a data-action="add" href="#">Add Row</a></li>
-          <li><a data-action="delete" href="#">Delete Row</a></li>
-        </ul>
+        <div id="table-menu">
+          <ul class="dropdown-menu">
+            <li><a data-action="add" href="#">Add Row</a></li>
+            <li><a data-action="delete" href="#">Delete Row</a></li>
+          </ul>
+        </div>
       </div>
 
-    <div class="row">
-      <button type="button" class="btn btn-primary" bind-event-click="addRow()">Add Team</button>
-      <span class="btn btn-default btn-file">
-          Upload CSV <input type="file" accept=".csv" bind-event-change="uploadCsv(event)" />
-      </span>
-      <%= submit_tag 'Save Teams', class: "btn btn-primary pull-right" %>
+      <div class="box-footer clearfix">
+        <button type="button" class="btn btn-primary" bind-event-click="addRow()">Add Team</button>
+        <span class="btn btn-default btn-file">
+            Upload CSV <input type="file" accept=".csv" bind-event-change="uploadCsv(event)" />
+        </span>
+        <%= submit_tag 'Save Teams', class: "btn btn-primary pull-right" %>
+      </div>
     </div>
   <% end %>
-</div>
+</section>

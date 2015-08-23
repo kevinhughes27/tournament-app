@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   http_basic_authenticate_with name: "admin", password: "nobo"
 
   before_action :load_tournament
-  layout 'admin'
+  layout 'admin_lte_2'
 
   def load_tournament
     if params[:tournament_id]

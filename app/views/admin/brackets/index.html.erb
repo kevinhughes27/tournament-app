@@ -1,35 +1,44 @@
-<div class="container-fluid" define='{
+<section class="content-header">
+  <h1>
+    Brackets
+  </h1>
+</section>
+
+<section class="content" define='{
   bracketEditor: new Admin.BracketEditor(
   )}'
   context='bracketEditor'>
-  <h1>Brackets</h1>
 
   <%= render 'shared/set_errors', set: @teams %>
 
-  <% team_groups = @teams.group_by{ |t| t.division } %>
-  <ul class="nav nav-tabs" style="padding-top: 20px;">
-    <% team_groups.each_with_index do |(division, teams), idx| %>
-      <li class="<%= 'active' if idx == 0 %>">
-        <a href="#<%= division_html_id(division) %>" data-toggle="tab"><%= division %></a>
-      </li>
-    <% end %>
-  </ul>
+  <div class="box">
+    <div class="box-body">
 
-  <div class="tab-content" style="padding-top: 30px;">
+      <% team_groups = @teams.group_by{ |t| t.division } %>
+      <ul class="nav nav-tabs">
+        <% team_groups.each_with_index do |(division, teams), idx| %>
+          <li class="<%= 'active' if idx == 0 %>">
+            <a href="#<%= division_html_id(division) %>" data-toggle="tab"><%= division %></a>
+          </li>
+        <% end %>
+      </ul>
 
-    <% team_groups.each_with_index do |(division, teams), idx| %>
-      <div class="tab-pane <%= 'active' if idx == 0 %>" id="<%= division_html_id(division) %>">
-        <div class="col-md-3 col-md-offset-1">
-          <%= render 'seeding', division: division, teams: teams %>
-        </div>
-        <div class="col-md-5 col-md-offset-1">
-          <%= render 'bracket', num_teams: teams.size, bracket: @brackets.detect{ |b| b.division == division } %>
-        </div>
+      <div class="tab-content">
+        <% team_groups.each_with_index do |(division, teams), idx| %>
+          <div class="tab-pane <%= 'active' if idx == 0 %>" id="<%= division_html_id(division) %>">
+            <div class="col-md-3 col-md-offset-1">
+              <%= render 'seeding', division: division, teams: teams %>
+            </div>
+            <div class="col-md-5 col-md-offset-1">
+              <%= render 'bracket', num_teams: teams.size, bracket: @brackets.detect{ |b| b.division == division } %>
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
 
+    </div>
   </div>
-</div>
+</section>
 
 <script>
   $( document ).ready(function() {
