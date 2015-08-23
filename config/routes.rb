@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
-  resources :tournaments, path: '', except: [:show] do
+  resources :tournaments, controller: 'admin/tournaments', path: '', except: [:show] do
     namespace :admin do
       get "/" => "tournaments#show"
 

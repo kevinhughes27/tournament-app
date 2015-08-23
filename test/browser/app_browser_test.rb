@@ -78,8 +78,7 @@ class AppBrowserTest < ActionDispatch::IntegrationTest
     end
 
     wait_for_ajax
-    refute page.find("#submit-score-form")[:class].include?("active")
-    refute page.find("#submit-score-screen")[:class].include?("active")
+    assert page.find("#submit-score-success")[:class].include?("active")
 
     report = ScoreReport.last
     assert_equal 'Swift', report.team.name
