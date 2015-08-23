@@ -9,12 +9,15 @@ goose:
   division: Open
   name: Goose
   seed: 7
+  points_for: 1
 
 swift:
   tournament: noborders
   division: Open
   name: Swift
   seed: 8
+  wins: 1
+  points_for: 2
 
 pheonix:
   tournament: noborders

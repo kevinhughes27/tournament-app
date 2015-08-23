@@ -10,6 +10,18 @@ swift_goose:
   home_score: 2
   away_score: 1
   start_time: 2015-06-06 12:06:53
+  score_confirmed: true
+
+swift_goose_no_score:
+  tournament: noborders
+  bracket: open
+  bracket_uid: 'q1'
+  bracket_top: '1'
+  bracket_bottom: '8'
+  home: swift
+  away: goose
+  field: upi1
+  start_time: 2015-06-06 12:06:53
   score_confirmed: false
 
 pheonix_mavericks:
