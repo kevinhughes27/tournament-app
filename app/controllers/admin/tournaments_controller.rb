@@ -30,8 +30,10 @@ class Admin::TournamentsController < AdminController
   end
 
   def update
+    @map = @tournament.map
+
     if @tournament.update(tournament_params)
-      redirect_to [:admin, @tournament], notice: 'Tournament was successfully updated.'
+      render :show, notice: 'Tournament was successfully updated.', turolinks: true
     else
       render :show
     end

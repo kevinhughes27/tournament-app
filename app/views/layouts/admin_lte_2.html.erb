@@ -22,12 +22,11 @@
     <%= render partial: 'layouts/admin_lte_2_sidebar' %>
 
     <div class="content-wrapper">
-        <%= yield %>
+      <%= yield %>
     </div>
   </div>
 
-  <footer class="main-footer clearfix">
-  </footer>
+  <%= render 'layouts/admin_lte_2_flash' %>
 </body>
 
 <script type="text/javascript">
