@@ -22,6 +22,11 @@ module ScheduleHelper
     "background-color: #{COLORS[game.bracket_id % 12]};"
   end
 
+  def game_draggable_text(game)
+    content_tag(:p, game.bracket_uid) +
+    content_tag(:p, "#{game.bracket_top} v #{game.bracket_bottom}")
+  end
+
   def time_for_datetimepicker(time)
     if time
       time.to_formatted_s(:datetimepicker)

@@ -6,7 +6,7 @@
   context='scheduleEditor'>
   <h1>Schedule</h1>
 
-  <div class="games row">
+  <div class="games-container row">
     <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
 
       <div class="col-md-2">
@@ -16,7 +16,7 @@
         <% games.each do |game| %>
           <% if game.unassigned? %>
             <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
-              <%= game.bracket_uid %>
+              <%= game_draggable_text(game) %>
             </div>
           <% end %>
         <% end %>
@@ -27,37 +27,39 @@
 
   <div class="row">
     <%= form_tag tournament_admin_schedule_path(@tournament), "bind-event-submit" => "saveSchedule(this)" do %>
-      <table class="table table-bordered table-striped table-hover table-condensed">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <% @fields.each do |field| %>
-              <th><%= field.name %></th>
-            <% end %>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @times.each_with_index do |time, index| %>
+      <div class="schedule-table">
+        <table class="table table-bordered table-striped table-hover table-condensed">
+          <thead>
             <tr>
-              <td class="td-input">
-                <div class="td-input">
-                  <input type="text" class="td-input datetimepicker form-control" value="<%= time_for_datetimepicker(time) %>" bind-event-blur="timeUpdated(event)">
-                <div>
-              </td>
+              <th>Time</th>
               <% @fields.each do |field| %>
-                <td class="dropzone" data-field-id="<%= field.id %>">
-                  <% if game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
-                    <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
-                      <%= game.bracket_uid %>
-                    </div>
-                  <% end %>
-                </td>
+                <th><%= field.name %></th>
               <% end %>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% @times.each_with_index do |time, index| %>
+              <tr>
+                <td class="td-input time">
+                  <div class="td-input">
+                    <input type="text" class="td-input datetimepicker form-control" value="<%= time_for_datetimepicker(time) %>" bind-event-blur="timeUpdated(event)">
+                  <div>
+                </td>
+                <% @fields.each do |field| %>
+                  <td class="dropzone" data-field-id="<%= field.id %>">
+                    <% if game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+                      <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
+                        <%= game_draggable_text(game) %>
+                      </div>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
       <div class="row">
         <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>

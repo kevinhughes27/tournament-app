@@ -1,4 +1,10 @@
-.games {
+$game-width: 80px;
+$game-height: 40px;
+$slot-width: 90px;
+$slot-height: 50px;
+$time-input-width: 160px;
+
+.games-container {
   padding-bottom: 20px;
 }
 
@@ -10,7 +16,9 @@
 
 .game {
   display: inline-block;
-  min-width: 40px;
+  min-width: $game-width;
+  min-height: $game-height;
+
   text-align: center;
 
   color: white;
@@ -20,6 +28,10 @@
           transform: translate(0px, 0px);
 
   transition: background-color 0.3s;
+
+  p {
+    margin: 0;
+  }
 }
 
 .game-error {
@@ -27,8 +39,6 @@
 }
 
 .dropzone {
-  min-width: 50px;
-  min-height: 16px;
   transition: background-color 0.3s;
 }
 
@@ -36,4 +46,18 @@
   background-color: #29e;
   border-color: #fff;
   border-style: solid;
+}
+
+.schedule-table {
+  tbody > tr {
+    line-height: $slot-height;
+    min-height: $slot-height;
+    height: $slot-height;
+  }
+  td.time {
+    min-width: $time-input-width;
+  }
+  td {
+    min-width: $slot-width;
+  }
 }
