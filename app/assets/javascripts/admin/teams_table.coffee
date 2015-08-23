@@ -1,6 +1,24 @@
-class Admin.TeamTable
+class Admin.TeamsTable
 
-  constructor: (@$tableNode) ->
+  constructor: ->
+    Twine.afterBound =>
+      @_initTeamsList()
+      @_initEditableTable()
+
+  _initTeamsList: ->
+    @teamsList = new List('teams', {
+      valueNames: [
+        'name',
+        'division',
+        'seed',
+        'email',
+        'sms',
+        'twitter'
+      ]
+    })
+
+  _initEditableTable: ->
+    @$tableNode = $('.editable-table')
     @$tableNode.editableTableWidget()
     @newIdx = 1
 
@@ -53,10 +71,12 @@ class Admin.TeamTable
 
   save: (form) ->
     Turbolinks.ProgressBar.start()
+    data = {teams: @$tableNode.tableToJSON()}
+
     $.ajax
       type: 'POST'
       url: form.action
-      data: {teams: @$tableNode.tableToJSON()}
+      data: data
       success: (response) ->
          Turbolinks.replace(response)
          Turbolinks.ProgressBar.done()
