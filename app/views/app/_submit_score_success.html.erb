@@ -1,0 +1,26 @@
+<div context="submitScoreScreen">
+  <div id="submit-score-success" class="modal" bind-class="{active: app.submitScoreScreen.successActive}">
+    <div class="bar bar-nav bar-blue">
+      <h1 class="title">Score Submitted!</h1>
+
+      <a class="nav-btn pull-right" href="#" bind-event-click="app.submitScoreScreen.closeSuccess()">
+        <span class="icon icon-close"></span>
+      </a>
+    </div>
+
+    <div class="content-padded">
+      <div class="center">
+        <div class="success-icon">
+          <i class="fa fa-check fa-5x"></i>
+        </div>
+        <p id="success-msg">
+          Thanks for submitting your score.
+        </p>
+      </div>
+    </div>
+
+    <div class="bar bar-footer">
+      <button class="btn btn-positive btn-block btn-bottom" bind-event-click="app.submitScoreScreen.closeSuccess()">Close</button>
+    </div>
+  </div>
+</div>

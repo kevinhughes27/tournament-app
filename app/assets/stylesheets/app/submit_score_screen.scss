@@ -58,3 +58,34 @@ input.score-input {
 .btn-bottom {
   margin-bottom: 0px;
 }
+
+.success-icon {
+  padding-top: 160px;
+  padding-bottom: 50px;
+  color: $positive-color;
+}
+
+@keyframes bounceIn {
+  from, 20%, 80%, 100% {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.5, .5, .5);
+  }
+
+  80% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.bounceIn {
+  animation-name: bounceIn;
+  animation-duration: .75s;
+}

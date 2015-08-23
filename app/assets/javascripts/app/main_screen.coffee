@@ -93,7 +93,7 @@ class App.MainScreen
     Twine.refresh()
 
   _currentTime: ->
-    moment.utc() # I had to hack this to be -4 hours for nobo
+    moment.utc()
 
   pointToField: (field) ->
     @findingField = true

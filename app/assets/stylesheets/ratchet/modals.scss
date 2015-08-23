@@ -18,7 +18,7 @@
   // Active modal
   &.active {
     height: 100%;
-    opacity: 0.7;
+    opacity: 1.0;
     visibility: visible;
     @include transform(scale(1.0));
   }
