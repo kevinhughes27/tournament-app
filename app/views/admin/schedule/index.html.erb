@@ -11,29 +11,26 @@
   )}'
   context='scheduleEditor'>
 
-  <div class="box">
-    <div class="box-body">
-      <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
-
-        <div class="col-md-2">
-          <h3>
-            <span class="glyphicon glyphicon-stop" style="<%= color_for_bracket(bracket) %>"></span> <%= bracket.division %>
-          </h3>
-          <% games.each do |game| %>
-            <% if game.unassigned? %>
-              <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
-                <%= game_draggable_text(game) %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-
   <%= form_tag tournament_admin_schedule_path(@tournament), "bind-event-submit" => "saveSchedule(this)" do %>
     <div class="box">
+
+      <div class="box-header">
+        <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
+          <div class="col-md-2">
+            <h3>
+              <span class="glyphicon glyphicon-stop" style="<%= color_for_bracket(bracket) %>"></span> <%= bracket.division %>
+            </h3>
+            <% games.each do |game| %>
+              <% if game.unassigned? %>
+                <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
+                  <%= game_draggable_text(game) %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
       <div class="box-body">
         <div class="schedule-table">
           <table class="table table-bordered table-striped table-hover table-condensed">
