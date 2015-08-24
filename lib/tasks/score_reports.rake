@@ -2,7 +2,7 @@ namespace :score_reports do
   desc "Generates score reports. Parameters: TOURNAMENT, DIVISION and ROUND."
   task :generate => :environment do
     tournament_id = ENV['TOURNAMENT']
-    division = ENV['DIVISION']
+    division = ENV['DIVISION'].gsub('_', ' ')
     round = ENV['ROUND'].to_i
 
     puts "creating score reports for tournament: #{tournament_id} division: #{division}, round: #{round}"

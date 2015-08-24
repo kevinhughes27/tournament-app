@@ -2,7 +2,7 @@ namespace :bracket do
   desc "Advances the bracketby assigning random winners. Parameters: TOURNAMENT, DIVISION and ROUND"
   task :advance => :environment do
     tournament_id = ENV['TOURNAMENT']
-    division = ENV['DIVISION']
+    division = ENV['DIVISION'].gsub('_', ' ')
     round = ENV['ROUND'].to_i
 
     puts "advancing bracket for tournament: #{tournament_id} division: #{division}, round: #{round}"
