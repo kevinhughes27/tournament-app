@@ -15,7 +15,7 @@ Admin.Flash = Flash =
     if $('body').hasClass('sidebar-collapse')
       $node.css('left','0')
     else
-      $node.css('left','115px') # admin lte sidebar width / 2
+      $node.css('left','110px') # admin lte sidebar width / 2
 
     if isError
       $node.addClass('alert-danger')
