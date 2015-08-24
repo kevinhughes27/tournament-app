@@ -5,6 +5,8 @@ namespace :score_reports do
     division = ENV['DIVISION']
     round = ENV['ROUND'].to_i
 
+    puts "creating score reports for tournament: #{tournament_id} division: #{division}, round: #{round}"
+
     tournament = Tournament.friendly.find(tournament_id)
     bracket = tournament.brackets.find_by!(division: division)
     bracket_uids = bracket.bracket_uids_for_round(round)

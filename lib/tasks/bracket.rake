@@ -5,6 +5,8 @@ namespace :bracket do
     division = ENV['DIVISION']
     round = ENV['ROUND'].to_i
 
+    puts "advancing bracket for tournament: #{tournament_id} division: #{division}, round: #{round}"
+
     tournament = Tournament.friendly.find(tournament_id)
     bracket = tournament.brackets.find_by!(division: division)
     bracket_uids = bracket.bracket_uids_for_round(round)
@@ -18,6 +20,7 @@ namespace :bracket do
     games.each do |game|
       score = ScoreGenerator.new.score
       game.update_score(score[0], score[1])
+      puts game
     end
   end
 end
