@@ -3,6 +3,7 @@
 //= require jquery.tabletojson
 //= require jquery.csv
 //= require jquery.cookie
+//= require jquery.datetimepicker
 //= require jstz
 //= require browser_timezone_rails/set_time_zone
 //= require sticky-tabs
@@ -13,7 +14,6 @@
 //= require bootstrap-contextmenu
 //= require bootstrap-modal-x
 //= require moment
-//= require bootstrap-datetimepicker
 //= require turbolinks
 //= require underscore
 //= require twine
