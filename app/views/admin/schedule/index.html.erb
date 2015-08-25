@@ -1,6 +1,7 @@
 <section class="content-header">
   <h1>
     Schedule
+    <small>If you have a lot of fields it might be useful to zoom out</small>
   </h1>
 </section>
 
@@ -12,7 +13,7 @@
   context='scheduleEditor'>
 
   <%= form_tag tournament_admin_schedule_path(@tournament), "bind-event-submit" => "saveSchedule(this)" do %>
-    <div class="box">
+    <div class="box" style="overflow-x: scroll;">
 
       <div class="box-header">
         <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
@@ -66,12 +67,8 @@
           </table>
         </div>
       </div>
-
-      <div class="box-footer clearfix">
-        <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
-        <%= submit_tag 'Save Schedule', class: "btn btn-primary pull-right" %>
-      </div>
-
     </div>
+    <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
+    <%= submit_tag 'Save Schedule', class: "btn btn-primary pull-right" %>
   <% end %>
 </section>
