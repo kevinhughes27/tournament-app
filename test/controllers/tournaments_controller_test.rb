@@ -13,9 +13,4 @@ class Admin::TournamentsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:tournaments)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
 end
