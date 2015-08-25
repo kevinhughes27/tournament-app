@@ -4,10 +4,6 @@ $slot-width: 90px;
 $slot-height: 50px;
 $time-input-width: 160px;
 
-.games-container {
-  padding-bottom: 20px;
-}
-
 .legend {
   display: inline-block;
   min-width: 20px;
@@ -49,6 +45,7 @@ $time-input-width: 160px;
 }
 
 .schedule-table {
+  padding-top: 20px;
   tbody > tr {
     line-height: $slot-height;
     min-height: $slot-height;
@@ -56,6 +53,9 @@ $time-input-width: 160px;
   }
   td.time {
     min-width: $time-input-width;
+    input {
+      padding-top: $slot-height / 2;
+    }
   }
   td {
     min-width: $slot-width;

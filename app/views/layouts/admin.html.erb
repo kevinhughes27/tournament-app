@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Ultimate Tournament</title>
-  <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track' => true %>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+  <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <%= yield :javascript %>
 </head>
 
-<body>
-  <div id="wrapper">
-    <%= render '/admin/sidebar', locals: {tournament: @tournament} %>
-    <div id="page-content-wrapper">
+<body class="skin-green sidebar-mini fixed">
+  <div class="wrapper">
+
+    <%= render 'admin/header' %>
+    <%= render 'admin/sidebar' %>
+
+    <div class="content-wrapper">
       <%= yield %>
     </div>
-    <%= render '/admin/flash_messages' %>
   </div>
+
+  <%= render 'admin/flash' %>
 </body>
 
 <script type="text/javascript">
   var context = {};
   document.addEventListener('page:change', function() {
-    $('.datetimepicker').datetimepicker();
     Twine.reset(context).bind().refresh();
   });
 </script>

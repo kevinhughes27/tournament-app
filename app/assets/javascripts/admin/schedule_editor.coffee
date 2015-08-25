@@ -13,7 +13,7 @@ class Admin.ScheduleEditor
     lastTime = $tr.find('input').val()
     time = moment(lastTime).add(@timeCap, 'minutes').format('MM/DD/YYYY h:mm A')
     $tr.find('input').val(time)
-    $tr.find('.datetimepicker').datetimepicker()
+    $tr.find('.datetimepicker').datetimepicker(Admin.DatePickerOptions)
     $tr.find('div.game').remove()
 
     @$tableNode.append(tr[0])

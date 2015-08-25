@@ -1,67 +1,22 @@
-<div id="sidebar-wrapper">
-  <ul class="sidebar-nav">
-    <li class="sidebar-brand">
-      <% if @tournament.persisted? %>
-        <%= link_to sidebar_brand(@tournament), tournament_admin_path(@tournament) %>
-      <% else %>
-        Ultimate Tournmanent
-      <% end %>
-    </li>
+<aside class="main-sidebar">
+  <section class="sidebar">
 
-    <hr>
+    <ul class="sidebar-menu">
+      <li class="header">Setup</li>
+      <%= sidebar_link "fa fa-home", "Tournament", tournament_admin_path(@tournament), @tournament.persisted? %>
+      <%= sidebar_link "fa fa-map-signs", "Fields", tournament_admin_fields_path(@tournament), @tournament.map.try(:persisted?) %>
+      <%= sidebar_link "fa fa-users", "Teams", tournament_admin_teams_path(@tournament), @tournament.fields.exists? %>
+      <%= sidebar_link "fa fa-sitemap", "Brackets", tournament_admin_brackets_path(@tournament), @tournament.teams.exists? %>
+      <%= sidebar_link "fa fa-calendar", "Schedule", tournament_admin_schedule_path(@tournament), @tournament.teams.exists? %>
+      <li class="header">Operation</li>
+      <%= sidebar_link "fa fa-list", "Games", tournament_admin_games_path(@tournament), @tournament.games.exists? %>
+      <li>
+        <%= link_to @tournament.app_link, target: '_blank' do %>
+          <i class="fa fa-external-link-square"></i>
+          <span>App</span>
+        <% end %>
+      </li>
+    </ul>
 
-    <li>
-      <% if @tournament.persisted? %>
-        <%= link_to 'Tournament', tournament_admin_path(@tournament) %>
-      <% else %>
-        Tournament
-      <% end %>
-    </li>
-
-    <li>
-      <% if @tournament.map.try(:persisted?) %>
-        <%= link_to 'Fields', tournament_admin_fields_path(@tournament) %>
-      <% else %>
-        Fields
-      <% end %>
-    </li>
-
-    <li>
-      <% if @tournament.fields.present? %>
-        <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %>
-      <% else %>
-        Teams
-      <% end %>
-    </li>
-
-    <li>
-      <% if @tournament.teams.present? %>
-        <%= link_to 'Brackets', tournament_admin_brackets_path(@tournament) %>
-      <% else %>
-        Brackets
-      <% end %>
-    </li>
-
-    <li>
-      <% if @tournament.teams.present? %>
-        <%= link_to 'Schedule', tournament_admin_schedule_path(@tournament) %>
-      <% else %>
-        Schedule
-      <% end %>
-    </li>
-
-    <hr>
-
-    <li>
-      <% if @tournament.games.present? %>
-        <%= link_to 'Games', tournament_admin_games_path(@tournament) %>
-      <% else %>
-        Games
-      <% end %>
-    </li>
-
-    <hr>
-
-    <li><%= link_to 'App', @tournament.app_link, target: '_blank' %></li>
-  </ul>
-</div>
+  </section>
+</aside>
