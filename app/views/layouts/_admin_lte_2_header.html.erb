@@ -8,8 +8,8 @@
     <span class="logo-lg">Ultimate Tournament</span>
   </a>
 
-  <nav class="navbar navbar-static-top" role="navigation">
-    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+  <nav class="navbar navbar-static-top" role="navigation" define="{sidebar: new Admin.SidebarControl()}" context="sidebar">
+    <a href="#" class="sidebar-toggle" role="button" bind-event-click="toggle()">
       <span class="sr-only">Toggle navigation</span>
     </a>
   </nav>

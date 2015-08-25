@@ -15,7 +15,6 @@
 //= require bootstrap-modal-x
 //= require moment
 //= require bootstrap-datetimepicker
-//= require admin_lte_2
 //= require turbolinks
 //= require underscore
 //= require twine
