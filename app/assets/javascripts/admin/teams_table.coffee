@@ -73,7 +73,7 @@ class Admin.TeamsTable
       type: 'POST'
       url: form.action
       data: data
-      success: (response) ->
+      success: (response) =>
          Turbolinks.replace(response)
          @_finishLoading(form)
 
