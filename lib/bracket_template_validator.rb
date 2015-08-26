@@ -33,8 +33,8 @@ class BracketTemplateValidator
   class << self
     def validate(template_json)
       validate_schema(template_json) &&
-      validate_num_teams(template_json) &&
-      validate_first_round(template_json) &&
+      #validate_num_teams(template_json) &&
+      #validate_first_round(template_json) &&
       validate_progression(template_json)
     end
 
@@ -42,29 +42,32 @@ class BracketTemplateValidator
       JSON::Validator.validate!(BRACKET_SCHEMA, template_json, strict: true)
     end
 
-    # validates that the number of teams is twice the
-    # number of games in round1
-    def validate_num_teams(template_json)
-      num_teams = template_json[:num_teams]
-      round1_games = template_json[:games].select{ |g| g[:round] == 1 }
-
-      num_teams / 2 == round1_games.size
-    end
-
-    # validates the seats in round1 are a set from 1 to N
-    def validate_first_round(template_json)
-      games = template_json[:games].select{ |g| g[:round] == 1 }
-
-      seats = games.inject([]) do |seats, game|
-        seats << game[:top].to_i
-        seats << game[:bottom].to_i
-        seats
-      end
-
-      seats.sort.each_with_index do |seat, idx|
-        return false unless seat == (idx+1)
-      end
-    end
+    # these are actually only true for strict single elimination tournaments
+    # what about templates where some teams have a bye?
+    #
+    # # validates that the number of teams is twice the
+    # # number of games in round1
+    # def validate_num_teams(template_json)
+    #   num_teams = template_json[:num_teams]
+    #   round1_games = template_json[:games].select{ |g| g[:round] == 1 }
+    #
+    #   num_teams / 2 == round1_games.size
+    # end
+    #
+    # # validates the seats in round1 are a set from 1 to N
+    # def validate_first_round(template_json)
+    #   games = template_json[:games].select{ |g| g[:round] == 1 }
+    #
+    #   seats = games.inject([]) do |seats, game|
+    #     seats << game[:top].to_i
+    #     seats << game[:bottom].to_i
+    #     seats
+    #   end
+    #
+    #   seats.sort.each_with_index do |seat, idx|
+    #     return false unless seat == (idx+1)
+    #   end
+    # end
 
     # validates that the dependent games exist at least
     # aka if I say a game has 'wq1' in the top then 'q1'

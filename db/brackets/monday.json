@@ -77,6 +77,6 @@
 
     {"round": 1, "uid":"t7-rr1", "top":39, "bottom":41},
     {"round": 1, "uid":"t7-rr2", "top":41, "bottom":40},
-    {"round": 1, "uid":"t7-rr3", "top":40, "bottom":39},
+    {"round": 1, "uid":"t7-rr3", "top":40, "bottom":39}
   ]
 }
