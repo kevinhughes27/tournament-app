@@ -41,12 +41,10 @@ class Admin.TeamsTable
     tr = $(tr).clone()
     tds = tr.find('td')
     tds.html("")
-    # I can use specific knowledge of the markup here now..
     if rowData
       $(td).html(rowData[idx]) for td, idx in tds.not('.hide')
 
     @$tableNode.append(tr[0])
-
 
   deleteRow: ->
     row = $(@currentCell).parent('tr')
@@ -62,9 +60,7 @@ class Admin.TeamsTable
       reader.onload = (event) =>
         csvData = event.target.result
         data = $.csv.toArrays(csvData)
-        old_trs = @$tableNode.find('tbody > tr')
         @addRow(rowData) for rowData in data[1..-1] # skip header
-        old_trs.remove()
 
   browserSupportFileUpload: ->
     window.File && window.FileReader && window.FileList && window.Blob
