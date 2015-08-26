@@ -66,7 +66,7 @@ class Admin.TeamsTable
     window.File && window.FileReader && window.FileList && window.Blob
 
   save: (form) ->
-    Turbolinks.ProgressBar.start()
+    @_startLoading(form)
     data = {teams: @$tableNode.tableToJSON()}
 
     $.ajax
@@ -75,4 +75,12 @@ class Admin.TeamsTable
       data: data
       success: (response) ->
          Turbolinks.replace(response)
-         Turbolinks.ProgressBar.done()
+         @_finishLoading(form)
+
+  _startLoading: (form) ->
+    Turbolinks.ProgressBar.start()
+    $(form).find(':submit').addClass('is-loading')
+
+  _finishLoading: (form) ->
+    Turbolinks.ProgressBar.done()
+    $(form).find(':submit').removeClass('is-loading')
