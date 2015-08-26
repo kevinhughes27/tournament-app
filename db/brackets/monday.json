@@ -1,5 +1,5 @@
 {
-  "num_teams": 49,
+  "num_teams": 41,
   "games": [
     {"round": 1, "uid":"t1-q1", "top":1, "bottom":8},
     {"round": 1, "uid":"t1-q2", "top":2, "bottom":7},
@@ -17,10 +17,10 @@
     {"round": 3, "uid": "t1-f4", "top":"lt1-c1", "bottom":"lt1-c2"},
 
 
-    {"round": 1, "uid":"t2-q1", "top":9, "bottom":10},
-    {"round": 1, "uid":"t2-q2", "top":11, "bottom":12},
-    {"round": 1, "uid":"t2-q3", "top":13, "bottom":14},
-    {"round": 1, "uid":"t2-q4", "top":15, "bottom":16},
+    {"round": 1, "uid":"t2-q1", "top":9, "bottom":16},
+    {"round": 1, "uid":"t2-q2", "top":10, "bottom":15},
+    {"round": 1, "uid":"t2-q3", "top":11, "bottom":14},
+    {"round": 1, "uid":"t2-q4", "top":12, "bottom":13},
 
     {"round": 2, "uid": "t2-s1", "top":"wt2-q1", "bottom":"wt2-q2"},
     {"round": 2, "uid": "t2-s2", "top":"wt2-q3", "bottom":"wt2-q4"},
@@ -33,10 +33,10 @@
     {"round": 3, "uid": "t2-f4", "top":"lt2-c1", "bottom":"lt2-c2"},
 
 
-    {"round": 1, "uid":"t3-q1", "top":17, "bottom":18},
-    {"round": 1, "uid":"t3-q2", "top":19, "bottom":20},
-    {"round": 1, "uid":"t3-q3", "top":21, "bottom":22},
-    {"round": 1, "uid":"t3-q4", "top":23, "bottom":24},
+    {"round": 1, "uid":"t3-q1", "top":17, "bottom":24},
+    {"round": 1, "uid":"t3-q2", "top":18, "bottom":23},
+    {"round": 1, "uid":"t3-q3", "top":19, "bottom":22},
+    {"round": 1, "uid":"t3-q4", "top":20, "bottom":21},
 
     {"round": 2, "uid": "t3-s1", "top":"wt3-q1", "bottom":"wt3-q2"},
     {"round": 2, "uid": "t3-s2", "top":"wt3-q3", "bottom":"wt3-q4"},
@@ -49,10 +49,10 @@
     {"round": 3, "uid": "t3-f4", "top":"lt3-c1", "bottom":"lt3-c2"},
 
 
-    {"round": 1, "uid":"t4-q1", "top":25, "bottom":26},
-    {"round": 1, "uid":"t4-q2", "top":27, "bottom":28},
-    {"round": 1, "uid":"t4-q3", "top":29, "bottom":30},
-    {"round": 1, "uid":"t4-q4", "top":31, "bottom":32},
+    {"round": 1, "uid":"t4-q1", "top":25, "bottom":32},
+    {"round": 1, "uid":"t4-q2", "top":26, "bottom":31},
+    {"round": 1, "uid":"t4-q3", "top":27, "bottom":30},
+    {"round": 1, "uid":"t4-q4", "top":28, "bottom":29},
 
     {"round": 2, "uid": "t4-s1", "top":"wt4-q1", "bottom":"wt4-q2"},
     {"round": 2, "uid": "t4-s2", "top":"wt4-q3", "bottom":"wt4-q4"},
@@ -63,5 +63,20 @@
     {"round": 3, "uid": "t4-f2", "top":"lt4-s1", "bottom":"lt4-s2"},
     {"round": 3, "uid": "t4-f3", "top":"wt4-c1", "bottom":"wt4-c2"},
     {"round": 3, "uid": "t4-f4", "top":"lt4-c1", "bottom":"lt4-c2"},
+
+
+    {"round": 1, "uid":"t5-rr1", "top":33, "bottom":34},
+    {"round": 1, "uid":"t5-rr2", "top":35, "bottom":33},
+    {"round": 1, "uid":"t5-rr3", "top":34, "bottom":35},
+
+
+    {"round": 1, "uid":"t6-rr1", "top":36, "bottom":38},
+    {"round": 1, "uid":"t6-rr2", "top":38, "bottom":37},
+    {"round": 1, "uid":"t6-rr3", "top":37, "bottom":36},
+
+
+    {"round": 1, "uid":"t7-rr1", "top":39, "bottom":41},
+    {"round": 1, "uid":"t7-rr2", "top":41, "bottom":40},
+    {"round": 1, "uid":"t7-rr3", "top":40, "bottom":39},
   ]
 }
