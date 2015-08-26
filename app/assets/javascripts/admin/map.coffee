@@ -39,8 +39,8 @@ class Admin.Map
 
   initCallbacks: ->
     google.maps.event.addListener @map, 'center_changed', =>
-      $('#map_lat').val( @map.center.lat() )
-      $('#map_long').val( @map.center.lng() )
+      $('#tournament_map_attributes_lat').val( @map.center.lat() )
+      $('#tournament_map_attributes_long').val( @map.center.lng() )
 
     google.maps.event.addListener @map, 'zoom_changed', =>
-      $('#map_zoom').val( @map.zoom )
+      $('#tournament_map_attributes_zoom').val( @map.zoom )

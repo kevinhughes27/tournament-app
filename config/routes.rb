@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'landing#index'
   #root :to => redirect('/no-borders')
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+
+  get '/new' => 'signup#new'
+  post '/new' => 'signup#create'
 
   resources :tournaments, controller: 'admin/tournaments', path: '', except: [:show] do
     namespace :admin do

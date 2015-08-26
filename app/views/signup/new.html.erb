@@ -1,8 +1,9 @@
-<section class="content">
-  <%= form_for @tournament, remote: true do |form| %>
-    <%= render 'form', form: form %>
+<div class="container">
+  <h1>New Tournament</h1>
+  <%= form_for @tournament, url: new_path do |form| %>
+    <%= render 'admin/tournaments/form', form: form %>
   <% end %>
-</section>
+</div>
 
 <script>
   $( document ).ready(function() {
