@@ -22,7 +22,7 @@ class Bracket < ActiveRecord::Base
   def seed(teams, round = 1)
     game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
     games = Game.where(bracket_id: id, bracket_uid: game_uids)
-    seats = games.size * 2
+    seats = games.pluck(:bracket_top, :bracket_bottom).flatten.uniq.size
 
     raise InvalidNumberOfTeams, "#{seats} seats but #{teams.size} teams present" unless seats == teams.size
     raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
