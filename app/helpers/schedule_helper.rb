@@ -27,12 +27,4 @@ module ScheduleHelper
     content_tag(:p, "#{game.bracket_top} v #{game.bracket_bottom}")
   end
 
-  def time_for_datetimepicker(time)
-    if time
-      time.to_formatted_s(:datetimepicker)
-    else
-      ""
-    end
-  end
-
 end

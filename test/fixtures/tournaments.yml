@@ -1,3 +1,8 @@
+new_tournament:
+  name: New
+  handle: new-tournament
+  time_cap: 90
+
 noborders:
   name: No Borders
   handle: no-borders

@@ -187,6 +187,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timecop (0.8.0)
     twine-rails (0.1.0)
       coffee-rails
     tzinfo (1.2.2)
@@ -237,6 +238,7 @@ DEPENDENCIES
   selenium-webdriver
   spring
   sqlite3
+  timecop
   turbolinks!
   twine-rails
   uglifier (>= 1.3.0)

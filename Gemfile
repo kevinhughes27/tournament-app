@@ -35,6 +35,7 @@ end
 
 group :test do
   gem 'mocha', :require => false
+  gem 'timecop'
   gem 'jasmine-rails'
   gem 'capybara'
   gem 'selenium-webdriver'

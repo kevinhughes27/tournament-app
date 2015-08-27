@@ -23,8 +23,14 @@ class Admin::ScheduleController < AdminController
 
   def time_slots
     times = @games.pluck(:start_time).uniq
-    times = times.compact if times.size > 1
-    times.sort!
+
+    if times.size > 1
+      times = times.compact
+      times.sort!
+    end
+
+    times = [Time.now] if times.first.blank?
+    times
   end
 
   def games_params

@@ -49,7 +49,7 @@
                 <tr>
                   <td class="td-input time">
                     <div class="td-input">
-                      <input type="text" class="td-input datetimepicker form-control" value="<%= time_for_datetimepicker(time) %>" bind-event-blur="timeUpdated(event)">
+                      <input type="text" class="td-input datetimepicker form-control" value="<%= time.to_formatted_s(:datetimepicker) %>" bind-event-blur="timeUpdated(event)">
                     </div>
                   </td>
                   <% @fields.each do |field| %>
