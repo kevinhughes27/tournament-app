@@ -33,11 +33,8 @@
     {"round": 3, "uid": "t2-f4", "top":"lt2-c1", "bottom":"lt2-c2"},
 
 
-    {"round": 1, "uid":"t3-q1", "top":17, "bottom":20},
-    {"round": 1, "uid":"t3-q2", "top":18, "bottom":19},
-
-    {"round": 2, "uid": "t3-s1", "top":"wt3-q1", "bottom":"wt3-q4"},
-    {"round": 2, "uid": "t3-s2", "top":"wt3-q2", "bottom":"wt3-q3"},
+    {"round": 1, "uid":"t3-s1", "top":17, "bottom":20},
+    {"round": 1, "uid":"t3-s2", "top":18, "bottom":19},
 
     {"round": 3, "uid": "t3-f1", "top":"wt3-s1", "bottom":"wt3-s2"},
     {"round": 3, "uid": "t3-f2", "top":"lt3-s1", "bottom":"lt3-s2"},
