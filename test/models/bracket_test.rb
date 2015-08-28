@@ -83,6 +83,18 @@ class BracketTest < ActiveSupport::TestCase
     assert = round2_games.all?{ |g| not g.teams_present? }
   end
 
+  test "seed round robin 5" do
+    type = 'round_robin_5'
+    teams = @teams[0..5]
+
+    bracket = Bracket.create(tournament: @tournament, bracket_type: type)
+    bracket.seed(teams, 1)
+
+    game = bracket.games.find_by(bracket_uid: 'rr3')
+    assert_nil game.home
+    assert_equal teams.first, game.away
+  end
+
   test "updating the bracket_type clears the previous games" do
     bracket = Bracket.create(tournament: @tournament, bracket_type: 'single_elimination_8')
     assert_equal 12, bracket.games.count
