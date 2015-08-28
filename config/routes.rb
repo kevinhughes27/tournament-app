@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root 'landing#index'
+  #root 'landing#index'
   #root :to => redirect('/no-borders')
+  root :to => redirect('/ocua-2015')
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
