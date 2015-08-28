@@ -85,7 +85,7 @@ class BracketTest < ActiveSupport::TestCase
 
   test "seed round robin 5" do
     type = 'round_robin_5'
-    teams = @teams[0..5]
+    teams = @teams[0...5]
 
     bracket = Bracket.create(tournament: @tournament, bracket_type: type)
     bracket.seed(teams, 1)
