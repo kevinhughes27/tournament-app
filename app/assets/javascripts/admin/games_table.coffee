@@ -8,6 +8,7 @@ class Admin.GamesTable
     @gamesList = new List('games', {
       valueNames: [
         'name',
+        'division',
         'score',
         'submitted-by',
         'submitted-at',
