@@ -16,6 +16,9 @@ class Admin.GamesTable
       ]
     })
 
+  openScoreForm: (node) ->
+    _.defer -> $(node.parentNode).find('#home_score').focus()
+
   updateScore: (form) ->
     @_startLoading(form)
     data = $(form).serialize()

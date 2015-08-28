@@ -41,7 +41,7 @@
   </td>
 
   <td class="col-md-1 score">
-    <a href="#score-form-<%= game.id %>" data-placement="bottom" data-toggle="popover-x">
+    <a href="#score-form-<%= game.id %>" data-placement="bottom" data-toggle="popover-x" bind-event-click="openScoreForm(this)">
       <%= game.score %>
     </a>
 
