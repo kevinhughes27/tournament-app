@@ -1,1 +1,1 @@
-String.include CoreExtensions::String::IsI
+String.send :include, CoreExtensions::String::IsI
