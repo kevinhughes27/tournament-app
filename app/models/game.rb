@@ -21,6 +21,8 @@ class Game < ActiveRecord::Base
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
 
+  delegate :division, to: :bracket
+
   def winner
     home_score > away_score ? home : away
   end

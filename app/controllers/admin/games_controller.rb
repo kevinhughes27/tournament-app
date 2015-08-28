@@ -1,7 +1,7 @@
 class Admin::GamesController < AdminController
 
   def index
-    @games = @tournament.games.includes(:home, :away, :field, :bracket)
+    @games = @tournament.games.includes(:home, :away, :field, :bracket, score_reports: [:team])
   end
 
   def update
