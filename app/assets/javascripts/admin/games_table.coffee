@@ -1,6 +1,9 @@
 class Admin.GamesTable
 
   constructor: ->
+    $('.popover').on 'shown.bs.modal', (e) ->
+      $(e.target).find('#home_score').focus()
+
     Twine.afterBound =>
       @_initGamesList()
 
@@ -16,9 +19,6 @@ class Admin.GamesTable
         'comments'
       ]
     })
-
-  openScoreForm: (node) ->
-    _.defer -> $(node.parentNode).find('#home_score').focus()
 
   updateScore: (form) ->
     @_startLoading(form)
