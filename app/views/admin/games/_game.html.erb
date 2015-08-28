@@ -1,5 +1,5 @@
 <tr id="game:<%= game.id %>">
-  <td class="col-md-8 name">
+  <td class="col-md-8 table-link name">
 
     <% if game.score_reports.size > 0 %>
       <a href="#reports-<%= game.id %>" data-toggle="collapse">
@@ -40,7 +40,7 @@
     <%= game.division %>
   </td>
 
-  <td class="col-md-1 score">
+  <td class="col-md-1 table-link score">
     <a href="#score-form-<%= game.id %>" data-placement="bottom" data-toggle="popover-x" bind-event-click="openScoreForm(this)">
       <%= game.score %>
     </a>
@@ -49,7 +49,7 @@
       <div class="arrow"></div>
       <h3 class="popover-title">
         <span class="close" data-dismiss="popover-x">&times;</span>
-        Update score
+        <%= game.name %>
       </h3>
       <div class="popover-content">
         <%= form_tag tournament_admin_game_path(@tournament, game),
