@@ -17,6 +17,10 @@ class Bracket < ActiveRecord::Base
     template['games'].map{ |g| g['uid'] if g['round'] == round }.compact
   end
 
+  def seeded?
+    games.where.not(home: nil).exists?
+  end
+
   # assumes teams are sorted by seed
   # can't sort here for re-seed
   def seed(teams, round = 1)

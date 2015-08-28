@@ -26,7 +26,11 @@
       <% end %>
 
       <% if bracket.id %>
-        <a href="#" class="btn btn-primary" bind-event-click="seedBracket($(this), '<%= seed_tournament_admin_bracket_path(@tournament, bracket) %>')">seed</a>
+        <% if bracket.seeded? %>
+          <a href="#" class="btn btn-danger" bind-event-click="seedBracket($(this), '<%= seed_tournament_admin_bracket_path(@tournament, bracket) %>', '<%= refresh_key %>')">re-seed</a>
+        <% else %>
+          <a href="#" class="btn btn-primary" bind-event-click="seedBracket($(this), '<%= seed_tournament_admin_bracket_path(@tournament, bracket) %>', '<%= refresh_key %>')">seed</a>
+        <% end %>
       <% else %>
         <a href="#" class="btn btn-primary disabled">seed</a>
       <% end %>

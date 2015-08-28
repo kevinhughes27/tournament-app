@@ -49,7 +49,8 @@ class Admin::BracketsController < AdminController
       end
 
       @bracket.seed(@teams)
-      head :ok
+      render partial: 'bracket', locals: {num_teams: @teams.size, bracket: @bracket}
+
     rescue => error
       render json: { error: error.message }, status: :unprocessible_entity
     end

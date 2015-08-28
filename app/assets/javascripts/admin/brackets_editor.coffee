@@ -42,13 +42,14 @@ class Admin.BracketEditor
     Turbolinks.ProgressBar.done()
     $(form).find(':submit').removeClass('is-loading')
 
-  seedBracket: ($node, path) ->
+  seedBracket: ($node, path, refreshKey) ->
     @_startSeeding($node)
 
     $.ajax
       type: 'PUT'
       url: path
       success: (response) =>
+        Turbolinks.replace(response, change: [refreshKey])
         @_finishSeeding($node)
         Admin.Flash.notice('Bracket seeded')
       error: (response) =>
