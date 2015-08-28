@@ -32,8 +32,8 @@ class Bracket < ActiveRecord::Base
     raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
 
     games.each do |game|
-      game.home = teams[ game.bracket_top.to_i - 1 ]
-      game.away = teams[ game.bracket_bottom.to_i - 1 ]
+      game.home = teams[ game.bracket_top.to_i - 1 ] if game.bracket_top.is_i?
+      game.away = teams[ game.bracket_bottom.to_i - 1 ] if game.bracket_bottom.is_i?
       game.home_score = nil
       game.away_score = nil
       game.score_confirmed = false

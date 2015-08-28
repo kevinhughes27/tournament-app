@@ -60,7 +60,7 @@ class Game < ActiveRecord::Base
   end
 
   def valid_for_seed_round?
-    bracket_top.match(/\A\d+\z/) && bracket_bottom.match(/\A\d+\z/)
+    bracket_top.match(/\A\d+\z/) || bracket_bottom.match(/\A\d+\z/)
   end
 
   def scores_present?
