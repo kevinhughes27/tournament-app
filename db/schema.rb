@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809145055) do
+ActiveRecord::Schema.define(version: 20150829022843) do
 
   create_table "brackets", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -36,14 +36,14 @@ ActiveRecord::Schema.define(version: 20150809145055) do
   create_table "games", force: :cascade do |t|
     t.integer  "home_id"
     t.integer  "away_id"
-    t.integer  "home_score",      default: 0
-    t.integer  "away_score",      default: 0
+    t.integer  "home_score"
+    t.integer  "away_score"
     t.datetime "start_time"
     t.boolean  "score_confirmed"
     t.integer  "field_id"
     t.integer  "tournament_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "bracket_uid"
     t.string   "bracket_top"
     t.string   "bracket_bottom"
