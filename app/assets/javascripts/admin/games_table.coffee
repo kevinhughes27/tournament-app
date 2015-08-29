@@ -20,10 +20,14 @@ class Admin.GamesTable
     })
 
   _resetGamesList: ->
+    $searchNode = $('#games').find('.search')
+    $sortNodes = $('#games').find('.sort')
+
     @gamesList.search()
-    $('#games > .search').val('')
-    $('#games > .search').unbind()
-    $('#games > .sort').unbind()
+    $searchNode.val('')
+    $searchNode.unbind()
+    $sortNodes.unbind()
+
     delete @gamesList
     @_initGamesList()
 
