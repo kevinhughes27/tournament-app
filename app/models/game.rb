@@ -76,6 +76,15 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def dependent_games
+    [
+      Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_top: "w#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_top: "l#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_bottom: "w#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, bracket_id: bracket_id, bracket_bottom: "l#{bracket_uid}")
+    ].compact
+  end
+
   private
 
   def set_score(home_score, away_score)

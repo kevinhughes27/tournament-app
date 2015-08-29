@@ -11,8 +11,10 @@ class Admin::GamesController < AdminController
 
     game.update_score(home_score, away_score)
 
-    @games = [game]
-    render :index, turbolinks: true, change: "game:#{game.id}"
+    @games = [game, game.dependent_games].flatten
+    change_keys = @games.map{ |g| "game:#{g.id}" }
+
+    render :index, turbolinks: true, change: change_keys
   end
 
 end

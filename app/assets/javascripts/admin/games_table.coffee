@@ -44,7 +44,11 @@ class Admin.GamesTable
         eval(response)
         @_resetGamesList()
         @_finishLoading(form)
-        Admin.Flash.error('Error updating score')
+
+        if response.status == 200
+          Admin.Flash.notice('Score updated')
+        else
+          Admin.Flash.error('Error updating score')
 
   _startLoading: (form) ->
     Turbolinks.ProgressBar.start()
