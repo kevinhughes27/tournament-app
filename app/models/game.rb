@@ -20,6 +20,7 @@ class Game < ActiveRecord::Base
   after_save :update_bracket
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
+  scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
 
   delegate :division, to: :bracket
 
