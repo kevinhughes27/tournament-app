@@ -4,8 +4,7 @@ class Admin.GamesTable
     $('.popover').on 'shown.bs.modal', (e) ->
       $(e.target).find('#home_score').focus()
 
-    Twine.afterBound =>
-      @_initGamesList()
+    @_initGamesList()
 
   _initGamesList: ->
     @gamesList = new List('games', {
@@ -20,6 +19,12 @@ class Admin.GamesTable
       ]
     })
 
+  _resetGamesList: ->
+    $('#games > .search').unbind()
+    $('#games > .sort').unbind()
+    delete @gamesList
+    @_initGamesList()
+
   updateScore: (form) ->
     @_startLoading(form)
     data = $(form).serialize()
@@ -30,10 +35,12 @@ class Admin.GamesTable
       data: data
       success: (response) =>
         eval(response)
+        @_resetGamesList()
         @_finishLoading(form)
         Admin.Flash.notice('Score updated')
       error: (response) =>
         eval(response)
+        @_resetGamesList()
         @_finishLoading(form)
         Admin.Flash.error('Error updating score')
 
