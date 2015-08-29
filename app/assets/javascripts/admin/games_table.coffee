@@ -20,6 +20,8 @@ class Admin.GamesTable
     })
 
   _resetGamesList: ->
+    @gamesList.search()
+    $('#games > .search').val('')
     $('#games > .search').unbind()
     $('#games > .sort').unbind()
     delete @gamesList
