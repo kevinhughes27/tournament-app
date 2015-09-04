@@ -19,19 +19,6 @@ class Admin.GamesTable
       ]
     })
 
-  _resetGamesList: (response) ->
-    $searchNode = $('#games').find('.search')
-    $sortNodes = $('#games').find('.sort')
-
-    @gamesList.search()
-    $searchNode.val('')
-    $searchNode.unbind()
-    $sortNodes.unbind()
-    delete @gamesList
-
-    eval(response)
-    @_initGamesList()
-
   updateScore: (form) ->
     @_startLoading(form)
     data = $(form).serialize()
@@ -41,17 +28,17 @@ class Admin.GamesTable
       url: form.action
       data: data
       success: (response) =>
-        @_resetGamesList(response)
+        @gamesList.search()
+        eval(response)
+        @gamesList.reIndex()
         @_finishLoading(form)
         Admin.Flash.notice('Score updated')
       error: (response) =>
-        @_resetGamesList(response)
+        @gamesList.search()
+        eval(response)
+        @gamesList.reIndex()
         @_finishLoading(form)
-
-        if response.status == 200
-          Admin.Flash.notice('Score updated')
-        else
-          Admin.Flash.error('Error updating score')
+        Admin.Flash.error('Error updating score')
 
   _startLoading: (form) ->
     Turbolinks.ProgressBar.start()

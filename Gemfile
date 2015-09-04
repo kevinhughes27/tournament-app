@@ -16,7 +16,6 @@ gem 'underscore-rails'
 gem 'twine-rails'
 gem 'momentjs-rails'
 gem 'interact-rails'
-gem 'listjs-rails'
 gem 'font-awesome-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
 
