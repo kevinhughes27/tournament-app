@@ -1,0 +1,19 @@
+{
+  "name": "ultimate-tournament",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kevinhughes27/ultimate-tournament",
+  "authors": [
+    "Kevin Hughes <kevin.hughes@shopify.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fingerprintjs2": "~0.7.4"
+  }
+}

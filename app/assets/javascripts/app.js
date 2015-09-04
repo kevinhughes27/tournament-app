@@ -7,7 +7,7 @@
 //= require moment
 //= require underscore
 //= require awesomplete
-//= require fingerprint2
+//= require fingerprintjs2
 //= require google_analytics
 //= require turbolinks
 //= require namespace
