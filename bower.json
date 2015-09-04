@@ -1,11 +1,5 @@
 {
   "name": "ultimate-tournament",
-  "version": "0.0.0",
-  "homepage": "https://github.com/kevinhughes27/ultimate-tournament",
-  "authors": [
-    "Kevin Hughes <kevin.hughes@shopify.com>"
-  ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -14,6 +8,16 @@
     "tests"
   ],
   "dependencies": {
-    "fingerprintjs2": "~0.7.4"
+    "fingerprintjs2": "~0.7.4",
+    "bootstrap-contextmenu": "0.3.3",
+    "bootstrap-popover-x": "1.4.1",
+    "datetimepicker": "2.4.5",
+    "jquery.csv": "gortok/jquery-csv",
+    "jquery.scrollTo": "2.1.1",
+    "table-to-json": "0.11.1",
+    "editable-table": "mindmup/editable-table",
+    "underscore": "1.8.3",
+    "moment": "2.10.6",
+    "interact": "1.2.4"
   }
 }
