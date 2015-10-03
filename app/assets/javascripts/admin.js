@@ -26,4 +26,4 @@
 //= require namespace
 //= require_tree ./admin
 //= require_tree ./components
-window.Admin.Header = require('./components/game_index');
+window.Admin.GameIndex = require('./components/game_index');

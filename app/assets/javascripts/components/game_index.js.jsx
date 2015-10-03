@@ -1,4 +1,4 @@
-var Header = React.createClass({
+var GameIndex = React.createClass({
   propTypes: {
     name: React.PropTypes.string
   },
@@ -12,4 +12,4 @@ var Header = React.createClass({
   }
 });
 
-module.exports = Header;
+module.exports = GameIndex;
