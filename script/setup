@@ -1,0 +1,5 @@
+#!/bin/bash
+bundle install
+bundle exec rake db:migrate
+bower install
+npm install

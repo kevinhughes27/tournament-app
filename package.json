@@ -1,0 +1,15 @@
+{
+  "name": "ultimate-tournament",
+  "devDependencies": {
+    "browserify": "~9.0.8",
+    "browserify-incremental": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "dependencies": {
+    "fixed-data-table": "^0.4.7",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1"
+  }
+}

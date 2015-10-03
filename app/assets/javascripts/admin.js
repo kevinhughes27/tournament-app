@@ -1,5 +1,14 @@
 //= require jquery
 //= require jquery_ujs
+//= require twine
+//= require turbolinks
+
+//= require react
+//= require react_ujs
+
+//= require moment
+//= require underscore
+
 //= require table-to-json
 //= require jquery.csv/jquery.csv-0.71
 //= require jquery.cookie
@@ -13,9 +22,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-contextmenu
 //= require bootstrap-popover-x
-//= require moment
-//= require turbolinks
-//= require underscore
-//= require twine
+
 //= require namespace
 //= require_tree ./admin
+//= require_tree ./components
+window.Admin.Header = require('./components/game_index');

@@ -14,8 +14,12 @@ gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'interact-rails'
+
+gem 'react-rails'
 gem 'twine-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
+
+gem 'browserify-rails'
 
 group :production do
   gem 'pg'
