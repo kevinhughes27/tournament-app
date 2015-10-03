@@ -15,3 +15,7 @@ Links
 [![newrelic](http://i.imgur.com/X4OJe4r.png)](https://rpm.newrelic.com/accounts/1045852/applications/9539779)
 [![google-analytics](http://imgur.com/vZmWkmr.png)](https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a65432378w101675804p105641923/)
 [![slack](http://i.imgur.com/FAx0EGq.png)](https://ocua.slack.com)
+
+Note:
+Needs this buildpack set on heroku:
+`heroku config:set BUILDPACK_URL='git://github.com/qnyp/heroku-buildpack-ruby-bower.git#run-bower'`
