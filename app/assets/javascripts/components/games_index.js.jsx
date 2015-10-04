@@ -45,22 +45,18 @@ var GamesIndex = React.createClass({
     };
 
     return (
-      <section className="content">
-        <div className="box">
-          <div className="box-body">
-            <div className="input-group" style={{paddingBottom: '15px'}}>
-              <div className="input-group-addon">
-                <i className="fa fa-search"></i>
-              </div>
-              <input className="search form-control"
-                     value={searchString}
-                     placeholder="Search"
-                     onChange={this.searchUpdated}/>
-            </div>
-            <GamesTable games={games} gamesIndex={this}/>
+      <div>
+        <div className="input-group" style={{paddingBottom: '15px'}}>
+          <div className="input-group-addon">
+            <i className="fa fa-search"></i>
           </div>
+          <input className="search form-control"
+                 value={searchString}
+                 placeholder="Search"
+                 onChange={this.searchUpdated}/>
         </div>
-      </section>
+        <GamesTable games={games} gamesIndex={this}/>
+      </div>
     );
   }
 });
