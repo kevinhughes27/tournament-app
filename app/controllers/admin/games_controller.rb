@@ -13,7 +13,6 @@ class Admin::GamesController < AdminController
     away_score = params[:away_score].to_i
 
     @game.update_score(home_score, away_score)
-    render json: @game
   end
 
 end

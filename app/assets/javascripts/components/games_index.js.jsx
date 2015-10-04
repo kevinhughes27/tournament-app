@@ -5,7 +5,10 @@ var CollapsibleMixin = require('react-collapsible-mixin');
 
 var GamesIndex = React.createClass({
   getInitialState() {
-    return { searchString: '' };
+    return {
+      searchString: '',
+      games: this.props.games
+    };
   },
 
   searchUpdated(event) {
@@ -22,8 +25,19 @@ var GamesIndex = React.createClass({
     });
   },
 
+  updateGame(updatedGame) {
+    var games = this.state.games;
+
+    var idx = _.findIndex(games, function(game){
+      return game.id == updatedGame.id;
+    });
+
+    games[idx] = updatedGame;
+    this.setState({games: games});
+  },
+
   render() {
-    var games = this.props.games;
+    var games = this.state.games;
     var searchString = this.state.searchString;
 
     if(searchString) {
@@ -43,7 +57,7 @@ var GamesIndex = React.createClass({
                      placeholder="Search"
                      onChange={this.searchUpdated}/>
             </div>
-            <GamesTable games={games}/>
+            <GamesTable games={games} gamesIndex={this}/>
           </div>
         </div>
       </section>
@@ -113,8 +127,8 @@ var GamesTable = React.createClass({
           </tr>
         </thead>
         <tbody>
-          { games.map(function(game) {
-            return <Game {...game} />;
+          { games.map((game) => {
+            return <Game game={game} gamesIndex={this.props.gamesIndex}/>;
           })}
         </tbody>
       </table>
@@ -126,7 +140,7 @@ var Game = React.createClass({
   mixins: [CollapsibleMixin],
 
   render() {
-    var game = this.props;
+    var game = this.props.game;
     var collapseId = "reports" + game.id;
 
     var nameRow;
@@ -151,7 +165,7 @@ var Game = React.createClass({
         <td className="col-md-7 table-link name">
           {nameRow}
           <div ref={collapseId} className={this.getCollapsibleClassSet(collapseId)}>
-            <ScoreReports reports={game.score_reports}/>
+            <ScoreReports reports={game.score_reports} gamesIndex={this.props.gamesIndex}/>
           </div>
         </td>
         <td className="col-md-2 division">
@@ -188,8 +202,8 @@ var ScoreReports = React.createClass({
               </tr>
             </thead>
             <tbody>
-              { reports.map(function(report) {
-                return <ScoreReport {...report} />;
+              { reports.map((report) => {
+                return <ScoreReport report={report} gamesIndex={this.props.gamesIndex}/>;
               })}
             </tbody>
           </table>
@@ -201,7 +215,7 @@ var ScoreReports = React.createClass({
 
 var ScoreReport = React.createClass({
   acceptScoreReport() {
-    var report = this.props;
+    var report = this.props.report;
 
     $.ajax({
       url: 'games/' + report.game_id + '.json',
@@ -211,14 +225,16 @@ var ScoreReport = React.createClass({
         home_score: report.home_score,
         away_score: report.away_score
       },
-      success: function(response){
-        debugger;
-      }
+      success: this.reportAccepted
     })
   },
 
+  reportAccepted(response) {
+    this.props.gamesIndex.updateGame(response.game);
+  },
+
   render() {
-    var report = this.props;
+    var report = this.props.report;
 
     return (
       <tr>
