@@ -36,6 +36,14 @@ class Game < ActiveRecord::Base
     "#{home_score} - #{away_score}"
   end
 
+  def home_name
+    home.present? ? home.name : ""
+  end
+
+  def away_name
+    away.present? ? away.name : ""
+  end
+
   def name
     if teams_present?
       "#{home.name} vs #{away.name}"

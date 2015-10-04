@@ -6,6 +6,8 @@ gem 'friendly_id'
 gem 'date_validator'
 gem 'json-schema'
 gem 'browser-timezone-rails'
+gem 'responders'
+gem 'jbuilder'
 
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
