@@ -3,7 +3,7 @@ var $ = require("jquery");
 
 var CollapsibleMixin = require('react-collapsible-mixin');
 
-var GameIndex = React.createClass({
+var GamesIndex = React.createClass({
   getInitialState() {
     return { searchString: '' };
   },
@@ -43,7 +43,7 @@ var GameIndex = React.createClass({
                      placeholder="Search"
                      onChange={this.searchUpdated}/>
             </div>
-            <GameTable games={games}/>
+            <GamesTable games={games}/>
           </div>
         </div>
       </section>
@@ -51,7 +51,7 @@ var GameIndex = React.createClass({
   }
 });
 
-var GameTable = React.createClass({
+var GamesTable = React.createClass({
   getInitialState() {
     return {
       sortBy: '',
@@ -247,4 +247,4 @@ var ScoreReport = React.createClass({
   }
 });
 
-module.exports = GameIndex;
+module.exports = GamesIndex;
