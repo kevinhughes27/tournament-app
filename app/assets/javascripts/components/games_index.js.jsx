@@ -1,6 +1,6 @@
 var _ = require("underscore");
 var $ = require("jquery");
-
+var classNames = require('classnames');
 var CollapsibleMixin = require('react-collapsible-mixin');
 
 var GamesIndex = React.createClass({
@@ -195,8 +195,25 @@ var ScoreReports = React.createClass({
 });
 
 var ScoreReport = React.createClass({
+  getInitialState() {
+    return {
+      isLoading: false
+    };
+  },
+
+  _startLoading() {
+    Turbolinks.ProgressBar.start()
+    this.setState({isLoading: true});
+  },
+
+  _finishLoading() {
+    Turbolinks.ProgressBar.done()
+    this.setState({isLoading: false});
+  },
+
   acceptScoreReport() {
     var report = this.props.report;
+    this._startLoading();
 
     $.ajax({
       url: 'games/' + report.game_id + '.json',
@@ -211,11 +228,13 @@ var ScoreReport = React.createClass({
   },
 
   reportAccepted(response) {
+    this._finishLoading();
     this.props.gamesIndex.updateGame(response.game);
   },
 
   render() {
     var report = this.props.report;
+    var btnClasses = classNames('btn', 'btn-success', 'btn-xs', {'is-loading': this.state.isLoading});
 
     return (
       <tr>
@@ -235,9 +254,9 @@ var ScoreReport = React.createClass({
           {report.comments}
         </td>
         <td>
-          <a className="btn btn-success btn-xs" onClick={this.acceptScoreReport}>
+          <button className={btnClasses} onClick={this.acceptScoreReport}>
             Accept
-          </a>
+          </button>
         </td>
       </tr>
     );
