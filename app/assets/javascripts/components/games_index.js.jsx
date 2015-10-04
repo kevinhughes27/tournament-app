@@ -6,8 +6,10 @@ var CollapsibleMixin = require('react-collapsible-mixin');
 var GamesIndex = React.createClass({
   getInitialState() {
     return {
+      games: this.props.games,
       searchString: '',
-      games: this.props.games
+      sortBy: '',
+      sortReverse: false
     };
   },
 
@@ -23,50 +25,6 @@ var GamesIndex = React.createClass({
              game.home.match(searchString) ||
              game.away.match(searchString);
     });
-  },
-
-  updateGame(updatedGame) {
-    var games = this.state.games;
-
-    var idx = _.findIndex(games, function(game){
-      return game.id == updatedGame.id;
-    });
-
-    games[idx] = updatedGame;
-    this.setState({games: games});
-  },
-
-  render() {
-    var games = this.state.games;
-    var searchString = this.state.searchString;
-
-    if(searchString) {
-      games = this.searchFilter(games, searchString);
-    };
-
-    return (
-      <div>
-        <div className="input-group" style={{paddingBottom: '15px'}}>
-          <div className="input-group-addon">
-            <i className="fa fa-search"></i>
-          </div>
-          <input className="search form-control"
-                 value={searchString}
-                 placeholder="Search"
-                 onChange={this.searchUpdated}/>
-        </div>
-        <GamesTable games={games} gamesIndex={this}/>
-      </div>
-    );
-  }
-});
-
-var GamesTable = React.createClass({
-  getInitialState() {
-    return {
-      sortBy: '',
-      sortReverse: false
-    };
   },
 
   sortUpdated(field) {
@@ -91,43 +49,70 @@ var GamesTable = React.createClass({
     }
   },
 
+  updateGame(updatedGame) {
+    var games = this.state.games;
+
+    var idx = _.findIndex(games, function(game){
+      return game.id == updatedGame.id;
+    });
+
+    games[idx] = updatedGame;
+    this.setState({games: games});
+  },
+
   render() {
-    var games = this.props.games;
+    var games = this.state.games;
+    var searchString = this.state.searchString;
     var sortBy = this.state.sortBy;
     var sortReverse = this.state.sortReverse;
 
+    if(searchString) {
+      games = this.searchFilter(games, searchString);
+    };
+
     if(sortBy) {
       games = this.sortFilter(games, sortBy, sortReverse);
-    }
+    };
 
     return (
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th className="sort-header">
-              <a href="#" className="sort" onClick={this.sortUpdated.bind(this, "name")}>
-                Game
-              </a>
-            </th>
-            <th className="sort-header">
-              <a href="#" className="sort" onClick={this.sortUpdated.bind(this, "division")}>
-                Division
-              </a>
-            </th>
-            <th>Score</th>
-            <th className="sort-header">
-              <a href="#" className="sort" onClick={this.sortUpdated.bind(this, "confirmed")}>
-                Confirmed
-              </a>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          { games.map((game) => {
-            return <Game game={game} gamesIndex={this.props.gamesIndex}/>;
-          })}
-        </tbody>
-      </table>
+      <div>
+        <div className="input-group" style={{paddingBottom: '15px'}}>
+          <div className="input-group-addon">
+            <i className="fa fa-search"></i>
+          </div>
+          <input className="search form-control"
+                 value={searchString}
+                 placeholder="Search"
+                 onChange={this.searchUpdated}/>
+        </div>
+        <table className="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th className="sort-header">
+                <a href="#" className="sort" onClick={this.sortUpdated.bind(this, "name")}>
+                  Game
+                </a>
+              </th>
+              <th className="sort-header">
+                <a href="#" className="sort" onClick={this.sortUpdated.bind(this, "division")}>
+                  Division
+                </a>
+              </th>
+              <th>Score</th>
+              <th className="sort-header">
+                <a href="#" className="sort" onClick={this.sortUpdated.bind(this, "confirmed")}>
+                  Confirmed
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            { games.map((game) => {
+              return <Game game={game} gamesIndex={this}/>;
+            })}
+          </tbody>
+        </table>
+      </div>
     );
   }
 });
