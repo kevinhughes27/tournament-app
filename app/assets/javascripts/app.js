@@ -1,5 +1,3 @@
-//= require namespace
-
 //= require jquery
 //= require twine
 //= require turbolinks
@@ -15,4 +13,6 @@
 
 //= require fingerprintjs2
 
+//= require_self
 //= require_tree ./app
+window.App = window.App || {};
