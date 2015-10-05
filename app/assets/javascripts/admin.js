@@ -3,9 +3,6 @@
 //= require twine
 //= require turbolinks
 
-//= require react
-//= require react_ujs
-
 //= require moment
 //= require underscore
 
@@ -24,6 +21,5 @@
 //= require bootstrap-popover-x
 
 //= require namespace
+//= require components
 //= require_tree ./admin
-//= require_tree ./components
-window.Admin.GamesIndex = require('./components/games_index');

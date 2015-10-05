@@ -1,7 +1,8 @@
 var _ = require("underscore");
 var $ = require("jquery");
+var React = require('react');
+var Collapse = require('react-bootstrap').Collapse;
 var classNames = require('classnames');
-var CollapsibleMixin = require('react-collapsible-mixin');
 
 var GamesIndex = React.createClass({
   getInitialState() {
@@ -118,45 +119,58 @@ var GamesIndex = React.createClass({
 });
 
 var Game = React.createClass({
-  mixins: [CollapsibleMixin],
+  getInitialState() {
+    return {
+      reportsOpen: false,
+    };
+  },
+
+  _toggleCollapse(e) {
+    e.nativeEvent.preventDefault();
+    this.setState({ reportsOpen: !this.state.reportsOpen });
+  },
 
   render() {
     var game = this.props.game;
-    var collapseId = "reports" + game.id;
+    var reportsOpen = this.state.reportsOpen;
 
     var nameRow;
     if (game.score_reports.length > 0) {
-      nameRow = <a href={"#" + collapseId} className={collapseId} onClick={this._onToggleCollapsible}>
-        {game.name + " "}
-        <span className="badge"> {game.score_reports.length} </span>
-      </a>
+      nameRow = <div>
+        <a href="#" onClick={this._toggleCollapse}>
+          {game.name + " "}
+          <span className="badge"> {game.score_reports.length} </span>
+        </a>
+        <Collapse in={this.state.reportsOpen}>
+          <div>
+            <ScoreReports reports={game.score_reports} gamesIndex={this.props.gamesIndex}/>
+          </div>
+        </Collapse>
+      </div>
     } else {
       nameRow = game.name;
-    }
+    };
 
-    var confirmIcon;
+    var confirmRow;
     if(game.confirmed) {
-      confirmIcon = <i className="fa fa-check" style={{color: 'green'}}></i>;
+      confirmRow = <i className="fa fa-check" style={{color: 'green'}}></i>;
     } else {
-      confirmIcon = <i className="fa fa-exclamation-circle" style={{color: 'orange'}}></i>;
-    }
+      confirmRow = <i className="fa fa-exclamation-circle" style={{color: 'orange'}}></i>;
+    };
 
     return (
       <tr>
-        <td className="col-md-7 table-link name">
+        <td className="col-md-7 table-link">
           {nameRow}
-          <div ref={collapseId} className={this.getCollapsibleClassSet(collapseId)}>
-            <ScoreReports reports={game.score_reports} gamesIndex={this.props.gamesIndex}/>
-          </div>
         </td>
-        <td className="col-md-2 division">
+        <td className="col-md-2">
           {game.division}
         </td>
-        <td className="col-md-1 table-link score">
+        <td className="col-md-1 table-link">
           {game.score}
         </td>
         <td className="col-md-2">
-          {confirmIcon}
+          {confirmRow}
         </td>
       </tr>
     );
