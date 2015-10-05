@@ -14,6 +14,5 @@
 //= require awesomplete
 
 //= require fingerprintjs2
-//= require google_analytics
 
 //= require_tree ./app
