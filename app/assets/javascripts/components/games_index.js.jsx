@@ -141,7 +141,7 @@ var Game = React.createClass({
       nameRow = <div>
         <a href="#" onClick={this._toggleCollapse}>
           {game.name + " "}
-          <span className="badge"> {game.score_reports.length} </span>
+          <span className="badge">{game.score_reports.length}</span>
         </a>
         <Collapse in={this.state.reportsOpen}>
           <div>
@@ -156,12 +156,16 @@ var Game = React.createClass({
     var confirmRow;
     if(game.confirmed) {
       confirmRow = <i className="fa fa-check" style={{color: 'green'}}></i>;
-    } else {
+    } else if(game.played) {
       confirmRow = <i className="fa fa-exclamation-circle" style={{color: 'orange'}}></i>;
+    } else {
+      confirmRow = <i className="fa fa-question-circle" style={{color: '#008B8B'}}></i>;
     };
 
+    var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
+
     return (
-      <tr>
+      <tr className={ classNames({warning: sotgWarning}) }>
         <td className="col-md-7 table-link">
           {nameRow}
         </td>
@@ -254,7 +258,7 @@ var ScoreReport = React.createClass({
     var tooltip = <Tooltip placement="top">{report.submitter_fingerprint}</Tooltip>;
 
     return (
-      <tr>
+      <tr className={ classNames({warning: report.sotg_warning}) }>
         <td className="score">
           {report.score}
         </td>

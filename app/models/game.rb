@@ -60,6 +60,15 @@ class Game < ActiveRecord::Base
     field_id.nil? && start_time.blank?
   end
 
+  def played?
+    return unless start_time
+    Time.now > end_time
+  end
+
+  def end_time
+    start_time + tournament.time_cap.minutes
+  end
+
   def confirmed?
     score_confirmed
   end
