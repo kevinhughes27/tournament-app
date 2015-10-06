@@ -1,8 +1,10 @@
-var _ = require("underscore");
-var $ = require("jquery");
-var React = require('react');
-var Collapse = require('react-bootstrap').Collapse;
-var classNames = require('classnames');
+var _ = require("underscore"),
+    $ = require("jquery"),
+    React = require('react'),
+    Collapse = require('react-bootstrap').Collapse,
+    Tooltip = require('react-bootstrap').Tooltip,
+    OverlayTrigger = require('react-bootstrap').OverlayTrigger,
+    classNames = require('classnames');
 
 var GamesIndex = React.createClass({
   getInitialState() {
@@ -249,6 +251,7 @@ var ScoreReport = React.createClass({
   render() {
     var report = this.props.report;
     var btnClasses = classNames('btn', 'btn-success', 'btn-xs', {'is-loading': this.state.isLoading});
+    var tooltip = <Tooltip placement="top">{report.submitter_fingerprint}</Tooltip>;
 
     return (
       <tr>
@@ -256,7 +259,9 @@ var ScoreReport = React.createClass({
           {report.score}
         </td>
         <td className="submitted-by">
-          {report.submitted_by}
+          <OverlayTrigger overlay={tooltip} delayShow={300} delayHide={150}>
+            <span>{report.submitted_by}</span>
+          </OverlayTrigger>
         </td>
         <td className="submitted-at">
           {report.submitted_at}
