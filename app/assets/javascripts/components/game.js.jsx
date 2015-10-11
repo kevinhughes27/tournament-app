@@ -7,11 +7,6 @@ var _ = require('underscore'),
     ScoreReports = require('./score_reports');
 
 var Game = React.createClass({
-  getInitialState() {
-    return {
-      reportsOpen: false,
-    };
-  },
 
   _getGame() {
     var gameIdx = this.props.gameIdx;
@@ -19,31 +14,8 @@ var Game = React.createClass({
     return games[gameIdx];
   },
 
-  _toggleCollapse(e) {
-    e.nativeEvent.preventDefault();
-    this.setState({ reportsOpen: !this.state.reportsOpen });
-  },
-
   render() {
     var game = this._getGame();
-    var reportsOpen = this.state.reportsOpen;
-
-    var nameRow;
-    if (game.score_reports.length > 0) {
-      nameRow = <div>
-        <a href="#" onClick={this._toggleCollapse}>
-          {game.name + " "}
-          <span className="badge">{game.score_reports.length}</span>
-        </a>
-        <Collapse in={this.state.reportsOpen}>
-          <div>
-            <ScoreReports reports={game.score_reports} gamesIndex={this.props.gamesIndex}/>
-          </div>
-        </Collapse>
-      </div>
-    } else {
-      nameRow = game.name;
-    };
 
     var scoreForm = <Popover title={game.name}>
       <ScoreForm gameId={game.id}
@@ -57,7 +29,7 @@ var Game = React.createClass({
     return (
       <tr className={ classNames({warning: sotgWarning}) }>
         <td className="col-md-7 table-link">
-          {nameRow}
+          <NameRow name={game.name} reports={game.score_reports} gamesIndex={this.props.gamesIndex} />
         </td>
         <td className="col-md-2">
           {game.division}
@@ -71,6 +43,42 @@ var Game = React.createClass({
           <ConfirmRow confirmed={game.confirmed} played={game.played} />
         </td>
       </tr>
+    );
+  }
+});
+
+var NameRow = React.createClass({
+  getInitialState() {
+    return {
+      reportsOpen: false
+    };
+  },
+
+  _toggleCollapse(e) {
+    e.nativeEvent.preventDefault();
+    this.setState({ reportsOpen: !this.state.reportsOpen });
+  },
+
+  render() {
+    var name = this.props.name;
+    var reports = this.props.reports;
+
+    if (reports.length == 0) {
+      return( <span>{name}</span> );
+    };
+
+    return (
+      <div>
+        <a href="#" onClick={this._toggleCollapse}>
+          {name + " "}
+          <span className="badge">{reports.length}</span>
+        </a>
+        <Collapse in={this.state.reportsOpen}>
+          <div>
+            <ScoreReports reports={reports} gamesIndex={this.props.gamesIndex}/>
+          </div>
+        </Collapse>
+      </div>
     );
   }
 });
