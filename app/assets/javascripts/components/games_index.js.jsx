@@ -1,10 +1,6 @@
-var _ = require("underscore"),
-    $ = require("jquery"),
+var _ = require('underscore'),
     React = require('react'),
-    Collapse = require('react-bootstrap').Collapse,
-    Tooltip = require('react-bootstrap').Tooltip,
-    OverlayTrigger = require('react-bootstrap').OverlayTrigger,
-    classNames = require('classnames');
+    Game  = require('./game');
 
 var GamesIndex = React.createClass({
   getInitialState() {
@@ -110,178 +106,12 @@ var GamesIndex = React.createClass({
             </tr>
           </thead>
           <tbody>
-            { games.map((game) => {
-              return <Game game={game} gamesIndex={this}/>;
+            { games.map((game, idx) => {
+              return <Game gamesIndex={this} gameIdx={idx}/>;
             })}
           </tbody>
         </table>
       </div>
-    );
-  }
-});
-
-var Game = React.createClass({
-  getInitialState() {
-    return {
-      reportsOpen: false,
-    };
-  },
-
-  _toggleCollapse(e) {
-    e.nativeEvent.preventDefault();
-    this.setState({ reportsOpen: !this.state.reportsOpen });
-  },
-
-  render() {
-    var game = this.props.game;
-    var reportsOpen = this.state.reportsOpen;
-
-    var nameRow;
-    if (game.score_reports.length > 0) {
-      nameRow = <div>
-        <a href="#" onClick={this._toggleCollapse}>
-          {game.name + " "}
-          <span className="badge">{game.score_reports.length}</span>
-        </a>
-        <Collapse in={this.state.reportsOpen}>
-          <div>
-            <ScoreReports reports={game.score_reports} gamesIndex={this.props.gamesIndex}/>
-          </div>
-        </Collapse>
-      </div>
-    } else {
-      nameRow = game.name;
-    };
-
-    var confirmRow;
-    if(game.confirmed) {
-      confirmRow = <i className="fa fa-check" style={{color: 'green'}}></i>;
-    } else if(game.played) {
-      confirmRow = <i className="fa fa-exclamation-circle" style={{color: 'orange'}}></i>;
-    } else {
-      confirmRow = <i className="fa fa-question-circle" style={{color: '#008B8B'}}></i>;
-    };
-
-    var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
-
-    return (
-      <tr className={ classNames({warning: sotgWarning}) }>
-        <td className="col-md-7 table-link">
-          {nameRow}
-        </td>
-        <td className="col-md-2">
-          {game.division}
-        </td>
-        <td className="col-md-1 table-link">
-          {game.score}
-        </td>
-        <td className="col-md-2">
-          {confirmRow}
-        </td>
-      </tr>
-    );
-  }
-});
-
-var ScoreReports = React.createClass({
-  render() {
-    var reports = this.props.reports;
-
-    return (
-      <div style={{paddingTop: 25}}>
-        <div className="panel panel-default">
-          <div className="panel-heading">Score Reports</div>
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Score</th>
-                <th>Submitted by</th>
-                <th>Submitted at</th>
-                <th>SOTG</th>
-                <th>Comments</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              { reports.map((report) => {
-                return <ScoreReport report={report} gamesIndex={this.props.gamesIndex}/>;
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  }
-});
-
-var ScoreReport = React.createClass({
-  getInitialState() {
-    return {
-      isLoading: false
-    };
-  },
-
-  _startLoading() {
-    Turbolinks.ProgressBar.start()
-    this.setState({isLoading: true});
-  },
-
-  _finishLoading() {
-    Turbolinks.ProgressBar.done()
-    this.setState({isLoading: false});
-  },
-
-  acceptScoreReport() {
-    var report = this.props.report;
-    this._startLoading();
-
-    $.ajax({
-      url: 'games/' + report.game_id + '.json',
-      type: 'PUT',
-      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-      data: {
-        home_score: report.home_score,
-        away_score: report.away_score
-      },
-      success: this.reportAccepted
-    })
-  },
-
-  reportAccepted(response) {
-    this._finishLoading();
-    this.props.gamesIndex.updateGame(response.game);
-  },
-
-  render() {
-    var report = this.props.report;
-    var btnClasses = classNames('btn', 'btn-success', 'btn-xs', {'is-loading': this.state.isLoading});
-    var tooltip = <Tooltip placement="top">{report.submitter_fingerprint}</Tooltip>;
-
-    return (
-      <tr className={ classNames({warning: report.sotg_warning}) }>
-        <td className="score">
-          {report.score}
-        </td>
-        <td className="submitted-by">
-          <OverlayTrigger overlay={tooltip} delayShow={300} delayHide={150}>
-            <span>{report.submitted_by}</span>
-          </OverlayTrigger>
-        </td>
-        <td className="submitted-at">
-          {report.submitted_at}
-        </td>
-        <td>
-          {report.sotg_score}
-        </td>
-        <td className="comments">
-          {report.comments}
-        </td>
-        <td>
-          <button className={btnClasses} onClick={this.acceptScoreReport}>
-            Accept
-          </button>
-        </td>
-      </tr>
     );
   }
 });
