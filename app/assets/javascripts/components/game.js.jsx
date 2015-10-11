@@ -52,15 +52,6 @@ var Game = React.createClass({
                  gamesIndex={this.props.gamesIndex} />
     </Popover>;
 
-    var confirmRow;
-    if(game.confirmed) {
-      confirmRow = <i className="fa fa-check" style={{color: 'green'}}></i>;
-    } else if(game.played) {
-      confirmRow = <i className="fa fa-exclamation-circle" style={{color: 'orange'}}></i>;
-    } else {
-      confirmRow = <i className="fa fa-question-circle" style={{color: '#008B8B'}}></i>;
-    };
-
     var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
 
     return (
@@ -77,7 +68,7 @@ var Game = React.createClass({
           </OverlayTrigger>
         </td>
         <td className="col-md-2">
-          {confirmRow}
+          <ConfirmRow confirmed={game.confirmed} played={game.played} />
         </td>
       </tr>
     );
@@ -145,6 +136,28 @@ var ScoreForm = React.createClass({
           Save
         </button>
       </form>
+    );
+  }
+});
+
+var ConfirmRow = React.createClass({
+  render() {
+    var iconClass;
+    var iconColor;
+
+    if(this.props.confirmed) {
+      iconClass = "fa fa-check";
+      iconColor = "green";
+    } else if(this.props.played) {
+      iconClass = "fa fa-exclamation-circle";
+      iconColor = 'orange';
+    } else {
+      iconClass = "fa fa-question-circle";
+      iconColor ="#008B8B";
+    };
+
+    return (
+      <i className={iconClass} style={{color: iconColor}}></i>
     );
   }
 });
