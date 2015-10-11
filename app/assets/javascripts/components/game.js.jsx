@@ -7,22 +7,10 @@ var _ = require('underscore'),
     ScoreReports = require('./score_reports');
 
 var Game = React.createClass({
-
-  _getGame() {
+  render() {
     var gameIdx = this.props.gameIdx;
     var games = this.props.gamesIndex.state.games;
-    return games[gameIdx];
-  },
-
-  render() {
-    var game = this._getGame();
-
-    var scoreForm = <Popover title={game.name}>
-      <ScoreForm gameId={game.id}
-                 homeScore={game.home_score}
-                 awayScore={game.away_score}
-                 gamesIndex={this.props.gamesIndex} />
-    </Popover>;
+    var game = games[gameIdx];
 
     var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
 
@@ -35,9 +23,7 @@ var Game = React.createClass({
           {game.division}
         </td>
         <td className="col-md-1 table-link">
-          <OverlayTrigger trigger="click" overlay={scoreForm}>
-            <a href="#">{game.score}</a>
-          </OverlayTrigger>
+          <ScoreFormPopover game={game} gamesIndex={this.props.gamesIndex} />
         </td>
         <td className="col-md-2">
           <ConfirmRow confirmed={game.confirmed} played={game.played} />
@@ -79,6 +65,25 @@ var NameRow = React.createClass({
           </div>
         </Collapse>
       </div>
+    );
+  }
+});
+
+var ScoreFormPopover = React.createClass({
+  render() {
+    var game = this.props.game;
+
+    var scoreForm = <Popover title={game.name}>
+      <ScoreForm gameId={game.id}
+                 homeScore={game.home_score}
+                 awayScore={game.away_score}
+                 gamesIndex={this.props.gamesIndex} />
+    </Popover>;
+
+    return (
+      <OverlayTrigger trigger="click" overlay={scoreForm}>
+        <a href="#">{game.score}</a>
+      </OverlayTrigger>
     );
   }
 });
