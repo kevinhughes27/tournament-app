@@ -1,6 +1,6 @@
 var _ = require('underscore'),
     React = require('react'),
-    Game  = require('./game');
+    GameRow = require('./game_row');
 
 var GamesIndex = React.createClass({
   getInitialState() {
@@ -107,7 +107,7 @@ var GamesIndex = React.createClass({
           </thead>
           <tbody>
             { games.map((game, idx) => {
-              return <Game gamesIndex={this} gameIdx={idx}/>;
+              return <GameRow gamesIndex={this} gameIdx={idx}/>;
             })}
           </tbody>
         </table>

@@ -6,7 +6,7 @@ var _ = require('underscore'),
     classNames = require('classnames'),
     ScoreReports = require('./score_reports');
 
-var Game = React.createClass({
+var GameRow = React.createClass({
   render() {
     var gameIdx = this.props.gameIdx;
     var games = this.props.gamesIndex.state.games;
@@ -175,4 +175,4 @@ var ConfirmRow = React.createClass({
   }
 });
 
-module.exports = Game;
+module.exports = GameRow;
