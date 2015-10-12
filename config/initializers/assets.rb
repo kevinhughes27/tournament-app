@@ -9,7 +9,7 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'bo
 
 Rails.application.config.browserify_rails.commandline_options = [
   "-t browserify-shim",
-  "-t babelify --extension='.js.jsx'",
+  "-t babelify --extension='.jsx'",
 ]
 
 # Precompile additional assets.
