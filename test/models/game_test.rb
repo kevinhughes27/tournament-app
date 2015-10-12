@@ -92,6 +92,8 @@ class GameTest < ActiveSupport::TestCase
 
   test "update_score updates the teams wins and points_for (no previous score)" do
     game = games(:swift_goose_no_score)
+    home_wins = @home.wins
+    away_wins = @away.wins
     home_pts_for = @home.points_for
     away_pts_for = @away.points_for
 
@@ -101,14 +103,16 @@ class GameTest < ActiveSupport::TestCase
     @home.reload
     @away.reload
 
-    assert_equal 1, @home.wins
-    assert_equal 0, @away.wins
+    assert_equal home_wins+1, @home.wins
+    assert_equal away_wins, @away.wins
     assert_equal home_pts_for + 15, @home.points_for
     assert_equal away_pts_for + 11, @away.points_for
   end
 
   test "update_score updates the teams wins and points_for" do
     game = games(:swift_goose)
+    home_wins = @home.wins
+    away_wins = @away.wins
     home_pts_for = @home.points_for
     away_pts_for = @away.points_for
     home_score = game.home_score
@@ -120,15 +124,17 @@ class GameTest < ActiveSupport::TestCase
     @home.reload
     @away.reload
 
-    assert_equal 1, @home.wins
-    assert_equal 0, @away.wins
+    assert_equal home_wins, @home.wins
+    assert_equal away_wins, @away.wins
     assert_equal home_pts_for + 14 - home_score, @home.points_for
     assert_equal away_pts_for + 12 - away_score, @away.points_for
   end
 
   test "update_score can flip the winner" do
     game = Game.create(tournament: @tournament, bracket: @bracket, bracket_uid: 'q1', bracket_top: '1', bracket_bottom: '2', home: @home, away: @away)
+    home_wins = @home.wins
     home_pts_for = @home.points_for
+    away_wins = @away.wins
     away_pts_for = @away.points_for
 
     game.expects(:update_bracket).twice
@@ -138,8 +144,8 @@ class GameTest < ActiveSupport::TestCase
     @home.reload
     @away.reload
 
-    assert_equal 0, @home.wins
-    assert_equal 1, @away.wins
+    assert_equal home_wins, @home.wins
+    assert_equal away_wins+1, @away.wins
     assert_equal home_pts_for + 10, @home.points_for
     assert_equal away_pts_for + 13, @away.points_for
   end
