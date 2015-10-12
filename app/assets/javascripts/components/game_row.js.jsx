@@ -2,7 +2,7 @@ var _ = require('underscore'),
     React = require('react'),
     Collapse = require('react-bootstrap').Collapse,
     Popover = require('react-bootstrap').Popover,
-    OverlayTrigger = require('react-bootstrap').OverlayTrigger,
+    Overlay = require('react-bootstrap').Overlay,
     classNames = require('classnames'),
     ScoreReports = require('./score_reports');
 
@@ -23,7 +23,10 @@ var GameRow = React.createClass({
           {game.division}
         </td>
         <td className="col-md-1 table-link">
-          <ScoreFormPopover game={game} gamesIndex={this.props.gamesIndex} />
+          <ScoreForm game={game}
+                     homeScore={game.home_score}
+                     awayScore={game.away_score}
+                     gamesIndex={this.props.gamesIndex} />
         </td>
         <td className="col-md-2">
           <ConfirmRow confirmed={game.confirmed} played={game.played} />
@@ -69,32 +72,26 @@ var NameRow = React.createClass({
   }
 });
 
-var ScoreFormPopover = React.createClass({
-  render() {
-    var game = this.props.game;
-
-    var scoreForm = <Popover title={game.name}>
-      <ScoreForm gameId={game.id}
-                 homeScore={game.home_score}
-                 awayScore={game.away_score}
-                 gamesIndex={this.props.gamesIndex} />
-    </Popover>;
-
-    return (
-      <OverlayTrigger trigger="click" overlay={scoreForm}>
-        <a href="#">{game.score}</a>
-      </OverlayTrigger>
-    );
-  }
-});
-
 var ScoreForm = React.createClass({
   getInitialState() {
     return {
+      show: false,
       isLoading: false,
       homeScore: this.props.homeScore,
       awayScore: this.props.awayScore
     };
+  },
+
+  toggle() {
+    this.setState({show: !this.state.show});
+  },
+
+  hide() {
+    this.setState({ show: false });
+  },
+
+  _setFocus() {
+    this.refs.input.getDOMNode().focus()
   },
 
   _startLoading() {
@@ -111,7 +108,7 @@ var ScoreForm = React.createClass({
     this._startLoading();
 
     $.ajax({
-      url: 'games/' + this.props.gameId + '.json',
+      url: 'games/' + this.props.game.id + '.json',
       type: 'PUT',
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
@@ -125,30 +122,54 @@ var ScoreForm = React.createClass({
   updateFinished(response) {
     this._finishLoading();
     this.props.gamesIndex.updateGame(response.game);
+    this.hide();
   },
 
   render() {
+    var game = this.props.game;
     var btnClasses = classNames('btn', 'btn-default', {'is-loading': this.state.isLoading});
 
     return (
-      <form className="form-inline">
-        <input type="number"
-               value={this.state.homeScore}
-               className="form-control score-input"
-               onChange={ (e) => {
-                 this.setState({homeScore: e.target.valueAsNumber})
-               }}/>
-        <span> &mdash; </span>
-        <input type="number"
-               value={this.state.awayScore}
-               className="form-control score-input"
-               onChange={ (e) => {
-                 this.setState({awayScore: e.target.valueAsNumber})
-               }}/>
-        <button className={btnClasses} onClick={this.updateScore}>
-          Save
-        </button>
-      </form>
+      <div>
+        <a href="#" ref="target" onClick={this.toggle}>
+          {game.score}
+        </a>
+
+        <Overlay
+          show={this.state.show}
+          onHide={() => this.hide()}
+          onEntered={this._setFocus}
+          target={() => React.findDOMNode(this.refs.target)}
+          placement="top"
+          rootClose={true}
+        >
+          <Popover>
+            <h5>
+              {game.name}
+              <a href="#" className="pull-right" onClick={() => this.hide() }>X</a>
+            </h5>
+            <form className="form-inline">
+              <input type="number"
+                     value={this.state.homeScore}
+                     className="form-control score-input"
+                     onChange={ (e) => {
+                       this.setState({homeScore: e.target.valueAsNumber})
+                     }}
+                     ref="input"/>
+              <span> &mdash; </span>
+              <input type="number"
+                     value={this.state.awayScore}
+                     className="form-control score-input"
+                     onChange={ (e) => {
+                       this.setState({awayScore: e.target.valueAsNumber})
+                     }}/>
+              <button className={btnClasses} onClick={this.updateScore}>
+                Save
+              </button>
+            </form>
+          </Popover>
+        </Overlay>
+      </div>
     );
   }
 });
