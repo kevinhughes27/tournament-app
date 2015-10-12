@@ -15,14 +15,15 @@ var GamesIndex = React.createClass({
   searchUpdated(event) {
     var val = event.target.value;
     val = val.replace("\\", "");
+    val = val.toLowerCase();
     this.setState({searchString: val});
   },
 
   searchFilter(games, searchString) {
     return _.filter(games, function(game) {
-      return game.name.match(searchString) ||
-             game.home.match(searchString) ||
-             game.away.match(searchString);
+      return game.name.toLowerCase().match(searchString) ||
+             game.home.toLowerCase().match(searchString) ||
+             game.away.toLowerCase().match(searchString);
     });
   },
 
