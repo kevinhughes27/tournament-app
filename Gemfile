@@ -19,7 +19,7 @@ gem 'interact-rails'
 
 gem 'twine-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
-gem 'react-rails'
+gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
 gem 'browserify-rails'
 
 group :production do

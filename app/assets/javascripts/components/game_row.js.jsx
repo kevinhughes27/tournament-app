@@ -1,5 +1,6 @@
 var _ = require('underscore'),
     React = require('react'),
+    ReactDOM = require('react-dom'),
     Collapse = require('react-bootstrap').Collapse,
     Popover = require('react-bootstrap').Popover,
     Overlay = require('react-bootstrap').Overlay,
@@ -92,7 +93,7 @@ var ScoreForm = React.createClass({
   },
 
   _setFocus() {
-    this.refs.input.getDOMNode().focus();
+    this.refs.input.focus();
   },
 
   _startLoading() {
@@ -144,11 +145,11 @@ var ScoreForm = React.createClass({
           onHide={() => this.hide()}
           onEnter={this._opened}
           onEntered={this._setFocus}
-          target={() => React.findDOMNode(this.refs.target)}
+          target={() => ReactDOM.findDOMNode(this.refs.target)}
           placement="top"
           rootClose={true}
         >
-          <Popover>
+          <Popover id={"scoreForm#{game.id}"}>
             <h5>
               {game.name}
               <a href="#" className="pull-right" onClick={() => this.hide() }>X</a>

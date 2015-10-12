@@ -103,8 +103,8 @@ var GamesIndex = React.createClass({
             </tr>
           </thead>
           <tbody>
-            { games.map((game) => {
-              return <GameRow game={game} gamesIndex={this} />;
+            { games.map((game, idx) => {
+              return <GameRow key={idx} game={game} gamesIndex={this} />;
             })}
           </tbody>
         </table>

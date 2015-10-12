@@ -25,8 +25,8 @@ var ScoreReports = React.createClass({
               </tr>
             </thead>
             <tbody>
-              { reports.map((report) => {
-                return <ScoreReport report={report} gamesIndex={this.props.gamesIndex}/>;
+              { reports.map((report, idx) => {
+                return <ScoreReport key={idx} report={report} gamesIndex={this.props.gamesIndex}/>;
               })}
             </tbody>
           </table>
@@ -80,7 +80,7 @@ var ScoreReport = React.createClass({
   render() {
     var report = this.props.report;
     var btnClasses = classNames('btn', 'btn-success', 'btn-xs', {'is-loading': this.state.isLoading});
-    var tooltip = <Tooltip placement="top">{report.submitter_fingerprint}</Tooltip>;
+    var tooltip = <Tooltip id={"report#{report.id}submitter"} placement="top">{report.submitter_fingerprint}</Tooltip>;
 
     return (
       <tr className={ classNames({warning: report.sotg_warning}) }>
