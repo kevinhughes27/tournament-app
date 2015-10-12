@@ -6,6 +6,8 @@ gem 'friendly_id'
 gem 'date_validator'
 gem 'json-schema'
 gem 'browser-timezone-rails'
+gem 'responders'
+gem 'jbuilder'
 
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
@@ -14,8 +16,11 @@ gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'interact-rails'
+
 gem 'twine-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
+gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
+gem 'browserify-rails'
 
 group :production do
   gem 'pg'

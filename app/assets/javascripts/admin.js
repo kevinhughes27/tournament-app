@@ -1,5 +1,11 @@
 //= require jquery
 //= require jquery_ujs
+//= require twine
+//= require turbolinks
+
+//= require moment
+//= require underscore
+
 //= require table-to-json
 //= require jquery.csv/jquery.csv-0.71
 //= require jquery.cookie
@@ -13,9 +19,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-contextmenu
 //= require bootstrap-popover-x
-//= require moment
-//= require turbolinks
-//= require underscore
-//= require twine
-//= require namespace
+
+//= require_self
+//= require components
 //= require_tree ./admin
+window.Admin = window.Admin || {};

@@ -36,6 +36,14 @@ class Game < ActiveRecord::Base
     "#{home_score} - #{away_score}"
   end
 
+  def home_name
+    home.present? ? home.name : ""
+  end
+
+  def away_name
+    away.present? ? away.name : ""
+  end
+
   def name
     if teams_present?
       "#{home.name} vs #{away.name}"
@@ -50,6 +58,15 @@ class Game < ActiveRecord::Base
 
   def unassigned?
     field_id.nil? && start_time.blank?
+  end
+
+  def played?
+    return unless start_time
+    Time.now > end_time
+  end
+
+  def end_time
+    start_time + tournament.time_cap.minutes
   end
 
   def confirmed?

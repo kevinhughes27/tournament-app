@@ -1,0 +1,22 @@
+{
+  "name": "ultimate-tournament",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "~9.0.8",
+    "browserify-incremental": "^3.0.0",
+    "browserify-shim": "^3.8.2"
+  },
+  "browserify-shim": {
+    "jquery": "global:$"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "dependencies": {
+    "classnames": "^2.1.5",
+    "react": "^0.14.0",
+    "react-bootstrap": "^0.27.1",
+    "react-dom": "^0.14.0",
+    "underscore": "^1.8.3"
+  }
+}
