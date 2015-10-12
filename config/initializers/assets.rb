@@ -7,8 +7,10 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
 Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
 
-Rails.application.config.browserify_rails.commandline_options =
-  "-t babelify --extension=\".js.jsx\""
+Rails.application.config.browserify_rails.commandline_options = [
+  "-t browserify-shim",
+  "-t babelify --extension='.js.jsx'",
+]
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.

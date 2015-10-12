@@ -1,5 +1,4 @@
 var _ = require('underscore'),
-    $ = require('jquery'),
     React = require('react'),
     Tooltip = require('react-bootstrap').Tooltip,
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,

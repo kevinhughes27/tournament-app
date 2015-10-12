@@ -7,7 +7,7 @@
     "browserify-shim": "^3.8.2"
   },
   "browserify-shim": {
-    "jquery": "$"
+    "jquery": "global:$"
   },
   "engines": {
     "node": ">= 0.10"
