@@ -17,10 +17,9 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'interact-rails'
 
-gem 'react-rails'
 gem 'twine-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
-
+gem 'react-rails'
 gem 'browserify-rails'
 
 group :production do
