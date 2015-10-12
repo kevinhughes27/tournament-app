@@ -12,6 +12,30 @@ var GamesIndex = React.createClass({
     };
   },
 
+  sortUpdated(field) {
+    var sortBy, sortReverse;
+
+    if (field == this.state.sortBy) {
+      sortReverse = !this.state.sortReverse
+    } else {
+      sortReverse = false
+    };
+
+    var games = this.state.games;
+
+    if (sortReverse) {
+      games = _.sortBy(games, field).reverse();
+    } else {
+      games = _.sortBy(games, field);
+    };
+
+    this.setState({
+      sortBy: field,
+      sortReverse: sortReverse,
+      games: games
+    });
+  },
+
   searchUpdated(event) {
     var val = event.target.value;
     val = val.replace("\\", "");
@@ -25,28 +49,6 @@ var GamesIndex = React.createClass({
              game.home.toLowerCase().match(searchString) ||
              game.away.toLowerCase().match(searchString);
     });
-  },
-
-  sortUpdated(field) {
-    if(field == this.state.sortBy) {
-      this.setState({
-        sortBy: field,
-        sortReverse: !this.state.sortReverse
-      });
-    } else {
-      this.setState({
-        sortBy: field,
-        sortReverse: false
-      });
-    }
-  },
-
-  sortFilter(games, field, reverse) {
-    if(reverse){
-      return _.sortBy(games, field).reverse();
-    } else {
-      return _.sortBy(games, field);
-    }
   },
 
   updateGame(updatedGame) {
@@ -63,15 +65,9 @@ var GamesIndex = React.createClass({
   render() {
     var games = this.state.games;
     var searchString = this.state.searchString;
-    var sortBy = this.state.sortBy;
-    var sortReverse = this.state.sortReverse;
 
-    if(searchString) {
+    if (searchString) {
       games = this.searchFilter(games, searchString);
-    };
-
-    if(sortBy) {
-      games = this.sortFilter(games, sortBy, sortReverse);
     };
 
     return (
@@ -107,8 +103,8 @@ var GamesIndex = React.createClass({
             </tr>
           </thead>
           <tbody>
-            { games.map((game, idx) => {
-              return <GameRow gamesIndex={this} gameIdx={idx}/>;
+            { games.map((game) => {
+              return <GameRow game={game} gamesIndex={this} />;
             })}
           </tbody>
         </table>

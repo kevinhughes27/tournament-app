@@ -8,10 +8,7 @@ var _ = require('underscore'),
 
 var GameRow = React.createClass({
   render() {
-    var gameIdx = this.props.gameIdx;
-    var games = this.props.gamesIndex.state.games;
-    var game = games[gameIdx];
-
+    var game = this.props.game;
     var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
 
     return (
@@ -23,10 +20,7 @@ var GameRow = React.createClass({
           {game.division}
         </td>
         <td className="col-md-1 table-link">
-          <ScoreForm game={game}
-                     homeScore={game.home_score}
-                     awayScore={game.away_score}
-                     gamesIndex={this.props.gamesIndex} />
+          <ScoreForm game={game} gamesIndex={this.props.gamesIndex} />
         </td>
         <td className="col-md-2">
           <ConfirmRow confirmed={game.confirmed} played={game.played} />
@@ -77,8 +71,8 @@ var ScoreForm = React.createClass({
     return {
       show: false,
       isLoading: false,
-      homeScore: this.props.homeScore,
-      awayScore: this.props.awayScore
+      homeScore: this.props.game.home_score,
+      awayScore: this.props.game.away_score
     };
   },
 
@@ -90,8 +84,15 @@ var ScoreForm = React.createClass({
     this.setState({ show: false });
   },
 
+  _opened() {
+    this.setState({
+      homeScore: this.props.game.home_score,
+      awayScore: this.props.game.away_score
+    });
+  },
+
   _setFocus() {
-    this.refs.input.getDOMNode().focus()
+    this.refs.input.getDOMNode().focus();
   },
 
   _startLoading() {
@@ -138,6 +139,7 @@ var ScoreForm = React.createClass({
         <Overlay
           show={this.state.show}
           onHide={() => this.hide()}
+          onEnter={this._opened}
           onEntered={this._setFocus}
           target={() => React.findDOMNode(this.refs.target)}
           placement="top"
