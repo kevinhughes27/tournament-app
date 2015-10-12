@@ -116,14 +116,17 @@ var ScoreForm = React.createClass({
         home_score: this.state.homeScore,
         away_score: this.state.awayScore
       },
-      success: this.updateFinished
+      success: (response) => {
+        this.props.gamesIndex.updateGame(response.game);
+        this._finishLoading();
+        this.hide(response);
+        Admin.Flash.notice('Score updated')
+      },
+      error: (response) => {
+        this._finishLoading();
+        Admin.Flash.error('Error updating score');
+      }
     })
-  },
-
-  updateFinished(response) {
-    this._finishLoading();
-    this.props.gamesIndex.updateGame(response.game);
-    this.hide();
   },
 
   render() {

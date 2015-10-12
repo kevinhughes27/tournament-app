@@ -65,13 +65,16 @@ var ScoreReport = React.createClass({
         home_score: report.home_score,
         away_score: report.away_score
       },
-      success: this.reportAccepted
-    })
-  },
-
-  reportAccepted(response) {
-    this._finishLoading();
-    this.props.gamesIndex.updateGame(response.game);
+      success: (response) => {
+        this.props.gamesIndex.updateGame(response.game);
+        this._finishLoading();
+        Admin.Flash.notice('Score report accepted');
+      },
+      error: (response) => {
+        this._finishLoading();
+        Admin.Flash.error('Error accepting score report');
+      }
+    });
   },
 
   render() {
