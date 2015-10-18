@@ -1,5 +1,4 @@
-var _ = require('underscore'),
-    React = require('react'),
+var React = require('react'),
     Griddle = require('griddle-react');
 
 var columns = [
@@ -14,33 +13,33 @@ var columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
-    cssClassName: "sort-header",
+    cssClassName: "table-link",
     order: 1
   },
   {
     columnName: "email",
     displayName: "Email",
-    cssClassName: "sort-header",
+    cssClassName: "table-link",
     order: 2,
     sortable: false
   },
   {
     columnName: "sms",
     displayName: "SMS",
-    cssClassName: "sort-header",
+    cssClassName: "table-link",
     order: 3,
     sortable: false
   },
   {
     columnName: "division",
     displayName: "Division",
-    cssClassName: "sort-header",
+    cssClassName: "table-link",
     order: 4
   },
   {
     columnName: "seed",
     displayName: "Seed",
-    cssClassName: "sort-header",
+    cssClassName: "table-link",
     order: 5
   },
 ];

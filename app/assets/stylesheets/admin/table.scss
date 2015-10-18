@@ -1,14 +1,4 @@
-th.sort-header {
-  a {
-    display:block;
-    width:100%;
-  }
-  &:hover {
-    background-color: $table-bg-hover;
-  }
-}
-
-td.table-link {
+th.table-link, td.table-link {
   a {
     display:block;
     width:100%;
