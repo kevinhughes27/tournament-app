@@ -4,7 +4,8 @@ var React = require('react'),
     Popover = require('react-bootstrap').Popover,
     Overlay = require('react-bootstrap').Overlay,
     classNames = require('classnames'),
-    ScoreReports = require('./score_reports');
+    ScoreReports = require('./score_reports'),
+    GamesStore = require('../stores/games_store');
 
 exports.NameCell = React.createClass({
   getInitialState() {
@@ -35,7 +36,7 @@ exports.NameCell = React.createClass({
         </a>
         <Collapse in={this.state.reportsOpen}>
           <div>
-            <ScoreReports reports={reports} gamesIndex={this.props.gamesIndex}/>
+            <ScoreReports reports={reports}/>
           </div>
         </Collapse>
       </div>
@@ -100,9 +101,9 @@ exports.ScoreCell = React.createClass({
         away_score: this.state.awayScore
       },
       success: (response) => {
-        this.props.gamesIndex.updateGame(response.game);
         this._finishLoading();
         this.hide(response);
+        GamesStore.updateGame(response.game);
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {

@@ -2,7 +2,8 @@ var React = require('react'),
     Griddle = require('griddle-react'),
     NameCell = require('./game').NameCell,
     ScoreCell = require('./game').ScoreCell,
-    ConfirmedCell = require('./game').ConfirmedCell;
+    ConfirmedCell = require('./game').ConfirmedCell,
+    GamesStore = require('../stores/games_store');
 
 var columns = [
   "name",
@@ -44,20 +45,23 @@ var columnsMeta = [
 
 var GamesIndex = React.createClass({
   getInitialState() {
+    GamesStore.init(this.props.games);
+
     return {
-      games: this.props.games,
+      games: GamesStore.all(),
     };
   },
 
-  updateGame(updatedGame) {
-    var games = this.state.games;
+  componentDidMount() {
+    GamesStore.addChangeListener(this._onChange);
+  },
 
-    var idx = _.findIndex(games, function(game){
-      return game.id == updatedGame.id;
-    });
+  componentWillUnmount() {
+    GamesStore.removeChangeListener(this._onChange);
+  },
 
-    games[idx] = updatedGame;
-    this.setState({games: games});
+  _onChange() {
+    this.setState({ games: GamesStore.all() });
   },
 
   render() {

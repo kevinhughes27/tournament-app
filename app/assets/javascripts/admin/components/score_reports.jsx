@@ -2,7 +2,8 @@ var _ = require('underscore'),
     React = require('react'),
     Tooltip = require('react-bootstrap').Tooltip,
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,
-    classNames = require('classnames');
+    classNames = require('classnames'),
+    GamesStore = require('../stores/games_store');
 
 var ScoreReports = React.createClass({
   render() {
@@ -25,7 +26,7 @@ var ScoreReports = React.createClass({
             </thead>
             <tbody>
               { reports.map((report, idx) => {
-                return <ScoreReport key={idx} report={report} gamesIndex={this.props.gamesIndex}/>;
+                return <ScoreReport key={idx} report={report} />;
               })}
             </tbody>
           </table>
@@ -65,8 +66,8 @@ var ScoreReport = React.createClass({
         away_score: report.away_score
       },
       success: (response) => {
-        this.props.gamesIndex.updateGame(response.game);
         this._finishLoading();
+        GamesStore.updateGame(response.game);
         Admin.Flash.notice('Score report accepted');
       },
       error: (response) => {

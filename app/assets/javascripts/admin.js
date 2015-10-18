@@ -21,6 +21,6 @@
 //= require bootstrap-popover-x
 
 //= require_self
-//= require components
 //= require_tree ./admin
+
 window.Admin = window.Admin || {};
