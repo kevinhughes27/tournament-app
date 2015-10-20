@@ -13,7 +13,6 @@
 //= require jstz
 //= require browser_timezone_rails/set_time_zone
 //= require sticky-tabs
-//= require editable-table/mindmup-editabletable
 //= require list
 //= require interact
 //= require bootstrap-sprockets
