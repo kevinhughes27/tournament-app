@@ -1,5 +1,6 @@
 var React = require('react'),
-    Griddle = require('griddle-react');
+    Griddle = require('griddle-react'),
+    TeamsStore = require('../stores/teams_store');
 
 var columns = [
   "name",
@@ -46,8 +47,10 @@ var columnsMeta = [
 
 var TeamsIndex = React.createClass({
   getInitialState() {
+    TeamsStore.init(this.props.teams);
+
     return {
-      teams: this.props.teams,
+      teams: TeamsStore.all(),
     };
   },
 
