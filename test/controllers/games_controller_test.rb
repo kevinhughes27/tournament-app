@@ -5,6 +5,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
   setup do
     http_login('admin', 'nobo')
     @tournament = tournaments(:noborders)
+    @game = games(:swift_goose)
   end
 
   test "should get index" do
@@ -12,5 +13,31 @@ class Admin::GamesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:games)
   end
+
+  test "update updates the games score" do
+    put :update,
+      tournament_id: @tournament.id,
+      id: @game.id,
+      home_score: 15,
+      away_score: 13,
+      format: :json
+
+    assert_response :ok
+
+    assert_equal 15, @game.reload.home_score
+    assert_equal 13, @game.away_score
+  end
+
+    test "update returns game json" do
+      put :update,
+        tournament_id: @tournament.id,
+        id: @game.id,
+        home_score: 15,
+        away_score: 13,
+        format: :json
+
+      assert_response :ok
+      assert json_response['game']
+    end
 
 end

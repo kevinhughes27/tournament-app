@@ -13,4 +13,8 @@ class ActiveSupport::TestCase
     creds = ActionController::HttpAuthentication::Basic.encode_credentials(username, password)
     request.env['HTTP_AUTHORIZATION'] = creds
   end
+
+  def json_response
+    JSON.parse(@response.body)
+  end
 end
