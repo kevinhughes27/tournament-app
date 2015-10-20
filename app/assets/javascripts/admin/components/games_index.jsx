@@ -43,6 +43,19 @@ var columnsMeta = [
   },
 ];
 
+var rowMetadata = {
+  bodyCssClassName: function(rowData) {
+    var game = rowData;
+    var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
+
+    if(sotgWarning) {
+      return 'warning';
+    }
+
+    return 'default-row';
+  }
+};
+
 var GamesIndex = React.createClass({
   getInitialState() {
     GamesStore.init(this.props.games);
@@ -73,6 +86,7 @@ var GamesIndex = React.createClass({
         tableClassName="table table-striped table-hover"
         columns={columns}
         columnMetadata={columnsMeta}
+        rowMetadata={rowMetadata}
         resultsPerPage={games.length}
         showPager={false}
         useGriddleStyles={false}
