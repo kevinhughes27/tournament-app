@@ -1,10 +1,8 @@
-var AppDispatcher = require('../dispatcher').AppDispatcher;
-var EventEmitter = require('events').EventEmitter;
+var Store = require('./store');
 
 var _games;
 
-var GamesStore = _.extend({}, EventEmitter.prototype, {
-
+var GamesStore = _.extend({}, Store, {
   init(games){
     _games = games;
   },
@@ -20,21 +18,6 @@ var GamesStore = _.extend({}, EventEmitter.prototype, {
 
     _games[idx] = game;
     this.emitChange();
-  },
-
-  // Emit Change event
-  emitChange() {
-    this.emit('change');
-  },
-
-  // Add change listener
-  addChangeListener(callback) {
-    this.on('change', callback);
-  },
-
-  // Remove change listener
-  removeChangeListener(callback) {
-    this.removeListener('change', callback);
   }
 });
 
