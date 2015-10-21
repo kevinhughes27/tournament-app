@@ -1,12 +1,13 @@
-<section class="content-header">
-  <h1>
+<% content_for :top_bar do %>
+  <div class="navbar-brand">
     Teams
-    <div class="btn-group pull-right">
-      <%= link_to 'Import', "#", class: "btn btn-primary" %>
-      <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
-    </div>
-  </h1>
-</section>
+  </div>
+
+  <form class="navbar-form navbar-right">
+    <%= link_to 'Import', "#", class: "btn btn-default" %>
+    <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-default" %>
+  </form>
+<% end %>
 
 <section class="content">
   <div class="box">

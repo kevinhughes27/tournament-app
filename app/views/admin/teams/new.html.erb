@@ -1,8 +1,8 @@
-<section class="content-header">
-  <h1>
+<% content_for :top_bar do %>
+  <div class="navbar-brand">
     <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %> / New
-  </h1>
-</section>
+  </div>
+<% end %>
 
 <section class="content">
   <div class="box">
