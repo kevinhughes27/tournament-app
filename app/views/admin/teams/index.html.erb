@@ -1,11 +1,14 @@
 <section class="content-header">
   <h1>
     Teams
+    <div class="btn-group pull-right">
+      <%= link_to 'Import', "#", class: "btn btn-primary" %>
+      <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
+    </div>
   </h1>
 </section>
 
 <section class="content">
-  <%= render 'shared/set_errors', set: @teams %>
   <div class="box">
     <div class="box-body">
       <%= react_component(

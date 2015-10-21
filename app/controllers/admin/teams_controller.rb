@@ -2,32 +2,37 @@ class Admin::TeamsController < AdminController
 
   def index
     @teams = @tournament.teams
-    @teams = [@tournament.teams.build] if @teams.blank?
   end
 
   def show
     @team = @tournament.teams.find(params[:id])
   end
 
+  def new
+    @team = @tournament.teams.build
+  end
+
   def create
-    @teams = Team.update_set(@tournament.teams, teams_params)
-    @teams = [@tournament.teams.build] if @teams.blank?
-    render :index
+    @team = @tournament.teams.create(team_params)
+    render :show
+  end
+
+  def update
+    @team = @tournament.teams.find(params[:id])
+    @team.update_attributes(team_params)
+    render :show
   end
 
   private
 
-  def teams_params
-    @teams_params ||= params.permit(teams: [
+  def team_params
+    @team_params ||= params.require(:team).permit(
       :id,
       :name,
       :email,
       :sms,
-      :twitter,
       :division,
       :seed
-    ])
-    @teams_params[:teams] ||= []
-    @teams_params[:teams].each{ |t| t[1][:tournament_id] = @tournament.id }
+    )
   end
 end

@@ -10,12 +10,21 @@ var columns = [
   "seed"
 ];
 
+var LinkCell = React.createClass({
+  render(){
+    var team = this.props.rowData;
+    var url = "teams/" + team.id;
+    return <a href={url}>{this.props.data}</a>;
+  }
+});
+
 var columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
     cssClassName: "table-link",
-    order: 1
+    order: 1,
+    customComponent: LinkCell
   },
   {
     columnName: "email",
@@ -52,11 +61,6 @@ var TeamsIndex = React.createClass({
     return {
       teams: TeamsStore.all(),
     };
-  },
-
-  rowClick(event) {
-    var team = event.props.data;
-    Turbolinks.visit("teams/" + team.id);
   },
 
   render() {
