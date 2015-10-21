@@ -55,7 +55,6 @@ var TeamsIndex = React.createClass({
   },
 
   rowClick(event) {
-    debugger
     console.log(event.props.data);
   },
 

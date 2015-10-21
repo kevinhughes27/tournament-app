@@ -7,7 +7,6 @@
 //= require underscore
 
 //= require table-to-json
-//= require jquery.csv/jquery.csv-0.71
 //= require jquery.cookie
 //= require datetimepicker
 //= require jstz
