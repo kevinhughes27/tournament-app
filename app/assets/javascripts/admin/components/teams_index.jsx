@@ -54,6 +54,11 @@ var TeamsIndex = React.createClass({
     };
   },
 
+  rowClick(event) {
+    debugger
+    console.log(event.props.data);
+  },
+
   render() {
     var teams = this.state.teams;
 
@@ -64,6 +69,7 @@ var TeamsIndex = React.createClass({
         columns={columns}
         columnMetadata={columnsMeta}
         resultsPerPage={teams.length}
+        onRowClick={this.rowClick}
         showPager={false}
         useGriddleStyles={false}
         sortAscendingClassName="sort asc"
