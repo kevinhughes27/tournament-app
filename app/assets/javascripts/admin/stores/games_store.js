@@ -11,13 +11,23 @@ var GamesStore = _.extend({}, Store, {
     return _games;
   },
 
+  saveReportsState(game, state) {
+    var idx = this._findGameIdx(game);
+    _games[idx].reportsOpen = state;
+  },
+
   updateGame(game) {
-    var idx = _.findIndex(_games, function(g){
+    var idx = this._findGameIdx(game);
+    _games[idx] = game;
+    this.emitChange();
+  },
+
+  _findGameIdx(game){
+    var idx = _.findIndex(_games, function(g) {
       return g.id == game.id;
     });
 
-    _games[idx] = game;
-    this.emitChange();
+    return idx;
   }
 });
 

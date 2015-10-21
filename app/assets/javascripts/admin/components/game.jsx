@@ -9,14 +9,20 @@ var React = require('react'),
 
 exports.NameCell = React.createClass({
   getInitialState() {
+    var game = this.props.rowData;
+
     return {
-      reportsOpen: false
+      reportsOpen: game.reportsOpen || false
     };
   },
 
   _toggleCollapse(e) {
     e.nativeEvent.preventDefault();
-    this.setState({ reportsOpen: !this.state.reportsOpen });
+    var game = this.props.rowData;
+    var state = !this.state.reportsOpen;
+
+    GamesStore.saveReportsState(game, state);
+    this.setState({ reportsOpen: state });
   },
 
   render() {
@@ -102,7 +108,6 @@ exports.ScoreCell = React.createClass({
       },
       success: (response) => {
         this._finishLoading();
-        this.hide(response);
         GamesStore.updateGame(response.game);
         Admin.Flash.notice('Score updated')
       },
