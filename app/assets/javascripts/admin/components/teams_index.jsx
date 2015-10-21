@@ -55,7 +55,8 @@ var TeamsIndex = React.createClass({
   },
 
   rowClick(event) {
-    console.log(event.props.data);
+    var team = event.props.data;
+    Turbolinks.visit("teams/" + team.id);
   },
 
   render() {

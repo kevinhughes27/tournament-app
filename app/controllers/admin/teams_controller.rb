@@ -5,6 +5,10 @@ class Admin::TeamsController < AdminController
     @teams = [@tournament.teams.build] if @teams.blank?
   end
 
+  def show
+    @team = @tournament.teams.find(params[:id])
+  end
+
   def create
     @teams = Team.update_set(@tournament.teams, teams_params)
     @teams = [@tournament.teams.build] if @teams.blank?
