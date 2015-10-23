@@ -1,3 +1,5 @@
+require 'csv'
+
 class Admin::TeamsController < AdminController
 
   def index
@@ -21,6 +23,27 @@ class Admin::TeamsController < AdminController
     @team = @tournament.teams.find(params[:id])
     @team.update_attributes(team_params)
     render :show
+  end
+
+  def import_csv
+    file_path = params[:csv_file].path
+    ignore = params[:match_behaviour] == 'ignore'
+
+    @teams = @tournament.teams
+
+    CSV.foreach(file_path, headers: true, :header_converters => lambda { |h| h.try(:downcase).strip }) do |row|
+      attributes = row.to_hash.with_indifferent_access
+
+      if team = @teams.detect{ |t| t.name == attributes[:name] }
+        next if ignore
+        team.update_attributes(attributes)
+      else
+        @tournament.teams.create!(attributes)
+      end
+
+    end
+
+    render :index
   end
 
   private

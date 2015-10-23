@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
       resources :teams do
         collection do
-          post :import
+          post :import_csv
         end
       end
 

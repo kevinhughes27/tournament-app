@@ -4,10 +4,14 @@
   </div>
 
   <form class="navbar-form navbar-right">
-    <%= link_to 'Import', "#", class: "btn btn-default" %>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importCsvModal">
+      Import
+    </button>
     <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-default" %>
   </form>
 <% end %>
+
+<%= render 'import_csv_modal' %>
 
 <section class="content">
   <div class="box">
