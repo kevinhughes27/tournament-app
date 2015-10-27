@@ -25,6 +25,17 @@ class Admin::TeamsController < AdminController
     render :show
   end
 
+  def sample_csv
+    csv = CSV.generate do |csv|
+      csv << ['Name', 'Division', 'Seed']
+      csv << ['Swift', 'Open', '1']
+    end
+
+    respond_to do |format|
+      format.csv { send_data csv }
+    end
+  end
+
   def import_csv
     file_path = params[:csv_file].path
     ignore = params[:match_behaviour] == 'ignore'
@@ -43,7 +54,7 @@ class Admin::TeamsController < AdminController
 
     end
 
-    render :index
+    redirect_to action: :index
   end
 
   private
