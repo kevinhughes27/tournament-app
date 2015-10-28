@@ -15,8 +15,13 @@ class Admin::TeamsController < AdminController
   end
 
   def create
-    @team = @tournament.teams.create(team_params)
-    render :show
+    @team = @tournament.teams.build(team_params)
+
+    if @team.save
+      render :show
+    else
+      render :new
+    end
   end
 
   def update
@@ -42,19 +47,24 @@ class Admin::TeamsController < AdminController
 
     @teams = @tournament.teams
 
-    CSV.foreach(file_path, headers: true, :header_converters => lambda { |h| h.try(:downcase).strip }) do |row|
-      attributes = row.to_hash.with_indifferent_access
+    Team.transaction do
+      CSV.foreach(file_path, headers: true, :header_converters => lambda { |h| h.try(:downcase).strip }) do |row|
+        attributes = row.to_hash.with_indifferent_access
+        attributes = csv_params(attributes)
 
-      if team = @teams.detect{ |t| t.name == attributes[:name] }
-        next if ignore
-        team.update_attributes(attributes)
-      else
-        @tournament.teams.create!(attributes)
+        if team = @teams.detect{ |t| t.name == attributes[:name] }
+          next if ignore
+          team.update_attributes!(attributes)
+        else
+          @tournament.teams.create!(attributes)
+        end
       end
-
     end
 
     redirect_to action: :index
+
+  rescue => e
+    redirect_to action: :index, error: e
   end
 
   private
@@ -62,6 +72,16 @@ class Admin::TeamsController < AdminController
   def team_params
     @team_params ||= params.require(:team).permit(
       :id,
+      :name,
+      :email,
+      :sms,
+      :division,
+      :seed
+    )
+  end
+
+  def csv_params(attributes)
+    attributes.slice(
       :name,
       :email,
       :sms,
