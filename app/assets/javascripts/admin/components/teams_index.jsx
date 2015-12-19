@@ -56,6 +56,24 @@ var columnsMeta = [
   },
 ];
 
+var TeamsFilter = React.createClass({
+  handleChange(event) {
+    this.props.changeFilter(event.target.value);
+  },
+
+  render() {
+    return (
+      <div className="filter-container">
+        <input type="text"
+               name="filter"
+               placeholder={this.props.placeholderText}
+               className="form-control"
+               onChange={this.handleChange} />
+      </div>
+    );
+  }
+});
+
 var TeamsIndex = React.createClass({
   getInitialState() {
     TeamsStore.init(this.props.teams);
@@ -98,6 +116,8 @@ var TeamsIndex = React.createClass({
         filterPlaceholderText="Search"
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
+        useCustomFilterComponent={true}
+        customFilterComponent={TeamsFilter}
       />
     );
   }
