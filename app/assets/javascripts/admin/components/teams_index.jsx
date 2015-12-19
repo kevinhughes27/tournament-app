@@ -12,6 +12,14 @@ var columns = [
   "seed"
 ];
 
+var searchColumns = [
+  "name",
+  "email",
+  "sms",
+  "division",
+  "seed"
+];
+
 var LinkCell = React.createClass({
   render(){
     var team = this.props.rowData;
@@ -57,8 +65,15 @@ var columnsMeta = [
 ];
 
 var TeamsFilter = React.createClass({
-  handleChange(event) {
-    this.props.changeFilter(event.target.value);
+  getDefaultProps() {
+    return {
+      "query": {}
+    }
+  },
+
+  handleChange(key, event) {
+    this.props.query[key] = event.target.value;
+    this.props.changeFilter(this.props.query);
   },
 
   render() {
@@ -66,9 +81,14 @@ var TeamsFilter = React.createClass({
       <div className="filter-container">
         <input type="text"
                name="filter"
-               placeholder={this.props.placeholderText}
+               placeholder="Search..."
                className="form-control"
-               onChange={this.handleChange} />
+               onChange={this.handleChange.bind(this, 'search')} />
+        <input type="text"
+               name="filter"
+               placeholder="Division"
+               className="form-control"
+               onChange={this.handleChange.bind(this, 'division')} />
       </div>
     );
   }
@@ -84,15 +104,35 @@ var TeamsIndex = React.createClass({
   },
 
   filterFunction(results, filter) {
-    return _.filter(results, function (item) {
+    return _.filter(results, (item) => {
       var flat = squish(item);
-      for (var key in flat) {
-        if (String(flat[key]).toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
-          return true;
-        };
+
+      // filter
+      // keys not search ...
+      if(filter.division) {
+        if(item.division != filter.division) {
+          return false;
+        }
       };
-      return false;
+
+      var search = filter.search;
+      if(search) {
+        for (var key in flat) {
+          if (this._keyNotSearchable(key)) continue;
+
+          if (String(flat[key]).toLowerCase().indexOf(search.toLowerCase()) >= 0) {
+            return true;
+          };
+        };
+        return false;
+      }
+
+      return true;
     });
+  },
+
+  _keyNotSearchable(key) {
+    _.indexOf(searchColumns, key) == -1
   },
 
   render() {
@@ -113,7 +153,6 @@ var TeamsIndex = React.createClass({
         sortDescendingClassName="sort desc"
         sortDescendingComponent=""
         showFilter={true}
-        filterPlaceholderText="Search"
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
