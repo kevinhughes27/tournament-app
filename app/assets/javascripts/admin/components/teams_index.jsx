@@ -1,4 +1,6 @@
-var React = require('react'),
+var _ = require('underscore'),
+    squish = require('object-squish'),
+    React = require('react'),
     Griddle = require('griddle-react'),
     TeamsStore = require('../stores/teams_store');
 
@@ -63,6 +65,18 @@ var TeamsIndex = React.createClass({
     };
   },
 
+  filterFunction(results, filter) {
+    return _.filter(results, function (item) {
+      var flat = squish(item);
+      for (var key in flat) {
+        if (String(flat[key]).toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+          return true;
+        };
+      };
+      return false;
+    });
+  },
+
   render() {
     var teams = this.state.teams;
 
@@ -82,6 +96,8 @@ var TeamsIndex = React.createClass({
         sortDescendingComponent=""
         showFilter={true}
         filterPlaceholderText="Search"
+        useCustomFilterer={true}
+        customFilterer={this.filterFunction}
       />
     );
   }

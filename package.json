@@ -15,8 +15,9 @@
   "dependencies": {
     "classnames": "^2.1.5",
     "flux": "^2.1.1",
-    "griddle-react": "^0.2.13",
-    "react": "^0.14.0",
+    "griddle-react": "^0.3.0",
+    "object-squish": "^1.0.0",
+    "react": "^0.14.3",
     "react-bootstrap": "^0.27.1",
     "react-dom": "^0.14.0",
     "underscore": "^1.8.3"
