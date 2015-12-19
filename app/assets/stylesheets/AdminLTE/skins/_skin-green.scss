@@ -11,11 +11,11 @@
   //Navbar
   .main-header {
     .navbar {
-      @include navbar-variant($green, #fff);
-      .sidebar-toggle {
-        color: #fff;
-        &:hover {
-          background-color: darken($green, 5%);
+      @include navbar-variant($white, $black);
+      .page-title {
+        color: $black;
+        a {
+          color: $black;
         }
       }
       @media(max-width: $screen-header-collapse) {

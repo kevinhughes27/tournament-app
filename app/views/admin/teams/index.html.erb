@@ -1,13 +1,14 @@
 <% content_for :top_bar do %>
-  <div class="navbar-brand">
+  <div class="navbar-brand page-title">
+    <i class="fa fa-users"></i>
     Teams
   </div>
 
   <form class="navbar-form navbar-right">
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importCsvModal">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importCsvModal">
       Import
     </button>
-    <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-default" %>
+    <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
   </form>
 <% end %>
 
