@@ -5,11 +5,11 @@
   </div>
 <% end %>
 
-<section class="content">
+<%= admin_content_box do %>
   <%= form_for @tournament, url: tournament_admin_settings_path(@tournament), method: :put, remote: true do |form| %>
     <%= render 'form', form: form %>
   <% end %>
-</section>
+<% end %>
 
 <script>
   $( document ).ready(function() {
