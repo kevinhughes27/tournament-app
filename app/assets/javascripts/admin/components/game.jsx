@@ -5,7 +5,8 @@ var React = require('react'),
     Overlay = require('react-bootstrap').Overlay,
     classNames = require('classnames'),
     ScoreReports = require('./score_reports'),
-    GamesStore = require('../stores/games_store');
+    GamesStore = require('../stores/games_store'),
+    LoadingMixin = require('../lib/loading_mixin');
 
 exports.NameCell = React.createClass({
   getInitialState() {
@@ -51,12 +52,13 @@ exports.NameCell = React.createClass({
 });
 
 exports.ScoreCell = React.createClass({
+  mixins: [LoadingMixin],
+
   getInitialState() {
     var game = this.props.rowData;
 
     return {
       show: false,
-      isLoading: false,
       homeScore: game.home_score,
       awayScore: game.away_score
     };
@@ -81,16 +83,6 @@ exports.ScoreCell = React.createClass({
 
   _setFocus() {
     this.refs.input.focus();
-  },
-
-  _startLoading() {
-    Turbolinks.ProgressBar.start()
-    this.setState({isLoading: true});
-  },
-
-  _finishLoading() {
-    Turbolinks.ProgressBar.done()
-    this.setState({isLoading: false});
   },
 
   updateScore() {

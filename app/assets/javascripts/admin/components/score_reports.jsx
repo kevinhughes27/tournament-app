@@ -3,7 +3,8 @@ var _ = require('underscore'),
     Tooltip = require('react-bootstrap').Tooltip,
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,
     classNames = require('classnames'),
-    GamesStore = require('../stores/games_store');
+    GamesStore = require('../stores/games_store'),
+    LoadingMixin = require('../lib/loading_mixin');
 
 var ScoreReports = React.createClass({
   render() {
@@ -37,21 +38,7 @@ var ScoreReports = React.createClass({
 });
 
 var ScoreReport = React.createClass({
-  getInitialState() {
-    return {
-      isLoading: false
-    };
-  },
-
-  _startLoading() {
-    Turbolinks.ProgressBar.start()
-    this.setState({isLoading: true});
-  },
-
-  _finishLoading() {
-    Turbolinks.ProgressBar.done()
-    this.setState({isLoading: false});
-  },
+  mixins: [LoadingMixin],
 
   acceptScoreReport() {
     var report = this.props.report;
