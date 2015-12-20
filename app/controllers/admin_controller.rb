@@ -1,6 +1,4 @@
 class AdminController < ApplicationController
-  http_basic_authenticate_with name: "admin", password: "nobo"
-
   before_action :load_tournament
   layout 'admin'
 
