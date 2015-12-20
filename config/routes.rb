@@ -1,3 +1,9 @@
+class ActionDispatch::Routing::Mapper
+  def draw(routes_name)
+    instance_eval(File.read(Rails.root.join("config/routes/#{routes_name}.rb")))
+  end
+end
+
 Rails.application.routes.draw do
   root 'landing#index'
 
@@ -7,33 +13,9 @@ Rails.application.routes.draw do
   post '/new' => 'signup#create'
 
   resources :tournaments, controller: 'admin/tournaments', path: '', except: [:show] do
-    namespace :admin do
-      get "/" => "tournaments#show"
-
-      resources :fields
-
-      resources :teams do
-        collection do
-          get :sample_csv
-          post :import_csv
-        end
-      end
-
-      resources :brackets do
-        member do
-          put :seed
-        end
-        collection do
-          put :update_seeds
-        end
-      end
-
-      get '/schedule', to: 'schedule#index'
-      post '/schedule', to: 'schedule#update'
-
-      resources :games
-    end
+    draw :admin
   end
+
   get '*tournament_id' => 'app#show'
   post '*tournament_id/submit_score' => 'app#score_submit', as: 'app_score_submit'
 end
