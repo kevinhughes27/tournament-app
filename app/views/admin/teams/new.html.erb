@@ -3,6 +3,10 @@
     <i class="fa fa-users"></i>
     <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %> / New
   </div>
+
+  <div class="navbar-form navbar-right">
+    <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.new_team').submit()" %>
+  </div>
 <% end %>
 
 <%= admin_content_box do %>
