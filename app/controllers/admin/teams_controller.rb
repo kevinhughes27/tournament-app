@@ -75,6 +75,14 @@ class Admin::TeamsController < AdminController
     redirect_to action: :index, error: e
   end
 
+  def destroy
+    @team = @tournament.teams.find(params[:id])
+    @team.destroy()
+
+    flash[:notice] = 'Team deleted'
+    redirect_to action: :index
+  end
+
   private
 
   def team_params

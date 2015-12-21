@@ -13,4 +13,5 @@
   <%= form_for [@tournament, :admin, @team] do |form| %>
     <%= render 'form', form: form, team: @team %>
   <% end %>
+  <%= button_to "delete", [@tournament, :admin, @team], method: :delete, class: 'btn btn-danger' %>
 <% end %>
