@@ -1,8 +1,7 @@
-var _ = require('underscore'),
-    squish = require('object-squish'),
-    React = require('react'),
+var React = require('react'),
     Griddle = require('griddle-react'),
     FilterBar = require('./filter_bar'),
+    FilterBarMixin = require('../lib/filter_bar_mixin'),
     TeamsStore = require('../stores/teams_store');
 
 var columns = [
@@ -19,6 +18,10 @@ var searchColumns = [
   "sms",
   "division",
   "seed"
+];
+
+var filterColumns = [
+  "division"
 ];
 
 var LinkCell = React.createClass({
@@ -66,55 +69,20 @@ var columnsMeta = [
 ];
 
 class TeamsFilter extends FilterBar {
-  filterColumns() {
-    return [
-      "division"
-    ];
-  }
+  filterColumns() { return filterColumns; }
 }
 
 var TeamsIndex = React.createClass({
+  mixins: [FilterBarMixin],
+
+  searchColumns() { return searchColumns; },
+
   getInitialState() {
     TeamsStore.init(this.props.teams);
 
     return {
       teams: TeamsStore.all(),
     };
-  },
-
-  filterFunction(results, filter) {
-    return _.filter(results, (item) => {
-      // filter
-      for(key in filter) {
-        if(key == 'search') continue;
-
-        if(filter[key]) {
-          if(item[key] != filter[key]) {
-            return false;
-          }
-        };
-      };
-
-      // search
-      var flat = squish(item);
-      var search = filter.search;
-      if(search) {
-        for (var key in flat) {
-          if (this._keyNotSearchable(key)) continue;
-
-          if (String(flat[key]).toLowerCase().indexOf(search.toLowerCase()) >= 0) {
-            return true;
-          };
-        };
-        return false;
-      }
-
-      return true;
-    });
-  },
-
-  _keyNotSearchable(key) {
-    _.indexOf(searchColumns, key) == -1
   },
 
   render() {
