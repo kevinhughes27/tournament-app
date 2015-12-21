@@ -238,16 +238,19 @@ var TeamsIndex = React.createClass({
 
   filterFunction(results, filter) {
     return _.filter(results, (item) => {
-      var flat = squish(item);
-
       // filter
-      // keys not search ...
-      if(filter.division) {
-        if(item.division != filter.division) {
-          return false;
-        }
+      for(key in filter) {
+        if(key == 'search') continue;
+
+        if(filter[key]) {
+          if(item[key] != filter[key]) {
+            return false;
+          }
+        };
       };
 
+      // search
+      var flat = squish(item);
       var search = filter.search;
       if(search) {
         for (var key in flat) {
