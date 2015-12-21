@@ -2,7 +2,9 @@ var _ = require('underscore'),
     React = require('react'),
     Tooltip = require('react-bootstrap').Tooltip,
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,
-    classNames = require('classnames');
+    classNames = require('classnames'),
+    GamesStore = require('../stores/games_store'),
+    LoadingMixin = require('../lib/loading_mixin');
 
 var ScoreReports = React.createClass({
   render() {
@@ -25,7 +27,7 @@ var ScoreReports = React.createClass({
             </thead>
             <tbody>
               { reports.map((report, idx) => {
-                return <ScoreReport key={idx} report={report} gamesIndex={this.props.gamesIndex}/>;
+                return <ScoreReport key={idx} report={report} />;
               })}
             </tbody>
           </table>
@@ -36,21 +38,7 @@ var ScoreReports = React.createClass({
 });
 
 var ScoreReport = React.createClass({
-  getInitialState() {
-    return {
-      isLoading: false
-    };
-  },
-
-  _startLoading() {
-    Turbolinks.ProgressBar.start()
-    this.setState({isLoading: true});
-  },
-
-  _finishLoading() {
-    Turbolinks.ProgressBar.done()
-    this.setState({isLoading: false});
-  },
+  mixins: [LoadingMixin],
 
   acceptScoreReport() {
     var report = this.props.report;
@@ -65,8 +53,8 @@ var ScoreReport = React.createClass({
         away_score: report.away_score
       },
       success: (response) => {
-        this.props.gamesIndex.updateGame(response.game);
         this._finishLoading();
+        GamesStore.updateGame(response.game);
         Admin.Flash.notice('Score report accepted');
       },
       error: (response) => {

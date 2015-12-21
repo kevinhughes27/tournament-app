@@ -1,4 +1,11 @@
 module SidebarHelper
+  def sidebar_brand(tournament)
+    if tournament.name.present?
+      tournament.name
+    else
+      'Tournament App'
+    end
+  end
 
   def sidebar_link(icon, text, path, condition)
     path = '#' unless condition

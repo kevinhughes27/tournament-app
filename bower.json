@@ -12,10 +12,8 @@
     "bootstrap-contextmenu": "0.3.3",
     "bootstrap-popover-x": "1.4.1",
     "datetimepicker": "2.4.5",
-    "jquery.csv": "gortok/jquery-csv",
     "jquery.scrollTo": "2.1.1",
     "table-to-json": "0.11.1",
-    "editable-table": "mindmup/editable-table",
     "underscore": "1.8.3",
     "moment": "2.10.6"
   }

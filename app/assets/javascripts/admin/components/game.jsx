@@ -1,51 +1,35 @@
-var _ = require('underscore'),
-    React = require('react'),
+var React = require('react'),
     ReactDOM = require('react-dom'),
     Collapse = require('react-bootstrap').Collapse,
     Popover = require('react-bootstrap').Popover,
     Overlay = require('react-bootstrap').Overlay,
     classNames = require('classnames'),
-    ScoreReports = require('./score_reports');
+    ScoreReports = require('./score_reports'),
+    GamesStore = require('../stores/games_store'),
+    LoadingMixin = require('../lib/loading_mixin');
 
-var GameRow = React.createClass({
-  render() {
-    var game = this.props.game;
-    var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
-
-    return (
-      <tr className={ classNames({warning: sotgWarning}) }>
-        <td className="col-md-7 table-link">
-          <NameRow name={game.name} reports={game.score_reports} gamesIndex={this.props.gamesIndex} />
-        </td>
-        <td className="col-md-2">
-          {game.division}
-        </td>
-        <td className="col-md-1 table-link">
-          <ScoreForm game={game} gamesIndex={this.props.gamesIndex} />
-        </td>
-        <td className="col-md-2">
-          <ConfirmRow confirmed={game.confirmed} played={game.played} />
-        </td>
-      </tr>
-    );
-  }
-});
-
-var NameRow = React.createClass({
+exports.NameCell = React.createClass({
   getInitialState() {
+    var game = this.props.rowData;
+
     return {
-      reportsOpen: false
+      reportsOpen: game.reportsOpen || false
     };
   },
 
   _toggleCollapse(e) {
     e.nativeEvent.preventDefault();
-    this.setState({ reportsOpen: !this.state.reportsOpen });
+    var game = this.props.rowData;
+    var state = !this.state.reportsOpen;
+
+    GamesStore.saveReportsState(game, state);
+    this.setState({ reportsOpen: state });
   },
 
   render() {
-    var name = this.props.name;
-    var reports = this.props.reports;
+    var game = this.props.rowData;
+    var name = game.name;
+    var reports = game.score_reports;
 
     if (reports.length == 0) {
       return( <span>{name}</span> );
@@ -59,7 +43,7 @@ var NameRow = React.createClass({
         </a>
         <Collapse in={this.state.reportsOpen}>
           <div>
-            <ScoreReports reports={reports} gamesIndex={this.props.gamesIndex}/>
+            <ScoreReports reports={reports}/>
           </div>
         </Collapse>
       </div>
@@ -67,13 +51,16 @@ var NameRow = React.createClass({
   }
 });
 
-var ScoreForm = React.createClass({
+exports.ScoreCell = React.createClass({
+  mixins: [LoadingMixin],
+
   getInitialState() {
+    var game = this.props.rowData;
+
     return {
       show: false,
-      isLoading: false,
-      homeScore: this.props.game.home_score,
-      awayScore: this.props.game.away_score
+      homeScore: game.home_score,
+      awayScore: game.away_score
     };
   },
 
@@ -86,9 +73,11 @@ var ScoreForm = React.createClass({
   },
 
   _opened() {
+    var game = this.props.rowData;
+
     this.setState({
-      homeScore: this.props.game.home_score,
-      awayScore: this.props.game.away_score
+      homeScore: game.home_score,
+      awayScore: game.away_score
     });
   },
 
@@ -96,21 +85,13 @@ var ScoreForm = React.createClass({
     this.refs.input.focus();
   },
 
-  _startLoading() {
-    Turbolinks.ProgressBar.start()
-    this.setState({isLoading: true});
-  },
-
-  _finishLoading() {
-    Turbolinks.ProgressBar.done()
-    this.setState({isLoading: false});
-  },
-
   updateScore() {
     this._startLoading();
 
+    var game = this.props.rowData;
+
     $.ajax({
-      url: 'games/' + this.props.game.id + '.json',
+      url: 'games/' + game.id + '.json',
       type: 'PUT',
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
@@ -118,9 +99,8 @@ var ScoreForm = React.createClass({
         away_score: this.state.awayScore
       },
       success: (response) => {
-        this.props.gamesIndex.updateGame(response.game);
         this._finishLoading();
-        this.hide(response);
+        GamesStore.updateGame(response.game);
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {
@@ -131,7 +111,7 @@ var ScoreForm = React.createClass({
   },
 
   render() {
-    var game = this.props.game;
+    var game = this.props.rowData;
     var btnClasses = classNames('btn', 'btn-default', {'is-loading': this.state.isLoading});
 
     return (
@@ -180,15 +160,16 @@ var ScoreForm = React.createClass({
   }
 });
 
-var ConfirmRow = React.createClass({
+exports.ConfirmedCell = React.createClass({
   render() {
+    var game = this.props.rowData;
     var iconClass;
     var iconColor;
 
-    if(this.props.confirmed) {
+    if(game.confirmed) {
       iconClass = "fa fa-check";
       iconColor = "green";
-    } else if(this.props.played) {
+    } else if(game.played) {
       iconClass = "fa fa-exclamation-circle";
       iconColor = 'orange';
     } else {
@@ -201,5 +182,3 @@ var ConfirmRow = React.createClass({
     );
   }
 });
-
-module.exports = GameRow;

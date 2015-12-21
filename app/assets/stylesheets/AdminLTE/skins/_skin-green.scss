@@ -10,12 +10,13 @@
 .skin-green {
   //Navbar
   .main-header {
+    box-shadow: 0 1px 0 0 rgba(0,0,0,0.07);
     .navbar {
-      @include navbar-variant($green, #fff);
-      .sidebar-toggle {
-        color: #fff;
-        &:hover {
-          background-color: darken($green, 5%);
+      @include navbar-variant($white, $black);
+      .page-title {
+        color: $black;
+        a {
+          color: $black;
         }
       }
       @media(max-width: $screen-header-collapse) {

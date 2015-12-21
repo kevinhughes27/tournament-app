@@ -1,5 +1,4 @@
-class Admin::TournamentsController < AdminController
-  skip_before_filter :load_tournament, only: [:create]
+class Admin::SettingsController < AdminController
 
   def show
   end

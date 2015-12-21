@@ -1,16 +1,15 @@
-<header class="main-header">
+<header class="main-header" define="{sidebar: new Admin.SidebarControl()}" context="sidebar">
 
-  <!-- Logo -->
-  <a href="/" class="logo">
+  <a href="#" class="logo" bind-event-click="toggle()">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini">UT</span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg">Ultimate Tournament</span>
   </a>
 
-  <nav class="navbar navbar-static-top" role="navigation" define="{sidebar: new Admin.SidebarControl()}" context="sidebar">
-    <a href="#" class="sidebar-toggle" role="button" bind-event-click="toggle()">
-      <span class="sr-only">Toggle navigation</span>
-    </a>
+  <nav class="navbar navbar-static-top" role="navigation" >
+    <div class="container-fluid">
+      <%= yield :top_bar %>
+    </div>
   </nav>
 </header>

@@ -2,12 +2,13 @@
   <section class="sidebar">
 
     <ul class="sidebar-menu">
-      <li class="header">Setup</li>
-      <%= sidebar_link "fa fa-home", "Tournament", tournament_admin_path(@tournament), @tournament.persisted? %>
+      <%= sidebar_link "fa fa-home", "Home", tournament_admin_path(@tournament), @tournament.persisted? %>
       <%= sidebar_link "fa fa-map-signs", "Fields", tournament_admin_fields_path(@tournament), @tournament.map.try(:persisted?) %>
       <%= sidebar_link "fa fa-users", "Teams", tournament_admin_teams_path(@tournament), @tournament.fields.exists? %>
       <%= sidebar_link "fa fa-sitemap", "Brackets", tournament_admin_brackets_path(@tournament), @tournament.teams.exists? %>
       <%= sidebar_link "fa fa-calendar", "Schedule", tournament_admin_schedule_path(@tournament), @tournament.teams.exists? %>
+      <%= sidebar_link "fa fa-cogs", "Settings", tournament_admin_settings_path(@tournament), @tournament.persisted? %>
+
       <li class="header">Operation</li>
       <%= sidebar_link "fa fa-list", "Games", tournament_admin_games_path(@tournament), @tournament.games.exists? %>
       <li>

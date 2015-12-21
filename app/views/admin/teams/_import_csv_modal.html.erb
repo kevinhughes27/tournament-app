@@ -1,0 +1,47 @@
+<div class="modal fade" id="importCsvModal" context="importCsvModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        <h4 class="modal-title">Import teams from CSV file</h4>
+      </div>
+
+      <%= form_tag import_csv_tournament_admin_teams_path(@tournament), multipart: true do %>
+        <div class="modal-body">
+          <%= file_field_tag :csv_file, bind: 'csvFile'%>
+          <br>
+
+          <p>
+            Download a <%= link_to 'sample CSV template', sample_csv_tournament_admin_teams_path(@tournament, format: "csv") %> to see an example of the format required.
+          </p>
+
+          <p>
+            When importing the teams found in the CSV file
+            we'll match against existing teams by name. When
+            we find a match would you like us to:
+          </p>
+
+          <div class="radio">
+            <%= label_tag :match_behaviour_ignore do %>
+              <%= radio_button_tag :match_behaviour, 'ignore', checked: true %>
+              Ignore and go on to the next team
+            <% end %>
+          </div>
+
+          <div class="radio">
+            <%= label_tag :match_behaviour_update do %>
+              <%= radio_button_tag :match_behaviour, 'update' %>
+              Update our version of the team to match the CSV
+            <% end %>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= submit_tag "Import", class: 'btn btn-primary js-btn-loading', 'bind-disabled' => 'csvFile == ""' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

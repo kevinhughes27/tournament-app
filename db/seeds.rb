@@ -5,14 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-require 'csv'
-
-CSV.foreach(File.join(Rails.root, "public/template.csv"), :headers => true, :encoding => 'UTF-8') do |row|
-team = Team.create([{
-  name: row[0],
-  email: row[1],
-  division: row[2],
-  tournament_id: '1'
-}])
-end
