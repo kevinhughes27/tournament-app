@@ -18,15 +18,23 @@ class Admin::TeamsController < AdminController
     @team = @tournament.teams.build(team_params)
 
     if @team.save
+      flash[:notice] = 'Team created successfully'
       render :show
     else
+      flash[:error] = 'Error creating team'
       render :new
     end
   end
 
   def update
     @team = @tournament.teams.find(params[:id])
-    @team.update_attributes(team_params)
+
+    if @team.update_attributes(team_params)
+      flash[:notice] = 'Team saved successfully'
+    else
+      flash[:error] = 'Error saving team'
+    end
+
     render :show
   end
 
