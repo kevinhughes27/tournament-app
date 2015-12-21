@@ -170,12 +170,10 @@ var Filter = React.createClass({
 
   render() {
     return (
-      <div style={{paddingTop: 10}}>
-        <button className="btn btn-xs btn-info" onClick={this.clickHandler}>
-          <span>{this.props.filterKey} : {this.props.filterValue} </span>
-          <i className="fa fa-close"></i>
-        </button>
-      </div>
+      <button className="btn btn-xs btn-info" onClick={this.clickHandler}>
+        <span>{this.props.filterKey} : {this.props.filterValue} </span>
+        <i className="fa fa-close"></i>
+      </button>
     );
   }
 });
@@ -204,6 +202,7 @@ var TeamsFilter = React.createClass({
 
   render() {
     var filters = _.omit(this.props.query, 'search');
+    var filterPadding = _.isEmpty(filters) ? 0 : 10;
 
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
@@ -215,6 +214,7 @@ var TeamsFilter = React.createClass({
                  className="form-control"
                  onChange={this.searchChange} />
         </div>
+        <div className="btn-toolbar" style={{paddingTop: filterPadding}}>
           { _.keys(filters).map((key, idx) => {
             return <Filter
               key={idx}
@@ -222,6 +222,7 @@ var TeamsFilter = React.createClass({
               filterValue={filters[key]}
               deleteFilter={this.deleteFilter} />;
           })}
+        </div>
       </div>
     );
   }
