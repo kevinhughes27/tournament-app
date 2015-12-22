@@ -25,7 +25,7 @@ var filterColumns = [
 ];
 
 var LinkCell = React.createClass({
-  render(){
+  render() {
     var team = this.props.rowData;
     var url = "teams/" + team.id;
     return <a href={url}>{this.props.data}</a>;
@@ -74,8 +74,7 @@ class TeamsFilter extends FilterBar {
 
 var TeamsIndex = React.createClass({
   mixins: [FilterBarMixin],
-
-  searchColumns() { return searchColumns; },
+  searchColumns: searchColumns,
 
   getInitialState() {
     TeamsStore.init(this.props.teams);

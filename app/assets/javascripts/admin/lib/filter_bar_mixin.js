@@ -2,6 +2,13 @@ var _ = require('underscore'),
     squish = require('object-squish');
 
 var FilterBarMixin = {
+  componentDidMount() {
+    if(!this.searchColumns) {
+      this.searchColumns = []
+      console.warn("FilterBarMixin included but searchColumns not defined. include `searchColumns: [...]` in your component")
+    };
+  },
+
   filterFunction(results, filter) {
     return _.filter(results, (item) => {
       // filter
@@ -34,9 +41,7 @@ var FilterBarMixin = {
   },
 
   _keyNotSearchable(key) {
-    // parten must implement
-    var searchColumns = this.searchColumns()
-    return _.indexOf(searchColumns, key) == -1
+    return _.indexOf(this.searchColumns, key) == -1
   }
 };
 

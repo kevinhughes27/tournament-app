@@ -74,8 +74,7 @@ class GamesFilter extends FilterBar {
 
 var GamesIndex = React.createClass({
   mixins: [FilterBarMixin],
-
-  searchColumns() { return searchColumns; },
+  searchColumns: searchColumns,
 
   getInitialState() {
     GamesStore.init(this.props.games);
