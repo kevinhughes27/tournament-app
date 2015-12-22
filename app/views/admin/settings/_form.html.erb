@@ -1,24 +1,9 @@
 <%= render 'admin/errors', object: @tournament %>
 
-<div class="from-group">
-  <%= form.label :name %><br>
-  <%= form.text_field :name, class: 'form-control' %>
-</div>
-
-<div class="from-group">
-  <%= form.label :handle %><br>
-  <%= form.text_field :handle, class: 'form-control' %>
-</div>
-
-<div class="from-group">
-  <%= form.label :description %><br>
-  <%= form.text_area :description, class: 'form-control',  rows: "10" %>
-</div>
-
-<div class="from-group">
-  <%= form.label :time_cap %> (in minutes)<br>
-  <%= form.number_field :time_cap, class: 'form-control' %>
-</div>
+<%= form.ui_text_field :name %>
+<%= form.ui_text_field :handle %>
+<%= form.ui_text_area :description, rows: "10" %>
+<%= form.ui_number_field :time_cap %>
 
 <hr>
 
@@ -34,8 +19,4 @@
   <% end %>
 </div>
 
-<div class="box-footer clearfix">
-  <div class="actions">
-    <%= form.submit 'Save', class: "btn btn-primary pull-right" %>
-  </div>
-</div>
+<%= form.ui_save_button %>
