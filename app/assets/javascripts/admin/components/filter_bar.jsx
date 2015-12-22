@@ -6,10 +6,18 @@ var _ = require('underscore'),
     Collapse = require('react-bootstrap').Collapse;
 
 var FilterBar = React.createClass({
+  filterColumns: [],
+
   getDefaultProps() {
     return {
       "query": {}
     }
+  },
+
+  componentDidMount() {
+    if(this.filterColumns.length == 0) {
+      console.warn("FilterBar component used without filterColumns. Include `this.filterColumns = [...]` in your component's constructor")
+    };
   },
 
   searchChange(event) {
@@ -27,20 +35,14 @@ var FilterBar = React.createClass({
     this.props.changeFilter(this.props.query);
   },
 
-  // subclass must implement
-  // filterColumns() {
-  //   return [];
-  // },
-
   render() {
     var filters = _.omit(this.props.query, 'search');
     var filterPadding = _.isEmpty(filters) ? 0 : 10;
-    var filterColumns = this.filterColumns();
 
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
         <div className="input-group">
-          <FilterBuilder filterColumns={filterColumns} addFilter={this.addFilter}/>
+          <FilterBuilder filterColumns={this.filterColumns} addFilter={this.addFilter}/>
           <input type="text"
                  name="search"
                  placeholder="Search..."

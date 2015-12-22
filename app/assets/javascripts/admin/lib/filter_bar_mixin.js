@@ -5,7 +5,7 @@ var FilterBarMixin = {
   componentDidMount() {
     if(!this.searchColumns) {
       this.searchColumns = []
-      console.warn("FilterBarMixin included but searchColumns not defined. include `searchColumns: [...]` in your component")
+      console.warn("FilterBarMixin included but searchColumns not defined. Include `searchColumns: [...]` in your component")
     };
   },
 

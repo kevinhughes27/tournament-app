@@ -69,8 +69,11 @@ var columnsMeta = [
 ];
 
 class TeamsFilter extends FilterBar {
-  filterColumns() { return filterColumns; }
-}
+  constructor() {
+    super();
+    this.filterColumns = filterColumns;
+  }
+};
 
 var TeamsIndex = React.createClass({
   mixins: [FilterBarMixin],
