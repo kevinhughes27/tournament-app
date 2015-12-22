@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150829022843) do
+ActiveRecord::Schema.define(version: 20151013034638) do
 
   create_table "brackets", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -81,7 +81,6 @@ ActiveRecord::Schema.define(version: 20150829022843) do
     t.string   "name"
     t.string   "email"
     t.string   "sms"
-    t.string   "twitter"
     t.string   "division"
     t.integer  "tournament_id"
     t.datetime "created_at",                null: false
