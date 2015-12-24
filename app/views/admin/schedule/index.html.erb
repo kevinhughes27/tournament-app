@@ -25,7 +25,7 @@
         <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
           <div class="col-md-2">
             <h3>
-              <span class="glyphicon glyphicon-stop" style="<%= color_for_bracket(bracket) %>"></span> <%= bracket.division %>
+              <i class="fa fa-stop" style="<%= color_for_bracket(bracket) %>"></i> <%= bracket.division %>
             </h3>
             <% games.each do |game| %>
               <% if game.unassigned? %>
