@@ -14,7 +14,6 @@
 //= require interact
 //= require bootstrap-sprockets
 //= require bootstrap-contextmenu
-//= require bootstrap-popover-x
 
 //= require ./admin/admin
 //= require ./admin/components
