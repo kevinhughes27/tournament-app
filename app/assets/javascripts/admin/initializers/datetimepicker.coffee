@@ -11,5 +11,5 @@ Admin.DatePickerOptions = {
   step: 30
 }
 
-$(document).ready ->
+$(document).on 'page:change', ->
   $('.datetimepicker').datetimepicker(Admin.DatePickerOptions)
