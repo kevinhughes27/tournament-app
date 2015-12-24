@@ -1,6 +1,9 @@
 class AdminController < ApplicationController
-  before_action :load_tournament
   layout 'admin'
+
+  helper UiHelper
+
+  before_action :load_tournament
 
   def load_tournament
     if params[:tournament_id]
