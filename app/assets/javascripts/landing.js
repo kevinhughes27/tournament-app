@@ -2,5 +2,5 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require namespace
-//= require admin/map
+//= require admin/admin
+//= require admin/modules/map
