@@ -9,7 +9,6 @@
   ],
   "dependencies": {
     "fingerprintjs2": "~0.7.4",
-    "bootstrap-contextmenu": "0.3.3",
     "datetimepicker": "2.4.5",
     "jquery.scrollTo": "2.1.1",
     "underscore": "1.8.3",

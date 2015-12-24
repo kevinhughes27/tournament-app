@@ -13,7 +13,6 @@
 //= require sticky-tabs
 //= require interact
 //= require bootstrap-sprockets
-//= require bootstrap-contextmenu
 
 //= require ./admin/admin
 //= require ./admin/components
