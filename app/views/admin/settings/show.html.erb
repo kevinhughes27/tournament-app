@@ -6,7 +6,7 @@
 <% end %>
 
 <%= admin_content_box do %>
-  <%= form_for @tournament, url: tournament_admin_settings_path(@tournament), method: :put, remote: true do |form| %>
+  <%= form_for @tournament, url: tournament_admin_settings_path(@tournament), method: :put do |form| %>
     <%= render 'form', form: form %>
   <% end %>
 <% end %>

@@ -5,10 +5,12 @@ class Admin::SettingsController < AdminController
 
   def update
     if @tournament.update(tournament_params)
-      render :show, notice: 'Tournament was successfully updated.', turolinks: true
+      flash[:notice] = 'Settings saved.'
     else
-      render :show
+      flash[:error] = 'Error saving settings.'
     end
+
+    render :show
   end
 
   private
