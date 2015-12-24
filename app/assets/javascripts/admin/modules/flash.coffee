@@ -31,7 +31,3 @@ Admin.Flash = Flash =
     $node = $('.js-alert')
     $node.find('b').text('')
     $node.css('display', 'none')
-
-$ ->
-  $(".alert").not('.js-alert').delay(500).fadeIn "normal", ->
-    $(this).delay(1500).fadeOut()

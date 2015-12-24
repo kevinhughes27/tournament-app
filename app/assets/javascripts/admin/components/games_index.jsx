@@ -1,7 +1,7 @@
 var React = require('react'),
     Griddle = require('griddle-react'),
     FilterBar = require('./filter_bar'),
-    FilterBarMixin = require('../lib/filter_bar_mixin'),
+    FilterBarMixin = require('../mixins/filter_bar_mixin'),
     NameCell = require('./game').NameCell,
     ScoreCell = require('./game').ScoreCell,
     ConfirmedCell = require('./game').ConfirmedCell,

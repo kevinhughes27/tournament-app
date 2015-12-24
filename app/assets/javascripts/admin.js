@@ -18,7 +18,7 @@
 //= require bootstrap-contextmenu
 //= require bootstrap-popover-x
 
-//= require_self
-//= require_tree ./admin
-
-window.Admin = window.Admin || {};
+//= require ./admin/admin
+//= require ./admin/components
+//= require_tree ./admin/modules
+//= require_tree ./admin/initializers

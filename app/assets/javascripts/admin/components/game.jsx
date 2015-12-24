@@ -6,7 +6,7 @@ var React = require('react'),
     classNames = require('classnames'),
     ScoreReports = require('./score_reports'),
     GamesStore = require('../stores/games_store'),
-    LoadingMixin = require('../lib/loading_mixin');
+    LoadingMixin = require('../mixins/loading_mixin');
 
 exports.NameCell = React.createClass({
   getInitialState() {

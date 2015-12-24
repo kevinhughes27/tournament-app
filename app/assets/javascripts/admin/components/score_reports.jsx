@@ -4,7 +4,7 @@ var _ = require('underscore'),
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,
     classNames = require('classnames'),
     GamesStore = require('../stores/games_store'),
-    LoadingMixin = require('../lib/loading_mixin');
+    LoadingMixin = require('../mixins/loading_mixin');
 
 var ScoreReports = React.createClass({
   render() {
