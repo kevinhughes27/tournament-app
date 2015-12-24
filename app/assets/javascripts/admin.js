@@ -6,7 +6,6 @@
 //= require moment
 //= require underscore
 
-//= require table-to-json
 //= require jquery.cookie
 //= require datetimepicker
 //= require jstz
