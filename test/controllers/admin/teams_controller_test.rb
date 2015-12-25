@@ -112,6 +112,13 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     end
   end
 
+  test "delete a team" do
+    assert_difference "Team.count", -1 do
+      delete :destroy, id: @team.id, tournament_id: @tournament.id
+      assert_redirected_to tournament_admin_teams_path
+    end
+  end
+
   private
 
   def team_params

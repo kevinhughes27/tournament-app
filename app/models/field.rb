@@ -1,10 +1,8 @@
 class Field < ActiveRecord::Base
-  include UpdateSet
-
   has_many :games
   belongs_to :tournament
 
-  validates_presence_of :tournament
+  validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
 
   after_destroy :unassign_games
