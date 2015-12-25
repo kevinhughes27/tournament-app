@@ -1,5 +1,6 @@
 class Admin::FieldsController < AdminController
-  before_action :load_map # could load with tournament to do single query
+  skip_before_action :load_tournament
+  before_action :load_tournament_with_map
 
   def index
     @fields = @tournament.fields
@@ -58,7 +59,13 @@ class Admin::FieldsController < AdminController
       )
   end
 
-  def load_map
+  def load_tournament_with_map
+    if params[:tournament_id]
+      @tournament = Tournament.includes(:map).friendly.find(params[:tournament_id])
+    else
+      @tournament = Tournament.includes(:map).friendly.find(params[:id])
+    end
+
     @map = @tournament.map
   end
 end
