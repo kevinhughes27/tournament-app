@@ -12,13 +12,11 @@ dependencies:
     - mkdir -p tmp/cache
   post:
     - npm install
-    - bower install
   override:
     - bundle install --path .bundle --without production --without development
   cache_directories:
     - ".bundle"
     - "node_modules"
-    - "vendor/bower_components"
 
 database:
   override:
