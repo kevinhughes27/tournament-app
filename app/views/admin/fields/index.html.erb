@@ -8,22 +8,22 @@
 <%= admin_content_box do %>
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-      <li class="active">
+      <li>
         <a href="#list" data-toggle="tab">List</a>
       </li>
-      <li>
+      <li class="active">
         <a href="#map" data-toggle="tab">Map</a>
       </li>
     </ul>
   </div>
 
   <div class="tab-content">
-    <div class="tab-pane active" id="list">
+    <div class="tab-pane" id="list">
       <%= react_component('Admin.FieldsIndex',
         render(template: 'admin/fields/fields.json.jbuilder')) %>
     </div>
-    <div class="tab-pane" id="map">
-      <div id="map-canvas" style="width:100%; height: 700px;"></div>
+    <div class="tab-pane active" id="map">
+      <div id="map" style="width:100%; height: 640px;"></div>
     </div>
   </div>
 <% end %>
@@ -31,7 +31,8 @@
 <script>
   $( document ).ready(function() {
     fieldCreator = new Admin.FieldCreator(
-      <%= @map.location %>,
+      <%= @map.lat %>,
+      <%= @map.long %>,
       <%= @map.zoom %>,
       <%= raw @fields.to_json %>
     );
