@@ -7,6 +7,14 @@ class Field < ActiveRecord::Base
 
   after_destroy :unassign_games
 
+  def location
+    "[#{lat}, #{long}]"
+  end
+
+  def polygon
+    read_attribute(:polygon) || []
+  end
+
   def serializable_hash(options={})
     options.merge!(methods: :errors)
     super(options)

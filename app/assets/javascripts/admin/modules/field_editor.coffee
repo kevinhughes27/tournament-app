@@ -46,6 +46,8 @@ class Admin.FieldEditor
     @map.addControl(new L.NewPolygonControl())
 
   _drawField: ->
+    return if @polygon.length == 0
+
     # fix old google maps polygons
     if @polygon[0].A
       new_poly = []

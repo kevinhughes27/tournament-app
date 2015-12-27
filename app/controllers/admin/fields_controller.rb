@@ -11,7 +11,7 @@ class Admin::FieldsController < AdminController
   end
 
   def new
-    @field = @tournament.fields.build
+    @field = @tournament.fields.build(lat: @map.lat, long: @map.long)
   end
 
   def create
