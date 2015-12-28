@@ -29,7 +29,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     get :export_csv, tournament_id: @tournament.id, format: :csv
     assert_response :success
     assert_not_nil assigns(:fields)
-    assert_equal "application/octet-stream", response.content_type
+    assert_equal "text/csv", response.content_type
   end
 
   test "create a field" do
@@ -68,6 +68,60 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     assert_difference "Field.count", -1 do
       delete :destroy, id: @field.id, tournament_id: @tournament.id
       assert_redirected_to tournament_admin_fields_path
+    end
+  end
+
+  test "sample_csv returns a csv download" do
+    get :sample_csv, tournament_id: @tournament.id, format: :csv
+    assert_match 'Name,Latitude,Longitude,Geo JSON', response.body
+  end
+
+  test "import csv" do
+    assert_difference "Field.count", +15 do
+      post :import_csv, tournament_id: @tournament.id,
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'ignore'
+    end
+  end
+
+  test "import csv (ignore matches)" do
+    assert_difference "Field.count", +15 do
+      post :import_csv, tournament_id: @tournament.id,
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'ignore'
+    end
+
+    assert_no_difference "Field.count" do
+      post :import_csv, tournament_id: @tournament.id,
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'ignore'
+    end
+  end
+
+  test "import csv (update matches)" do
+    @field.update_attributes(name: 'UPI5')
+
+    assert_difference "Field.count", +14 do
+      post :import_csv, tournament_id: @tournament.id,
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'update'
+    end
+  end
+
+  test "import csv with extra headings" do
+    assert_difference "Field.count", +15 do
+      post :import_csv, tournament_id: @tournament.id,
+        csv_file: fixture_file_upload('files/fields-extra.csv','text/csv'),
+        match_behaviour: 'ignore'
+    end
+  end
+
+  test "import csv with bad row data" do
+    assert_no_difference "Field.count" do
+      post :import_csv, tournament_id: @tournament.id,
+        csv_file: fixture_file_upload('files/fields-bad-row.csv','text/csv'),
+        match_behaviour: 'ignore'
+      # assert that some sort of error is shown or flashed
     end
   end
 

@@ -45,7 +45,7 @@ class Admin::TeamsController < AdminController
     end
 
     respond_to do |format|
-      format.csv { send_data csv }
+      format.csv { send_data csv, filename: 'sample_teams.csv' }
     end
   end
 

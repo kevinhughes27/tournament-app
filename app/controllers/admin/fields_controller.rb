@@ -19,7 +19,7 @@ class Admin::FieldsController < AdminController
     end
 
     respond_to do |format|
-      format.csv { send_data csv }
+      format.csv { send_data csv, filename: 'fields.csv' }
     end
   end
 
@@ -63,6 +63,43 @@ class Admin::FieldsController < AdminController
     redirect_to action: :index
   end
 
+  def sample_csv
+    csv = CSV.generate do |csv|
+      csv << ['Name', 'Latitude', 'Longitude', 'Geo JSON']
+      csv << ['UPI1', 45.2456681689589, -75.6163644790649, example_geo_json]
+    end
+
+    respond_to do |format|
+      format.csv { send_data csv, filename: 'sample_fields.csv' }
+    end
+  end
+
+  def import_csv
+    file_path = params[:csv_file].path
+    ignore = params[:match_behaviour] == 'ignore'
+
+    @fields = @tournament.fields
+
+    Field.transaction do
+      CSV.foreach(file_path, headers: true, :header_converters => lambda { |h| csv_header_converter(h) }) do |row|
+        attributes = row.to_hash.with_indifferent_access
+        attributes = csv_params(attributes)
+
+        if field = @fields.detect{ |f| f.name == attributes[:name] }
+          next if ignore
+          field.update_attributes!(attributes)
+        else
+          @tournament.fields.create!(attributes)
+        end
+      end
+    end
+
+    redirect_to action: :index
+
+    rescue => e
+    redirect_to action: :index, error: e
+  end
+
   private
 
   def field_params
@@ -74,6 +111,32 @@ class Admin::FieldsController < AdminController
         :long,
         :geo_json
       )
+  end
+
+  def csv_params(attributes)
+    attributes.slice(
+      :name,
+      :lat,
+      :long,
+      :geo_json
+    )
+  end
+
+  def csv_header_converter(header)
+    case header
+    when 'Latitude'
+      'lat'
+    when 'Longitude'
+      'long'
+    when 'Geo JSON'
+      'geo_json'
+    else
+      header.try(:downcase).strip
+    end
+  end
+
+  def example_geo_json
+    "{\"type\":\"Feature\",\"properties\":{},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-75.61704058530103,45.24560112337739],[-75.61682149825708,45.24531101502135],[-75.61568837209097,45.24573520582302],[-75.61590746188978,45.2460253137602],[-75.61704058530103,45.24560112337739]]]}}"
   end
 
   def load_tournament_with_map
