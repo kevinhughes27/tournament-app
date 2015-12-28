@@ -25,6 +25,13 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:fields)
   end
 
+  test "get export_csv" do
+    get :export_csv, tournament_id: @tournament.id, format: :csv
+    assert_response :success
+    assert_not_nil assigns(:fields)
+    assert_equal "application/octet-stream", response.content_type
+  end
+
   test "create a field" do
     assert_difference "Field.count" do
       post :create, tournament_id: @tournament.id, field: field_params
