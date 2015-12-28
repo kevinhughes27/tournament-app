@@ -11,8 +11,9 @@ class Admin.FieldEditor
     })
 
     @_addMapTileLayer()
-    @_addMapDrawingControls()
     @_drawField()
+
+    @_addMapDrawingControls() unless @geoJson
 
     @map.on 'editable:drawing:commit', @_updateField
     @map.on 'editable:vertex:dragend', @_updateField
@@ -25,27 +26,8 @@ class Admin.FieldEditor
     @map.addLayer(googleSat)
 
   _addMapDrawingControls: ->
-    L.NewPolygonControl = L.Control.extend({
-      options: {
-        position: 'topleft'
-      },
-      onAdd: (map) => @_drawingControl()
-    })
-
-    @map.addControl(new L.NewPolygonControl())
-
-  _drawingControl: ->
-    container = L.DomUtil.create('div', 'leaflet-control leaflet-bar')
-
-    link = L.DomUtil.create('a', '', container)
-    link.href = '#'
-    link.title = 'Create a new polygon'
-    link.innerHTML = '▱'
-
-    L.DomEvent.on(link, 'click', L.DomEvent.stop)
-              .on(link, 'click', -> map.editTools.startPolygon())
-
-    container
+    @drawingControls = new Admin.FieldControl()
+    @map.addControl(@drawingControls)
 
   _drawField: ->
     layers = L.geoJson(@geoJson, {
@@ -56,6 +38,8 @@ class Admin.FieldEditor
       layer.enableEdit()
 
   _updateField: (event) =>
+    @map.removeControl(@drawingControls) if @drawingControls
+
     @geoJson = event.layer.toGeoJSON()
     center = event.layer.getCenter()
 

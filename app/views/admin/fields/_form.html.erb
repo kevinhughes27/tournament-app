@@ -16,7 +16,7 @@
       <%= @field.lat %>,
       <%= @field.long %>,
       <%= @map.zoom %>,
-      <%= raw @field.geo_json %>
+      <%= raw @field.geo_json || 'null' %>
     );
   });
 </script>
