@@ -13,7 +13,7 @@
 
 <script>
   $( document ).ready(function() {
-    tournamentMap = new Admin.Map(
+    tournamentMap = new Admin.Settings(
       <%= @tournament.map.location %>,
       <%= @tournament.map.zoom %>
     );

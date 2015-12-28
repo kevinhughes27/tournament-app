@@ -1,20 +1,9 @@
 class Admin.FieldsIndexMap
 
   constructor: (lat, long, zoom, @fields) ->
-    @map = L.map('map', {
-      center: new L.LatLng(lat, long),
-      zoom: zoom
-    })
-
-    @_addMapTileLayer()
+    @center = new L.LatLng(lat, long)
+    @map = Admin.Map(@center, zoom)
     @_drawFields()
-
-  _addMapTileLayer: ->
-    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-      maxZoom: 20,
-      subdomains:['mt0','mt1','mt2','mt3']
-    })
-    @map.addLayer(googleSat)
 
   _drawFields: ->
     @_drawField(field) for field in @fields

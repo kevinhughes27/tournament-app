@@ -1,4 +1,4 @@
-class Admin.Map
+class Admin.Settings
 
   constructor: (@tournmanentLocation, @zoom) ->
     window.initializeMap = @initializeMap

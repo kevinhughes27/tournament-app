@@ -4,45 +4,57 @@ class Admin.FieldEditor
   GEO_JSON_FIELD: '#field_geo_json'
 
   constructor: (lat, long, zoom, @geoJson)->
-    @map = L.map('map', {
-      center: new L.LatLng(lat, long),
-      zoom: zoom,
-      editable: true
-    })
+    @center = new L.LatLng(lat, long)
+    @map = Admin.Map(@center, zoom, true)
+    @historyBuffer = []
 
-    @_addMapTileLayer()
-    @_drawField()
-
-    @_addMapDrawingControls() unless @geoJson
+    if @geoJson
+      @_drawField()
+      @historyBuffer.push({center: @center, geoJson: @geoJson})
+    else
+      @_addMapDrawingControls()
 
     @map.on 'editable:drawing:commit', @_updateField
     @map.on 'editable:vertex:dragend', @_updateField
-
-  _addMapTileLayer: ->
-    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-      maxZoom: 20,
-      subdomains:['mt0','mt1','mt2','mt3']
-    })
-    @map.addLayer(googleSat)
+    $(document).on 'keydown', @_undoHandler
 
   _addMapDrawingControls: ->
     @drawingControls = new Admin.FieldControl()
     @map.addControl(@drawingControls)
 
   _drawField: ->
-    layers = L.geoJson(@geoJson, {
+    @layers = L.geoJson(@geoJson, {
       style: Admin.FieldStyle
     }).addTo(@map)
 
-    layers.eachLayer (layer) ->
+    @layers.eachLayer (layer) ->
       layer.enableEdit()
+
+  _clearField: ->
+    @map.editTools.featuresLayer.clearLayers() # if drawn new
+    @layers.clearLayers() if @layers # if drawn from db
 
   _updateField: (event) =>
     @map.removeControl(@drawingControls) if @drawingControls
-
     @geoJson = event.layer.toGeoJSON()
-    center = event.layer.getCenter()
+    @center = event.layer.getCenter()
+    @historyBuffer.push({center: @center, geoJson: @geoJson})
+    @_updateForm()
 
+  _updateForm: ->
     $(@GEO_JSON_FIELD).val( JSON.stringify(@geoJson) )
-    $(@LAT_FIELD).val(center.lat)
-    $(@LONG_FIELD).val(center.lng)
+    $(@LAT_FIELD).val(@center.lat)
+    $(@LONG_FIELD).val(@center.lng)
+
+  _undoHandler: (e) =>
+    Z = 90
+    if e.keyCode == Z && e.ctrlKey
+      return if @historyBuffer.length == 1
+
+      @historyBuffer.pop()
+      @center = _.last(@historyBuffer).center
+      @geoJson = _.last(@historyBuffer).geoJson
+
+      @_clearField()
+      @_drawField()
+      @_updateForm()
