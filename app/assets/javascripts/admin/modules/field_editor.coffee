@@ -14,6 +14,7 @@ class Admin.FieldEditor
     else
       @_addMapDrawingControls()
 
+    @map.on 'editable:drawing:clicked', @_autoFinishHandler
     @map.on 'editable:drawing:commit', @_updateField
     @map.on 'editable:vertex:dragend', @_updateField
     $(document).on 'keydown', @_undoHandler
@@ -21,6 +22,11 @@ class Admin.FieldEditor
   _addMapDrawingControls: ->
     @drawingControls = new Admin.FieldControl()
     @map.addControl(@drawingControls)
+
+  _autoFinishHandler: (e) ->
+    if e.layer.getLatLngs()[0].length == 4
+      e.editTools.commitDrawing()
+      e.layer.setStyle(Admin.FieldStyle)
 
   _drawField: ->
     @layers = L.geoJson(@geoJson, {
