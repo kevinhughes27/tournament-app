@@ -1,4 +1,4 @@
-class Admin.FieldCreator
+class Admin.FieldsIndexMap
 
   constructor: (lat, long, zoom, @fields) ->
     @map = L.map('map', {
