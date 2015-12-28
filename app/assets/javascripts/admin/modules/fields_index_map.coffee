@@ -22,14 +22,12 @@ class Admin.FieldsIndexMap
 
   _drawField: (field) ->
     geoJson = JSON.parse(field.geo_json)
-    layers = L.geoJson(geoJson).addTo(@map)
+
+    layers = L.geoJson(geoJson, {
+      style: Admin.FieldStyle
+    }).addTo(@map)
+
     layers.eachLayer (layer) ->
       layer.on 'click', -> Admin.Redirect("/fields/#{field.id}")
-      layer.on 'mouseover', (e) ->
-        layer = e.target
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        })
+      layer.on 'mouseover', (e) -> layer.setStyle(Admin.FieldHoverStyle)
+      layer.on 'mouseout', (e) -> layer.setStyle(Admin.FieldStyle)

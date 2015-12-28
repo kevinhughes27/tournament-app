@@ -46,7 +46,9 @@ class Admin.FieldEditor
     @map.addControl(new L.NewPolygonControl())
 
   _drawField: ->
-    layers = L.geoJson(@geoJson).addTo(@map)
+    layers = L.geoJson(@geoJson, {
+      style: Admin.FieldStyle
+    }).addTo(@map)
 
     layers.eachLayer (layer) ->
       layer.enableEdit()
