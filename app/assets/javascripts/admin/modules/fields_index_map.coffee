@@ -17,8 +17,7 @@ class Admin.FieldsIndexMap
     @map.addLayer(googleSat)
 
   _drawFields: ->
-    for field in @fields
-      @_drawField(field)
+    @_drawField(field) for field in @fields
 
   _drawField: (field) ->
     geoJson = JSON.parse(field.geo_json)
