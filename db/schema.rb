@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013034638) do
+ActiveRecord::Schema.define(version: 20151228203317) do
 
   create_table "brackets", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -23,15 +23,13 @@ ActiveRecord::Schema.define(version: 20151013034638) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
-    t.decimal  "lat",           precision: 15, scale: 10, default: 0.0
-    t.decimal  "long",          precision: 15, scale: 10, default: 0.0
+    t.decimal  "lat",           precision: 15, scale: 10
+    t.decimal  "long",          precision: 15, scale: 10
     t.integer  "tournament_id"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.string   "polygon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "geo_json"
   end
-
-  add_index "fields", ["tournament_id"], name: "index_fields_on_tournament_id"
 
   create_table "games", force: :cascade do |t|
     t.integer  "home_id"

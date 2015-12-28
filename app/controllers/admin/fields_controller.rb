@@ -55,7 +55,7 @@ class Admin::FieldsController < AdminController
         :name,
         :lat,
         :long,
-        :polygon
+        :geo_json
       )
   end
 

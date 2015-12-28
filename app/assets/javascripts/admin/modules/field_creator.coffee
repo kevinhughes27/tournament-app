@@ -21,23 +21,15 @@ class Admin.FieldCreator
       @_drawField(field)
 
   _drawField: (field) ->
-    polygon = JSON.parse(field.polygon)
-
-    # fix old google maps polygons
-    if polygon[0].A
-      new_poly = []
-      for pt in polygon
-        new_poly.push({lat: pt.A, lng: pt.F})
-      polygon = new_poly
-
-    poly = L.polygon(polygon).addTo(@map)
-
-    poly.on 'click', -> Admin.Redirect("/fields/#{field.id}")
-    poly.on 'mouseover', (e) ->
-      layer = e.target
-      layer.setStyle({
-          weight: 5,
-          color: '#666',
-          dashArray: '',
-          fillOpacity: 0.7
-      })
+    geoJson = JSON.parse(field.geo_json)
+    layers = L.geoJson(geoJson).addTo(@map)
+    layers.eachLayer (layer) ->
+      layer.on 'click', -> Admin.Redirect("/fields/#{field.id}")
+      layer.on 'mouseover', (e) ->
+        layer = e.target
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        })

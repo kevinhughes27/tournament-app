@@ -6,7 +6,7 @@
 
 <%= form.hidden_field :lat %>
 <%= form.hidden_field :long %>
-<%= form.hidden_field :polygon %>
+<%= form.hidden_field :geo_json %>
 
 <%= form.ui_save_button %>
 
@@ -15,7 +15,7 @@
     fieldCreator = new Admin.FieldEditor(
       <%= @field.lat %>,
       <%= @field.long %>,
-      <%= raw @field.polygon %>,
+      <%= raw @field.geo_json %>,
       <%= @map.zoom %>
     );
   });

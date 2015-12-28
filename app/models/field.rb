@@ -7,12 +7,10 @@ class Field < ActiveRecord::Base
 
   after_destroy :unassign_games
 
+  serialize :geo_json, JSON
+
   def location
     "[#{lat}, #{long}]"
-  end
-
-  def polygon
-    read_attribute(:polygon) || []
   end
 
   def serializable_hash(options={})
