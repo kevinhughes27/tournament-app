@@ -15,8 +15,8 @@
     fieldCreator = new Admin.FieldEditor(
       <%= @field.lat %>,
       <%= @field.long %>,
-      <%= raw @field.geo_json %>,
-      <%= @map.zoom %>
+      <%= @map.zoom %>,
+      <%= raw @field.geo_json %>
     );
   });
 </script>

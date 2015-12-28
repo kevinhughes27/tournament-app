@@ -3,7 +3,7 @@ class Admin.FieldEditor
   LONG_FIELD: '#field_long'
   GEO_JSON_FIELD: '#field_geo_json'
 
-  constructor: (lat, long, @geoJson, zoom)->
+  constructor: (lat, long, zoom, @geoJson)->
     @map = L.map('map', {
       center: new L.LatLng(lat, long),
       zoom: zoom,
