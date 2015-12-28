@@ -17,7 +17,7 @@ class Admin.FieldEditor
     @map.on 'editable:drawing:clicked', @_autoFinishHandler
     @map.on 'editable:drawing:commit', @_updateField
     @map.on 'editable:vertex:dragend', @_updateField
-    $(document).on 'keydown', @_undoHandler
+    $(document).on 'keydown', @_keyHandler
 
   _addMapDrawingControls: ->
     @drawingControls = new Admin.FieldControl()
@@ -52,15 +52,27 @@ class Admin.FieldEditor
     $(@LAT_FIELD).val(@center.lat)
     $(@LONG_FIELD).val(@center.lng)
 
-  _undoHandler: (e) =>
+  _keyHandler: (e) =>
+    ESC = 27
     Z = 90
+
     if e.keyCode == Z && e.ctrlKey
-      return if @historyBuffer.length == 1
+      @_undoHandler()
 
-      @historyBuffer.pop()
-      @center = _.last(@historyBuffer).center
-      @geoJson = _.last(@historyBuffer).geoJson
+    if e.keyCode == ESC
+      @_cancelDrawing()
 
-      @_clearField()
-      @_drawField()
-      @_updateForm()
+  _undoHandler: ->
+    return if @historyBuffer.length == 1
+
+    @historyBuffer.pop()
+    @center = _.last(@historyBuffer).center
+    @geoJson = _.last(@historyBuffer).geoJson
+
+    @_clearField()
+    @_drawField()
+    @_updateForm()
+
+  _cancelDrawing: ->
+    @map.editTools.stopDrawing()
+    @_clearField()
