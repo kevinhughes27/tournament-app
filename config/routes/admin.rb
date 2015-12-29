@@ -1,7 +1,13 @@
 namespace :admin do
   get "/" => "home#show"
 
-  resources :fields
+  resources :fields do
+    collection do
+      get :sample_csv
+      post :import_csv
+      get :export_csv
+    end
+  end
 
   resources :teams do
     collection do

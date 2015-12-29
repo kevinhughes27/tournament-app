@@ -1,0 +1,22 @@
+<%= render 'admin/errors', object: field %>
+
+<%= form.ui_text_field :name %>
+
+<div id="map" style="width: 100%; height: 640px;"></div>
+
+<%= form.hidden_field :lat %>
+<%= form.hidden_field :long %>
+<%= form.hidden_field :geo_json %>
+
+<%= form.ui_save_button %>
+
+<script>
+  $(document).ready(function() {
+    fieldCreator = new Admin.FieldEditor(
+      <%= @field.lat %>,
+      <%= @field.long %>,
+      <%= @map.zoom %>,
+      <%= raw @field.geo_json || 'null' %>
+    );
+  });
+</script>

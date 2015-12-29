@@ -3,43 +3,48 @@
     <i class="fa fa-map-signs"></i>
     Fields
   </div>
+
+  <div class="navbar-form navbar-right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importCsvModal">
+      Import
+    </button>
+    <%= link_to 'Export', export_csv_tournament_admin_fields_path(@tournament, format: "csv"), class: "btn btn-primary" %>
+    <%= link_to 'New', new_tournament_admin_field_path(@tournament), class: "btn btn-primary" %>
+  </div>
 <% end %>
 
-<section class="content-header">
-  <h1>
-    <small>Draw your fields by clicking on the map below:</small>
-  </h1>
-</section>
+<%= render 'import_csv_modal' %>
 
 <%= admin_content_box do %>
-  <div id="map-canvas" style="width:100%; height: 700px;"></div>
+  <div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <li>
+        <a href="#list-tab" data-toggle="tab">List</a>
+      </li>
+      <li class="active">
+        <a href="#map-tab" data-toggle="tab">Map</a>
+      </li>
+    </ul>
+  </div>
 
-  <%= form_tag tournament_admin_fields_path(@tournament), method: :post do %>
-    <table id="fields" class="table table-striped">
-      <thead>
-        <tr>
-          <th>Field</th>
-          <th>p1</th>
-          <th>p2</th>
-          <th>p3</th>
-          <th>p4</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-
-    <div class="box-footer clearfix">
-      <%= submit_tag 'Save fields', class: "btn btn-primary pull-right" %>
+  <div class="tab-content">
+    <div class="tab-pane" id="list-tab">
+      <%= react_component('Admin.FieldsIndex',
+        render(template: 'admin/fields/fields.json.jbuilder')) %>
     </div>
-  <% end %>
-
+    <div class="tab-pane active" id="map-tab">
+      <div id="map" style="width:100%; height: 640px;"></div>
+    </div>
+  </div>
 <% end %>
 
 <script>
   $( document ).ready(function() {
-    fieldCreator = new Admin.FieldCreator(
-      <%= @map.location %>,
+    stickyTabs = new Admin.StickyTabs('fieldsTab');
+
+    fieldsIndexMap = new Admin.FieldsIndexMap(
+      <%= @map.lat %>,
+      <%= @map.long %>,
       <%= @map.zoom %>,
       <%= raw @fields.to_json %>
     );

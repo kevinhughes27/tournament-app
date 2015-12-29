@@ -1,0 +1,16 @@
+<% content_for :top_bar do %>
+  <div class="navbar-brand page-title">
+    <i class="fa fa-map-signs"></i>
+    <%= link_to 'Fields', tournament_admin_fields_path(@tournament) %> / New
+  </div>
+
+  <div class="navbar-form navbar-right">
+    <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.new_field').submit()" %>
+  </div>
+<% end %>
+
+<%= admin_content_box do %>
+  <%= form_for [@tournament, :admin, @field] do |form| %>
+    <%= render 'form', form: form, field: @field %>
+  <% end %>
+<% end %>

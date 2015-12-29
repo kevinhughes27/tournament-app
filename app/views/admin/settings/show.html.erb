@@ -13,9 +13,10 @@
 
 <script>
   $( document ).ready(function() {
-    tournamentMap = new Admin.Map(
-      <%= @tournament.map.location %>,
-      <%= @tournament.map.zoom %>
+    settings = new Admin.Settings(
+      <%= @map.lat %>,
+      <%= @map.long %>,
+      <%= @map.zoom %>
     );
   });
 </script>
