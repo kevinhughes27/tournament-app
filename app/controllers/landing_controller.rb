@@ -1,6 +1,5 @@
 class LandingController < ApplicationController
-  layout 'landing'
-
   def index
+    render :index, layout: false
   end
 end
