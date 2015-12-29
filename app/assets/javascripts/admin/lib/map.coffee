@@ -1,8 +1,9 @@
-Admin.Map = (center, zoom, editable = false) ->
+Admin.Map = (center, zoom, editable = false, editOptions = {}) ->
   map = L.map('map', {
     center: center,
     zoom: zoom,
     editable: editable
+    editOptions: editOptions
   })
 
   googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
