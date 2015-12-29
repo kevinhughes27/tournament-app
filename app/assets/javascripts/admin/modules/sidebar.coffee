@@ -1,4 +1,4 @@
-class Admin.Sidebar
+class Sidebar
 
   constructor: ->
 
@@ -19,3 +19,8 @@ class Admin.Sidebar
 
   _smallScreen: ->
     $(window).width() <= 768
+
+instance = new Sidebar
+
+Admin.Sidebar = ->
+  return instance
