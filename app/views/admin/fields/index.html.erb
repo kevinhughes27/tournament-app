@@ -19,20 +19,20 @@
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <li>
-        <a href="#list" data-toggle="tab">List</a>
+        <a href="#list-tab" data-toggle="tab">List</a>
       </li>
       <li class="active">
-        <a href="#map" data-toggle="tab">Map</a>
+        <a href="#map-tab" data-toggle="tab">Map</a>
       </li>
     </ul>
   </div>
 
   <div class="tab-content">
-    <div class="tab-pane" id="list">
+    <div class="tab-pane" id="list-tab">
       <%= react_component('Admin.FieldsIndex',
         render(template: 'admin/fields/fields.json.jbuilder')) %>
     </div>
-    <div class="tab-pane active" id="map">
+    <div class="tab-pane active" id="map-tab">
       <div id="map" style="width:100%; height: 640px;"></div>
     </div>
   </div>
@@ -40,7 +40,7 @@
 
 <script>
   $( document ).ready(function() {
-    fieldCreator = new Admin.FieldsIndexMap(
+    fieldsIndexMap = new Admin.FieldsIndexMap(
       <%= @map.lat %>,
       <%= @map.long %>,
       <%= @map.zoom %>,

@@ -5,6 +5,10 @@ class Admin.FieldsIndexMap
     @map = Admin.Map(@center, zoom)
     @_drawFields()
 
+    $('body').on 'shown.bs.tab', (e) =>
+      if e.target.hash == '#map-tab'
+        @map.invalidateSize(false)
+
   _drawFields: ->
     @_drawField(field) for field in @fields
 
