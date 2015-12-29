@@ -2,7 +2,8 @@ Admin.Map = (center, zoom, editable = false) ->
   options = {
     center: center,
     zoom: zoom,
-    doubleClickZoom: false
+    doubleClickZoom: false,
+    attributionControl: false
   }
 
   if editable
