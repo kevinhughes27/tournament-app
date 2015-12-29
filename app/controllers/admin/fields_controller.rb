@@ -141,14 +141,4 @@ class Admin::FieldsController < AdminController
   def example_geo_json
     "{\"type\":\"Feature\",\"properties\":{},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-75.61704058530103,45.24560112337739],[-75.61682149825708,45.24531101502135],[-75.61568837209097,45.24573520582302],[-75.61590746188978,45.2460253137602],[-75.61704058530103,45.24560112337739]]]}}"
   end
-
-  def load_tournament_with_map
-    if params[:tournament_id]
-      @tournament = Tournament.includes(:map).friendly.find(params[:tournament_id])
-    else
-      @tournament = Tournament.includes(:map).friendly.find(params[:id])
-    end
-
-    @map = @tournament.map
-  end
 end

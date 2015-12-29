@@ -1,4 +1,6 @@
 class Admin::SettingsController < AdminController
+  skip_before_action :load_tournament
+  before_action :load_tournament_with_map
 
   def show
   end
@@ -10,7 +12,7 @@ class Admin::SettingsController < AdminController
       flash[:error] = 'Error saving settings.'
     end
 
-    render :show
+    redirect_to tournament_admin_settings_path(@tournament)
   end
 
   private

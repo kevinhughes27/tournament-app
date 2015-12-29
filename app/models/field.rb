@@ -9,15 +9,6 @@ class Field < ActiveRecord::Base
 
   serialize :geo_json, JSON
 
-  def location
-    "[#{lat}, #{long}]"
-  end
-
-  def serializable_hash(options={})
-    options.merge!(methods: :errors)
-    super(options)
-  end
-
   private
 
   def unassign_games
