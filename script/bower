@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# usage: ./script/bower admin
+
+cd "app/assets/javascripts/$1/vendor"
+#pwd
+bower install
