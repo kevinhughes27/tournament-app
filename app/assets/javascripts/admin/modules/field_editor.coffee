@@ -12,16 +12,16 @@ class Admin.FieldEditor
       @_drawField()
       @historyBuffer.push({center: @center, geoJson: @geoJson})
     else
-      @_addMapDrawingControls()
+      @map.on 'mouseover', @_initDrawingMode
 
     @map.on 'editable:drawing:clicked', @_autoFinishHandler
     @map.on 'editable:drawing:commit', @_updateField
     @map.on 'editable:vertex:dragend', @_updateField
     $(document).on 'keydown', @_keyHandler
 
-  _addMapDrawingControls: ->
-    @drawingControls = new Admin.FieldControl()
-    @map.addControl(@drawingControls)
+  _initDrawingMode: =>
+    return if @historyBuffer.length >= 1
+    @map.editTools.startPolygon()
 
   _autoFinishHandler: (e) ->
     if e.layer.getLatLngs()[0].length == 4
@@ -76,3 +76,4 @@ class Admin.FieldEditor
   _cancelDrawing: ->
     @map.editTools.stopDrawing()
     @_clearField()
+    @map.editTools.startPolygon()
