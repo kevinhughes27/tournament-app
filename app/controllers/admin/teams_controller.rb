@@ -55,8 +55,10 @@ class Admin::TeamsController < AdminController
 
     @teams = @tournament.teams
 
+    rowNum = 1
     Team.transaction do
       CSV.foreach(file_path, headers: true, :header_converters => lambda { |h| h.try(:downcase).strip }) do |row|
+        rowNum += 1
         attributes = row.to_hash.with_indifferent_access
         attributes = csv_params(attributes)
 
@@ -69,10 +71,11 @@ class Admin::TeamsController < AdminController
       end
     end
 
+    flash[:notice] = 'Teams imported successfully'
     redirect_to action: :index
-
   rescue => e
-    redirect_to action: :index, error: e
+    flash[:error] = "Error importing teams. Row: #{rowNum} #{e}"
+    redirect_to action: :index
   end
 
   def destroy

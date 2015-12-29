@@ -80,8 +80,10 @@ class Admin::FieldsController < AdminController
 
     @fields = @tournament.fields
 
+    rowNum = 1
     Field.transaction do
       CSV.foreach(file_path, headers: true, :header_converters => lambda { |h| csv_header_converter(h) }) do |row|
+        rowNum += 1
         attributes = row.to_hash.with_indifferent_access
         attributes = csv_params(attributes)
 
@@ -94,10 +96,11 @@ class Admin::FieldsController < AdminController
       end
     end
 
+    flash[:notice] = 'Fields imported successfully'
     redirect_to action: :index
-
-    rescue => e
-    redirect_to action: :index, error: e
+  rescue => e
+    flash[:error] = "Error importing fields. Row: #{rowNum} #{e}"
+    redirect_to action: :index
   end
 
   private
