@@ -16,6 +16,6 @@ class Admin.FieldsIndexMap
     }).addTo(@map)
 
     layers.eachLayer (layer) ->
-      layer.on 'click', -> Admin.Redirect("/fields/#{field.id}")
+      layer.on 'click', -> Admin.Redirect("fields/#{field.id}")
       layer.on 'mouseover', (e) -> layer.setStyle(Admin.FieldHoverStyle)
       layer.on 'mouseout', (e) -> layer.setStyle(Admin.FieldStyle)

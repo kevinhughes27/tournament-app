@@ -5,7 +5,7 @@ class Admin.FieldEditor
 
   constructor: (lat, long, zoom, @geoJson)->
     @center = new L.LatLng(lat, long)
-    @map = Admin.Map(@center, zoom, true, {skipMiddleMarkers: true})
+    @map = Admin.Map(@center, zoom, true)
     @historyBuffer = []
 
     if @geoJson
@@ -13,6 +13,9 @@ class Admin.FieldEditor
       @historyBuffer.push({center: @center, geoJson: @geoJson})
     else
       @map.on 'mouseover', @_initDrawingMode
+
+    @undoControl = new Admin.MapUndoControl(undoCallback: @_undoHandler)
+    @map.addControl(@undoControl)
 
     @map.on 'editable:drawing:clicked', @_autoFinishHandler
     @map.on 'editable:drawing:commit', @_updateField
@@ -68,10 +71,12 @@ class Admin.FieldEditor
     if e.keyCode == ESC
       @_cancelDrawing()
 
-  _undoHandler: ->
+  _undoHandler: =>
     return if @historyBuffer.length == 1
 
     @historyBuffer.pop()
+    console.log("Map History Buffer size: #{@historyBuffer.length}")
+
     @center = _.last(@historyBuffer).center
     @geoJson = _.last(@historyBuffer).geoJson
 
