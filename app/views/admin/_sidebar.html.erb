@@ -1,39 +1,41 @@
-<header class="main-header" define="{sidebar: new Admin.SidebarControl()}" context="sidebar">
+<div define="{sidebar: new Admin.SidebarControl()}" context="sidebar">
+  <header class="main-header">
 
-  <a href="#" class="logo" bind-event-click="toggle()">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini">UT</span>
-    <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg">Ultimate Tournament</span>
-  </a>
+    <a href="#" class="logo" bind-event-click="toggle()">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini">UT</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg">Ultimate Tournament</span>
+    </a>
 
-  <nav class="navbar navbar-static-top" role="navigation" >
-    <div class="container-fluid">
-      <%= yield :top_bar %>
-    </div>
-  </nav>
-</header>
+    <nav class="navbar navbar-static-top" role="navigation" >
+      <div class="container-fluid">
+        <%= yield :top_bar %>
+      </div>
+    </nav>
+  </header>
 
-<aside class="main-sidebar">
-  <section class="sidebar">
+  <aside class="main-sidebar">
+    <section class="sidebar">
 
-    <ul class="sidebar-menu">
-      <%= sidebar_link "fa fa-home", "Home", tournament_admin_path(@tournament), @tournament.persisted? %>
-      <%= sidebar_link "fa fa-map-signs", "Fields", tournament_admin_fields_path(@tournament), @tournament.map.try(:persisted?) %>
-      <%= sidebar_link "fa fa-users", "Teams", tournament_admin_teams_path(@tournament), @tournament.fields.exists? %>
-      <%= sidebar_link "fa fa-sitemap", "Brackets", tournament_admin_brackets_path(@tournament), @tournament.teams.exists? %>
-      <%= sidebar_link "fa fa-calendar", "Schedule", tournament_admin_schedule_path(@tournament), @tournament.teams.exists? %>
-      <%= sidebar_link "fa fa-cogs", "Settings", tournament_admin_settings_path(@tournament), @tournament.persisted? %>
+      <ul class="sidebar-menu">
+        <%= sidebar_link "fa fa-home", "Home", tournament_admin_path(@tournament), @tournament.persisted? %>
+        <%= sidebar_link "fa fa-map-signs", "Fields", tournament_admin_fields_path(@tournament), @tournament.map.try(:persisted?) %>
+        <%= sidebar_link "fa fa-users", "Teams", tournament_admin_teams_path(@tournament), @tournament.fields.exists? %>
+        <%= sidebar_link "fa fa-sitemap", "Brackets", tournament_admin_brackets_path(@tournament), @tournament.teams.exists? %>
+        <%= sidebar_link "fa fa-calendar", "Schedule", tournament_admin_schedule_path(@tournament), @tournament.teams.exists? %>
+        <%= sidebar_link "fa fa-cogs", "Settings", tournament_admin_settings_path(@tournament), @tournament.persisted? %>
 
-      <li class="header">Operation</li>
-      <%= sidebar_link "fa fa-list", "Games", tournament_admin_games_path(@tournament), @tournament.games.exists? %>
-      <li>
-        <%= link_to @tournament.app_link, target: '_blank' do %>
-          <i class="fa fa-external-link-square"></i>
-          <span>App</span>
-        <% end %>
-      </li>
-    </ul>
+        <li class="header">Operation</li>
+        <%= sidebar_link "fa fa-list", "Games", tournament_admin_games_path(@tournament), @tournament.games.exists? %>
+        <li>
+          <%= link_to @tournament.app_link, target: '_blank' do %>
+            <i class="fa fa-external-link-square"></i>
+            <span>App</span>
+          <% end %>
+        </li>
+      </ul>
 
-  </section>
-</aside>
+    </section>
+  </aside>
+</div>
