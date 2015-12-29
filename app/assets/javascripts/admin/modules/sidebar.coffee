@@ -1,4 +1,4 @@
-class Admin.SidebarControl
+class Admin.Sidebar
 
   constructor: ->
 
