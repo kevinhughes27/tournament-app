@@ -3,7 +3,14 @@ class AdminController < ApplicationController
 
   helper UiHelper
 
+  responders :flash
+  respond_to :html
+
   before_action :load_tournament
+
+  def respond_with(obj)
+    super @tournament, :admin, obj
+  end
 
   def load_tournament
     if params[:tournament_id]

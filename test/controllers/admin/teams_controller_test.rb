@@ -29,7 +29,9 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   test "create a team" do
     assert_difference "Team.count" do
       post :create, tournament_id: @tournament.id, team: team_params
-      assert_template :show
+
+      team = assigns(:team)
+      assert_redirected_to tournament_admin_team_path(@tournament, team)
     end
   end
 
@@ -45,7 +47,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "update a team" do
     put :update, id: @team.id, tournament_id: @tournament.id, team: team_params
-    assert_template :show
+
+    assert_redirected_to tournament_admin_team_path(@tournament, @team)
     assert_equal team_params[:name], @team.reload.name
   end
 
@@ -54,9 +57,18 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     params.delete(:name)
 
     put :update, id: @team.id, tournament_id: @tournament.id, team: params
-    assert_template :show
+
+    assert_redirected_to tournament_admin_team_path(@tournament, @team)
     refute_equal team_params[:name], @team.reload.name
   end
+
+  test "delete a team" do
+    assert_difference "Team.count", -1 do
+      delete :destroy, id: @team.id, tournament_id: @tournament.id
+      assert_redirected_to tournament_admin_teams_path(@tournament)
+    end
+  end
+
 
   test "sample_csv returns a csv download" do
     get :sample_csv, tournament_id: @tournament.id, format: :csv
@@ -109,13 +121,6 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams-bad-row.csv','text/csv'),
         match_behaviour: 'ignore'
       # assert that some sort of error is shown or flashed
-    end
-  end
-
-  test "delete a team" do
-    assert_difference "Team.count", -1 do
-      delete :destroy, id: @team.id, tournament_id: @tournament.id
-      assert_redirected_to tournament_admin_teams_path
     end
   end
 

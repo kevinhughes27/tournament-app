@@ -5,10 +5,10 @@
   </div>
 <% end %>
 
-<% if flash[:error] %>
+<% if flash[:alert] %>
   <div class="alert alert-danger alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <b><%= flash[:error] %></b>
+    <b><%= flash[:alert] %></b>
   </div>
 <% end %>
 

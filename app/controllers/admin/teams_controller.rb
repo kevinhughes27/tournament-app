@@ -15,27 +15,19 @@ class Admin::TeamsController < AdminController
   end
 
   def create
-    @team = @tournament.teams.build(team_params)
-
-    if @team.save
-      flash[:notice] = 'Team created successfully'
-      render :show
-    else
-      flash[:error] = 'Error creating team'
-      render :new
-    end
+    @team = @tournament.teams.create(team_params)
+    respond_with @team
   end
 
   def update
     @team = @tournament.teams.find(params[:id])
+    @team.update_attributes(team_params)
+    respond_with @team
+  end
 
-    if @team.update_attributes(team_params)
-      flash[:notice] = 'Team saved successfully'
-    else
-      flash[:error] = 'Error saving team'
-    end
-
-    render :show
+  def destroy
+    @team = @tournament.teams.find(params[:id]).destroy()
+    respond_with @team
   end
 
   def sample_csv
@@ -74,15 +66,7 @@ class Admin::TeamsController < AdminController
     flash[:notice] = 'Teams imported successfully'
     redirect_to action: :index
   rescue => e
-    flash[:error] = "Error importing teams. Row: #{rowNum} #{e}"
-    redirect_to action: :index
-  end
-
-  def destroy
-    @team = @tournament.teams.find(params[:id])
-    @team.destroy()
-
-    flash[:notice] = 'Team deleted'
+    flash[:alert] = "Error importing teams. Row: #{rowNum} #{e}"
     redirect_to action: :index
   end
 

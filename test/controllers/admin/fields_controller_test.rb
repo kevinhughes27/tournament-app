@@ -35,7 +35,9 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   test "create a field" do
     assert_difference "Field.count" do
       post :create, tournament_id: @tournament.id, field: field_params
-      assert_template :show
+
+      field = assigns(:field)
+      assert_redirected_to tournament_admin_field_path(@tournament, field)
     end
   end
 
@@ -51,7 +53,8 @@ class Admin::FieldsControllerTest < ActionController::TestCase
 
   test "update a field" do
     put :update, id: @field.id, tournament_id: @tournament.id, field: field_params
-    assert_template :show
+
+    assert_redirected_to tournament_admin_field_path(@tournament, @field)
     assert_equal field_params[:name], @field.reload.name
   end
 
@@ -60,14 +63,15 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     params.delete(:name)
 
     put :update, id: @field.id, tournament_id: @tournament.id, field: params
-    assert_template :show
+
+    assert_redirected_to tournament_admin_field_path(@tournament, @field)
     refute_equal field_params[:name], @field.reload.name
   end
 
   test "delete a field" do
     assert_difference "Field.count", -1 do
       delete :destroy, id: @field.id, tournament_id: @tournament.id
-      assert_redirected_to tournament_admin_fields_path
+      assert_redirected_to tournament_admin_fields_path(@tournament)
     end
   end
 

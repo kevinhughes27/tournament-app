@@ -8,21 +8,6 @@ class Admin::FieldsController < AdminController
     @fields = @tournament.fields
   end
 
-  def export_csv
-    @fields = @tournament.fields
-
-    csv = CSV.generate do |csv|
-      csv << ['Name', 'Latitude', 'Longitude', 'Geo JSON']
-      @fields.each do |field|
-        csv << [field.name, field.lat, field.long, field.geo_json]
-      end
-    end
-
-    respond_to do |format|
-      format.csv { send_data csv, filename: 'fields.csv' }
-    end
-  end
-
   def show
     @field = @tournament.fields.find(params[:id])
   end
@@ -32,35 +17,19 @@ class Admin::FieldsController < AdminController
   end
 
   def create
-    @field = @tournament.fields.build(field_params)
-
-    if @field.save
-      flash[:notice] = 'Feild created successfully'
-      render :show
-    else
-      flash[:error] = 'Error creating field'
-      render :new
-    end
+    @field = @tournament.fields.create(field_params)
+    respond_with @field
   end
 
   def update
     @field = @tournament.fields.find(params[:id])
-
-    if @field.update_attributes(field_params)
-      flash[:notice] = 'Field saved successfully'
-    else
-      flash[:error] = 'Error saving field'
-    end
-
-    render :show
+    @field.update_attributes(field_params)
+    respond_with @field
   end
 
   def destroy
-    @field = @tournament.fields.find(params[:id])
-    @field.destroy()
-
-    flash[:notice] = 'Field deleted'
-    redirect_to action: :index
+    @field = @tournament.fields.find(params[:id]).destroy()
+    respond_with @field
   end
 
   def sample_csv
@@ -99,8 +68,23 @@ class Admin::FieldsController < AdminController
     flash[:notice] = 'Fields imported successfully'
     redirect_to action: :index
   rescue => e
-    flash[:error] = "Error importing fields. Row: #{rowNum} #{e}"
+    flash[:alert] = "Error importing fields. Row: #{rowNum} #{e}"
     redirect_to action: :index
+  end
+
+  def export_csv
+    @fields = @tournament.fields
+
+    csv = CSV.generate do |csv|
+      csv << ['Name', 'Latitude', 'Longitude', 'Geo JSON']
+      @fields.each do |field|
+        csv << [field.name, field.lat, field.long, field.geo_json]
+      end
+    end
+
+    respond_to do |format|
+      format.csv { send_data csv, filename: 'fields.csv' }
+    end
   end
 
   private
