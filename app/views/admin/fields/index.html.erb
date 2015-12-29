@@ -40,6 +40,8 @@
 
 <script>
   $( document ).ready(function() {
+    stickyTabs = new Admin.StickyTabs('fieldsTab');
+
     fieldsIndexMap = new Admin.FieldsIndexMap(
       <%= @map.lat %>,
       <%= @map.long %>,
