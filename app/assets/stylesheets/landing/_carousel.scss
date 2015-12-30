@@ -1,0 +1,100 @@
+.landing-page .carousel-indicators {
+  bottom: -50px;
+}
+
+.landing-page .carousel-indicators li {
+  margin: 1px 10px;
+  border-color: #888888;
+}
+
+.landing-page .carousel-indicators .active{
+  background-color: #888888;
+  margin: 1px 10px;
+}
+
+.landing-page .carousel-inner > .item > img,
+.landing-page .carousel-inner > .item > a > img {
+  display: block;
+  margin: 0 auto;
+  height: auto;
+}
+
+.landing-page .carousel.fade {
+  opacity: 1;
+}
+
+.landing-page .carousel.fade .item {
+  -moz-transition: opacity ease-in-out .7s;
+  -o-transition: opacity ease-in-out .7s;
+  -webkit-transition: opacity ease-in-out .7s;
+  transition: opacity ease-in-out .7s;
+  left: 0 !important;
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  display: block !important;
+  z-index: 1;
+}
+
+.landing-page .carousel.fade .item:first-child {
+  top: auto;
+  position: relative;
+}
+
+.landing-page .carousel.fade .item.active {
+  opacity: 1;
+  -moz-transition: opacity ease-in-out .7s;
+  -o-transition: opacity ease-in-out .7s;
+  -webkit-transition: opacity ease-in-out .7s;
+  transition: opacity ease-in-out .7s;
+  z-index: 2;
+}
+
+.carousel-indicators li.active {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.carousel-indicators li {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.carousel.fade {
+  margin-bottom: 60px;
+}
+
+.landing-page .carousel.fade {
+  opacity: 1;
+}
+
+.landing-page .carousel.fade .item {
+  -moz-transition: opacity ease-in-out .7s;
+  -o-transition: opacity ease-in-out .7s;
+  -webkit-transition: opacity ease-in-out .7s;
+  transition: opacity ease-in-out .7s;
+  left: 0 !important;
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  display: block !important;
+  z-index: 1;
+}
+
+.landing-page .carousel.fade .item:first-child {
+  top: auto;
+  position: relative;
+}
+
+.landing-page .carousel.fade .item.active {
+  opacity: 1;
+  -moz-transition: opacity ease-in-out .7s;
+  -o-transition: opacity ease-in-out .7s;
+  -webkit-transition: opacity ease-in-out .7s;
+  transition: opacity ease-in-out .7s;
+  z-index: 2;
+}

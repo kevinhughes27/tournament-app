@@ -1,6 +1,12 @@
-/*
- *= require vendor/landing-page-bootstrap
- *= require vendor/landing-page
- */
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+@import 'landing/page';
+@import 'landing/nav';
+@import 'landing/buttons';
+@import 'landing/carousel';
+@import 'landing/footer';
 
 @import 'font-awesome';
