@@ -1,0 +1,271 @@
+/*     General overwrite     */
+body {
+  font-family:'Montserrat', sans-serif;
+}
+
+a {
+  color: #2ca8ff;
+}
+
+a:hover, a:focus {
+  color: #109cff;
+  text-decoration: none;
+}
+
+a:focus, a:active {
+  outline: 0;
+}
+
+.fa {
+  text-align: center;
+}
+
+.fa:before {
+  vertical-align: middle;
+}
+
+.fa-lg {
+  vertical-align: 0!important;
+}
+
+.section {
+  padding: 30px 0;
+  position: relative;
+  background-color: #FFFFFF;
+}
+
+.section-gray {
+  background-color: #EEEEEE;
+}
+
+.section-white {
+  background-color: #FFFFFF;
+}
+
+.border-top {
+  border-top: 1px solid #e2e2e2;
+}
+
+.parallax .parallax-image  {
+  width: 100%;
+  position: relative;
+  height: 100%;
+
+}
+
+.landing-page p {
+  margin-top: 30px;
+  line-height: 28px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.landing-page .section-description h5 {
+  margin-top: 40px;
+}
+
+.landing-page .img-container {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.landing-page .img-container img {
+  width: 100%;
+}
+
+.landing-page .section-clients {
+  padding: 80px 0;
+}
+
+.landing-page .section-clients .info .icon {
+  background: transparent;
+}
+
+.landing-page .section-clients .icon i {
+  color: #AAAAAA;
+}
+
+.landing-page .section-clients h3 {
+  margin-top: 10px;
+}
+
+.landing-page .container, .landing-page-2 .container, .landing-page-3 .container{
+  max-width: 970px;
+}
+
+.header-text {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 20px;
+  font-size: 22px;
+  position: relative;
+  line-height: 24px;
+}
+
+.landing-page .navbar-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.landing-page .parallax {
+  width: 100%;
+  height: 630px;
+  overflow: hidden;
+  display: block;
+  background-size: 100%;
+}
+
+.landing-page .parallax .container{
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+.filter-gradient{
+  position: relative;
+}
+
+.filter-gradient:after{
+    background-size: 2000px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+    content: "";
+}
+
+.filter-gradient.gray:after{
+  background: rgba(0, 0, 0, 0.6) ;
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+}
+
+.section-no-padding{
+  padding-bottom: 0;
+}
+
+.landing-page .parallax .parallax-background{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-page .parallax .parallax-background img{
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.landing-page .parallax .parallax-image{
+  width: 300px;
+  margin: 0 auto;
+  padding-top: 130px;
+}
+
+.landing-page .parallax .parallax-image img {
+  width: 100%;
+  height: auto;
+}
+
+.landing-page .parallax .parallax-image .screen {
+  position: absolute;
+  z-index: 3;
+}
+
+.landing-page .parallax .description{
+  padding-top: 120px;
+  color: white;
+}
+
+.landing-page .parallax .description h5 {
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.landing-page .parallax .buttons{
+  width: 100%;
+  display: inline-block;
+  margin-top: 40px;
+}
+
+.landing-page .parallax .buttons .btn-simple{
+  font-size: 30px;
+}
+
+.landing-page .section-presentation {
+  overflow: hidden;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.landing-page .section-presentation{
+  margin: 100px 0 60px;
+}
+
+.landing-page .full-background {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #333;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.landing-page .full-background .info{
+  position: relative;
+  z-index: 20;
+  padding: 80px 0;
+}
+
+.landing-page .full-background .info h1{
+  font-size: 40px;
+  font-weight: 300;
+}
+
+.landing-page .full-background .info  a{
+  position: relative;
+  z-index: 10;
+}
+
+.landing-page .full-background .info .btn-lg{
+  margin-top: 40px;
+  padding: 14px 80px;
+}
+
+.landing-page .section-testimonial{
+  position: relative;
+  width: 100%;
+  padding: 80px 0 50px;
+}
+
+.landing-page .section-contact {
+  position: relative;
+  padding: 80px 0 80px;
+  background-color: rgba(238, 238, 238, 0.7);
+}
+
+@media (max-width:1170px){
+  .main .container{
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 520px) {
+  h5, .h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+}

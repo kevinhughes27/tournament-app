@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'landing#index'
+  root 'brochure#index'
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 

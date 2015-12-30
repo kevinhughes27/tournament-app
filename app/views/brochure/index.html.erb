@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
+  <title>Ultimate Tournament</title>
+  <%= stylesheet_link_tag 'brochure', media: 'all', 'data-turbolinks-track' => true %>
+</head>
+
+<body class="landing-page">
+  <%= render 'nav' %>
+  <%= render 'hero' %>
+  <%= render 'presentation' %>
+  <%= render 'features' %>
+  <%= render 'users' %>
+  <%= render 'signup' %>
+  <%= render 'contact' %>
+  <%= render 'footer' %>
+
+  <%= javascript_include_tag 'brochure', 'data-turbolinks-track' => true %>
+
+  <script type="text/javascript">
+    var big_image;
+    $().ready(function () {
+      responsive = $(window).width();
+      if (responsive >= 768) {
+        big_image = $('.parallax-background').find('img');
+        console.log(big_image);
+        $(window).on('scroll', function () {
+          parallax();
+        });
+      }
+    });
+
+    var parallax = function () {
+      var current_scroll = $(this).scrollTop();
+
+      oVal = ($(window).scrollTop() / 3);
+      big_image.css('top', oVal);
+    };
+  </script>
+</body>
+</html>
