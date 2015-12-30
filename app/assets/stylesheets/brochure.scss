@@ -3,10 +3,11 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
-@import 'brochure/page';
 @import 'brochure/nav';
+@import 'brochure/page';
+@import 'brochure/typography';
 @import 'brochure/buttons';
-@import 'brochure/carousel';
+@import 'brochure/features';
 @import 'brochure/footer';
 
 @import 'font-awesome';
