@@ -1,6 +1,4 @@
 class SignupController < ApplicationController
-  layout 'landing'
-
   def new
     @tournament = Tournament.new
     @tournament.build_map(
@@ -8,6 +6,8 @@ class SignupController < ApplicationController
       long: -96.0,
       zoom: 4
     )
+
+    render :new, layout: false
   end
 
   def create
@@ -16,7 +16,7 @@ class SignupController < ApplicationController
     if @tournament.save && @tournament.build_map(map_params).save
       redirect_to tournament_admin_path(@tournament), notice: 'Tournament was successfully created.'
     else
-      render :new
+      render :new, layout: false
     end
   end
 
