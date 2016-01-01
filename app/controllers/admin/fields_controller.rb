@@ -1,8 +1,7 @@
 require 'csv'
 
 class Admin::FieldsController < AdminController
-  skip_before_action :load_tournament
-  before_action :load_tournament_with_map
+  include LoadTournamentWithMap
 
   def index
     @fields = @tournament.fields

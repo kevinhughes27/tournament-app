@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    tournament_admin_path(session[:login_tournament_friendly_id])
+    session[:previous_url] || tournament_admin_path(session[:login_tournament_friendly_id])
   end
 end
