@@ -36,6 +36,12 @@
         </li>
       </ul>
 
+      <div>
+        <%= current_user.email %>
+        <br>
+        <%=link_to "Log out", destroy_user_session_path, method: :delete %>
+      </div>
+
     </section>
   </aside>
 </div>

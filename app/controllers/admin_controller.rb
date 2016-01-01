@@ -6,10 +6,19 @@ class AdminController < ApplicationController
   responders :flash
   respond_to :html
 
+  before_filter :store_tournament
+  before_action :authenticate_user!
   before_action :load_tournament
+  # ensure access to tournament
 
   def respond_with(obj)
     super @tournament, :admin, obj
+  end
+
+  # used for post-login redirect (in ApplicationController)
+  def store_tournament
+    return unless request.get?
+    session[:login_tournament_id] = params[:tournament_id]
   end
 
   def load_tournament
