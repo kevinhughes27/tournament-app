@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable,
+  has_many :tournament_users
+  has_many :tournaments, through: :tournament_users
+
+  devise :custom_authenticatable,
+         :database_authenticatable,
          :registerable,
          :recoverable,
          :rememberable,
@@ -12,6 +16,10 @@ class User < ActiveRecord::Base
 
   def gravatar_url
     "http://www.gravatar.com/avatar/#{gravatar_hash}?s=200&d=mm"
+  end
+
+  def valid_for_custom_authentication?(password)
+    tournaments.exists?(id: Thread.current[:login_tournament_id])
   end
 
   private

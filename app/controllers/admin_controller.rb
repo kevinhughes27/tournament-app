@@ -6,19 +6,12 @@ class AdminController < ApplicationController
   responders :flash
   respond_to :html
 
+  before_action :load_tournament
   before_filter :store_tournament
   before_action :authenticate_user!
-  before_action :load_tournament
-  # ensure access to tournament
 
   def respond_with(obj)
     super @tournament, :admin, obj
-  end
-
-  # used for post-login redirect (in ApplicationController)
-  def store_tournament
-    return unless request.get?
-    session[:login_tournament_id] = params[:tournament_id]
   end
 
   def load_tournament
@@ -37,5 +30,14 @@ class AdminController < ApplicationController
     end
 
     @map = @tournament.map
+  end
+
+  # used for:
+    # ensuring tournament_user in custom warden stratgey defined in user.rb
+    # post-login redirect (in ApplicationController)
+  def store_tournament
+    return unless request.get?
+    session[:login_tournament_id] = @tournament.friendly_id
+    Thread.current[:login_tournament_id] = @tournament.id
   end
 end
