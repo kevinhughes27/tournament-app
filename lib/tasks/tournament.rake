@@ -1,9 +1,12 @@
-namespace :nobo do
-  desc "Creates the nobo from 2015 blank"
+namespace :tournament do
+  desc "Creates a tournament. Parameters: NAME"
   task :create => :environment do
+    name = ENV['NAME']
+    handle = name.underscore.dasherize
+
     tournament = Tournament.create!(
-      name: 'No Borders',
-      handle: 'no-borders',
+      name: name,
+      handle: handle,
       time_cap: 90
     )
 
@@ -12,5 +15,7 @@ namespace :nobo do
       long: -75.6146840751171,
       zoom: 16
     )
+
+    puts "done!"
   end
 end
