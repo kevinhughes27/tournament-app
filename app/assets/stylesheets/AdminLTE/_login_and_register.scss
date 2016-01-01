@@ -9,9 +9,19 @@
   text-align: center;
   margin-bottom: 25px;
   font-weight: 300;
+  color: lightslategrey;
   a {
     color: #444;
   }
+}
+
+.login-subtext,
+.register-subtext {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 300;
+  color: lightslategrey;
 }
 
 .login-page,

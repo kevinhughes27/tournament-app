@@ -7,7 +7,7 @@ class AdminController < ApplicationController
   respond_to :html
 
   before_action :load_tournament
-  before_filter :store_tournament
+  before_action :store_tournament
   before_action :authenticate_user!
 
   def respond_with(obj)
@@ -32,12 +32,9 @@ class AdminController < ApplicationController
     @map = @tournament.map
   end
 
-  # used for:
-    # ensuring tournament_user in custom warden stratgey defined in user.rb
-    # post-login redirect (in ApplicationController)
   def store_tournament
     return unless request.get?
-    session[:login_tournament_id] = @tournament.friendly_id
-    Thread.current[:login_tournament_id] = @tournament.id
+    session[:login_tournament_id] = @tournament.id
+    session[:login_tournament_friendly_id] = @tournament.friendly_id
   end
 end
