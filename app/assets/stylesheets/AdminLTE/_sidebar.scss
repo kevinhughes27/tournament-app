@@ -45,7 +45,8 @@
 
 //Sidebar user panel
 .user-panel {
-  position: relative;
+  position: absolute;
+  bottom: 0px;
   width: 100%;
   padding: 10px;
   overflow: hidden;

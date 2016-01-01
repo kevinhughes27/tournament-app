@@ -36,10 +36,15 @@
         </li>
       </ul>
 
-      <div>
-        <%= current_user.email %>
-        <br>
-        <%=link_to "Log out", destroy_user_session_path, method: :delete %>
+      <div class="user-panel">
+        <div class="pull-left image">
+          <%= image_tag current_user.gravatar_url, class: 'img-circle' %>
+        </div>
+        <div class="pull-left info">
+          <%= current_user.name %>
+          <br>
+          <%=link_to "Log out", destroy_user_session_path, method: :delete %>
+        </div>
       </div>
 
     </section>
