@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
-  devise_for :users, path: '', except: [:passwords]
+  devise_for :users, path: '', skip: [:registration, :passwords]
 
   resources :tournaments, controller: 'admin/tournaments', path: '', only: [:create] do
     draw :admin
