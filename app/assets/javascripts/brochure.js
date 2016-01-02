@@ -2,5 +2,5 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require brochure/vendor/SmoothScroll
-//= require brochure/vendor/jquery.scrollTo
+//= require brochure/vendor
+//= require_tree ./brochure/initializers

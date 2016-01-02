@@ -5,7 +5,12 @@ Rails.application.routes.draw do
 
   devise_for :users, path: '', skip: [:registration, :passwords]
 
-  resources :tournaments, controller: 'admin/tournaments', path: '', only: [:create] do
+  devise_scope :user do
+    post '/sign_up' => 'signup#create', as: :new_user_signup
+  end
+
+  # i don't like the tournament builder paths off of root
+  resources :tournaments, controller: 'tournaments', path: '', only: [:new, :create] do
     draw :admin
   end
 

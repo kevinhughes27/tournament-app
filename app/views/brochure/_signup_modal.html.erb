@@ -1,0 +1,28 @@
+<div id="animatedModal">
+  <div id="closebt-container" class="close-animatedModal">
+    <%= image_tag "brochure/closebt.svg", class: "closebt" %>
+  </div>
+
+  <div class="modal-content col-md-8 col-md-offset-2">
+    <%= form_for User.new, url: new_user_signup_path do |f| %>
+
+      <div class="form-group">
+        <%= f.text_field :email,
+                         placeholder: 'Email',
+                         class: 'form-control input-lg',
+                         autofocus: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.password_field :password,
+                             placeholder: 'Password',
+                             class: 'form-control input-lg',
+                             autocomplete: 'off' %>
+      </div>
+
+      <div class="form-group text-center">
+        <%= f.submit "Sign up", class: 'btn btn-lg btn-block btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

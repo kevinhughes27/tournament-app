@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width" />
   <title>Ultimate Tournament</title>
   <%= stylesheet_link_tag 'brochure', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
 </head>
 
 <body class="landing-page">
@@ -19,27 +20,8 @@
   <%= render 'contact' %>
   <%= render 'footer' %>
 
+  <%= render 'signup_modal' %>
+
   <%= javascript_include_tag 'brochure', 'data-turbolinks-track' => true %>
-
-  <script type="text/javascript">
-    var big_image;
-    $().ready(function () {
-      responsive = $(window).width();
-      if (responsive >= 768) {
-        big_image = $('.parallax-background').find('img');
-        console.log(big_image);
-        $(window).on('scroll', function () {
-          parallax();
-        });
-      }
-    });
-
-    var parallax = function () {
-      var current_scroll = $(this).scrollTop();
-
-      oVal = ($(window).scrollTop() / 3);
-      big_image.css('top', oVal);
-    };
-  </script>
 </body>
 </html>

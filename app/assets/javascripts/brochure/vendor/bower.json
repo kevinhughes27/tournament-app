@@ -1,0 +1,7 @@
+{
+  "name": "ultimate-tournament-brochure",
+  "dependencies": {
+    "jquery.scrollTo": "2.1.2",
+    "animatedmodal": "git@github.com:joaopereirawd/animatedModal.js.git"
+  }
+}

@@ -1,4 +1,4 @@
-class SignupController < ApplicationController
+class TournamentsController < ApplicationController
   def new
     @tournament = Tournament.new
     @tournament.build_map(

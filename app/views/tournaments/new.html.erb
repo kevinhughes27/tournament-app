@@ -16,7 +16,7 @@
 
     <div class="register-box-body">
       <p class="login-box-msg">Sign up to create a tournament</p>
-      <%= form_for @tournament, url: signup_path do |form| %>
+      <%= form_for @tournament do |form| %>
         <%= form.ui_text_field :name %>
         <%= form.ui_text_field :handle %>
         <%= form.ui_text_area :description, rows: "10" %>
