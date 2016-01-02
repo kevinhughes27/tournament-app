@@ -3,9 +3,9 @@ require 'test_helper'
 class Admin::FieldsControllerTest < ActionController::TestCase
 
   setup do
-    http_login('admin', 'nobo')
     @tournament = tournaments(:noborders)
     @field = fields(:upi1)
+    sign_in users(:kevin)
   end
 
   test "get new" do

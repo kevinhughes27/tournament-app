@@ -3,9 +3,9 @@ require 'test_helper'
 class Admin::GamesControllerTest < ActionController::TestCase
 
   setup do
-    http_login('admin', 'nobo')
     @tournament = tournaments(:noborders)
     @game = games(:swift_goose)
+    sign_in users(:kevin)
   end
 
   test "should get index" do

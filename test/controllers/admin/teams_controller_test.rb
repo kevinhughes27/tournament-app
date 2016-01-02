@@ -3,9 +3,9 @@ require 'test_helper'
 class Admin::TeamsControllerTest < ActionController::TestCase
 
   setup do
-    http_login('admin', 'nobo')
     @tournament = tournaments(:noborders)
     @team = teams(:swift)
+    sign_in users(:kevin)
   end
 
   test "get new" do

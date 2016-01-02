@@ -3,8 +3,8 @@ require 'test_helper'
 class Admin::ScheduleControllerTest < ActionController::TestCase
 
   setup do
-    http_login('admin', 'nobo')
     @tournament = tournaments(:noborders)
+    sign_in users(:kevin)
   end
 
   test "should get index" do
