@@ -1,23 +1,32 @@
 source 'https://rubygems.org'
 ruby "2.2.2"
 
+# rails gems
 gem 'rails', '4.2.1'
 gem 'unicorn'
 gem 'friendly_id'
-gem 'date_validator'
-gem 'json-schema'
-gem 'browser-timezone-rails'
 gem 'responders'
+gem 'json-schema'
 gem 'jbuilder'
 
+gem 'date_validator'
+gem 'browser-timezone-rails'
+
+# engines
+gem 'devise'
+gem 'devise_custom_authenticatable'
+
+# frontend gems
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
+
 gem 'interact-rails'
 
+# frontend frameworks
 gem 'twine-rails'
 gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'

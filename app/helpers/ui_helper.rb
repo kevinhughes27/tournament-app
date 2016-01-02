@@ -9,6 +9,13 @@ module UiHelper
       end
     end
 
+    def ui_password_field(method, options = {})
+      content_tag(:div, class: 'form-group') do
+        concat label(method)
+        concat password_field(method, options.merge(class: 'form-control'))
+      end
+    end
+
     def ui_number_field(method, options = {})
       content_tag(:div, class: 'form-group') do
         concat label(method)

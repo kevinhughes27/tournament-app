@@ -1,0 +1,22 @@
+<% content_for :top_bar do %>
+  <div class="navbar-brand page-title">
+    <i class="fa fa-user"></i>
+    Account
+  </div>
+
+  <div class="navbar-form navbar-right">
+    <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.edit_user').submit()" %>
+  </div>
+<% end %>
+
+<%= admin_content_box do %>
+  <%= form_for @user, url: tournament_admin_account_path(@tournament), method: :put do |form| %>
+    <%= render 'admin/errors', object: @user %>
+
+    <%= form.ui_text_field :email %>
+    <%= form.ui_password_field :password %>
+    <%= form.ui_password_field :password_confirmation %>
+
+    <%= form.ui_save_button %>
+  <% end %>
+<% end %>

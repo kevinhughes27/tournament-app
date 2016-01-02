@@ -1,6 +1,5 @@
 class Admin::SettingsController < AdminController
-  skip_before_action :load_tournament
-  before_action :load_tournament_with_map
+  include LoadTournamentWithMap
 
   def show
   end

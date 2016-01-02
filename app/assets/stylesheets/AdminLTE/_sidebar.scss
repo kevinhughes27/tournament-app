@@ -45,35 +45,31 @@
 
 //Sidebar user panel
 .user-panel {
-  position: relative;
+  position: absolute;
+  bottom: 0px;
   width: 100%;
   padding: 10px;
   overflow: hidden;
   @include clearfix;
-  > .image > img {
+
+  .image > img {
     width: 100%;
-    max-width: 45px;
+    max-width: 35px;
     height: auto;
   }
-  > .info {
+
+  .info {
     padding: 5px 5px 5px 15px;
     line-height: 1;
-    position: absolute;
-    left: 55px;
-    > p {
-      font-weight: 600;
-      margin-bottom: 9px;
-    }
-    > a {
-      text-decoration: none;
-      padding-right: 5px;
-      margin-top: 3px;
-      font-size: 11px;
-      > .fa,
-      > .ion,
-      > .glyphicon {
-        margin-right: 3px;
-      }
+    position: relative;
+  }
+
+  .dropdown-menu {
+    position: relative;
+    bottom: 10px;
+    width: 100%;
+    a {
+      color: $link-color !important;
     }
   }
 }

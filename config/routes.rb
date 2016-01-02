@@ -3,10 +3,9 @@ Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
-  get '/signup' => 'signup#new'
-  post '/signup' => 'signup#create'
+  devise_for :users, path: '', except: [:passwords]
 
-  resources :tournaments, controller: 'admin/tournaments', path: '', except: [:show] do
+  resources :tournaments, controller: 'admin/tournaments', path: '', only: [:create] do
     draw :admin
   end
 

@@ -7,6 +7,9 @@ class AdminController < ApplicationController
   respond_to :html
 
   before_action :load_tournament
+  before_action :store_tournament
+  before_action :store_location
+  before_action :authenticate_user!
 
   def respond_with(obj)
     super @tournament, :admin, obj
@@ -14,19 +17,26 @@ class AdminController < ApplicationController
 
   def load_tournament
     if params[:tournament_id]
-      @tournament = Tournament.friendly.find(params[:tournament_id])
+      @tournament = tournament_scope.find(params[:tournament_id])
     else
-      @tournament = Tournament.friendly.find(params[:id])
+      @tournament = tournament_scope.find(params[:id])
     end
   end
 
-  def load_tournament_with_map
-    if params[:tournament_id]
-      @tournament = Tournament.includes(:map).friendly.find(params[:tournament_id])
-    else
-      @tournament = Tournament.includes(:map).friendly.find(params[:id])
-    end
+  def store_tournament
+    return unless request.get?
+    session[:login_tournament_id] = @tournament.id
+    session[:login_tournament_friendly_id] = @tournament.friendly_id
+  end
 
-    @map = @tournament.map
+  def store_location
+    return unless request.get?
+    session[:previous_url] = request.fullpath
+  end
+
+  private
+
+  def tournament_scope
+    Tournament.friendly
   end
 end
