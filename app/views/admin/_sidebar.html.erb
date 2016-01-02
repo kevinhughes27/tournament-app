@@ -36,15 +36,26 @@
         </li>
       </ul>
 
-      <div class="user-panel">
-        <div class="pull-left image">
-          <%= image_tag current_user.gravatar_url, class: 'img-circle' %>
-        </div>
-        <div class="pull-left info">
-          <%= current_user.name %>
-          <br>
-          <%=link_to "Log out", destroy_user_session_path, method: :delete %>
-        </div>
+      <div class="user-panel dropup">
+        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+          <li><a href="#">Account</a></li>
+          <li role="separator" class="divider"></li>
+          <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+        </ul>
+
+        <a href='#' class="dropdown-toggle" data-toggle="dropdown" id="userDropdown">
+          <div class="pull-left image">
+            <%= image_tag current_user.gravatar_url, class: 'img-circle' %>
+          </div>
+
+          <div class="pull-left info">
+            <%= current_user.name %>
+          </div>
+
+          <div class="pull-right">
+            <i class="fa fa-chevron-up"></i>
+          </div>
+        </a>
       </div>
 
     </section>
