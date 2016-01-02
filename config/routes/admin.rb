@@ -32,4 +32,7 @@ namespace :admin do
 
   get '/settings', to: 'settings#show'
   put '/settings', to: 'settings#update'
+
+  get '/account', to: 'account#show'
+  put '/account', to: 'account#update'
 end

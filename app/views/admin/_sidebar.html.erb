@@ -38,7 +38,7 @@
 
       <div class="user-panel dropup">
         <ul class="dropdown-menu" aria-labelledby="userDropdown">
-          <li><a href="#">Account</a></li>
+          <li><%= link_to "Account", tournament_admin_account_path(@tournament) %></li>
           <li role="separator" class="divider"></li>
           <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
         </ul>
