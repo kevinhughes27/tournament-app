@@ -8,3 +8,9 @@ noborders:
   handle: no-borders
   description: An Ultimate tournament in Ottawa
   time_cap: 80
+
+jazz_fest:
+  name: Jazz Fest
+  handle: jazz-fest
+  description: Montreal
+  time_cap: 90
