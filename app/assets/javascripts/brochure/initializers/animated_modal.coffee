@@ -1,5 +1,6 @@
 $(document).ready ->
   $('.signupModal').animatedModal
     color: '#3498DB',
-    animatedIn:'lightSpeedIn',
-    animatedOut:'bounceOutDown'
+    animatedIn:'fadeInUp',
+    animatedOut:'bounceOutDown',
+    animationDuration: '0.3s'
