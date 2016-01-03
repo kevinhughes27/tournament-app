@@ -31,4 +31,8 @@ class TournamentsBuildController < ApplicationController
   def load_tournament
     @tournament = Tournament.find(params[:tournament_id])
   end
+
+  def finish_wizard_path
+    tournament_admin_path(@tournament)
+  end
 end
