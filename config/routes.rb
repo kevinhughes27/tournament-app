@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   end
 
   get '/setup' => 'tournaments#new'
-  resources :tournaments, path: 'setup', only: [:create, :show, :update]
+  post '/setup' => 'tournaments#create'
+
+  resources :tournaments, path: 'setup', only: [] do
+    resources :build, path: '', controller: 'tournaments_build', only: [:show, :update]
+  end
 
   resources :tournaments, controller: 'tournaments', path: '', only: [] do
     draw :admin

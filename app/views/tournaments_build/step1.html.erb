@@ -1,0 +1,13 @@
+<%= form_for @tournament, url: wizard_path, method: :put do |f| %>
+
+  <div class="form-group">
+    <%= f.number_field :time_cap,
+                       class: 'form-control input-lg',
+                       autofocus: true %>
+  </div>
+
+  <div class="form-group pull-right">
+    <%= f.submit "Next", class: 'btn btn-lg btn-primary' %>
+  </div>
+
+<% end %>

@@ -17,6 +17,7 @@ class Tournament < ActiveRecord::Base
 
   validates_presence_of :name, :handle, :time_cap
   validates_format_of   :handle, with: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/
+  # uniqueness of name and handle
   validates_numericality_of :time_cap
   validates_presence_of :tournament_users, on: :update
 
