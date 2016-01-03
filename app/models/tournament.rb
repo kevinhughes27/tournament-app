@@ -15,10 +15,9 @@ class Tournament < ActiveRecord::Base
   has_many :games, dependent: :destroy
   has_many :score_reports, dependent: :destroy
 
-  validates_presence_of :name, :handle, :time_cap
-  validates_format_of   :handle, with: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/
-  # uniqueness of name and handle
-  validates_numericality_of :time_cap
+  validates :name, presence: true, uniqueness: true
+  validates :handle, presence: true, uniqueness: true, format: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/
+  validates :time_cap, presence: true, numericality: true
   validates_presence_of :tournament_users, on: :update
 
   def app_link

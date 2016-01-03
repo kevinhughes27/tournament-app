@@ -1,10 +1,17 @@
 require 'test_helper'
 
 class TournamentTest < ActiveSupport::TestCase
+
   test "tournament requires a name" do
     tournament = Tournament.new()
     refute tournament.valid?
     assert_equal ["can't be blank"], tournament.errors[:name]
+  end
+
+  test "tournament name must be unique" do
+    tournament = Tournament.new(name: 'No Borders', handle: 'new-handle')
+    refute tournament.save
+    assert_equal ["has already been taken"], tournament.errors[:name]
   end
 
   test "tournament requires a handle" do
@@ -13,10 +20,22 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal ["can't be blank", 'is invalid'], tournament.errors[:handle]
   end
 
+  test "tournament handle must be unique" do
+    tournament = Tournament.new(name: 'New Tournament', handle: 'no-borders')
+    refute tournament.save
+    assert_equal ["has already been taken"], tournament.errors[:handle]
+  end
+
   test "tournament requires a time cap" do
-    tournament = Tournament.new(name: 'No Borders', handle: 'no-borders')
+    tournament = Tournament.new(name: 'No Borders', handle: 'no-borders', time_cap: '')
     refute tournament.valid?
     assert_equal ["can't be blank", "is not a number"], tournament.errors[:time_cap]
+  end
+
+  test "tournament requires at least one tournament user" do
+    tournament = tournaments(:noborders)
+    tournament.tournament_users.destroy_all
+    refute tournament.valid?
   end
 
   test "deleting a tournament deletes all its data" do

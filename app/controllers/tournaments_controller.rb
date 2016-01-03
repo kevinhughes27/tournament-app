@@ -7,16 +7,17 @@ class TournamentsController < ApplicationController
   end
 
   def create
+    @tournament = Tournament.new(tournament_create_params)
+
     Tournament.transaction do
-      @tournament = Tournament.create!(tournament_create_params)
+      @tournament.save!
       TournamentUser.create!(tournament_id: @tournament.id, user_id: current_user.id)
     end
 
-    if @tournament.persisted?
-      redirect_to tournament_build_path(@tournament.id, :step1)
-    else
-      render :new
-    end
+    redirect_to tournament_build_path(@tournament.id, :step1)
+
+  rescue ActiveRecord::RecordInvalid => e
+    render :new
   end
 
   private
