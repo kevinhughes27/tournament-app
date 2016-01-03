@@ -4,6 +4,7 @@ class Tournament < ActiveRecord::Base
 
   has_many :tournament_users
   has_many :users, through: :tournament_users
+  accepts_nested_attributes_for :tournament_users
 
   has_one :map, dependent: :destroy
   accepts_nested_attributes_for :map
@@ -17,7 +18,7 @@ class Tournament < ActiveRecord::Base
   validates_presence_of :name, :handle, :time_cap
   validates_format_of   :handle, with: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/
   validates_numericality_of :time_cap
-  # validate at least one user ...
+  validates_presence_of :tournament_users, on: :update
 
   def app_link
     "/#{handle}"

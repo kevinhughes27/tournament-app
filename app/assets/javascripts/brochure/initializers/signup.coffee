@@ -11,7 +11,7 @@ $(document).ready ->
       data: data
       dataType: 'json'
       success: (response) ->
-        Turbolinks.visit('/new')
+        Turbolinks.visit('/setup')
       error: (response) ->
         # show errors
         debugger

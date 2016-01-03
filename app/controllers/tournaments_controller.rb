@@ -1,23 +1,25 @@
 class TournamentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :load_tournament, only: [:show, :update]
+  layout 'builder'
+
   def new
     @tournament = Tournament.new
-    @tournament.build_map(
-      lat: 56.0,
-      long: -96.0,
-      zoom: 4
-    )
-
-    render :new, layout: false
   end
 
   def create
-    @tournament = Tournament.new(tournament_params)
-
-    if @tournament.save && @tournament.build_map(map_params).save
-      redirect_to tournament_admin_path(@tournament), notice: 'Tournament was successfully created.'
-    else
-      render :new, layout: false
+    Tournament.transaction do
+      @tournament = Tournament.create!(tournament_params)
+      TournamentUser.create!(tournament_id: @tournament.id, user_id: current_user.id)
     end
+
+    redirect_to tournament_path(@tournament.id)
+  end
+
+  def show
+  end
+
+  def update
   end
 
   private
@@ -27,14 +29,13 @@ class TournamentsController < ApplicationController
       :name,
       :handle,
       :description,
-      :time_cap
+      :time_cap,
+      map_attributes: [:lat, :long, :zoom]
     )
   end
 
-  def map_params
-    params.require(:tournament).permit(
-      map_attributes: [:lat, :long, :zoom]
-    )[:map_attributes]
+  def load_tournament
+    @tournament = Tournament.find(params[:id])
   end
 
 end

@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     post '/sign_up' => 'signup#create', as: :new_user_signup
   end
 
-  # i don't like the tournament builder paths off of root
-  resources :tournaments, controller: 'tournaments', path: '', only: [:new, :create] do
+  get '/setup' => 'tournaments#new'
+  resources :tournaments, path: 'setup', only: [:create, :show, :update]
+
+  resources :tournaments, controller: 'tournaments', path: '', only: [] do
     draw :admin
   end
 

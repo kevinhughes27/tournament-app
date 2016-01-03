@@ -1,47 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-  <title>Ultimate Tournament</title>
-  <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
+<%= form_for @tournament, url: setup_path do |f| %>
 
-<body class="register-page">
-  <div class="register-box">
-    <div class="register-logo">
-      Ultimate Tournament
-    </div>
-
-    <div class="register-box-body">
-      <p class="login-box-msg">Sign up to create a tournament</p>
-      <%= form_for @tournament do |form| %>
-        <%= form.ui_text_field :name %>
-        <%= form.ui_text_field :handle %>
-        <%= form.ui_text_area :description, rows: "10" %>
-        <%= form.ui_number_field :time_cap %>
-        <div id="map" style="width: 100%; height: 640px;"></div>
-        <%= form.fields_for :map do |f| %>
-          <%= f.ui_text_field :lat %>
-          <%= f.ui_text_field :long %>
-          <%= f.ui_text_field :zoom %>
-        <% end %>
-        <%= form.ui_save_button %>
-      <% end %>
-    </div>
+  <div class="form-group">
+    <%= f.text_field :name,
+                     placeholder: 'Tournament name',
+                     class: 'form-control input-lg',
+                     autofocus: true %>
   </div>
 
-  <%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
+  <div class="subdued">
+    Your tournament will be available at:
+  </div>
 
-  <script>
-    $( document ).ready(function() {
-      map = new Admin.Settings(
-        <%= @tournament.map.lat %>,
-        <%= @tournament.map.long %>,
-        <%= @tournament.map.zoom %>
-      );
+  <div id="tournament_url">
+    https://ultimate-tournament.io/
+  </div>
+
+  <%= f.hidden_field :handle %>
+
+  <div class="form-group pull-right">
+    <%= f.submit "Next", class: 'btn btn-lg btn-primary' %>
+  </div>
+
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    $('#tournament_name').on("keyup", function(event){
+      var handle = $(event.target).val();
+
+      handle = handle.toLowerCase();
+      handle = handle.replace(" ", "-");
+
+      $("#tournament_url").text("https://ultimate-tournament.io/" + handle);
+      $("#tournament_handle").val(handle);
     });
-  </script>
-</body>
-</html>
+  });
+</script>
