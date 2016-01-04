@@ -11,8 +11,16 @@
   <%= csrf_meta_tags %>
 </head>
 
+<style>
+  html,body {
+    background-color: #3498DB;
+  }
+</style>
+
 <body>
-  <div class="builder-container">
+  <!-- this needs to go into a helper so I can change the animate class for error reloads -->
+  <!-- different animation on navigate back to a step -->
+  <div class="builder-container animated bounceInRight">
     <div class="spacer"></div>
     <div class="modal-content col-md-6 col-md-offset-3">
       <%= yield %>
