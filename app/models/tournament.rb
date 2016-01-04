@@ -4,7 +4,6 @@ class Tournament < ActiveRecord::Base
 
   has_many :tournament_users
   has_many :users, through: :tournament_users
-  accepts_nested_attributes_for :tournament_users
 
   has_one :map, dependent: :destroy
   accepts_nested_attributes_for :map
