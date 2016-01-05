@@ -4,3 +4,6 @@ $(document).ready ->
     animatedIn:'fadeInUp',
     animatedOut:'bounceOutDown',
     animationDuration: '0.3s'
+
+  $('.signupModal').on "click", ->
+    $('#user_email').focus()
