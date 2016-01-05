@@ -1,15 +1,17 @@
-<%= form_for @tournament, url: wizard_path, method: :put do |form| %>
-  <%= form.hidden_field :name %>
+<%= builder_card error: @tournament.errors.present?, back: is_back? do %>
+  <%= form_for @tournament, url: wizard_path, method: :put do |form| %>
+    <%= form.hidden_field :name %>
 
-  <div id='map'>Map</div>
+    <div id='map'>Map</div>
 
-  <%= form.fields_for :map do |f| %>
-    <%= f.hidden_field :lat, value: 56.0 %>
-    <%= f.hidden_field :long, value: -96.0 %>
-    <%= f.hidden_field :zoom, value: 4 %>
+    <%= form.fields_for :map do |f| %>
+      <%= f.hidden_field :lat, value: 56.0 %>
+      <%= f.hidden_field :long, value: -96.0 %>
+      <%= f.hidden_field :zoom, value: 4 %>
+    <% end %>
+
+    <div class="form-group pull-right">
+      <%= form.submit "Next", class: 'btn btn-lg btn-primary' %>
+    </div>
   <% end %>
-
-  <div class="form-group pull-right">
-    <%= form.submit "Next", class: 'btn btn-lg btn-primary' %>
-  </div>
 <% end %>

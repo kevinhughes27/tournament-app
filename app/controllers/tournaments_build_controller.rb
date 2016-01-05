@@ -3,6 +3,7 @@ class TournamentsBuildController < ApplicationController
 
   before_action :load_tournament, only: [:show, :update]
   before_action :authenticate_user!
+  after_action :save_step
 
   layout 'builder'
 
@@ -30,6 +31,10 @@ class TournamentsBuildController < ApplicationController
 
   def load_tournament
     @tournament = Tournament.find(params[:tournament_id])
+  end
+
+  def save_step
+    session[:previous_step] = request.path
   end
 
   def finish_wizard_path
