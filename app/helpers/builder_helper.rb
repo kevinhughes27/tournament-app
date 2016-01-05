@@ -1,9 +1,9 @@
 module BuilderHelper
   def builder_card(error: false, back: false)
-    animation = if error
-      'pulse'
-    elsif back
+    animation = if back
       'bounceInLeft'
+    elsif error
+      'pulse'
     else
       'bounceInRight'
     end
