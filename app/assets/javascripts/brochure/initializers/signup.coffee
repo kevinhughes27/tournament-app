@@ -20,9 +20,6 @@ $(document).ready ->
   handleError = (response) ->
     errors = response.responseJSON.errors
 
-    $('.js-btn-loading').removeClass('is-loading')
-    $('.js-btn-loading').val('Sign up')
-
     # animate modal and remove when its done so we can animate multiple times
     $('.modal-content').addClass('animated pulse').one 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', ->
       $(this).removeClass('animated pulse')

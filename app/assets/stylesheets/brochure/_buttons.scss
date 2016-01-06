@@ -1,16 +1,4 @@
 .btn {
-  &.is-loading {
-    background: white asset-data-url("ring.gif") 50% 50% no-repeat;
-    background-size: auto 80%;
-    color: transparent;
-    border-color: #757575;
-  }
-  &:focus {
-    outline: 0;
-  }
-}
-
-.btn {
   border-width: 2px;
   background-color: transparent;
   font-weight: 400;
