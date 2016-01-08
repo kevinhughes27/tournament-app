@@ -1,14 +1,11 @@
-/*
- *= require vendor/leaflet
- *= require vendor/leaflet-search
- */
-
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'font-awesome';
 
 @import 'vendor/datetimepicker';
 @import 'vendor/animate';
+@import 'vendor/leaflet';
+@import 'vendor/leaflet-search';
 
 // https://github.com/aguegu/AdminLTE
 @import 'AdminLTE/admin-lte';

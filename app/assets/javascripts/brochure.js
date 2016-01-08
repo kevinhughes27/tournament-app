@@ -4,3 +4,7 @@
 //= require turbolinks
 //= require brochure/vendor
 //= require_tree ./brochure/initializers
+
+//= require ./admin/admin
+//= require ./admin/lib/map
+//= require ./admin/modules/settings

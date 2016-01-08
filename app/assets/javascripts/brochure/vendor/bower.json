@@ -2,6 +2,8 @@
   "name": "ultimate-tournament-brochure",
   "dependencies": {
     "jquery.scrollTo": "2.1.2",
-    "animatedmodal": "git@github.com:joaopereirawd/animatedModal.js.git"
+    "animatedmodal": "git@github.com:joaopereirawd/animatedModal.js.git",
+    "leaflet": "1.0.0-beta.2",
+    "leaflet-search": "1.8.4"
   }
 }

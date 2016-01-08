@@ -10,6 +10,7 @@ class TournamentsBuildController < ApplicationController
   steps :step1, :step2
 
   def show
+    init_map if step == :step2
     render_wizard
   end
 
@@ -32,6 +33,14 @@ class TournamentsBuildController < ApplicationController
 
   def load_tournament
     @tournament = Tournament.find(params[:tournament_id])
+  end
+
+  def init_map
+    @tournament.build_map(
+      lat: 56.0,
+      long: -96.0,
+      zoom: 4
+    )
   end
 
   def save_step
