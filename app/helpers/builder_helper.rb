@@ -8,7 +8,12 @@ module BuilderHelper
       'bounceInRight'
     end
 
-    content_tag(:div, class: "builder-card animated #{animation}") do
+    style = if error
+      duration = 0.7
+      "-webkit-animation-duration: #{duration}s; -moz-animation-duration: #{duration}s; -ms-animation-duration: #{duration}s;"
+    end
+
+    content_tag(:div, class: "builder-card animated #{animation}", style: style) do
       tag(:div, class: 'spacer')
       content_tag(:div, class: 'modal-content col-md-6 col-md-offset-3') do
         yield
