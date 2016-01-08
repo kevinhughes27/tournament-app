@@ -32,7 +32,7 @@ module UiHelper
 
     def ui_save_button
       content_tag(:div, class: 'form-group') do
-        submit('Save', class: 'btn btn-primary pull-right js-btn-loading')
+        submit('Save', class: 'btn btn-primary pull-right js-btn-loadable')
       end
     end
   end
