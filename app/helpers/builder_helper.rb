@@ -14,8 +14,7 @@ module BuilderHelper
     end
 
     content_tag(:div, class: "builder-card animated #{animation}", style: style) do
-      tag(:div, class: 'spacer')
-      content_tag(:div, class: 'modal-content col-md-6 col-md-offset-3') do
+      content_tag(:div, class: 'modal-content') do
         yield
       end
     end

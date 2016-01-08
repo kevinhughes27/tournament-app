@@ -6,13 +6,24 @@
   left: 0px;
   overflow-y: auto;
 
-  // matches the spacing of the modal close btn
-  .spacer {
-    position: relative;
-    padding-top:92px;
+  .modal-content {
+    top:238px; // matches the spacing of the modal close btn
+  }
+
+  .btn-lg {
+    padding: 12px 22px;
   }
 
   .subdued {
     color: #555555;
   }
+}
+
+.modal-content {
+  display: table;
+  max-width: 480px;
+  min-width: 300px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
