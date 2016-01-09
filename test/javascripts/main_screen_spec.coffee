@@ -10,13 +10,13 @@ describe 'MainScreen', ->
 
   beforeEach ->
     app = new App.MainScreen(
-      [45.2466442,-75.6149635],
+      45.2466442,
+      -75.6149635,
       17,
       fields,
       teams,
       games,
-      80,
-      "/somepath"
+      80
     )
     spyOn(Twine, 'refresh')
 

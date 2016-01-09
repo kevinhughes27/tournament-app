@@ -9,8 +9,10 @@ class App.MainScreen
     @teamSearchOpen = false
     @initApp()
 
-  initApp: ->
+  initializeMap: ->
     @map = new App.Map(@, @lat, @long, @zoom)
+
+  initApp: ->
     @scheduleScreen = new App.ScheduleScreen(@)
     @submitScoreScreen = new App.SubmitScoreScreen(@)
     @pointMeThere = new App.PointMeThere()
