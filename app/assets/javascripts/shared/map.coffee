@@ -1,12 +1,12 @@
 window.UT ||= {}
 
-UT.Map = (center, zoom, editable = false) ->
-  options = {
+UT.Map = (center, zoom, options = {}, editable = false) ->
+  options = _.extend(options, {
     center: center,
     zoom: zoom,
     doubleClickZoom: false,
     attributionControl: false
-  }
+  })
 
   if editable
     options = _.extend(options, {

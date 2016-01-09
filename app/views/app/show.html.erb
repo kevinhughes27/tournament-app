@@ -1,12 +1,12 @@
 <div id="app" define='{
   app: new App.MainScreen(
-    <%= @map.location %>,
+    <%= @map.lat %>,
+    <%= @map.long %>,
     <%= @map.zoom %>,
     <%= @fields.to_json %>,
     <%= @teams.to_json %>,
     <%= @games.to_json %>,
-    <%= @tournament.time_cap %>,
-    "<%= asset_path('fa-map-marker.svg') %>"
+    <%= @tournament.time_cap %>
   )}'
   context='app'>
   <%= render 'main_screen', locals: { games: @games, teams: @teams, fields: @fields } %>

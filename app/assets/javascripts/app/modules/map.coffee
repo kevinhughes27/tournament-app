@@ -1,84 +1,74 @@
 class App.Map
 
-  constructor: (@app, @center, @zoom, @markerSvg) ->
-    window.mapCallback = @mapCallback
-    script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&callback=mapCallback'
-    document.body.appendChild(script)
+  constructor: (@app, lat, long, zoom) ->
+    @center = new L.LatLng(lat, long)
+    @map = UT.Map(@center, zoom, {zoomControl: false})
+    @_drawFields()
 
-  mapCallback: =>
-    @mapNode = document.getElementById('map-canvas')
-
-    @map = new google.maps.Map(@mapNode, {
-      mapTypeId: google.maps.MapTypeId.SATELLITE
-      disableDefaultUI: true
-    })
-
-    @centerMap()
-    @drawFields()
-    @markers = []
-
-    google.maps.event.addListenerOnce @map, 'tilesloaded', =>
+    @map.on 'load', ->
       $('.loading-gif').fadeOut(1000)
 
-  centerMap: ->
-    @map.setCenter(new google.maps.LatLng(@center...))
-    @map.setZoom(@zoom)
-
-  drawFields: ->
-    for field in @app.fields
-      @_initField(field)
-      @_drawField(field)
-
-  _initField: (field) ->
-    field.center = new google.maps.LatLng(field.lat, field.long)
-
-    field.points = []
-    for pt in JSON.parse(field.polygon)
-      field.points.push new google.maps.LatLng(pt.A, pt.F)
+  _drawFields: ->
+    @_drawField(field) for field in @app.fields
 
   _drawField: (field) ->
-    polygon = new google.maps.Polygon(
-      paths: field.points,
-      strokeColor: '#29617D'
-      strokeWeight: 5
-      fillOpacity: 0
-    )
+    geoJson = JSON.parse(field.geo_json)
 
-    field.shape = polygon
-    polygon.setMap(@map)
+    layers = L.geoJson(geoJson, {
+      style: App.FieldStyle
+    }).addTo(@map)
 
-  addMarker: (lat, lng, title) ->
-    latLng = new google.maps.LatLng(lat, lng)
+  centerMap: ->
+    @map.panTo(@center)
 
-    @markers.push new google.maps.Marker(
-      title: title,
-      position: latLng,
-      map: @map,
-      icon: {
-        url: @markerSvg,
-        strokeColor: "#FFFFFF",
-      }
-    )
+  addMarker: (lat, lng) ->
+    @marker = L.marker([lat, lng], {icon: @_markerIcon()}).addTo(@map)
+    # latLng = new google.maps.LatLng(lat, lng)
+    #
+    # @markers.push new google.maps.Marker(
+    #   title: title,
+    #   position: latLng,
+    #   map: @map,
+    #   icon: {
+    #     url: @markerSvg,
+    #     strokeColor: "#FFFFFF",
+    #   }
+    # )
 
-  drawPointer: (lat, lng, rotation, title) ->
-    @pointer ?= new google.maps.Marker(title: title, map: @map)
-    @pointer.setPosition( new google.maps.LatLng(lat, lng) )
-    @pointer.setIcon({
-      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-      strokeColor: "#FFFFFF",
-      strokeWeight: 2,
-      fillColor: '#FFFFFF',
-      fillOpacity: 1,
-      scale: 4,
-      rotation: rotation,
+    #####
+    # http://leafletjs.com/examples/custom-icons.html
+
+  _markerIcon: ->
+    @markerIcon ||= L.icon({
+      iconUrl: 'images/fa-map-marker.svg',
+    })
+
+  drawPointer: (lat, lng, rotation) ->
+    @clearPointer()
+    @pointer = L.marker([lat, lng], {icon: @_pointerIcon(), rotationAngle: rotation}).addTo(@map)
+    # @pointer ?= new google.maps.Marker(title: title, map: @map)
+    # @pointer.setPosition( new google.maps.LatLng(lat, lng) )
+    # @pointer.setIcon({
+    #   path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+    #   strokeColor: "#FFFFFF",
+    #   strokeWeight: 2,
+    #   fillColor: '#FFFFFF',
+    #   fillOpacity: 1,
+    #   scale: 4,
+    #   rotation: rotation,
+    # })
+
+  _pointerIcon: ->
+    @pointerIcon ||= L.icon({
+      iconUrl: 'images/orientation-pointer.svg',
     })
 
   clearPointer: ->
-    @pointer.setMap(null) if @pointer
-    @pointer = null
+    @map.removeLayer(@pointer) if @pointer
+    # @pointer.setMap(null) if @pointer
+    # @pointer = null
 
   clearMarkers: ->
-    marker.setMap(null) for marker in @markers
-    @markers = []
+    @map.removeLayer(@marker) if @marker
+    # marker.setMap(null) for marker in @markers
+    # @markers = []
