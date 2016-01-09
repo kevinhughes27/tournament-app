@@ -1,11 +1,13 @@
-class Admin.Settings
+window.UT ||= {}
+
+class UT.MapForm
   LAT_FIELD: '#tournament_map_attributes_lat'
   LONG_FIELD: '#tournament_map_attributes_long'
   ZOOM_FIELD: '#tournament_map_attributes_zoom'
 
   constructor: (lat, long, @zoom) ->
     @center = new L.LatLng(lat, long)
-    @map = Admin.Map(@center, @zoom)
+    @map = UT.Map(@center, @zoom)
 
     @markersLayer = new L.LayerGroup()
     @map.addLayer(@markersLayer)

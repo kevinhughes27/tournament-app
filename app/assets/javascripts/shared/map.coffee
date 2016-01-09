@@ -1,4 +1,6 @@
-Admin.Map = (center, zoom, editable = false) ->
+window.UT ||= {}
+
+UT.Map = (center, zoom, editable = false) ->
   options = {
     center: center,
     zoom: zoom,
