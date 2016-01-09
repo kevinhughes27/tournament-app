@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
-  devise_for :users, path: '', skip: [:registration, :passwords]
+  devise_for :users, path: '', controllers: { sessions: 'login' }, skip: [:registration, :passwords]
 
   devise_scope :user do
     post '/sign_up' => 'signup#create', as: :new_user_signup
