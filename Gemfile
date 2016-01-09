@@ -4,6 +4,7 @@ ruby "2.2.2"
 # rails gems
 gem 'rails', '4.2.1'
 gem 'unicorn'
+gem 'wicked'
 gem 'friendly_id'
 gem 'responders'
 gem 'json-schema'

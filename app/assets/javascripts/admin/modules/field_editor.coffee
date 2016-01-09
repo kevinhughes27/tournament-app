@@ -5,7 +5,7 @@ class Admin.FieldEditor
 
   constructor: (lat, long, zoom, @geoJson)->
     @center = new L.LatLng(lat, long)
-    @map = Admin.Map(@center, zoom, true)
+    @map = UT.Map(@center, zoom, true)
     @historyBuffer = []
 
     if @geoJson

@@ -1,0 +1,10 @@
+.has-error .form-control {
+  border-color: #E01724;
+  &:focus {
+    border-color: #E01724;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+}

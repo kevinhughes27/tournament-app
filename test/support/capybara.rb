@@ -1,8 +1,12 @@
 require 'capybara/rails'
 
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
 # circle ci uses older webkit and it doesn't work
 if ENV['CIRCLECI']
-  Capybara.current_driver = :selenium
+  Capybara.current_driver = :selenium_chrome
 else
   Capybara.current_driver = :webkit
 end

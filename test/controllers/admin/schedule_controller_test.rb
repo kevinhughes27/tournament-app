@@ -13,10 +13,10 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
   end
 
   test "blank slate sets to time.now" do
-    tournament = tournaments(:new_tournament)
+    @tournament.games.destroy_all
 
     Timecop.freeze do
-      get :index, tournament_id: tournament.id
+      get :index, tournament_id: @tournament.id
       assert_response :success
       assert_match Time.now.to_formatted_s(:datetimepicker), response.body
     end

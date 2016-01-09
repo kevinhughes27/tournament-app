@@ -2,7 +2,7 @@ class Admin.FieldsIndexMap
 
   constructor: (lat, long, zoom, @fields) ->
     @center = new L.LatLng(lat, long)
-    @map = Admin.Map(@center, zoom)
+    @map = UT.Map(@center, zoom)
     @_drawFields()
 
     $('body').on 'shown.bs.tab', (e) =>

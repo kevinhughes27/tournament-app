@@ -1,0 +1,30 @@
+#closebt-container {
+  position: relative;
+  width:100%;
+  text-align:right;
+  margin-top:40px;
+  padding-right:40px;
+}
+
+.closebt {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  cursor:pointer;
+}
+
+.closebt:hover {
+  transform:rotate(90deg);
+}
+
+.modal-content {
+  border: none;
+  padding: 20px 20px 10px 20px;
+  top: 15%;
+
+  .form-control {
+    border-radius: 0;
+  }
+}

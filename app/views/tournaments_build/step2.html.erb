@@ -1,0 +1,27 @@
+<%= builder_card error: @tournament.errors.present?, back: is_back? do %>
+  <%= form_for @tournament, url: wizard_path, method: :put do |form| %>
+    <%= form.hidden_field :name %>
+
+    <div id='map' style="width: 100%; height: 640px;"></div>
+
+    <%= form.fields_for :map do |f| %>
+      <%= f.hidden_field :lat, value: 56.0 %>
+      <%= f.hidden_field :long, value: -96.0 %>
+      <%= f.hidden_field :zoom, value: 4 %>
+    <% end %>
+
+    <div class="form-group pull-right">
+      <%= form.submit "Next", class: 'btn btn-lg btn-primary' %>
+    </div>
+  <% end %>
+<% end %>
+
+<script>
+  $( document ).ready(function() {
+    settings = new UT.MapForm(
+      <%= @tournament.map.lat %>,
+      <%= @tournament.map.long %>,
+      <%= @tournament.map.zoom %>
+    );
+  });
+</script>

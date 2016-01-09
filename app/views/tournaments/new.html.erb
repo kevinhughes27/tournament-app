@@ -1,0 +1,40 @@
+<%= builder_card error: @tournament.errors.present? do %>
+  <%= form_for @tournament, url: setup_path do |form| %>
+
+    <div class="form-group">
+      <%= form.text_field :name,
+                          placeholder: 'Tournament name',
+                          class: 'form-control input-lg',
+                          autofocus: true %>
+    </div>
+
+    <div class="subdued">
+      Your tournament will be available at:
+    </div>
+
+    <div id="tournament_url">
+      https://ultimate-tournament.io/
+    </div>
+
+    <%= form.hidden_field :handle %>
+
+    <div class="form-group pull-right">
+      <%= form.submit "Next", class: 'btn btn-lg btn-primary' %>
+    </div>
+
+  <% end %>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    $('#tournament_name').on("keyup", function(event){
+      var handle = $(event.target).val();
+
+      handle = handle.toLowerCase();
+      handle = handle.replace(" ", "-");
+
+      $("#tournament_url").text("https://ultimate-tournament.io/" + handle);
+      $("#tournament_handle").val(handle);
+    });
+  });
+</script>
