@@ -1,9 +1,7 @@
-/*
- *= require vendor/google-maps
- *= require vendor/awesomplete
- *= require_self
- */
-
 @import 'ratchet/ratchet';
 @import 'font-awesome';
+
+@import 'vendor/leaflet';
+@import 'vendor/awesomplete';
+
 @import 'app/*';

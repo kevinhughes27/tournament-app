@@ -10,13 +10,13 @@ describe 'MainScreen', ->
 
   beforeEach ->
     app = new App.MainScreen(
-      [45.2466442,-75.6149635],
+      45.2466442,
+      -75.6149635,
       17,
       fields,
       teams,
       games,
-      80,
-      "/somepath"
+      80
     )
     spyOn(Twine, 'refresh')
 
@@ -136,7 +136,7 @@ describe 'MainScreen', ->
     app.pointToField({lat: 45, long: -72, name: 'UPI1'})
 
     expect(app.map.clearMarkers).toHaveBeenCalled()
-    expect(app.map.addMarker).toHaveBeenCalledWith(45, -72, 'UPI1')
+    expect(app.map.addMarker).toHaveBeenCalledWith(45, -72)
 
     expect(app.pointMeThere.setDestination).toHaveBeenCalledWith(45, -72, 'UPI1')
     expect(app.pointMeThere.start).toHaveBeenCalled()
@@ -157,7 +157,7 @@ describe 'MainScreen', ->
 
     app._pointToFieldCallback(event)
 
-    expect(app.map.drawPointer).toHaveBeenCalledWith(45, -72, 90, 'Location')
+    expect(app.map.drawPointer).toHaveBeenCalledWith(45, -72, 90)
 
   it "finishPointToField clears map", ->
     app.findingField = true

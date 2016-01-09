@@ -15,3 +15,10 @@ Links
 [![newrelic](http://i.imgur.com/X4OJe4r.png)](https://rpm.newrelic.com/accounts/1045852/applications/9539779)
 [![google-analytics](http://imgur.com/vZmWkmr.png)](https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a65432378w101675804p105641923/)
 [![slack](http://i.imgur.com/FAx0EGq.png)](https://ocua.slack.com)
+
+Running Tests
+-------------
+
+Javascript:
+
+Run rails console with `RAILS_ENV=test bundle exec rails s` then visit `/specs` (restart server on changes)

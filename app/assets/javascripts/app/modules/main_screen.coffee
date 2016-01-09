@@ -1,6 +1,6 @@
 class App.MainScreen
 
-  constructor: (@tournmanentLocation, @zoom, @fields, @teams, @games, @timeCap, @mapMarkerSvg) ->
+  constructor: (@lat, @long, @zoom, @fields, @teams, @games, @timeCap) ->
     location.hash = ""
     @drawerOpen = false
     @findingField = false
@@ -10,7 +10,7 @@ class App.MainScreen
     @initApp()
 
   initializeMap: ->
-    @map = new App.Map(@, @tournmanentLocation, @zoom, @mapMarkerSvg)
+    @map = new App.Map(@, @lat, @long, @zoom)
 
   initApp: ->
     @scheduleScreen = new App.ScheduleScreen(@)
@@ -95,7 +95,7 @@ class App.MainScreen
     @tooFarAlert = false
 
     @map.clearMarkers()
-    @map.addMarker(field.lat, field.long, field.name)
+    @map.addMarker(field.lat, field.long)
 
     @pointMeThere.setDestination(field.lat, field.long, field.name)
     @pointMeThere.start (event) => _.throttle(@_pointToFieldCallback(event), 500)
@@ -105,7 +105,7 @@ class App.MainScreen
       alert("You're too far away!") unless @tooFarAlert
       @tooFarAlert = true
     else if event.lat && event.long
-      @map.drawPointer(event.lat, event.long, event.heading, 'Location')
+      @map.drawPointer(event.lat, event.long, event.heading)
 
   finishPointToField: ->
     @findingField = false
