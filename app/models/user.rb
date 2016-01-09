@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def valid_for_custom_authentication?(password)
-    tournaments.exists?(id: Thread.current[:login_tournament_id])
+    tournaments.exists?(id: Thread.current[:tournament_id])
   end
 
   private

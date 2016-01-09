@@ -12,10 +12,10 @@ class ApplicationController < ActionController::Base
   end
 
   def copy_login_tournament_id_to_thread_current
-    Thread.current[:login_tournament_id] = session[:login_tournament_id]
+    Thread.current[:tournament_id] = session[:tournament_id]
   end
 
   def after_sign_in_path_for(resource)
-    session[:previous_url] || tournament_admin_path(session[:login_tournament_friendly_id])
+    session[:previous_url] || tournament_admin_path(session[:tournament_friendly_id])
   end
 end

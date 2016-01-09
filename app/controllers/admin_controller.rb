@@ -26,8 +26,8 @@ class AdminController < ApplicationController
 
   def store_tournament
     return unless request.get?
-    session[:login_tournament_id] = @tournament.id
-    session[:login_tournament_friendly_id] = @tournament.friendly_id
+    session[:tournament_id] = @tournament.id
+    session[:tournament_friendly_id] = @tournament.friendly_id
   end
 
   def store_location
