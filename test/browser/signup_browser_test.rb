@@ -19,6 +19,7 @@ class AppBrowserTest < ActionDispatch::IntegrationTest
     click_on('Next')
 
     # map stuff
+    wait_for_ajax
     click_on('Next')
 
     assert_match /new-tournament\/admin/, current_url
