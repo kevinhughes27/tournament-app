@@ -7,8 +7,15 @@ class LoginController < Devise::SessionsController
   end
 
   def create
-    super do |user|
+    user = warden.authenticate!(auth_options)
+
+    if user.is_tournament_user?(session[:tournament_id])
+      sign_in(:user, user)
       flash[:animate] = "fadeIn"
+      respond_with user, location: after_sign_in_path_for(user)
+    else
+      flash.now[:alert] = "Invalid login for tournament."
+      redirect_to_login
     end
   end
 
@@ -34,16 +41,10 @@ class LoginController < Devise::SessionsController
 
     session[:tournament_id] = tournament.id
     session[:tournament_friendly_id] = tournament.friendly_id
-    Thread.current[:tournament_id] = session[:tournament_id]
 
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = 'Invalid tournament.'
     redirect_to_login
-  end
-
-  def redirect_to_login
-    self.resource = User.new(user_params)
-    render :new
   end
 
   def user_params
@@ -55,4 +56,12 @@ class LoginController < Devise::SessionsController
     session.delete(:tournament_friendly_id)
   end
 
+  def redirect_to_login
+    self.resource = User.new(user_params)
+    render :new
+  end
+
+  def after_sign_in_path_for(user)
+    session[:previous_url] || tournament_admin_path(session[:tournament_friendly_id])
+  end
 end

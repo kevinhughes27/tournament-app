@@ -10,6 +10,7 @@ class AdminController < ApplicationController
   before_action :store_tournament
   before_action :store_location
   before_action :authenticate_user!
+  before_action :authenticate_tournament_user!
   before_action :set_responder_action
 
   def respond_with(obj)
@@ -33,6 +34,10 @@ class AdminController < ApplicationController
   def store_location
     return unless request.get?
     session[:previous_url] = request.fullpath
+  end
+
+  def authenticate_tournament_user!
+    redirect_to new_user_session_path unless current_user.is_tournament_user?(@tournament.id)
   end
 
   def set_responder_action

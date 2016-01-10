@@ -61,9 +61,7 @@ class LoginControllerTest < ActionController::TestCase
 
     post :create, user: {email: @user.email, password: 'password'}
 
-    # warden doesn't set a message from the custom validator
-    assert_login_error("Invalid email or password.")
-
+    assert_login_error("Invalid login for tournament.")
     assert_equal tournament.id, session[:tournament_id]
     assert_equal tournament.handle, session[:tournament_friendly_id]
   end
