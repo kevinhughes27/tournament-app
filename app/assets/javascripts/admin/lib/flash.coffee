@@ -8,7 +8,7 @@ Admin.Flash = Flash =
   display: (message, isError, duration = 2200) ->
     clearTimeout(@timeout) if @timeout
 
-    $node = $('.js-alert')
+    $node = $('.js-flash')
     $node.find('b').text(message)
 
     # keep the flash centered
@@ -18,16 +18,16 @@ Admin.Flash = Flash =
       $node.css('left','110px') # admin lte sidebar width / 2
 
     if isError
-      $node.addClass('alert-danger')
-      $node.removeClass('alert-success')
+      $node.addClass('flash-danger')
+      $node.removeClass('flash-success')
     else
-      $node.addClass('alert-success')
-      $node.removeClass('alert-danger')
+      $node.addClass('flash-success')
+      $node.removeClass('flash-danger')
 
     $node.css('display','block')
     @timeout = setTimeout Flash.hide.bind(@), duration
 
   hide: ->
-    $node = $('.js-alert')
+    $node = $('.js-flash')
     $node.find('b').text('')
     $node.css('display', 'none')

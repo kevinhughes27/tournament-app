@@ -1,25 +1,25 @@
 <% if flash[:notice] %>
-  <div class="alert alert-success alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <div class="flash flash-success flash-dismissable">
+    <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
     <b><%= flash[:notice] %></b>
   </div>
 <% end %>
 
 <% if flash[:alert] %>
-  <div class="alert alert-danger alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <div class="flash flash-danger flash-dismissable">
+    <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
     <b><%= flash[:alert] %></b>
   </div>
 <% end %>
 
 <% if flash[:error] %>
-  <div class="alert alert-danger alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <div class="flash flash-danger flash-dismissable">
+    <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
     <b><%= flash[:error] %></b>
   </div>
 <% end %>
 
-<div class="js-alert alert alert-dismissable" style="display: none;">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+<div class="js-flash flash flash-dismissable" style="display: none;">
+  <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
   <b></b>
 </div>

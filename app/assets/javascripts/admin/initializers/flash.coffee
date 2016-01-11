@@ -1,3 +1,3 @@
 $(document).on 'page:change', ->
-  $(".alert").not('.js-alert').delay(500).fadeIn "normal", ->
+  $(".flash").not('.js-flash').delay(500).fadeIn "normal", (ev) ->
     $(this).delay(1500).fadeOut()
