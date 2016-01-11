@@ -50,7 +50,7 @@ class LoginControllerTest < ActionController::TestCase
     set_session(@tournament)
     post :create, user: {email: @user.email}
 
-    assert_match 'Log in to manage your tournament', response.body
+    assert_login_error("Invalid email or password.")
     assert_equal @tournament.id, session[:tournament_id]
     assert_equal @tournament.handle, session[:tournament_friendly_id]
   end
@@ -61,7 +61,9 @@ class LoginControllerTest < ActionController::TestCase
 
     post :create, user: {email: @user.email, password: 'password'}
 
-    assert_match 'Log in to manage your tournament', response.body
+    # warden doesn't set a message from the custom validator
+    assert_login_error("Invalid email or password.")
+
     assert_equal tournament.id, session[:tournament_id]
     assert_equal tournament.handle, session[:tournament_friendly_id]
   end
@@ -70,7 +72,7 @@ class LoginControllerTest < ActionController::TestCase
     clear_session
     post :create, user: {email: @user.email, password: 'password'}, tournament: 'not-a-handle'
 
-    assert_match 'Log in to manage your tournament', response.body
+    assert_login_error("Invalid tournament.")
     assert_nil session[:tournament_id]
     assert_nil session[:tournament_friendly_id]
   end
@@ -86,6 +88,12 @@ class LoginControllerTest < ActionController::TestCase
   end
 
   private
+
+  def assert_login_error(text)
+    assert_match 'Log in', response.body, 'did not render the login page'
+    error = css_select('.callout-danger')
+    assert_equal text, error.text.strip
+  end
 
   def set_session(tournament)
     session[:tournament_id] = tournament.id

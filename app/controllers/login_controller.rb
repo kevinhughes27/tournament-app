@@ -37,6 +37,11 @@ class LoginController < Devise::SessionsController
     Thread.current[:tournament_id] = session[:tournament_id]
 
   rescue ActiveRecord::RecordNotFound
+    flash[:alert] = 'Invalid tournament.'
+    redirect_to_login
+  end
+
+  def redirect_to_login
     self.resource = User.new(user_params)
     render :new
   end
