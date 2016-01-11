@@ -7,4 +7,4 @@ $(document).ready ->
     animationDuration: '0.3s'
 
   $('.signupModal').on "click", ->
-    delay 0.5, $('#user_email').focus()
+    delay 400, -> $('#user_email').focus()
