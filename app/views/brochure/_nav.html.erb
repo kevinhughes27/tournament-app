@@ -17,10 +17,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="example" >
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">About</a></li>
         <li><a href="#" onclick="$('body').scrollTo('.section-features', 500); return false;">Features</a></li>
-        <li><a href="#">FAQ</a></li>
         <li><a href="#" onclick="$('body').scrollTo('.section-contact', 600); return false;">Contact</a></li>
+        <li><%= link_to 'Log in', new_user_session_path %></li>
         <li><a class="signupModal" href="#animatedModal">Sign up</a></li>
       </ul>
     </div>

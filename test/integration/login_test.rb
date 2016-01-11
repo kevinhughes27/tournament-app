@@ -4,6 +4,18 @@ class AdminTest < ActionDispatch::IntegrationTest
 
   setup do
     @user = users(:kevin)
+    @tournament = tournaments(:noborders)
+  end
+
+  test "tournament login" do
+    get '/sign_in'
+    assert_equal 200, status
+    assert_equal new_user_session_path, path
+
+    post new_user_session_path, user: {email: @user.email, password: 'password'}, tournament: @tournament.handle
+    follow_redirect!
+    assert_equal 200, status
+    assert_equal "/no-borders/admin", path
   end
 
   test "admin requires login" do
