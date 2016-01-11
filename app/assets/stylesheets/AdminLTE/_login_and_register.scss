@@ -37,6 +37,12 @@
     width: 90%;
     margin-top: 20px;
   }
+
+  .callout {
+    margin: 0;
+    border-radius: 0;
+    padding: 10px 30px 10px 15px;
+  }
 }
 
 .login-box-body,
@@ -49,13 +55,4 @@
   .form-control-feedback {
     color: #777;
   }
-}
-.login-box-msg,
-.register-box-msg {
-  margin: 0;
-  text-align: center;
-  padding: 0 20px 20px 20px;
-}
-.social-auth-links {
-  margin: 10px 0;
 }

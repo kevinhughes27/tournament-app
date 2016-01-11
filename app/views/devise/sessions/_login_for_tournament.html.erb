@@ -6,6 +6,7 @@
   <p>Log in to manage your tournament</p>
 </div>
 
+<%= render 'errors' %>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="register-box-body">
     <div class="form-group">
