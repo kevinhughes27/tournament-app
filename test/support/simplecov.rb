@@ -6,4 +6,4 @@ if ENV['CIRCLE_ARTIFACTS']
   SimpleCov.coverage_dir(dir)
 end
 
-SimpleCov.start
+SimpleCov.start 'rails'
