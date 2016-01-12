@@ -24,4 +24,5 @@ database:
 
 test:
   override:
-    - bundle exec rake test:run_ci
+    - bundle exec rake test:all
+    - bundle exec rake test:js
