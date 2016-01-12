@@ -171,9 +171,9 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "when a game is destroyed its score reports are too" do
-    assert_equal 1, @game.score_reports.count
+    assert_equal 2, @game.score_reports.count
 
-    assert_difference "ScoreReport.count", -1 do
+    assert_difference "ScoreReport.count", -2 do
       @game.destroy
     end
   end
