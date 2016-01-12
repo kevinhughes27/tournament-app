@@ -51,20 +51,20 @@ class App.SubmitScoreScreen
       data: $(form).serialize()
       complete: =>
         @showSuccess()
-        delay 1000, =>
-          @active = false
-          @formActive = false
-          @_resetForm(form)
-          Twine.refresh()
-
-  _resetForm: (form) ->
-    $(form)[0].reset();
-    $('div#score-form').scrollTo(0)
+        @_submitComplete(form)
 
   showSuccess: ->
     @successActive = true
     Twine.refreshImmediately()
     $('.success-icon').addClass('bounceIn')
+
+  _submitComplete: (form) ->
+    delay 1000, =>
+      @active = false
+      @formActive = false
+      $(form)[0].reset();
+      $('div#score-form').scrollTo(0)
+      Twine.refresh()
 
   closeSuccess: ->
     @successActive = false

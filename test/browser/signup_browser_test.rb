@@ -4,6 +4,10 @@ class SignupBrowserTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   self.use_transactional_fixtures = false
 
+  setup do
+    reset!
+  end
+
   test "signup" do
     visit('/')
     click_on('Get Started')

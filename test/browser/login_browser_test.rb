@@ -7,6 +7,7 @@ class LoginBrowserTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
+    reset!
   end
 
   test "login to tournament admin" do
