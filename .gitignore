@@ -25,4 +25,7 @@ npm-debug.log
 .~*
 *.mp4
 *.dump
+
+# test outputs
 coverage
+test/reports

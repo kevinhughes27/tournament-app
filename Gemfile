@@ -55,4 +55,5 @@ group :test do
   gem 'capybara-webkit'
   gem 'launchy'
   gem 'simplecov', :require => false
+  gem 'minitest-ci', :git => 'git@github.com:circleci/minitest-ci.git'
 end
