@@ -21,8 +21,3 @@ dependencies:
 database:
   override:
     - bundle exec rake db:setup --trace
-
-test:
-  override:
-    - bundle exec rake test:all
-    - bundle exec rake test:js
