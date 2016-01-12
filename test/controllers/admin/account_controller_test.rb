@@ -16,7 +16,17 @@ class Admin::AccountControllerTest < ActionController::TestCase
     put :update, tournament_id: @tournament.id, user: {
       email: 'bob@example.com'
     }
-
+    assert_response :success
     assert_equal 'bob@example.com', @user.reload.email
+    assert_equal 'Account updated.', flash[:notice]
+  end
+
+  test "update account error" do
+    put :update, tournament_id: @tournament.id, user: {
+      email: ''
+    }
+    assert_response :success
+    assert @user.reload.email.present?
+    assert_equal 'error updating Account.', flash[:alert]
   end
 end
