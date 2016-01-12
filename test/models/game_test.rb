@@ -7,32 +7,37 @@ class GameTest < ActiveSupport::TestCase
     @bracket = brackets(:open)
     @home = teams(:swift)
     @away = teams(:goose)
+    @game = games(:swift_goose)
+  end
+
+  test "name returns home vs away if teams_present" do
+    assert_equal "#{@home.name} vs #{@away.name}", @game.name
+  end
+
+  test "name returns bracket pos name if teams aren't assigned yet" do
+    game = Game.new(bracket: @bracket, bracket_top: 1, bracket_bottom: 8)
+    assert_equal "Open  (1 vs 8)", game.name
   end
 
   test "teams_present? is true if home and away are set" do
-    game = games(:swift_goose)
-    assert game.teams_present?
-
-    game.update_attributes(home_id: nil)
-    refute game.teams_present?
+    assert @game.teams_present?
+    @game.update_attributes(home_id: nil)
+    refute @game.teams_present?
   end
 
   test "game must have field if it has a start_time" do
-    game = games(:swift_goose)
-    game.update_attributes(field: nil)
-    assert_equal ["can't be blank"], game.errors[:field]
+    @game.update_attributes(field: nil)
+    assert_equal ["can't be blank"], @game.errors[:field]
   end
 
   test "game must have start_time if it has a field" do
-    game = games(:swift_goose)
-    game.update_attributes(start_time: nil)
-    assert_equal ["can't be blank"], game.errors[:start_time]
+    @game.update_attributes(start_time: nil)
+    assert_equal ["can't be blank"], @game.errors[:start_time]
   end
 
   test "can unassign a game from field and start_time" do
-    game = games(:swift_goose)
-    game.update_attributes(field: nil, start_time: nil)
-    assert game.errors.empty?
+    @game.update_attributes(field: nil, start_time: nil)
+    assert @game.errors.empty?
   end
 
   test "valid_for_seed_round? returns true if either top and bottom are integers" do
@@ -85,9 +90,15 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "update_score updates the bracket" do
-    game = games(:swift_goose)
-    game.expects(:update_bracket).once
-    game.update_score(15, 11)
+    @game.expects(:update_bracket).once
+    @game.update_score(15, 11)
+  end
+
+  test "update_score confirms the game" do
+    @game.expects(:update_bracket).once
+    @game.update_score(15, 11)
+    assert @game.confirmed?
+    refute @game.unconfirmed?
   end
 
   test "update_score updates the teams wins and points_for (no previous score)" do
@@ -110,16 +121,15 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "update_score updates the teams wins and points_for" do
-    game = games(:swift_goose)
     home_wins = @home.wins
     away_wins = @away.wins
     home_pts_for = @home.points_for
     away_pts_for = @away.points_for
-    home_score = game.home_score
-    away_score = game.away_score
+    home_score = @game.home_score
+    away_score = @game.away_score
 
-    game.expects(:update_bracket).once
-    game.update_score(14, 12)
+    @game.expects(:update_bracket).once
+    @game.update_score(14, 12)
 
     @home.reload
     @away.reload
@@ -162,11 +172,10 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "when a game is destroyed its score reports are too" do
-    game = games(:swift_goose)
-    assert_equal 1, game.score_reports.count
+    assert_equal 1, @game.score_reports.count
 
     assert_difference "ScoreReport.count", -1 do
-      game.destroy
+      @game.destroy
     end
   end
 
