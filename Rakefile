@@ -18,6 +18,7 @@ namespace :test do
   end
 
   Rake::TestTask.new('browser' => 'test:prepare') do |t|
+    ENV['BROWSER_TESTING'] = 'true'
     t.libs << 'test'
     t.pattern = 'test/browser/**/*_test.rb'
   end
