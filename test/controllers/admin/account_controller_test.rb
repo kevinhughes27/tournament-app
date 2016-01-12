@@ -27,6 +27,6 @@ class Admin::AccountControllerTest < ActionController::TestCase
     }
     assert_response :success
     assert @user.reload.email.present?
-    assert_equal 'error updating Account.', flash[:alert]
+    assert_equal 'Error updating Account.', flash[:alert]
   end
 end

@@ -8,7 +8,7 @@ class Admin::SettingsController < AdminController
     if @tournament.update(tournament_params)
       flash[:notice] = 'Settings saved.'
     else
-      flash[:error] = 'Error saving settings.'
+      flash[:error] = 'Error saving Settings.'
     end
 
     redirect_to tournament_admin_settings_path(@tournament)
