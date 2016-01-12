@@ -98,7 +98,6 @@ class GameTest < ActiveSupport::TestCase
     @game.expects(:update_bracket).once
     @game.update_score(15, 11)
     assert @game.confirmed?
-    refute @game.unconfirmed?
   end
 
   test "update_score updates the teams wins and points_for (no previous score)" do

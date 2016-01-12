@@ -73,10 +73,6 @@ class Game < ActiveRecord::Base
     score_confirmed
   end
 
-  def unconfirmed?
-    !score_confirmed
-  end
-
   def valid_for_seed_round?
     bracket_top.match(/\A\d+\z/) || bracket_bottom.match(/\A\d+\z/)
   end
