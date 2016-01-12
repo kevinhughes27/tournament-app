@@ -1,18 +1,18 @@
-<% if flash[:notice] %>
+<% if flash[:notice].present? %>
   <div class="flash flash-success flash-dismissable">
     <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
     <b><%= flash[:notice] %></b>
   </div>
 <% end %>
 
-<% if flash[:alert] %>
+<% if flash[:alert].present? %>
   <div class="flash flash-danger flash-dismissable">
     <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
     <b><%= flash[:alert] %></b>
   </div>
 <% end %>
 
-<% if flash[:error] %>
+<% if flash[:error].present? %>
   <div class="flash flash-danger flash-dismissable">
     <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
     <b><%= flash[:error] %></b>
