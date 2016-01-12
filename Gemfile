@@ -54,4 +54,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'launchy'
+  gem 'simplecov', :require => false
 end

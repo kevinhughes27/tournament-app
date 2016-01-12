@@ -25,3 +25,4 @@ npm-debug.log
 .~*
 *.mp4
 *.dump
+coverage
