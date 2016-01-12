@@ -2,13 +2,13 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
+// https://github.com/aguegu/AdminLTE
+@import 'vendor/AdminLTE/admin-lte';
+@import 'vendor/AdminLTE/skins/skin-green';
+
 @import 'vendor/datetimepicker';
 @import 'vendor/animate';
 @import 'vendor/leaflet';
 @import 'vendor/leaflet-search';
-
-// https://github.com/aguegu/AdminLTE
-@import 'AdminLTE/admin-lte';
-@import 'AdminLTE/skins/skin-green';
 
 @import 'admin/*';
