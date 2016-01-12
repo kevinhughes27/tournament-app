@@ -37,7 +37,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
         format: :json
 
       assert_response :ok
-      assert json_response['game']
+      assert response_json['game']
     end
 
 end

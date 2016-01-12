@@ -23,7 +23,7 @@ end
 class ActiveSupport::TestCase
   fixtures :all
 
-  def json_response
+  def response_json
     JSON.parse(@response.body)
   end
 end
