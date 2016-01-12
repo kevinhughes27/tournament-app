@@ -23,13 +23,6 @@ module UiHelper
       end
     end
 
-    def ui_text_area(method, options = {})
-      content_tag(:div, class: 'form-group') do
-        concat label(method)
-        concat text_area(method, options.merge(class: 'form-control'))
-      end
-    end
-
     def ui_save_button
       content_tag(:div, class: 'form-group') do
         submit('Save', class: 'btn btn-primary pull-right js-btn-loadable')
