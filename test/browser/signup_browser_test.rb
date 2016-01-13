@@ -1,11 +1,11 @@
 require "test_helper"
 
-class SignupBrowserTest < ActionDispatch::IntegrationTest
+class SignupBrowserTest < ActiveSupport::TestCase
   include Capybara::DSL
   self.use_transactional_fixtures = false
 
   setup do
-    reset!
+    Capybara.reset_sessions!
   end
 
   test "signup" do

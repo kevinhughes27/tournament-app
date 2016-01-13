@@ -1,13 +1,13 @@
 require "test_helper"
 
-class LoginBrowserTest < ActionDispatch::IntegrationTest
+class LoginBrowserTest < ActiveSupport::TestCase
   include Capybara::DSL
   self.use_transactional_fixtures = false
 
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
-    reset!
+    Capybara.reset_sessions!
   end
 
   test "login to tournament admin" do
