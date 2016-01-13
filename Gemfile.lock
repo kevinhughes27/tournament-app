@@ -119,8 +119,6 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise_custom_authenticatable (0.2.0)
-      devise (>= 2, < 4)
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -272,7 +270,6 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   date_validator
   devise
-  devise_custom_authenticatable
   font-awesome-rails
   friendly_id
   interact-rails

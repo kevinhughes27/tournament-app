@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
   has_many :tournament_users
   has_many :tournaments, through: :tournament_users
 
-  devise :custom_authenticatable,
-         :database_authenticatable,
+  devise :database_authenticatable,
          :registerable,
          :recoverable,
          :rememberable,
@@ -18,8 +17,8 @@ class User < ActiveRecord::Base
     "http://www.gravatar.com/avatar/#{gravatar_hash}?s=200&d=mm"
   end
 
-  def valid_for_custom_authentication?(password)
-    tournaments.exists?(id: Thread.current[:tournament_id])
+  def is_tournament_user?(tournament_id)
+    tournaments.exists?(id: tournament_id)
   end
 
   private

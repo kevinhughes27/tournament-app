@@ -15,7 +15,6 @@ gem 'browser-timezone-rails'
 
 # engines
 gem 'devise'
-gem 'devise_custom_authenticatable'
 
 # frontend gems
 gem 'bootstrap-sass'
