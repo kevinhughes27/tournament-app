@@ -17,6 +17,8 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/mini_test'
 
+OmniAuth.config.test_mode = true
+
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 class ActionController::TestCase

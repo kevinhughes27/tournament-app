@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
   root 'brochure#index'
 
-  devise_for :users, path: '', controllers: { sessions: 'login' }, skip: [:registration, :passwords]
+  devise_for :users,
+    path: '',
+    controllers: { sessions: 'login', omniauth_callbacks: 'omniauth_callbacks' },
+    skip: [:registration, :passwords]
 
   devise_scope :user do
     post '/sign_up' => 'signup#create', as: :new_user_signup
+    get '/choose_tournament' => 'login#choose_tournament'
+    post '/choose_tournament' => 'login#choose_tournament'
   end
 
   get '/setup' => 'tournaments#new'

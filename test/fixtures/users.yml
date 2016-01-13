@@ -1,3 +1,4 @@
 kevin:
   email: kevinhughes27@gmail.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  sign_in_count: 5

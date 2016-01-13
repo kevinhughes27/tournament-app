@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <title>Ultimate Tournament</title>
+  <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body class="register-page">
+  <div class="register-box animated <%= login_animation %>">
+
+    <div class="register-logo">
+      Ultimate Tournament
+    </div>
+
+    <div class="register-subtext">
+      <p>Choose tournament</p>
+    </div>
+
+    <%= form_tag(choose_tournament_path) do |f| %>
+      <div class="register-box-body">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-fw fa-trophy"></i></span>
+            <%= text_field_tag :tournament, '', placeholder: 'Tournament handle', class: 'form-control', autofocus: true %>
+          </div>
+        </div>
+
+        <div class="form-group text-center">
+          <%= submit_tag "Continue", class: 'btn btn-lg btn-block btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</body>

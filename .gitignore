@@ -7,9 +7,6 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
-# ignore bower files
-/vendor/assets/bower_components
-
 # ignore local node modules
 /node_modules/*
 npm-debug.log
