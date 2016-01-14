@@ -13,6 +13,7 @@ dependencies:
   post:
     - bundle exec bundle-audit update && bundle exec bundle-audit check
     - npm install
+    - npm run requiresafe
   override:
     - bundle install --path .bundle --without production --without development
   cache_directories:
