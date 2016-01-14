@@ -1,25 +1,4 @@
-<% if flash[:notice].present? %>
-  <div class="flash flash-success flash-dismissable">
-    <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
-    <b><%= flash[:notice] %></b>
-  </div>
-<% end %>
-
-<% if flash[:alert].present? %>
-  <div class="flash flash-danger flash-dismissable">
-    <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
-    <b><%= flash[:alert] %></b>
-  </div>
-<% end %>
-
-<% if flash[:error].present? %>
-  <div class="flash flash-danger flash-dismissable">
-    <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
-    <b><%= flash[:error] %></b>
-  </div>
-<% end %>
-
-<div class="js-flash flash flash-dismissable" style="display: none;">
-  <button type="button" class="close" data-dismiss="flash" aria-hidden="true">×</button>
-  <b></b>
+<div class="js-flash flash <%= 'error' if flash_error? %> hide">
+  <button type="button" class="close" bind-event-click="Admin.Flash.hide()">×</button>
+  <b class="js-flash-message <%= 'error' if flash_error? %>"><%= flash_message %></b>
 </div>

@@ -1,3 +1,11 @@
+$(document).on 'ready page:change', (event) ->
+  return unless $('.js-flash').hasClass('hide')
+
+  _.delay ->
+    $node = $('.js-flash-message')
+    isError = $node.hasClass('error')
+    Flash.display(message, isError) if message = $node.text()
+
 Admin.Flash = Flash =
   error: (message, duration = 2200) ->
     Flash.display message, true, duration
@@ -24,10 +32,12 @@ Admin.Flash = Flash =
       $node.addClass('flash-success')
       $node.removeClass('flash-danger')
 
-    $node.css('display','block')
+    $node.removeClass('hide')
     @timeout = setTimeout Flash.hide.bind(@), duration
+
+  _center: ($node) ->
 
   hide: ->
     $node = $('.js-flash')
     $node.find('b').text('')
-    $node.css('display', 'none')
+    $node.addClass('hide')
