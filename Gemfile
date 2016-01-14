@@ -28,8 +28,8 @@ gem 'interact-rails'
 
 # frontend frameworks
 gem 'twine-rails'
-gem 'turbolinks', github: 'rails/turbolinks', branch: 'master'
-gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
+gem 'turbolinks', git: 'https://github.com/rails/turbolinks', branch: 'master'
+gem 'react-rails', git: 'https://github.com/reactjs/react-rails', branch: 'master'
 gem 'browserify-rails'
 
 group :production do
