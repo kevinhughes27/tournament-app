@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root 'brochure#index'
 
-  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-
   devise_for :users, path: '', controllers: { sessions: 'login' }, skip: [:registration, :passwords]
 
   devise_scope :user do

@@ -3,6 +3,7 @@ ruby "2.2.2"
 
 # rails gems
 gem 'rails', '4.2.2'
+gem 'sprockets-rails', '< 3.0' # breaks Teaspoon
 gem 'unicorn'
 gem 'wicked'
 gem 'friendly_id'
@@ -44,12 +45,12 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'bundler-audit', require: false
+  gem 'teaspoon-jasmine', git: 'https://github.com/modeset/teaspoon', branch: 'master'
 end
 
 group :test do
   gem 'mocha', :require => false
   gem 'timecop'
-  gem 'jasmine-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
