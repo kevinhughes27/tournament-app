@@ -1,3 +1,5 @@
+#= require app
+
 describe 'SubmitScoreScreen', ->
   app = null
   screen = null

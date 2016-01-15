@@ -8,7 +8,9 @@ Rails.application.load_tasks
 Rake::Task['test:run'].clear
 
 namespace :test do
-  task :js => ['spec:javascript']
+  task :js do
+    Rake.application.invoke_task("teaspoon[--coverage=default]")
+  end
 
   Rake::TestTask.new(:_run) do |t|
     t.libs << "test"

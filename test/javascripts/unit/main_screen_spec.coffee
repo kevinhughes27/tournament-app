@@ -1,3 +1,5 @@
+#= require app
+
 describe 'MainScreen', ->
   app = null
   fields = [{name: 'UPI1', id: 1}, {name: 'UPI2', id: 2}, {name: 'UPI3', id: 3}]

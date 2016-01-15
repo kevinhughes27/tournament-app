@@ -1,3 +1,5 @@
+#= require app
+
 describe 'ScheduleScreen', ->
   app = null
   screen = null
