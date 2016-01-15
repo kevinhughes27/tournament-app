@@ -19,4 +19,5 @@ Links
 Auth Providers
 --------------
 [Google Developer Console](https://console.developers.google.com/home/dashboard?project=ultimate-tournament)
+
 [Facebook Developer Dashboard](https://developers.facebook.com/apps/754008491396080/dashboard/)
