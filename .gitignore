@@ -24,4 +24,5 @@ npm-debug.log
 
 # test outputs
 test/coverage
+test/javascripts/coverage
 test/reports
