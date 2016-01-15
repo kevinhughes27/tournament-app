@@ -17,6 +17,10 @@ gem 'browser-timezone-rails'
 # engines
 gem 'devise'
 
+# auth
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
+
 # frontend gems
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
@@ -40,6 +44,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'sqlite3'
   gem 'byebug'
   gem 'web-console', '~> 2.0'

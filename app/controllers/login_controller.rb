@@ -1,9 +1,18 @@
 class LoginController < Devise::SessionsController
   before_action :set_tournament, only: [:create]
+  prepend_view_path 'app/views/login'
 
   def new
     clear_session if from_brochure?
     super
+  end
+
+  def choose_tournament
+    if request.post?
+      set_tournament
+      flash[:animate] = "fadeIn"
+      redirect_to tournament_admin_path(session[:tournament_friendly_id])
+    end
   end
 
   def create
@@ -12,7 +21,7 @@ class LoginController < Devise::SessionsController
     if user.is_tournament_user?(session[:tournament_id])
       sign_in(:user, user)
       flash[:animate] = "fadeIn"
-      respond_with user, location: after_sign_in_path_for(user)
+      respond_with user, location: after_sign_in_path
     else
       flash.now[:alert] = "Invalid login for tournament."
       redirect_to_login
@@ -61,7 +70,7 @@ class LoginController < Devise::SessionsController
     render :new
   end
 
-  def after_sign_in_path_for(user)
+  def after_sign_in_path
     session[:previous_url] || tournament_admin_path(session[:tournament_friendly_id])
   end
 end

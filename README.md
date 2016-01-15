@@ -16,9 +16,7 @@ Links
 [![google-analytics](http://imgur.com/vZmWkmr.png)](https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a65432378w101675804p105641923/)
 [![slack](http://i.imgur.com/FAx0EGq.png)](https://ocua.slack.com)
 
-Running Tests
--------------
-
-Javascript:
-
-Run rails console with `RAILS_ENV=test bundle exec rails s` then visit `/specs` (restart server on changes)
+Auth Providers
+--------------
+[Google Developer Console](https://console.developers.google.com/home/dashboard?project=ultimate-tournament)
+[Facebook Developer Dashboard](https://developers.facebook.com/apps/754008491396080/dashboard/)
