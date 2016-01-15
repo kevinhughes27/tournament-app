@@ -16,6 +16,7 @@ class SignupBrowserTest < ActiveSupport::TestCase
     fill_in('user_password', with: 'password')
     find('input[name="commit"]').click
 
+    wait_for_ajax
     fill_in('tournament_name', with: 'New Tournament')
     click_on('Next')
 
