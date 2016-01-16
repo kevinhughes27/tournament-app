@@ -68,6 +68,20 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
     end
   end
 
+  test "auth callback for existing user with no auth doesn't change password" do
+    @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:google_oauth2, {
+      provider: 'google',
+      uid: '12345',
+      info: {
+        email: @user.email
+      }
+    })
+
+    user_password = @user.encrypted_password
+    get :google_oauth2
+    assert_equal user_password,  @user.reload.encrypted_password
+  end
+
   test "facebook auth callback" do
     @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:facebook, {
       provider: 'facebook',
