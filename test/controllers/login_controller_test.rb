@@ -30,6 +30,12 @@ class LoginControllerTest < ActionController::TestCase
     assert_nil session[:tournament_friendly_id]
   end
 
+  test "visit new when already logged in" do
+    sign_in @user
+    get :new
+    assert_response :ok
+  end
+
   test "successful create from tournament login page" do
     set_session(@tournament)
     post :create, user: {email: @user.email, password: 'password'}
