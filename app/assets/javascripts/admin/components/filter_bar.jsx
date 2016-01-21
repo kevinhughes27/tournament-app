@@ -26,7 +26,7 @@ var FilterBar = React.createClass({
   },
 
   addFilter(key, value) {
-    this.props.query[key] = value;
+    this.props.query[key] = value.trim();
     this.props.changeFilter(this.props.query);
   },
 

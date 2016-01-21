@@ -24,7 +24,7 @@ var FilterBarMixin = {
 
       // search
       var flat = squish(item);
-      var search = filter.search;
+      var search = filter.search.trim();
       if(search) {
         for (var key in flat) {
           if (this._keyNotSearchable(key)) continue;
