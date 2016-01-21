@@ -1,0 +1,5 @@
+html.turbolinks-progress-bar::before {
+  top: 50px !important;
+  left: $sidebar-width !important;
+  height: 2px !important;
+}
