@@ -39,6 +39,7 @@ class App.SubmitScoreScreen
     $('.score-label')[1].innerHTML = vsTeam
     $('input#game_id').val(gameId)
     $('input#team_id').val(teamId)
+    $('#vs-team').text(vsTeam)
 
   closeForm: ->
     @formActive = false
