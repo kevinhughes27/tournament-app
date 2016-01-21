@@ -2,3 +2,8 @@ open:
   tournament: noborders
   bracket_type: single_elimination_8
   division: Open
+
+women:
+  tournament: noborders
+  bracket_type: single_elimination_8
+  division: Women
