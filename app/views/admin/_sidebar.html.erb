@@ -10,7 +10,10 @@
 
     <nav class="navbar navbar-static-top" role="navigation" >
       <div class="container-fluid">
-        <%= yield :top_bar %>
+        <%= yield :top_bar_left %>
+        <div class="navbar-form navbar-right">
+          <%= yield :top_bar_right %>
+        </div>
       </div>
     </nav>
   </header>

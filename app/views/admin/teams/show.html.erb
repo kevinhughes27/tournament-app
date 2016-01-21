@@ -1,12 +1,12 @@
-<% content_for :top_bar do %>
+<% content_for :top_bar_left do %>
   <div class="navbar-brand page-title">
     <i class="fa fa-users"></i>
     <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %> / <%= @team.name %>
   </div>
+<% end %>
 
-  <div class="navbar-form navbar-right">
-    <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.edit_team').submit()" %>
-  </div>
+<%= content_for :top_bar_right do %>
+  <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.edit_team').submit()" %>
 <% end %>
 
 <%= admin_content_box do %>

@@ -1,15 +1,15 @@
-<% content_for :top_bar do %>
+<% content_for :top_bar_left do %>
   <div class="navbar-brand page-title">
     <i class="fa fa-users"></i>
     Teams
   </div>
+<% end %>
 
-  <div class="navbar-form navbar-right">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importCsvModal">
-      Import
-    </button>
-    <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
-  </div>
+<%= content_for :top_bar_right do %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importCsvModal">
+    Import
+  </button>
+  <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
 <% end %>
 
 <%= render 'import_csv_modal' %>
