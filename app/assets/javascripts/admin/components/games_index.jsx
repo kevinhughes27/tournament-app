@@ -68,12 +68,13 @@ var rowMetadata = {
   }
 };
 
-class GamesFilter extends FilterBar {
-  constructor() {
-    super();
-    this.filterColumns = filterColumns;
+var GamesFilter = React.createClass({
+  mixins: [FilterBar],
+  filterColumns: filterColumns,
+  render() {
+    return this.renderBar()
   }
-};
+});
 
 var GamesIndex = React.createClass({
   mixins: [FilterBarMixin],

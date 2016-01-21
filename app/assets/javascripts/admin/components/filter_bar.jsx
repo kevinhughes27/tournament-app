@@ -5,19 +5,21 @@ var _ = require('underscore'),
     Overlay = require('react-bootstrap').Overlay,
     Collapse = require('react-bootstrap').Collapse;
 
-var FilterBar = React.createClass({
-  filterColumns: [],
+var FilterBar = {
 
   getDefaultProps() {
     return {
-      "query": {}
+      "query": { "search" : ""}
     }
   },
 
   componentDidMount() {
-    if(this.filterColumns.length == 0) {
-      console.warn("FilterBar component used without filterColumns. Include `this.filterColumns = [...]` in your component's constructor")
+    if(!this.filterColumns) {
+      this.filterColumns = []
+      console.warn("FilterBar component used without filterColumns. Include `filterColumns: [...]` in your component")
     };
+
+    this.props.changeFilter(this.props.query);
   },
 
   searchChange(event) {
@@ -35,7 +37,7 @@ var FilterBar = React.createClass({
     this.props.changeFilter(this.props.query);
   },
 
-  render() {
+  renderBar() {
     var filters = _.omit(this.props.query, 'search');
     var filterPadding = _.isEmpty(filters) ? 0 : 10;
 
@@ -61,7 +63,7 @@ var FilterBar = React.createClass({
       </div>
     );
   }
-});
+};
 
 var FilterBuilder = React.createClass({
   getInitialState() {
@@ -123,8 +125,7 @@ var FilterBuilder = React.createClass({
           onHide={() => this.hide()}
           target={() => ReactDOM.findDOMNode(this.refs.target)}
           placement="bottom"
-          rootClose={true}
-        >
+          rootClose={true}>
           <Popover id="filters" style={{width: 240}}>
             <Input type="select" onChange={this.filterSelectChanged}>
               <option value=''>Select a filter</option>

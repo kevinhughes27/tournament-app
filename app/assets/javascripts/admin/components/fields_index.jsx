@@ -50,12 +50,13 @@ var columnsMeta = [
   }
 ];
 
-class FieldsFilter extends FilterBar {
-  constructor() {
-    super();
-    this.filterColumns = filterColumns;
+var FieldsFilter = React.createClass({
+  mixins: [FilterBar],
+  filterColumns: filterColumns,
+  render() {
+    return this.renderBar()
   }
-};
+});
 
 var FieldsIndex = React.createClass({
   mixins: [FilterBarMixin],
