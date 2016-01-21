@@ -5,7 +5,7 @@
   </div>
 <% end %>
 
-<%= admin_content_box do %>
+<%= admin_content do %>
   <%= react_component('Admin.GamesIndex',
     render(template: 'admin/games/games.json.jbuilder')) %>
 <% end %>

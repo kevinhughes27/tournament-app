@@ -14,7 +14,7 @@
 
 <%= render 'import_csv_modal' %>
 
-<%= admin_content_box do %>
+<%= admin_content do %>
   <%= react_component('Admin.TeamsIndex',
     render(template: 'admin/teams/teams.json.jbuilder')) %>
 <% end %>

@@ -6,7 +6,7 @@
 <% end %>
 
 
-<%= admin_content_box do %>
+<%= admin_content do %>
   <div class="content" define='{bracketEditor: new Admin.BracketEditor()}' context='bracketEditor'>
     <% team_groups = @teams.group_by{ |t| t.division } %>
     <div class="nav-tabs-custom">
