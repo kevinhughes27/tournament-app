@@ -44,12 +44,19 @@ class LoginControllerTest < ActionController::TestCase
     assert_equal 'fadeIn', flash[:animate]
   end
 
-  test "successful create from login page" do
+  test "successful login" do
     clear_session
     post :create, user: {email: @user.email, password: 'password'}, tournament: @tournament.handle
 
     assert_redirected_to tournament_admin_path(@tournament)
     assert_equal 'fadeIn', flash[:animate]
+  end
+
+  test "successful login with no tournaments" do
+    clear_session
+    @user.tournaments.delete_all
+    post :create, user: {email: @user.email, password: 'password'}, tournament: @tournament.handle
+    assert_redirected_to setup_path
   end
 
   test "unsuccessful login" do

@@ -4,7 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.from_omniauth(request.env['omniauth.auth'])
     sign_in(:user, user)
 
-    if user.sign_in_count == 1
+    if user.sign_in_count == 1 || !user.tournaments.exists?
       redirect_to setup_path
     else
       flash[:animate] = "fadeIn"

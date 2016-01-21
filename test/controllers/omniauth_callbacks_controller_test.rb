@@ -38,6 +38,20 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
     end
   end
 
+  test "auth callback for existing user with no tournaments" do
+    @user.tournaments.delete_all
+    @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:google_oauth2, {
+      provider: 'google',
+      uid: '12345',
+      info: {
+        email: @user.email
+      }
+    })
+
+    get :google_oauth2
+    assert_redirected_to setup_path
+  end
+
   test "auth callback with tournament_id in session for existing user redirects to tournament page" do
     session[:tournament_id] = @tournament.id
     session[:tournament_friendly_id] = @tournament.friendly_id
