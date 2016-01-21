@@ -23,7 +23,7 @@ class LoginController < Devise::SessionsController
     if user.is_tournament_user?(session[:tournament_id])
       sign_in(:user, user)
       flash[:animate] = "fadeIn"
-      respond_with user, location: after_sign_in_path
+      respond_with user, location: after_login_in_path
     else
       flash.now[:alert] = "Invalid login for tournament."
       redirect_to_login
@@ -72,7 +72,7 @@ class LoginController < Devise::SessionsController
     render :new
   end
 
-  def after_sign_in_path
+  def after_login_in_path
     session[:previous_url] || tournament_admin_path(session[:tournament_friendly_id])
   end
 end
