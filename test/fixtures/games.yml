@@ -37,3 +37,13 @@ pheonix_mavericks:
   away_score: 13
   start_time: 2015-06-06 12:06:53
   score_confirmed: true
+
+semi_final:
+  tournament: noborders
+  bracket: women
+  bracket_uid: 's1'
+  bracket_top: 'wq1'
+  bracket_bottom: 'wq2'
+  field: upi2
+  start_time: 2015-06-06 12:06:53
+  score_confirmed: false

@@ -64,11 +64,13 @@ exports.ScoreCell = React.createClass({
     };
   },
 
-  toggle() {
+  toggle(ev) {
+    ev.preventDefault();
     this.setState({show: !this.state.show});
   },
 
-  hide() {
+  hide(ev) {
+    if(ev){ ev.preventDefault(); }
     this.setState({ show: false });
   },
 
@@ -114,10 +116,14 @@ exports.ScoreCell = React.createClass({
     var game = this.props.rowData;
     var btnClasses = classNames('btn', 'btn-default', {'is-loading': this.state.isLoading});
 
+    if (!game.has_teams) {
+      return(<div></div>);
+    };
+
     return (
       <div>
         <a href="#" ref="target" onClick={this.toggle}>
-          {game.score}
+          {game.home_score} - {game.away_score}
         </a>
 
         <Overlay
@@ -132,7 +138,7 @@ exports.ScoreCell = React.createClass({
           <Popover id={"scoreForm#{game.id}"}>
             <h5>
               {game.name}
-              <a href="#" className="pull-right" onClick={() => this.hide() }>X</a>
+              <a href="#" className="pull-right" onClick={this.hide}>X</a>
             </h5>
             <form className="form-inline">
               <input type="number"

@@ -33,6 +33,7 @@ class Game < ActiveRecord::Base
   end
 
   def score
+    return unless scores_present?
     "#{home_score} - #{away_score}"
   end
 
@@ -82,6 +83,8 @@ class Game < ActiveRecord::Base
   end
 
   def update_score(home_score, away_score)
+    return unless teams_present?
+
     if scores_present?
       adjust_score(home_score, away_score)
     else

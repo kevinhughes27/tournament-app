@@ -100,6 +100,13 @@ class GameTest < ActiveSupport::TestCase
     assert @game.confirmed?
   end
 
+  test "can't update score unless teams" do
+    game = games(:semi_final)
+    refute game.teams_present?
+    game.update_score(10, 5)
+    assert_nil game.score
+  end
+
   test "update_score updates the teams wins and points_for (no previous score)" do
     game = games(:swift_goose_no_score)
     home_wins = @home.wins
