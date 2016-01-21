@@ -1,7 +1,5 @@
 module LayoutHelper
-  def sidebar_link(icon, text, path, condition)
-    path = '#' unless condition
-
+  def sidebar_link(icon, text, path)
     content_tag :li do
       content_tag :a, href: path do
         content_tag(:i, '', class: icon) +
