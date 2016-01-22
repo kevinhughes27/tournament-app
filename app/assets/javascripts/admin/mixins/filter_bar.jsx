@@ -37,13 +37,13 @@ var FilterBar = {
 
   renderBar() {
     if(this.filters.length > 0) {
-      return this.renderFilterBar();
+      return this._renderFilterSearchBar();
     } else {
-      return this.renderSearchBar();
+      return this._renderSearchBar();
     }
   },
 
-  renderSearchBar() {
+  _renderSearchBar() {
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
         <Input type="text"
@@ -55,7 +55,7 @@ var FilterBar = {
     );
   },
 
-  renderFilterBar() {
+  _renderFilterSearchBar() {
     var currentFilters = _.omit(this.props.query, 'search');
     var filterDropdown = (<FilterBuilder filters={this.filters} addFilter={this.addFilter}/>);
 
