@@ -19,11 +19,6 @@ var searchColumns = [
   "division"
 ];
 
-var filterColumns = [
-  "division",
-  "confirmed"
-];
-
 var filters = [
   {text: 'Open Division', key: 'division', value: 'Open'},
   {text: 'Womens Division', key: 'division', value: 'Women'},

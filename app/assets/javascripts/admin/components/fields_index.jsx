@@ -14,10 +14,6 @@ var searchColumns = [
   "name"
 ];
 
-var filterColumns = [
-  "name"
-];
-
 var LinkCell = React.createClass({
   render() {
     var field = this.props.rowData;
