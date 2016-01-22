@@ -15,7 +15,7 @@ var FilterFunction = {
       for(key in filter) {
         if(key == 'search') continue;
 
-        if(filter[key]) {
+        if(_.has(filter, key)) {
           if(item[key] != filter[key]) {
             return false;
           }

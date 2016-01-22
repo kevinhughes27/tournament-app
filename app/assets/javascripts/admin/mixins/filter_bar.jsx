@@ -92,9 +92,9 @@ var FilterBuilder = React.createClass({
             Filter
           </Dropdown.Toggle>
           <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-            {filters.map((f) => {
+            {filters.map((f, i) => {
               return (
-                <MenuItem onClick={() => addFilter(f)}>
+                <MenuItem key={i} onClick={() => addFilter(f)}>
                   <i className="fa fa-filter"></i>
                   {f.text}
                </MenuItem>
