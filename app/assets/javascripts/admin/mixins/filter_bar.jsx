@@ -1,8 +1,8 @@
 var _ = require('underscore'),
     squish = require('object-squish'),
     Input = require('react-bootstrap').Input,
-    MenuItem = require('react-bootstrap').MenuItem,
-    DropdownButton = require('react-bootstrap').DropdownButton;
+    Dropdown = require('react-bootstrap').Dropdown,
+    MenuItem = require('react-bootstrap').MenuItem;
 
 var FilterBar = {
   getDefaultProps() {
@@ -87,16 +87,21 @@ var FilterBuilder = React.createClass({
     var addFilter = this.props.addFilter
     return(
       <div className="input-group-btn">
-        <DropdownButton title="Filter" id="filter-dropdown">
-          {filters.map((f) => {
-            return (
-              <MenuItem onClick={() => addFilter(f)}>
-                <i className="fa fa-filter"></i>
-                {f.text}
-             </MenuItem>
-           );
-          })}
-        </DropdownButton>
+        <Dropdown id="filter-dropdown">
+          <Dropdown.Toggle>
+            Filter
+          </Dropdown.Toggle>
+          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+            {filters.map((f) => {
+              return (
+                <MenuItem onClick={() => addFilter(f)}>
+                  <i className="fa fa-filter"></i>
+                  {f.text}
+               </MenuItem>
+             );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     );
   }
