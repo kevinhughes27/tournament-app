@@ -91,6 +91,7 @@ var FilterBuilder = React.createClass({
           {filters.map((f) => {
             return (
               <MenuItem onClick={() => addFilter(f)}>
+                <i className="fa fa-filter"></i>
                 {f.text}
              </MenuItem>
            );
