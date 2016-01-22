@@ -52,10 +52,8 @@ var columnsMeta = [
 
 var FieldsFilter = React.createClass({
   mixins: [FilterBar],
-  filterColumns: filterColumns,
-  render() {
-    return this.renderBar()
-  }
+  filters: [],
+  render() { return this.renderBar() }
 });
 
 var FieldsIndex = React.createClass({

@@ -24,6 +24,15 @@ var filterColumns = [
   "confirmed"
 ];
 
+var filters = [
+  {text: 'Open Division', key: 'division', value: 'Open'},
+  {text: 'Womens Division', key: 'division', value: 'Women'},
+  {text: 'Coed Comp Division', key: 'division', value: 'Coed Comp'},
+  {text: 'Junior Open Division', key: 'division', value: 'Junior Open'},
+  {text: 'Confirmed', key: 'confirmed', value: 1},
+  {text: 'Unconfirmed', key: 'confirmed', value: 0},
+];
+
 var columnsMeta = [
   {
     columnName: "name",
@@ -70,10 +79,8 @@ var rowMetadata = {
 
 var GamesFilter = React.createClass({
   mixins: [FilterBar],
-  filterColumns: filterColumns,
-  render() {
-    return this.renderBar()
-  }
+  filters: filters,
+  render() { return this.renderBar() }
 });
 
 var GamesIndex = React.createClass({

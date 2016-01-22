@@ -1,9 +1,8 @@
 var _ = require('underscore'),
     squish = require('object-squish'),
     Input = require('react-bootstrap').Input,
-    Popover = require('react-bootstrap').Popover,
-    Overlay = require('react-bootstrap').Overlay,
-    Collapse = require('react-bootstrap').Collapse;
+    MenuItem = require('react-bootstrap').MenuItem,
+    DropdownButton = require('react-bootstrap').DropdownButton;
 
 var FilterBar = {
   getDefaultProps() {
@@ -13,9 +12,9 @@ var FilterBar = {
   },
 
   componentDidMount() {
-    if(!this.filterColumns) {
-      this.filterColumns = []
-      console.warn("FilterBar component used without filterColumns. Include `filterColumns: [...]` in your component")
+    if(!this.filters) {
+      this.filters = []
+      console.warn("FilterBar component used without filters. You may want to include `filters: [...]` in your component")
     };
 
     this.props.changeFilter(this.props.query);
@@ -26,8 +25,8 @@ var FilterBar = {
     this.props.changeFilter(this.props.query);
   },
 
-  addFilter(key, value) {
-    this.props.query[key] = value.trim();
+  addFilter(filter) {
+    this.props.query[filter.key] = filter.value;
     this.props.changeFilter(this.props.query);
   },
 
@@ -37,25 +36,43 @@ var FilterBar = {
   },
 
   renderBar() {
-    var filters = _.omit(this.props.query, 'search');
-    var filterPadding = _.isEmpty(filters) ? 0 : 10;
+    if(this.filters.length > 0) {
+      return this.renderFilterBar();
+    } else {
+      return this.renderSearchBar();
+    }
+  },
+
+  renderSearchBar() {
+    return (
+      <div className="filter-container" style={{paddingBottom: 10}}>
+        <Input type="text"
+               name="search"
+               placeholder="Search..."
+               className="form-control"
+               onChange={this.searchChange} />
+      </div>
+    );
+  },
+
+  renderFilterBar() {
+    var currentFilters = _.omit(this.props.query, 'search');
+    var filterDropdown = (<FilterBuilder filters={this.filters} addFilter={this.addFilter}/>);
 
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
-        <div className="input-group">
-          <FilterBuilder filterColumns={this.filterColumns} addFilter={this.addFilter}/>
-          <input type="text"
-                 name="search"
-                 placeholder="Search..."
-                 className="form-control"
-                 onChange={this.searchChange} />
-        </div>
-        <div className="btn-toolbar" style={{paddingTop: filterPadding}}>
-          { _.keys(filters).map((key, idx) => {
+        <Input type="text"
+               name="search"
+               placeholder="Search..."
+               className="form-control"
+               onChange={this.searchChange}
+               buttonBefore={filterDropdown} />
+        <div className="btn-toolbar">
+          { _.keys(currentFilters).map((key, idx) => {
             return <Filter
               key={idx}
               filterKey={key}
-              filterValue={filters[key]}
+              filterValue={currentFilters[key]}
               deleteFilter={this.deleteFilter} />;
           })}
         </div>
@@ -65,91 +82,20 @@ var FilterBar = {
 };
 
 var FilterBuilder = React.createClass({
-  getInitialState() {
-    return this.defaultState();
-  },
-
-  defaultState() {
-    return {
-      show: false,
-      filterKey: '',
-      showForm: false,
-      filterValue: '',
-    };
-  },
-
-  toggle() {
-    this.setState({show: !this.state.show});
-  },
-
-  hide() {
-    this.setState({ show: false });
-  },
-
-  filterSelectChanged(event) {
-    var val = event.target.value
-
-    this.setState({
-      filterKey: val,
-      showForm: val != ''
-    })
-  },
-
-  handleKeyPress(event) {
-    if (event.charCode==13) {
-      this.createFilter()
-    };
-  },
-
-  createFilter() {
-    this.props.addFilter(
-      this.state.filterKey,
-      this.state.filterValue
-    );
-
-    this.setState( this.defaultState() );
-  },
-
   render() {
-    var filterColumns = this.props.filterColumns;
-
+    var filters = this.props.filters;
+    var addFilter = this.props.addFilter
     return(
       <div className="input-group-btn">
-        <button ref="target" className="btn btn-default" onClick={this.toggle}>
-          Filter  <span className="caret"></span>
-        </button>
-
-        <Overlay
-          show={this.state.show}
-          onHide={() => this.hide()}
-          target={() => ReactDOM.findDOMNode(this.refs.target)}
-          placement="bottom"
-          rootClose={true}>
-          <Popover id="filters" style={{width: 240}}>
-            <Input type="select" onChange={this.filterSelectChanged}>
-              <option value=''>Select a filter</option>
-              { filterColumns.map((col, idx) => {
-                return <option value={col} key={idx}>{col}</option>;
-              })}
-            </Input>
-
-            <Collapse in={this.state.showForm}>
-              <div>
-                <p>is equal to:</p>
-                <Input type="text"
-                       value={this.state.filterValue}
-                       onKeyPress={this.handleKeyPress}
-                       onChange={ (e) => {
-                         this.setState({filterValue: e.target.value})
-                       }} />
-                <button className="btn btn-primary" onClick={this.createFilter}>
-                  Create filter
-                </button>
-              </div>
-            </Collapse>
-
-          </Popover>
-        </Overlay>
+        <DropdownButton title="Filter" id="filter-dropdown">
+          {filters.map((f) => {
+            return (
+              <MenuItem onClick={() => addFilter(f)}>
+                {f.text}
+             </MenuItem>
+           );
+          })}
+        </DropdownButton>
       </div>
     );
   }

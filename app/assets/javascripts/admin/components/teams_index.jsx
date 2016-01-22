@@ -20,8 +20,11 @@ var searchColumns = [
   "seed"
 ];
 
-var filterColumns = [
-  "division"
+var filters = [
+  {text: 'Open Division', key: 'division', value: 'Open'},
+  {text: 'Womens Division', key: 'division', value: 'Women'},
+  {text: 'Coed Comp Division', key: 'division', value: 'Coed Comp'},
+  {text: 'Junior Open Division', key: 'division', value: 'Junior Open'}
 ];
 
 var LinkCell = React.createClass({
@@ -70,10 +73,8 @@ var columnsMeta = [
 
 var TeamsFilter = React.createClass({
   mixins: [FilterBar],
-  filterColumns: filterColumns,
-  render() {
-    return this.renderBar()
-  }
+  filters: filters,
+  render() { return this.renderBar() }
 });
 
 var TeamsIndex = React.createClass({
