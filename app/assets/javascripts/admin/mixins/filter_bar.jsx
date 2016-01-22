@@ -6,7 +6,6 @@ var _ = require('underscore'),
     Collapse = require('react-bootstrap').Collapse;
 
 var FilterBar = {
-
   getDefaultProps() {
     return {
       "query": { "search" : ""}

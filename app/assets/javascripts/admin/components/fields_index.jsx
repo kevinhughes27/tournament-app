@@ -1,7 +1,7 @@
 var React = require('react'),
     Griddle = require('griddle-react'),
-    FilterBar = require('./filter_bar'),
-    FilterBarMixin = require('../mixins/filter_bar_mixin'),
+    FilterBar = require('../mixins/filter_bar'),
+    FilterFunction = require('../mixins/filter_function'),
     FieldsStore = require('../stores/fields_store');
 
 var columns = [
@@ -59,7 +59,7 @@ var FieldsFilter = React.createClass({
 });
 
 var FieldsIndex = React.createClass({
-  mixins: [FilterBarMixin],
+  mixins: [FilterFunction],
   searchColumns: searchColumns,
 
   getInitialState() {

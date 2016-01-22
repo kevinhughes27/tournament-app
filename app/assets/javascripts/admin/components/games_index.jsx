@@ -1,7 +1,7 @@
 var React = require('react'),
     Griddle = require('griddle-react'),
-    FilterBar = require('./filter_bar'),
-    FilterBarMixin = require('../mixins/filter_bar_mixin'),
+    FilterBar = require('../mixins/filter_bar'),
+    FilterFunction = require('../mixins/filter_function'),
     NameCell = require('./game').NameCell,
     ScoreCell = require('./game').ScoreCell,
     ConfirmedCell = require('./game').ConfirmedCell,
@@ -77,7 +77,7 @@ var GamesFilter = React.createClass({
 });
 
 var GamesIndex = React.createClass({
-  mixins: [FilterBarMixin],
+  mixins: [FilterFunction],
   searchColumns: searchColumns,
 
   getInitialState() {
