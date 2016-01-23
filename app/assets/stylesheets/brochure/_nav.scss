@@ -137,6 +137,13 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+@media (max-width: 958px){
+  .landing-page .parallax .parallax-background img {
+    height: 100% !important;
+    width: auto !important;
+  }
+}
+
 @media (max-width: 767px){
   .nav > li{
     text-align: center;
@@ -160,11 +167,9 @@
     height: 560px;
     text-align: center;
   }
-  .landing-page .parallax {
-    background: #000;
-  }
   .landing-page .parallax .parallax-background img {
-    display: none;
+    right: 340px;
+    top: 85px;
   }
   .btn-lg {
     font-size: 16px;
@@ -202,5 +207,23 @@
 @media (min-width: 768px){
   .landing-page .navbar-top{
     padding-top: 10px;
+  }
+}
+
+@media (max-width: 378px){
+  .logo-container .brand{
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 356px){
+  .logo-container .brand{
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 336px){
+  .logo-container .brand{
+    font-size: 24px;
   }
 }
