@@ -168,7 +168,7 @@
     text-align: center;
   }
   .landing-page .parallax .parallax-background img {
-    right: 340px;
+    right: 180px;
     top: 85px;
   }
   .btn-lg {
@@ -207,6 +207,12 @@
 @media (min-width: 768px){
   .landing-page .navbar-top{
     padding-top: 10px;
+  }
+}
+
+@media (max-width: 500px){
+  .landing-page .parallax .parallax-background img {
+    right: 340px;
   }
 }
 
