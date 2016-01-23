@@ -56,8 +56,13 @@ var FilterBar = {
   },
 
   _renderFilterSearchBar() {
-    var currentFilters = _.omit(this.props.query, 'search');
     var filterDropdown = (<FilterBuilder filters={this.filters} addFilter={this.addFilter}/>);
+    var currentFilters = _.omit(this.props.query, 'search');
+    var filterNames = {};
+    _.mapObject(currentFilters, (value, key) => {
+      var f = _.find(this.filters, function(f) { return f.key == key && f.value == value });
+      filterNames[key] = f.text;
+    });
 
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
@@ -72,6 +77,7 @@ var FilterBar = {
             return <Filter
               key={idx}
               filterKey={key}
+              filterText={filterNames[key]}
               filterValue={currentFilters[key]}
               deleteFilter={this.deleteFilter} />;
           })}
@@ -116,7 +122,7 @@ var Filter = React.createClass({
   render() {
     return (
       <button className="btn btn-xs btn-info" onClick={this.clickHandler}>
-        <span>{this.props.filterKey} : {this.props.filterValue} </span>
+        <span>{this.props.filterText}</span>
         <i className="fa fa-close"></i>
       </button>
     );
