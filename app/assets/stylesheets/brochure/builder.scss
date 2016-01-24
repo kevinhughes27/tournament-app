@@ -2,13 +2,9 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 0px;
+  top: 92px; // matches the spacing of the modal close btn
   left: 0px;
   overflow-y: auto;
-
-  .modal-content {
-    top:238px; // matches the spacing of the modal close btn
-  }
 
   .btn-lg {
     padding: 12px 22px;
@@ -19,11 +15,24 @@
   }
 }
 
+// this css also affects the signup modal (which also gets some styles from _modal.scss)
 .modal-content {
   display: table;
   max-width: 480px;
-  min-width: 300px;
-  width: 50%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+@media (max-width: 480px){
+  .modal-content {
+    width: 90%;
+    top: 10%;
+  }
+}
+
+.builder-next-btn {
+  float: right;
+  right: 10px;
+  margin-bottom: 10px;
 }
