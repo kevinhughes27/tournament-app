@@ -44,13 +44,17 @@ group :production do
 end
 
 group :development, :test do
-  gem 'dotenv-rails'
   gem 'sqlite3'
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'teaspoon-jasmine', git: 'https://github.com/modeset/teaspoon', branch: 'master'
+end
+
+group :development do
+  gem 'dotenv-rails'
+  gem 'letter_opener'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do

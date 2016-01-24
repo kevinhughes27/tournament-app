@@ -1,0 +1,26 @@
+<div class="register-box animated <%= password_reset_animation(resource) %>">
+  <div class="register-logo">
+    Ultimate Tournament
+  </div>
+
+  <div class="register-subtext">
+    Forgot your password?
+  </div>
+
+  <%= render 'errors' %>
+
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <div class="register-box-body">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+          <%= f.text_field :email, placeholder: 'Email', class: 'form-control', autofocus: true %>
+        </div>
+      </div>
+
+      <div class="form-group text-center" style="margin-bottom: 0px">
+        <%= f.submit "Reset password", class: 'btn btn-lg btn-block btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,5 +1,6 @@
 <% if flash[:alert].present? %>
   <div class="callout callout-danger">
     <%= flash[:alert] %>
+    <%= link_to "Forgot your password?", new_user_password_path %>
   </div>
 <% end %>
