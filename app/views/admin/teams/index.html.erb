@@ -15,6 +15,15 @@
 <%= render 'import_csv_modal' %>
 
 <%= admin_content do %>
-  <%= react_component('Admin.TeamsIndex',
-    render(template: 'admin/teams/teams.json.jbuilder')) %>
+  <%= react_component('Admin.TeamsIndex', {
+    teams: render(template: 'admin/teams/teams.json.jbuilder'),
+    searchColumns: [
+      "name",
+      "email",
+      "sms",
+      "division",
+      "seed"
+    ],
+    filters: division_filters(@teams)
+  }) %>
 <% end %>

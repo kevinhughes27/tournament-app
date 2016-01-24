@@ -1,21 +1,13 @@
 var React = require('react'),
     Griddle = require('griddle-react'),
-    FilterBar = require('./filter_bar'),
-    FilterBarMixin = require('../mixins/filter_bar_mixin'),
+    FilterBar = require('../mixins/filter_bar'),
+    FilterFunction = require('../mixins/filter_function'),
     FieldsStore = require('../stores/fields_store');
 
 var columns = [
   "name",
   "lat",
   "long"
-];
-
-var searchColumns = [
-  "name"
-];
-
-var filterColumns = [
-  "name"
 ];
 
 var LinkCell = React.createClass({
@@ -50,19 +42,20 @@ var columnsMeta = [
   }
 ];
 
-class FieldsFilter extends FilterBar {
-  constructor() {
-    super();
-    this.filterColumns = filterColumns;
-  }
-};
-
 var FieldsIndex = React.createClass({
-  mixins: [FilterBarMixin],
-  searchColumns: searchColumns,
+  mixins: [FilterFunction],
 
   getInitialState() {
-    FieldsStore.init(this.props.fields);
+    var fields = JSON.parse(this.props.fields);
+    FieldsStore.init(fields);
+
+    this.searchColumns = this.props.searchColumns;
+
+    this.fieldsFilter = React.createClass({
+      mixins: [FilterBar],
+      filters: this.props.filters,
+      render() { return this.renderBar() }
+    });
 
     return {
       fields: FieldsStore.all(),
@@ -89,7 +82,7 @@ var FieldsIndex = React.createClass({
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
-        customFilterComponent={FieldsFilter}
+        customFilterComponent={this.fieldsFilter}
       />
     );
   }

@@ -1,7 +1,7 @@
 var React = require('react'),
     Griddle = require('griddle-react'),
-    FilterBar = require('./filter_bar'),
-    FilterBarMixin = require('../mixins/filter_bar_mixin'),
+    FilterBar = require('../mixins/filter_bar'),
+    FilterFunction = require('../mixins/filter_function'),
     NameCell = require('./game').NameCell,
     ScoreCell = require('./game').ScoreCell,
     ConfirmedCell = require('./game').ConfirmedCell,
@@ -11,16 +11,6 @@ var columns = [
   "name",
   "division",
   "score",
-  "confirmed"
-];
-
-var searchColumns = [
-  "name",
-  "division"
-];
-
-var filterColumns = [
-  "division",
   "confirmed"
 ];
 
@@ -68,19 +58,20 @@ var rowMetadata = {
   }
 };
 
-class GamesFilter extends FilterBar {
-  constructor() {
-    super();
-    this.filterColumns = filterColumns;
-  }
-};
-
 var GamesIndex = React.createClass({
-  mixins: [FilterBarMixin],
-  searchColumns: searchColumns,
+  mixins: [FilterFunction],
 
   getInitialState() {
-    GamesStore.init(this.props.games);
+    var games = JSON.parse(this.props.games);
+    GamesStore.init(games);
+
+    this.searchColumns = this.props.searchColumns;
+
+    this.gamesFilter = React.createClass({
+      mixins: [FilterBar],
+      filters: this.props.filters,
+      render() { return this.renderBar() }
+    });
 
     return {
       games: GamesStore.all(),
@@ -120,7 +111,7 @@ var GamesIndex = React.createClass({
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
-        customFilterComponent={GamesFilter}
+        customFilterComponent={this.gamesFilter}
       />
     );
   }

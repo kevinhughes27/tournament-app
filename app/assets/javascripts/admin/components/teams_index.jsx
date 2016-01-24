@@ -1,7 +1,7 @@
 var React = require('react'),
     Griddle = require('griddle-react'),
-    FilterBar = require('./filter_bar'),
-    FilterBarMixin = require('../mixins/filter_bar_mixin'),
+    FilterBar = require('../mixins/filter_bar'),
+    FilterFunction = require('../mixins/filter_function'),
     TeamsStore = require('../stores/teams_store');
 
 var columns = [
@@ -10,18 +10,6 @@ var columns = [
   "sms",
   "division",
   "seed"
-];
-
-var searchColumns = [
-  "name",
-  "email",
-  "sms",
-  "division",
-  "seed"
-];
-
-var filterColumns = [
-  "division"
 ];
 
 var LinkCell = React.createClass({
@@ -68,19 +56,20 @@ var columnsMeta = [
   },
 ];
 
-class TeamsFilter extends FilterBar {
-  constructor() {
-    super();
-    this.filterColumns = filterColumns;
-  }
-};
-
 var TeamsIndex = React.createClass({
-  mixins: [FilterBarMixin],
-  searchColumns: searchColumns,
+  mixins: [FilterFunction],
 
   getInitialState() {
-    TeamsStore.init(this.props.teams);
+    var teams = JSON.parse(this.props.teams);
+    TeamsStore.init(teams);
+
+    this.searchColumns = this.props.searchColumns;
+
+    this.teamsFilter = React.createClass({
+      mixins: [FilterBar],
+      filters: this.props.filters,
+      render() { return this.renderBar() }
+    });
 
     return {
       teams: TeamsStore.all(),
@@ -107,7 +96,7 @@ var TeamsIndex = React.createClass({
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
-        customFilterComponent={TeamsFilter}
+        customFilterComponent={this.teamsFilter}
       />
     );
   }

@@ -1,7 +1,7 @@
 var _ = require('underscore'),
     squish = require('object-squish');
 
-var FilterBarMixin = {
+var FilterFunction = {
   componentDidMount() {
     if(!this.searchColumns) {
       this.searchColumns = []
@@ -15,7 +15,7 @@ var FilterBarMixin = {
       for(key in filter) {
         if(key == 'search') continue;
 
-        if(filter[key]) {
+        if(_.has(filter, key)) {
           if(item[key] != filter[key]) {
             return false;
           }
@@ -45,4 +45,4 @@ var FilterBarMixin = {
   }
 };
 
-module.exports = FilterBarMixin
+module.exports = FilterFunction
