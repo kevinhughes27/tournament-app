@@ -27,7 +27,7 @@
 
       <div class="social-auth-links text-center">
         <%= link_to "Sign up with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-block btn-social btn-google btn-flat" %>
-        <%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-facebook btn-flat" %>
+        <%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-facebook btn-flat", style: "margin-bottom: 5px;"%>
       </div>
     <% end %>
   </div>
