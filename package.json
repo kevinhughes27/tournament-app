@@ -4,14 +4,14 @@
     "jquery": "global:$"
   },
   "engines": {
-    "node": ">= 0.10"
+    "node": "4.2.6"
   },
   "dependencies": {
     "babelify": "^6.3.0",
-    "browserify": "~9.0.8",
-    "browserify-incremental": "^3.0.0",
-    "browserify-shim": "^3.8.2",
-    "classnames": "^2.1.5",
+    "browserify": "^13.0.0",
+    "browserify-incremental": "^3.0.1",
+    "browserify-shim": "^3.8.12",
+    "classnames": "^2.2.3",
     "flux": "^2.1.1",
     "griddle-react": "^0.3.1",
     "object-squish": "^1.0.0",
