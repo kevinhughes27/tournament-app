@@ -23,7 +23,26 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
     end
   end
 
-  test "auth callback for existing user redirects to tournament choose page" do
+  test "auth callback for existing user redirects to tournament" do
+    @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:google_oauth2, {
+      provider: 'google',
+      uid: '12345',
+      info: {
+        email: @user.email
+      }
+    })
+
+    assert_no_difference 'User.count' do
+      get :google_oauth2
+      assert_redirected_to tournament_admin_path(@tournament.friendly_id)
+    end
+  end
+
+  test "auth callback for existing user with multiple tournaments redirects to tournament choose page" do
+    tournament = Tournament.create({name: 'Second Tournament', handle: 'second-tournament'})
+    TournamentUser.create!(tournament_id: tournament.id, user_id: @user.id)
+    assert_equal 2, @user.tournaments.count
+
     @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:google_oauth2, {
       provider: 'google',
       uid: '12345',
