@@ -14,26 +14,6 @@ var columns = [
   "confirmed"
 ];
 
-var searchColumns = [
-  "name",
-  "division"
-];
-
-var filters = [
-  {text: 'Open Division', key: 'division', value: 'Open'},
-  {text: 'Womens Division', key: 'division', value: 'Women'},
-  {text: 'Coed Comp Division', key: 'division', value: 'Coed Comp'},
-  {text: 'Junior Open Division', key: 'division', value: 'Junior Open'},
-  {text: 'Has teams', key: 'has_teams', value: 1},
-  {text: 'Scores submitted', key: 'has_score_reports', value: 1},
-  {text: 'Nothing submitted', key: 'has_score_reports', value: 0},
-  {text: 'With score', key: 'has_score', value: 1},
-  {text: 'No score', key: 'has_score', value: 0},
-  {text: 'Confirmed', key: 'confirmed', value: 1},
-  {text: 'Unconfirmed', key: 'confirmed', value: 0},
-  {text: 'Finished', key: 'played', value: 1},
-];
-
 var columnsMeta = [
   {
     columnName: "name",
@@ -78,18 +58,20 @@ var rowMetadata = {
   }
 };
 
-var GamesFilter = React.createClass({
-  mixins: [FilterBar],
-  filters: filters,
-  render() { return this.renderBar() }
-});
-
 var GamesIndex = React.createClass({
   mixins: [FilterFunction],
-  searchColumns: searchColumns,
 
   getInitialState() {
-    GamesStore.init(this.props.games);
+    var games = JSON.parse(this.props.games);
+    GamesStore.init(games);
+
+    this.searchColumns = this.props.searchColumns;
+
+    this.gamesFilter = React.createClass({
+      mixins: [FilterBar],
+      filters: this.props.filters,
+      render() { return this.renderBar() }
+    });
 
     return {
       games: GamesStore.all(),
@@ -129,7 +111,7 @@ var GamesIndex = React.createClass({
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
-        customFilterComponent={GamesFilter}
+        customFilterComponent={this.gamesFilter}
       />
     );
   }

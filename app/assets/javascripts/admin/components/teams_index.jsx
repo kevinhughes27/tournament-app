@@ -12,21 +12,6 @@ var columns = [
   "seed"
 ];
 
-var searchColumns = [
-  "name",
-  "email",
-  "sms",
-  "division",
-  "seed"
-];
-
-var filters = [
-  {text: 'Open Division', key: 'division', value: 'Open'},
-  {text: 'Womens Division', key: 'division', value: 'Women'},
-  {text: 'Coed Comp Division', key: 'division', value: 'Coed Comp'},
-  {text: 'Junior Open Division', key: 'division', value: 'Junior Open'}
-];
-
 var LinkCell = React.createClass({
   render() {
     var team = this.props.rowData;
@@ -71,18 +56,20 @@ var columnsMeta = [
   },
 ];
 
-var TeamsFilter = React.createClass({
-  mixins: [FilterBar],
-  filters: filters,
-  render() { return this.renderBar() }
-});
-
 var TeamsIndex = React.createClass({
   mixins: [FilterFunction],
-  searchColumns: searchColumns,
 
   getInitialState() {
-    TeamsStore.init(this.props.teams);
+    var teams = JSON.parse(this.props.teams);
+    TeamsStore.init(teams);
+
+    this.searchColumns = this.props.searchColumns;
+
+    this.teamsFilter = React.createClass({
+      mixins: [FilterBar],
+      filters: this.props.filters,
+      render() { return this.renderBar() }
+    });
 
     return {
       teams: TeamsStore.all(),
@@ -109,7 +96,7 @@ var TeamsIndex = React.createClass({
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
-        customFilterComponent={TeamsFilter}
+        customFilterComponent={this.teamsFilter}
       />
     );
   }

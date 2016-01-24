@@ -10,10 +10,6 @@ var columns = [
   "long"
 ];
 
-var searchColumns = [
-  "name"
-];
-
 var LinkCell = React.createClass({
   render() {
     var field = this.props.rowData;
@@ -46,18 +42,20 @@ var columnsMeta = [
   }
 ];
 
-var FieldsFilter = React.createClass({
-  mixins: [FilterBar],
-  filters: [],
-  render() { return this.renderBar() }
-});
-
 var FieldsIndex = React.createClass({
   mixins: [FilterFunction],
-  searchColumns: searchColumns,
 
   getInitialState() {
-    FieldsStore.init(this.props.fields);
+    var fields = JSON.parse(this.props.fields);
+    FieldsStore.init(fields);
+
+    this.searchColumns = this.props.searchColumns;
+
+    this.fieldsFilter = React.createClass({
+      mixins: [FilterBar],
+      filters: this.props.filters,
+      render() { return this.renderBar() }
+    });
 
     return {
       fields: FieldsStore.all(),
@@ -84,7 +82,7 @@ var FieldsIndex = React.createClass({
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
-        customFilterComponent={FieldsFilter}
+        customFilterComponent={this.fieldsFilter}
       />
     );
   }

@@ -13,7 +13,7 @@ class Admin.FieldsIndexMap
     @_drawField(field) for field in @fields
 
   _drawField: (field) ->
-    geoJson = JSON.parse(field.geo_json)
+    geoJson = JSON.parse(field.geoJson)
 
     layers = L.geoJson(geoJson, {
       style: Admin.FieldStyle

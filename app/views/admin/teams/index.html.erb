@@ -15,6 +15,20 @@
 <%= render 'import_csv_modal' %>
 
 <%= admin_content do %>
-  <%= react_component('Admin.TeamsIndex',
-    render(template: 'admin/teams/teams.json.jbuilder')) %>
+  <%= react_component('Admin.TeamsIndex', {
+    teams: render(template: 'admin/teams/teams.json.jbuilder'),
+    searchColumns: [
+      "name",
+      "email",
+      "sms",
+      "division",
+      "seed"
+    ],
+    filters: [
+      {text: 'Open Division', key: 'division', value: 'Open'},
+      {text: 'Womens Division', key: 'division', value: 'Women'},
+      {text: 'Coed Comp Division', key: 'division', value: 'Coed Comp'},
+      {text: 'Junior Open Division', key: 'division', value: 'Junior Open'}
+    ]
+  }) %>
 <% end %>
