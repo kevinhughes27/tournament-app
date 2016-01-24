@@ -12,11 +12,7 @@
       "name",
       "division"
     ],
-    filters: [
-      {text: 'Open Division', key: 'division', value: 'Open'},
-      {text: 'Womens Division', key: 'division', value: 'Women'},
-      {text: 'Coed Comp Division', key: 'division', value: 'Coed Comp'},
-      {text: 'Junior Open Division', key: 'division', value: 'Junior Open'},
+    filters: division_filters(@games) + [
       {text: 'Has teams', key: 'has_teams', value: 1},
       {text: 'Scores submitted', key: 'has_score_reports', value: 1},
       {text: 'Nothing submitted', key: 'has_score_reports', value: 0},
