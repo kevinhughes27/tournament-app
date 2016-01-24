@@ -102,7 +102,7 @@ class LoginControllerTest < ActionController::TestCase
 
   def assert_login_error(text)
     assert_match 'Log in', response.body, 'did not render the login page'
-    error = css_select('.callout-danger')
+    error = css_select('.callout-danger > span')
     assert_equal text, error.text.strip
   end
 
