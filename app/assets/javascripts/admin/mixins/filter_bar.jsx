@@ -56,7 +56,26 @@ var FilterBar = {
   },
 
   _renderFilterSearchBar() {
-    var filterDropdown = (<FilterBuilder filters={this.filters} addFilter={this.addFilter}/>);
+    var filterDropdown = (
+      <div className="input-group-btn">
+        <Dropdown id="filter-dropdown">
+          <Dropdown.Toggle>
+            Filter
+          </Dropdown.Toggle>
+          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+            {this.filters.map((f, i) => {
+              return (
+                <MenuItem key={i} onClick={() => this.addFilter(f)}>
+                  <i className="fa fa-circle"></i>
+                  {f.text}
+               </MenuItem>
+             );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+    );
+
     var currentFilters = _.omit(this.props.query, 'search');
     var filterNames = {};
     _.mapObject(currentFilters, (value, key) => {
@@ -86,32 +105,6 @@ var FilterBar = {
     );
   }
 };
-
-var FilterBuilder = React.createClass({
-  render() {
-    var filters = this.props.filters;
-    var addFilter = this.props.addFilter
-    return(
-      <div className="input-group-btn">
-        <Dropdown id="filter-dropdown">
-          <Dropdown.Toggle>
-            Filter
-          </Dropdown.Toggle>
-          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-            {filters.map((f, i) => {
-              return (
-                <MenuItem key={i} onClick={() => addFilter(f)}>
-                  <i className="fa fa-circle"></i>
-                  {f.text}
-               </MenuItem>
-             );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-    );
-  }
-});
 
 var Filter = React.createClass({
   clickHandler() {
