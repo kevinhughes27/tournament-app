@@ -101,7 +101,7 @@ var FilterBuilder = React.createClass({
             {filters.map((f, i) => {
               return (
                 <MenuItem key={i} onClick={() => addFilter(f)}>
-                  <i className="fa fa-filter"></i>
+                  <i className="fa fa-circle"></i>
                   {f.text}
                </MenuItem>
              );
@@ -122,7 +122,7 @@ var Filter = React.createClass({
   render() {
     return (
       <button className="btn btn-xs btn-info" onClick={this.clickHandler}>
-        <span>{this.props.filterText}</span>
+        <span>{this.props.filterText} </span>
         <i className="fa fa-close"></i>
       </button>
     );
