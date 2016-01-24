@@ -2,6 +2,7 @@ class LoginController < Devise::SessionsController
   skip_before_action :require_no_authentication
   before_action :set_tournament, only: [:create]
   prepend_view_path 'app/views/login'
+  layout 'login'
 
   def new
     clear_session if from_brochure?

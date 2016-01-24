@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :users,
     path: '',
-    controllers: { sessions: 'login', omniauth_callbacks: 'omniauth_callbacks' },
-    skip: [:registration, :passwords]
+    controllers: { sessions: 'login', omniauth_callbacks: 'omniauth_callbacks', passwords: 'passwords' },
+    skip: [:registration]
 
   devise_scope :user do
     post '/sign_up' => 'signup#create', as: :new_user_signup

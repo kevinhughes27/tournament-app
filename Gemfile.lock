@@ -166,6 +166,8 @@ GEM
     kgio (2.9.2)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -317,6 +319,7 @@ DEPENDENCIES
   jquery-rails
   json-schema
   launchy
+  letter_opener
   minitest-ci!
   mocha
   newrelic_rpm

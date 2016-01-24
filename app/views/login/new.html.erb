@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-  <title>Ultimate Tournament</title>
-  <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
+<div class="register-box animated <%= login_animation %>">
+  <% if session[:tournament_friendly_id].present? %>
+    <%= render 'login_for_tournament' %>
+  <% else %>
+    <%= render 'login' %>
+  <% end %>
 
-<body class="register-page">
-  <div class="register-box animated <%= login_animation %>">
-    <% if session[:tournament_friendly_id].present? %>
-      <%= render 'login_for_tournament' %>
-    <% else %>
-      <%= render 'login' %>
-    <% end %>
-
-    <br>
-    <div class="text-center">
-      <p>or</p>
-    </div>
-
-    <div class="social-auth-links text-center">
-      <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-block btn-social btn-google btn-flat" %>
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-facebook btn-flat" %>
-    </div>
+  <br>
+  <div class="text-center">
+    <p>or</p>
   </div>
-</body>
+
+  <div class="social-auth-links text-center">
+    <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-block btn-social btn-google btn-flat" %>
+    <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-facebook btn-flat" %>
+  </div>
+</div>
