@@ -8,6 +8,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += [
   'brochure.css',
   'brochure.js',
+  'login.js',
   'admin.css',
   'admin.js',
   'app.css',

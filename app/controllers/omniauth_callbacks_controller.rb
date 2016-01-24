@@ -8,7 +8,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to setup_path
     else
       flash[:animate] = "fadeIn"
-      redirect_to after_sign_in_path
+      redirect_to after_sign_in_path(user)
     end
   end
 
@@ -18,9 +18,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
-  def after_sign_in_path
+  def after_sign_in_path(user)
     return session[:previous_url] if session[:previous_url]
     return tournament_admin_path(session[:tournament_friendly_id]) if session[:tournament_friendly_id]
-    choose_tournament_path
+    if user.tournaments.count == 1
+      tournament_admin_path(user.tournaments.first)
+    else
+      choose_tournament_path
+    end
   end
 end
