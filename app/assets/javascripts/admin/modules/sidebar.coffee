@@ -10,9 +10,14 @@ class Sidebar
   expand: (klass) ->
     $("body").removeClass(klass)
     $.removeCookie('sidebar', {path: '/' })
+    delay 300, ->
+      $('.user-panel').find('.info').fadeIn()
+      $('.user-panel').find('.fa-chevron-up').fadeIn()
 
   collapse: (klass) ->
     $('body').addClass(klass)
+    $('.user-panel').find('.info').hide()
+    $('.user-panel').find('.fa-chevron-up').hide()
     $.cookie("sidebar", klass, {path: '/'})
 
   _class: ->
