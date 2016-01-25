@@ -1,4 +1,12 @@
 module LayoutHelper
+  def sidebar_class
+    request.cookies['sidebar']
+  end
+
+  def sidebar_user_class
+    'display: none;' if sidebar_class.present?
+  end
+
   def sidebar_link(icon, text, path)
     content_tag :li do
       content_tag :a, href: path do

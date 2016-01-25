@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body class="skin-green sidebar-mini fixed animated <%= flash[:animate] %>">
+<body class="skin-green sidebar-mini <%= sidebar_class %> fixed animated <%= flash[:animate] %>">
   <div class="wrapper">
 
     <%= render 'admin/sidebar' %>
