@@ -1,15 +1,19 @@
 class Sidebar
 
-  constructor: ->
-
   toggle: ->
-    $("body").toggleClass(@_class())
+    klass = @_class()
+    if @_open(klass) then @collapse(klass) else @expand(klass)
 
-  expand: ->
-    $("body").removeClass(@_class())
+  _open: (klass) ->
+    !$("body").hasClass(klass)
 
-  collapse: ->
-    $('body').addClass(@_class())
+  expand: (klass) ->
+    $("body").removeClass(klass)
+    $.removeCookie('sidebar', {path: '/' })
+
+  collapse: (klass) ->
+    $('body').addClass(klass)
+    $.cookie("sidebar", klass, {path: '/'})
 
   _class: ->
     if @_smallScreen()
