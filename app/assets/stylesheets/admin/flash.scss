@@ -1,54 +1,25 @@
-/*
- * Component: flash
- * based on AdminLTE flash
- * ----------------
- */
-
-.flash {
+#flash {
   position: fixed;
   padding: 0;
   margin: 0;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
+  bottom: -30px;
+  height: 100px;
+  line-height: 70px;
   text-align: center;
   font-size: 24px;
-  @include border-radius-same(3px);
-  h4 {
-    font-weight: 600;
-  }
-  .icon {
-    margin-right: 10px;
-  }
+  background-color: #3c8dbc;
+  color: $white;
   .close {
-    color: #000;
-    @include opacity(.2);
+    color: $white;
+    padding-right: 5px;
+    opacity: 1;
     &:hover {
-      @include opacity(.5);
+      @include opacity(.6);
     }
-  }
-  a {
-    color: #fff;
-    text-decoration: underline;
   }
 }
 
-// Variants
-.flash-success {
-  @extend .bg-green;
-  border-color: darken($green, 5%);
-}
-.flash-danger,
-.flash-error {
-  @extend .bg-red;
-  border-color: darken($red, 5%);
-}
-.flash-warning {
-  @extend .bg-yellow;
-  border-color: darken($yellow, 5%);
-}
-.flash-info {
-  @extend .bg-aqua;
-  border-color: darken($aqua, 5%);
+#flash.error {
+  color: $white;
+  background-color: #dd4b39;
 }

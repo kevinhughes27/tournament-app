@@ -11,7 +11,6 @@ class AdminController < ApplicationController
   before_action :store_location
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
-  before_action :set_responder_action
 
   def respond_with(obj)
     super @tournament, :admin, obj
@@ -40,13 +39,17 @@ class AdminController < ApplicationController
     redirect_to new_user_session_path unless current_user.is_tournament_user?(@tournament.id)
   end
 
-  def set_responder_action
-    @action = :show
-  end
-
   private
 
   def tournament_scope
     Tournament.friendly
   end
+end
+
+class ActionController::Responder
+  DEFAULT_ACTIONS_FOR_VERBS = {
+    :post => :new,
+    :patch => :show,
+    :put => :show
+  }
 end

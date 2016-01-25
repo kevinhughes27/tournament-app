@@ -1,8 +1,8 @@
 $(document).on 'ready page:change', (event) ->
-  return unless $('.js-flash').hasClass('hide')
+  return unless $('#flash').hasClass('hide')
 
   _.delay ->
-    $node = $('.js-flash-message')
+    $node = $('#flash-message')
     isError = $node.hasClass('error')
     Flash.display(message, isError) if message = $node.text()
 
@@ -16,28 +16,31 @@ Admin.Flash = Flash =
   display: (message, isError, duration = 2200) ->
     clearTimeout(@timeout) if @timeout
 
-    $node = $('.js-flash')
+    $node = $('#flash')
     $node.find('b').text(message)
+    if isError then $node.addClass('error') else $node.removeClass('error')
+    @_center($node)
 
-    # keep the flash centered
-    if $('body').hasClass('sidebar-collapse')
-      $node.css('left','0')
-    else
-      $node.css('left','110px') # admin lte sidebar width / 2
-
-    if isError
-      $node.addClass('flash-danger')
-      $node.removeClass('flash-success')
-    else
-      $node.addClass('flash-success')
-      $node.removeClass('flash-danger')
-
+    @_animationSpeed($node, 0.5)
+    $node.addClass('animated bounceInUp')
     $node.removeClass('hide')
     @timeout = setTimeout Flash.hide.bind(@), duration
 
   _center: ($node) ->
+    width = $('body')[0].clientWidth
+    sidebarWidth = if $('body').hasClass('sidebar-collapse') then 50 else 220
+    $node.css('left', "#{sidebarWidth}px");
+    $node.css('width', "#{width - sidebarWidth}px")
+
+  _animationSpeed: ($node, duration) ->
+    $node.css({
+      '-webkit-animation-duration': "#{duration}s";
+      '-moz-animation-duration': "#{duration}s";
+      '-ms-animation-duration': "#{duration}s";
+    })
 
   hide: ->
-    $node = $('.js-flash')
+    $node = $('#flash')
     $node.find('b').text('')
-    $node.addClass('hide')
+    @_animationSpeed($node, 3)
+    $node.addClass('animated slideOutDown')
