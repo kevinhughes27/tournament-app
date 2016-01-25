@@ -1,4 +1,4 @@
-<div class="js-flash flash <%= 'error' if flash_error? %> hide">
-  <button type="button" class="close" bind-event-click="Admin.Flash.hide()">×</button>
-  <b class="js-flash-message <%= 'error' if flash_error? %>"><%= flash_message %></b>
+<div id="flash" class="hide" bind-event-click="Admin.Flash.hide()">
+  <a href="#" class="close">×</a>
+  <b id="flash-message" class="<%= 'error' if flash_error? %>"><%= flash_message %></b>
 </div>
