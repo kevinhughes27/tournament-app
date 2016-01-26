@@ -29,7 +29,7 @@ module StickyTabsHelper
     def pane(name, &block)
       klass = 'tab-pane'
       klass += ' active' if active_tab?(name)
-      content_tag(:div, id: name.underscore, class: klass) { capture(self, &block) }
+      content_tag(:div, id: name.parameterize.underscore, class: klass) { capture(self, &block) }
     end
 
     def render(&block)
@@ -44,7 +44,7 @@ module StickyTabsHelper
       content_tag(:li, class: klass) do
         content_tag(:a,
           name.titleize,
-          href: "##{name.underscore}",
+          href: "##{name.parameterize.underscore}",
           'data-toggle' => 'tab'
         )
       end
@@ -52,7 +52,7 @@ module StickyTabsHelper
 
     def active_tab?(name)
       if request.cookies[key].present?
-        request.cookies[key] == "##{name.underscore}"
+        request.cookies[key] == "##{name.parameterize.underscore}"
       elsif @active_set && @active_set != name
         false
       else
