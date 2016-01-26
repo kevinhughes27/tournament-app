@@ -24,12 +24,13 @@ var FilterFunction = {
 
       // search
       var flat = squish(item);
-      var search = filter.search.trim();
+      var search = filter.search;
       if(search) {
+        search = search.trim().toLowerCase();
         for (var key in flat) {
           if (this._keyNotSearchable(key)) continue;
 
-          if (String(flat[key]).toLowerCase().indexOf(search.toLowerCase()) >= 0) {
+          if (String(flat[key]).toLowerCase().indexOf(search) >= 0) {
             return true;
           };
         };

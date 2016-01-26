@@ -1,5 +1,7 @@
 var _ = require('underscore'),
     squish = require('object-squish'),
+    queryString = require('query-string'),
+    setQuery = require('set-query-string'),
     Input = require('react-bootstrap').Input,
     Dropdown = require('react-bootstrap').Dropdown,
     MenuItem = require('react-bootstrap').MenuItem;
@@ -7,7 +9,7 @@ var _ = require('underscore'),
 var FilterBar = {
   getDefaultProps() {
     return {
-      "query": { "search" : ""}
+      "query": queryString.parse(location.search)
     }
   },
 
@@ -20,8 +22,19 @@ var FilterBar = {
     this.props.changeFilter(this.props.query);
   },
 
+  componentWillReceiveProps() {
+    setQuery(this.props.query, {clear: true});
+  },
+
   searchChange(event) {
-    this.props.query['search'] = event.target.value;
+    var value = event.target.value;
+
+    if(value == '') {
+      delete this.props.query['search']
+    } else {
+      this.props.query['search'] = value;
+    }
+
     this.props.changeFilter(this.props.query);
   },
 
@@ -44,9 +57,12 @@ var FilterBar = {
   },
 
   _renderSearchBar() {
+    var searchValue = this.props.query.search;
+
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
         <Input type="text"
+               value={searchValue}
                name="search"
                placeholder="Search..."
                className="form-control"
@@ -56,6 +72,7 @@ var FilterBar = {
   },
 
   _renderFilterSearchBar() {
+    var searchValue = this.props.query.search;
     var filterDropdown = (
       <div className="input-group-btn">
         <Dropdown id="filter-dropdown">
@@ -86,6 +103,7 @@ var FilterBar = {
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
         <Input type="text"
+               value={searchValue}
                name="search"
                placeholder="Search..."
                className="form-control"
