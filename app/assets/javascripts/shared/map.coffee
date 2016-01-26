@@ -16,7 +16,7 @@ UT.Map = (center, zoom, options = {}, editable = false) ->
       }
     })
 
-  map = L.map('map', options)
+  map = L.map('_map', options)
 
   googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,

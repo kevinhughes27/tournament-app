@@ -2,6 +2,7 @@ require 'csv'
 
 class Admin::FieldsController < AdminController
   include LoadTournamentWithMap
+  TAB_KEY = 'fieldsTab'
 
   def index
     @fields = @tournament.fields

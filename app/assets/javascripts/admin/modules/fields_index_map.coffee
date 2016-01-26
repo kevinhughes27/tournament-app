@@ -6,7 +6,7 @@ class Admin.FieldsIndexMap
     @_drawFields()
 
     $('body').on 'shown.bs.tab', (e) =>
-      if e.target.hash == '#map-tab'
+      if e.target.hash == '#map'
         @map.invalidateSize(false)
 
   _drawFields: ->
