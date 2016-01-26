@@ -51,7 +51,14 @@ module StickyTabsHelper
     end
 
     def active_tab?(name)
-      request.cookies[key] == "##{name.underscore}"
+      if request.cookies[key].present?
+        request.cookies[key] == "##{name.underscore}"
+      elsif @active_set && @active_set != name
+        false
+      else
+        @active_set = name
+        true
+      end
     end
   end
 end
