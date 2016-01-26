@@ -53,6 +53,7 @@ module StickyTabsHelper
     def active_tab?(name)
       if request.cookies[key].present?
         request.cookies[key] == "##{name.parameterize.underscore}"
+      # else set the first tab to active
       elsif @active_set && @active_set != name
         false
       else
