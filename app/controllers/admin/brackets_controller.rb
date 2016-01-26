@@ -1,4 +1,5 @@
 class Admin::BracketsController < AdminController
+  TAB_KEY = 'bracketsTab'
 
   def index
     @teams = @tournament.teams
