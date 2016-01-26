@@ -42,5 +42,9 @@ Admin.Flash = Flash =
   hide: ->
     $node = $('#flash')
     $node.find('b').text('')
-    @_animationSpeed($node, 3)
+    @_animationSpeed($node, 1)
     $node.addClass('animated slideOutDown')
+
+    delay 500, ->
+      $node.addClass('hide')
+      $node.removeClass('animated bounceInUp slideOutDown')
