@@ -8,9 +8,12 @@
       <span class="logo-lg">Ultimate Tournament</span>
     </a>
 
-    <nav class="navbar navbar-static-top" role="navigation" >
+    <nav class="navbar navbar-static-top" role="navigation">
       <div class="container-fluid">
-        <%= yield :top_bar_left %>
+        <div class="navbar-brand page-title">
+          <%= yield :top_bar_left %>
+        </div>
+
         <div class="navbar-form navbar-right">
           <%= yield :top_bar_right %>
         </div>
