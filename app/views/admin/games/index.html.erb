@@ -3,7 +3,7 @@
   Games
 <% end %>
 
-<%= admin_content do %>
+<%= content_for :content do %>
   <%= react_component('Admin.GamesIndex', {
     games: render(template: 'admin/games/games.json.jbuilder'),
     searchColumns: [

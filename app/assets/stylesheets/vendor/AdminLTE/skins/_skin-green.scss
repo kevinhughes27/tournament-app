@@ -12,11 +12,11 @@
   .main-header {
     box-shadow: 0 1px 0 0 rgba(0,0,0,0.07);
     .navbar {
-      @include navbar-variant($white, $black);
+      @include navbar-variant($green, $white);
       .page-title {
-        color: $black;
+        color: $white;
         a {
-          color: $black;
+          color: $white;
         }
       }
       @media(max-width: $screen-header-collapse) {

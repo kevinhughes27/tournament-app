@@ -3,7 +3,7 @@
   Brackets
 <% end %>
 
-<%= admin_content do %>
+<%= content_for :content do %>
   <div class="content" define='{bracketEditor: new Admin.BracketEditor()}' context='bracketEditor'>
     <%= tabs(key: Admin::BracketsController::TAB_KEY) do |t| %>
       <%= t.nav(@teams.map(&:division).uniq) %>
