@@ -3,7 +3,7 @@
   Settings
 <% end %>
 
-<%= admin_content do %>
+<%= content_for :content do %>
   <%= form_for @tournament, url: tournament_admin_settings_path(@tournament), method: :put do |form| %>
     <%= render 'form', form: form %>
   <% end %>

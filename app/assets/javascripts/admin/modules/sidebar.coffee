@@ -27,7 +27,7 @@ class Sidebar
       "sidebar-collapse"
 
   _smallScreen: ->
-    $(window).width() <= 768
+    $(window).width() < 767
 
 instance = new Sidebar
 

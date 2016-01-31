@@ -7,7 +7,7 @@
   <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.new_team').submit()" %>
 <% end %>
 
-<%= admin_content do %>
+<%= content_for :content do %>
   <%= form_for [@tournament, :admin, @team] do |form| %>
     <%= render 'form', form: form, team: @team %>
   <% end %>

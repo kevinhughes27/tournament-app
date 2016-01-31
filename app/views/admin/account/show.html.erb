@@ -7,7 +7,7 @@
   <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.edit_user').submit()" %>
 <% end %>
 
-<%= admin_content do %>
+<%= content_for :content do %>
   <%= form_for @user, url: tournament_admin_account_path(@tournament), method: :put do |form| %>
     <%= render 'admin/errors', object: @user %>
 
