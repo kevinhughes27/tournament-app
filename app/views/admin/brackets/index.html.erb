@@ -3,29 +3,23 @@
   Brackets
 <% end %>
 
-<%= ui_box do %>
-  <div class="content" define='{bracketEditor: new Admin.BracketEditor()}' context='bracketEditor'>
-    <%= tabs(key: Admin::BracketsController::TAB_KEY) do |t| %>
-      <%= t.nav(@teams.map(&:division).uniq) %>
-      <%= t.panes do %>
-        <% team_groups = @teams.group_by{ |t| t.division } %>
-        <% team_groups.each do |(division, teams)| %>
-          <%= t.pane(division) do %>
+<div define='{bracketEditor: new Admin.BracketEditor()}' context='bracketEditor'>
+  <%= tabs(key: Admin::BracketsController::TAB_KEY) do |t| %>
+    <%= t.nav(@teams.map(&:division).uniq) %>
+    <%= t.panes do %>
+      <% team_groups = @teams.group_by{ |t| t.division } %>
+      <% team_groups.each do |(division, teams)| %>
+        <%= t.pane(division) do %>
+          <div class="row">
             <div class="col-md-3">
               <%= render 'seeding', division: division, teams: teams %>
             </div>
             <div class="col-md-5 col-md-offset-1">
               <%= render 'bracket', num_teams: teams.size, bracket: @brackets.detect{ |b| b.division == division } %>
             </div>
-          <% end %>
+          </div>
         <% end %>
       <% end %>
     <% end %>
-  <div>
-<% end %>
-
-<script>
-  $( document ).ready(function() {
-    stickyTabs = new Admin.StickyTabs('<%= Admin::BracketsController::TAB_KEY %>');
-  });
-</script>
+  <% end %>
+</div>

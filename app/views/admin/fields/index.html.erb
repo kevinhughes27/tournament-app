@@ -13,31 +13,27 @@
 
 <%= render 'import_csv_modal' %>
 
-<%= ui_box do %>
-  <%= tabs(key: Admin::FieldsController::TAB_KEY) do |t| %>
-    <%= t.nav(['List', 'Map']) %>
-    <%= t.panes do %>
+<%= tabs(key: Admin::FieldsController::TAB_KEY) do |t| %>
+  <%= t.nav(['List', 'Map']) %>
+  <%= t.panes do %>
 
-      <%= t.pane('List') do %>
-        <%= react_component('Admin.FieldsIndex', {
-          fields: render(template: 'admin/fields/fields.json.jbuilder'),
-          searchColumns: ["name"],
-          filters: []
-        }) %>
-      <% end %>
-
-      <%= t.pane('Map') do %>
-        <div id="_map" style="width:100%; height: 640px;"></div>
-      <% end %>
-
+    <%= t.pane('List') do %>
+      <%= react_component('Admin.FieldsIndex', {
+        fields: render(template: 'admin/fields/fields.json.jbuilder'),
+        searchColumns: ["name"],
+        filters: []
+      }) %>
     <% end %>
+
+    <%= t.pane('Map') do %>
+      <div id="_map" style="width:100%; height: 640px;"></div>
+    <% end %>
+
   <% end %>
 <% end %>
 
 <script>
   $( document ).ready(function() {
-    stickyTabs = new Admin.StickyTabs('<%= Admin::FieldsController::TAB_KEY %>');
-
     fieldsIndexMap = new Admin.FieldsIndexMap(
       <%= @map.lat %>,
       <%= @map.long %>,

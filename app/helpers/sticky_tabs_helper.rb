@@ -13,12 +13,10 @@ module StickyTabsHelper
     end
 
     def nav(tabs)
-      content_tag(:div, class: "nav-tabs-custom") do
-        content_tag(:ul, class: "nav nav-tabs") do
-          output = ''.html_safe
-          tabs.each { |t| output += tab_nav(t) }
-          output
-        end
+      content_tag(:ul, class: "nav nav-tabs") do
+        output = ''.html_safe
+        tabs.each { |t| output += tab_nav(t) }
+        output
       end
     end
 
@@ -33,7 +31,9 @@ module StickyTabsHelper
     end
 
     def render(&block)
-      capture(self, &block)
+      content_tag(:div, class: "nav-tabs-custom", define: "new Admin.StickyTabs('#{key}')") do
+        capture(self, &block)
+      end
     end
 
     private
