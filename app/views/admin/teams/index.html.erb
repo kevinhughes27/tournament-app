@@ -12,7 +12,7 @@
 
 <%= render 'import_csv_modal' %>
 
-<%= content_for :content do %>
+<%= ui_box do %>
   <%= react_component('Admin.TeamsIndex', {
     teams: render(template: 'admin/teams/teams.json.jbuilder'),
     searchColumns: [

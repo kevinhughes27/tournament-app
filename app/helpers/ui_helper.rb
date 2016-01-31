@@ -39,4 +39,10 @@ module UiHelper
     options.reverse_merge!(builder: UiHelper::UiFormBuilder)
     super(record_name, record_object, options, &block)
   end
+
+  def ui_box
+    content_tag(:div, class: 'box box-solid') do
+      content_tag(:div, class: 'box-body') { yield }
+    end
+  end
 end

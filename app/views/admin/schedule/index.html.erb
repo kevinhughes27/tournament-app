@@ -17,7 +17,7 @@
   context='scheduleEditor'>
 
   <%= form_tag tournament_admin_schedule_path(@tournament), "bind-event-submit" => "saveSchedule(this)" do %>
-    <div class="box" style="overflow-x: scroll;">
+    <div class="box box-solid" style="overflow-x: scroll;">
 
       <div class="box-header">
         <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>

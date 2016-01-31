@@ -13,7 +13,7 @@
 
 <%= render 'import_csv_modal' %>
 
-<%= content_for :content do %>
+<%= ui_box do %>
   <%= tabs(key: Admin::FieldsController::TAB_KEY) do |t| %>
     <%= t.nav(['List', 'Map']) %>
     <%= t.panes do %>
