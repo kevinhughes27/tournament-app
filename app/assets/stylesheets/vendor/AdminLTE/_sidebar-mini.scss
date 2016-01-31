@@ -78,7 +78,6 @@
       //Make the sidebar links, menus, labels, badges
       //and angle icons disappear
       .main-sidebar .user-panel > .info,
-      .sidebar-form,
       .sidebar-menu > li > a > span,
       .sidebar-menu > li > .treeview-menu,
       .sidebar-menu >li > a > .pull-right,
@@ -120,7 +119,6 @@
 .sidebar-menu:hover {
   overflow: visible;
 }
-.sidebar-form,
 .sidebar-menu > li.header {
   overflow: hidden;
   text-overflow: clip;

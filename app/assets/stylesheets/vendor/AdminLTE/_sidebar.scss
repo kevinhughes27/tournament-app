@@ -31,17 +31,7 @@
   }
 }
 
-.sidebar {
-  padding-bottom: 10px;
-}
-// remove border from form
-.sidebar-form {
-  input:focus {
-    border-color: transparent!important;
-  }
-}
-
-//Navbar toggle button
+//Toggle button
 .sidebar-toggle {
   float: left;
   background-color: transparent;
