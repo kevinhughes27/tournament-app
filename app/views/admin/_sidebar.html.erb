@@ -38,7 +38,7 @@
           </a>
           <ul class="treeview-menu">
             <%= sidebar_link nil, "Tournament", tournament_admin_settings_path(@tournament) %>
-            <%= sidebar_link nil, "Map", tournament_admin_map_path(@tournament) %>
+            <%= sidebar_link nil, "Map", tournament_admin_map_path(@tournament), 'data-no-turbolink' => true %>
           </ul>
         </li>
 
