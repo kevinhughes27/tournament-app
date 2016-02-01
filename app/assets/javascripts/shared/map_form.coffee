@@ -14,8 +14,12 @@ class UT.MapForm
 
     @map.addControl(@_searchControl())
 
-    @map.on "moveend", @_updateMap
-    @map.on "zoomend", @_updateMap
+    @map.on "drag", @_updateForm
+    @map.on "zoom", @_updateForm
+
+    $(@LAT_FIELD).on 'change', @_updateMap
+    $(@LONG_FIELD).on 'change', @_updateMap
+    $(@ZOOM_FIELD).on 'change', @_updateMap
 
   _searchControl: ->
     new L.Control.Search({
@@ -32,10 +36,16 @@ class UT.MapForm
       minLength: 2
     })
 
-  _updateMap: =>
+  _updateForm: =>
     @center = @map.getCenter()
     @zoom = @map.getZoom()
 
     $(@LAT_FIELD).val(@center.lat)
     $(@LONG_FIELD).val(@center.lng)
     $(@ZOOM_FIELD).val(@zoom)
+
+  _updateMap: =>
+    lat = $(@LAT_FIELD).val()
+    lng = $(@LONG_FIELD).val()
+    zoom = $(@ZOOM_FIELD).val()
+    @map.setView([lat, lng], zoom)
