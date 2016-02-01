@@ -1,5 +1,4 @@
 class Admin::SettingsController < AdminController
-  include LoadTournamentWithMap
 
   def show
   end
@@ -20,9 +19,7 @@ class Admin::SettingsController < AdminController
     params.require(:tournament).permit(
       :name,
       :handle,
-      :description,
-      :time_cap,
-      map_attributes: [:lat, :long, :zoom]
+      :time_cap
     )
   end
 end

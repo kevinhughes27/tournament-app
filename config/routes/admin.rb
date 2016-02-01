@@ -33,6 +33,9 @@ namespace :admin do
   get '/settings', to: 'settings#show'
   put '/settings', to: 'settings#update'
 
+  get '/map', to: 'map#show'
+  put '/map', to: 'map#update'
+
   get '/account', to: 'account#show'
   put '/account', to: 'account#update'
 end

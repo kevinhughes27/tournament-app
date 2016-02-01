@@ -2,12 +2,17 @@
 
 <%= form.ui_text_field :name %>
 
-<div id="_map" style="width: 100%; height: 640px;"></div>
+<div class="row">
+  <div class="col-md-12">
+    <div id="_map" style="width: 100%; height: 640px;"></div>
 
-<%= form.hidden_field :lat %>
-<%= form.hidden_field :long %>
-<%= form.hidden_field :geo_json %>
+    <%= form.hidden_field :lat %>
+    <%= form.hidden_field :long %>
+    <%= form.hidden_field :geo_json %>
+  </div>
+</div>
 
+<hr>
 <%= form.ui_save_button %>
 
 <script>

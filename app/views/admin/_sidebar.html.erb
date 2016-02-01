@@ -28,14 +28,24 @@
         <%= sidebar_link "fa fa-users", "Teams", tournament_admin_teams_path(@tournament) %>
         <%= sidebar_link "fa fa-sitemap", "Brackets", tournament_admin_brackets_path(@tournament) %>
         <%= sidebar_link "fa fa-calendar", "Schedule", tournament_admin_schedule_path(@tournament) %>
-        <%= sidebar_link "fa fa-cogs", "Settings", tournament_admin_settings_path(@tournament) %>
-
-        <li class="header">Operation</li>
         <%= sidebar_link "fa fa-list", "Games", tournament_admin_games_path(@tournament) %>
+
+        <li class="treeview <%= sidebar_menu_class('settings') %>" define="new Admin.TreeMenu('settings', this)">
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>Settings</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <%= sidebar_link nil, "Tournament", tournament_admin_settings_path(@tournament) %>
+            <%= sidebar_link nil, "Map", tournament_admin_map_path(@tournament), 'data-no-turbolink' => true %>
+          </ul>
+        </li>
+
         <li>
           <%= link_to @tournament.app_link, target: '_blank' do %>
             <i class="fa fa-external-link-square"></i>
-            <span>App</span>
+            <span>Player App</span>
           <% end %>
         </li>
       </ul>
