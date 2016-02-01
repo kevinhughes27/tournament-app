@@ -1,20 +1,21 @@
 <% content_for :top_bar_left do %>
   <i class="fa fa-cogs"></i>
-  Settings
+  Settings / Tournament
 <% end %>
+
+<%= content_for :top_bar_right do %>
+  <%= button_tag 'Save', class: "btn btn-primary js-btn-loadable", onclick: "$('.edit_tournament').submit()" %>
+<% end %>
+
 
 <%= ui_box do %>
-  <%= form_for @tournament, url: tournament_admin_settings_path(@tournament), method: :put do |form| %>
-    <%= render 'form', form: form %>
+  <%= form_for @tournament, url: tournament_admin_settings_path(@tournament), method: :put, remote: true do |form| %>
+    <%= render 'admin/errors', object: @tournament %>
+
+    <%= form.ui_text_field :name %>
+    <%= form.ui_text_field :handle %>
+    <%= form.ui_number_field :time_cap %>
+
+    <%= form.ui_save_button %>
   <% end %>
 <% end %>
-
-<script>
-  $( document ).ready(function() {
-    settings = new UT.MapForm(
-      <%= @map.lat %>,
-      <%= @map.long %>,
-      <%= @map.zoom %>
-    );
-  });
-</script>

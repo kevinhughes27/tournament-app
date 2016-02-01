@@ -7,6 +7,10 @@ module SidebarHelper
     'display: none;' if sidebar_class.present?
   end
 
+  def sidebar_menu_class(name)
+    'active' if request.cookies['sidebar-menu'] == name
+  end
+
   def sidebar_link(icon, text, path)
     content_tag :li do
       content_tag :a, href: path do

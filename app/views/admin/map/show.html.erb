@@ -1,0 +1,41 @@
+<% content_for :top_bar_left do %>
+  <i class="fa fa-cogs"></i>
+  Settings / Map
+<% end %>
+
+<%= content_for :top_bar_right do %>
+  <%= button_tag 'Save', class: "btn btn-primary js-btn-loadable", onclick: "$('.edit_tournament').submit()" %>
+<% end %>
+
+<%= ui_box do %>
+  <%= form_for @tournament, url: tournament_admin_map_path(@tournament), method: :put, remote: true do |form| %>
+    <p>Find your fields on the map below. Whatever you see on this map will be what is shown whenever someone asks for  the location of your tournament.</p>
+    <p>Just scroll and zoom, we'll do the rest.</p>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div id="_map" style="width: 100%; height: 640px;" data-turbolinks-permanent></div>
+      </div>
+
+      <div class="col-md-6">
+        <%= form.fields_for :map do |f| %>
+          <%= f.ui_text_field :lat %>
+          <%= f.ui_text_field :long %>
+          <%= f.ui_text_field :zoom %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= form.ui_save_button %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript" data-turbolinks-eval=false>
+  $( document ).ready(function() {
+    settings = new UT.MapForm(
+      <%= @map.lat %>,
+      <%= @map.long %>,
+      <%= @map.zoom %>
+    );
+  });
+</script>

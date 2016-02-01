@@ -1,12 +1,12 @@
 class Admin.TreeMenu
 
-  constructor: (node) ->
+  constructor: (@name, node) ->
     @$node = $(node)
     @$treeNode = @$node.children('.treeview-menu')
     @$parentNode = @$node.parents('ul.sidebar-menu')
-    @animationSpeed = 500
+    @animationSpeed = 350
 
-    @$node.on 'click', @toggle
+    @$node.children('a').on 'click', @toggle
 
   toggle: (e) =>
     if @$treeNode.is(':visible')
@@ -16,15 +16,15 @@ class Admin.TreeMenu
       @openMenu()
 
   openMenu: ->
+    $.cookie('sidebar-menu', @name, {path: '/'})
     @$treeNode.slideDown @animationSpeed, =>
-      @$treeNode.addClass('menu-open')
       @$parentNode.find('li.active').removeClass('active')
       @$node.addClass('active')
 
   closeMenu: ->
-    @$treeNode.slideUp @animationSpeed, => @$treeNode.removeClass('menu-open')
-    @$node.removeClass('active')
+    $.removeCookie('sidebar-menu', {path: '/' })
+    @$treeNode.slideUp @animationSpeed, =>
+      @$node.removeClass('active')
 
   closeOtherMenus: ->
-    ul = @$parentNode.find('ul:visible').slideUp(@animationSpeed)
-    ul.removeClass('menu-open')
+    @$parentNode.find('ul:visible').slideUp(@animationSpeed)
