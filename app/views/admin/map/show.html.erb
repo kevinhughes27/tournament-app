@@ -4,7 +4,7 @@
 <% end %>
 
 <%= content_for :top_bar_right do %>
-  <%= button_tag 'Save', class: "btn btn-primary js-btn-loadable", onclick: "$('.edit_tournament').submit()" %>
+  <%= ui_save_button_tag('.edit_tournament') %>
 <% end %>
 
 <%= ui_box do %>

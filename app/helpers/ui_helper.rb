@@ -40,6 +40,10 @@ module UiHelper
     super(record_name, record_object, options, &block)
   end
 
+  def ui_save_button_tag(form_id)
+    button_tag 'Save', class: "btn btn-primary js-btn-loadable", onclick: "$('#{form_id}').submit()"
+  end
+
   def ui_box
     content_tag(:div, class: 'box box-solid') do
       content_tag(:div, class: 'box-body') { yield }

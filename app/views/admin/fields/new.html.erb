@@ -4,7 +4,7 @@
 <% end %>
 
 <%= content_for :top_bar_right do %>
-  <%= button_tag 'Save', class: "btn btn-primary", onclick: "$('.new_field').submit()" %>
+  <%= ui_save_button_tag('.new_field') %>
 <% end %>
 
 <%= ui_box do %>
