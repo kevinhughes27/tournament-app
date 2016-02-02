@@ -8,7 +8,7 @@
 <% end %>
 
 <%= ui_box do %>
-  <%= form_for @user, url: tournament_admin_account_path(@tournament), method: :put do |form| %>
+  <%= form_for @user, url: tournament_admin_account_path(@tournament), method: :put, remote: true do |form| %>
     <%= render 'admin/errors', object: @user %>
 
     <%= form.ui_text_field :email %>
