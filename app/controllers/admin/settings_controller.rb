@@ -6,11 +6,11 @@ class Admin::SettingsController < AdminController
   def update
     if @tournament.update(tournament_params)
       flash[:notice] = 'Settings saved.'
+      redirect_to tournament_admin_settings_path(@tournament)
     else
       flash[:error] = 'Error saving Settings.'
+      render :show
     end
-
-    redirect_to tournament_admin_settings_path(@tournament)
   end
 
   private

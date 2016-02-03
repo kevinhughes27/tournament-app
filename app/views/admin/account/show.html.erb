@@ -7,9 +7,10 @@
   <%= ui_save_button_tag('.edit_user') %>
 <% end %>
 
+<%= render 'admin/errors', object: @user %>
+
 <%= ui_box do %>
-  <%= form_for @user, url: tournament_admin_account_path(@tournament), method: :put do |form| %>
-    <%= render 'admin/errors', object: @user %>
+  <%= form_for @user, url: tournament_admin_account_path(@tournament), method: :put, remote: true do |form| %>
 
     <%= form.ui_text_field :email %>
     <%= form.ui_password_field :password %>
