@@ -1,6 +1,6 @@
 <% content_for :top_bar_left do %>
   <i class="fa fa-users"></i>
-  <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %> / <%= @team.name %>
+  <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %> / <%= @team.name.present? ? @team.name : 'Edit' %>
 <% end %>
 
 <%= content_for :top_bar_right do %>
