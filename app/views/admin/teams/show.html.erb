@@ -7,6 +7,8 @@
   <%= ui_save_button_tag('.edit_team') %>
 <% end %>
 
+<%= render 'admin/errors', object: @team %>
+
 <%= ui_box do %>
   <%= form_for [@tournament, :admin, @team], remote: true do |form| %>
     <%= render 'form', form: form, team: @team %>
