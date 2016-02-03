@@ -30,7 +30,7 @@
         <%= sidebar_link "fa fa-calendar", "Schedule", tournament_admin_schedule_path(@tournament) %>
         <%= sidebar_link "fa fa-list", "Games", tournament_admin_games_path(@tournament) %>
 
-        <li class="treeview <%= sidebar_menu_class('settings') %>" define="new Admin.TreeMenu('settings', this)">
+        <li class="treeview <%= sidebar_menu_class('settings') %>" define="{menu: new Admin.TreeMenu('settings', this)}">
           <a href="#">
             <i class="fa fa-cogs"></i>
             <span>Settings</span>
