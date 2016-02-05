@@ -7,10 +7,24 @@
   <%= link_to 'New', new_tournament_admin_division_path(@tournament), class: "btn btn-primary" %>
 <% end %>
 
-<%= ui_box do %>
-  <%= react_component('Admin.DivisionsIndex', {
-    divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
-    searchColumns: ["name"],
-    filters: []
-  }) %>
+<% if @divisions.present? %>
+  <%= ui_box do %>
+    <%= react_component('Admin.DivisionsIndex', {
+      divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
+      searchColumns: ["name"],
+      filters: []
+    }) %>
+  <% end %>
+<% else %>
+  <div class="row text-center">
+    <h3>Manage your Divisions</h3>
+    <br>
+    <%= image_tag 'fussball-800px.png', class: 'img-responsive blank-slate-img' %>
+    <%= link_to 'Add Division', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href='#'><i class="fa fa-question-circle"></i> Learn more about divisions</a>
+  </div>
 <% end %>
