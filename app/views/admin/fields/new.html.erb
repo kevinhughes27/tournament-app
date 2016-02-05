@@ -13,4 +13,5 @@
   <%= form_for [@tournament, :admin, @field], remote: true do |form| %>
     <%= render 'form', form: form, field: @field %>
   <% end %>
+  <%= link_to "Cancel", tournament_admin_fields_path(@tournament), class: 'btn btn-default' %>
 <% end %>
