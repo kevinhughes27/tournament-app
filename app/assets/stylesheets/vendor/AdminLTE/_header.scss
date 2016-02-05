@@ -43,32 +43,8 @@
   .navbar-custom-menu,
   .navbar-right {
     float: right;
-    @media (max-width: $screen-sm-max) {
-       a {
-        color: inherit;
-        background: transparent;
-      }
-    }
-  }
-  .navbar-right {
-    @media (max-width: $screen-header-collapse) {
-      float: none;
-      .navbar-collapse & {
-        margin: 7.5px -15px;
-      }
-      > li {
-        color: inherit;
-        border: 0;
-      }
-    }
-  }
-  //Navbar User Menu
-  .navbar .nav > li.user > a {
-    > .fa,
-    > .glyphicon,
-    > .ion {
-      margin-right: 5px;
-    }
+    padding-top: 7px;
+    padding-right: 5px;
   }
 
   //Labels in navbar

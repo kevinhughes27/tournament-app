@@ -7,14 +7,12 @@
     </a>
 
     <nav class="navbar navbar-static-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-brand page-title">
-          <%= yield :top_bar_left %>
-        </div>
+      <div class="navbar-brand page-title">
+        <%= yield :top_bar_left %>
+      </div>
 
-        <div class="navbar-form navbar-right">
-          <%= yield :top_bar_right %>
-        </div>
+      <div class="navbar-custom-menu">
+        <%= yield :top_bar_right %>
       </div>
     </nav>
   </header>

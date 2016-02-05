@@ -320,30 +320,3 @@ $-webkit-keyframes flipInX {
   }
 }
 */
-
-/* Fix dropdown menu in navbars */
-.navbar-custom-menu > .navbar-nav {
-    > li {
-      position: relative;
-      > .dropdown-menu {
-        position: absolute;
-        right: 0;
-        left: auto;
-      }
-    }
-  }
-@media (max-width: $screen-sm-max) {
-  .navbar-custom-menu > .navbar-nav {
-    float: right;
-    > li {
-      position: static;
-      > .dropdown-menu {
-        position: absolute;
-        right: 5%;
-        left: auto;
-        border: 1px solid #ddd;
-        background: #fff;
-      }
-    }
-  }
-}
