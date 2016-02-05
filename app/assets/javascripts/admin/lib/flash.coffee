@@ -19,16 +19,20 @@ Admin.Flash = Flash =
     $node = $('#flash')
     $node.find('b').text(message)
     if isError then $node.addClass('error') else $node.removeClass('error')
-    @_center($node)
+    @_position($node)
 
     @_animationSpeed($node, 0.5)
     $node.addClass('animated bounceInUp')
     $node.removeClass('hide')
     @timeout = setTimeout Flash.hide.bind(@), duration
 
-  _center: ($node) ->
+  _position: ($node) ->
     width = $('body')[0].clientWidth
-    sidebarWidth = if $('body').hasClass('sidebar-collapse') then 50 else 220
+
+    sidebarWidth = 0
+    if width > 767 || $('body').hasClass('sidebar-open')
+      sidebarWidth = $('.main-sidebar')[0].clientWidth
+
     $node.css('left', "#{sidebarWidth}px");
     $node.css('width', "#{width - sidebarWidth}px")
 
