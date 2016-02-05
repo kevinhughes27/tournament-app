@@ -1,12 +1,14 @@
 class Sidebar
 
   toggle: ->
-    klass = @_class()
-    if @_open(klass) then @collapse(klass) else @expand(klass)
+    if @_smallScreen()
+      klass = "sidebar-open"
+      if @_open(klass) then @close(klass) else @open(klass)
+    else
+      klass = "sidebar-collapse"
+      if @_expanded(klass) then @collapse(klass) else @expand(klass)
 
-  _open: (klass) ->
-    !$("body").hasClass(klass)
-
+  # desktop and tablet
   expand: (klass) ->
     $("body").removeClass(klass)
     $.removeCookie('sidebar', {path: '/' })
@@ -20,11 +22,22 @@ class Sidebar
     $('.user-panel').find('.fa-chevron-up').hide()
     $.cookie("sidebar", klass, {path: '/'})
 
-  _class: ->
-    if @_smallScreen()
-      "sidebar-open"
-    else
-      "sidebar-collapse"
+  _expanded: (klass) ->
+    !$('body').hasClass(klass)
+
+  # mobile
+  open: (klass) ->
+    $('.user-panel').find('.info').show()
+    $('.user-panel').find('.fa-chevron-up').show()
+    $('body').addClass(klass)
+    $.cookie("sidebar", klass, {path: '/'})
+
+  close: (klass) ->
+    $("body").removeClass(klass)
+    $.removeCookie('sidebar', {path: '/' })
+
+  _open: (klass) ->
+    $('body').hasClass(klass)
 
   _smallScreen: ->
     $(window).width() < 767
