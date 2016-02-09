@@ -1,7 +1,7 @@
 <%= form.ui_text_field :name %>
 <%= form.ui_text_field :email %>
 <%= form.ui_text_field :sms %>
-<%= form.ui_text_field :division %>
+<%= form.ui_select_field :division_id, 'Division', division_options(@tournament, team) %>
 <%= form.ui_number_field :seed %>
 <hr>
 <%= form.ui_save_button %>

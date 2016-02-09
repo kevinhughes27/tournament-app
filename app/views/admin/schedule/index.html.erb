@@ -20,10 +20,10 @@
     <div class="box box-solid" style="overflow-x: scroll;">
 
       <div class="box-header">
-        <% @games.group_by{ |g| g.bracket }.each do |bracket, games| %>
+        <% @games.group_by{ |g| g.division }.each do |division, games| %>
           <div class="col-md-2">
             <h3>
-              <i class="fa fa-stop" style="<%= color_for_bracket(bracket) %>"></i> <%= bracket.division %>
+              <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
             </h3>
             <% games.each do |game| %>
               <% if game.unassigned? %>

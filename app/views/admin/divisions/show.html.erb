@@ -1,0 +1,38 @@
+<% content_for :top_bar_left do %>
+  <i class="fa fa-sitemap"></i>
+  <%= link_to 'Divisions', tournament_admin_divisions_path(@tournament) %> / <%= @division.name.present? ? @division.name : 'Edit' %>
+<% end %>
+
+<%= content_for :top_bar_right do %>
+  <%= ui_save_button_tag('.edit_division') %>
+<% end %>
+
+<%= render 'admin/errors', object: @division %>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= ui_box do %>
+      <%= form_for [@tournament, :admin, @division], remote: true do |form| %>
+        <%= render 'form', form: form, division: @division %>
+      <% end %>
+      <%= button_to "delete", [@tournament, :admin, @division], method: :delete, class: 'btn btn-danger' %>
+    <% end %>
+
+    <%= ui_box do %>
+      <div class="col-md-6">
+        Seed your division
+      </div>
+
+      <div class="pull-right">
+        <%= link_to 'Seed', seed_tournament_admin_division_path(@tournament, @division),
+          class: 'btn btn-primary js-btn-loadable', method: :put %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-4" id="seeding">
+    <%= ui_box do %>
+      <%= render 'seeding', division: @division %>
+    <% end %>
+  </div>
+</div>

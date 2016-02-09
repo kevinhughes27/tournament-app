@@ -2,23 +2,42 @@ var React = require('react'),
     Griddle = require('griddle-react'),
     FilterBar = require('../mixins/filter_bar'),
     FilterFunction = require('../mixins/filter_function'),
-    TeamsStore = require('../stores/teams_store');
+    DivisionsStore = require('../stores/divisions_store');
 
 var columns = [
   "name",
-  "email",
-  "sms",
-  "division",
-  "seed"
+  "bracket",
+  "seeded"
 ];
 
 var LinkCell = React.createClass({
   render() {
-    var team = this.props.rowData;
-    var url = "teams/" + team.id;
+    var division = this.props.rowData;
+    var url = "divisions/" + division.id;
     return <a href={url}>{this.props.data}</a>;
   }
 });
+
+var SeededCell = React.createClass({
+  render() {
+    var division = this.props.rowData;
+    var iconClass;
+    var iconColor;
+
+    if(division.seeded) {
+      iconClass = "fa fa-check";
+      iconColor = "green";
+    } else {
+      iconClass = "fa fa-exclamation-circle";
+      iconColor = 'orange';
+    };
+
+    return (
+      <i className={iconClass} style={{color: iconColor}}></i>
+    );
+  }
+});
+
 
 var columnsMeta = [
   {
@@ -29,61 +48,48 @@ var columnsMeta = [
     customComponent: LinkCell
   },
   {
-    columnName: "email",
-    displayName: "Email",
+    columnName: "bracket",
+    displayName: "Bracket",
     order: 2,
-    sortable: false
   },
   {
-    columnName: "sms",
-    displayName: "SMS",
+    columnName: "seeded",
+    displayName: "Seeded",
     order: 3,
-    sortable: false
-  },
-  {
-    columnName: "division",
-    displayName: "Division",
-    cssClassName: "table-link",
-    order: 4
-  },
-  {
-    columnName: "seed",
-    displayName: "Seed",
-    cssClassName: "table-link",
-    order: 5
-  },
+    customComponent: SeededCell
+  }
 ];
 
-var TeamsIndex = React.createClass({
+var DivisionsIndex = React.createClass({
   mixins: [FilterFunction],
 
   getInitialState() {
-    var teams = JSON.parse(this.props.teams);
-    TeamsStore.init(teams);
+    var divisions = JSON.parse(this.props.divisions);
+    DivisionsStore.init(divisions);
 
     this.searchColumns = this.props.searchColumns;
 
-    this.teamsFilter = React.createClass({
+    this.divisionsFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
       render() { return this.renderBar() }
     });
 
     return {
-      teams: TeamsStore.all(),
+      divisions: DivisionsStore.all(),
     };
   },
 
   render() {
-    var teams = this.state.teams;
+    var divisions = this.state.divisions;
 
     return (
       <Griddle
-        results={teams}
+        results={divisions}
         tableClassName="table table-striped table-hover"
         columns={columns}
         columnMetadata={columnsMeta}
-        resultsPerPage={teams.length}
+        resultsPerPage={divisions.length}
         showPager={false}
         useGriddleStyles={false}
         sortAscendingClassName="sort asc"
@@ -94,10 +100,10 @@ var TeamsIndex = React.createClass({
         useCustomFilterer={true}
         customFilterer={this.filterFunction}
         useCustomFilterComponent={true}
-        customFilterComponent={this.teamsFilter}
+        customFilterComponent={this.divisionsFilter}
       />
     );
   }
 });
 
-module.exports = TeamsIndex;
+module.exports = DivisionsIndex;

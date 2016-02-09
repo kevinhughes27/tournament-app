@@ -1,6 +1,10 @@
-class Bracket < ActiveRecord::Base
+class Division < ActiveRecord::Base
   belongs_to :tournament
+  has_many :teams, dependent: :nullify #test me!
   has_many :games, dependent: :destroy
+
+  validates_presence_of :tournament, :name
+  validates_uniqueness_of :name, scope: :tournament
 
   after_create :create_games
   after_update :update_games
@@ -25,7 +29,7 @@ class Bracket < ActiveRecord::Base
   # can't sort here for re-seed
   def seed(teams, round = 1)
     game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
-    games = Game.where(bracket_id: id, bracket_uid: game_uids)
+    games = Game.where(division_id: id, bracket_uid: game_uids)
 
     raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
 
@@ -49,7 +53,7 @@ class Bracket < ActiveRecord::Base
 
   def reset(round = 1)
     game_uids = template[:games].map{ |g| g[:uid] if g[:round] > round }.compact
-    games = Game.where(bracket_id: id, bracket_uid: game_uids)
+    games = Game.where(division_id: id, bracket_uid: game_uids)
 
     games.each do |game|
       game.home = nil

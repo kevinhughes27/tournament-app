@@ -1,0 +1,5 @@
+<%= form.ui_text_field :name %>
+<% options = bracket_options(8) %>
+<%= form.select :bracket_type, options, {}, class: 'form-control' %>
+<hr>
+<%= form.ui_save_button %>

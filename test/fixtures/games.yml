@@ -1,6 +1,6 @@
 swift_goose:
   tournament: noborders
-  bracket: open
+  division: open
   bracket_uid: 'q1'
   bracket_top: '1'
   bracket_bottom: '8'
@@ -14,7 +14,7 @@ swift_goose:
 
 swift_goose_no_score:
   tournament: noborders
-  bracket: open
+  division: open
   bracket_uid: 'q1'
   bracket_top: '1'
   bracket_bottom: '8'
@@ -26,7 +26,7 @@ swift_goose_no_score:
 
 pheonix_mavericks:
   tournament: noborders
-  bracket: open
+  division: open
   bracket_uid: 'q2'
   bracket_top: '2'
   bracket_bottom: '7'
@@ -40,7 +40,7 @@ pheonix_mavericks:
 
 semi_final:
   tournament: noborders
-  bracket: women
+  division: women
   bracket_uid: 's1'
   bracket_top: 'wq1'
   bracket_bottom: 'wq2'

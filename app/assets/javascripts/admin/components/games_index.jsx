@@ -31,7 +31,7 @@ var columnsMeta = [
   {
     columnName: "score",
     displayName: "Score",
-    cssClassName: "col-md-1 table-link",
+    cssClassName: "col-md-1",
     order: 3,
     sortable: false,
     customComponent: ScoreCell

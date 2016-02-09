@@ -9,19 +9,17 @@ namespace :admin do
     end
   end
 
+  resources :divisions do
+    member do
+      put :update_teams
+      put :seed
+    end
+  end
+
   resources :teams do
     collection do
       get :sample_csv
       post :import_csv
-    end
-  end
-
-  resources :brackets do
-    member do
-      put :seed
-    end
-    collection do
-      put :update_seeds
     end
   end
 
