@@ -29,14 +29,12 @@ var columnsMeta = [
   {
     columnName: "lat",
     displayName: "Latitude",
-    cssClassName: "table-link",
     order: 2,
     sortable: false
   },
   {
     columnName: "long",
     displayName: "Longitude",
-    cssClassName: "table-link",
     order: 3,
     sortable: false
   }

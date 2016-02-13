@@ -31,14 +31,12 @@ var columnsMeta = [
   {
     columnName: "email",
     displayName: "Email",
-    cssClassName: "table-link",
     order: 2,
     sortable: false
   },
   {
     columnName: "sms",
     displayName: "SMS",
-    cssClassName: "table-link",
     order: 3,
     sortable: false
   },

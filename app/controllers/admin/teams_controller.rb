@@ -54,6 +54,14 @@ class Admin::TeamsController < AdminController
         attributes = row.to_hash.with_indifferent_access
         attributes = csv_params(attributes)
 
+        if attributes[:division]
+          if division = Division.find_by(name: attributes[:division])
+            attributes[:division] = division
+          else
+            attributes.delete(:division)
+          end
+        end
+
         if team = @teams.detect{ |t| t.name == attributes[:name] }
           next if ignore
           team.update_attributes!(attributes)
@@ -78,7 +86,7 @@ class Admin::TeamsController < AdminController
       :name,
       :email,
       :sms,
-      :division,
+      :division_id,
       :seed
     )
   end

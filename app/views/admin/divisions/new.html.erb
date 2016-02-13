@@ -1,0 +1,17 @@
+<% content_for :top_bar_left do %>
+  <i class="fa fa-sitemap"></i>
+  <%= link_to 'Divisions', tournament_admin_divisions_path(@tournament) %> / New
+<% end %>
+
+<%= content_for :top_bar_right do %>
+  <%= ui_save_button_tag(form_id:'.new_division') %>
+<% end %>
+
+<%= render 'admin/errors', object: @division %>
+
+<%= ui_box do %>
+  <%= form_for [@tournament, :admin, @division], remote: true do |form| %>
+    <%= render 'form', form: form, division: @division %>
+  <% end %>
+  <%= link_to "Cancel", tournament_admin_divisions_path(@tournament), class: 'btn btn-default' %>
+<% end %>

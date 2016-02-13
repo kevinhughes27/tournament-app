@@ -10,7 +10,7 @@
       "name",
       "division"
     ],
-    filters: division_filters(@games) + [
+    filters: division_filters(@tournament) + [
       {text: 'Has teams', key: 'has_teams', value: 1},
       {text: 'Scores submitted', key: 'has_score_reports', value: 1},
       {text: 'Nothing submitted', key: 'has_score_reports', value: 0},

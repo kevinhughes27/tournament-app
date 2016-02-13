@@ -11,15 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113002250) do
+ActiveRecord::Schema.define(version: 20160213052310) do
 
-  create_table "brackets", force: :cascade do |t|
+  create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
-    t.string   "bracket_type",  null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "division"
+    t.string   "bracket_type",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "name"
+    t.integer  "num_teams",     default: 8
   end
+
+  add_index "divisions", ["name"], name: "index_divisions_on_name"
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160113002250) do
     t.string   "bracket_uid"
     t.string   "bracket_top"
     t.string   "bracket_bottom"
-    t.integer  "bracket_id"
+    t.integer  "division_id"
   end
 
   add_index "games", ["field_id"], name: "index_games_on_field_id"
@@ -79,13 +82,13 @@ ActiveRecord::Schema.define(version: 20160113002250) do
     t.string   "name"
     t.string   "email"
     t.string   "sms"
-    t.string   "division"
     t.integer  "tournament_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "wins",          default: 0
     t.integer  "points_for",    default: 0
     t.integer  "seed"
+    t.integer  "division_id"
   end
 
   add_index "teams", ["tournament_id"], name: "index_teams_on_tournament_id"
@@ -137,4 +140,5 @@ ActiveRecord::Schema.define(version: 20160113002250) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
 end

@@ -1,0 +1,16 @@
+<% content_for :top_bar_left do %>
+  <i class="fa fa-sitemap"></i>
+  Divisions
+<% end %>
+
+<%= content_for :top_bar_right do %>
+  <%= link_to 'New', new_tournament_admin_division_path(@tournament), class: "btn btn-primary" %>
+<% end %>
+
+<%= ui_box do %>
+  <%= react_component('Admin.DivisionsIndex', {
+    divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
+    searchColumns: ["name"],
+    filters: []
+  }) %>
+<% end %>

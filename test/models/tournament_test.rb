@@ -45,7 +45,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert Map.where(tournament: tournament).empty?
     assert Field.where(tournament: tournament).empty?
     assert Team.where(tournament: tournament).empty?
-    assert Bracket.where(tournament: tournament).empty?
+    assert Division.where(tournament: tournament).empty?
     assert Game.where(tournament: tournament).empty?
     assert ScoreReport.where(tournament: tournament).empty?
   end

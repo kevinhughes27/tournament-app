@@ -1,7 +1,7 @@
 class Admin::ScheduleController < AdminController
 
   def index
-    @games = @tournament.games.includes(:bracket)
+    @games = @tournament.games.includes(:division)
     @fields = @tournament.fields.includes(:games).sort_by{|f| f.name.gsub(/\D/, '').to_i }
     @times = time_slots
   end

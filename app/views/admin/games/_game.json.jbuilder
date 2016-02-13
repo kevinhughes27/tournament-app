@@ -1,5 +1,5 @@
 json.id game.id
-json.division game.division
+json.division game.division.name
 json.name game.name
 json.has_teams game.teams_present?
 json.home game.home_name

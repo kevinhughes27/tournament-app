@@ -5,6 +5,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   setup do
     @tournament = tournaments(:noborders)
     @team = teams(:swift)
+    @division = divisions(:open)
     sign_in users(:kevin)
   end
 
@@ -69,7 +70,6 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     end
   end
 
-
   test "sample_csv returns a csv download" do
     get :sample_csv, tournament_id: @tournament.id, format: :csv
     assert_match 'Name,Division,Seed', response.body
@@ -81,6 +81,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'ignore'
     end
+
+    assert_equal @division, Team.last.division
   end
 
   test "import csv (ignore matches)" do
@@ -129,7 +131,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   def team_params
     {
       name: 'Goat',
-      division: 'Open',
+      division_id: @division.id,
       seed: 1
     }
   end

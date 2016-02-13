@@ -1,0 +1,18 @@
+<%= form.ui_text_field :name %>
+
+<div class="form-group row" define="{bracketChoice: new Admin.BracketChoice(
+    this, <%= BracketDb.list.to_json %>
+  )}">
+  <div class="col-md-4">
+    <%= form.ui_number_field :num_teams, label_html: '# Teams' %>
+  </div>
+
+  <div class="col-md-8">
+    <% options = bracket_options(division.num_teams) %>
+    <%= form.ui_select :bracket_type, 'Bracket', options, disabled:  options.blank? %>
+  </div>
+</div>
+
+<hr>
+
+<%= form.ui_save_button %>

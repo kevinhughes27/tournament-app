@@ -1,19 +1,19 @@
 boat:
   tournament: noborders
-  division: Open
+  division: open
   name: BOAT
   seed: 6
 
 goose:
   tournament: noborders
-  division: Open
+  division: open
   name: Goose
   seed: 7
   points_for: 1
 
 swift:
   tournament: noborders
-  division: Open
+  division: open
   name: Swift
   seed: 8
   wins: 1
@@ -21,30 +21,30 @@ swift:
 
 pheonix:
   tournament: noborders
-  division: Open
+  division: open
   name: Pheonix
   seed: 1
 
 nsom:
   tournament: noborders
-  division: Open
+  division: open
   name: NSOM
   seed : 2
 
 maverick:
   tournament: noborders
-  division: Open
+  division: open
   name: Maverick
   seed: 3
 
 shrike:
   tournament: noborders
-  division: Open
+  division: open
   name: Shrike
   seed: 4
 
 the_forgotten:
   tournament: noborders
-  division: Open
+  division: open
   name: The Forgotten
   seed: 5
