@@ -46,12 +46,18 @@ var TeamsCell = React.createClass({
 var SeededCell = React.createClass({
   render() {
     var division = this.props.rowData;
+    var seeded = division.seeded;
+    var dirtySeed = division.dirty_seed;
+
     var iconClass;
     var iconColor;
 
-    if(division.seeded) {
+    if(seeded && !dirtySeed) {
       iconClass = "fa fa-check";
       iconColor = "green";
+    } else if(!seeded) {
+      iconClass = "fa fa-times";
+      iconColor = 'orange';
     } else {
       iconClass = "fa fa-exclamation-circle";
       iconColor = 'orange';

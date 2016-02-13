@@ -4,7 +4,7 @@ class DivisionTest < ActiveSupport::TestCase
 
   setup do
     @tournament = tournaments(:noborders)
-    @teams = @tournament.teams
+    @teams = @tournament.teams.order(:seed)
   end
 
   test "bracket_uids_for_round returns the uids for the given round" do
@@ -43,10 +43,12 @@ class DivisionTest < ActiveSupport::TestCase
     assert_equal template_game[:bottom].to_s, game.bracket_bottom
   end
 
-  test "seed takes a sorted list of teams and enters the first round" do
+  test "seed initializes the first round" do
     type = 'single_elimination_8'
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-    division.seed(@teams, 1)
+    @teams.update_all(division_id: division.id)
+
+    division.seed(1)
 
     @teams.sort_by{ |t| t.seed }
     games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
@@ -60,16 +62,19 @@ class DivisionTest < ActiveSupport::TestCase
   test "seed raises if any games are invalid for a seed round" do
     type = 'single_elimination_8'
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
+    @teams.update_all(division_id: division.id)
 
     assert_raises Division::InvalidSeedRound do
-      division.seed(@teams, 2)
+      division.seed(2)
     end
   end
 
   test "seed resets any games past the seed round" do
     type = 'single_elimination_8'
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-    division.seed(@teams, 1)
+    @teams.update_all(division_id: division.id)
+
+    division.seed(1)
 
     round1_games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
     round2_games = division.games.where(bracket_uid: ['s1', 's2', 'c3', 'c4'])
@@ -79,20 +84,23 @@ class DivisionTest < ActiveSupport::TestCase
     end
 
     assert = round2_games.all?{ |g| g.teams_present? }
-    division.seed(@teams, 1)
+    division.seed(1)
     assert = round2_games.all?{ |g| not g.teams_present? }
   end
 
   test "seed round robin 5" do
     type = 'round_robin_5'
-    teams = @teams[0...5]
+    @teams[5..-1].map(&:destroy)
+    @teams.reload
 
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-    division.seed(teams, 1)
+    @teams.update_all(division_id: division.id)
+
+    division.seed(1)
 
     game = division.games.find_by(bracket_uid: 'rr3')
     assert_nil game.home
-    assert_equal teams.first, game.away
+    assert_equal @teams.first, game.away
   end
 
   test "updating the bracket_type clears the previous games" do

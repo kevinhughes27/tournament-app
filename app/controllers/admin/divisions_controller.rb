@@ -42,16 +42,9 @@ class Admin::DivisionsController < AdminController
 
   def seed
     @division =@tournament.divisions.find(params[:id])
-    @teams = @division.teams.order(:seed)
 
     begin
-      seeds = @teams.pluck(:seed).sort
-      seeds.each_with_index do |seed, idx|
-        raise Division::AmbiguousSeedList.new('ambiguous seed list') unless seed == (idx+1)
-      end
-
-      @division.seed(@teams)
-
+      @division.seed
       flash.now[:notice] = 'Division seeded'
     rescue => error
       flash.now[:error] = error.message
