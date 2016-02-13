@@ -4,7 +4,7 @@
 <% end %>
 
 <%= content_for :top_bar_right do %>
-  <%= ui_save_button_tag('.new_team') %>
+  <%= ui_save_button_tag(form_id:'.new_team') %>
 <% end %>
 
 <%= render 'admin/errors', object: @team %>

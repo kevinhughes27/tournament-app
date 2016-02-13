@@ -51,11 +51,11 @@ module UiHelper
     super(record_name, record_object, options, &block)
   end
 
-  def ui_save_button_tag(form_id = nil)
+  def ui_save_button_tag(text: 'Save', form_id: nil)
     if form_id
-      button_tag 'Save', class: "btn btn-primary js-btn-loadable", onclick: "$('#{form_id}').submit()"
+      button_tag text, class: "btn btn-primary js-btn-loadable", onclick: "$('#{form_id}').submit()"
     else
-      button_tag 'Save', class: "btn btn-primary js-btn-loadable"
+      button_tag text, class: "btn btn-primary js-btn-loadable"
     end
   end
 
