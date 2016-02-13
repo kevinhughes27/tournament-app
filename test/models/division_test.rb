@@ -29,6 +29,17 @@ class DivisionTest < ActiveSupport::TestCase
     end
   end
 
+  test "division nullifies teams when it is deleted" do
+    division = divisions(:open)
+
+    teams = division.teams
+    assert teams.present?
+
+    division.destroy
+
+    assert teams.reload.all? { |team| team.division.nil? }
+  end
+
   test "division creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
     template = BracketDb[type]
@@ -101,6 +112,25 @@ class DivisionTest < ActiveSupport::TestCase
     game = division.games.find_by(bracket_uid: 'rr3')
     assert_nil game.home
     assert_equal @teams.first, game.away
+  end
+
+  test "dirty_seed?" do
+    type = 'single_elimination_8'
+    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
+    @teams.update_all(division_id: division.id)
+
+    refute division.seeded?
+    assert division.dirty_seed?
+
+    division.seed(1)
+
+    assert division.seeded?
+    refute division.dirty_seed?
+
+    division.teams[0].update_attributes(seed: 2)
+    division.teams[1].update_attributes(seed: 1)
+
+    assert division.dirty_seed?
   end
 
   test "updating the bracket_type clears the previous games" do

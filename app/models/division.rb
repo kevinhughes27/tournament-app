@@ -1,6 +1,6 @@
 class Division < ActiveRecord::Base
   belongs_to :tournament
-  has_many :teams, dependent: :nullify #test me!
+  has_many :teams, dependent: :nullify
   has_many :games, dependent: :destroy
 
   validates_presence_of :tournament, :name
