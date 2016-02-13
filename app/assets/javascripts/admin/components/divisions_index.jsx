@@ -7,6 +7,7 @@ var React = require('react'),
 var columns = [
   "name",
   "bracket",
+  "teams",
   "seeded"
 ];
 
@@ -17,6 +18,30 @@ var LinkCell = React.createClass({
     return <a href={url}>{this.props.data}</a>;
   }
 });
+
+var TeamsCell = React.createClass({
+  render() {
+    var division = this.props.rowData;
+    var teamCount = division.teams_count;
+    var numTeams = division.num_teams;
+    var color;
+
+    if(teamCount == numTeams) {
+      color = "green";
+    } else if(teamCount > numTeams) {
+      color = 'orange';
+    } else {
+      color ="#008B8B";
+    };
+
+    return (
+      <span style={{color: color}}>
+        {teamCount} / {numTeams}
+      </span>
+    );
+  }
+});
+
 
 var SeededCell = React.createClass({
   render() {
@@ -53,9 +78,15 @@ var columnsMeta = [
     order: 2,
   },
   {
+    columnName: "teams",
+    displayName: "Teams",
+    order: 3,
+    customComponent: TeamsCell
+  },
+  {
     columnName: "seeded",
     displayName: "Seeded",
-    order: 3,
+    order: 4,
     customComponent: SeededCell
   }
 ];
