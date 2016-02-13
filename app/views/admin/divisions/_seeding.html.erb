@@ -1,34 +1,48 @@
-<h4>Seeding</h4>
+<%= ui_box do %>
+  <h4>Seeding</h4>
 
-<%= form_tag update_teams_tournament_admin_division_path(@tournament, division), method: :put, remote: true do %>
+  <%= form_tag update_teams_tournament_admin_division_path(@tournament, division), method: :put, remote: true do %>
 
-  <table class="table table-bordered table-striped table-hover table-condensed">
-    <thead>
-      <tr>
-        <th>Team</th>
-        <th>seed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% division.teams.sort_by{ |t| t.seed || 1000 }.each do |team| %>
+    <table class="table table-bordered table-striped table-hover table-condensed">
+      <thead>
         <tr>
-          <%= hidden_field_tag 'team_ids[]', team.id %>
-          <td><%= team.name %></td>
-          <td class="td-input">
-            <div class="td-input">
-              <%= number_field_tag 'seeds[]',
-                team.seed,
-                class: 'td-input form-control',
-                min: '1',
-                max: division.teams.count %>
-            </div>
-          </td>
+          <th>Team</th>
+          <th>seed</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% division.teams.sort_by{ |t| t.seed || 1000 }.each do |team| %>
+          <tr>
+            <%= hidden_field_tag 'team_ids[]', team.id %>
+            <td><%= team.name %></td>
+            <td class="td-input">
+              <div class="td-input">
+                <%= number_field_tag 'seeds[]',
+                  team.seed,
+                  class: 'td-input form-control',
+                  min: '1',
+                  max: division.teams.count %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="pull-right">
+      <%= ui_save_button_tag(text: 'Update') %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= ui_box do %>
+  <p>
+    Seed your division. This will create games and assign teams to the initial rounds.
+  </p>
 
   <div class="pull-right">
-    <%= ui_save_button_tag(text: 'Update') %>
+    <% klass = @division.dirty_seed? ? 'btn-warning' : 'btn-success' %>
+    <%= link_to 'Seed', seed_tournament_admin_division_path(@tournament, @division),
+      class: "btn #{klass} js-btn-loadable", method: :put %>
   </div>
 <% end %>

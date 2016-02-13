@@ -20,19 +20,6 @@
   </div>
 
   <div class="col-md-4">
-    <%= ui_box do %>
-      <%= render 'seeding', division: @division %>
-    <% end %>
-
-    <%= ui_box do %>
-      <p>
-        Seed your division. This will create games and assign teams to the initial rounds.
-      </p>
-
-      <div class="pull-right">
-        <%= link_to 'Seed', seed_tournament_admin_division_path(@tournament, @division),
-          class: 'btn btn-primary js-btn-loadable', method: :put %>
-      </div>
-    <% end %>
+    <%= render 'seeding', division: @division %>
   </div>
 </div>

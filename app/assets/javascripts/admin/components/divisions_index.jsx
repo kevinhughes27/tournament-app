@@ -42,7 +42,6 @@ var TeamsCell = React.createClass({
   }
 });
 
-
 var SeededCell = React.createClass({
   render() {
     var division = this.props.rowData;
