@@ -12,16 +12,32 @@
 
 <%= render 'import_csv_modal' %>
 
-<%= ui_box do %>
-  <%= react_component('Admin.TeamsIndex', {
-    teams: render(template: 'admin/teams/teams.json.jbuilder'),
-    searchColumns: [
-      "name",
-      "email",
-      "sms",
-      "division",
-      "seed"
-    ],
-    filters: division_filters(@tournament)
-  }) %>
+<% if @teams.present? %>
+  <%= ui_box do %>
+    <%= react_component('Admin.TeamsIndex', {
+      teams: render(template: 'admin/teams/teams.json.jbuilder'),
+      searchColumns: [
+        "name",
+        "email",
+        "sms",
+        "division",
+        "seed"
+      ],
+      filters: division_filters(@tournament)
+    }) %>
+  <% end %>
+<% else %>
+  <div class="row text-center">
+    <h3>Manage all your teams</h3>
+    <%= image_tag 'population-800px.png', class: 'img-responsive blank-slate-img' %>
+    <%= link_to 'Add Team', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
+    <br>
+    <br>
+    <a href="#" data-toggle="modal" data-target="#importCsvModal">Import teams</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href='#'><i class="fa fa-question-circle"></i> Learn more about teams</a>
+  </div>
 <% end %>
