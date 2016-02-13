@@ -1,7 +1,21 @@
 <%= form.ui_text_field :name %>
 <%= form.ui_text_field :email %>
 <%= form.ui_text_field :sms %>
-<%= form.ui_select :division_id, 'Division', division_options(@tournament, team) %>
+
+<% if @tournament.divisions.present? %>
+  <%= form.ui_select :division_id, 'Division', division_options(@tournament, team) %>
+<% else %>
+  <div class="form-group">
+    <label for='division'>Division</label>
+    <input id='division' class='form-control' placeholder='No Divisions' disabled='true'>
+    <span id="helpBlock" class="help-block">
+      Don't worry you can create teams now and assign divisions later when you're ready.
+    </span>
+  </div>
+<% end %>
+
 <%= form.ui_number_field :seed %>
+
 <hr>
+
 <%= form.ui_save_button %>
