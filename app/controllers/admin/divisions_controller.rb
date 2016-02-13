@@ -65,6 +65,7 @@ class Admin::DivisionsController < AdminController
   def division_params
     @bracket_params ||= params.require(:division).permit(
       :name,
+      :num_teams,
       :bracket_type
     )
   end

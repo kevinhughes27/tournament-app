@@ -16,9 +16,13 @@ class BracketDb
 
     def templates
       @templates ||= types.inject(Hash.new) do |templates, type|
-        templates[type]  = load_template(type)
+        templates[type] = load_template(type)
         templates
       end
+    end
+
+    def list
+      @list ||= types.collect { |t| [templates[t][:num_teams], t] }
     end
 
     def templates_for(num_teams)

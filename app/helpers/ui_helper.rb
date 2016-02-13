@@ -18,15 +18,19 @@ module UiHelper
 
     def ui_number_field(method, options = {})
       content_tag(:div, class: 'form-group') do
-        concat label(method)
+        if options.key?(:label_html)
+          concat label(method, options.delete(:label_html))
+        else
+          concat label(method)
+        end
         concat number_field(method, options.merge(class: 'form-control'))
       end
     end
 
-    def ui_select_field(method, label, options)
+    def ui_select(method, label, options, html_options = {})
       content_tag(:div, class: 'form-group') do
         concat label(method, label)
-        concat select method, options, {}, class: 'form-control'
+        concat select method, options, {}, html_options.merge(class: 'form-control')
       end
     end
 

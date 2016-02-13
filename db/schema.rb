@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212021109) do
+ActiveRecord::Schema.define(version: 20160213052310) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
-    t.string   "bracket_type",  null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "bracket_type",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "name"
+    t.integer  "num_teams",     default: 8
   end
 
   add_index "divisions", ["name"], name: "index_divisions_on_name"
