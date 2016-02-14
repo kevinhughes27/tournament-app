@@ -12,8 +12,15 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "blank slate sets to time.now" do
+  test "blank slate" do
     @tournament.games.destroy_all
+    get :index, tournament_id: @tournament.id
+    assert_response :success
+    assert_match 'blank-slate', response.body
+  end
+
+  test "first row is set to time.now" do
+    @tournament.games.update_all(field_id: nil, start_time: nil)
 
     Timecop.freeze do
       get :index, tournament_id: @tournament.id

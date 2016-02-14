@@ -14,6 +14,13 @@ class Admin::GamesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:games)
   end
 
+  test "blank slate" do
+    @tournament.games.destroy_all
+    get :index, tournament_id: @tournament.id
+    assert_response :success
+    assert_match 'blank-slate', response.body
+  end
+
   test "update updates the games score" do
     put :update,
       tournament_id: @tournament.id,

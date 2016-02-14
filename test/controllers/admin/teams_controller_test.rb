@@ -27,6 +27,13 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:teams)
   end
 
+  test "blank slate" do
+    @tournament.teams.destroy_all
+    get :index, tournament_id: @tournament.id
+    assert_response :success
+    assert_match 'blank-slate', response.body
+  end
+
   test "create a team" do
     assert_difference "Team.count" do
       post :create, tournament_id: @tournament.id, team: team_params
