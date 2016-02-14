@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214190139) do
+ActiveRecord::Schema.define(version: 20160214195447) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -42,13 +42,14 @@ ActiveRecord::Schema.define(version: 20160214190139) do
     t.datetime "start_time"
     t.boolean  "score_confirmed"
     t.integer  "field_id"
-    t.integer  "tournament_id"
+    t.integer  "tournament_id",   null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "bracket_uid"
     t.string   "home_prereq_uid"
     t.string   "away_prereq_uid"
-    t.integer  "division_id"
+    t.integer  "division_id",     null: false
+    t.integer  "round"
   end
 
   add_index "games", ["field_id"], name: "index_games_on_field_id"

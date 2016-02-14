@@ -116,6 +116,7 @@ class Division < ActiveRecord::Base
     template[:games].each do |game|
       self.games.create!(
         tournament_id: tournament_id,
+        round: game[:round],
         bracket_uid: game[:uid],
         home_prereq_uid: game[:home],
         away_prereq_uid: game[:away]
