@@ -9,7 +9,7 @@ class Game < ActiveRecord::Base
   has_many :score_reports, dependent: :destroy
 
   validates_presence_of :tournament
-  validates_presence_of :division, :bracket_uid, :bracket_top, :bracket_bottom
+  validates_presence_of :division, :bracket_uid, :home_prereq_uid, :away_prereq_uid
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :field,      if: Proc.new{ |g| g.start_time.present? }
@@ -47,7 +47,7 @@ class Game < ActiveRecord::Base
     if teams_present?
       "#{home.name} vs #{away.name}"
     else
-      "#{division.name} #{bracket_uid} (#{bracket_top} vs #{bracket_bottom})"
+      "#{division.name} #{bracket_uid} (#{home_prereq_uid} vs #{away_prereq_uid})"
     end
   end
 
@@ -73,7 +73,7 @@ class Game < ActiveRecord::Base
   end
 
   def valid_for_seed_round?
-    bracket_top.match(/\A\d+\z/) || bracket_bottom.match(/\A\d+\z/)
+    home_prereq_uid.match(/\A\d+\z/) || away_prereq_uid.match(/\A\d+\z/)
   end
 
   def scores_present?
@@ -92,10 +92,10 @@ class Game < ActiveRecord::Base
 
   def dependent_games
     [
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_top: "w#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_top: "l#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_bottom: "w#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_bottom: "l#{bracket_uid}")
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "w#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "l#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "w#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "l#{bracket_uid}")
     ].compact
   end
 
@@ -155,20 +155,20 @@ class Game < ActiveRecord::Base
   end
 
   def advanceWinner
-    if game = Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_top: "w#{bracket_uid}")
+    if game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "w#{bracket_uid}")
       game.home = winner
       game.save!
-    elsif game = Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_bottom: "w#{bracket_uid}")
+    elsif game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "w#{bracket_uid}")
       game.away = winner
       game.save
     end
   end
 
   def advanceLoser
-    if game = Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_top: "l#{bracket_uid}")
+    if game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "l#{bracket_uid}")
       game.home = loser
       game.save!
-    elsif game = Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_bottom: "l#{bracket_uid}")
+    elsif game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "l#{bracket_uid}")
       game.away = loser
       game.save
     end

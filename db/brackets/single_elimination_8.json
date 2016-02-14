@@ -1,19 +1,19 @@
 {
   "num_teams": 8,
   "games": [
-    {"round": 1, "uid":"q1", "top":1, "bottom":"8"},
-    {"round": 1, "uid":"q2", "top":2, "bottom":"7"},
-    {"round": 1, "uid":"q3", "top":3, "bottom":"6"},
-    {"round": 1, "uid":"q4", "top":4, "bottom":"5"},
+    {"round": 1, "uid":"q1", "home":1, "away":"8"},
+    {"round": 1, "uid":"q2", "home":2, "away":"7"},
+    {"round": 1, "uid":"q3", "home":3, "away":"6"},
+    {"round": 1, "uid":"q4", "home":4, "away":"5"},
 
-    {"round": 2, "uid": "s1", "top":"wq1", "bottom":"wq4"},
-    {"round": 2, "uid": "s2", "top":"wq2", "bottom":"wq3"},
-    {"round": 2, "uid": "c1", "top":"lq1", "bottom":"lq4"},
-    {"round": 2, "uid": "c2", "top":"lq2", "bottom":"lq3"},
+    {"round": 2, "uid": "s1", "home":"wq1", "away":"wq4"},
+    {"round": 2, "uid": "s2", "home":"wq2", "away":"wq3"},
+    {"round": 2, "uid": "c1", "home":"lq1", "away":"lq4"},
+    {"round": 2, "uid": "c2", "home":"lq2", "away":"lq3"},
 
-    {"round": 3, "uid": "f1", "top":"ws1", "bottom":"ws2"},
-    {"round": 3, "uid": "f2", "top":"ls1", "bottom":"ls2"},
-    {"round": 3, "uid": "f3", "top":"wc1", "bottom":"wc2"},
-    {"round": 3, "uid": "f4", "top":"lc1", "bottom":"lc2"}
+    {"round": 3, "uid": "f1", "home":"ws1", "away":"ws2"},
+    {"round": 3, "uid": "f2", "home":"ls1", "away":"ls2"},
+    {"round": 3, "uid": "f3", "home":"wc1", "away":"wc2"},
+    {"round": 3, "uid": "f4", "home":"lc1", "away":"lc2"}
   ]
 }

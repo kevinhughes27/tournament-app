@@ -1,12 +1,12 @@
 {
   "num_teams": 5,
   "games": [
-    {"round": 1, "uid": "rr1", "top":2, "bottom":5},
-    {"round": 1, "uid": "rr2", "top":3, "bottom":4},
+    {"round": 1, "uid": "rr1", "home":2, "away":5},
+    {"round": 1, "uid": "rr2", "home":3, "away":4},
 
-    {"round": 1, "uid": "rr3", "top":"wrr1", "bottom":1},
+    {"round": 1, "uid": "rr3", "home":"wrr1", "away":1},
 
-    {"round": 2, "uid": "rr4", "top":"lrr1", "bottom":"lrr2"},
-    {"round": 2, "uid": "rr5", "top":"wrr3", "bottom":"wrr2"}
+    {"round": 2, "uid": "rr4", "home":"lrr1", "away":"lrr2"},
+    {"round": 2, "uid": "rr5", "home":"wrr3", "away":"wrr2"}
   ]
 }
