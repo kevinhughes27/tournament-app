@@ -15,7 +15,7 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "name returns bracket pos name if teams aren't assigned yet" do
-    game = Game.new(division: @division, bracket_top: 1, bracket_bottom: 8)
+    game = Game.new(division: @division, home_prereq_uid: 1, away_prereq_uid: 8)
     assert_equal "Open  (1 vs 8)", game.name
   end
 
@@ -41,17 +41,17 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "valid_for_seed_round? returns true if either top and bottom are integers" do
-    game = Game.new(bracket_top: 1, bracket_bottom: 8)
+    game = Game.new(home_prereq_uid: 1, away_prereq_uid: 8)
     assert game.valid_for_seed_round?
   end
 
   test "valid_for_seed_round? returns true if both top and bottom are integer string" do
-    game = Game.new(bracket_top: 1, bracket_bottom: "8")
+    game = Game.new(home_prereq_uid: 1, away_prereq_uid: "8")
     assert game.valid_for_seed_round?
   end
 
   test "valid_for_seed_round? returns false if both top or bottom are not integers" do
-    game = Game.new(bracket_top: 'B1', bracket_bottom: 'A1')
+    game = Game.new(home_prereq_uid: 'B1', away_prereq_uid: 'A1')
     refute game.valid_for_seed_round?
   end
 
@@ -72,8 +72,8 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "game pushes its winner through the bracket when its score is confirmed" do
-    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', bracket_top: '1', bracket_bottom: '2', home: @home, away: @away)
-    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', bracket_top: 'wq1', bracket_bottom: 'wq2')
+    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
+    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'wq1', away_prereq_uid: 'wq2')
 
     game1.update_score(15, 11)
 
@@ -81,8 +81,8 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "game pushes its loser through the bracket when its score is confirmed" do
-    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', bracket_top: '1', bracket_bottom: '2', home: @home, away: @away)
-    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', bracket_top: 'lq2', bracket_bottom: 'lq1')
+    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
+    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'lq2', away_prereq_uid: 'lq1')
 
     game1.update_score(15, 11)
 
@@ -147,7 +147,7 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "update_score can flip the winner" do
-    game = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', bracket_top: '1', bracket_bottom: '2', home: @home, away: @away)
+    game = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
     home_wins = @home.wins
     home_pts_for = @home.points_for
     away_wins = @away.wins
@@ -167,8 +167,8 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "update_score updates the bracket if the winner is changed" do
-    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', bracket_top: '1', bracket_bottom: '2', home: @home, away: @away)
-    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', bracket_top: 'wq1', bracket_bottom: 'wq2')
+    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
+    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'wq1', away_prereq_uid: 'wq2')
 
     game1.update_score(15, 11)
     assert_equal @home, game2.reload.home

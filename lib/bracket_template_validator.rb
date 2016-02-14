@@ -5,15 +5,15 @@ class BracketTemplateValidator
     "required" => [
        "round",
          "uid",
-         "top",
-      "bottom"
+         "home",
+         "away"
     ],
     "additionalProperties" => false,
     "properties" => {
        "round" => { "type" => "integer" },
          "uid" => { "type" => ["string", "integer"] },
-         "top" => { "type" => ["string", "integer"] },
-      "bottom" => { "type" => ["string", "integer"] },
+        "home" => { "type" => ["string", "integer"] },
+        "away" => { "type" => ["string", "integer"] },
     }
   }
 
@@ -76,11 +76,11 @@ class BracketTemplateValidator
       uids = template_json[:games].map{ |g| g[:uid] }
 
       non_seed_games = template_json[:games].select{ |g| g[:round] != 1 }
-      tops = non_seed_games.map{ |g| g[:top].gsub(/(w|l)/, '') }.uniq
-      bottoms = non_seed_games.map{ |g| g[:bottom].gsub(/(w|l)/, '') }.uniq
+      homes = non_seed_games.map{ |g| g[:home].gsub(/(w|l)/, '') }.uniq
+      aways = non_seed_games.map{ |g| g[:away].gsub(/(w|l)/, '') }.uniq
 
-      tops - uids == [] &&
-      bottoms - uids == []
+      homes - uids == [] &&
+      aways - uids == []
     end
 
   end

@@ -50,8 +50,8 @@ class DivisionTest < ActiveSupport::TestCase
     game = Game.find_by(division: division, bracket_uid: template_game[:uid])
 
     assert game
-    assert_equal template_game[:top].to_s, game.bracket_top
-    assert_equal template_game[:bottom].to_s, game.bracket_bottom
+    assert_equal template_game[:home].to_s, game.home_prereq_uid
+    assert_equal template_game[:away].to_s, game.away_prereq_uid
   end
 
   test "seed initializes the first round" do
@@ -65,8 +65,8 @@ class DivisionTest < ActiveSupport::TestCase
     games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
 
     games.each do |game|
-      assert_equal game.home, @teams[game.bracket_top.to_i - 1]
-      assert_equal game.away, @teams[game.bracket_bottom.to_i - 1]
+      assert_equal game.home, @teams[game.home_prereq_uid.to_i - 1]
+      assert_equal game.away, @teams[game.away_prereq_uid.to_i - 1]
     end
   end
 

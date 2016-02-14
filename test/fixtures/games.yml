@@ -2,8 +2,8 @@ swift_goose:
   tournament: noborders
   division: open
   bracket_uid: 'q1'
-  bracket_top: '1'
-  bracket_bottom: '8'
+  home_prereq_uid: '1'
+  away_prereq_uid: '8'
   home: swift
   away: goose
   field: upi1
@@ -16,8 +16,8 @@ swift_goose_no_score:
   tournament: noborders
   division: open
   bracket_uid: 'q1'
-  bracket_top: '1'
-  bracket_bottom: '8'
+  home_prereq_uid: '1'
+  away_prereq_uid: '8'
   home: swift
   away: goose
   field: upi1
@@ -28,8 +28,8 @@ pheonix_mavericks:
   tournament: noborders
   division: open
   bracket_uid: 'q2'
-  bracket_top: '2'
-  bracket_bottom: '7'
+  home_prereq_uid: '2'
+  away_prereq_uid: '7'
   home: pheonix
   away: maverick
   field: upi2
@@ -42,8 +42,8 @@ semi_final:
   tournament: noborders
   division: women
   bracket_uid: 's1'
-  bracket_top: 'wq1'
-  bracket_bottom: 'wq2'
+  home_prereq_uid: 'wq1'
+  away_prereq_uid: 'wq2'
   field: upi2
   start_time: 2015-06-06 12:06:53
   score_confirmed: false

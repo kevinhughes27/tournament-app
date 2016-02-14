@@ -24,7 +24,7 @@ module ScheduleHelper
 
   def game_draggable_text(game)
     content_tag(:p, game.bracket_uid) +
-    content_tag(:p, "#{game.bracket_top} v #{game.bracket_bottom}")
+    content_tag(:p, "#{game.home_prereq_uid} v #{game.away_prereq_uid}")
   end
 
 end

@@ -40,19 +40,19 @@ class Division < ActiveRecord::Base
 
     return true unless games.all?{ |g| g.valid_for_seed_round? }
 
-    seats = games.pluck(:bracket_top, :bracket_bottom).flatten.uniq
+    seats = games.pluck(:home_prereq_uid, :away_prereq_uid).flatten.uniq
     seats.reject!{ |s| !s.to_s.is_i? }
     num_seats = seats.size
 
     return true unless num_seats == teams.size
 
     games.each do |game|
-      if game.bracket_top.is_i?
-        return true if game.home != teams[game.bracket_top.to_i - 1]
+      if game.home_prereq_uid.is_i?
+        return true if game.home != teams[game.home_prereq_uid.to_i - 1]
       end
 
-      if game.bracket_bottom.is_i?
-        return true if game.away != teams[game.bracket_bottom.to_i - 1]
+      if game.away_prereq_uid.is_i?
+        return true if game.away != teams[game.away_prereq_uid.to_i - 1]
       end
     end
 
@@ -78,15 +78,15 @@ class Division < ActiveRecord::Base
 
     raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
 
-    seats = games.pluck(:bracket_top, :bracket_bottom).flatten.uniq
+    seats = games.pluck(:home_prereq_uid, :away_prereq_uid).flatten.uniq
     seats.reject!{ |s| !s.to_s.is_i? }
     num_seats = seats.size
 
     raise InvalidNumberOfTeams, "#{num_seats} seats but #{teams.size} teams present" unless num_seats == teams.size
 
     games.each do |game|
-      game.home = teams[ game.bracket_top.to_i - 1 ] if game.bracket_top.is_i?
-      game.away = teams[ game.bracket_bottom.to_i - 1 ] if game.bracket_bottom.is_i?
+      game.home = teams[ game.home_prereq_uid.to_i - 1 ] if game.home_prereq_uid.is_i?
+      game.away = teams[ game.away_prereq_uid.to_i - 1 ] if game.away_prereq_uid.is_i?
       game.home_score = nil
       game.away_score = nil
       game.score_confirmed = false
@@ -117,8 +117,8 @@ class Division < ActiveRecord::Base
       self.games.create!(
         tournament_id: tournament_id,
         bracket_uid: game[:uid],
-        bracket_top: game[:top],
-        bracket_bottom: game[:bottom]
+        home_prereq_uid: game[:home],
+        away_prereq_uid: game[:away]
       )
     end
   end
