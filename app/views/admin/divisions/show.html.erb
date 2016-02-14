@@ -20,6 +20,11 @@
   </div>
 
   <div class="col-md-4">
-    <%= render 'seeding', division: @division %>
+    <% if @division.teams.present? %>
+      <%= render 'seeding', division: @division %>
+    <% else %>
+      <%= ui_box do %>
+      <% end %>
+    <% end %>
   </div>
 </div>

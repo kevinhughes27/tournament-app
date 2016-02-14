@@ -24,10 +24,10 @@ module StickyTabsHelper
       content_tag(:div, class: "tab-content") { capture(self, &block) }
     end
 
-    def pane(name, &block)
+    def pane(name, options = {}, &block)
       klass = 'tab-pane'
       klass += ' active' if active_tab?(name)
-      content_tag(:div, id: name.parameterize.underscore, class: klass) { capture(self, &block) }
+      content_tag(:div, id: name.parameterize.underscore, class: klass, **options) { capture(self, &block) }
     end
 
     def render(&block)

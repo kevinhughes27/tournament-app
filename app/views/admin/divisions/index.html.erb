@@ -7,10 +7,21 @@
   <%= link_to 'New', new_tournament_admin_division_path(@tournament), class: "btn btn-primary" %>
 <% end %>
 
-<%= ui_box do %>
-  <%= react_component('Admin.DivisionsIndex', {
-    divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
-    searchColumns: ["name"],
-    filters: []
-  }) %>
+<% if @divisions.present? %>
+  <%= ui_box do %>
+    <%= react_component('Admin.DivisionsIndex', {
+      divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
+      searchColumns: ["name"],
+      filters: []
+    }) %>
+  <% end %>
+<% else %>
+  <div class="blank-slate">
+    <h3>Create Divisions and Brackets</h3>
+    <p>
+      Divisions control your tournament, whether its a round robin or single elimination.
+      They create the right games and add teams when seeded.
+    </p>
+    <%= link_to 'New Division', new_tournament_admin_division_path(@tournament), class: "btn btn-primary" %>
+  </div>
 <% end %>

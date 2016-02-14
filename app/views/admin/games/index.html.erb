@@ -3,22 +3,33 @@
   Games
 <% end %>
 
-<%= ui_box do %>
-  <%= react_component('Admin.GamesIndex', {
-    games: render(template: 'admin/games/games.json.jbuilder'),
-    searchColumns: [
-      "name",
-      "division"
-    ],
-    filters: division_filters(@tournament) + [
-      {text: 'Has teams', key: 'has_teams', value: 1},
-      {text: 'Scores submitted', key: 'has_score_reports', value: 1},
-      {text: 'Nothing submitted', key: 'has_score_reports', value: 0},
-      {text: 'With score', key: 'has_score', value: 1},
-      {text: 'No score', key: 'has_score', value: 0},
-      {text: 'Confirmed', key: 'confirmed', value: 1},
-      {text: 'Unconfirmed', key: 'confirmed', value: 0},
-      {text: 'Finished', key: 'played', value: 1},
-    ]
-  }) %>
+<% if @games.present? %>
+  <%= ui_box do %>
+    <%= react_component('Admin.GamesIndex', {
+      games: render(template: 'admin/games/games.json.jbuilder'),
+      searchColumns: [
+        "name",
+        "division"
+      ],
+      filters: division_filters(@tournament) + [
+        {text: 'Has teams', key: 'has_teams', value: 1},
+        {text: 'Scores submitted', key: 'has_score_reports', value: 1},
+        {text: 'Nothing submitted', key: 'has_score_reports', value: 0},
+        {text: 'With score', key: 'has_score', value: 1},
+        {text: 'No score', key: 'has_score', value: 0},
+        {text: 'Confirmed', key: 'confirmed', value: 1},
+        {text: 'Unconfirmed', key: 'confirmed', value: 0},
+        {text: 'Finished', key: 'played', value: 1},
+      ]
+    }) %>
+  <% end %>
+<% else %>
+  <div class="blank-slate">
+    <h3>Games and Score Reports</h3>
+    <p>
+      Games are created for you by your Divisions.
+      When teams submit score reports you'll be able to review and accept them from this page.
+    </p>
+    <%= link_to 'Go to Divisions', tournament_admin_divisions_path(@tournament), class: "btn btn-primary" %>
+  </div>
 <% end %>
