@@ -1,0 +1,73 @@
+<section class="content-header">
+  <h1>
+    <small>If you have a lot of fields it might be useful to zoom out</small>
+  </h1>
+</section>
+
+<section class="content" define='{
+  scheduleEditor: new Admin.ScheduleEditor(
+    $(".table"),
+    <%= @tournament.time_cap %>
+  )}'
+  context='scheduleEditor'>
+
+  <%= form_tag tournament_admin_schedule_path(@tournament), "bind-event-submit" => "saveSchedule(this)" do %>
+    <div class="box box-solid" style="overflow-x: scroll;">
+
+      <div class="box-header">
+        <% @games.group_by{ |g| g.division }.each do |division, games| %>
+          <div class="col-md-2">
+            <h3>
+              <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
+            </h3>
+            <% games.each do |game| %>
+              <% if game.unassigned? %>
+                <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
+                  <%= game_draggable_text(game) %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="box-body">
+        <div class="schedule-table">
+          <table class="table table-bordered table-striped table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <% @fields.each do |field| %>
+                  <th><%= field.name %></th>
+                <% end %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @times.each_with_index do |time, index| %>
+                <tr>
+                  <td class="td-input time">
+                    <div class="td-input">
+                      <input type="text" class="td-input datetimepicker form-control" value="<%= time.to_formatted_s(:datetimepicker) %>" bind-event-blur="timeUpdated(event)">
+                    </div>
+                  </td>
+                  <% @fields.each do |field| %>
+                    <td class="dropzone" data-field-id="<%= field.id %>">
+                      <% if game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+                        <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
+                          <%= game_draggable_text(game) %>
+                        </div>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
+    <%= submit_tag 'Save Schedule', class: "btn btn-primary pull-right" %>
+  <% end %>
+</section>

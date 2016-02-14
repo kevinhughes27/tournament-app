@@ -25,6 +25,13 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:fields)
   end
 
+  test "blank slate" do
+    @tournament.fields.destroy_all
+    get :index, tournament_id: @tournament.id
+    assert_response :success
+    assert_match 'blank-slate', response.body
+  end
+
   test "get export_csv" do
     get :export_csv, tournament_id: @tournament.id, format: :csv
     assert_response :success

@@ -25,6 +25,13 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "blank slate" do
+    @tournament.divisions.destroy_all
+    get :index, tournament_id: @tournament.id
+    assert_response :success
+    assert_match 'blank-slate', response.body
+  end
+
   test "create a division" do
     assert_difference "Division.count" do
       post :create, tournament_id: @tournament.id, division: division_params
