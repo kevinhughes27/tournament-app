@@ -14,6 +14,9 @@ gem 'jbuilder'
 gem 'date_validator'
 gem 'browser-timezone-rails'
 
+# exception tracking
+gem 'rollbar', '~> 2.7.1'
+
 # engines
 gem 'devise'
 
