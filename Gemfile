@@ -4,9 +4,11 @@ ruby "2.2.2"
 # rails gems
 gem 'rails', '4.2.5.1'
 gem 'sprockets-rails', '< 3.0' # breaks Teaspoon
+
 gem 'unicorn'
 gem 'wicked'
 gem 'friendly_id'
+gem 'frozen_record'
 gem 'responders'
 gem 'json-schema'
 gem 'jbuilder'

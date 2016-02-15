@@ -13,8 +13,12 @@ class Division < ActiveRecord::Base
   class InvalidSeedRound < StandardError; end
   class AmbiguousSeedList < StandardError; end
 
+  def bracket
+    @bracket ||= Bracket.find_by(name: self.bracket_type)
+  end
+
   def template
-    @template ||= BracketDb[bracket_type]
+    bracket.template
   end
 
   def bracket_uids_for_round(round)
@@ -127,7 +131,7 @@ class Division < ActiveRecord::Base
   def update_games
     return unless self.bracket_type_changed?
     self.games.destroy_all
-    @template = BracketDb[bracket_type]
+    @bracket = nil # break memoization
     create_games
   end
 end

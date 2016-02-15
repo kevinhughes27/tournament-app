@@ -42,7 +42,7 @@ class DivisionTest < ActiveSupport::TestCase
 
   test "division creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
-    template = BracketDb[type]
+    template = Bracket.find_by(name: type).template
     template_game = template[:games].first
 
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)

@@ -1,12 +1,9 @@
 require 'test_helper'
 
 class BracketTemplatesTest < ActiveSupport::TestCase
-
-  BracketDb.types.each do |template_name|
-    test "bracket template #{template_name}" do
-      template = BracketDb[template_name]
-      assert BracketTemplateValidator::validate(template), 'invalid bracket'
+  Bracket.all.each do |bracket|
+    test "bracket template #{bracket.name}" do
+      assert BracketTemplateValidator::validate(bracket.template), 'invalid bracket'
     end
   end
-
 end

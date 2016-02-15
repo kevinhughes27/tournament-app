@@ -1,8 +1,6 @@
 <%= form.ui_text_field :name %>
 
-<div class="form-group row" define="{bracketChoice: new Admin.BracketChoice(
-    this, <%= BracketDb.list.to_json %>
-  )}">
+<div class="form-group row" define="{bracketChoice: new Admin.BracketChoice(this)}">
   <div class="col-md-4">
     <%= form.ui_number_field :num_teams, label_html: '# Teams' %>
   </div>

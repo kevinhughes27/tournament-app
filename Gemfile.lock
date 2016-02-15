@@ -147,6 +147,8 @@ GEM
       railties (>= 3.2, < 5.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    frozen_record (0.4.0)
+      activemodel
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (3.4.3)
@@ -314,6 +316,7 @@ DEPENDENCIES
   dotenv-rails
   font-awesome-rails
   friendly_id
+  frozen_record
   interact-rails
   jbuilder
   jquery-rails
