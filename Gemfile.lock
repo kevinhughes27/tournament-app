@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/kevinhughes27/frozen_record.git
+  revision: c8e2f53674ceeed4d7d9521a10bc19dde41a66fd
+  specs:
+    frozen_record (0.4.0)
+      activemodel
+
+GIT
   remote: git@github.com:circleci/minitest-ci.git
   revision: 5ff612993491fcf8355a3d4b196345af82337a3a
   specs:
@@ -147,8 +154,6 @@ GEM
       railties (>= 3.2, < 5.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    frozen_record (0.4.0)
-      activemodel
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (3.4.3)
@@ -316,7 +321,7 @@ DEPENDENCIES
   dotenv-rails
   font-awesome-rails
   friendly_id
-  frozen_record
+  frozen_record!
   interact-rails
   jbuilder
   jquery-rails

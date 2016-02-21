@@ -8,7 +8,7 @@ gem 'sprockets-rails', '< 3.0' # breaks Teaspoon
 gem 'unicorn'
 gem 'wicked'
 gem 'friendly_id'
-gem 'frozen_record'
+gem 'frozen_record', github: 'kevinhughes27/frozen_record'
 gem 'responders'
 gem 'json-schema'
 gem 'jbuilder'
