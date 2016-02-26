@@ -7,12 +7,6 @@ class DivisionTest < ActiveSupport::TestCase
     @teams = @tournament.teams.order(:seed)
   end
 
-  test "bracket_uids_for_round returns the uids for the given round" do
-    type = 'single_elimination_8'
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-    assert_equal ['q1', 'q2', 'q3', 'q4'], division.bracket_uids_for_round(1)
-  end
-
   test "division creates all required games" do
     type = 'single_elimination_8'
     assert_difference "Game.count", +12 do
@@ -42,7 +36,7 @@ class DivisionTest < ActiveSupport::TestCase
 
   test "division creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
-    template = BracketDb[type]
+    template = Bracket.find_by(name: type).template
     template_game = template[:games].first
 
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)

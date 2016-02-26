@@ -13,12 +13,8 @@ class Division < ActiveRecord::Base
   class InvalidSeedRound < StandardError; end
   class AmbiguousSeedList < StandardError; end
 
-  def template
-    @template ||= BracketDb[bracket_type]
-  end
-
-  def bracket_uids_for_round(round)
-    template['games'].map{ |g| g['uid'] if g['round'] == round }.compact
+  def bracket
+    @bracket ||= Bracket.find_by(name: self.bracket_type)
   end
 
   # returns true if seeding would result in changes
@@ -34,8 +30,7 @@ class Division < ActiveRecord::Base
       return true unless seed == (idx+1)
     end
 
-    round = 1
-    game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
+    game_uids = bracket.game_uids_for_round(1)
     games = Game.where(division_id: id, bracket_uid: game_uids)
 
     return true unless games.all?{ |g| g.valid_for_seed_round? }
@@ -73,7 +68,7 @@ class Division < ActiveRecord::Base
       raise AmbiguousSeedList, 'Ambiguous seed list' unless seed == (idx+1)
     end
 
-    game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
+    game_uids = bracket.game_uids_for_round(round)
     games = Game.where(division_id: id, bracket_uid: game_uids)
 
     raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
@@ -97,7 +92,7 @@ class Division < ActiveRecord::Base
   end
 
   def reset(round = 1)
-    game_uids = template[:games].map{ |g| g[:uid] if g[:round] > round }.compact
+    game_uids = bracket.game_uids_past_round(round)
     games = Game.where(division_id: id, bracket_uid: game_uids)
 
     games.each do |game|
@@ -113,7 +108,7 @@ class Division < ActiveRecord::Base
   private
 
   def create_games
-    template[:games].each do |game|
+    bracket.template[:games].each do |game|
       self.games.create!(
         tournament_id: tournament_id,
         round: game[:round],
@@ -127,7 +122,7 @@ class Division < ActiveRecord::Base
   def update_games
     return unless self.bracket_type_changed?
     self.games.destroy_all
-    @template = BracketDb[bracket_type]
+    @bracket = nil # break memoization
     create_games
   end
 end

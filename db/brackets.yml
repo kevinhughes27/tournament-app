@@ -1,0 +1,14 @@
+-
+  name: round_robin_5
+  num_teams: 5
+  template: <%= File.read('db/brackets/round_robin_5.json') %>
+
+-
+  name: single_elimination_4
+  num_teams: 4
+  template: <%= File.read('db/brackets/single_elimination_4.json') %>
+
+-
+  name: single_elimination_8
+  num_teams: 8
+  template: <%= File.read('db/brackets/single_elimination_8.json') %>
