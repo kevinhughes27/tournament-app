@@ -11,6 +11,11 @@ class AppControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "get show for non existent tournament 404s" do
+    get :show, tournament_id: 'wat'
+    assert_response :not_found
+  end
+
   test "create score report" do
     params = @report.attributes.merge(
       tournament_id: @tournament.id,
@@ -21,5 +26,4 @@ class AppControllerTest < ActionController::TestCase
       post :score_submit, params, format: :json
     end
   end
-
 end

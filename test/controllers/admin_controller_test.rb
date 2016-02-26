@@ -19,4 +19,9 @@ class AdminControllerTest < ActionController::TestCase
     get :show, tournament_id: @tournament.id
     assert_redirected_to new_user_session_path
   end
+
+  test "non existent tournament 404s" do
+    get :show, tournament_id: 'wat'
+    assert_response :not_found
+  end
 end

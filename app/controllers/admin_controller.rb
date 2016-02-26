@@ -22,6 +22,8 @@ class AdminController < ApplicationController
     else
       @tournament = tournament_scope.find(params[:id])
     end
+  rescue ActiveRecord::RecordNotFound
+    render_404
   end
 
   def store_tournament

@@ -27,6 +27,8 @@ class AppController < ApplicationController
     else
       @tournament = Tournament.friendly.find(params[:id])
     end
+  rescue ActiveRecord::RecordNotFound
+    render_404
   end
 
   def score_report_params
