@@ -3,11 +3,11 @@ class Bracket < FrozenRecord::Base
 
   class << self
     def types
-      Bracket.all.pluck(:name)
+      @types ||= Bracket.all.pluck(:name)
     end
 
     def types_with_num
-      Bracket.all.pluck(:name, :num_teams)
+      @types_with_num ||= Bracket.all.pluck(:name, :num_teams)
     end
   end
 
