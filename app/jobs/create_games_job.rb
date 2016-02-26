@@ -1,7 +1,7 @@
 class CreateGamesJob < ActiveJob::Base
   queue_as :default
 
-  def perform(tournament_id: , division_id: , template: )
+  def perform(tournament_id:, division_id:, template:)
     template[:games].each do |game|
       Game.create!(
         division_id: division_id,

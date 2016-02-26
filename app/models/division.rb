@@ -58,52 +58,17 @@ class Division < ActiveRecord::Base
     games.where.not(home: nil).exists?
   end
 
-  # assumes teams are sorted by seed
-  # can't sort here for re-seed
   def seed(round = 1)
-    teams = self.teams.order(:seed)
-    seeds = teams.pluck(:seed).sort
-
-    seeds.each_with_index do |seed, idx|
-      raise AmbiguousSeedList, 'Ambiguous seed list' unless seed == (idx+1)
-    end
-
-    game_uids = bracket.game_uids_for_round(round)
-    games = Game.where(division_id: id, bracket_uid: game_uids)
-
-    raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
-
-    seats = games.pluck(:home_prereq_uid, :away_prereq_uid).flatten.uniq
-    seats.reject!{ |s| !s.to_s.is_i? }
-    num_seats = seats.size
-
-    raise InvalidNumberOfTeams, "#{num_seats} seats but #{teams.size} teams present" unless num_seats == teams.size
-
-    games.each do |game|
-      game.home = teams[ game.home_prereq_uid.to_i - 1 ] if game.home_prereq_uid.is_i?
-      game.away = teams[ game.away_prereq_uid.to_i - 1 ] if game.away_prereq_uid.is_i?
-      game.home_score = nil
-      game.away_score = nil
-      game.score_confirmed = false
-      game.save!
-    end
-
-    reset(round)
+    SeedDivisionJob.perform_now(division: self, round: round)
   end
 
-  def reset(round = 1)
-    game_uids = bracket.game_uids_past_round(round)
-    games = Game.where(division_id: id, bracket_uid: game_uids)
+  # 02/26/16 remove soon - I think this is now fully abstracted as a sub job
+  # I likely only needed a method to break up the code of seed (it should
+  # have been private )
 
-    games.each do |game|
-      game.home = nil
-      game.away = nil
-      game.home_score = nil
-      game.away_score = nil
-      game.score_confirmed = false
-      game.save!
-    end
-  end
+  # def reset(round = 1)
+  #   ResetRoundJob.perform_now(division: self, round: round)
+  # end
 
   private
 
