@@ -10,4 +10,10 @@ class BracketTest < ActiveSupport::TestCase
     assert Bracket.types_with_num.include? ['single_elimination_8', 8]
     assert Bracket.types_with_num.include? ['single_elimination_4', 4]
   end
+
+  Bracket.all.each do |bracket|
+    test "bracket template #{bracket.name}" do
+      assert BracketTemplateValidator::validate(bracket.template), 'invalid bracket'
+    end
+  end
 end
