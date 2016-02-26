@@ -108,21 +108,22 @@ class Division < ActiveRecord::Base
   private
 
   def create_games
-    bracket.template[:games].each do |game|
-      self.games.create!(
-        tournament_id: tournament_id,
-        round: game[:round],
-        bracket_uid: game[:uid],
-        home_prereq_uid: game[:home],
-        away_prereq_uid: game[:away]
-      )
-    end
+    CreateGamesJob.perform_later(
+      tournament_id: tournament_id,
+      division_id: id,
+      template: bracket.template
+    )
   end
 
   def update_games
     return unless self.bracket_type_changed?
     self.games.destroy_all
-    @bracket = nil # break memoization
-    create_games
+    @bracket = Bracket.find_by(name: self.bracket_type)
+
+    CreateGamesJob.perform_later(
+      tournament_id: tournament_id,
+      division_id: id,
+      template: bracket.template
+    )
   end
 end

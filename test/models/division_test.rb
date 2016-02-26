@@ -34,20 +34,6 @@ class DivisionTest < ActiveSupport::TestCase
     assert teams.reload.all? { |team| team.division.nil? }
   end
 
-  test "division creates games as spec'd by the bracket template" do
-    type = 'single_elimination_8'
-    template = Bracket.find_by(name: type).template
-    template_game = template[:games].first
-
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-
-    game = Game.find_by(division: division, bracket_uid: template_game[:uid])
-
-    assert game
-    assert_equal template_game[:home].to_s, game.home_prereq_uid
-    assert_equal template_game[:away].to_s, game.away_prereq_uid
-  end
-
   test "seed initializes the first round" do
     type = 'single_elimination_8'
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
