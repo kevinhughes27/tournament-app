@@ -21,10 +21,6 @@ class Division < ActiveRecord::Base
     bracket.template
   end
 
-  def bracket_uids_for_round(round)
-    template['games'].map{ |g| g['uid'] if g['round'] == round }.compact
-  end
-
   # returns true if seeding would result in changes
   # only for initial seed
   def dirty_seed?
@@ -38,8 +34,7 @@ class Division < ActiveRecord::Base
       return true unless seed == (idx+1)
     end
 
-    round = 1
-    game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
+    game_uids = bracket.game_uids_for_round(1)
     games = Game.where(division_id: id, bracket_uid: game_uids)
 
     return true unless games.all?{ |g| g.valid_for_seed_round? }
@@ -77,7 +72,7 @@ class Division < ActiveRecord::Base
       raise AmbiguousSeedList, 'Ambiguous seed list' unless seed == (idx+1)
     end
 
-    game_uids = template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
+    game_uids = bracket.game_uids_for_round(round)
     games = Game.where(division_id: id, bracket_uid: game_uids)
 
     raise InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
@@ -101,7 +96,7 @@ class Division < ActiveRecord::Base
   end
 
   def reset(round = 1)
-    game_uids = template[:games].map{ |g| g[:uid] if g[:round] > round }.compact
+    game_uids = bracket.game_uids_past_round(round)
     games = Game.where(division_id: id, bracket_uid: game_uids)
 
     games.each do |game|

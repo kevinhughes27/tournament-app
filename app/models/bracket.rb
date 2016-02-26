@@ -14,4 +14,12 @@ class Bracket < FrozenRecord::Base
   def template
     @attributes['template'].with_indifferent_access
   end
+
+  def game_uids_for_round(round)
+    template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
+  end
+
+  def game_uids_past_round(round)
+    template[:games].map{ |g| g[:uid] if g[:round] > round }.compact
+  end
 end

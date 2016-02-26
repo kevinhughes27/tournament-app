@@ -11,6 +11,11 @@ class BracketTest < ActiveSupport::TestCase
     assert Bracket.types_with_num.include? ['single_elimination_4', 4]
   end
 
+  test "game_uids_for_round returns the uids for the given round" do
+    bracket = Bracket.find_by(name: 'single_elimination_8')
+    assert_equal ['q1', 'q2', 'q3', 'q4'], bracket.game_uids_for_round(1)
+  end
+
   Bracket.all.each do |bracket|
     test "bracket template #{bracket.name}" do
       assert BracketTemplateValidator::validate(bracket.template), 'invalid bracket'
