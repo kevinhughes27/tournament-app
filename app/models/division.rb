@@ -17,10 +17,6 @@ class Division < ActiveRecord::Base
     @bracket ||= Bracket.find_by(name: self.bracket_type)
   end
 
-  def template
-    bracket.template
-  end
-
   # returns true if seeding would result in changes
   # only for initial seed
   def dirty_seed?
@@ -112,7 +108,7 @@ class Division < ActiveRecord::Base
   private
 
   def create_games
-    template[:games].each do |game|
+    bracket.template[:games].each do |game|
       self.games.create!(
         tournament_id: tournament_id,
         round: game[:round],
