@@ -29,14 +29,6 @@ class Division < ActiveRecord::Base
     Divisions::SeedDivisionJob.perform_now(division: self, round: round)
   end
 
-  # 02/26/16 remove soon - I think this is now fully abstracted as a sub job
-  # I likely only needed a method to break up the code of seed (it should
-  # have been private )
-
-  # def reset(round = 1)
-  #   ResetRoundJob.perform_now(division: self, round: round)
-  # end
-
   private
 
   def create_games
