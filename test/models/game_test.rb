@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
-
   setup do
     @tournament = tournaments(:noborders)
     @division = divisions(:open)
@@ -71,31 +70,13 @@ class GameTest < ActiveSupport::TestCase
     assert_equal @home, game.loser
   end
 
-  test "game pushes its winner through the bracket when its score is confirmed" do
-    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'wq1', away_prereq_uid: 'wq2')
-
-    game1.update_score(15, 11)
-
-    assert_equal @home, game2.reload.home
-  end
-
-  test "game pushes its loser through the bracket when its score is confirmed" do
-    game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'lq2', away_prereq_uid: 'lq1')
-
-    game1.update_score(15, 11)
-
-    assert_equal @away, game2.reload.away
-  end
-
   test "update_score updates the bracket" do
     @game.expects(:update_bracket).once
     @game.update_score(15, 11)
   end
 
   test "update_score confirms the game" do
-    @game.expects(:update_bracket).once
+    @game.stubs(:update_bracket)
     @game.update_score(15, 11)
     assert @game.confirmed?
   end
@@ -107,63 +88,17 @@ class GameTest < ActiveSupport::TestCase
     assert_nil game.score
   end
 
-  test "update_score updates the teams wins and points_for (no previous score)" do
+  test "update_score sets the score if no previous score" do
     game = games(:swift_goose_no_score)
-    home_wins = @home.wins
-    away_wins = @away.wins
-    home_pts_for = @home.points_for
-    away_pts_for = @away.points_for
-
-    game.expects(:update_bracket).once
+    game.expects(:set_score).once
+    game.stubs(:update_bracket)
     game.update_score(15, 11)
-
-    @home.reload
-    @away.reload
-
-    assert_equal home_wins+1, @home.wins
-    assert_equal away_wins, @away.wins
-    assert_equal home_pts_for + 15, @home.points_for
-    assert_equal away_pts_for + 11, @away.points_for
   end
 
-  test "update_score updates the teams wins and points_for" do
-    home_wins = @home.wins
-    away_wins = @away.wins
-    home_pts_for = @home.points_for
-    away_pts_for = @away.points_for
-    home_score = @game.home_score
-    away_score = @game.away_score
-
-    @game.expects(:update_bracket).once
+  test "update_score adjusts the score if game already has a score" do
+    @game.expects(:adjust_score).once
+    @game.stubs(:update_bracket)
     @game.update_score(14, 12)
-
-    @home.reload
-    @away.reload
-
-    assert_equal home_wins, @home.wins
-    assert_equal away_wins, @away.wins
-    assert_equal home_pts_for + 14 - home_score, @home.points_for
-    assert_equal away_pts_for + 12 - away_score, @away.points_for
-  end
-
-  test "update_score can flip the winner" do
-    game = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-    home_wins = @home.wins
-    home_pts_for = @home.points_for
-    away_wins = @away.wins
-    away_pts_for = @away.points_for
-
-    game.expects(:update_bracket).twice
-    game.update_score(15, 11)
-    game.update_score(10, 13)
-
-    @home.reload
-    @away.reload
-
-    assert_equal home_wins, @home.wins
-    assert_equal away_wins+1, @away.wins
-    assert_equal home_pts_for + 10, @home.points_for
-    assert_equal away_pts_for + 13, @away.points_for
   end
 
   test "update_score updates the bracket if the winner is changed" do
@@ -184,5 +119,4 @@ class GameTest < ActiveSupport::TestCase
       @game.destroy
     end
   end
-
 end

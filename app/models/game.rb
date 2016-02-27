@@ -83,7 +83,6 @@ class Game < ActiveRecord::Base
   def update_score(home_score, away_score)
     return unless teams_present?
 
-    # maybe the jobs are queued right from here
     if scores_present?
       adjust_score(home_score, away_score)
     else
@@ -102,79 +101,25 @@ class Game < ActiveRecord::Base
 
   private
 
-  # JobMe
   def set_score(home_score, away_score)
-    update_attributes!(
+    Games::SetScoreJob.perform_now(
+      game: self,
       home_score: home_score,
-      away_score: away_score,
-      score_confirmed: true
+      away_score: away_score
     )
-
-    home.points_for += home_score
-    away.points_for += away_score
-
-    if home_score > away_score
-      home.wins += 1
-    else
-      away.wins += 1
-    end
-
-    home.save!
-    away.save!
   end
 
-  # JobMe (maybe a game job module?)
   def adjust_score(home_score, away_score)
-    winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
-    home_delta = home_score - self.home_score
-    away_delta = away_score - self.away_score
-
-    update_attributes!(
+    Games::AdjustScoreJob.perform_now(
+      game: self,
       home_score: home_score,
-      away_score: away_score,
-      score_confirmed: true
+      away_score: away_score
     )
-
-    home.points_for += home_delta
-    away.points_for += away_delta
-
-    if winner_changed && home_score > away_score
-      away.wins -= 1
-      home.wins += 1
-    elsif winner_changed
-      home.wins -= 1
-      away.wins += 1
-    end
-
-    home.save!
-    away.save!
   end
 
-   # JobMe (backgrounded)
   def update_bracket
     return unless self.score_confirmed
     #TODO return if pool game
-    advanceWinner
-    advanceLoser
-  end
-
-  def advanceWinner
-    if game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "w#{bracket_uid}")
-      game.home = winner
-      game.save!
-    elsif game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "w#{bracket_uid}")
-      game.away = winner
-      game.save
-    end
-  end
-
-  def advanceLoser
-    if game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "l#{bracket_uid}")
-      game.home = loser
-      game.save!
-    elsif game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "l#{bracket_uid}")
-      game.away = loser
-      game.save
-    end
+    Games::UpdateBracketJob.perform_later(game_id: self.id)
   end
 end
