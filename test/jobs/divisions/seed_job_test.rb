@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Divisions
-  class SeedDivisionJobTest < ActiveJob::TestCase
+  class SeedJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
       @teams = @tournament.teams.order(:seed)
@@ -11,7 +11,7 @@ module Divisions
       division = new_division('single_elimination_8')
       @teams.update_all(division_id: division.id)
 
-      SeedDivisionJob.perform_now(division: division, round: 1)
+      SeedJob.perform_now(division: division, seed_round: 1)
 
       @teams.sort_by{ |t| t.seed }
       games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
@@ -26,8 +26,13 @@ module Divisions
       division = new_division('single_elimination_8')
       @teams.update_all(division_id: division.id)
 
+      division.games.first.update_columns(
+        home_prereq_uid: 'NaN',
+        away_prereq_uid: 'NaN'
+      )
+
       assert_raises Division::InvalidSeedRound do
-        SeedDivisionJob.perform_now(division: division, round: 2)
+        SeedJob.perform_now(division: division, seed_round: 1)
       end
     end
 
@@ -35,7 +40,7 @@ module Divisions
       division = new_division('single_elimination_8')
       @teams.update_all(division_id: division.id)
 
-      SeedDivisionJob.perform_now(division: division, round: 1)
+      SeedJob.perform_now(division: division, seed_round: 1)
 
       round1_games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
       round2_games = division.games.where(bracket_uid: ['s1', 's2', 'c3', 'c4'])
@@ -45,7 +50,7 @@ module Divisions
       end
 
       assert = round2_games.all?{ |g| g.teams_present? }
-      SeedDivisionJob.perform_now(division: division, round: 1)
+      SeedJob.perform_now(division: division, seed_round: 1)
       assert = round2_games.all?{ |g| not g.teams_present? }
     end
 
@@ -55,7 +60,7 @@ module Divisions
       @teams.reload
       @teams.update_all(division_id: division.id)
 
-      SeedDivisionJob.perform_now(division: division, round: 1)
+      SeedJob.perform_now(division: division, seed_round: 1)
 
       game = division.games.find_by(bracket_uid: 'rr3')
       assert_nil game.home

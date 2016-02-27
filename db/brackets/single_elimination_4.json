@@ -1,8 +1,8 @@
 {
   "num_teams": 4,
   "games": [
-    {"round": 1, "uid": "s1", "home":"1", "away":"4"},
-    {"round": 1, "uid": "s2", "home":"2", "away":"3"},
+    {"round": 1, "seed": 1, "uid": "s1", "home":"1", "away":"4"},
+    {"round": 1, "seed": 1, "uid": "s2", "home":"2", "away":"3"},
 
     {"round": 2, "uid": "f1", "home":"ws1", "away":"ws2"},
     {"round": 2, "uid": "f2", "home":"ls1", "away":"ls2"}

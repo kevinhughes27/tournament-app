@@ -25,17 +25,9 @@ class Division < ActiveRecord::Base
     games.where.not(home: nil).exists?
   end
 
-  def seed(round = 1)
-    Divisions::SeedDivisionJob.perform_now(division: self, round: round)
+  def seed(seed_round = 1)
+    Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
   end
-
-  # 02/26/16 remove soon - I think this is now fully abstracted as a sub job
-  # I likely only needed a method to break up the code of seed (it should
-  # have been private )
-
-  # def reset(round = 1)
-  #   ResetRoundJob.perform_now(division: self, round: round)
-  # end
 
   private
 
