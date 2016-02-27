@@ -35,7 +35,7 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "seed enqueues job" do
-    Divisions::SeedDivisionJob.expects(:perform_now)
+    Divisions::SeedJob.expects(:perform_now)
     @division.seed(1)
   end
 

@@ -1,11 +1,11 @@
 module Divisions
-  class SeedDivisionJob < ActiveJob::Base
+  class SeedJob < ActiveJob::Base
     queue_as :default
 
     # assumes teams are sorted by seed
     # can't sort here for re-seed
     # unless pool_finished updates the seed (should store initial_seed somewhere else if this becomes the case)
-    def perform(division:, round:)
+    def perform(division:, seed_round:)
       teams = division.teams.order(:seed)
       seeds = teams.pluck(:seed).sort
 
@@ -13,7 +13,7 @@ module Divisions
         raise  Division::AmbiguousSeedList, 'Ambiguous seed list' unless seed == (idx+1)
       end
 
-      game_uids = division.bracket.game_uids_for_round(round)
+      game_uids = division.bracket.game_uids_for_seeding(seed_round)
       games = Game.where(division_id: division.id, bracket_uid: game_uids)
 
       raise Division::InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
@@ -33,7 +33,23 @@ module Divisions
         game.save!
       end
 
-      ResetRoundJob.perform_now(division: division, round: round)
+      reset_games(division: division, seed_round: seed_round)
+    end
+
+    private
+
+    def reset_games(division:, seed_round:)
+      game_uids = division.bracket.game_uids_not_for_seeding(seed_round)
+      games = Game.where(division_id: division.id, bracket_uid: game_uids)
+
+      games.each do |game|
+        game.home = nil
+        game.away = nil
+        game.home_score = nil
+        game.away_score = nil
+        game.score_confirmed = false
+        game.save!
+      end
     end
   end
 end

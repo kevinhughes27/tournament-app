@@ -25,8 +25,8 @@ class Division < ActiveRecord::Base
     games.where.not(home: nil).exists?
   end
 
-  def seed(round = 1)
-    Divisions::SeedDivisionJob.perform_now(division: self, round: round)
+  def seed(seed_round = 1)
+    Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
   end
 
   private
