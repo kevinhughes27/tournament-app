@@ -83,6 +83,7 @@ class Game < ActiveRecord::Base
   def update_score(home_score, away_score)
     return unless teams_present?
 
+    # maybe the jobs are queued right from here
     if scores_present?
       adjust_score(home_score, away_score)
     else
@@ -101,6 +102,7 @@ class Game < ActiveRecord::Base
 
   private
 
+  # JobMe
   def set_score(home_score, away_score)
     update_attributes!(
       home_score: home_score,
@@ -121,6 +123,7 @@ class Game < ActiveRecord::Base
     away.save!
   end
 
+  # JobMe (maybe a game job module?)
   def adjust_score(home_score, away_score)
     winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
     home_delta = home_score - self.home_score
@@ -147,6 +150,7 @@ class Game < ActiveRecord::Base
     away.save!
   end
 
+   # JobMe (backgrounded)
   def update_bracket
     return unless self.score_confirmed
     #TODO return if pool game
@@ -173,5 +177,4 @@ class Game < ActiveRecord::Base
       game.save
     end
   end
-
 end

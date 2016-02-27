@@ -18,7 +18,7 @@ class Division < ActiveRecord::Base
   end
 
   def dirty_seed?
-    DirtySeedJob.perform_now(division: self)
+    Divisions::DirtySeedJob.perform_now(division: self)
   end
 
   def seeded?
@@ -26,7 +26,7 @@ class Division < ActiveRecord::Base
   end
 
   def seed(round = 1)
-    SeedDivisionJob.perform_now(division: self, round: round)
+    Divisions::SeedDivisionJob.perform_now(division: self, round: round)
   end
 
   # 02/26/16 remove soon - I think this is now fully abstracted as a sub job
@@ -40,7 +40,7 @@ class Division < ActiveRecord::Base
   private
 
   def create_games
-    CreateGamesJob.perform_later(
+    Divisions::CreateGamesJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       template: bracket.template
@@ -52,7 +52,7 @@ class Division < ActiveRecord::Base
     self.games.destroy_all
     @bracket = Bracket.find_by(name: self.bracket_type)
 
-    CreateGamesJob.perform_later(
+    Divisions::CreateGamesJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       template: bracket.template

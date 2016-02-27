@@ -12,6 +12,9 @@ class Field < ActiveRecord::Base
   private
 
   def unassign_games
-    tournament.games.where(field: self).update_all(field_id: nil)
+    Fields::UnassignGamesJob.perform_later(
+      tournament_id: tournament_id,
+      field_id: id
+    )
   end
 end

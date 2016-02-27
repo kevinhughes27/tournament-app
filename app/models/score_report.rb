@@ -43,5 +43,4 @@ class ScoreReport < ActiveRecord::Base
   def sotg_warning?
     [rules_knowledge, fouls, fairness, attitude, communication].any?{ |v| v < 2 }
   end
-
 end

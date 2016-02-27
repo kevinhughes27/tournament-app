@@ -22,5 +22,4 @@ class Tournament < ActiveRecord::Base
   def app_link
     "/#{handle}"
   end
-
 end
