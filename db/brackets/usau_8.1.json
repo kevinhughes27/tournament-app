@@ -1,13 +1,13 @@
 {
   "num_teams": 8,
   "games": [
-    {"seed": 1, "pool": "A", "home":1, "away":5}, {"seed": 1, "pool": "A", "home":4, "away":8},
-    {"seed": 1, "pool": "A", "home":1, "away":8}, {"seed": 1, "pool": "A", "home":4, "away":5},
-    {"seed": 1, "pool": "A", "home":1, "away":4}, {"seed": 1, "pool": "A", "home":5, "away":8},
+    {"pool": "A", "home":1, "away":5}, {"pool": "A", "home":4, "away":8},
+    {"pool": "A", "home":1, "away":8}, {"pool": "A", "home":4, "away":5},
+    {"pool": "A", "home":1, "away":4}, {"pool": "A", "home":5, "away":8},
 
-    {"seed": 1, "pool": "B", "home":2, "away":6}, {"seed": 1, "pool": "B", "home":3, "away":7},
-    {"seed": 1, "pool": "B", "home":2, "away":7}, {"seed": 1, "pool": "B", "home":3, "away":6},
-    {"seed": 1, "pool": "B", "home":2, "away":3}, {"seed": 1, "pool": "B", "home":6, "away":7},
+    {"pool": "B", "home":2, "away":6}, {"pool": "B", "home":3, "away":7},
+    {"pool": "B", "home":2, "away":7}, {"pool": "B", "home":3, "away":6},
+    {"pool": "B", "home":2, "away":3}, {"pool": "B", "home":6, "away":7},
 
     {"round": 1, "uid":"a", "home":"A1", "away":"B4"},
     {"round": 1, "uid":"b", "home":"B2", "away":"A3"},
