@@ -163,7 +163,8 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
-    json-schema (2.4.1)
+    json-schema (2.6.1)
+      addressable (~> 2.3.8)
     jwt (1.5.2)
     kgio (2.9.2)
     launchy (2.4.3)
@@ -322,7 +323,7 @@ DEPENDENCIES
   interact-rails
   jbuilder
   jquery-rails
-  json-schema
+  json-schema (~> 2.6.0)
   launchy
   letter_opener
   minitest-ci!

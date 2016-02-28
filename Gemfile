@@ -10,7 +10,7 @@ gem 'wicked'
 gem 'friendly_id'
 gem 'frozen_record', '~> 0.5.0'
 gem 'responders'
-gem 'json-schema'
+gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
 
 gem 'date_validator'
