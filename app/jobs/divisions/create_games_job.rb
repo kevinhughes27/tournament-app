@@ -7,6 +7,7 @@ module Divisions
         Game.create!(
           division_id: division_id,
           tournament_id: tournament_id,
+          pool: game[:pool],
           round: game[:round],
           bracket_uid: game[:uid],
           home_prereq_uid: game[:home],

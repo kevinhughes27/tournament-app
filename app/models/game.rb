@@ -9,7 +9,10 @@ class Game < ActiveRecord::Base
   has_many :score_reports, dependent: :destroy
 
   validates_presence_of :tournament
-  validates_presence_of :division, :bracket_uid, :home_prereq_uid, :away_prereq_uid
+  validates_presence_of :division, :home_prereq_uid, :away_prereq_uid
+
+  validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }
+  validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :field,      if: Proc.new{ |g| g.start_time.present? }
