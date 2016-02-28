@@ -20,10 +20,15 @@ class Game < ActiveRecord::Base
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
+  after_save :update_pool
   after_save :update_bracket
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
+
+  def pool_game?
+    pool.present?
+  end
 
   def winner
     home_score > away_score ? home : away
@@ -120,9 +125,15 @@ class Game < ActiveRecord::Base
     )
   end
 
+  def update_pool
+    return if !self.pool_game?
+    return unless self.confirmed?
+    Divisions::UpdatePoolJob.perform_later(division: self.division, pool: self.pool)
+  end
+
   def update_bracket
-    return unless self.score_confirmed
-    #TODO return if pool game
-    Games::UpdateBracketJob.perform_later(game_id: self.id)
+    return if self.pool_game?
+    return unless self.confirmed?
+    Divisions::UpdateBracketJob.perform_later(game_id: self.id)
   end
 end

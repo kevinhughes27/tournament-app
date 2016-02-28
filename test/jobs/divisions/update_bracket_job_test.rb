@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module Games
+module Divisions
   class UpdateBracketJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)

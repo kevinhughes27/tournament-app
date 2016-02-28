@@ -121,20 +121,11 @@ class BracketTemplateValidator
 
     def pool_reseed_uids(template_json)
       uids = []
-      pools = pools_from_template(template_json)
+      pools = template_json[:games].map{ |g| g[:pool] }.compact.uniq
       pools.each do |pool|
          uids += reseed_uids_for_pool(template_json, pool)
       end
       uids
-    end
-
-    def pools_from_template(template_json)
-      pools = Set.new
-      template_json[:games].each do |game|
-        next unless game[:pool]
-        pools << game[:pool]
-      end
-      pools
     end
 
     def reseed_uids_for_pool(template_json, pool_name)

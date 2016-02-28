@@ -2,22 +2,26 @@
   name: round_robin_5
   num_teams: 5
   days: 1
+  pool: false
   template: <%= File.read('db/brackets/round_robin_5.json') %>
 
 -
   name: single_elimination_4
   num_teams: 4
   days: 1
+  pool: false
   template: <%= File.read('db/brackets/single_elimination_4.json') %>
 
 -
   name: single_elimination_8
   num_teams: 8
   days: 1
+  pool: false
   template: <%= File.read('db/brackets/single_elimination_8.json') %>
 
 -
   name: usau_8.1
   num_teams: 8
   days: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_8.1.json') %>
