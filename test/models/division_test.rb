@@ -14,12 +14,6 @@ class DivisionTest < ActiveSupport::TestCase
     end
   end
 
-  Bracket.all.each do |bracket|
-    test "create a division with bracket_type: #{bracket.name}" do
-      Division.create!(tournament: @tournament, name: 'New Division', bracket_type: bracket.name)
-    end
-  end
-
   test "division deletes games when it is deleted" do
     type = 'single_elimination_8'
     division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)

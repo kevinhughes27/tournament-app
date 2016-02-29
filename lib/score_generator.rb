@@ -1,4 +1,9 @@
 class ScoreGenerator
+  class << self
+    def generate
+      self.new.score
+    end
+  end
 
   def initialize
     @score1 = random_score
@@ -15,7 +20,6 @@ class ScoreGenerator
   private
 
   def random_score
-    rand(1..15)
+    Faker::Number.between(1, 15)
   end
-
 end

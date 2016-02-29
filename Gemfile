@@ -51,6 +51,7 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
+  gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'teaspoon-jasmine', git: 'https://github.com/modeset/teaspoon', branch: 'master'
@@ -64,6 +65,7 @@ end
 
 group :test do
   gem 'mocha', :require => false
+  gem 'minitest-rg'
   gem 'timecop'
   gem 'capybara'
   gem 'selenium-webdriver'

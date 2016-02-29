@@ -102,6 +102,8 @@ class BracketTemplateValidator
       aways - uids - reseed_uids == []
     end
 
+    # validate that places are logical
+
     private
 
     def seats_for_games(games)
