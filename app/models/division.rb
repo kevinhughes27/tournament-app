@@ -17,10 +17,6 @@ class Division < ActiveRecord::Base
     @bracket ||= Bracket.find_by(name: self.bracket_type)
   end
 
-  def team_ids_for_pool(pool)
-    games.where(pool: pool).pluck(:home_id, :away_id).flatten.uniq
-  end
-
   def dirty_seed?
     Divisions::DirtySeedJob.perform_now(division: self)
   end

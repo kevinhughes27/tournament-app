@@ -19,11 +19,10 @@ module Divisions
     end
 
     def reseed
-      team_ids = division.team_ids_for_pool(pool)
-      teams = division.teams.where(id: team_ids)
-
       #TODO is this how tie breakers should be done?
-      teams = teams.order(wins: :desc, points_for: :desc)
+      teams = teams_for_pool(pool).order(
+        wins: :desc, points_for: :desc
+      )
 
       division.games.each do |game|
         if game.home_prereq_uid =~ /#{pool}\d/
@@ -42,6 +41,15 @@ module Divisions
           game.save!
         end
       end
+    end
+
+    def teams_for_pool(pool)
+      team_ids = division.games
+        .where(pool: pool)
+        .pluck(:home_id, :away_id)
+        .flatten.uniq
+
+      division.teams.where(id: team_ids)
     end
   end
 end

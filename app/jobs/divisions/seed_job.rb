@@ -14,12 +14,7 @@ module Divisions
         raise Division::AmbiguousSeedList, 'Ambiguous seed list' unless seed == (idx+1)
       end
 
-      games = if division.bracket.pool
-        Game.where(division_id: division.id).where.not(pool: nil)
-      else
-        game_uids = division.bracket.game_uids_for_seeding(seed_round)
-        Game.where(division_id: division.id, bracket_uid: game_uids)
-      end
+      games = games_for_seed
 
       raise Division::InvalidSeedRound unless games.all?{ |g| g.valid_for_seed_round? }
 
@@ -42,6 +37,15 @@ module Divisions
     end
 
     private
+
+    def games_for_seed
+      if division.bracket.pool
+        Game.where(division_id: division.id).where.not(pool: nil)
+      else
+        game_uids = division.bracket.game_uids_for_seeding(seed_round)
+        Game.where(division_id: division.id, bracket_uid: game_uids)
+      end
+    end
 
     def reset_games(division:, seed_round:)
       game_uids = division.bracket.game_uids_not_for_seeding(seed_round)
