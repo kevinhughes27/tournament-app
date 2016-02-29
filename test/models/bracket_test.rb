@@ -16,9 +16,12 @@ class BracketTest < ActiveSupport::TestCase
     assert_equal ['q1', 'q2', 'q3', 'q4'], bracket.game_uids_for_round(1)
   end
 
-  Bracket.all.each do |bracket|
-    test "bracket template #{bracket.name}" do
-      assert BracketTemplateValidator::validate(bracket.template), 'invalid bracket'
+  BracketTemplateValidator.methods(false).each do |validation|
+    next unless validation.to_s.include? 'validate_'
+    Bracket.all.each do |bracket|
+      test "bracket template #{validation} #{bracket.name}" do
+        assert BracketTemplateValidator.send(validation, bracket.template)
+      end
     end
   end
 end

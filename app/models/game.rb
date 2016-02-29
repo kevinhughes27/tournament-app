@@ -9,7 +9,10 @@ class Game < ActiveRecord::Base
   has_many :score_reports, dependent: :destroy
 
   validates_presence_of :tournament
-  validates_presence_of :division, :bracket_uid, :home_prereq_uid, :away_prereq_uid
+  validates_presence_of :division, :home_prereq_uid, :away_prereq_uid
+
+  validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }
+  validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :field,      if: Proc.new{ |g| g.start_time.present? }
@@ -17,10 +20,15 @@ class Game < ActiveRecord::Base
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
+  after_save :update_pool
   after_save :update_bracket
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
+
+  def pool_game?
+    pool.present?
+  end
 
   def winner
     home_score > away_score ? home : away
@@ -117,9 +125,15 @@ class Game < ActiveRecord::Base
     )
   end
 
+  def update_pool
+    return if !self.pool_game?
+    return unless self.confirmed?
+    Divisions::UpdatePoolJob.perform_later(division: self.division, pool: self.pool)
+  end
+
   def update_bracket
-    return unless self.score_confirmed
-    #TODO return if pool game
-    Games::UpdateBracketJob.perform_later(game_id: self.id)
+    return if self.pool_game?
+    return unless self.confirmed?
+    Divisions::UpdateBracketJob.perform_later(game_id: self.id)
   end
 end

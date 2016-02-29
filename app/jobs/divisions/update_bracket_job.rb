@@ -1,4 +1,4 @@
-module Games
+module Divisions
   class UpdateBracketJob < ActiveJob::Base
     queue_as :default
 

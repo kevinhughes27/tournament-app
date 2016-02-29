@@ -70,8 +70,14 @@ class GameTest < ActiveSupport::TestCase
     assert_equal @home, game.loser
   end
 
+  test "update_score updates the pool for pool game" do
+    @game.update_column(:pool, 'A')
+    Divisions::UpdatePoolJob.expects(:perform_later)
+    @game.update_score(15, 11)
+  end
+
   test "update_score updates the bracket" do
-    @game.expects(:update_bracket).once
+    Divisions::UpdateBracketJob.expects(:perform_later)
     @game.update_score(15, 11)
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214195447) do
+ActiveRecord::Schema.define(version: 20160228011932) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160214195447) do
     t.string   "away_prereq_uid"
     t.integer  "division_id",     null: false
     t.integer  "round"
+    t.string   "pool"
   end
 
   add_index "games", ["field_id"], name: "index_games_on_field_id"

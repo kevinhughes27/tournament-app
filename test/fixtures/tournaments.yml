@@ -1,3 +1,8 @@
+blank_slate_tournament:
+  name: Blank Slate
+  handle: bst
+  time_cap: 60
+
 noborders:
   name: No Borders
   handle: no-borders
