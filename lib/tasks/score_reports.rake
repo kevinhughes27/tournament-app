@@ -8,10 +8,10 @@ namespace :score_reports do
     puts "creating score reports for tournament: #{tournament_id} division: #{division}, round: #{round}"
 
     tournament = Tournament.friendly.find(tournament_id)
-    bracket = tournament.brackets.find_by!(division: division)
-    bracket_uids = bracket.bracket_uids_for_round(round)
+    division = tournament.divisions.find_by!(name: division)
+    game_uids = division.bracket.game_uids_for_round(round)
 
-    games = bracket.games.where(bracket_uid: bracket_uids)
+    games = division.games.where(bracket_uid: game_uids)
 
     unless games.all?{ |g| g.teams_present? }
       abort("Can't create score reports for games without teams")

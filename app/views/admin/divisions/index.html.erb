@@ -9,7 +9,7 @@
 
 <% if @divisions.present? %>
   <%= ui_box do %>
-    <%= react_component('Admin.DivisionsIndex', {
+    <%= react_element('Admin.DivisionsIndex', props: {
       divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
       searchColumns: ["name"],
       filters: []

@@ -1,0 +1,15 @@
+{
+  "presets": ["es2015", "react"],
+  "plugins": [
+    "transform-inline-environment-variables",
+    [
+      "commoner", {
+        "globals": {
+          "jquery": "$",
+          "underscore": "_",
+          "lodash": "_"
+        }
+      }
+    ]
+  ]
+}
