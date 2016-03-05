@@ -6,7 +6,7 @@
   </div>
 
   <div class="col-md-8">
-    <% options = bracket_options(division.num_teams) %>
+    <% options = bracket_options(division) %>
     <%= form.ui_select :bracket_type, 'Bracket', options, disabled:  options.blank? %>
   </div>
 </div>
