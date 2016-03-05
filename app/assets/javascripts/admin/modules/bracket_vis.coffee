@@ -14,6 +14,9 @@ class Admin.BracketVis
       # render some blank slate
 
   options: {
+      interaction: {
+        dragNodes: false
+      },
       layout: {
         hierarchical: {
           direction: 'RL',
