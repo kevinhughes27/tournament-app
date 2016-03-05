@@ -9,6 +9,7 @@
     "moment": "2.10.6",
     "fingerprintjs2": "~0.7.4",
     "jquery.scrollTo": "2.1.2",
-    "animatedmodal": "git@github.com:joaopereirawd/animatedModal.js.git"
+    "animatedmodal": "git@github.com:joaopereirawd/animatedModal.js.git",
+    "vis": "4.15"
   }
 }
