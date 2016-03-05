@@ -13,6 +13,7 @@ class Admin.FieldsIndexMap
     @_drawField(field) for field in @fields
 
   _drawField: (field) ->
+    return unless field.geoJson
     geoJson = JSON.parse(field.geoJson)
 
     layers = L.geoJson(geoJson, {
