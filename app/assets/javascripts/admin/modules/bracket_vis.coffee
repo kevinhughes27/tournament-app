@@ -1,17 +1,34 @@
 class Admin.BracketVis
 
   constructor: (node, bracketName) ->
-    @node = node
-    @draw(bracketName)
+    @descTemplate = _.template(TEMPLATES.description)
+    @poolsTemplate = _.template(TEMPLATES.pool)
 
-  draw: (bracketName) ->
+    @$bracketDescNode = $(node).find('#bracketDescription')
+    @$bracketPoolsNode = $(node).find('#bracketPools')
+    @$bracketGraphNode = $(node).find('#bracketGraph')
+
+    @render(bracketName)
+
+  render: (bracketName) ->
     bracket = _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)
 
     if bracket
-      data = @graphFromBracket(bracket)
-      vis = new window.vis.Network(@node, data, @options)
+      @renderDescription(bracket)
+      @renderPools(bracket)
+      @renderBracket(bracket)
     else
       # render some blank slate
+
+  renderDescription: (bracket) ->
+    @$bracketDescNode.empty()
+    @$bracketDescNode.append(
+      @descTemplate({bracket: bracket})
+    )
+
+  renderBracket: (bracket) ->
+    data = @graphFromBracket(bracket)
+    vis = new window.vis.Network(@$bracketGraphNode[0], data, @options)
 
   options: {
       interaction: {
@@ -63,7 +80,7 @@ class Admin.BracketVis
         level: @bracket.rounds - game.round + 1
       })
 
-      winnerUid = _.find(@games, (g) -> g.home == "w#{gameUid}" || g.away == "w#{gameUid}")?.uid
+      winnerUid = _.find(@games, (g) -> g.home == "W#{gameUid}" || g.away == "W#{gameUid}")?.uid
       @edges.push({
         from: gameUid,
         to: winnerUid
@@ -72,8 +89,8 @@ class Admin.BracketVis
 
   _addLoserNodes: ->
     loserOnlyGames = _.filter(@games, (game) ->
-      game.home.toString().match("l.") &&
-      game.away.toString().match("l.")
+      game.home.toString().match("L.") &&
+      game.away.toString().match("L.")
     )
 
     _.map(loserOnlyGames, (game) =>
@@ -132,3 +149,47 @@ class Admin.BracketVis
         to: game.uid
       })
     )
+
+  renderPools: (bracket) ->
+    @$bracketPoolsNode.empty()
+
+    games = bracket.template.games
+    games = _.filter(games, 'pool')
+
+    if games.length > 0
+      gamesByPool = _.groupBy(games, 'pool')
+
+      @$bracketPoolsNode.append(
+        @poolsTemplate({gamesByPool: gamesByPool})
+      )
+    else
+      # some blank slate
+
+TEMPLATES =
+  description: """
+    <p>
+      <strong><%= bracket.name %>: <%= bracket.sub_title %></strong>
+    </p>
+    <p>
+      <%= bracket.description %>
+    </p>
+  """
+  pool: """
+    <% _.each(gamesByPool, function(pool, name) { %>
+      <table class="table table-bordered table-striped table-hover table-condensed">
+        <thead>
+          <tr>
+            <th>Pool <%= name %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% _.each(pool, function(game) { %>
+            <tr>
+              <td><%= game.home %> vs <%= game.away %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% }) %>
+  """

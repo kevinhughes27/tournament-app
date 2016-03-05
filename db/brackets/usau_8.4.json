@@ -1,0 +1,23 @@
+{
+  "num_teams": 8,
+  "games": [
+    {"pool": "A", "home":1, "away":5}, {"pool": "A", "home":4, "away":8},
+    {"pool": "A", "home":1, "away":8}, {"pool": "A", "home":4, "away":5},
+    {"pool": "A", "home":1, "away":4}, {"pool": "A", "home":5, "away":8},
+
+    {"pool": "B", "home":2, "away":6}, {"pool": "B", "home":3, "away":7},
+    {"pool": "B", "home":2, "away":7}, {"pool": "B", "home":3, "away":6},
+    {"pool": "B", "home":2, "away":3}, {"pool": "B", "home":6, "away":7},
+
+    {"round": 1, "place": "1st", "uid":"a", "home":"A1", "away":"B1"},
+    {"round": 1, "uid":"b", "home":"A2", "away":"B2"},
+    {"round": 2, "place": "2nd", "uid":"c", "home":"La", "away":"Wb"},
+
+    {"round": 1, "uid":"d", "home":"A3", "away":"B4"},
+    {"round": 1, "uid":"e", "home":"A4", "away":"B3"},
+    {"round": 2, "uid":"f", "home":"Wd", "away":"We"},
+
+    {"round": 3, "place": "4th", "uid":"g", "home":"Lb", "away":"Wf"},
+    {"round": 3, "uid":"h", "home":"Ld", "away":"Le"},
+  ]
+}

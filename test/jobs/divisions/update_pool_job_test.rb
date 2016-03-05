@@ -8,7 +8,7 @@ module Divisions
     end
 
     test "pool not finished" do
-      division = new_division('usau_8.1')
+      division = new_division('USAU 8.1')
       @teams.update_all(division_id: division.id)
 
       Game.any_instance.expects(:save!).never
@@ -16,7 +16,7 @@ module Divisions
     end
 
     test "update pool" do
-      division = new_division('usau_8.1')
+      division = new_division('USAU 8.1')
       @teams.update_all(division_id: division.id)
       division.seed
 

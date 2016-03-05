@@ -19,7 +19,22 @@
     <% end %>
 
     <%= ui_box do %>
-      <div style="height: 420px;" define="{bracketVis: new Admin.BracketVis(this, '<%= @division.bracket_type %>')}"></div>
+      <div define="{bracketVis: new Admin.BracketVis(this, '<%= @division.bracket_type %>')}">
+        <div class="row">
+          <div id="bracketDescription" class="col-md-10">
+            Description
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-3 col-md-offset-1">
+            <div id="bracketPools"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="bracketGraph" style="height: 420px;"></div>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 

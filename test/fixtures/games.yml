@@ -46,8 +46,8 @@ semi_final:
   division: women
   round: 3
   bracket_uid: 's1'
-  home_prereq_uid: 'wq1'
-  away_prereq_uid: 'wq2'
+  home_prereq_uid: 'Wq1'
+  away_prereq_uid: 'Wq2'
   field: upi2
   start_time: 2015-06-06 12:06:53
   score_confirmed: false

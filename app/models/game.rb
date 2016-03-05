@@ -100,10 +100,10 @@ class Game < ActiveRecord::Base
 
   def dependent_games
     [
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "w#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "l#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "w#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "l#{bracket_uid}")
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "L#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "W#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "L#{bracket_uid}")
     ].compact
   end
 

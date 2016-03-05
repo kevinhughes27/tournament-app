@@ -20,8 +20,14 @@
     {"round": 2, "uid": "i", "home":"Lc", "away":"Ld"},
 
     {"round": 3, "place": "1st", "uid": "g", "home":"We", "away":"Wf"},
-    {"round": 3, "place": "3rd", "uid": "k", "home":"Le", "away":"Lf"},
-    {"round": 3, "place": "5th", "uid": "j", "home":"Wh", "away":"Wi"},
-    {"round": 3, "place": "7th", "uid": "L", "home":"Lh", "away":"Li"}
+
+    {"round": 3, "uid": "j", "home":"Wh", "away":"Lf"},
+    {"round": 3, "uid": "k", "home":"Wi", "away":"Le"},
+    {"round": 3, "place":"7th", "uid": "n", "home":"Lh", "away":"Li"},
+
+    {"round": 4, "uid": "l", "home":"Wj", "away":"Wk"},
+    {"round": 4, "place": "5th", "uid": "o", "home":"Lj", "away":"Lk"},
+
+    {"round": 5, "place": "2nd", "uid": "m", "home":"Wl", "away":"Lg"}
   ]
 }

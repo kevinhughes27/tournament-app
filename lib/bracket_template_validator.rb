@@ -49,6 +49,8 @@ class BracketTemplateValidator
     "oneOf": [POOL_GAME_SCHEMA, BRACKET_GAME_SCHEMA]
   }
 
+  class ProgressionError < StandardError; end
+
   class << self
     def validate_schema(template_json)
       JSON::Validator.validate!(BRACKET_SCHEMA, template_json)
@@ -94,12 +96,18 @@ class BracketTemplateValidator
         g[:seed].nil? && g[:pool].nil?
       end
 
-      homes = games.map{ |g| g[:home].gsub(/(w|l)/, '') }.uniq
-      aways = games.map{ |g| g[:away].gsub(/(w|l)/, '') }.uniq
+      homes = games.map{ |g| g[:home].gsub(/(W|L)/, '') }.uniq
+      aways = games.map{ |g| g[:away].gsub(/(W|L)/, '') }.uniq
+
       reseed_uids = pool_reseed_uids(template_json)
 
-      homes - uids - reseed_uids == [] &&
-      aways - uids - reseed_uids == []
+      unused_uids = homes - uids - reseed_uids
+      raise ProgressionError.new(unused_uids.join(',')) unless unused_uids == []
+
+      unused_uids = aways - uids - reseed_uids
+      raise ProgressionError.new(unused_uids.join(',')) unless unused_uids == []
+
+      true
     end
 
     # validate that places are logical

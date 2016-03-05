@@ -6,14 +6,14 @@
     {"round": 1, "seed": 1, "uid":"q3", "home":3, "away":"6"},
     {"round": 1, "seed": 1, "uid":"q4", "home":4, "away":"5"},
 
-    {"round": 2, "uid": "s1", "home":"wq1", "away":"wq4"},
-    {"round": 2, "uid": "s2", "home":"wq2", "away":"wq3"},
-    {"round": 2, "uid": "c1", "home":"lq1", "away":"lq4"},
-    {"round": 2, "uid": "c2", "home":"lq2", "away":"lq3"},
+    {"round": 2, "uid": "s1", "home":"Wq1", "away":"Wq4"},
+    {"round": 2, "uid": "s2", "home":"Wq2", "away":"Wq3"},
+    {"round": 2, "uid": "c1", "home":"Lq1", "away":"Lq4"},
+    {"round": 2, "uid": "c2", "home":"Lq2", "away":"Lq3"},
 
-    {"round": 3, "place": "1st", "uid": "f1", "home":"ws1", "away":"ws2"},
-    {"round": 3, "place": "3rd", "uid": "f2", "home":"ls1", "away":"ls2"},
-    {"round": 3, "place": "5th", "uid": "f3", "home":"wc1", "away":"wc2"},
-    {"round": 3, "place": "7th", "uid": "f4", "home":"lc1", "away":"lc2"}
+    {"round": 3, "place": "1st", "uid": "f1", "home":"Ws1", "away":"Ws2"},
+    {"round": 3, "place": "3rd", "uid": "f2", "home":"Ls1", "away":"Ls2"},
+    {"round": 3, "place": "5th", "uid": "f3", "home":"Wc1", "away":"Wc2"},
+    {"round": 3, "place": "7th", "uid": "f4", "home":"Lc1", "away":"Lc2"}
   ]
 }

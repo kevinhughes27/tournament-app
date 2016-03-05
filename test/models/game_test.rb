@@ -109,7 +109,7 @@ class GameTest < ActiveSupport::TestCase
 
   test "update_score updates the bracket if the winner is changed" do
     game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'wq1', away_prereq_uid: 'wq2')
+    game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'Wq1', away_prereq_uid: 'Wq2')
 
     game1.update_score(15, 11)
     assert_equal @home, game2.reload.home
