@@ -14,7 +14,7 @@
 
 <% if @teams.present? %>
   <%= ui_box do %>
-    <%= react_component('Admin.TeamsIndex', {
+    <%= react_element('Admin.TeamsIndex', props: {
       teams: render(template: 'admin/teams/teams.json.jbuilder'),
       searchColumns: [
         "name",

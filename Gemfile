@@ -4,6 +4,7 @@ ruby "2.2.2"
 # rails gems
 gem 'rails', '4.2.5.1'
 gem 'sprockets-rails', '< 3.0' # breaks Teaspoon
+gem 'sprockets-commoner', git: 'git@github.com:Shopify/sprockets-commoner.git'
 
 gem 'unicorn'
 gem 'wicked'
@@ -39,8 +40,6 @@ gem 'interact-rails'
 # frontend frameworks
 gem 'twine-rails'
 gem 'turbolinks', git: 'https://github.com/rails/turbolinks', branch: 'master'
-gem 'react-rails', git: 'https://github.com/reactjs/react-rails', branch: 'master'
-gem 'browserify-rails'
 
 group :production do
   gem 'pg'

@@ -15,8 +15,3 @@ Rails.application.config.assets.precompile += [
   'app.js',
   'fingerblast.js'
 ]
-
-Rails.application.config.browserify_rails.commandline_options = [
-  "-t browserify-shim",
-  "-t babelify --extension='.jsx'",
-]
