@@ -5,8 +5,13 @@ class Admin.BracketVis
     @draw(bracketName)
 
   draw: (bracketName) ->
-    data = @graphFromBracket(bracketName)
-    vis = new window.vis.Network(@node, data, @options)
+    bracket = _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)
+
+    if bracket
+      data = @graphFromBracket(bracket)
+      vis = new window.vis.Network(@node, data, @options)
+    else
+      # render some blank slate
 
   options: {
       layout: {
@@ -27,11 +32,11 @@ class Admin.BracketVis
       }
     }
 
-  graphFromBracket: (bracketName) ->
+  graphFromBracket: (bracket) ->
     @nodes = []
     @edges = []
 
-    @bracket = _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)
+    @bracket = bracket
     @games = @bracket.template.games
     @games = _.filter(@games, (g) -> !g.pool)
     @games = _.sortBy(@games, (g) -> -g.round)
