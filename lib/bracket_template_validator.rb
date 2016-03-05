@@ -30,7 +30,7 @@ class BracketTemplateValidator
     "properties" => {
       "seed"  => { "type" => "integer" },
       "round" => { "type" => "integer" },
-      "place" => { "type" => "integer" },
+      "place" => { "type" => "string" },
       "uid"   => { "type" => ["string", "integer"] },
       "home"  => { "type" => ["string", "integer"] },
       "away"  => { "type" => ["string", "integer"] },

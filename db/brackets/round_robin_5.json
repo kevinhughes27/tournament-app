@@ -6,7 +6,7 @@
 
     {"round": 2, "seed": 1, "uid": "rr3", "home":"wrr1", "away":1},
 
-    {"round": 3, "place": 3, "uid": "rr4", "home":"lrr1", "away":"lrr2"},
-    {"round": 3, "place": 1, "uid": "rr5", "home":"wrr3", "away":"wrr2"}
+    {"round": 3, "place": "3rd", "uid": "rr4", "home":"lrr1", "away":"lrr2"},
+    {"round": 3, "place": "1st", "uid": "rr5", "home":"wrr3", "away":"wrr2"}
   ]
 }

@@ -59,7 +59,7 @@ class Admin.BracketVis
 
       @nodes.push({
         id: gameUid,
-        label: gameUid,
+        label: game.place || gameUid,
         level: @bracket.rounds - game.round + 1
       })
 

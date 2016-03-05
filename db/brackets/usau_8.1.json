@@ -19,9 +19,9 @@
     {"round": 2, "uid": "h", "home":"la", "away":"lb"},
     {"round": 2, "uid": "i", "home":"lc", "away":"ld"},
 
-    {"round": 3, "place": 1, "uid": "g", "home":"we", "away":"wf"},
-    {"round": 3, "place": 3, "uid": "k", "home":"le", "away":"lf"},
-    {"round": 3, "place": 5, "uid": "j", "home":"wh", "away":"wi"},
-    {"round": 3, "place": 7, "uid": "l", "home":"lh", "away":"li"}
+    {"round": 3, "place": "1st", "uid": "g", "home":"we", "away":"wf"},
+    {"round": 3, "place": "3rd", "uid": "k", "home":"le", "away":"lf"},
+    {"round": 3, "place": "5th", "uid": "j", "home":"wh", "away":"wi"},
+    {"round": 3, "place": "7th", "uid": "l", "home":"lh", "away":"li"}
   ]
 }
