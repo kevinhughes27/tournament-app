@@ -26,6 +26,21 @@ class Admin.BracketVis
       @descTemplate({bracket: bracket})
     )
 
+  renderPools: (bracket) ->
+    @$bracketPoolsNode.empty()
+
+    games = bracket.template.games
+    games = _.filter(games, 'pool')
+
+    if games.length > 0
+      gamesByPool = _.groupBy(games, 'pool')
+
+      @$bracketPoolsNode.append(
+        @poolsTemplate({gamesByPool: gamesByPool})
+      )
+    else
+      # some blank slate
+
   renderBracket: (bracket) ->
     data = @graphFromBracket(bracket)
     vis = new window.vis.Network(@$bracketGraphNode[0], data, @options)
@@ -41,7 +56,7 @@ class Admin.BracketVis
         }
       },
       groups: {
-        first: {color: {border: 'white', background: 'white'}},
+        initial: {color: {border: 'white', background: 'white'}},
         loser: {color: {background: 'white'}},
       },
       nodes: {
@@ -58,12 +73,13 @@ class Admin.BracketVis
 
     @bracket = bracket
     @games = @bracket.template.games
+    @pools = _.compact(_.uniq(_.pluck(@games, 'pool')))
     @games = _.filter(@games, (g) -> !g.pool)
     @games = _.sortBy(@games, (g) -> -g.round)
 
     @_addGameNodes()
     @_addLoserNodes()
-    @_addFirstRoundNodes()
+    @_addInitialNodes()
 
     return {
       nodes: @nodes
@@ -119,51 +135,77 @@ class Admin.BracketVis
       })
     )
 
-  _addFirstRoundNodes: ->
-    firstRoundGames = _.filter(@games, (game) -> game.round == 1)
+  _addInitialNodes: ->
+    if @pools.length > 0
+      @__addAfterPoolNodes()
+    else
+      @__addSeedNodes()
 
-    _.map(firstRoundGames, (game) =>
+  __addAfterPoolNodes: ->
+    poolRegex = ///(#{@pools.join('|')}\d)///
+
+    _.map(@games, (game) =>
       gameUid = game.uid
 
-      @nodes.push({
-        id: game.home,
-        label: game.home,
-        level: @bracket.rounds - game.round + 2,
-        group: 'first'
-      })
+      if game.home.match(poolRegex)
+        @nodes.push({
+          id: game.home,
+          label: game.home,
+          level: @bracket.rounds - game.round + 2,
+          group: 'initial'
+        })
 
-      @nodes.push({
-        id: game.away,
-        label: game.away,
-        level: @bracket.rounds - game.round + 2,
-        group: 'first'
-      })
+        @edges.push({
+          from: game.home,
+          to: game.uid
+        })
 
-      @edges.push({
-        from: game.home,
-        to: game.uid
-      })
+      if game.away.match(poolRegex)
+        @nodes.push({
+          id: game.away,
+          label: game.away,
+          level: @bracket.rounds - game.round + 2,
+          group: 'initial'
+        })
 
-      @edges.push({
-        from: game.away,
-        to: game.uid
-      })
+        @edges.push({
+          from: game.away,
+          to: game.uid
+        })
     )
 
-  renderPools: (bracket) ->
-    @$bracketPoolsNode.empty()
+  __addSeedNodes: ->
+    seedGames = _.filter(@games, (game) -> game.seed)
 
-    games = bracket.template.games
-    games = _.filter(games, 'pool')
+    _.map(seedGames, (game) =>
+      gameUid = game.uid
 
-    if games.length > 0
-      gamesByPool = _.groupBy(games, 'pool')
+      unless isNaN(parseInt(game.home))
+        @nodes.push({
+          id: game.home,
+          label: game.home,
+          level: @bracket.rounds - game.round + 2,
+          group: 'initial'
+        })
 
-      @$bracketPoolsNode.append(
-        @poolsTemplate({gamesByPool: gamesByPool})
-      )
-    else
-      # some blank slate
+        @edges.push({
+          from: game.home,
+          to: game.uid
+        })
+
+      unless isNaN(parseInt(game.away))
+        @nodes.push({
+          id: game.away,
+          label: game.away,
+          level: @bracket.rounds - game.round + 2,
+          group: 'initial'
+        })
+
+        @edges.push({
+          from: game.away,
+          to: game.uid
+        })
+    )
 
 TEMPLATES =
   description: """
