@@ -1,71 +1,32 @@
 class Admin.BracketVis
 
-  constructor: (node, bracketName) ->
-    @descTemplate = _.template(TEMPLATES.description)
-    @poolsTemplate = _.template(TEMPLATES.pool)
-
-    @$bracketDescNode = $(node).find('#bracketDescription')
-    @$bracketPoolsNode = $(node).find('#bracketPools')
-    @$bracketGraphNode = $(node).find('#bracketGraph')
-
-    @render(bracketName)
-
-  render: (bracketName) ->
-    bracket = _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)
-
-    if bracket
-      @renderDescription(bracket)
-      @renderPools(bracket)
-      @renderBracket(bracket)
-    else
-      # render some blank slate
-
-  renderDescription: (bracket) ->
-    @$bracketDescNode.empty()
-    @$bracketDescNode.append(
-      @descTemplate({bracket: bracket})
-    )
-
-  renderPools: (bracket) ->
-    @$bracketPoolsNode.empty()
-
-    games = bracket.template.games
-    games = _.filter(games, 'pool')
-
-    if games.length > 0
-      gamesByPool = _.groupBy(games, 'pool')
-
-      @$bracketPoolsNode.append(
-        @poolsTemplate({gamesByPool: gamesByPool})
-      )
-    else
-      # some blank slate
-
-  renderBracket: (bracket) ->
-    data = @graphFromBracket(bracket)
-    vis = new window.vis.Network(@$bracketGraphNode[0], data, @options)
+  constructor: (@node) ->
 
   options: {
-      interaction: {
-        dragNodes: false
-      },
-      layout: {
-        hierarchical: {
-          direction: 'RL',
-          levelSeparation: 200
-        }
-      },
-      groups: {
-        initial: {color: {border: 'white', background: 'white'}},
-        loser: {color: {background: 'white'}},
-      },
-      nodes: {
-        font: {size: 42}
+    interaction: {
+      dragNodes: false
+    },
+    layout: {
+      hierarchical: {
+        direction: 'RL',
+        levelSeparation: 200
       }
-      edges: {
-        color: {color: '#848484'}
-      }
+    },
+    groups: {
+      initial: {color: {border: 'white', background: 'white'}},
+      loser: {color: {background: 'white'}},
+    },
+    nodes: {
+      font: {size: 42}
     }
+    edges: {
+      color: {color: '#848484'}
+    }
+  }
+
+  render: (bracket) ->
+    data = @graphFromBracket(bracket)
+    vis = new window.vis.Network(@node, data, @options)
 
   graphFromBracket: (bracket) ->
     @nodes = []
@@ -206,32 +167,3 @@ class Admin.BracketVis
           to: game.uid
         })
     )
-
-TEMPLATES =
-  description: """
-    <p>
-      <strong><%= bracket.name %>: <%= bracket.sub_title %></strong>
-    </p>
-    <p>
-      <%= bracket.description %>
-    </p>
-  """
-  pool: """
-    <% _.each(gamesByPool, function(pool, name) { %>
-      <table class="table table-bordered table-striped table-hover table-condensed">
-        <thead>
-          <tr>
-            <th>Pool <%= name %></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% _.each(pool, function(game) { %>
-            <tr>
-              <td><%= game.home %> vs <%= game.away %></td>
-            </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    <% }) %>
-  """

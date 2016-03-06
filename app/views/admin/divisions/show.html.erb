@@ -19,10 +19,9 @@
     <% end %>
 
     <%= ui_box do %>
-      <div define="{bracketVis: new Admin.BracketVis(this, '<%= @division.bracket_type %>')}">
+      <div define="{bracket: new Admin.Bracket(this, '<%= @division.bracket_type %>')}">
         <div class="row">
           <div id="bracketDescription" class="col-md-10">
-            Description
           </div>
         </div>
         <hr>

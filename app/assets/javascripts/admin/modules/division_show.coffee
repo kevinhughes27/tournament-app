@@ -4,4 +4,4 @@ class Admin.DivisionShow
   constructor: ->
     $(@SELECT_BRACKET_NODE).on 'change', (event) =>
       bracketName = $(event.target).val()
-      @bracketVis.render(bracketName)
+      @bracket.render(bracketName)
