@@ -22,6 +22,6 @@
     {"round": 3, "place": "1st", "uid": "g", "home":"We", "away":"Wf"},
     {"round": 3, "place": "3rd", "uid": "k", "home":"Le", "away":"Lf"},
     {"round": 3, "place": "5th", "uid": "j", "home":"Wh", "away":"Wi"},
-    {"round": 3, "place": "7th", "uid": "L", "home":"Lh", "away":"Li"}
+    {"round": 3, "place": "7th", "uid": "l", "home":"Lh", "away":"Li"}
   ]
 }
