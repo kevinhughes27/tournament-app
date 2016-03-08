@@ -1,7 +1,7 @@
 class Admin.BracketVis
 
   constructor: (@node) ->
-    @debug = true
+    @debug = false
 
   options: {
     layout: {
@@ -24,7 +24,7 @@ class Admin.BracketVis
     },
     nodes: {
       font: {size: 42}
-    }
+    },
     edges: {
       color: {color: '#848484'}
     }
