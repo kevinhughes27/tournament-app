@@ -4,9 +4,10 @@ class Admin.Bracket
     @descTemplate = _.template(TEMPLATES.description)
     @poolsTemplate = _.template(TEMPLATES.pool)
 
-    @$bracketDescNode = $(node).find('#bracketDescription')
-    @$bracketPoolsNode = $(node).find('#bracketPools')
-    @$bracketGraphNode = $(node).find('#bracketGraph')
+    @$node = $(node)
+    @$bracketDescNode = @$node.find('#bracketDescription')
+    @$bracketPoolsNode = @$node.find('#bracketPools')
+    @$bracketGraphNode = @$node.find('#bracketGraph')
 
     @render(bracketName)
 
@@ -14,11 +15,12 @@ class Admin.Bracket
     bracket = _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)
 
     if bracket
+      @$node.fadeIn()
       @renderDescription(bracket)
       @renderPools(bracket)
       @renderBracket(bracket)
     else
-      # render some blank slate
+      @$node.fadeOut()
 
   renderDescription: (bracket) ->
     @$bracketDescNode.empty()
