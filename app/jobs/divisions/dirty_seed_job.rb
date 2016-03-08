@@ -2,9 +2,13 @@ module Divisions
   class DirtySeedJob < ActiveJob::Base
     queue_as :default
 
+    attr_reader :division
+
     # returns true if seeding would result in changes
     # only for initial seed
     def perform(division:)
+      @division = division
+
       return true if division.teams.blank?
       return true unless division.seeded?
 
@@ -15,8 +19,7 @@ module Divisions
         return true unless seed == (idx+1)
       end
 
-      game_uids = division.bracket.game_uids_for_round(1)
-      games = Game.where(division_id: division.id, bracket_uid: game_uids)
+      games = games_for_seed
 
       return true unless games.all?{ |g| g.valid_for_seed_round? }
 
@@ -37,6 +40,17 @@ module Divisions
       end
 
       return false
+    end
+
+    private
+
+    def games_for_seed
+      if division.bracket.pool
+        Game.where(division_id: division.id).where.not(pool: nil)
+      else
+        game_uids = division.bracket.game_uids_for_seeding(1)
+        Game.where(division_id: division.id, bracket_uid: game_uids)
+      end
     end
   end
 end
