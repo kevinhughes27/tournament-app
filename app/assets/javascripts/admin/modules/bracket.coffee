@@ -48,7 +48,10 @@ class Admin.Bracket
 TEMPLATES =
   description: """
     <p>
-      <strong><%= bracket.name %>: <%= bracket.sub_title %></strong>
+      <strong><%= bracket.name %>
+      <% if(bracket.tagline) { %>
+        : <%= bracket.tagline %></strong>
+      <% } %>
     </p>
     <p>
       <%= bracket.description %>

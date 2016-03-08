@@ -24,7 +24,7 @@
 
 -
   name: USAU 8.1
-  sub_title: One team advances
+  tagline: One team advances
   description: >
     On the first day, play two pools of four according to Table 8.1.2. On the
     second day, play single elimination according to Table 8.1, eight-team modified
@@ -38,7 +38,7 @@
 
 -
   name: USAU 8.2
-  sub_title: Two teams advance
+  tagline: Two teams advance
   description: >
     On the first day, play two pools of four according to Table 8.1.2. Then,
     continue into Bracket 8.2.1, eight-team clipped double elimination. The first
@@ -52,7 +52,7 @@
 
 -
   name: USAU 8.3
-  sub_title: Three, Seven, or Eight teams advance
+  tagline: Three, Seven, or Eight teams advance
   description: >
     On the first day, play two pools of four according to Table 8.1.3. Then,
     continue into Bracket 8.3, Eight-team modified elimination – three teams
@@ -65,7 +65,7 @@
 
 -
   name: USAU 8.4
-  sub_title: Four teams advance
+  tagline: Four teams advance
   description: >
     On the first day, play two pools of four according to Table 8.1.1. On the
     second day, use Bracket 8.4, eight-team modified elimination – four teams
@@ -78,7 +78,7 @@
 
 -
   name: USAU 8.5
-  sub_title: Five teams advance
+  tagline: Five teams advance
   description: >
     On the first day, play two pools of four according to Table 8.1.2. Then,
     continue into Bracket 8.2.2, eight-team double elimination. The first round of
@@ -91,7 +91,7 @@
 
 -
   name: USAU 8.6
-  sub_title: Six teams advance
+  tagline: Six teams advance
   description: >
     On the first day, play two pools of four according to Table 8.1.3. Then,
     continue into Bracket 8.5, eight-team modified elimination – six teams advance.
