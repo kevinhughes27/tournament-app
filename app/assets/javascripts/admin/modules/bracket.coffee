@@ -35,13 +35,15 @@ class Admin.Bracket
     games = _.filter(games, 'pool')
 
     if games.length > 0
+      @$bracketPoolsNode.parent().fadeIn()
+
       gamesByPool = _.groupBy(games, 'pool')
 
       @$bracketPoolsNode.append(
         @poolsTemplate({gamesByPool: gamesByPool})
       )
     else
-      # some blank slate
+      @$bracketPoolsNode.parent().hide()
 
   renderBracket: (bracket) ->
     @bracketVis ||= new Admin.BracketVis(@$bracketGraphNode[0])
