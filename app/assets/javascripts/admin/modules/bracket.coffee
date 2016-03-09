@@ -2,7 +2,8 @@ class Admin.Bracket
 
   constructor: (node, bracketName) ->
     @descTemplate = _.template(TEMPLATES.description)
-    @poolsTemplate = _.template(TEMPLATES.pool)
+    @poolsTemplate = _.template(TEMPLATES.pools)
+    @noPoolsTemplate = _.template(TEMPLATES.no_pools)
 
     @$node = $(node)
     @$bracketDescNode = @$node.find('#bracketDescription')
@@ -35,15 +36,15 @@ class Admin.Bracket
     games = _.filter(games, 'pool')
 
     if games.length > 0
-      @$bracketPoolsNode.parent().fadeIn()
-
       gamesByPool = _.groupBy(games, 'pool')
 
       @$bracketPoolsNode.append(
         @poolsTemplate({gamesByPool: gamesByPool})
       )
     else
-      @$bracketPoolsNode.parent().hide()
+      @$bracketPoolsNode.append(
+        @noPoolsTemplate()
+      )
 
   renderBracket: (bracket) ->
     @bracketVis ||= new Admin.BracketVis(@$bracketGraphNode[0])
@@ -61,7 +62,7 @@ TEMPLATES =
       <%= bracket.description %>
     </p>
   """
-  pool: """
+  pools: """
     <% _.each(gamesByPool, function(pool, name) { %>
       <table class="table table-bordered table-striped table-hover table-condensed">
         <thead>
@@ -79,4 +80,9 @@ TEMPLATES =
         </tbody>
       </table>
     <% }) %>
+  """
+  no_pools: """
+    <div class="blank-slate" style="margin-top: 60px;">
+      <p>No Pool Games</p>
+    </div>
   """
