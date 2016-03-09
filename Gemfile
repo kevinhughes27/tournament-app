@@ -69,6 +69,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
+  gem 'chunky_png'
   gem 'launchy'
   gem 'simplecov', :require => false
   gem 'minitest-ci', :git => 'git@github.com:circleci/minitest-ci.git'

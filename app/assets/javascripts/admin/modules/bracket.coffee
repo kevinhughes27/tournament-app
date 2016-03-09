@@ -13,7 +13,7 @@ class Admin.Bracket
     @render(bracketName)
 
   render: (bracketName) ->
-    bracket = _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)
+    bracket = Admin.BracketDb.find(bracketName)
 
     if bracket
       @$node.fadeIn()

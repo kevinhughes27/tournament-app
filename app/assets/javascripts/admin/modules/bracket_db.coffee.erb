@@ -1,2 +1,4 @@
 Admin.BracketDb =
   BRACKETS: <%= Bracket.all.to_json %>
+  find: (bracketName) ->
+    _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)

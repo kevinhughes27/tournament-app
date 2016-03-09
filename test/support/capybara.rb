@@ -15,6 +15,7 @@ Capybara.ignore_hidden_elements = false
 
 Capybara::Webkit.configure do |config|
   config.allow_unknown_urls
+  #config.debug = true
 end
 
 class ActiveSupport::TestCase
