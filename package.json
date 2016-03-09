@@ -1,5 +1,6 @@
 {
   "name": "ultimate-tournament",
+  "private": true,
   "browserify-shim": {
     "jquery": "global:$"
   },
