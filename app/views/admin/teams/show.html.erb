@@ -7,11 +7,15 @@
   <%= ui_save_button_tag(form_id:'.edit_team') %>
 <% end %>
 
-<%= render 'admin/errors', object: @team %>
+<div class="row">
+  <div class="col-md-8">
+    <%= render 'admin/errors', object: @team %>
 
-<%= ui_box do %>
-  <%= form_for [@tournament, :admin, @team], remote: true do |form| %>
-    <%= render 'form', form: form, team: @team %>
-  <% end %>
-  <%= button_to "delete", [@tournament, :admin, @team], method: :delete, class: 'btn btn-danger' %>
-<% end %>
+    <%= ui_box do %>
+      <%= form_for [@tournament, :admin, @team], remote: true do |form| %>
+        <%= render 'form', form: form, team: @team %>
+      <% end %>
+      <%= button_to "delete", [@tournament, :admin, @team], method: :delete, class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</div>
