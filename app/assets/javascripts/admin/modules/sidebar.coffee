@@ -8,6 +8,19 @@ class Sidebar
       klass = "sidebar-collapse"
       if @_expanded(klass) then @collapse(klass) else @expand(klass)
 
+  navigate: (event) ->
+    event.preventDefault()
+
+    $node = if $(event.target).hasClass('sidebar-link')
+      $(event.target)
+    else
+      $(event.target).parents('.sidebar-link')
+
+    return if $node.length == 0
+
+    @close() if @_smallScreen()
+    Turbolinks.visit($node.attr('href'))
+
   # desktop and tablet
   expand: (klass) ->
     $("body").removeClass(klass)
