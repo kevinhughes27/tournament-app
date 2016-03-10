@@ -1,6 +1,5 @@
 class LoginController < Devise::SessionsController
   skip_before_action :require_no_authentication
-  before_action :set_tournament, only: [:create]
   prepend_view_path 'app/views/login'
   layout 'login'
 
@@ -11,9 +10,9 @@ class LoginController < Devise::SessionsController
 
   def choose_tournament
     if request.post?
-      set_tournament
+      tournament = Tournament.friendly.find(params[:tournament])
       flash[:animate] = "fadeIn"
-      redirect_to tournament_admin_path(session[:tournament_friendly_id])
+      redirect_to tournament_admin_path(tournament)
     end
   end
 
@@ -21,10 +20,10 @@ class LoginController < Devise::SessionsController
     user = warden.authenticate!(auth_options)
     return redirect_to setup_path unless user.tournaments.exists?
 
-    if user.is_tournament_user?(session[:tournament_id])
-      sign_in(:user, user)
-      flash[:animate] = "fadeIn"
-      respond_with user, location: after_login_in_path
+    if session[:tournament_id].blank?
+      login_no_tournament_id(user)
+    elsif user.is_tournament_user?(session[:tournament_id])
+      login(user)
     else
       flash.now[:alert] = "Invalid login for tournament."
       redirect_to_login
@@ -39,24 +38,29 @@ class LoginController < Devise::SessionsController
 
   private
 
+  def login_no_tournament_id(user)
+    sign_in(:user, user)
+
+    if user.tournaments.count == 1
+      flash[:animate] = "fadeIn"
+      respond_with user, location: tournament_admin_path(user.tournaments.first)
+    else
+      redirect_to choose_tournament_path
+    end
+  end
+
+  def login(user)
+    sign_in(:user, user)
+    flash[:animate] = "fadeIn"
+    respond_with user, location: after_login_in_path
+  end
+
   def from_brochure?
     referer == root_url
   end
 
   def referer
     request.env['HTTP_REFERER']
-  end
-
-  def set_tournament
-    return unless params[:tournament]
-    tournament = Tournament.friendly.find(params[:tournament])
-
-    session[:tournament_id] = tournament.id
-    session[:tournament_friendly_id] = tournament.friendly_id
-
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = 'Invalid tournament.'
-    redirect_to_login
   end
 
   def user_params

@@ -1,5 +1,4 @@
 <div class="register-box animated <%= login_animation %>">
-
   <div class="register-logo">
     Ultimate Tournament
   </div>
@@ -8,25 +7,12 @@
     <p>Choose tournament</p>
   </div>
 
-  <%= form_tag(choose_tournament_path) do |f| %>
-    <div class="register-box-body">
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-fw fa-trophy"></i></span>
-          <%= text_field_tag :tournament,
-            '',
-            placeholder: 'Tournament handle',
-            class: 'form-control awesomplete',
-            autofocus: true,
-            'data-list' => current_user.tournaments.pluck(:handle).join(','),
-            'data-minchars' => 1 %>
-        </div>
-      </div>
-
-      <div class="form-group text-center" style="margin-bottom: 0px">
-        <%= submit_tag "Continue", class: 'btn btn-lg btn-block btn-primary' %>
-      </div>
-    </div>
-  <% end %>
-
+  <div class="register-box-body">
+    <% current_user.tournaments.each do |tournament| %>
+      <%= form_tag(choose_tournament_path) do |f| %>
+        <%= hidden_field_tag :tournament, tournament.handle %>
+        <%= submit_tag tournament.name, class: 'btn btn-block' %>
+      <% end %>
+    <% end %>
+  </div>
 </div>

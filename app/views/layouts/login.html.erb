@@ -6,10 +6,15 @@
   <title>Ultimate Tournament</title>
   <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true %>
   <%= render 'shared/rollbar' %>
-  <%= javascript_include_tag 'login', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 
 <body class="register-page">
+  <div id="closebt-container">
+    <%= link_to root_path do %>
+      <%= image_tag "brochure/closebt.svg", class: "closebt" %>
+    <% end %>
+  </div>
+
   <%= yield %>
 </body>

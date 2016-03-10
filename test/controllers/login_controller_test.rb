@@ -17,7 +17,7 @@ class LoginControllerTest < ActionController::TestCase
   test "login page has field for tournament if session doesn't have tournament_id" do
     clear_session
     get :new
-    assert_match /<input type=\"text\" name=\"tournament/, response.body
+    assert_response :ok
   end
 
   test "new clears session if redirected from brochure" do
@@ -44,18 +44,29 @@ class LoginControllerTest < ActionController::TestCase
     assert_equal 'fadeIn', flash[:animate]
   end
 
-  test "successful login" do
+  test "successful login redirects to tournament" do
     clear_session
-    post :create, user: {email: @user.email, password: 'password'}, tournament: @tournament.handle
+    post :create, user: {email: @user.email, password: 'password'}
 
     assert_redirected_to tournament_admin_path(@tournament)
     assert_equal 'fadeIn', flash[:animate]
   end
 
+  test "successful login with multiple tournaments" do
+    tournament = Tournament.create({name: 'Second Tournament', handle: 'second-tournament'})
+    TournamentUser.create!(tournament_id: tournament.id, user_id: @user.id)
+    assert_equal 2, @user.tournaments.count
+
+    clear_session
+    post :create, user: {email: @user.email, password: 'password'}
+
+    assert_redirected_to choose_tournament_path
+  end
+
   test "successful login with no tournaments" do
     clear_session
     @user.tournaments.delete_all
-    post :create, user: {email: @user.email, password: 'password'}, tournament: @tournament.handle
+    post :create, user: {email: @user.email, password: 'password'}
     assert_redirected_to setup_path
   end
 
@@ -77,15 +88,6 @@ class LoginControllerTest < ActionController::TestCase
     assert_login_error("Invalid login for tournament.")
     assert_equal tournament.id, session[:tournament_id]
     assert_equal tournament.handle, session[:tournament_friendly_id]
-  end
-
-  test "login with a tournament that doesn't exist" do
-    clear_session
-    post :create, user: {email: @user.email, password: 'password'}, tournament: 'not-a-handle'
-
-    assert_login_error("Invalid tournament.")
-    assert_nil session[:tournament_id]
-    assert_nil session[:tournament_friendly_id]
   end
 
   test "logout clears session" do
