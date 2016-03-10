@@ -20,7 +20,7 @@
   <aside class="main-sidebar">
     <section class="sidebar">
 
-      <ul class="sidebar-menu">
+      <ul class="sidebar-menu" bind-event-click="navigate(event)">
         <%= sidebar_link "fa fa-home", "Home", tournament_admin_path(@tournament) %>
         <%= sidebar_link "fa fa-users", "Teams", tournament_admin_teams_path(@tournament) %>
         <%= sidebar_link "fa fa-sitemap", "Divisions", tournament_admin_divisions_path(@tournament) %>

@@ -13,7 +13,7 @@ module SidebarHelper
 
   def sidebar_link(icon, text, path, options = {})
     content_tag :li do
-      content_tag :a, options.merge(href: path) do
+      content_tag :a, options.merge(class: 'sidebar-link', href: path) do
         content_tag(:i, '', class: icon) +
         content_tag(:span, text)
       end
