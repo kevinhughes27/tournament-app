@@ -35,7 +35,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
       get '/render_test', to: 'bracket_render#index'
     end
 
-    page.driver.resize_window(400,440)
+
   end
 
   teardown do
@@ -87,6 +87,15 @@ class BracketSimulationTest < ActiveSupport::TestCase
       File.join(ENV['CIRCLE_ARTIFACTS'], 'tmp/screenshot.png')
     else
       'tmp/screenshot.png'
+    end
+  end
+
+  def resize_window
+    if ENV['CIRCLECI']
+      window = page.driver.browser.manage.window
+      window.resize_to(400, 440)
+    else
+      page.driver.resize_window(400,440)
     end
   end
 end
