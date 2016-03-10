@@ -22,9 +22,9 @@
 
       <ul class="sidebar-menu">
         <%= sidebar_link "fa fa-home", "Home", tournament_admin_path(@tournament) %>
-        <%= sidebar_link "fa fa-map-signs", "Fields", tournament_admin_fields_path(@tournament) %>
-        <%= sidebar_link "fa fa-sitemap", "Divisions", tournament_admin_divisions_path(@tournament) %>
         <%= sidebar_link "fa fa-users", "Teams", tournament_admin_teams_path(@tournament) %>
+        <%= sidebar_link "fa fa-sitemap", "Divisions", tournament_admin_divisions_path(@tournament) %>
+        <%= sidebar_link "fa fa-map-signs", "Fields", tournament_admin_fields_path(@tournament) %>
         <%= sidebar_link "fa fa-calendar", "Schedule", tournament_admin_schedule_path(@tournament) %>
         <%= sidebar_link "fa fa-list", "Games", tournament_admin_games_path(@tournament) %>
 
