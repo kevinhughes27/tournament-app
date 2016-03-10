@@ -2,6 +2,7 @@
   name: round_robin_5
   num_teams: 5
   days: 1
+  rounds: 3
   pool: false
   template: <%= File.read('db/brackets/round_robin_5.json') %>
 
@@ -9,6 +10,7 @@
   name: single_elimination_4
   num_teams: 4
   days: 1
+  rounds: 3
   pool: false
   template: <%= File.read('db/brackets/single_elimination_4.json') %>
 
@@ -16,12 +18,86 @@
   name: single_elimination_8
   num_teams: 8
   days: 1
+  rounds: 3
   pool: false
   template: <%= File.read('db/brackets/single_elimination_8.json') %>
 
 -
-  name: usau_8.1
+  name: USAU 8.1
+  tagline: One team advances
+  description: >
+    On the first day, play two pools of four according to Table 8.1.2. On the
+    second day, play single elimination according to Table 8.1, eight-team modified
+    elimination. The games outside the initial bracket are only for place. This
+    format requires only three rounds each day, so games can be spaced out well.
   num_teams: 8
   days: 2
+  rounds: 3
   pool: true
   template: <%= File.read('db/brackets/usau_8.1.json') %>
+
+-
+  name: USAU 8.2
+  tagline: Two teams advance
+  description: >
+    On the first day, play two pools of four according to Table 8.1.2. Then,
+    continue into Bracket 8.2.1, eight-team clipped double elimination. The first
+    round of the bracket is played on the first day, while the remaining three
+    rounds are played on the second day.
+  num_teams: 8
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= File.read('db/brackets/usau_8.2.json') %>
+
+-
+  name: USAU 8.3
+  tagline: Three, Seven, or Eight teams advance
+  description: >
+    On the first day, play two pools of four according to Table 8.1.3. Then,
+    continue into Bracket 8.3, Eight-team modified elimination – three teams
+    advance. The first round of the bracket is played on the first day.
+  num_teams: 8
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= File.read('db/brackets/usau_8.3.json') %>
+
+-
+  name: USAU 8.4
+  tagline: Four teams advance
+  description: >
+    On the first day, play two pools of four according to Table 8.1.1. On the
+    second day, use Bracket 8.4, eight-team modified elimination – four teams
+    advance. There are only three games each day, so rounds can be spaced out.
+  num_teams: 8
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= File.read('db/brackets/usau_8.4.json') %>
+
+-
+  name: USAU 8.5
+  tagline: Five teams advance
+  description: >
+    On the first day, play two pools of four according to Table 8.1.2. Then,
+    continue into Bracket 8.2.2, eight-team double elimination. The first round of
+    the brackets are played on the first day.
+  num_teams: 8
+  days: 2
+  rounds: 5
+  pool: true
+  template: <%= File.read('db/brackets/usau_8.5.json') %>
+
+-
+  name: USAU 8.6
+  tagline: Six teams advance
+  description: >
+    On the first day, play two pools of four according to Table 8.1.3. Then,
+    continue into Bracket 8.5, eight-team modified elimination – six teams advance.
+    The first round of the brackets are played on the first day.
+  num_teams: 8
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= File.read('db/brackets/usau_8.6.json') %>

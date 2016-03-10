@@ -25,6 +25,24 @@ module Divisions
       assert DirtySeedJob.perform_now(division: division)
     end
 
+    test "perform with pool" do
+      division = new_division('USAU 8.1')
+      @teams.update_all(division_id: division.id)
+
+      refute division.seeded?
+      assert DirtySeedJob.perform_now(division: division)
+
+      division.seed(1)
+
+      assert division.seeded?
+      refute DirtySeedJob.perform_now(division: division)
+
+      division.teams[0].update_attributes(seed: 2)
+      division.teams[1].update_attributes(seed: 1)
+
+      assert DirtySeedJob.perform_now(division: division)
+    end
+
     private
 
     def new_division(type)

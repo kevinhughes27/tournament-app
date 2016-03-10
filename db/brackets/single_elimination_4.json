@@ -4,7 +4,7 @@
     {"round": 1, "seed": 1, "uid": "s1", "home":"1", "away":"4"},
     {"round": 1, "seed": 1, "uid": "s2", "home":"2", "away":"3"},
 
-    {"round": 2, "place": 1, "uid": "f1", "home":"ws1", "away":"ws2"},
-    {"round": 2, "place": 3, "uid": "f2", "home":"ls1", "away":"ls2"}
+    {"round": 2, "place": "1st", "uid": "f1", "home":"Ws1", "away":"Ws2"},
+    {"round": 2, "place": "3rd", "uid": "f2", "home":"Ls1", "away":"Ls2"}
   ]
 }

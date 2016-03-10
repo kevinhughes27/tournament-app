@@ -11,7 +11,7 @@ module Divisions
 
     test "game pushes its winner through the bracket when its score is confirmed" do
       game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-      game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'wq1', away_prereq_uid: 'wq2')
+      game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'Wq1', away_prereq_uid: 'Wq2')
 
       game1.update_columns(home_score: 15, away_score: 11)
       UpdateBracketJob.perform_now(game_id: game1.id)
@@ -21,7 +21,7 @@ module Divisions
 
     test "game pushes its loser through the bracket when its score is confirmed" do
       game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-      game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'lq2', away_prereq_uid: 'lq1')
+      game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'Lq2', away_prereq_uid: 'Lq1')
 
       game1.update_columns(home_score: 15, away_score: 11)
       UpdateBracketJob.perform_now(game_id: game1.id)

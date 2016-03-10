@@ -8,7 +8,7 @@ class Admin.BracketChoice
 
   numberChanged: =>
     num = parseInt(@$numberInput.val())
-    validBrackets = _.filter(Admin.BracketDb, (b) -> b.num_teams == num)
+    validBrackets = _.filter(Admin.BracketDb.BRACKETS, (b) -> b.num_teams == num)
 
     @$selectInput.empty()
 

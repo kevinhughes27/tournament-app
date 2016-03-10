@@ -4,9 +4,9 @@
     {"round": 1, "seed": 1, "uid": "rr1", "home":2, "away":5},
     {"round": 1, "seed": 1, "uid": "rr2", "home":3, "away":4},
 
-    {"round": 2, "seed": 1, "uid": "rr3", "home":"wrr1", "away":1},
+    {"round": 2, "seed": 1, "uid": "rr3", "home":"Wrr1", "away":1},
 
-    {"round": 3, "place": 3, "uid": "rr4", "home":"lrr1", "away":"lrr2"},
-    {"round": 3, "place": 1, "uid": "rr5", "home":"wrr3", "away":"wrr2"}
+    {"round": 3, "place": "3rd", "uid": "rr4", "home":"Lrr1", "away":"Lrr2"},
+    {"round": 3, "place": "1st", "uid": "rr5", "home":"Wrr3", "away":"Wrr2"}
   ]
 }

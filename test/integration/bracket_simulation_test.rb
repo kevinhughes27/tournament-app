@@ -72,7 +72,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
   end
 
   def assert_winner
-    first_uid = division.bracket.game_uid_for_place(1)
+    first_uid = division.bracket.game_uid_for_place('1st')
     game = division.games.find_by(bracket_uid: first_uid)
     assert game.winner
   end

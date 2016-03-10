@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "2.2.2"
 
 # rails gems
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.5.2'
 gem 'sprockets-rails', '< 3.0' # breaks Teaspoon
 
 gem 'unicorn'
@@ -33,7 +33,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-
 gem 'interact-rails'
 
 # frontend frameworks
@@ -70,6 +69,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
+  gem 'chunky_png'
   gem 'launchy'
   gem 'simplecov', :require => false
   gem 'minitest-ci', :git => 'git@github.com:circleci/minitest-ci.git'

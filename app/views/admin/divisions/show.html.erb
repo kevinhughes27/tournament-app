@@ -9,7 +9,7 @@
 
 <%= render 'admin/errors', object: @division %>
 
-<div class="row">
+<div class="row" define="{divisionShow: new Admin.DivisionShow()}" context="divisionShow">
   <div class="col-md-8">
     <%= ui_box do %>
       <%= form_for [@tournament, :admin, @division], remote: true do |form| %>
@@ -17,6 +17,26 @@
       <% end %>
       <%= button_to "delete", [@tournament, :admin, @division], method: :delete, class: 'btn btn-danger' %>
     <% end %>
+
+    <div define="{bracket: new Admin.Bracket(this, '<%= @division.bracket_type %>')}" >
+      <%= ui_box do %>
+        <div class="row">
+          <div id="bracketDescription" class="col-md-10">
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-3">
+            <div id="bracketPools"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="bracketGraph" style="height: 440px;"></div>
+          </div>
+        </div>
+        <div id="visConfigure"></div>
+      <% end %>
+    </div>
   </div>
 
   <div class="col-md-4">
