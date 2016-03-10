@@ -10,8 +10,6 @@ class Admin.Bracket
     @$bracketPoolsNode = @$node.find('#bracketPools')
     @$bracketGraphNode = @$node.find('#bracketGraph')
 
-    @render(bracketName)
-
   render: (bracketName) ->
     bracket = Admin.BracketDb.find(bracketName)
 
