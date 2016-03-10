@@ -11,5 +11,11 @@
 </head>
 
 <body class="register-page">
+  <div id="closebt-container">
+    <%= link_to root_path do %>
+      <%= image_tag "brochure/closebt.svg", class: "closebt" %>
+    <% end %>
+  </div>
+
   <%= yield %>
 </body>
