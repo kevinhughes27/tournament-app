@@ -26,8 +26,27 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    @team = @tournament.teams.find(params[:id]).destroy()
-    respond_with @team
+    @team = @tournament.teams.find(params[:id])
+
+    if params[:confirm] == 'true' || @team.safe_to_delete?
+      @team.destroy()
+      respond_with @team
+    elsif @team.allow_delete?
+      @message = """There are games scheduled for this team.
+      Deleting the team will unassign it from those games. You
+      will need to re-seed the '#{@team.division.name}' division.
+      """
+      @path = tournament_admin_team_path(@tournament, @team)
+      render partial: 'confirm_delete_modal_content', status: :unprocessable_entity
+    else
+      @message = """There are games in this team's division that have been
+      scored. In order to delete this team you need to delete the
+      '#{@team.division.name}' division first.
+      """
+      @path = tournament_admin_team_path(@tournament, @team)
+      @allowed = false
+      render partial: 'confirm_delete_modal_content', status: :not_allowed
+    end
   end
 
   def sample_csv
