@@ -76,8 +76,24 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   end
 
   test "delete a field" do
+    field = fields(:upi4)
     assert_difference "Field.count", -1 do
+      delete :destroy, id: field.id, tournament_id: @tournament.id
+      assert_redirected_to tournament_admin_fields_path(@tournament)
+    end
+  end
+
+  test "delete a field needs confirm" do
+    assert_no_difference "Field.count" do
       delete :destroy, id: @field.id, tournament_id: @tournament.id
+      assert_response :unprocessable_entity
+      assert_template 'admin/fields/_confirm_delete'
+    end
+  end
+
+  test "confirm delete a field" do
+    assert_difference "Field.count", -1 do
+      delete :destroy, id: @field.id, tournament_id: @tournament.id, confirm: 'true'
       assert_redirected_to tournament_admin_fields_path(@tournament)
     end
   end
