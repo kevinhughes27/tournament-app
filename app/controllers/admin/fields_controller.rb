@@ -28,8 +28,19 @@ class Admin::FieldsController < AdminController
   end
 
   def destroy
-    @field = @tournament.fields.find(params[:id]).destroy()
-    respond_with @field
+    @field = @tournament.fields.find(params[:id])
+
+    if params[:confirm] == 'true' || @field.safe_to_delete?
+      @field.destroy()
+      respond_with @field
+    else
+      message = """There are games scheduled on this field.
+      Deleting will leave these games unassigned. You can re-assign them
+      on the schedule page however if your Tournament is in progress this
+      is probably not something you want to do.
+      """
+      render json: {message: message}, status: :unprocessable_entity
+    end
   end
 
   def sample_csv

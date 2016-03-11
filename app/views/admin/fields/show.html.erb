@@ -13,5 +13,10 @@
   <%= form_for [@tournament, :admin, @field], remote: true do |form| %>
     <%= render 'form', form: form, field: @field %>
   <% end %>
-  <%= button_to "delete", [@tournament, :admin, @field], method: :delete, class: 'btn btn-danger' %>
+  <%= button_tag 'delete', class: 'btn btn-danger js-btn-loadable',
+      'bind-event-click' => "Admin.DeleteWithCheck(
+        '#{tournament_admin_field_path(@tournament, @field)}'
+      )" %>
 <% end %>
+
+<%= render 'confirm_delete_modal', path: tournament_admin_field_path(@tournament, @field) %>
