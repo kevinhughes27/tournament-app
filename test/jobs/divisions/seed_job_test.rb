@@ -4,21 +4,24 @@ module Divisions
   class SeedJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
-      @teams = @tournament.teams.order(:seed)
+      @division = divisions(:open)
+      @teams = @division.teams.order(:seed)
     end
 
     test "initializes the first round" do
       division = new_division('single_elimination_8')
+
+      teams = @teams.to_a
       @teams.update_all(division_id: division.id)
 
       SeedJob.perform_now(division: division, seed_round: 1)
 
-      @teams.sort_by{ |t| t.seed }
+      teams.sort_by{ |t| t.seed }
       games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
 
       games.each do |game|
-        assert_equal game.home, @teams[game.home_prereq_uid.to_i - 1]
-        assert_equal game.away, @teams[game.away_prereq_uid.to_i - 1]
+        assert_equal game.home, teams[game.home_prereq_uid.to_i - 1]
+        assert_equal game.away, teams[game.away_prereq_uid.to_i - 1]
       end
     end
 
@@ -57,14 +60,14 @@ module Divisions
     test "round robin 5" do
       division = new_division('round_robin_5')
       @teams[5..-1].map(&:destroy)
-      @teams.reload
+      teams = @teams.reload
       @teams.update_all(division_id: division.id)
 
       SeedJob.perform_now(division: division, seed_round: 1)
 
       game = division.games.find_by(bracket_uid: 'rr3')
       assert_nil game.home
-      assert_equal @teams.first, game.away
+      assert_equal teams.first, game.away
     end
 
     private

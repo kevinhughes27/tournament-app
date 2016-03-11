@@ -4,7 +4,8 @@ module Divisions
   class DirtySeedJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
-      @teams = @tournament.teams.order(:seed)
+      @division = divisions(:open)
+      @teams = @division.teams.order(:seed)
     end
 
     test "perform" do
