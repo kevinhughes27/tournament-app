@@ -34,13 +34,7 @@ class Admin::FieldsController < AdminController
       @field.destroy()
       respond_with @field
     else
-      @message = """There are games scheduled on this field.
-      Deleting will leave these games unassigned. You can re-assign them
-      on the schedule page however if your Tournament is in progress this
-      is probably not something you want to do.
-      """
-      @path = tournament_admin_field_path(@tournament, @field)
-      render partial: 'confirm_delete_modal_content', status: :unprocessable_entity
+      render partial: 'confirm_delete', status: :unprocessable_entity
     end
   end
 
