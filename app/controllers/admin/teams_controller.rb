@@ -26,8 +26,16 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    @team = @tournament.teams.find(params[:id]).destroy()
-    respond_with @team
+    @team = @tournament.teams.find(params[:id])
+
+    if params[:confirm] == 'true' || @team.safe_to_delete?
+      @team.destroy()
+      respond_with @team
+    elsif @team.allow_delete?
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    else
+      render partial: 'unable_to_delete', status: :not_allowed
+    end
   end
 
   def sample_csv

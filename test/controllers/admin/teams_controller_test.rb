@@ -71,9 +71,36 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "delete a team" do
+    team = teams(:shrike)
     assert_difference "Team.count", -1 do
-      delete :destroy, id: @team.id, tournament_id: @tournament.id
+      delete :destroy, id: team.id, tournament_id: @tournament.id
       assert_redirected_to tournament_admin_teams_path(@tournament)
+    end
+  end
+
+  test "delete a team needs confirm if seeded but not scored" do
+    @division.games.update_all(score_confirmed: false)
+
+    assert_no_difference "Team.count" do
+      delete :destroy, id: @team.id, tournament_id: @tournament.id
+      assert_response :unprocessable_entity
+      assert_template 'admin/teams/_confirm_delete'
+    end
+  end
+
+  test "confirm delete a team" do
+    @division.games.update_all(score_confirmed: false)
+
+    assert_difference "Team.count", -1 do
+      delete :destroy, id: @team.id, tournament_id: @tournament.id, confirm: 'true'
+      assert_redirected_to tournament_admin_teams_path(@tournament)
+    end
+  end
+
+  test "delete a team not allowed if division has any scores" do
+    assert_no_difference "Team.count" do
+      delete :destroy, id: @team.id, tournament_id: @tournament.id
+      assert_template 'admin/teams/_unable_to_delete'
     end
   end
 

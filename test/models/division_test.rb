@@ -3,8 +3,8 @@ require 'test_helper'
 class DivisionTest < ActiveSupport::TestCase
   setup do
     @tournament = tournaments(:noborders)
-    @teams = @tournament.teams.order(:seed)
     @division = divisions(:open)
+    @teams = @division.teams
   end
 
   test "division creates all required games" do
@@ -63,5 +63,15 @@ class DivisionTest < ActiveSupport::TestCase
     assert_equal 12, division.games.count
     division.update_attributes(bracket_type: 'single_elimination_4')
     assert_equal 4, division.games.count
+  end
+
+  test "safe_to_delete? is true for division with no games started" do
+    division = divisions(:women)
+    assert division.safe_to_delete?
+  end
+
+  test "safe_to_delete? is false for division with games started" do
+    division = divisions(:open)
+    refute division.safe_to_delete?
   end
 end

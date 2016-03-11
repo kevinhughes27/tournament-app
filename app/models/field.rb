@@ -9,6 +9,10 @@ class Field < ActiveRecord::Base
 
   serialize :geo_json, JSON
 
+  def safe_to_delete?
+    !Game.where(tournament_id: tournament_id, field_id: id).exists?
+  end
+
   private
 
   def unassign_games

@@ -48,3 +48,9 @@ the_forgotten:
   division: open
   name: The Forgotten
   seed: 5
+
+stella:
+  tournament: noborders
+  division: women
+  name: Stella
+  seed: 2

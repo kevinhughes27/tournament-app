@@ -4,7 +4,8 @@ module Divisions
   class UpdatePoolJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
-      @teams = @tournament.teams.order(:seed)
+      @division = divisions(:open)
+      @teams = @division.teams.order(:seed)
     end
 
     test "pool not finished" do
@@ -17,6 +18,7 @@ module Divisions
 
     test "update pool" do
       division = new_division('USAU 8.1')
+      teams = @teams.to_a
       @teams.update_all(division_id: division.id)
       division.seed
 
@@ -33,8 +35,8 @@ module Divisions
       game1 = division.games.find_by(home_prereq_uid: 'A1')
       game2 = division.games.find_by(away_prereq_uid: 'A4')
 
-      assert_equal @teams.last, game1.home
-      assert_equal @teams.first, game2.away
+      assert_equal teams.last, game1.home
+      assert_equal teams.first, game2.away
     end
 
     private

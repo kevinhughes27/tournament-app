@@ -69,8 +69,24 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "delete a division" do
+    division = divisions(:women)
     assert_difference "Division.count", -1 do
+      delete :destroy, id: division.id, tournament_id: @tournament.id
+      assert_redirected_to tournament_admin_divisions_path(@tournament)
+    end
+  end
+
+  test "delete a division needs confirm" do
+    assert_no_difference "Division.count" do
       delete :destroy, id: @division.id, tournament_id: @tournament.id
+      assert_response :unprocessable_entity
+      assert_template 'admin/divisions/_confirm_delete'
+    end
+  end
+
+  test "confirm delete a division" do
+    assert_difference "Division.count", -1 do
+      delete :destroy, id: @division.id, tournament_id: @tournament.id, confirm: 'true'
       assert_redirected_to tournament_admin_divisions_path(@tournament)
     end
   end
