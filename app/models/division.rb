@@ -29,6 +29,10 @@ class Division < ActiveRecord::Base
     Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
   end
 
+  def safe_to_delete?
+    !games.where(score_confirmed: true).exists?
+  end
+
   private
 
   def create_games

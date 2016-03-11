@@ -24,8 +24,14 @@ class Admin::DivisionsController < AdminController
   end
 
   def destroy
-    @division = @tournament.divisions.find(params[:id]).destroy()
-    respond_with @division
+    @division = @tournament.divisions.find(params[:id])
+
+    if params[:confirm] == 'true' || @division.safe_to_delete?
+      @division.destroy()
+      respond_with @division
+    else
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    end
   end
 
   def update_teams
