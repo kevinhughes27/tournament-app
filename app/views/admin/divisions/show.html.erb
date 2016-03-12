@@ -16,8 +16,9 @@
         <%= render 'form', form: form, division: @division %>
       <% end %>
       <%= button_tag 'delete', class: 'btn btn-danger js-btn-loadable',
-          'bind-event-click' => "Admin.DeleteWithCheck(
-            '#{admin_division_path(@division)}'
+          'bind-event-click' => "Admin.ActionWithCheck(
+            '#{admin_division_path(@division)}',
+            'DELETE'
           )" %>
     <% end %>
 

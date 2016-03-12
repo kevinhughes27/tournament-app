@@ -14,7 +14,8 @@
     <%= render 'form', form: form, field: @field %>
   <% end %>
   <%= button_tag 'delete', class: 'btn btn-danger js-btn-loadable',
-      'bind-event-click' => "Admin.DeleteWithCheck(
-        '#{admin_field_path(@field)}'
+      'bind-event-click' => "Admin.ActionWithCheck(
+        '#{admin_field_path(@field)}',
+        'DELETE'
       )" %>
 <% end %>

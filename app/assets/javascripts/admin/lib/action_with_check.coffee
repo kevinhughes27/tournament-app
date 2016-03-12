@@ -1,6 +1,6 @@
-Admin.DeleteWithCheck = (url, confirmed = false) ->
+Admin.ActionWithCheck = (url, method, confirmed = false) ->
   $.ajax
-    type: 'DELETE'
+    type: method
     url: url
     data: {confirm: confirmed}
     dataType: 'html'
@@ -13,6 +13,9 @@ Admin.DeleteWithCheck = (url, confirmed = false) ->
       $(document).trigger('page:change')
 
       $modal.modal('show')
-      $('.btn-danger').removeClass('is-loading')
+      $('.btn').removeClass('is-loading')
     success: (response) ->
-      eval(response)
+      if response.substring(0, 16) == 'Turbolinks.visit'
+        eval(response)
+      else
+        Turbolinks.replace(response)
