@@ -12,6 +12,8 @@ else
 end
 
 Capybara.ignore_hidden_elements = false
+
+Capybara.app_host = "http://lvh.me"
 Capybara.always_include_port = true
 
 Capybara::Webkit.configure do |config|
