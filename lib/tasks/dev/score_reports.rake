@@ -3,16 +3,17 @@ namespace :dev do
     desc "Generates score reports. Parameters: TOURNAMENT, DIVISION and ROUND."
     task :generate => :environment do
       tournament_id = ENV['TOURNAMENT']
-      division = ENV['DIVISION'].gsub('_', ' ')
+      division_name = ENV['DIVISION'].gsub('_', ' ')
       round = ENV['ROUND'].to_i
 
-      puts "creating score reports for tournament: #{tournament_id} division: #{division}, round: #{round}"
+      puts "creating score reports for tournament: #{tournament_id} division: #{division_name}, round: #{round}"
 
       tournament = Tournament.friendly.find(tournament_id)
-      bracket = tournament.brackets.find_by!(division: division)
-      bracket_uids = bracket.bracket_uids_for_round(round)
+      division = tournament.divisions.find_by!(name: division_name)
+      bracket = division.bracket
+      bracket_uids = bracket.game_uids_for_round(round)
 
-      games = bracket.games.where(bracket_uid: bracket_uids)
+      games = division.games.where(bracket_uid: bracket_uids)
 
       unless games.all?{ |g| g.teams_present? }
         abort("Can't create score reports for games without teams")
