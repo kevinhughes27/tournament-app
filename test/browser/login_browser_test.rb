@@ -2,8 +2,7 @@ require "test_helper"
 
 class LoginBrowserTest < BrowserTest
   test "login to tournament admin" do
-    switch_to_subdomain(@tournament.handle)
-    visit("/admin")
+    visit("http://no-borders.#{@domain}/admin")
 
     fill_in('user_email', with: @user.email)
     fill_in('user_password', with: 'password')
@@ -13,9 +12,7 @@ class LoginBrowserTest < BrowserTest
   end
 
   test "login from signup page" do
-    switch_to_main_domain
-
-    visit("/")
+    visit("http://#{@domain}/")
     click_on('Log in')
 
     fill_in('user_email', with: @user.email)

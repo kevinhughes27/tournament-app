@@ -2,8 +2,7 @@ require "test_helper"
 
 class SignupBrowserTest < BrowserTest
   test "signup" do
-    switch_to_main_domain
-    visit('/')
+    visit("http://#{@domain}/")
     click_on('Get Started')
 
     fill_in('user_email', with: 'bob@bob.com')
@@ -21,7 +20,7 @@ class SignupBrowserTest < BrowserTest
     wait_for_ajax
     click_on('Next')
 
-    assert_match /admin/, current_url
+    assert_match /\/admin/, current_url
 
     tournament = Tournament.last
     assert_equal 'New Tournament', tournament.name

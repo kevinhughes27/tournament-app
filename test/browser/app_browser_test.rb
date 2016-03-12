@@ -2,21 +2,18 @@ require "test_helper"
 
 class AppBrowserTest < BrowserTest
   test "drawer is closed" do
-    switch_to_subdomain(@tournament.handle)
-    visit("/")
+    visit("http://no-borders.#{@domain}/")
     refute page.find("#drawer")[:class].include?("active"), 'Drawer is open'
   end
 
   test "find opens the drawer" do
-    switch_to_subdomain(@tournament.handle)
-    visit("/")
+    visit("http://no-borders.#{@domain}/")
     click_on('Find')
     assert page.find("#drawer")[:class].include?("active"), 'Drawer is not open'
   end
 
   test "user views the schedule screen and performs a search" do
-    switch_to_subdomain(@tournament.handle)
-    visit("/")
+    visit("http://no-borders.#{@domain}/")
 
     # navigate to schedule screen
     refute page.find("#schedule-screen")[:class].include?("active")
@@ -39,8 +36,7 @@ class AppBrowserTest < BrowserTest
   end
 
   test "user can submit a score" do
-    switch_to_subdomain(@tournament.handle)
-    visit("/")
+    visit("http://no-borders.#{@domain}/")
 
     # navigate to schedule screen
     refute page.find("#submit-score-screen")[:class].include?("active")

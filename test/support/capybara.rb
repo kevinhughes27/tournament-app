@@ -26,15 +26,21 @@ class BrowserTest < ActiveSupport::TestCase
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
+    @domain = "lvh.me"
+  end
+
+  teardown do
+    path = screenshot_path(method_name)
+    page.save_screenshot(path) unless passed?
     Capybara.reset_sessions!
   end
 
-  def switch_to_main_domain
-    Capybara.app_host = "http://lvh.me"
-  end
-
-  def switch_to_subdomain(subdomain)
-    Capybara.app_host = "http://#{subdomain}.lvh.me"
+  def screenshot_path(name)
+    if ENV['CIRCLECI']
+      File.join(ENV['CIRCLE_ARTIFACTS'], "#{name}.png")
+    else
+      "tmp/#{name}.png"
+    end
   end
 
   def wait_for_ajax

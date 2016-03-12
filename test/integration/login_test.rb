@@ -8,7 +8,7 @@ class AdminTest < ActionDispatch::IntegrationTest
   end
 
   test "tournament login" do
-    get 'http://ultimate-tournament.io/sign_in'
+    get 'http://lvh.me/sign_in'
     assert_equal 200, status
     assert_equal new_user_session_path, path
 
@@ -19,7 +19,7 @@ class AdminTest < ActionDispatch::IntegrationTest
   end
 
   test "admin requires login" do
-    get 'http://no-borders.ultimate-tournament.io/admin'
+    get 'http://no-borders.lvh.me/admin'
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
@@ -34,7 +34,7 @@ class AdminTest < ActionDispatch::IntegrationTest
     tournament = tournaments(:jazz_fest)
     refute tournament.users.find_by(id: @user.id)
 
-    get 'http://jazz-fest.ultimate-tournament.io/admin'
+    get 'http://jazz-fest.lvh.me/admin'
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
@@ -45,7 +45,7 @@ class AdminTest < ActionDispatch::IntegrationTest
   end
 
   test "admin login remembers original request" do
-    get 'http://no-borders.ultimate-tournament.io/admin/fields'
+    get 'http://no-borders.lvh.me/admin/fields'
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
