@@ -1,13 +1,14 @@
 require 'csv'
 
 class Admin::TeamsController < AdminController
+  before_action :load_team, only: [:show, :update, :destroy]
+  before_action :check_delete_safety, only: [:destroy]
 
   def index
     @teams = @tournament.teams
   end
 
   def show
-    @team = @tournament.teams.find(params[:id])
   end
 
   def new
@@ -20,22 +21,13 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    @team = @tournament.teams.find(params[:id])
     @team.update_attributes(team_params)
     respond_with @team
   end
 
   def destroy
-    @team = @tournament.teams.find(params[:id])
-
-    if params[:confirm] == 'true' || @team.safe_to_delete?
-      @team.destroy()
-      respond_with @team
-    elsif @team.allow_delete?
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    else
-      render partial: 'unable_to_delete', status: :not_allowed
-    end
+    @team.destroy()
+    respond_with @team
   end
 
   def sample_csv
@@ -87,6 +79,18 @@ class Admin::TeamsController < AdminController
   end
 
   private
+
+  def check_delete_safety
+    if !@team.allow_delete?
+      render partial: 'unable_to_delete', status: :not_allowed
+    elsif !(params[:confirm] == 'true' || @team.safe_to_delete?)
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    end
+  end
+
+  def load_team
+    @team = @tournament.teams.find(params[:id])
+  end
 
   def team_params
     @team_params ||= params.require(:team).permit(

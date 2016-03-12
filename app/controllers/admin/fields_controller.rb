@@ -4,12 +4,14 @@ class Admin::FieldsController < AdminController
   include LoadTournamentWithMap
   TAB_KEY = 'fieldsTab'
 
+  before_action :load_field, only: [:show, :update, :destroy]
+  before_action :check_delete_safety, only: [:destroy]
+
   def index
     @fields = @tournament.fields
   end
 
   def show
-    @field = @tournament.fields.find(params[:id])
   end
 
   def new
@@ -22,20 +24,13 @@ class Admin::FieldsController < AdminController
   end
 
   def update
-    @field = @tournament.fields.find(params[:id])
     @field.update_attributes(field_params)
     respond_with @field
   end
 
   def destroy
-    @field = @tournament.fields.find(params[:id])
-
-    if params[:confirm] == 'true' || @field.safe_to_delete?
-      @field.destroy()
-      respond_with @field
-    else
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    end
+    @field.destroy()
+    respond_with @field
   end
 
   def sample_csv
@@ -94,6 +89,16 @@ class Admin::FieldsController < AdminController
   end
 
   private
+
+  def check_delete_safety
+    unless params[:confirm] == 'true' || @field.safe_to_delete?
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    end
+  end
+
+  def load_field
+    @field = @tournament.fields.find(params[:id])
+  end
 
   def field_params
     @field_params ||= params.require(:field)

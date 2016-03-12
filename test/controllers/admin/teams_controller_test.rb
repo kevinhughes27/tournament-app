@@ -73,7 +73,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "delete a team" do
-    team = teams(:shrike)
+    team = teams(:stella)
     assert_difference "Team.count", -1 do
       delete :destroy, id: team.id
       assert_redirected_to admin_teams_path
