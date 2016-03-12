@@ -1,7 +1,10 @@
 module TeamsHelper
   def division_options(tournament, team)
-    options_for_select(tournament.divisions.collect{ |division|
+    options = tournament.divisions.collect{ |division|
       [division.name, division.id]
-    }, team.division_id)
+    }
+
+    options .unshift(['Select a bracket', nil])
+    options_for_select(options, team.division_id)
   end
 end
