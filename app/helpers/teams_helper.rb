@@ -4,7 +4,10 @@ module TeamsHelper
       [division.name, division.id]
     }
 
-    options .unshift(['Select a bracket', nil])
+    unless team.division_id
+      options.unshift(['Select a bracket', nil])
+    end
+
     options_for_select(options, team.division_id)
   end
 end
