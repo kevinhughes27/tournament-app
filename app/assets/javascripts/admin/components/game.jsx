@@ -87,13 +87,13 @@ exports.ScoreCell = React.createClass({
     this.refs.input.focus();
   },
 
-  updateScore() {
+  updateScore(ev) {
+    ev.preventDefault();
+    var gameId = this.props.rowData.id;
     this._startLoading();
 
-    var game = this.props.rowData;
-
     $.ajax({
-      url: 'games/' + game.id + '.json',
+      url: 'games/' + gameId + '.json',
       type: 'PUT',
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
@@ -102,7 +102,11 @@ exports.ScoreCell = React.createClass({
       },
       success: (response) => {
         this._finishLoading();
-        GamesStore.updateGame(response.game);
+        this.hide();
+        var game = response.game;
+        var scroll = window.scrollY;
+        GamesStore.updateGame(game);
+        window.scrollTo(0, scroll);
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {
