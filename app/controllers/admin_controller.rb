@@ -30,7 +30,6 @@ class AdminController < ApplicationController
 
   def store_location
     return unless request.get?
-    session[:previous_url] = request.fullpath
     session[:previous_path] = request.path.gsub('admin', '')
   end
 

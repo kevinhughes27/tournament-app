@@ -19,8 +19,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def after_sign_in_path(user)
-    return session[:previous_url] if session[:previous_url]
-    return admin_url(subdomain: session[:tournament_friendly_id]) if session[:tournament_friendly_id]
+    if session[:tournament_friendly_id]
+      return admin_url(subdomain: session[:tournament_friendly_id]) + session[:previous_path].to_s
+    end
 
     if user.tournaments.count == 1
       tournament = user.tournaments.first
