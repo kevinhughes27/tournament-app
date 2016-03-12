@@ -1,6 +1,6 @@
 <% content_for :top_bar_left do %>
   <i class="fa fa-sitemap"></i>
-  <%= link_to 'Divisions', tournament_admin_divisions_path(@tournament) %> / <%= @division.name.present? ? @division.name : 'Edit' %>
+  <%= link_to 'Divisions', admin_divisions_path %> / <%= @division.name.present? ? @division.name : 'Edit' %>
 <% end %>
 
 <%= content_for :top_bar_right do %>
@@ -12,12 +12,12 @@
 <div class="row" define="{divisionShow: new Admin.DivisionShow()}" context="divisionShow">
   <div class="col-md-8">
     <%= ui_box do %>
-      <%= form_for [@tournament, :admin, @division], remote: true do |form| %>
+      <%= form_for [:admin, @division], remote: true do |form| %>
         <%= render 'form', form: form, division: @division %>
       <% end %>
       <%= button_tag 'delete', class: 'btn btn-danger js-btn-loadable',
           'bind-event-click' => "Admin.DeleteWithCheck(
-            '#{tournament_admin_division_path(@tournament, @division)}'
+            '#{admin_division_path(@division)}'
           )" %>
     <% end %>
 
@@ -37,7 +37,7 @@
           This divisions has no teams and can't be seeded.
         </p>
         <p>
-          Add teams from the <%= link_to 'Teams page', tournament_admin_teams_path(@tournament) %>
+          Add teams from the <%= link_to 'Teams page', admin_teams_path %>
         </p>
       <% end %>
     <% end %>

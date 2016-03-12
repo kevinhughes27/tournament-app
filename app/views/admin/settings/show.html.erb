@@ -10,7 +10,7 @@
 <%= render 'admin/errors', object: @tournament %>
 
 <%= ui_box do %>
-  <%= form_for @tournament, url: tournament_admin_settings_path(@tournament), method: :put, remote: true do |form| %>
+  <%= form_for @tournament, url: admin_settings_path, method: :put, remote: true do |form| %>
 
     <%= form.ui_text_field :name %>
     <%= form.ui_text_field :handle %>

@@ -41,13 +41,27 @@ class BracketSimulationTest < ActiveSupport::TestCase
   def create_teams
     n = division.bracket.num_teams
     n.times do |idx|
-      Team.create!(
-        name: Faker::Team.name,
-        tournament_id: tournament.id,
-        division_id: division.id,
-        seed: idx+1
-      )
+      create_team_with_retry(idx+1)
     end
+  end
+
+  def create_team_with_retry(seed)
+    3.times do
+      begin
+        create_team(seed)
+        break
+      rescue ActiveRecord::RecordInvalid
+      end
+    end
+  end
+
+  def create_team(seed)
+    Team.create!(
+      name: Faker::Team.name,
+      tournament_id: tournament.id,
+      division_id: division.id,
+      seed: seed
+    )
   end
 
   # loop until games are done

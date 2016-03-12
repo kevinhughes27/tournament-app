@@ -1,26 +1,22 @@
 require "test_helper"
 
-class AppBrowserTest < ActiveSupport::TestCase
-  include Capybara::DSL
-  self.use_transactional_fixtures = false
-
-  setup do
-    @tournament = tournaments(:noborders)
-  end
-
+class AppBrowserTest < BrowserTest
   test "drawer is closed" do
-    visit("/#{@tournament.handle}")
+    switch_to_subdomain(@tournament.handle)
+    visit("/")
     refute page.find("#drawer")[:class].include?("active"), 'Drawer is open'
   end
 
   test "find opens the drawer" do
-    visit("/#{@tournament.handle}")
+    switch_to_subdomain(@tournament.handle)
+    visit("/")
     click_on('Find')
     assert page.find("#drawer")[:class].include?("active"), 'Drawer is not open'
   end
 
   test "user views the schedule screen and performs a search" do
-    visit("/#{@tournament.handle}")
+    switch_to_subdomain(@tournament.handle)
+    visit("/")
 
     # navigate to schedule screen
     refute page.find("#schedule-screen")[:class].include?("active")
@@ -43,7 +39,8 @@ class AppBrowserTest < ActiveSupport::TestCase
   end
 
   test "user can submit a score" do
-    visit("/#{@tournament.handle}")
+    switch_to_subdomain(@tournament.handle)
+    visit("/")
 
     # navigate to schedule screen
     refute page.find("#submit-score-screen")[:class].include?("active")

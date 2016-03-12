@@ -48,6 +48,6 @@ class TournamentsBuildController < ApplicationController
   end
 
   def finish_wizard_path
-    tournament_admin_path(@tournament)
+    admin_url
   end
 end

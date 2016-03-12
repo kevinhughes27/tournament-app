@@ -5,6 +5,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
+    set_tournament(@tournament)
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
@@ -34,7 +35,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
 
     assert_no_difference 'User.count' do
       get :google_oauth2
-      assert_redirected_to tournament_admin_path(@tournament.friendly_id)
+      assert_redirected_to admin_url(subdomain: @tournament.friendly_id)
     end
   end
 
@@ -84,7 +85,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
     })
 
     get :google_oauth2
-    assert_redirected_to tournament_admin_path(@tournament.friendly_id)
+    assert_redirected_to admin_url(subdomain: @tournament.friendly_id)
   end
 
   test "auth callback for existing user with no auth type creates new UserAuthentication" do

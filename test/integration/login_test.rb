@@ -8,18 +8,18 @@ class AdminTest < ActionDispatch::IntegrationTest
   end
 
   test "tournament login" do
-    get '/sign_in'
+    get 'http://ultimate-tournament.io/sign_in'
     assert_equal 200, status
     assert_equal new_user_session_path, path
 
-    post new_user_session_path, user: {email: @user.email, password: 'password'}, tournament: @tournament.handle
+    post new_user_session_path, user: {email: @user.email, password: 'password'}
     follow_redirect!
     assert_equal 200, status
-    assert_equal "/no-borders/admin", path
+    assert_equal "/admin", path
   end
 
   test "admin requires login" do
-    get '/no-borders/admin'
+    get 'http://no-borders.ultimate-tournament.io/admin'
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
@@ -27,14 +27,14 @@ class AdminTest < ActionDispatch::IntegrationTest
     post new_user_session_path, user: {email: @user.email, password: 'password'}
     follow_redirect!
     assert_equal 200, status
-    assert_equal "/no-borders/admin", path
+    assert_equal "/admin", path
   end
 
   test "admin requires login and a tournament user" do
     tournament = tournaments(:jazz_fest)
     refute tournament.users.find_by(id: @user.id)
 
-    get '/jazz-fest/admin'
+    get 'http://jazz-fest.ultimate-tournament.io/admin'
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
@@ -45,7 +45,7 @@ class AdminTest < ActionDispatch::IntegrationTest
   end
 
   test "admin login remembers original request" do
-    get '/no-borders/admin/fields'
+    get 'http://no-borders.ultimate-tournament.io/admin/fields'
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
@@ -53,7 +53,7 @@ class AdminTest < ActionDispatch::IntegrationTest
     post new_user_session_path, user: {email: @user.email, password: 'password'}
     follow_redirect!
     assert_equal 200, status
-    assert_equal "/no-borders/admin/fields", path
+    assert_equal "/admin/fields", path
   end
 
 end

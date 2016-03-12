@@ -5,6 +5,7 @@ class PasswordsControllerTest < ActionController::TestCase
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
+    set_tournament(@tournament)
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 

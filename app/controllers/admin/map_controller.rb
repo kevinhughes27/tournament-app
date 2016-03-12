@@ -11,7 +11,7 @@ class Admin::MapController < AdminController
       flash[:error] = 'Error saving Map.'
     end
 
-    redirect_to tournament_admin_map_path(@tournament), keep: '_map'
+    redirect_to admin_map_path, keep: '_map'
   end
 
   private

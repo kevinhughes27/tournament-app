@@ -1,5 +1,6 @@
 class LoginController < Devise::SessionsController
   skip_before_action :require_no_authentication
+  skip_before_action :verify_signed_out_user
   prepend_view_path 'app/views/login'
   layout 'login'
 
@@ -12,7 +13,7 @@ class LoginController < Devise::SessionsController
     if request.post?
       tournament = Tournament.friendly.find(params[:tournament])
       flash[:animate] = "fadeIn"
-      redirect_to tournament_admin_path(tournament)
+      redirect_to admin_url(subdomain: tournament.handle)
     end
   end
 
@@ -31,9 +32,9 @@ class LoginController < Devise::SessionsController
   end
 
   def destroy
-    super do
-      clear_session
-    end
+    sign_out(User)
+    clear_session
+    redirect_to root_url(subdomain: '')
   end
 
   private
@@ -43,7 +44,8 @@ class LoginController < Devise::SessionsController
 
     if user.tournaments.count == 1
       flash[:animate] = "fadeIn"
-      respond_with user, location: tournament_admin_path(user.tournaments.first)
+      tournament = user.tournaments.first
+      respond_with user, location: admin_url(subdomain: tournament.handle)
     else
       redirect_to choose_tournament_path
     end
@@ -78,6 +80,6 @@ class LoginController < Devise::SessionsController
   end
 
   def after_login_in_path
-    session[:previous_url] || tournament_admin_path(session[:tournament_friendly_id])
+    admin_url(subdomain: session[:tournament_friendly_id]) + session[:previous_path].to_s
   end
 end

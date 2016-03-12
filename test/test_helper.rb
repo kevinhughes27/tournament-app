@@ -24,6 +24,11 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 class ActionController::TestCase
   include Devise::TestHelpers
+
+  def set_tournament(tournament)
+    subdomain = tournament.try(:handle) || tournament
+    @request.host = "#{subdomain}.ultimate-tournament.io"
+  end
 end
 
 class ActiveSupport::TestCase

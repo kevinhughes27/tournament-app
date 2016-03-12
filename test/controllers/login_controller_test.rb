@@ -5,6 +5,7 @@ class LoginControllerTest < ActionController::TestCase
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
+    set_tournament(@tournament)
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
@@ -40,7 +41,7 @@ class LoginControllerTest < ActionController::TestCase
     set_session(@tournament)
     post :create, user: {email: @user.email, password: 'password'}
 
-    assert_redirected_to tournament_admin_path(@tournament)
+    assert_redirected_to admin_path
     assert_equal 'fadeIn', flash[:animate]
   end
 
@@ -48,7 +49,7 @@ class LoginControllerTest < ActionController::TestCase
     clear_session
     post :create, user: {email: @user.email, password: 'password'}
 
-    assert_redirected_to tournament_admin_path(@tournament)
+    assert_redirected_to admin_path
     assert_equal 'fadeIn', flash[:animate]
   end
 

@@ -3,22 +3,23 @@ require 'test_helper'
 class AppControllerTest < ActionController::TestCase
   setup do
     @tournament = tournaments(:noborders)
+    set_tournament(@tournament)
     @report = score_reports(:swift_goose)
   end
 
   test "get show" do
-    get :show, tournament_id: @tournament.id
+    get :show
     assert_response :success
   end
 
   test "get show for non existent tournament 404s" do
-    get :show, tournament_id: 'wat'
+    set_tournament('wat')
+    get :show
     assert_response :not_found
   end
 
   test "create score report" do
     params = @report.attributes.merge(
-      tournament_id: @tournament.id,
       submitter_fingerprint: 'some_fingerprint'
     )
 

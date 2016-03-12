@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  root 'brochure#index'
-
   devise_for :users,
     path: '',
     controllers: { sessions: 'login', omniauth_callbacks: 'omniauth_callbacks', passwords: 'passwords' },
@@ -19,10 +17,11 @@ Rails.application.routes.draw do
     resources :build, path: '', controller: 'tournaments_build', only: [:show, :update]
   end
 
-  resources :tournaments, controller: 'tournaments', path: '', only: [] do
+  constraints(Subdomain) do
     draw :admin
+    get '/' => 'app#show', as: 'app'
+    post '/submit_score' => 'app#score_submit', as: 'app_score_submit'
   end
 
-  get '*tournament_id' => 'app#show'
-  post '*tournament_id/submit_score' => 'app#score_submit', as: 'app_score_submit'
+  root 'brochure#index'
 end
