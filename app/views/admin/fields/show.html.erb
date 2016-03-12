@@ -1,6 +1,6 @@
 <% content_for :top_bar_left do %>
   <i class="fa fa-map-signs"></i>
-  <%= link_to 'Fields', tournament_admin_fields_path(@tournament) %> / <%= @field.name.present? ? @field.name : 'Edit'%>
+  <%= link_to 'Fields', admin_fields_path %> / <%= @field.name.present? ? @field.name : 'Edit'%>
 <% end %>
 
 <%= content_for :top_bar_right do %>
@@ -10,11 +10,11 @@
 <%= render 'admin/errors', object: @field %>
 
 <%= ui_box do %>
-  <%= form_for [@tournament, :admin, @field], remote: true do |form| %>
+  <%= form_for [:admin, @field], remote: true do |form| %>
     <%= render 'form', form: form, field: @field %>
   <% end %>
   <%= button_tag 'delete', class: 'btn btn-danger js-btn-loadable',
       'bind-event-click' => "Admin.DeleteWithCheck(
-        '#{tournament_admin_field_path(@tournament, @field)}'
+        '#{admin_field_path(@field)}'
       )" %>
 <% end %>

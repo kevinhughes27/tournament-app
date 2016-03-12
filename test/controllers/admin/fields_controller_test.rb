@@ -4,36 +4,37 @@ class Admin::FieldsControllerTest < ActionController::TestCase
 
   setup do
     @tournament = tournaments(:noborders)
+    set_tournament(@tournament)
     @field = fields(:upi1)
     sign_in users(:kevin)
   end
 
   test "get new" do
-    get :new, tournament_id: @tournament.id
+    get :new
     assert_response :success
   end
 
   test "get show" do
-    get :show, id: @field.id, tournament_id: @tournament.id
+    get :show, id: @field.id
     assert_response :success
     assert_not_nil assigns(:field)
   end
 
   test "get index" do
-    get :index, tournament_id: @tournament.id
+    get :index
     assert_response :success
     assert_not_nil assigns(:fields)
   end
 
   test "blank slate" do
     @tournament.fields.destroy_all
-    get :index, tournament_id: @tournament.id
+    get :index
     assert_response :success
     assert_match 'blank-slate', response.body
   end
 
   test "get export_csv" do
-    get :export_csv, tournament_id: @tournament.id, format: :csv
+    get :export_csv, format: :csv
     assert_response :success
     assert_not_nil assigns(:fields)
     assert_equal "text/csv", response.content_type
@@ -41,10 +42,10 @@ class Admin::FieldsControllerTest < ActionController::TestCase
 
   test "create a field" do
     assert_difference "Field.count" do
-      post :create, tournament_id: @tournament.id, field: field_params
+      post :create, field: field_params
 
       field = assigns(:field)
-      assert_redirected_to tournament_admin_field_path(@tournament, field)
+      assert_redirected_to admin_field_path(field)
     end
   end
 
@@ -53,15 +54,15 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     params.delete(:name)
 
     assert_no_difference "Field.count" do
-      post :create, tournament_id: @tournament.id, field: params
+      post :create, field: params
       assert_template :new
     end
   end
 
   test "update a field" do
-    put :update, id: @field.id, tournament_id: @tournament.id, field: field_params
+    put :update, id: @field.id, field: field_params
 
-    assert_redirected_to tournament_admin_field_path(@tournament, @field)
+    assert_redirected_to admin_field_path(@field)
     assert_equal field_params[:name], @field.reload.name
   end
 
@@ -69,23 +70,23 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     params = field_params
     params.delete(:name)
 
-    put :update, id: @field.id, tournament_id: @tournament.id, field: params
+    put :update, id: @field.id, field: params
 
-    assert_redirected_to tournament_admin_field_path(@tournament, @field)
+    assert_redirected_to admin_field_path(@field)
     refute_equal field_params[:name], @field.reload.name
   end
 
   test "delete a field" do
     field = fields(:upi4)
     assert_difference "Field.count", -1 do
-      delete :destroy, id: field.id, tournament_id: @tournament.id
-      assert_redirected_to tournament_admin_fields_path(@tournament)
+      delete :destroy, id: field.id
+      assert_redirected_to admin_fields_path
     end
   end
 
   test "delete a field needs confirm" do
     assert_no_difference "Field.count" do
-      delete :destroy, id: @field.id, tournament_id: @tournament.id
+      delete :destroy, id: @field.id
       assert_response :unprocessable_entity
       assert_template 'admin/fields/_confirm_delete'
     end
@@ -93,35 +94,29 @@ class Admin::FieldsControllerTest < ActionController::TestCase
 
   test "confirm delete a field" do
     assert_difference "Field.count", -1 do
-      delete :destroy, id: @field.id, tournament_id: @tournament.id, confirm: 'true'
-      assert_redirected_to tournament_admin_fields_path(@tournament)
+      delete :destroy, id: @field.id, confirm: 'true'
+      assert_redirected_to admin_fields_path
     end
   end
 
   test "sample_csv returns a csv download" do
-    get :sample_csv, tournament_id: @tournament.id, format: :csv
+    get :sample_csv, format: :csv
     assert_match 'Name,Latitude,Longitude,Geo JSON', response.body
   end
 
   test "import csv" do
     assert_difference "Field.count", +15 do
-      post :import_csv, tournament_id: @tournament.id,
-        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
-        match_behaviour: 'ignore'
+      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
     end
   end
 
   test "import csv (ignore matches)" do
     assert_difference "Field.count", +15 do
-      post :import_csv, tournament_id: @tournament.id,
-        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
-        match_behaviour: 'ignore'
+      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
     end
 
     assert_no_difference "Field.count" do
-      post :import_csv, tournament_id: @tournament.id,
-        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
-        match_behaviour: 'ignore'
+      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
     end
   end
 
@@ -129,25 +124,19 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     @field.update_attributes(name: 'UPI5')
 
     assert_difference "Field.count", +14 do
-      post :import_csv, tournament_id: @tournament.id,
-        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
-        match_behaviour: 'update'
+      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'update'
     end
   end
 
   test "import csv with extra headings" do
     assert_difference "Field.count", +15 do
-      post :import_csv, tournament_id: @tournament.id,
-        csv_file: fixture_file_upload('files/fields-extra.csv','text/csv'),
-        match_behaviour: 'ignore'
+      post :import_csv, csv_file: fixture_file_upload('files/fields-extra.csv','text/csv'), match_behaviour: 'ignore'
     end
   end
 
   test "import csv with bad row data" do
     assert_no_difference "Field.count" do
-      post :import_csv, tournament_id: @tournament.id,
-        csv_file: fixture_file_upload('files/fields-bad-row.csv','text/csv'),
-        match_behaviour: 'ignore'
+      post :import_csv, csv_file: fixture_file_upload('files/fields-bad-row.csv','text/csv'), match_behaviour: 'ignore'
       # assert that some sort of error is shown or flashed
     end
   end
@@ -161,5 +150,4 @@ class Admin::FieldsControllerTest < ActionController::TestCase
       long: -75.6138271093369
     }
   end
-
 end

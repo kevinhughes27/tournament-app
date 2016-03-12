@@ -1,15 +1,8 @@
 require "test_helper"
 
-class SignupBrowserTest < ActiveSupport::TestCase
-  include Capybara::DSL
-  self.use_transactional_fixtures = false
-
-  setup do
-    Capybara.reset_sessions!
-  end
-
+class SignupBrowserTest < BrowserTest
   test "signup" do
-    visit('/')
+    visit("http://#{@domain}/")
     click_on('Get Started')
 
     fill_in('user_email', with: 'bob@bob.com')
@@ -27,7 +20,7 @@ class SignupBrowserTest < ActiveSupport::TestCase
     wait_for_ajax
     click_on('Next')
 
-    assert_match /new-tournament\/admin/, current_url
+    assert_match /\/admin/, current_url
 
     tournament = Tournament.last
     assert_equal 'New Tournament', tournament.name

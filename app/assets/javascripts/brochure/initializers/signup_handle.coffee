@@ -10,5 +10,5 @@ $(document).ready ->
     handle = handle.toLowerCase()
     handle = handle.replace(/ /g, "-").trim()
 
-    $("#tournament_url").text("https://ultimate-tournament.io/" + handle)
+    $("#tournament_url").text("https://#{handle}.ultimate-tournament.io/")
     $("#tournament_handle").val(handle)

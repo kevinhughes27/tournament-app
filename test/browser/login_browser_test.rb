@@ -1,34 +1,24 @@
 require "test_helper"
 
-class LoginBrowserTest < ActiveSupport::TestCase
-  include Capybara::DSL
-  self.use_transactional_fixtures = false
-
-  setup do
-    @user = users(:kevin)
-    @tournament = tournaments(:noborders)
-    Capybara.reset_sessions!
-  end
-
+class LoginBrowserTest < BrowserTest
   test "login to tournament admin" do
-    visit("/#{@tournament.handle}/admin")
+    visit("http://no-borders.#{@domain}/admin")
 
     fill_in('user_email', with: @user.email)
     fill_in('user_password', with: 'password')
     click_on('Log in')
 
-    assert_match /#{@tournament.handle}\/admin/, current_url
+    assert_match /admin/, current_url
   end
 
-  test "login from signup page (no tournament info before login form)" do
-    visit("/")
+  test "login from signup page" do
+    visit("http://#{@domain}/")
     click_on('Log in')
 
-    fill_in('tournament', with: @tournament.handle)
     fill_in('user_email', with: @user.email)
     fill_in('user_password', with: 'password')
     click_on('Log in')
 
-    assert_match /#{@tournament.handle}\/admin/, current_url
+    assert_match /admin/, current_url
   end
 end

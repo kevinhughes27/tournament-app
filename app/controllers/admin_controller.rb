@@ -13,15 +13,11 @@ class AdminController < ApplicationController
   before_action :authenticate_tournament_user!
 
   def respond_with(obj)
-    super @tournament, :admin, obj
+    super :admin, obj
   end
 
   def load_tournament
-    if params[:tournament_id]
-      @tournament = tournament_scope.find(params[:tournament_id])
-    else
-      @tournament = tournament_scope.find(params[:id])
-    end
+    @tournament = tournament_scope.find(request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
   end
@@ -35,6 +31,7 @@ class AdminController < ApplicationController
   def store_location
     return unless request.get?
     session[:previous_url] = request.fullpath
+    session[:previous_path] = request.path.gsub('admin', '')
   end
 
   def authenticate_tournament_user!

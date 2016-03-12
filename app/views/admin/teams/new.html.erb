@@ -1,6 +1,6 @@
 <% content_for :top_bar_left do %>
   <i class="fa fa-users"></i>
-  <%= link_to 'Teams', tournament_admin_teams_path(@tournament) %> / New
+  <%= link_to 'Teams', admin_teams_path %> / New
 <% end %>
 
 <%= content_for :top_bar_right do %>
@@ -12,10 +12,10 @@
     <%= render 'admin/errors', object: @team %>
 
     <%= ui_box do %>
-      <%= form_for [@tournament, :admin, @team], remote: true do |form| %>
+      <%= form_for [:admin, @team], remote: true do |form| %>
         <%= render 'form', form: form, team: @team %>
       <% end %>
-      <%= link_to "Cancel", tournament_admin_teams_path(@tournament), class: 'btn btn-default' %>
+      <%= link_to "Cancel", admin_teams_path, class: 'btn btn-default' %>
     <% end %>
   </div>
 </div>

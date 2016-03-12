@@ -7,7 +7,7 @@
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importCsvModal">
     Import
   </button>
-  <%= link_to 'New', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
+  <%= link_to 'New', new_admin_team_path, class: "btn btn-primary" %>
 <% end %>
 
 <%= render 'import_csv_modal' %>
@@ -30,6 +30,6 @@
   <div class="blank-slate">
     <h3>Manage all your teams</h3>
     <p>You can add teams manually or import from a CSV file.</p>
-    <%= link_to 'Add Team', new_tournament_admin_team_path(@tournament), class: "btn btn-primary" %>
+    <%= link_to 'Add Team', new_admin_team_path, class: "btn btn-primary" %>
   </div>
 <% end %>

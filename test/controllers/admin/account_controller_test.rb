@@ -3,17 +3,18 @@ require 'test_helper'
 class Admin::AccountControllerTest < ActionController::TestCase
   setup do
     @tournament = tournaments(:noborders)
+    set_tournament(@tournament)
     @user = users(:kevin)
     sign_in @user
   end
 
   test "get account page" do
-    get :show, tournament_id: @tournament.id
+    get :show
     assert_response :success
   end
 
   test "update account" do
-    put :update, tournament_id: @tournament.id, user: {
+    put :update, user: {
       email: 'bob@example.com'
     }
     assert_response :success
@@ -22,7 +23,7 @@ class Admin::AccountControllerTest < ActionController::TestCase
   end
 
   test "update account error" do
-    put :update, tournament_id: @tournament.id, user: {
+    put :update, user: {
       email: ''
     }
     assert_response :success

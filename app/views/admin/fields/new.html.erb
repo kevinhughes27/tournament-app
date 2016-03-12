@@ -1,6 +1,6 @@
 <% content_for :top_bar_left do %>
   <i class="fa fa-map-signs"></i>
-  <%= link_to 'Fields', tournament_admin_fields_path(@tournament) %> / New
+  <%= link_to 'Fields', admin_fields_path %> / New
 <% end %>
 
 <%= content_for :top_bar_right do %>
@@ -10,8 +10,8 @@
 <%= render 'admin/errors', object: @field %>
 
 <%= ui_box do %>
-  <%= form_for [@tournament, :admin, @field], remote: true do |form| %>
+  <%= form_for [:admin, @field], remote: true do |form| %>
     <%= render 'form', form: form, field: @field %>
   <% end %>
-  <%= link_to "Cancel", tournament_admin_fields_path(@tournament), class: 'btn btn-default' %>
+  <%= link_to "Cancel", admin_fields_path, class: 'btn btn-default' %>
 <% end %>

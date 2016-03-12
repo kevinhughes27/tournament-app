@@ -18,7 +18,7 @@
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       <%= button_tag 'delete', class: 'btn btn-danger js-btn-loadable',
           'bind-event-click' => "Admin.DeleteWithCheck(
-            '#{tournament_admin_field_path(@tournament, @field)}',
+            '#{admin_field_path(@field)}',
             true
           )" %>
     </div>

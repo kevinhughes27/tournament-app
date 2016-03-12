@@ -9,7 +9,7 @@
       <p>
         There are games in this team's division that have been
         scored. In order to delete this team you need to delete the
-        <%= link_to @team.division.name, tournament_admin_division_path(@tournament, @team.division) %>
+        <%= link_to @team.division.name, admin_division_path(@team.division) %>
         division first.
       </p>
     </div>

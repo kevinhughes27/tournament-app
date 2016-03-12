@@ -22,13 +22,13 @@ class AppController < ApplicationController
   private
 
   def load_tournament
-    if params[:tournament_id]
-      @tournament = Tournament.friendly.find(params[:tournament_id])
-    else
-      @tournament = Tournament.friendly.find(params[:id])
-    end
+    @tournament = tournament_scope.find(request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def tournament_scope
+    Tournament.friendly
   end
 
   def score_report_params
