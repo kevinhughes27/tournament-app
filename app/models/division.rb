@@ -33,6 +33,10 @@ class Division < ActiveRecord::Base
     !games.where(score_confirmed: true).exists?
   end
 
+  def safe_to_seed?
+    !games.where(score_confirmed: true).exists?
+  end
+
   private
 
   def create_games

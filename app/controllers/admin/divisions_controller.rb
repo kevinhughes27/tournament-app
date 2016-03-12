@@ -1,11 +1,13 @@
 class Admin::DivisionsController < AdminController
 
+  before_action :load_division, only: [:show, :update, :destroy, :update_teams, :seed]
+  before_action :check_seed_safety, only: [:seed]
+
   def index
     @divisions = @tournament.divisions
   end
 
   def show
-    @division = @tournament.divisions.find(params[:id])
   end
 
   def new
@@ -18,14 +20,11 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    @division = @tournament.divisions.find(params[:id])
     @division.update_attributes(division_params)
     respond_with @division
   end
 
   def destroy
-    @division = @tournament.divisions.find(params[:id])
-
     if params[:confirm] == 'true' || @division.safe_to_delete?
       @division.destroy()
       respond_with @division
@@ -35,8 +34,6 @@ class Admin::DivisionsController < AdminController
   end
 
   def update_teams
-    @division = @tournament.divisions.find(params[:id])
-
     @teams = Team.where( id: params[:team_ids] )
     @teams.each_with_index do |team, idx|
       team.update_attribute( :seed, params[:seeds][idx] )
@@ -47,8 +44,6 @@ class Admin::DivisionsController < AdminController
   end
 
   def seed
-    @division =@tournament.divisions.find(params[:id])
-
     begin
       @division.seed
       flash.now[:notice] = 'Division seeded'
@@ -61,6 +56,16 @@ class Admin::DivisionsController < AdminController
 
   private
 
+  def check_seed_safety
+    unless params[:confirm] == 'true' || @division.safe_to_seed?
+      render partial: 'confirm_seed', status: :unprocessable_entity
+    end
+  end
+
+  def load_division
+    @division = @tournament.divisions.find(params[:id])
+  end
+
   def division_params
     @bracket_params ||= params.require(:division).permit(
       :name,
@@ -68,5 +73,4 @@ class Admin::DivisionsController < AdminController
       :bracket_type
     )
   end
-
 end

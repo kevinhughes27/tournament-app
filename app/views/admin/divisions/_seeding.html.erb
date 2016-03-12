@@ -42,8 +42,11 @@
 
   <div class="pull-right">
     <% klass = @division.dirty_seed? ? 'btn-warning' : 'btn-success' %>
-    <%= link_to 'Seed', seed_admin_division_path(@division),
-      class: "btn #{klass} js-btn-loadable", method: :put,
-      'bind-class' => '{disabled: !canSeed}'%>
+    <%= button_tag 'Seed', class: "btn #{klass} js-btn-loadable",
+      'bind-class' => '{disabled: !canSeed}',
+      'bind-event-click' => "Admin.ActionWithCheck(
+        '#{seed_admin_division_path(@division)}',
+        'PUT'
+      )" %>
   </div>
 <% end %>
