@@ -13,7 +13,7 @@ module Divisions
       return true unless division.seeded?
 
       teams = division.teams.order(:seed)
-      seeds = division.teams.pluck(:seed).sort
+      seeds = division.teams.pluck(:seed).map(&:to_i).sort
 
       seeds.each_with_index do |seed, idx|
         return true unless seed == (idx+1)

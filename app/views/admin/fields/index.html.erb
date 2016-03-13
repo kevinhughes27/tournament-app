@@ -33,6 +33,9 @@
           #{@map.zoom},
           #{render(template: 'admin/fields/fields.json.jbuilder')}
         )}") do %>
+        <div style="padding-bottom: 10px;">
+          <input type="text" name="search" id="placesSearch" class="form-control" placeholder="Search ..."/>
+        </div>
         <div id="_map" style="width:100%; height: 640px;"></div>
       <% end %>
     <% end %>

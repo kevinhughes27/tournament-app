@@ -1,8 +1,13 @@
 <%= builder_card error: @tournament.errors.present?, back: is_back? do %>
   <%= form_for @tournament, url: wizard_path, method: :put do |form| %>
-    <%= form.hidden_field :name %>
-
-    <div id='_map' style="width: 100%; height: 420px; margin-bottom: 10px;"></div>
+    <div class="form-group">
+      <%= form.label :location, 'Where is your tournament?', class: 'subdued' %>
+      <%= form.text_field :location,
+                          class: 'form-control input-lg',
+                          id: 'placesSearch',
+                          placeholder: 'Search places ...',
+                          autofocus: true %>
+    </div>
 
     <%= form.fields_for :map do |f| %>
       <%= f.hidden_field :lat, value: 56.0 %>
@@ -18,10 +23,8 @@
 
 <script>
   $( document ).ready(function() {
-    settings = new UT.MapForm(
-      <%= @tournament.map.lat %>,
-      <%= @tournament.map.long %>,
-      <%= @tournament.map.zoom %>
-    );
+    placesSearch = new UT.PlacesSearch( function(place) {
+      debugger
+    });
   });
 </script>

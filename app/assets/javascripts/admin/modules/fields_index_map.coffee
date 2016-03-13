@@ -9,6 +9,13 @@ class Admin.FieldsIndexMap
       if e.target.hash == '#map'
         @map.invalidateSize(false)
 
+    @placesSearch = new UT.PlacesSearch(@placesSearchChange)
+
+  placesSearchChange: (place) =>
+    lat = place.geometry.location.lat()
+    lng = place.geometry.location.lng()
+    @map.setView([lat, lng])
+
   _drawFields: ->
     @_drawField(field) for field in @fields
 

@@ -12,7 +12,7 @@ class UT.MapForm
     @markersLayer = new L.LayerGroup()
     @map.addLayer(@markersLayer)
 
-    @map.addControl(@_searchControl())
+    @placesSearch = new UT.PlacesSearch(@placesSearchChange)
 
     @map.on "drag", @_updateForm
     @map.on "zoom", @_updateForm
@@ -21,20 +21,11 @@ class UT.MapForm
     $(@LONG_FIELD).on 'change', @_updateMap
     $(@ZOOM_FIELD).on 'change', @_updateMap
 
-  _searchControl: ->
-    new L.Control.Search({
-      url: 'http://nominatim.openstreetmap.org/search?format=json&q={s}',
-      jsonpParam: 'json_callback',
-      propertyName: 'display_name',
-      propertyLoc: ['lat','lon'],
-      position: 'topleft'
-      circleLocation: false,
-      markerLocation: false,
-      markerIcon: false,
-      autoType: false,
-      autoCollapse: true,
-      minLength: 2
-    })
+  placesSearchChange: (place) =>
+    lat = place.geometry.location.lat()
+    lng = place.geometry.location.lng()
+    @map.setView([lat, lng])
+    @_updateForm()
 
   _updateForm: =>
     @center = @map.getCenter()
