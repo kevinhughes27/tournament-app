@@ -5,12 +5,9 @@ class UT.MapForm
   LONG_FIELD: '#tournament_map_attributes_long'
   ZOOM_FIELD: '#tournament_map_attributes_zoom'
 
-  constructor: (lat, long, @zoom) ->
+  constructor: (@$form, lat, long, @zoom) ->
     @center = new L.LatLng(lat, long)
     @map = UT.Map(@center, @zoom)
-
-    @markersLayer = new L.LayerGroup()
-    @map.addLayer(@markersLayer)
 
     @placesSearch = new UT.PlacesSearch(@placesSearchChange)
 
@@ -20,12 +17,27 @@ class UT.MapForm
     $(@LAT_FIELD).on 'change', @_updateMap
     $(@LONG_FIELD).on 'change', @_updateMap
     $(@ZOOM_FIELD).on 'change', @_updateMap
+    @$form.on 'submit', @submit
 
   placesSearchChange: (place) =>
     lat = place.geometry.location.lat()
     lng = place.geometry.location.lng()
     @map.setView([lat, lng])
     @_updateForm()
+
+  submit: (ev) =>
+    ev.preventDefault()
+
+    $.ajax
+      type: 'PUT'
+      url: @$form.attr('action')
+      data: @$form.serialize()
+      success: ->
+        $('.btn').removeClass('is-loading')
+        Admin.Flash.notice('Map saved.')
+      error: ->
+        $('.btn').removeClass('is-loading')
+        Admin.Flash.error('Error saving Map.')
 
   _updateForm: =>
     @center = @map.getCenter()

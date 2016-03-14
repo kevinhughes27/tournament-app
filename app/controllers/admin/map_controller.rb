@@ -6,12 +6,10 @@ class Admin::MapController < AdminController
 
   def update
     if @tournament.update(tournament_params)
-      flash[:notice] = 'Map saved.'
+      head :ok
     else
-      flash[:error] = 'Error saving Map.'
+      head :unproccesible_entiry
     end
-
-    redirect_to admin_map_path, keep: '_map'
   end
 
   private

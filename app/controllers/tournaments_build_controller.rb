@@ -27,6 +27,7 @@ class TournamentsBuildController < ApplicationController
       :name,
       :handle,
       :time_cap,
+      :location,
       map_attributes: [:lat, :long, :zoom]
     )
   end

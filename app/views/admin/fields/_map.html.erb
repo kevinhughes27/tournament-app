@@ -1,0 +1,25 @@
+<%= form_for @tournament, url: admin_map_path, html: { define: "{
+  fieldsIndexMap: new Admin.FieldsIndexMap(
+    $(this),
+    #{@map.lat},
+    #{@map.long},
+    #{@map.zoom},
+    #{render(template: 'admin/fields/fields.json.jbuilder')}
+  )}"} do |form| %>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div style="padding-bottom: 10px;">
+        <input type="text" name="search" id="placesSearch" class="form-control" placeholder="Search ..."/>
+      </div>
+      <div id="_map" style="width:100%; height: 640px;"></div>
+      <hr>
+      <%= form.fields_for :map do |f| %>
+        <%= f.hidden_field :lat %>
+        <%= f.hidden_field :long %>
+        <%= f.hidden_field :zoom %>
+      <% end %>
+      <%= form.ui_save_button %>
+    </div>
+  </div>
+<% end %>

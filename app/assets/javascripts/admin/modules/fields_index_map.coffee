@@ -1,20 +1,29 @@
-class Admin.FieldsIndexMap
+class Admin.FieldsIndexMap extends UT.MapForm
+  DEFAULT_ZOOM: 15
 
-  constructor: (lat, long, zoom, @fields) ->
-    @center = new L.LatLng(lat, long)
-    @map = UT.Map(@center, zoom)
+  constructor: (@$form, lat, long, zoom, @fields) ->
+    super
+    @_constructor()
+
+  _constructor: ->
     @_drawFields()
 
     $('body').on 'shown.bs.tab', (e) =>
       if e.target.hash == '#map'
         @map.invalidateSize(false)
 
-    @placesSearch = new UT.PlacesSearch(@placesSearchChange)
-
   placesSearchChange: (place) =>
-    lat = place.geometry.location.lat()
-    lng = place.geometry.location.lng()
-    @map.setView([lat, lng])
+    if viewport = place.geometry.viewport?.toJSON()
+      @map.fitBounds([
+        [viewport.south, viewport.west],
+        [viewport.north, viewport.east]
+      ])
+    else
+      lat = place.geometry.location.lat()
+      lng = place.geometry.location.lng()
+      @map.setView([lat, lng], @DEFAULT_ZOOM)
+
+    @_updateForm()
 
   _drawFields: ->
     @_drawField(field) for field in @fields

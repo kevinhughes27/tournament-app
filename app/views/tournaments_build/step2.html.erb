@@ -12,7 +12,7 @@
     <%= form.fields_for :map do |f| %>
       <%= f.hidden_field :lat, value: 56.0 %>
       <%= f.hidden_field :long, value: -96.0 %>
-      <%= f.hidden_field :zoom, value: 4 %>
+      <%= f.hidden_field :zoom, value: 12 %>
     <% end %>
 
     <div class="builder-next-btn">
@@ -24,7 +24,10 @@
 <script>
   $( document ).ready(function() {
     placesSearch = new UT.PlacesSearch( function(place) {
-      debugger
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      $('#tournament_map_attributes_lat').val(lat);
+      $('#tournament_map_attributes_long').val(lng);
     });
   });
 </script>

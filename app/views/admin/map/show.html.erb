@@ -7,7 +7,14 @@
   <%= ui_save_button_tag(form_id:'.edit_tournament') %>
 <% end %>
 
-<%= form_for @tournament, url: admin_map_path, method: :put, remote: true do |form| %>
+<%= form_for @tournament, url: admin_map_path, html: { define: "{
+  fieldsIndexMap: new UT.MapForm(
+    $(this),
+    #{@map.lat},
+    #{@map.long},
+    #{@map.zoom}
+  )}"} do |form| %>
+
   <div class="row">
     <div class="col-md-8">
       <%= ui_box do %>
@@ -32,13 +39,3 @@
     </div>
   </div>
 <% end %>
-
-<script type="text/javascript" data-turbolinks-eval=false>
-  $( document ).ready(function() {
-    settings = new UT.MapForm(
-      <%= @map.lat %>,
-      <%= @map.long %>,
-      <%= @map.zoom %>
-    );
-  });
-</script>
