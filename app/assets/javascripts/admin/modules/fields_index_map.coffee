@@ -24,6 +24,6 @@ class Admin.FieldsIndexMap extends UT.MapForm
     }).addTo(@map)
 
     layers.eachLayer (layer) ->
-      layer.on 'click', -> Admin.Redirect("fields/#{field.id}")
+      layer.on 'click', -> Turbolinks.visit("fields/#{field.id}")
       layer.on 'mouseover', (e) -> layer.setStyle(Admin.FieldHoverStyle)
       layer.on 'mouseout', (e) -> layer.setStyle(Admin.FieldStyle)
