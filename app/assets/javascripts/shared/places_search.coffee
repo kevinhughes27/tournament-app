@@ -6,7 +6,9 @@ class UT.PlacesSearch
     @_injectGoogleAPI()
 
   _injectGoogleAPI: ->
-    return if window.googleAPIsLoaded
+    if window.googleAPIsLoaded
+      googleAPIsLoaded()
+      return
 
     window.googleAPIsLoaded = @googleAPIsLoaded
     script = document.createElement('script')
