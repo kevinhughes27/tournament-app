@@ -27,6 +27,7 @@ class UT.MapForm
     $(@ZOOM_FIELD).on 'change', @_updateMap
 
     @$form.on 'submit', @submit
+    @$form.on 'keypress', (e) -> return false if e.which == 13 # don't submit for enter press
 
   placesSearchChange: (place) =>
     if viewport = place.geometry.viewport?.toJSON()
