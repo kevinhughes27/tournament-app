@@ -26,14 +26,8 @@
         }) %>
       <% end %>
 
-      <%= t.pane('Map', define: "{
-        fieldsIndexMap: new Admin.FieldsIndexMap(
-          #{@map.lat},
-          #{@map.long},
-          #{@map.zoom},
-          #{render(template: 'admin/fields/fields.json.jbuilder')}
-        )}") do %>
-        <div id="_map" style="width:100%; height: 640px;"></div>
+      <%= t.pane('Map') do %>
+        <%= render 'map' %>
       <% end %>
     <% end %>
   <% end %>

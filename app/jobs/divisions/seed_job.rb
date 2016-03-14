@@ -8,7 +8,7 @@ module Divisions
       @division, @seed_round = division, seed_round
 
       teams = division.teams.order(:seed)
-      seeds = teams.pluck(:seed).sort
+      seeds = teams.pluck(:seed).map(&:to_i).sort
 
       seeds.each_with_index do |seed, idx|
         raise Division::AmbiguousSeedList, 'Ambiguous seed list' unless seed == (idx+1)

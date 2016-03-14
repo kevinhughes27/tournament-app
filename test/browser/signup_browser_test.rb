@@ -16,8 +16,8 @@ class SignupBrowserTest < BrowserTest
     fill_in('tournament_time_cap', with: '80')
     click_on('Next')
 
-    # map stuff
     wait_for_ajax
+    fill_in('placesSearch', with: 'Ottawa')
     click_on('Next')
 
     assert_match /\/admin/, current_url
@@ -25,6 +25,8 @@ class SignupBrowserTest < BrowserTest
     tournament = Tournament.last
     assert_equal 'New Tournament', tournament.name
     assert_equal 80, tournament.time_cap
+    assert_equal 'Ottawa', tournament.location
+
     assert tournament.destroy()
   end
 end

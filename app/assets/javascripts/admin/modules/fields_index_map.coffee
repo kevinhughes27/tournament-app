@@ -1,8 +1,11 @@
-class Admin.FieldsIndexMap
+class Admin.FieldsIndexMap extends UT.MapForm
+  DEFAULT_ZOOM: 15
 
-  constructor: (lat, long, zoom, @fields) ->
-    @center = new L.LatLng(lat, long)
-    @map = UT.Map(@center, zoom)
+  constructor: (@$form, lat, long, zoom, @fields) ->
+    super
+    @_constructor()
+
+  _constructor: ->
     @_drawFields()
 
     $('body').on 'shown.bs.tab', (e) =>
@@ -21,6 +24,6 @@ class Admin.FieldsIndexMap
     }).addTo(@map)
 
     layers.eachLayer (layer) ->
-      layer.on 'click', -> Admin.Redirect("fields/#{field.id}")
+      layer.on 'click', -> Turbolinks.visit("fields/#{field.id}")
       layer.on 'mouseover', (e) -> layer.setStyle(Admin.FieldHoverStyle)
       layer.on 'mouseout', (e) -> layer.setStyle(Admin.FieldStyle)
