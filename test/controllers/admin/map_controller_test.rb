@@ -14,7 +14,7 @@ class Admin::MapControllerTest < ActionController::TestCase
 
   test "update map" do
     put :update, tournament: map_params
-    assert_equal 'Map saved.', flash[:notice]
+    assert_response :ok
     assert_equal 45, @tournament.map.reload.lat
   end
 
