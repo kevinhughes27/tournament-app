@@ -12,19 +12,6 @@ class Admin.FieldsIndexMap extends UT.MapForm
       if e.target.hash == '#map'
         @map.invalidateSize(false)
 
-  placesSearchChange: (place) =>
-    if viewport = place.geometry.viewport?.toJSON()
-      @map.fitBounds([
-        [viewport.south, viewport.west],
-        [viewport.north, viewport.east]
-      ])
-    else
-      lat = place.geometry.location.lat()
-      lng = place.geometry.location.lng()
-      @map.setView([lat, lng], @DEFAULT_ZOOM)
-
-    @_updateForm()
-
   _drawFields: ->
     @_drawField(field) for field in @fields
 
