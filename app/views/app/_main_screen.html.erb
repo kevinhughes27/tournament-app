@@ -35,8 +35,15 @@
   <h1 class="title" bind="findText"></h1>
 </div>
 
-<div class="bar bar-standard bar-footer">
-  <a class="btn btn-find pull-right" href="#" bind-event-click="drawerOpen = true" bind-show="!(drawerOpen || scheduleScreen.active)">
+<div class="bar bar-standard bar-footer" bind-show="!(drawerOpen || scheduleScreen.active)">
+  <% if cookies[:td] %>
+    <%= link_to admin_path do %>
+      <span style="color: white;">
+        <i class="fa fa-external-link fa-flip-horizontal"></i> View Admin
+      </span>
+    <% end %>
+  <% end %>
+  <a class="btn btn-find pull-right" href="#" bind-event-click="drawerOpen = true">
     Find <i class="fa fa-caret-up"></i>
   </a>
 </div>

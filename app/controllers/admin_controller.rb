@@ -11,6 +11,9 @@ class AdminController < ApplicationController
   before_action :store_location
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
+  before_action :set_admin_cookie
+
+  protected
 
   def respond_with(obj)
     super :admin, obj
@@ -35,6 +38,10 @@ class AdminController < ApplicationController
 
   def authenticate_tournament_user!
     redirect_to new_user_session_path unless current_user.is_tournament_user?(@tournament.id)
+  end
+
+  def set_admin_cookie
+    cookies[:td] = true
   end
 
   private
