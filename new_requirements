@@ -1,0 +1,18 @@
+Additional Requirements
+  * conditionally create a bracket if the pool doesn't have a 3-0 winner.
+  * Create a final game in a round robin based on who has not played
+
+I am thinking of creating a ruby file for extra bracket rules ...
+  * If I named these rules I could use a flag in brackets.yml
+    to kick them off. (this way the behaviour is still linked
+    to the model)
+
+ ?? Do the order of the round robins matter ..?
+    - probably not
+
+ Should I enforce the day of games or leave that up to the TD? It should be obvious on the schedule view..
+
+ --> There is notes for numbers in divisions in the USAU doc.
+     Should I add this info? It includes the number of fields required ..
+
+ --> Is num_teams in the json required anymore??

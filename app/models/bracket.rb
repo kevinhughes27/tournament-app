@@ -15,8 +15,6 @@ class Bracket < FrozenRecord::Base
     @attributes['template'].with_indifferent_access
   end
 
-  # aren't these really bracket_uids?
-
   def game_uids_for_round(round)
     template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
   end

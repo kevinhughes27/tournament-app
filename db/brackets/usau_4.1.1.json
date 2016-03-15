@@ -1,0 +1,12 @@
+{
+  "num_teams": 4,
+  "games": [
+    {"round": 1, "seed": 1, "uid": "a", "home":"1", "away":"3"},
+    {"round": 1, "seed": 1, "uid": "b", "home":"2", "away":"4"},
+
+    {"round": 2, "uid": "c", "home":"Wa", "away":"Lb"},
+    {"round": 2, "uid": "d", "home":"Wb", "away":"La"}
+
+    // the unplayed game ...
+  ]
+}

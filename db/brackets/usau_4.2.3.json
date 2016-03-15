@@ -1,0 +1,16 @@
+{
+  "num_teams": 4,
+  "games": [
+    {"pool":"A", "home":1, "away":3}, {"pool":"A", "home":2, "away":4},
+    {"pool":"A", "home":1, "away":4}, {"pool":"A", "home":2, "away":3},
+    {"pool":"A", "home":1, "away":2}, {"pool":"A", "home":3, "away":4},
+
+    {"round":1, "uid":"a", "home":"A1", "away":"A4"},
+    {"round":1, "uid":"b", "home":"A2", "away":"A3"},
+
+    {"round":2, "place":"1st", "uid":"c", "home":"Wa", "away":"Wb"},
+    {"round":2, "uid":"d", "home":"La", "away":"Lb"},
+
+    {"round":3, "place":"2nd", "uid":"e", "home":"Wd", "away":"Lc"}
+  ]
+}
