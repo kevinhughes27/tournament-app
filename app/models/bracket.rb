@@ -1,3 +1,7 @@
+def load_bracket(name)
+  File.read("db/brackets/#{name}.json")
+end
+
 class Bracket < FrozenRecord::Base
   self.base_path = 'db'
 
