@@ -14,7 +14,7 @@
     {"round":1, "uid":"b", "home":"A3", "away":"A4"},
     {"round":1, "uid":"d", "home":"A5", "away":"A6"},
 
-    {"round":2, "place":"2nd", "uid":"c", "home":"La", "away":"Wb"}
-    {"round":2, "place":"4th", "uid":"d", "home":"Lb", "away":"Wd"}
+    {"round":2, "place":"2nd", "uid":"c", "home":"La", "away":"Wb"},
+    {"round":2, "place":"4th", "uid":"e", "home":"Lb", "away":"Wd"}
   ]
 }

@@ -23,30 +23,6 @@
   template: <%= File.read('db/brackets/single_elimination_8.json') %>
 
 -
-  name: USAU 3.1
-  tagline: Three-Team Round Robin
-  num_teams: 3
-  days: 1
-  rounds: 3
-  pool: false
-  template: <%= File.read('db/brackets/usau_3.1.json') %>
-
-# -
-#   name: USAU 4.1.1
-#   tagline: One team advances
-#   description: >
-#     If there is a 3-0 team, the tournament is over.
-#     Otherwise, Bracket 4.1 must be played to determine the champion. This
-#     creates five games in one day, but is necessary to prevent a situation where
-#     two teams are eliminated from the series as a result of point differential. 3rd
-#     place is given to the winner of the pool play game between the semifinal
-#     losers.
-#   num_teams: 4
-#   days: 1
-#   rounds: 3
-#   template: <%= File.read('db/brackets/usau_4.1.1.json') %>
-
--
   name: USAU 4.1.2
   tagline: Two teams advance
   num_teams: 4
@@ -66,17 +42,6 @@
   rounds: 3
   pool: false
   template: <%= File.read('db/brackets/usau_4.1.2.json') %>
-
-# -
-#   name: USAU 4.1.4
-#   tagline: Four teams advance
-#   description: >
-#     If there is no 3-0 team, then Bracket 4.1
-#     may be played to accurately determine the champion.
-#   num_teams: 4
-#   days: 1
-#   rounds: 3
-#   template: <%= File.read('db/brackets/usau_4.1.1.json') %>
 
 -
   name: USAU 4.2.1
@@ -158,18 +123,6 @@
   rounds: 2
   pool: true
   template: <%= File.read('db/brackets/usau_5.3.json') %>
-
--
-  name: USAU 5.4
-  tagline: Four teams advance
-  description: >
-    Note that the top team is determined on
-    the first day, and that team has no games the second day.
-  num_teams: 5
-  days: 2
-  rounds: 2
-  pool: true
-  template: <%= File.read('db/brackets/usau_5.4.json') %>
 
 -
   name: USAU 5.5
@@ -256,16 +209,6 @@
   template: <%= File.read('db/brackets/usau_6.1.json') %>
 
 -
-  name: USAU 6.6.1
-  tagline: Six teams advance
-  description: >
-    Pool games are played to 13 and over 2 days.
-  num_teams: 6
-  days: 1
-  pool: true
-  template: <%= File.read('db/brackets/usau_6.6.1.json') %>
-
--
   name: USAU 7.1
   tagline: One team advances
   description: >
@@ -303,7 +246,7 @@
   num_teams: 7
   days: 2
   pool: true
-  template: <%= File.read('db/brackets/usau_7.4.json')
+  template: <%= File.read('db/brackets/usau_7.4.json') %>
 
 -
   name: USAU 7.5
@@ -313,7 +256,7 @@
   num_teams: 7
   days: 2
   pool: true
-  template: <%= File.read('db/brackets/usau_7.5.json')
+  template: <%= File.read('db/brackets/usau_7.5.json') %>
 
 -
   name: USAU 7.6
@@ -325,7 +268,7 @@
   num_teams: 7
   days: 2
   pool: true
-  template: <%= File.read('db/brackets/usau_7.6.json')
+  template: <%= File.read('db/brackets/usau_7.6.json') %>
 
 -
   name: USAU 7.7
