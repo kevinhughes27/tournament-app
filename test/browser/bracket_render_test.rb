@@ -34,21 +34,23 @@ class BracketSimulationTest < ActiveSupport::TestCase
     Rails.application.routes.draw do
       get '/render_test', to: 'bracket_render#index'
     end
+
+    resize_window
   end
 
   teardown do
     Rails.application.reload_routes!
   end
 
-  # Bracket.all.each do |bracket|
-  #   test "render bracket: #{bracket.name}" do
-  #     visit("/render_test?bracket=#{bracket.name}")
-  #     assert page.find(".vis-network")
-  #     sleep(1)
-  #     file = "test/fixtures/screenshots/#{bracket.name}.png"
-  #     compare_or_new(file)
-  #   end
-  # end
+  Bracket.all.each do |bracket|
+    test "render bracket: #{bracket.name}" do
+      visit("/render_test?bracket=#{bracket.name}")
+      assert page.find(".vis-network")
+      sleep(1)
+      file = "test/fixtures/screenshots/#{bracket.name}.png"
+      compare_or_new(file)
+    end
+  end
 
   def compare_or_new(file)
     if File.exists?(file)
