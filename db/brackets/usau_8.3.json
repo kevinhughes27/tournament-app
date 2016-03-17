@@ -1,5 +1,4 @@
 {
-  "num_teams": 8,
   "games": [
     {"pool": "A", "home":1, "away":6}, {"pool": "A", "home":4, "away":7},
     {"pool": "A", "home":1, "away":7}, {"pool": "A", "home":4, "away":6},
