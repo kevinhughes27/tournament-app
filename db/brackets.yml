@@ -52,6 +52,7 @@
   num_teams: 4
   days: 1
   rounds: 3
+  pool: false
   template: <%= File.read('db/brackets/usau_4.1.2.json') %>
 
 -
@@ -63,6 +64,7 @@
   num_teams: 4
   days: 1
   rounds: 3
+  pool: false
   template: <%= File.read('db/brackets/usau_4.1.2.json') %>
 
 # -
@@ -82,6 +84,7 @@
   num_teams: 4
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_4.2.1.json') %>
 
 -
@@ -90,6 +93,7 @@
   num_teams: 4
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_4.2.2.json') %>
 
 -
@@ -101,6 +105,7 @@
   num_teams: 4
   days: 2
   rounds: 3
+  pool: true
   template: <%= File.read('db/brackets/usau_4.2.3.json') %>
 
 -
@@ -112,6 +117,7 @@
   num_teams: 4
   days: 2
   rounds: 3
+  pool: true
   template: <%= File.read('db/brackets/usau_4.2.3.json') %>
 
 -
@@ -124,6 +130,7 @@
   num_teams: 5
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_5.1.json') %>
 
 -
@@ -135,6 +142,7 @@
   num_teams: 5
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_5.2.json') %>
 
 -
@@ -148,6 +156,7 @@
   num_teams: 5
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_5.3.json') %>
 
 -
@@ -159,6 +168,7 @@
   num_teams: 5
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_5.4.json') %>
 
 -
@@ -171,6 +181,7 @@
   num_teams: 5
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_5.5.json') %>
 
 -
@@ -182,31 +193,149 @@
     additional game for place, in order to give them a second game on the second
     day.
 
-    Pool games are played to 11.
+    Pool games are played to 13 and over 2 days.
   num_teams: 6
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_6.1.json') %>
 
 -
   name: USAU 6.2
   tagline: Two teams advance
   description: >
-    Pool games are played to 11.
+    Pool games are played to 13 and over 2 days.
   num_teams: 6
   days: 2
   rounds: 2
+  pool: true
   template: <%= File.read('db/brackets/usau_6.2.json') %>
 
 -
   name: USAU 6.3
   tagline: Three teams advance
   description: >
-    Pool games are played to 11.
+    Pool games are played to 13 and over 2 days.
+  num_teams: 6
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= File.read('db/brackets/usau_6.3.json') %>
+
+-
+  name: USAU 6.4
+  tagline: Four teams advance
+  description: >
+    Pool games are played to 13 and over 2 days.
   num_teams: 6
   days: 2
   rounds: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_6.4.json') %>
+
+-
+  name: USAU 6.5
+  tagline: Five teams advance
+  description: >
+    Pool games are played to 13 and over 2 days.
+  num_teams: 6
+  days: 2
+  rounds: 3
+  pool: true
   template: <%= File.read('db/brackets/usau_6.3.json') %>
+
+-
+  name: USAU 6.6
+  tagline: Six teams advance
+  description: >
+    Pool games are played to 13 and over 2 days.
+  num_teams: 6
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= File.read('db/brackets/usau_6.1.json') %>
+
+-
+  name: USAU 6.6.1
+  tagline: Six teams advance
+  description: >
+    Pool games are played to 13 and over 2 days.
+  num_teams: 6
+  days: 1
+  pool: true
+  template: <%= File.read('db/brackets/usau_6.6.1.json') %>
+
+-
+  name: USAU 7.1
+  tagline: One team advances
+  description: >
+    Pool games are played over 2 days.
+  num_teams: 7
+  days: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_7.1.json') %>
+
+-
+  name: USAU 7.2
+  tagline: Two teams advance
+  description: >
+    Pool games are played over 2 days.
+  num_teams: 7
+  days: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_7.2.json') %>
+
+-
+  name: USAU 7.3
+  tagline: Three teams advance
+  description: >
+    Pool games are played over 2 days.
+  num_teams: 7
+  days: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_7.3.json') %>
+
+-
+  name: USAU 7.4
+  tagline: Four teams advance
+  description: >
+    Pool games are played over 2 days.
+  num_teams: 7
+  days: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_7.4.json')
+
+-
+  name: USAU 7.5
+  tagline: Five teams advance
+  description: >
+    Pool games are played over 2 days. 3rd place is from pool play.
+  num_teams: 7
+  days: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_7.5.json')
+
+-
+  name: USAU 7.6
+  tagline: Six teams advance
+  description: >
+    Pool games are played over 2 days. 3rd place is from pool play.
+    4th place is given to the winner of the pool play game between Wb and Wc.
+    5th place is given to the loser of the pool play game between Wb and Wc.
+  num_teams: 7
+  days: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_7.6.json')
+
+-
+  name: USAU 7.7
+  tagline: Seven teams advance
+  description: >
+    Pool games are played over 2 days.
+  num_teams: 7
+  days: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_7.1.json') %>
 
 -
   name: USAU 8.1
@@ -287,3 +416,49 @@
   rounds: 4
   pool: true
   template: <%= File.read('db/brackets/usau_8.6.json') %>
+
+-
+  name: USAU 9.1
+  tagline: One team advances
+  description: >
+    A nine team tournament requires two unequal pools of 4 and 5. When fewer than
+    five teams advance, the pool of five plays games to 11, while the pool of four
+    plays games to 15 in order to balance the total number of points played between
+    pools.
+  num_teams: 9
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= File.read('db/brackets/usau_9.1.json') %>
+
+-
+  name: USAU 9.2
+  tagline: Two teams advance
+  description: >
+    A nine team tournament requires two unequal pools of 4 and 5. When fewer than
+    five teams advance, the pool of five plays games to 11, while the pool of four
+    plays games to 15 in order to balance the total number of points played between
+    pools.
+  num_teams: 9
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= File.read('db/brackets/usau_9.2.json') %>
+
+-
+  name: USAU 10.1
+  tagline: One team advances
+  num_teams: 10
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= File.read('db/brackets/usau_10.1.json') %>
+
+-
+  name: USAU 10.2
+  tagline: Two teams advance
+  num_teams: 10
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= File.read('db/brackets/usau_10.2.json') %>
