@@ -11,7 +11,7 @@
 
     {"round":1, "place":"1st", "uid":"a", "home":"A1", "away":"A2"},
     {"round":1, "place":"4th", "uid":"c", "home":"A4", "away":"A5"},
-    {"round":1, "uid":"d", "home":"A5", "away":"A6"},
+    {"round":1, "uid":"d", "home":"A6", "away":"A7"},
 
     {"round":2, "place":"5th", "uid":"e", "home":"Lc", "away":"Wd"}
   ]
