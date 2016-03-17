@@ -1,9 +1,7 @@
 {
-  
+
   "games": [
-    {"pool":"A", "home":1, "away":3}, {"pool":"A", "home":2, "away":4},
-    {"pool":"A", "home":1, "away":4}, {"pool":"A", "home":2, "away":3},
-    {"pool":"A", "home":1, "away":2}, {"pool":"A", "home":3, "away":4},
+    <%= bracket_partial('table_4.1', pool: 'A', seeds: [1,2,3,4]) %>
 
     {"round":1, "uid":"a", "home":"A1", "away":"A4"},
     {"round":1, "uid":"b", "home":"A2", "away":"A3"},
