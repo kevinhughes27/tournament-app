@@ -1,7 +1,3 @@
-def load_bracket(name)
-  File.read("db/brackets/#{name}.json")
-end
-
 class Bracket < FrozenRecord::Base
   self.base_path = 'db'
 
@@ -38,4 +34,12 @@ class Bracket < FrozenRecord::Base
   def game_uid_for_place(place)
     template[:games].detect{ |g| g[:place] == place }[:uid]
   end
+end
+
+def load_bracket(name)
+  Tilt::ERBTemplate.new("db/brackets/#{name}.json").render
+end
+
+def bracket_partial(name, args)
+  Tilt::ERBTemplate.new("db/brackets/partials/#{name}.json").render(Object.new, args)
 end

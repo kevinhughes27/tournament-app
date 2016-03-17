@@ -1,0 +1,3 @@
+{"pool":"<%= pool %>", "home":<%= seeds[0] %>, "away":<%= seeds[2] %>}, {"pool":"<%= pool %>", "home":<%= seeds[1] %>, "away":<%= seeds[3] %>},
+{"pool":"<%= pool %>", "home":<%= seeds[0] %>, "away":<%= seeds[3] %>}, {"pool":"<%= pool %>", "home":<%= seeds[1] %>, "away":<%= seeds[2] %>},
+{"pool":"<%= pool %>", "home":<%= seeds[0] %>, "away":<%= seeds[1] %>}, {"pool":"<%= pool %>", "home":<%= seeds[2] %>, "away":<%= seeds[3] %>},
