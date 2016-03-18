@@ -35,7 +35,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
       get '/render_test', to: 'bracket_render#index'
     end
 
-    page.driver.resize_window(400,440)
+    page.driver.resize(400, 460)
   end
 
   teardown do
@@ -47,24 +47,26 @@ class BracketSimulationTest < ActiveSupport::TestCase
       visit("/render_test?bracket=#{bracket.name}")
       assert page.find(".vis-network")
       sleep(1)
-      file = "test/fixtures/screenshots/#{bracket.name}.png"
-      compare_or_new(file)
+      compare_or_new(bracket.name)
     end
   end
 
-  def compare_or_new(file)
-    if File.exists?(file)
-      page.save_screenshot(new_screenshot_path)
-      image_diff(file)
+  def compare_or_new(bracket_name)
+    test_file = "test/fixtures/screenshots/#{bracket_name}.png"
+    new_file = new_screenshot_path(bracket_name)
+
+    if File.exists?(test_file)
+      page.save_screenshot(new_file)
+      image_diff(test_file, new_file)
     else
-      page.save_screenshot(file)
+      page.save_screenshot(test_file)
     end
   end
 
-  def image_diff(file)
+  def image_diff(test_file, new_file)
     images = [
-      ChunkyPNG::Image.from_file(new_screenshot_path),
-      ChunkyPNG::Image.from_file(file)
+      ChunkyPNG::Image.from_file(new_file),
+      ChunkyPNG::Image.from_file(test_file)
     ]
 
     diff = []
@@ -82,11 +84,11 @@ class BracketSimulationTest < ActiveSupport::TestCase
     assert_operator percent_changed, :<=, 1.0
   end
 
-  def new_screenshot_path
+  def new_screenshot_path(bracket_name)
     if ENV['CIRCLECI']
-      File.join(ENV['CIRCLE_ARTIFACTS'], 'tmp/screenshot.png')
+      File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_name}.png")
     else
-      'tmp/screenshot.png'
+      "tmp/#{bracket_name}.png"
     end
   end
 end
