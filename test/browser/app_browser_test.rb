@@ -30,7 +30,7 @@ class AppBrowserTest < BrowserTest
       refute page.find("#game-#{games(:pheonix_mavericks).id}")[:class].include?("hide")
 
       # perform the search
-      find(".team-search input").set("Swift")
+      find(".team-search input").native.send_keys('S', 'w', 'i')
       find(".team-search li").click
 
       # only matched games shown after search
@@ -49,7 +49,7 @@ class AppBrowserTest < BrowserTest
 
     within("#submit-score-screen") do
       # perform the search
-      find(".team-search input").set("Swift")
+      find(".team-search input").native.send_keys('S', 'w', 'i')
       find(".team-search li").click
 
       # only matched games are visible

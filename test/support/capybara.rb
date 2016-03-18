@@ -2,7 +2,11 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+  Capybara::Poltergeist::Driver.new(app, {
+    extensions: ["#{Rails.root}/test/support/phantomjs/disable_animations.js"],
+    js_errors: false,
+    debug: false
+  })
 end
 
 Capybara.configure do |config|
