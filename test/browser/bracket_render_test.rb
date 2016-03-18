@@ -27,9 +27,7 @@ class BracketRenderController < ApplicationController
   end
 end
 
-class BracketSimulationTest < ActiveSupport::TestCase
-  include Capybara::DSL
-
+class BracketSimulationTest < BrowserTest
   setup do
     Rails.application.routes.draw do
       get '/render_test', to: 'bracket_render#index'
