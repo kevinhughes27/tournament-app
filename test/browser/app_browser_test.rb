@@ -1,6 +1,10 @@
 require "test_helper"
 
 class AppBrowserTest < BrowserTest
+  setup do
+    page.driver.resize(320, 600)
+  end
+
   test "drawer is closed" do
     visit("http://no-borders.#{@domain}/")
     refute page.find("#drawer")[:class].include?("active"), 'Drawer is open'
