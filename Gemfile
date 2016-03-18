@@ -67,8 +67,7 @@ group :test do
   gem 'minitest-rg'
   gem 'timecop'
   gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'chunky_png'
   gem 'launchy'
   gem 'simplecov', :require => false

@@ -1,24 +1,15 @@
 require 'capybara/rails'
+require 'capybara/poltergeist'
 
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
 end
 
-# circle ci uses older webkit and it doesn't work
-if ENV['CIRCLECI']
-  Capybara.current_driver = :selenium_chrome
-else
-  Capybara.current_driver = :webkit
-end
-
-Capybara.ignore_hidden_elements = false
-
-Capybara.app_host = "http://lvh.me"
-Capybara.always_include_port = true
-
-Capybara::Webkit.configure do |config|
-  config.allow_unknown_urls
-  #config.debug = true
+Capybara.configure do |config|
+  config.current_driver = :poltergeist
+  config.ignore_hidden_elements = false
+  config.app_host = "http://lvh.me"
+  config.always_include_port = true
 end
 
 class BrowserTest < ActiveSupport::TestCase
