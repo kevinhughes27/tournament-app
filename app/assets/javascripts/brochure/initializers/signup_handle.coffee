@@ -1,14 +1,26 @@
 $(document).ready ->
-  $('#tournament_name').on "keyup", (event) ->
-    handle = $(event.target).val()
 
-    if handle
+  if name = $('#tournament_name').val()
+    $("#tournament_url_container").show()
+    handle = toHandle(name)
+    setUrl(handle)
+
+  $('#tournament_name').on "keyup", (event) ->
+    name = $(event.target).val()
+
+    if name
       $("#tournament_url_container").fadeIn()
     else
       $("#tournament_url_container").fadeOut()
 
-    handle = handle.toLowerCase()
-    handle = handle.replace(/ /g, "-").trim()
+    handle = toHandle(name)
+    setUrl(handle)
 
-    $("#tournament_url").text("https://#{handle}.ultimate-tournament.io/")
-    $("#tournament_handle").val(handle)
+toHandle = (string) ->
+  string = string.toLowerCase()
+  string = string.replace(/ /g, "-").trim()
+  string
+
+setUrl = (handle) ->
+  $("#tournament_url").text("https://#{handle}.ultimate-tournament.io/")
+  $("#tournament_handle").val(handle)

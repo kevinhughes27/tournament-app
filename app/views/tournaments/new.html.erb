@@ -7,6 +7,11 @@
                           class: 'form-control input-lg',
                           autofocus: true,
                           autocomplete: false %>
+      <% if @tournament.errors.present? %>
+        <span class="help-block">
+          <%= @tournament.errors.full_messages.first %>
+        </span>
+      <% end %>
     </div>
 
     <div id="tournament_url_container" style="display: none;">
