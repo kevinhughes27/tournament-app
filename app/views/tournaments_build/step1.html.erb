@@ -2,10 +2,13 @@
   <%= form_for @tournament, url: wizard_path, method: :put do |form| %>
 
     <div class="form-group">
-      <%= form.label :time_cap, 'Whats the time cap for games?', class: 'subdued' %>
-      <%= form.number_field :time_cap,
-                         class: 'form-control input-lg',
-                         autofocus: true %>
+      <%= form.label :time_cap, "What's the time cap for games?", class: 'subdued' %>
+      <div class="input-group">
+        <%= form.number_field :time_cap,
+                           class: 'form-control input-lg',
+                           autofocus: true %>
+        <div class="input-group-addon">minutes</div>
+      </div>
     </div>
 
     <div class="builder-next-btn">
