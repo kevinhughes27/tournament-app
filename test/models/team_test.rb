@@ -4,6 +4,7 @@ class TeamTest < ActiveSupport::TestCase
   setup do
     @team = teams(:swift)
     @game = games(:swift_goose)
+    @tournament = tournaments(:noborders)
   end
 
   test "deleting a team unassigns if from all games (home)" do
@@ -35,5 +36,17 @@ class TeamTest < ActiveSupport::TestCase
 
   test "allow_delete is false for a team games" do
     refute @team.allow_delete?
+  end
+
+  test "limited number of teams per tournament" do
+    stub_constant(Team, :LIMIT, 2) do
+      team = @tournament.teams.build(name: 'new team')
+      refute team.valid?
+      assert_equal ['Maximum of 2 teams exceeded'], team.errors[:base]
+    end
+  end
+
+  test "limit is define" do
+    assert_equal 256, Team::LIMIT
   end
 end

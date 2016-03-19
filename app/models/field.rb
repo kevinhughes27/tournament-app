@@ -1,4 +1,7 @@
 class Field < ActiveRecord::Base
+  include Limits
+  LIMIT = 64
+
   has_many :games
   belongs_to :tournament
 

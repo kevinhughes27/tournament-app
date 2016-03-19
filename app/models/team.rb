@@ -1,4 +1,7 @@
 class Team < ActiveRecord::Base
+  include Limits
+  LIMIT = 256
+
   belongs_to :tournament
   belongs_to :division
 
