@@ -3,3 +3,9 @@
     <%= resource.errors.full_messages.join(', ') %>
   </div>
 <% end %>
+
+<% if flash[:info].present? %>
+  <div class="callout callout-info">
+    <span><%= flash[:info] %></span>
+  </div>
+<% end %>
