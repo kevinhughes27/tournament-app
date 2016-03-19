@@ -27,8 +27,3 @@ Docs
 ----
 
 [USAU Tournament Formats](http://www.usaultimate.org/assets/1/AssetManager/Format%20Manual%20Version%204.3%20_7.1.08__updated%208.25.10_.pdf)
-
-Gotchas
--------
-
-If you add brackets to brackets.yml you need to run `rake assets:clobber` to rebuild to BracketDb coffee file since rails isn't smart enough to figure this out on its own.
