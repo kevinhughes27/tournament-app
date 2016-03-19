@@ -5,6 +5,7 @@ class LoginController < Devise::SessionsController
   layout 'login'
 
   def new
+    sign_out(User)
     clear_session if from_brochure?
     super
   end
