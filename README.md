@@ -27,3 +27,7 @@ Docs
 ----
 
 [USAU Tournament Formats](http://www.usaultimate.org/assets/1/AssetManager/Format%20Manual%20Version%204.3%20_7.1.08__updated%208.25.10_.pdf)
+
+Gotchas
+-------
+Rails isn't smart enough to reload frozen record objects when the yml or json files are changed (although the asset pipeline is now thanks to some code I added. This can be fixed when I have time)
