@@ -74,4 +74,16 @@ class DivisionTest < ActiveSupport::TestCase
     division = divisions(:open)
     refute division.safe_to_delete?
   end
+
+  test "limited number of divisions per tournament" do
+    stub_constant(Division, :LIMIT, 2) do
+      division = @tournament.divisions.build(name: 'new division')
+      refute division.valid?
+      assert_equal ['Maximum of 2 divisions exceeded'], division.errors[:base]
+    end
+  end
+
+  test "limit is define" do
+    assert_equal 32, Division::LIMIT
+  end
 end

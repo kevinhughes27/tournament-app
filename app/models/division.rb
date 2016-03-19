@@ -1,4 +1,7 @@
 class Division < ActiveRecord::Base
+  include Limits
+  LIMIT = 32
+
   belongs_to :tournament
   has_many :teams, dependent: :nullify
   has_many :games, dependent: :destroy
