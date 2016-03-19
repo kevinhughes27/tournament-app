@@ -1,3 +1,6 @@
+#= depend_on_file db/brackets.yml
+#= depend_on_files db/brackets/*.json
+
 Admin.BracketDb =
   BRACKETS: <%= Bracket.all.to_json %>
   find: (bracketName) ->

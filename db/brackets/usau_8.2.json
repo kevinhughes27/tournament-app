@@ -1,13 +1,7 @@
 {
-  "num_teams": 8,
   "games": [
-    {"pool": "A", "home":1, "away":6}, {"pool": "A", "home":3, "away":8},
-    {"pool": "A", "home":1, "away":8}, {"pool": "A", "home":3, "away":6},
-    {"pool": "A", "home":1, "away":3}, {"pool": "A", "home":6, "away":8},
-
-    {"pool": "B", "home":2, "away":5}, {"pool": "B", "home":4, "away":7},
-    {"pool": "B", "home":2, "away":7}, {"pool": "B", "home":4, "away":5},
-    {"pool": "B", "home":2, "away":4}, {"pool": "B", "home":5, "away":7},
+    <%= bracket_partial('table_4.1', pool: 'A', seeds: [1,3,6,8]) %>
+    <%= bracket_partial('table_4.1', pool: 'B', seeds: [2,4,5,7]) %>
 
     {"round": 1, "uid":"a", "home":"A1", "away":"B2"},
     {"round": 1, "uid":"b", "home":"A2", "away":"B1"},

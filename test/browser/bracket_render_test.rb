@@ -27,42 +27,44 @@ class BracketRenderController < ApplicationController
   end
 end
 
-class BracketSimulationTest < ActiveSupport::TestCase
-  include Capybara::DSL
-
+class BracketSimulationTest < BrowserTest
   setup do
     Rails.application.routes.draw do
       get '/render_test', to: 'bracket_render#index'
     end
+
+    page.driver.resize(400, 460)
   end
 
   teardown do
     Rails.application.reload_routes!
   end
 
-  # Bracket.all.each do |bracket|
-  #   test "render bracket: #{bracket.name}" do
-  #     visit("/render_test?bracket=#{bracket.name}")
-  #     assert page.find(".vis-network")
-  #     sleep(1)
-  #     file = "test/fixtures/screenshots/#{bracket.name}.png"
-  #     compare_or_new(file)
-  #   end
-  # end
-
-  def compare_or_new(file)
-    if File.exists?(file)
-      page.save_screenshot(new_screenshot_path)
-      image_diff(file)
-    else
-      page.save_screenshot(file)
+  Bracket.all.each do |bracket|
+    test "render bracket: #{bracket.name}" do
+      visit("/render_test?bracket=#{bracket.name}")
+      assert page.find(".vis-network")
+      sleep(1)
+      compare_or_new(bracket.name)
     end
   end
 
-  def image_diff(file)
+  def compare_or_new(bracket_name)
+    test_file = "test/fixtures/screenshots/#{bracket_name}.png"
+    new_file = new_screenshot_path(bracket_name)
+
+    if File.exists?(test_file)
+      page.save_screenshot(new_file)
+      image_diff(test_file, new_file)
+    else
+      page.save_screenshot(test_file)
+    end
+  end
+
+  def image_diff(test_file, new_file)
     images = [
-      ChunkyPNG::Image.from_file(new_screenshot_path),
-      ChunkyPNG::Image.from_file(file)
+      ChunkyPNG::Image.from_file(new_file),
+      ChunkyPNG::Image.from_file(test_file)
     ]
 
     diff = []
@@ -77,23 +79,14 @@ class BracketSimulationTest < ActiveSupport::TestCase
     pixels_changed = diff.length
     percent_changed = (diff.length.to_f / images.first.pixels.length) * 100
 
-    assert_operator percent_changed, :<=, 1.0
+    assert_operator percent_changed, :<=, 6.0
   end
 
-  def new_screenshot_path
+  def new_screenshot_path(bracket_name)
     if ENV['CIRCLECI']
-      File.join(ENV['CIRCLE_ARTIFACTS'], 'tmp/screenshot.png')
+      File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_name}.png")
     else
-      'tmp/screenshot.png'
-    end
-  end
-
-  def resize_window
-    if ENV['CIRCLECI']
-      window = page.driver.browser.manage.window
-      window.resize_to(400, 440)
-    else
-      page.driver.resize_window(400,440)
+      "tmp/#{bracket_name}.png"
     end
   end
 end

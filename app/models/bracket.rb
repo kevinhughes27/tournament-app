@@ -15,8 +15,6 @@ class Bracket < FrozenRecord::Base
     @attributes['template'].with_indifferent_access
   end
 
-  # aren't these really bracket_uids?
-
   def game_uids_for_round(round)
     template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
   end
@@ -36,4 +34,12 @@ class Bracket < FrozenRecord::Base
   def game_uid_for_place(place)
     template[:games].detect{ |g| g[:place] == place }[:uid]
   end
+end
+
+def load_bracket(name)
+  Tilt::ERBTemplate.new("db/brackets/#{name}.json").render
+end
+
+def bracket_partial(name, args)
+  Tilt::ERBTemplate.new("db/brackets/partials/#{name}.json").render(Object.new, args)
 end

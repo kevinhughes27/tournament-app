@@ -1,5 +1,4 @@
 {
-  "num_teams": 8,
   "games": [
     {"round": 1, "seed": 1, "uid":"q1", "home":1, "away":"8"},
     {"round": 1, "seed": 1, "uid":"q2", "home":2, "away":"7"},

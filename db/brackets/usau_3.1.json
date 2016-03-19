@@ -1,0 +1,7 @@
+{
+  "games": [
+    {"round": 1, "seed": 1, "uid": "a", "home":1, "away":3},
+    {"round": 2, "seed": 1, "uid": "b", "home":2, "away":3},
+    {"round": 3, "seed": 1, "uid": "c", "home":1, "away":2}
+  ]
+}

@@ -1,0 +1,55 @@
+# broken because last game is between the 2 teams that haven't played yet
+-
+  name: USAU 3.1
+  tagline: Three-Team Round Robin
+  num_teams: 3
+  days: 1
+  rounds: 3
+  pool: false
+  template: <%= File.read('db/brackets/usau_3.1.json') %>
+
+# broken because of optional pool / round robin + bracket
+# not that same as pool since second game is dependent
+-
+  name: USAU 4.1.1
+  tagline: One team advances
+  description: >
+    If there is a 3-0 team after pool play then the tournament is over.
+  num_teams: 4
+  days: 1
+  rounds: 3
+  template: <%= File.read('db/brackets/usau_4.1.1.json') %>
+
+-
+  name: USAU 4.1.4
+  tagline: Four teams advance
+  description: >
+    If there is no 3-0 team, the bracket
+    may be played to accurately determine the champion.
+  num_teams: 4
+  days: 1
+  rounds: 3
+  template: <%= File.read('db/brackets/usau_4.1.1.json') %>
+
+# broken because of how 1ts place is determined from pool play
+-
+  name: USAU 5.4
+  tagline: Four teams advance
+  description: >
+    Note that the top team is determined on
+    the first day, and that team has no games the second day.
+  num_teams: 5
+  days: 2
+  rounds: 2
+  pool: true
+  template: <%= File.read('db/brackets/usau_5.4.json') %>
+
+-
+  name: USAU 6.6.1
+  tagline: Six teams advance
+  description: >
+    Pool games are played to 13 and over 2 days.
+  num_teams: 6
+  days: 1
+  pool: true
+  template: <%= File.read('db/brackets/usau_6.6.1.json') %>

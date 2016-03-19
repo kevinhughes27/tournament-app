@@ -1,0 +1,12 @@
+{
+  "games": [
+    <%= bracket_partial('table_6.1.4', pool: 'A', seeds: [1,2,3,4,5,6]) %>
+
+    {"round":1, "place":"1st", "uid":"a", "home":"A1", "away":"A2"},
+    {"round":1, "uid":"b", "home":"A3", "away":"A4"},
+    {"round":1, "uid":"d", "home":"A5", "away":"A6"},
+
+    {"round":2, "place":"2nd", "uid":"c", "home":"La", "away":"Wb"},
+    {"round":2, "place":"4th", "uid":"e", "home":"Lb", "away":"Wd"},
+  ]
+}

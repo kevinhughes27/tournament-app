@@ -2,11 +2,9 @@ class BracketTemplateValidator
   BRACKET_SCHEMA = {
     "type" => "object",
     "properties" => {
-      "num_teams" => { "type" => "integer" },
-      "games"     => { "type" => "array" }
+      "games" => { "type" => "array" }
     },
     "required" => [
-      "num_teams",
       "games"
     ],
     "additionalProperties" => false
@@ -83,7 +81,11 @@ class BracketTemplateValidator
       aways = games.map{ |g| g[:away] }
 
       reseed_uids = pool_reseed_uids(template_json)
-      reseed_uids - homes - aways == []
+      remaining = reseed_uids - homes - aways
+
+      # some teams don't get to play if they finish too low
+      # is this test even still valid at this point?
+      remaining.size < 4
     end
 
     # validates that the dependent games exist at least
