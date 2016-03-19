@@ -79,7 +79,7 @@ class BracketSimulationTest < BrowserTest
     pixels_changed = diff.length
     percent_changed = (diff.length.to_f / images.first.pixels.length) * 100
 
-    assert_operator percent_changed, :<=, 1.0
+    assert_operator percent_changed, :<=, 6.0
   end
 
   def new_screenshot_path(bracket_name)
