@@ -20,7 +20,7 @@
             <h3>
               <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
             </h3>
-            <% games.each do |game| %>
+            <% games.each_with_index do |game, idx| %>
               <% if game.unassigned? %>
                 <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
                   <%= game_draggable_text(game) %>
