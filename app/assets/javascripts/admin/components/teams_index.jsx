@@ -5,12 +5,38 @@ var React = require('react'),
     TeamsStore = require('../stores/teams_store');
 
 var columns = [
+  "id",
   "name",
   "email",
   "sms",
   "division",
   "seed"
 ];
+
+var SelectCell = React.createClass({
+  render() {
+    var teamId = this.props.data;
+    return <input type="checkbox" className="bulkCheck" value={teamId} />;
+  }
+});
+
+var SelectCellHeader = React.createClass({
+  getInitialState() {
+    return {
+      allChecked: false
+    }
+  },
+
+  _selectAll() {
+    var allChecked = !this.state.allChecked;
+    this.setState({ allChecked: allChecked });
+    $('.bulkCheck').prop('checked', allChecked);
+  },
+
+  render() {
+    return <input type='checkbox' onClick={this._selectAll} />;
+  }
+});
 
 var LinkCell = React.createClass({
   render() {
@@ -22,37 +48,45 @@ var LinkCell = React.createClass({
 
 var columnsMeta = [
   {
+    columnName: "id",
+    order: 1,
+    cssClassName: "col-md-1",
+    customComponent: SelectCell,
+    customHeaderComponent: SelectCellHeader,
+    sortable: false
+  },
+  {
     columnName: "name",
     displayName: "Name",
     cssClassName: "table-link",
-    order: 1,
+    order: 2,
     customComponent: LinkCell
   },
   {
     columnName: "email",
     displayName: "Email",
     cssClassName: 'hidden-xs',
-    order: 2,
+    order: 3,
     sortable: false
   },
   {
     columnName: "sms",
     displayName: "SMS",
     cssClassName: 'hidden-xs',
-    order: 3,
+    order: 4,
     sortable: false
   },
   {
     columnName: "division",
     displayName: "Division",
     cssClassName: "table-link",
-    order: 4
+    order: 5
   },
   {
     columnName: "seed",
     displayName: "Seed",
     cssClassName: "table-link",
-    order: 5
+    order: 6
   },
 ];
 
