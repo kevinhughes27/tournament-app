@@ -12,6 +12,7 @@ gem 'frozen_record', '~> 0.5.0'
 gem 'responders'
 gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
+gem 'render_anywhere', require: false
 
 gem 'date_validator'
 gem 'browser-timezone-rails'

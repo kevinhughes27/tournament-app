@@ -13,6 +13,7 @@ var columns = [
   "seed"
 ];
 
+// these lose their values on sort. need to store this state
 var SelectCell = React.createClass({
   render() {
     var teamId = this.props.data;
@@ -102,12 +103,25 @@ var TeamsIndex = React.createClass({
     this.teamsFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
+      bulkOperations: this.props.bulkOperations,
       render() { return this.renderBar() }
     });
 
     return {
       teams: TeamsStore.all(),
     };
+  },
+
+  componentDidMount() {
+    TeamsStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount() {
+    TeamsStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange() {
+    this.setState({ teams: TeamsStore.all() });
   },
 
   render() {

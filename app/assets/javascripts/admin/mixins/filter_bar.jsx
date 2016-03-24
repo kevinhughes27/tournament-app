@@ -4,9 +4,13 @@ var _ = require('underscore'),
     setQuery = require('set-query-string'),
     Input = require('react-bootstrap').Input,
     Dropdown = require('react-bootstrap').Dropdown,
-    MenuItem = require('react-bootstrap').MenuItem;
+    MenuItem = require('react-bootstrap').MenuItem,
+    TeamsStore = require('../stores/teams_store'),
+    LoadingMixin = require('../mixins/loading_mixin');
 
 var FilterBar = {
+  mixins: [LoadingMixin],
+
   getDefaultProps() {
     return {
       "query": queryString.parse(location.search)
@@ -52,12 +56,68 @@ var FilterBar = {
     this.props.changeFilter(this.props.query);
   },
 
+  performAction(action) {
+    this._startLoading();
+
+    var ids = _.map($('.bulkCheck:checked'), function(node) {
+      return node.value;
+    });
+
+    $.ajax({
+      url: 'bulk_operation',
+      type: 'PUT',
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      data: {
+        job: action.job,
+        ids: ids,
+        arg: action.arg
+      },
+      success: (response) => {
+        this._finishLoading();
+        _.each(response, function(team) { TeamsStore.updateTeam(team) });
+        Admin.Flash.notice(action.success_msg);
+      },
+      error: (response) => {
+        this._finishLoading();
+        Admin.Flash.error(action.failure_msg);
+      }
+    });
+  },
+
   renderBar() {
+    var bar;
     if(this.filters.length > 0) {
-      return this._renderFilterSearchBar();
+      bar = this._renderFilterSearchBar();
     } else {
-      return this._renderSearchBar();
+      bar = this._renderSearchBar();
     }
+
+    var actionsDropdown = (
+      <div className="input-group-btn" style={{paddingBottom: 10}}>
+        <Dropdown id="actions-dropdown">
+          <Dropdown.Toggle>
+            Bulk Actions
+          </Dropdown.Toggle>
+          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+            {this.bulkOperations.map((a, i) => {
+              return (
+                <MenuItem key={i} onClick={() => this.performAction(a)}>
+                  <i className="fa fa-circle"></i>
+                  {a.text}
+               </MenuItem>
+             );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+    );
+
+    return (
+      <div>
+        {bar}
+        {actionsDropdown}
+      </div>
+    );
   },
 
   _renderSearchBar() {
