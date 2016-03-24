@@ -9,6 +9,7 @@
     "fingerprintjs2": "~0.7.4",
     "jquery.scrollTo": "2.1.2",
     "animatedmodal": "git@github.com:joaopereirawd/animatedModal.js.git",
-    "vis": "4.15"
+    "vis": "4.15",
+    "jquery-touchswipe": "1.6.7"
   }
 }
