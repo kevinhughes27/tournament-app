@@ -10,7 +10,7 @@ var React = require('react'),
 var columns = [
   "name",
   "division",
-  "score",
+  "has_score",
   "confirmed"
 ];
 
@@ -29,7 +29,7 @@ var columnsMeta = [
     order: 2,
   },
   {
-    columnName: "score",
+    columnName: "has_score",
     displayName: "Score",
     cssClassName: "col-md-1",
     order: 3,

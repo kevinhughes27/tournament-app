@@ -7,7 +7,7 @@ var React = require('react'),
 var columns = [
   "name",
   "bracket",
-  "teams",
+  "teams_count",
   "seeded"
 ];
 
@@ -83,7 +83,7 @@ var columnsMeta = [
     order: 2,
   },
   {
-    columnName: "teams",
+    columnName: "teams_count",
     displayName: "Teams",
     order: 3,
     customComponent: TeamsCell
