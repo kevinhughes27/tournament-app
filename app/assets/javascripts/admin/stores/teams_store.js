@@ -11,6 +11,19 @@ var TeamsStore = _.extend({}, Store, {
     return _teams;
   },
 
+  saveSelectedState(team, state) {
+    var idx = this._findTeamIdx(team);
+    _teams[idx].selected = state;
+    this.emitChange();
+  },
+
+  setSelected(state) {
+    _.each(_teams, function(t) {
+      t.selected = state;
+    });
+    this.emitChange();
+  },
+
   updateTeam(team) {
     var idx = this._findTeamIdx(team);
     _teams[idx] = team;

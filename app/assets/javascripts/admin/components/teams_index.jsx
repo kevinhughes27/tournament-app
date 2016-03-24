@@ -13,11 +13,25 @@ var columns = [
   "seed"
 ];
 
-// these lose their values on sort. need to store this state
 var SelectCell = React.createClass({
+  handleChange(ev) {
+    var team = this.props.rowData;
+    var selected = ev.target.checked;
+    TeamsStore.saveSelectedState(team, selected);
+  },
+
   render() {
     var teamId = this.props.data;
-    return <input type="checkbox" className="bulkCheck" value={teamId} />;
+    var selected = this.props.rowData.selected;
+
+    return (
+      <input
+        type="checkbox"
+        className="bulkCheck"
+        value={teamId}
+        checked={selected}
+        onChange={this.handleChange} />
+    );
   }
 });
 
@@ -31,7 +45,7 @@ var SelectCellHeader = React.createClass({
   _selectAll() {
     var allChecked = !this.state.allChecked;
     this.setState({ allChecked: allChecked });
-    $('.bulkCheck').prop('checked', allChecked);
+    TeamsStore.setSelected(allChecked);
   },
 
   render() {
