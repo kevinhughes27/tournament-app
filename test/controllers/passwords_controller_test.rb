@@ -16,7 +16,7 @@ class PasswordsControllerTest < ActionController::TestCase
 
   test "post create (aka password reset)" do
     post :create, user: {email: @user.email}
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_password_path
   end
 
   test "get edit (aka change password)" do
