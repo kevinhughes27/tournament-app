@@ -52,6 +52,7 @@ var FieldsIndex = React.createClass({
     this.fieldsFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
+      bulkActions: [],
       render() { return this.renderBar() }
     });
 

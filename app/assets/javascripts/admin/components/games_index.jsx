@@ -70,6 +70,7 @@ var GamesIndex = React.createClass({
     this.gamesFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
+      bulkActions: [],
       componentDidMount() { GamesStore.addChangeListener(this._onChange) },
       componentWillUnmount() { GamesStore.removeChangeListener(this._onChange) },
       render() { return this.renderBar() }

@@ -113,11 +113,10 @@ var TeamsIndex = React.createClass({
     TeamsStore.init(teams);
 
     this.searchColumns = this.props.searchColumns;
-
     this.teamsFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
-      bulkOperations: this.props.bulkOperations,
+      bulkActions: this.props.bulkActions,
       render() { return this.renderBar() }
     });
 

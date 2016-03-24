@@ -5,6 +5,7 @@ var _ = require('underscore'),
     Input = require('react-bootstrap').Input,
     Dropdown = require('react-bootstrap').Dropdown,
     MenuItem = require('react-bootstrap').MenuItem,
+    ButtonGroup = require('react-bootstrap').ButtonGroup,
     TeamsStore = require('../stores/teams_store'),
     LoadingMixin = require('../mixins/loading_mixin');
 
@@ -85,77 +86,66 @@ var FilterBar = {
   },
 
   renderBar() {
-    var bar;
+    var searchValue = this.props.query.search;
+    var filterDropdown, actionsDropdown, buttonBefore;
+
+    // filterDropdown
     if(this.filters.length > 0) {
-      bar = this._renderFilterSearchBar();
-    } else {
-      bar = this._renderSearchBar();
+      filterDropdown = (
+        <div className="input-group-btn">
+          <Dropdown id="filter-dropdown">
+            <Dropdown.Toggle>
+              Filter
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+              {this.filters.map((f, i) => {
+                return (
+                  <MenuItem key={i} onClick={() => this.addFilter(f)}>
+                    <i className="fa fa-circle"></i>
+                    {f.text}
+                 </MenuItem>
+               );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      );
     }
 
-    var actionsDropdown = (
-      <div className="input-group-btn" style={{paddingBottom: 10}}>
-        <Dropdown id="actions-dropdown">
-          <Dropdown.Toggle>
-            Bulk Actions
-          </Dropdown.Toggle>
-          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-            {this.bulkOperations.map((a, i) => {
-              return (
-                <MenuItem key={i} onClick={() => this.performAction(a)}>
-                  <i className="fa fa-circle"></i>
-                  {a.text}
-               </MenuItem>
-             );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-    );
+    // actionsDropdown
+    if (this.bulkActions.length > 0) {
+      actionsDropdown = (
+        <div className="input-group-btn">
+          <Dropdown id="actions-dropdown">
+            <Dropdown.Toggle>
+              Bulk Actions
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+              {this.bulkActions.map((a, i) => {
+                return (
+                  <MenuItem key={i} onClick={() => this.performAction(a)}>
+                    <i className="fa fa-circle"></i>
+                    {a.text}
+                 </MenuItem>
+               );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      );
+    }
 
-    return (
-      <div>
-        {bar}
-        {actionsDropdown}
-      </div>
-    );
-  },
-
-  _renderSearchBar() {
-    var searchValue = this.props.query.search;
-
-    return (
-      <div className="filter-container" style={{paddingBottom: 10}}>
-        <Input type="text"
-               value={searchValue}
-               name="search"
-               placeholder="Search..."
-               className="form-control"
-               onChange={this.searchChange} />
-      </div>
-    );
-  },
-
-  _renderFilterSearchBar() {
-    var searchValue = this.props.query.search;
-    var filterDropdown = (
-      <div className="input-group-btn">
-        <Dropdown id="filter-dropdown">
-          <Dropdown.Toggle>
-            Filter
-          </Dropdown.Toggle>
-          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-            {this.filters.map((f, i) => {
-              return (
-                <MenuItem key={i} onClick={() => this.addFilter(f)}>
-                  <i className="fa fa-circle"></i>
-                  {f.text}
-               </MenuItem>
-             );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-    );
+    // buttonBefore
+    if(actionsDropdown && filterDropdown) {
+      buttonBefore = (
+        <ButtonGroup>
+          {actionsDropdown}
+          {filterDropdown}
+        </ButtonGroup>
+      );
+    } else if(filterDropdown) {
+      buttonBefore = filterDropdown
+    };
 
     var currentFilters = _.omit(this.props.query, 'search');
     var filterNames = {};
@@ -172,7 +162,7 @@ var FilterBar = {
                placeholder="Search..."
                className="form-control"
                onChange={this.searchChange}
-               buttonBefore={filterDropdown} />
+               buttonBefore={buttonBefore} />
         <div className="btn-toolbar">
           { _.keys(currentFilters).map((key, idx) => {
             return <Filter
