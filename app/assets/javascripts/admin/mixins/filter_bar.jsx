@@ -26,6 +26,10 @@ var FilterBar = {
     setQuery(this.props.query, {clear: true});
   },
 
+  _onChange() {
+    this.props.changeFilter(this.props.query);
+  },
+
   searchChange(event) {
     var value = event.target.value;
 
