@@ -12,16 +12,16 @@ var ScoreReports = React.createClass({
 
     return (
       <div style={{paddingTop: 25}}>
-        <div className="panel panel-default">
+        <div className="panel panel-default" style={{minWidth: 320}}>
           <div className="panel-heading">Score Reports</div>
           <table className="table table-striped table-hover">
             <thead>
               <tr>
                 <th>Score</th>
                 <th>Submitted by</th>
-                <th>Submitted at</th>
-                <th>SOTG</th>
-                <th>Comments</th>
+                <th className="hidden-xs">Submitted at</th>
+                <th className="hidden-xs">SOTG</th>
+                <th className="hidden-xs">Comments</th>
                 <th></th>
               </tr>
             </thead>
@@ -83,13 +83,13 @@ var ScoreReport = React.createClass({
             <span>{report.submitted_by}</span>
           </OverlayTrigger>
         </td>
-        <td className="submitted-at">
+        <td className="submitted-at hidden-xs">
           {report.submitted_at}
         </td>
-        <td>
+        <td className="hidden-xs">
           {report.sotg_score}
         </td>
-        <td className="comments">
+        <td className="comments hidden-xs">
           {report.comments}
         </td>
         <td>

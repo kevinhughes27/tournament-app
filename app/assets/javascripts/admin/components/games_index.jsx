@@ -39,7 +39,7 @@ var columnsMeta = [
   {
     columnName: "confirmed",
     displayName: "Confirmed",
-    cssClassName: "col-md-2 table-link",
+    cssClassName: "col-md-2 table-link hidden-xs",
     order: 4,
     customComponent: ConfirmedCell
   },
