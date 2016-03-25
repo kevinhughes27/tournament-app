@@ -25,5 +25,6 @@ class AdminControllerTest < ActionController::TestCase
     set_tournament('wat')
     get :show
     assert_response :not_found
+    assert_template 'login/404', layout: 'login'
   end
 end

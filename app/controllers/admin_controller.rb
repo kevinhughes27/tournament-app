@@ -15,13 +15,15 @@ class AdminController < ApplicationController
 
   protected
 
-  rescue_from ActiveRecord::RecordNotFound do
-    render 'admin/404'
-  end
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from ActiveRecord::RecordNotFound do
+      render 'admin/404', status: :not_found
+    end
 
-  rescue_from Exception do |e|
-    Rollbar.error(e)
-    render 'admin/500'
+    rescue_from Exception do |e|
+      Rollbar.error(e)
+      render 'admin/500', status: 500
+    end
   end
 
   def respond_with(obj)
