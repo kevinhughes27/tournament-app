@@ -58,9 +58,8 @@ var FilterBar = {
   },
 
   performAction(action) {
-    var ids = _.map(TeamsStore.selected(), function(t) { return t.id });
-    if(ids.length == 0) return;
     this._startLoading();
+    var ids = _.map(TeamsStore.selected(), function(t) { return t.id });
 
     $.ajax({
       url: 'bulk_operation',
@@ -111,7 +110,7 @@ var FilterBar = {
     }
 
     // actionsDropdown
-    if (this.bulkActions.length > 0) {
+    if (this.bulkActions.length > 0 && TeamsStore.selected().length > 0) {
       actionsDropdown = (
         <div className="input-group-btn">
           <Dropdown id="actions-dropdown">
