@@ -13,7 +13,7 @@
     "browserify-incremental": "^3.0.1",
     "browserify-shim": "^3.8.12",
     "classnames": "^2.2.3",
-    "griddle-react": "^0.3.1",
+    "griddle-react": "^0.4.0",
     "object-squish": "^1.0.0",
     "query-string": "^3.0.0",
     "react": "^0.14.3",
