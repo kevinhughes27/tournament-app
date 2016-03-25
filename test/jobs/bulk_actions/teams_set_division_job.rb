@@ -14,6 +14,8 @@ module BulkActions
         arg: @division.name
       )
 
+      json = JSON.parse(response)
+      assert_equal "Swift", json.first["name"]
       assert_equal @division, @team.reload.division
     end
   end
