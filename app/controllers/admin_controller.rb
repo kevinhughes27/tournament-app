@@ -15,6 +15,10 @@ class AdminController < ApplicationController
 
   protected
 
+  rescue_from ActiveRecord::RecordNotFound do
+    render '404'
+  end
+
   def respond_with(obj)
     super :admin, obj
   end
