@@ -117,6 +117,8 @@ var TeamsIndex = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
       bulkActions: this.props.bulkActions,
+      componentDidMount() { TeamsStore.addChangeListener(this._onChange) },
+      componentWillUnmount() { TeamsStore.removeChangeListener(this._onChange) },
       render() { return this.renderBar() }
     });
 
