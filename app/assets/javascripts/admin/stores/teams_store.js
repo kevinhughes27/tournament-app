@@ -3,12 +3,16 @@ var Store = require('./store');
 var _teams;
 
 var TeamsStore = _.extend({}, Store, {
-  init(teams){
+  init(teams) {
     _teams = teams;
   },
 
-  all(){
+  all() {
     return _teams;
+  },
+
+  selected() {
+    return _.filter(_teams, function(t) { return t.selected });
   },
 
   saveSelectedState(team, state) {

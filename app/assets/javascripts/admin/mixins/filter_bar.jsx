@@ -58,11 +58,9 @@ var FilterBar = {
   },
 
   performAction(action) {
+    var ids = _.map(TeamsStore.selected(), function(t) { return t.id });
+    if(ids.length == 0) return;
     this._startLoading();
-
-    var ids = _.map($('.bulkCheck:checked'), function(node) {
-      return node.value;
-    });
 
     $.ajax({
       url: 'bulk_operation',
