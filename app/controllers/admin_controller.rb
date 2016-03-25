@@ -16,7 +16,12 @@ class AdminController < ApplicationController
   protected
 
   rescue_from ActiveRecord::RecordNotFound do
-    render '404'
+    render 'admin/404'
+  end
+
+  rescue_from Exception do |e|
+    Rollbar.error(e)
+    render 'admin/500'
   end
 
   def respond_with(obj)
