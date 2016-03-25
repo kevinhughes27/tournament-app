@@ -15,12 +15,18 @@ class AdminController < ApplicationController
 
   protected
 
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from ActiveRecord::RecordNotFound do
+  rescue_from ActiveRecord::RecordNotFound do
+    if Rails.application.config.consider_all_requests_local
+      raise
+    else
       render 'admin/404', status: :not_found
     end
+  end
 
-    rescue_from Exception do |e|
+  rescue_from Exception do |e|
+    if Rails.application.config.consider_all_requests_local
+      raise
+    else
       Rollbar.error(e)
       render 'admin/500', status: 500
     end

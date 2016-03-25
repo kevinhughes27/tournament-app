@@ -4,6 +4,14 @@ class AdminTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
+
+    Rails.application.config.consider_all_requests_local = false
+    Rails.application.reload_routes!
+  end
+
+  teardown do
+    Rails.application.config.consider_all_requests_local = true
+    Rails.application.reload_routes!
   end
 
   test "admin 404s" do
