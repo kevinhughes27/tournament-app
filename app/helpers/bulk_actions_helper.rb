@@ -1,5 +1,5 @@
-module BulkOperationsHelper
-  def add_to_division_operations(tournament)
+module BulkActionsHelper
+  def add_to_division_actions(tournament)
     tournament.divisions.map do |division|
       {
         text: "Add to #{division.name} Division",

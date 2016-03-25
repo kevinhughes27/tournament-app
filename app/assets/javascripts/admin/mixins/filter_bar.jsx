@@ -62,7 +62,7 @@ var FilterBar = {
     var ids = _.map(TeamsStore.selected(), function(t) { return t.id });
 
     $.ajax({
-      url: 'bulk_operation',
+      url: 'bulk_action',
       type: 'PUT',
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
