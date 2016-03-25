@@ -1,7 +1,6 @@
 require 'test_helper'
 
-class AdminTest < ActionDispatch::IntegrationTest
-
+class LoginTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
@@ -55,5 +54,4 @@ class AdminTest < ActionDispatch::IntegrationTest
     assert_equal 200, status
     assert_equal "/admin/fields", path
   end
-
 end
