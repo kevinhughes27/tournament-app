@@ -2,6 +2,7 @@ require 'csv'
 
 class Admin::TeamsController < AdminController
   before_action :load_team, only: [:show, :update, :destroy]
+  before_action :check_update_safety, only: [:update]
   before_action :check_delete_safety, only: [:destroy]
 
   def index
@@ -79,6 +80,17 @@ class Admin::TeamsController < AdminController
   end
 
   private
+
+  def check_update_safety
+    return unless @team.needs_safety_check?(team_params)
+    @team.assign_attributes(team_params)
+
+    if !@team.allow_change?
+      render partial: 'unable_to_update', status: :not_allowed
+    elsif !(params[:confirm] == 'true' || @team.safe_to_change?)
+      render partial: 'confirm_update', status: :unprocessable_entity
+    end
+  end
 
   def check_delete_safety
     if !@team.allow_delete?

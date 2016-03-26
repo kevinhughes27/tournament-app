@@ -33,22 +33,22 @@ class TeamTest < ActiveSupport::TestCase
     assert_nil @game.reload.away
   end
 
-  test "safe_to_delete? is true for a team with no games" do
+  test "safe_to_change? is true for a team with no games" do
     team = teams(:shrike)
-    assert team.safe_to_delete?
+    assert team.safe_to_change?
   end
 
-  test "safe_to_delete? is false if team is assigned to games" do
-    refute @team.safe_to_delete?
+  test "safe_to_change? is false if team is assigned to games" do
+    refute @team.safe_to_change?
   end
 
-  test "allow_delete is true for a team where the division hasn't started" do
+  test "allow_change is true for a team where the division hasn't started" do
     team = teams(:stella)
-    assert team.allow_delete?
+    assert team.allow_change?
   end
 
-  test "allow_delete is false for a team with games" do
-    refute @team.allow_delete?
+  test "allow_change is false for a team with games" do
+    refute @team.allow_change?
   end
 
   test "limited number of teams per tournament" do

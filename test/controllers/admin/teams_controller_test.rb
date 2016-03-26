@@ -38,7 +38,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "create a team" do
     assert_difference "Team.count" do
-      post :create, team: team_params
+      post :create, team: new_team_params
 
       team = assigns(:team)
       assert_redirected_to admin_team_path(team)
@@ -46,7 +46,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "create a team error re-renders form" do
-    params = team_params
+    params = new_team_params
     params.delete(:name)
 
     assert_no_difference "Team.count" do
@@ -56,20 +56,53 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "update a team" do
-    put :update, id: @team.id, team: team_params
+    put :update, id: @team.id, team: safe_update_params
 
     assert_redirected_to admin_team_path(@team)
-    assert_equal team_params[:name], @team.reload.name
+    assert_equal safe_update_params[:name], @team.reload.name
   end
 
   test "update a team with errors" do
-    params = team_params
-    params.delete(:name)
+    params = safe_update_params
+    params[:name] = ''
 
     put :update, id: @team.id, team: params
 
+    assert_template :show
+    refute_equal safe_update_params[:name], @team.reload.name
+  end
+
+  test "update a team with unsafe params" do
+    @division.games.update_all(score_confirmed: false)
+
+    params = safe_update_params
+    params[:seed] = 3
+
+    put :update, id: @team.id, team: params
+
+    assert_response :unprocessable_entity
+    assert_template 'admin/teams/_confirm_update'
+  end
+
+  test "confirm update a team with unsafe params" do
+    @division.games.update_all(score_confirmed: false)
+
+    params = safe_update_params
+    params[:seed] = 3
+
+    put :update, id: @team.id, team: params, confirm: 'true'
+
     assert_redirected_to admin_team_path(@team)
-    refute_equal team_params[:name], @team.reload.name
+    assert_equal 3, @team.reload.seed
+  end
+
+  test "not allowed to update team with unsafe params" do
+    params = safe_update_params
+    params[:seed] = 3
+
+    put :update, id: @team.id, team: params
+
+    assert_template 'admin/teams/_unable_to_update'
   end
 
   test "delete a team" do
@@ -152,11 +185,17 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   private
 
-  def team_params
+  def new_team_params
     {
       name: 'Goat',
       division_id: @division.id,
       seed: 1
+    }
+  end
+
+  def safe_update_params
+    {
+      name: 'Goat'
     }
   end
 end

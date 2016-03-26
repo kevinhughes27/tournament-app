@@ -11,14 +11,22 @@ class Team < ActiveRecord::Base
   after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
   after_destroy :unassign_games
 
-  def safe_to_delete?
+  def needs_safety_check?(params)
+    (params[:division_id] && params[:division_id] != self.division_id) ||
+    (params[:seed] && params[:seed] != self.seed)
+  end
+
+  def safe_to_change?
     !Game.where(tournament_id: tournament_id, home_id: id).exists? &&
     !Game.where(tournament_id: tournament_id, away_id: id).exists?
   end
 
-  def allow_delete?
+  def allow_change?
     !Game.where(tournament_id: tournament_id, score_confirmed: true, division: division).exists?
   end
+
+  alias_method :safe_to_delete?, :safe_to_change?
+  alias_method :allow_delete?, :allow_change?
 
   private
 

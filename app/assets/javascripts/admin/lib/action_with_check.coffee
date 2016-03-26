@@ -1,12 +1,14 @@
-Admin.ActionWithCheck = (url, method, confirmed = false) ->
+Admin.ActionWithCheck = (url, method, confirmed = false, form = null) ->
+  data = if form then $(form).serialize() else {confirm: confirmed}
+
   $.ajax
     type: method
     url: url
-    data: {confirm: confirmed}
+    data: data
     dataType: 'html'
     error: (response) ->
       modalContent = response.responseText
-      $modal = $('#confirmDeleteModal')
+      $modal = $('#confirmActionModal')
       $modal.html(modalContent)
 
       Twine.bind($modal[0])
