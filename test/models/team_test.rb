@@ -20,6 +20,19 @@ class TeamTest < ActiveSupport::TestCase
     assert_nil @game.reload.away
   end
 
+  test "updating a team's division unassigns if from all games (home)" do
+    assert_equal @team, @game.home
+    @team.update_attributes(division: divisions(:women))
+    assert_nil @game.reload.home
+  end
+
+  test "updating a team's division unassigns if from all games (away)" do
+    team = teams(:goose)
+    assert_equal team, @game.away
+    team.update_attributes(division: divisions(:women))
+    assert_nil @game.reload.away
+  end
+
   test "safe_to_delete? is true for a team with no games" do
     team = teams(:shrike)
     assert team.safe_to_delete?
@@ -34,7 +47,7 @@ class TeamTest < ActiveSupport::TestCase
     assert team.allow_delete?
   end
 
-  test "allow_delete is false for a team games" do
+  test "allow_delete is false for a team with games" do
     refute @team.allow_delete?
   end
 

@@ -8,6 +8,7 @@ class Team < ActiveRecord::Base
   validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
 
+  after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
   after_destroy :unassign_games
 
   def safe_to_delete?
