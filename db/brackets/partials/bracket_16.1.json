@@ -1,0 +1,14 @@
+{"round":1, "uid":"a", "home":"A2", "away":"D3"},
+{"round":1, "uid":"b", "home":"D2", "away":"A3"},
+{"round":1, "uid":"c", "home":"B2", "away":"C3"},
+{"round":1, "uid":"d", "home":"C2", "away":"B3"},
+
+{"round": 2, "uid":"e", "home":"A1", "away":"Wa"},
+{"round": 2, "uid":"f", "home":"D1", "away":"Wb"},
+{"round": 2, "uid":"g", "home":"C1", "away":"Wc"},
+{"round": 2, "uid":"h", "home":"B1", "away":"Wd"},
+
+{"round": 3, "uid": "i", "home":"We", "away":"Wf"},
+{"round": 3, "uid": "j", "home":"Wg", "away":"Wh"},
+
+{"round": 4, "place": "1st", "uid": "k", "home":"Wi", "away":"Wj"}

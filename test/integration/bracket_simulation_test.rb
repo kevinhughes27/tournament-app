@@ -78,7 +78,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
       end
     end
   rescue Timeout::Error
-
+    puts "Simulation took too long"
   end
 
   def games_to_be_played

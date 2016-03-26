@@ -405,3 +405,102 @@
   rounds: 4
   pool: true
   template: <%= load_bracket('usau_10.2') %>
+
+-
+  name: USAU 11.1
+  tagline: One team advances
+  num_teams: 11
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= load_bracket('usau_11.1') %>
+
+-
+  name: USAU 11.2
+  tagline: Two teams advance
+  num_teams: 11
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_11.2') %>
+
+-
+  name: USAU 12.1
+  tagline: One team advances
+  num_teams: 12
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= load_bracket('usau_12.1') %>
+
+-
+  name: USAU 13.1
+  tagline: One team advances
+  num_teams: 13
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_13.1') %>
+
+-
+  name: USAU 14.1
+  tagline: One team advances
+  num_teams: 14
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= load_bracket('usau_14.1') %>
+
+-
+  name: USAU 15.1
+  tagline: One team advances
+  num_teams: 15
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_15.1') %>
+
+-
+  name: USAU 16.1
+  tagline: One team advances
+  num_teams: 16
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_16.1') %>
+
+-
+  name: USAU 17.1
+  tagline: One team advances
+  num_teams: 17
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_17.1') %>
+
+-
+  name: USAU 18.1
+  tagline: One team advances
+  num_teams: 18
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_18.1') %>
+
+-
+  name: USAU 19.1
+  tagline: One team advances
+  num_teams: 19
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_19.1') %>
+
+-
+  name: USAU 20.1
+  tagline: One team advances
+  num_teams: 20
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_20.1') %>

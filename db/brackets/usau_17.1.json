@@ -1,0 +1,10 @@
+{
+  "games": [
+    <%= bracket_partial('table_5.1.2', pool: 'A', seeds: [1,8,12,13,17]) %>
+    <%= bracket_partial('table_4.1', pool: 'B', seeds: [2,7,11,14]) %>
+    <%= bracket_partial('table_4.1', pool: 'C', seeds: [3,6,10,15]) %>
+    <%= bracket_partial('table_4.1', pool: 'D', seeds: [4,5,9,16]) %>
+
+    <%= bracket_partial('bracket_16.1') %>
+  ]
+}
