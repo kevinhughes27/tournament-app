@@ -11,9 +11,9 @@ class Team < ActiveRecord::Base
   after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
   after_destroy :unassign_games
 
-  def needs_safety_check?(params)
-    (params[:division_id] && params[:division_id] != self.division_id) ||
-    (params[:seed] && params[:seed] != self.seed)
+  # intended to be called after assign_attributes
+  def update_safe?
+    !(self.division_id_changed? || self.seed_changed?)
   end
 
   def safe_to_change?

@@ -82,8 +82,8 @@ class Admin::TeamsController < AdminController
   private
 
   def check_update_safety
-    return unless @team.needs_safety_check?(team_params)
     @team.assign_attributes(team_params)
+    return if @team.update_safe?
 
     if !@team.allow_change?
       render partial: 'unable_to_update', status: :not_allowed
