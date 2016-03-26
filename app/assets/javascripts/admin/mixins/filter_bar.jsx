@@ -77,7 +77,8 @@ var FilterBar = {
       },
       error: (response) => {
         this._finishLoading();
-        Admin.Flash.error(action.failure_msg);
+        var message = response.responseJSON.message || action.failure_msg;
+        Admin.Flash.error(message);
       }
     });
   },

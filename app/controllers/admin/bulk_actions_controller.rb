@@ -2,8 +2,8 @@ class Admin::BulkActionsController < AdminController
   class MissingActionError < StandardError; end
 
   def perform
-    response = job.perform_now(**args)
-    render json: response
+    response, status = job.perform_now(**args)
+    render json: response, status: status
   end
 
   private

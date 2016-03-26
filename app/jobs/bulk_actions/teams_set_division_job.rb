@@ -8,10 +8,17 @@ class BulkActions::TeamsSetDivisionJob < ActiveJob::Base
   def perform(ids:, arg:)
     division = Division.find_by(name: arg)
     teams = Team.where(id: ids)
-    teams.update_all(division_id: division.id)
 
-    response = render_response(teams)
-    response
+    if teams.all? {|t| t.safe_to_change? }
+      teams.update_all(division_id: division.id)
+      response = render_response(teams)
+      status = 200
+    else
+      response = {message: 'Cancelled: not all teams could be update safely'}
+      status = 422
+    end
+
+    return response, status
   end
 
   private
