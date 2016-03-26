@@ -6,7 +6,7 @@ class Admin::TeamsController < AdminController
   before_action :check_delete_safety, only: [:destroy]
 
   def index
-    @teams = @tournament.teams
+    @teams = @tournament.teams.includes(:division)
   end
 
   def show
