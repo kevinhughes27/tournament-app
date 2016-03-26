@@ -5,8 +5,8 @@ class BulkActions::TeamsSetDivisionJob < ActiveJob::Base
 
   queue_as :default
 
-  def perform(ids:, arg:)
-    division = Division.find_by(name: arg)
+  def perform(tournament_id:, ids:, arg:)
+    division = Division.find_by(tournament_id: tournament_id, name: arg)
     teams = Team.where(id: ids)
 
     if teams.all? {|t| t.safe_to_change? }

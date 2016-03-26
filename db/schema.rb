@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314003342) do
+ActiveRecord::Schema.define(version: 20160326191334) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -22,7 +22,8 @@ ActiveRecord::Schema.define(version: 20160314003342) do
     t.integer  "num_teams",     default: 8
   end
 
-  add_index "divisions", ["name"], name: "index_divisions_on_name"
+  add_index "divisions", ["tournament_id", "name"], name: "index_divisions_on_tournament_id_and_name"
+  add_index "divisions", ["tournament_id"], name: "index_divisions_on_tournament_id"
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -33,6 +34,8 @@ ActiveRecord::Schema.define(version: 20160314003342) do
     t.datetime "updated_at"
     t.string   "geo_json"
   end
+
+  add_index "fields", ["tournament_id"], name: "index_fields_on_tournament_id"
 
   create_table "games", force: :cascade do |t|
     t.integer  "home_id"
@@ -53,7 +56,14 @@ ActiveRecord::Schema.define(version: 20160314003342) do
     t.string   "pool"
   end
 
-  add_index "games", ["field_id"], name: "index_games_on_field_id"
+  add_index "games", ["tournament_id", "away_id"], name: "index_games_on_tournament_id_and_away_id"
+  add_index "games", ["tournament_id", "division_id", "away_prereq_uid"], name: "tournament_division_away_prereq_uid"
+  add_index "games", ["tournament_id", "division_id", "bracket_uid"], name: "tournament_division_bracket_uid"
+  add_index "games", ["tournament_id", "division_id", "home_prereq_uid"], name: "tournament_division_home_prereq_uid"
+  add_index "games", ["tournament_id", "division_id", "pool"], name: "tournament_division_pool"
+  add_index "games", ["tournament_id", "division_id", "score_confirmed"], name: "tournament_division_confirmed"
+  add_index "games", ["tournament_id", "field_id"], name: "index_games_on_tournament_id_and_field_id"
+  add_index "games", ["tournament_id", "home_id"], name: "index_games_on_tournament_id_and_home_id"
   add_index "games", ["tournament_id"], name: "index_games_on_tournament_id"
 
   create_table "maps", force: :cascade do |t|
@@ -62,6 +72,8 @@ ActiveRecord::Schema.define(version: 20160314003342) do
     t.decimal "long",          precision: 15, scale: 10, default: -96.0, null: false
     t.integer "zoom",                                    default: 4,     null: false
   end
+
+  add_index "maps", ["tournament_id"], name: "index_maps_on_tournament_id"
 
   create_table "score_reports", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -80,6 +92,8 @@ ActiveRecord::Schema.define(version: 20160314003342) do
     t.string   "comments"
   end
 
+  add_index "score_reports", ["tournament_id", "game_id"], name: "index_score_reports_on_tournament_id_and_game_id"
+
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -93,6 +107,7 @@ ActiveRecord::Schema.define(version: 20160314003342) do
     t.integer  "division_id"
   end
 
+  add_index "teams", ["tournament_id", "division_id"], name: "index_teams_on_tournament_id_and_division_id"
   add_index "teams", ["tournament_id"], name: "index_teams_on_tournament_id"
 
   create_table "tournament_users", force: :cascade do |t|

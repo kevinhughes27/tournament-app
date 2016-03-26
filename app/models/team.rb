@@ -22,7 +22,7 @@ class Team < ActiveRecord::Base
   end
 
   def allow_change?
-    !Game.where(tournament_id: tournament_id, score_confirmed: true, division: division).exists?
+    !Game.where(tournament_id: tournament_id, division_id: division_id, score_confirmed: true).exists?
   end
 
   alias_method :safe_to_delete?, :safe_to_change?

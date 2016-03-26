@@ -46,10 +46,10 @@ module Divisions
 
     def games_for_seed
       if division.bracket.pool
-        Game.where(division_id: division.id).where.not(pool: nil)
+        Game.where(tournament_id: division.tournament_id, division_id: division.id).where.not(pool: nil)
       else
         game_uids = division.bracket.game_uids_for_seeding(1)
-        Game.where(division_id: division.id, bracket_uid: game_uids)
+        Game.where(tournament_id: division.tournament_id, division_id: division.id, bracket_uid: game_uids)
       end
     end
   end

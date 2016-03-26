@@ -13,6 +13,6 @@ class Admin::BulkActionsController < AdminController
   end
 
   def args
-    {ids: params[:ids], arg: params[:arg]}
+    {tournament_id: @tournament.id, ids: params[:ids], arg: params[:arg]}
   end
 end

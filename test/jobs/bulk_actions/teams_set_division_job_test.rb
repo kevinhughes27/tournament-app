@@ -4,7 +4,6 @@ module BulkActions
   class TeamsSetDivisionJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
-
       @division = divisions(:women)
     end
 
@@ -12,6 +11,7 @@ module BulkActions
       team = teams(:the_forgotten)
 
       response, status = TeamsSetDivisionJob.perform_now(
+        tournament_id: @tournament.id,
         ids: [team.id],
         arg: @division.name
       )
@@ -26,6 +26,7 @@ module BulkActions
       team = teams(:swift)
 
       response, status = TeamsSetDivisionJob.perform_now(
+        tournament_id: @tournament.id,
         ids: [team.id],
         arg: @division.name
       )

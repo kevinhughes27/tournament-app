@@ -13,7 +13,7 @@ class Admin::BulkActionsControllerTest < ActionController::TestCase
   end
 
   test "queues the bulk action job" do
-    params = {ids: ['1','2','3'], arg: 'beans'}
+    params = {tournament_id: @tournament.id, ids: ['1','2','3'], arg: 'beans'}
     BulkActions::TestJob.expects(:perform_now).with(params)
     put :perform, params.merge(job: 'test')
   end

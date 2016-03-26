@@ -56,7 +56,7 @@ class Admin::TeamsController < AdminController
         attributes = csv_params(attributes)
 
         if attributes[:division]
-          if division = Division.find_by(name: attributes[:division])
+          if division = Division.find_by(tournament_id: @tournament.id, name: attributes[:division])
             attributes[:division] = division
           else
             attributes.delete(:division)

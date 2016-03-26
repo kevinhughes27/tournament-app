@@ -60,6 +60,7 @@ end
 group :development do
   gem 'dotenv-rails'
   gem 'bullet'
+  gem 'lol_dba'
   gem 'letter_opener'
   gem 'web-console', '~> 2.0'
 end
