@@ -4,7 +4,7 @@ class Admin::DivisionsController < AdminController
   before_action :check_delete_safety, only: [:destroy]
 
   def index
-    @divisions = @tournament.divisions
+    @divisions = @tournament.divisions.includes(:teams, games: [:home, :away])
   end
 
   def show

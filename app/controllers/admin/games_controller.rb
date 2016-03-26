@@ -2,7 +2,7 @@ class Admin::GamesController < AdminController
   respond_to :json, only: [:update]
 
   def index
-    @games = @tournament.games.includes(:home, :away, :field, :division, score_reports: [:team])
+    @games = @tournament.games.includes(:home, :away, :division, score_reports: [:team])
   end
 
   def update
