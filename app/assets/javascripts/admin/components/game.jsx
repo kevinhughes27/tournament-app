@@ -147,6 +147,7 @@ exports.ScoreCell = React.createClass({
             <form className="form-inline">
               <input type="number"
                      value={this.state.homeScore}
+                     min='0'
                      className="form-control score-input"
                      onChange={ (e) => {
                        this.setState({homeScore: e.target.valueAsNumber})
@@ -155,6 +156,7 @@ exports.ScoreCell = React.createClass({
               <span> &mdash; </span>
               <input type="number"
                      value={this.state.awayScore}
+                     min='0'
                      className="form-control score-input"
                      onChange={ (e) => {
                        this.setState({awayScore: e.target.valueAsNumber})
