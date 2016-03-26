@@ -15,7 +15,8 @@ namespace :test do
   Rake::TestTask.new(:_run) do |t|
     t.libs << "test"
     t.test_files = FileList['test/**/*_test.rb'].exclude(
-      'test/browser/**/*_test.rb'
+      'test/browser/**/*_test.rb',
+      'test/integration/bracket_simulation_test.rb'
     )
   end
 
@@ -24,5 +25,10 @@ namespace :test do
     t.pattern = 'test/browser/**/*_test.rb'
   end
 
-  task :run => ['test:_run', 'test:js', 'test:browser']
+  Rake::TestTask.new('brackets' => 'test:prepare') do |t|
+    t.libs << 'test'
+    t.pattern = 'test/integration/bracket_simulation_test.rb'
+  end
+
+  task :run => ['test:_run', 'test:js', 'test:brackets', 'test:browser']
 end

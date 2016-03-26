@@ -72,22 +72,6 @@ class BracketTemplateValidator
       end
     end
 
-    def validate_pools(template_json)
-      games = template_json[:games].select do |g|
-        g[:seed].nil? && g[:pool].nil?
-      end
-
-      homes = games.map{ |g| g[:home] }
-      aways = games.map{ |g| g[:away] }
-
-      reseed_uids = pool_reseed_uids(template_json)
-      remaining = reseed_uids - homes - aways
-
-      # some teams don't get to play if they finish too low
-      # is this test even still valid at this point?
-      remaining.size < 4
-    end
-
     # validates that the dependent games exist at least
     # aka if I say a game has 'wq1' in the top then 'q1'
     # needs to exist
