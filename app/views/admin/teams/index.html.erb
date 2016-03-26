@@ -15,7 +15,7 @@
 <% if @teams.present? %>
   <%= ui_box do %>
     <%= react_component('Admin.TeamsIndex', {
-      teams: render(template: 'admin/teams/teams.json.jbuilder'),
+      teams: render(template: 'admin/teams/teams.json.jbuilder', locals: {teams: @teams}),
       searchColumns: [
         "name",
         "email",
@@ -23,7 +23,8 @@
         "division",
         "seed"
       ],
-      filters: division_filters(@tournament)
+      filters: division_filters(@tournament),
+      bulkActions: add_to_division_actions(@tournament),
     }) %>
   <% end %>
 <% else %>

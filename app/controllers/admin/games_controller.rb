@@ -1,5 +1,4 @@
 class Admin::GamesController < AdminController
-
   respond_to :json, only: [:update]
 
   def index
@@ -14,5 +13,4 @@ class Admin::GamesController < AdminController
 
     @game.update_score(home_score, away_score)
   end
-
 end

@@ -4,9 +4,14 @@ var _ = require('underscore'),
     setQuery = require('set-query-string'),
     Input = require('react-bootstrap').Input,
     Dropdown = require('react-bootstrap').Dropdown,
-    MenuItem = require('react-bootstrap').MenuItem;
+    MenuItem = require('react-bootstrap').MenuItem,
+    ButtonGroup = require('react-bootstrap').ButtonGroup,
+    TeamsStore = require('../stores/teams_store'),
+    LoadingMixin = require('../mixins/loading_mixin');
 
 var FilterBar = {
+  mixins: [LoadingMixin],
+
   getDefaultProps() {
     return {
       "query": queryString.parse(location.search)
@@ -52,50 +57,93 @@ var FilterBar = {
     this.props.changeFilter(this.props.query);
   },
 
+  performAction(action) {
+    this._startLoading();
+    var ids = _.map(TeamsStore.selected(), function(t) { return t.id });
+
+    $.ajax({
+      url: 'bulk_action',
+      type: 'PUT',
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      data: {
+        job: action.job,
+        ids: ids,
+        arg: action.arg
+      },
+      success: (response) => {
+        this._finishLoading();
+        _.each(response, function(team) { TeamsStore.updateTeam(team) });
+        Admin.Flash.notice(action.success_msg);
+      },
+      error: (response) => {
+        this._finishLoading();
+        var message = response.responseJSON.message || action.failure_msg;
+        Admin.Flash.error(message);
+      }
+    });
+  },
+
   renderBar() {
+    var searchValue = this.props.query.search;
+    var filterDropdown, actionsDropdown, buttonBefore;
+
+    // filterDropdown
     if(this.filters.length > 0) {
-      return this._renderFilterSearchBar();
-    } else {
-      return this._renderSearchBar();
+      filterDropdown = (
+        <div className="input-group-btn">
+          <Dropdown id="filter-dropdown">
+            <Dropdown.Toggle>
+              Filter
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+              {this.filters.map((f, i) => {
+                return (
+                  <MenuItem key={i} onClick={() => this.addFilter(f)}>
+                    <i className="fa fa-circle"></i>
+                    {f.text}
+                 </MenuItem>
+               );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      );
     }
-  },
 
-  _renderSearchBar() {
-    var searchValue = this.props.query.search;
+    // actionsDropdown
+    if (this.bulkActions.length > 0 && TeamsStore.selected().length > 0) {
+      actionsDropdown = (
+        <div className="input-group-btn">
+          <Dropdown id="actions-dropdown">
+            <Dropdown.Toggle>
+              Bulk Actions
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+              {this.bulkActions.map((a, i) => {
+                return (
+                  <MenuItem key={i} onClick={() => this.performAction(a)}>
+                    <i className="fa fa-circle"></i>
+                    {a.text}
+                 </MenuItem>
+               );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      );
+    }
 
-    return (
-      <div className="filter-container" style={{paddingBottom: 10}}>
-        <Input type="text"
-               value={searchValue}
-               name="search"
-               placeholder="Search..."
-               className="form-control"
-               onChange={this.searchChange} />
-      </div>
-    );
-  },
-
-  _renderFilterSearchBar() {
-    var searchValue = this.props.query.search;
-    var filterDropdown = (
-      <div className="input-group-btn">
-        <Dropdown id="filter-dropdown">
-          <Dropdown.Toggle>
-            Filter
-          </Dropdown.Toggle>
-          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-            {this.filters.map((f, i) => {
-              return (
-                <MenuItem key={i} onClick={() => this.addFilter(f)}>
-                  <i className="fa fa-circle"></i>
-                  {f.text}
-               </MenuItem>
-             );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-    );
+    // buttonBefore
+    if(actionsDropdown && filterDropdown) {
+      buttonBefore = (
+        <ButtonGroup>
+          {actionsDropdown}
+          {filterDropdown}
+        </ButtonGroup>
+      );
+    } else if(filterDropdown) {
+      buttonBefore = filterDropdown
+    };
 
     var currentFilters = _.omit(this.props.query, 'search');
     var filterNames = {};
@@ -112,7 +160,7 @@ var FilterBar = {
                placeholder="Search..."
                className="form-control"
                onChange={this.searchChange}
-               buttonBefore={filterDropdown} />
+               buttonBefore={buttonBefore} />
         <div className="btn-toolbar">
           { _.keys(currentFilters).map((key, idx) => {
             return <Filter

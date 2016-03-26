@@ -108,6 +108,7 @@ var DivisionsIndex = React.createClass({
     this.divisionsFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
+      bulkActions: [],
       render() { return this.renderBar() }
     });
 

@@ -5,12 +5,53 @@ var React = require('react'),
     TeamsStore = require('../stores/teams_store');
 
 var columns = [
+  "id",
   "name",
   "email",
   "sms",
   "division",
   "seed"
 ];
+
+var SelectCell = React.createClass({
+  handleChange(ev) {
+    var team = this.props.rowData;
+    var selected = ev.target.checked;
+    TeamsStore.saveSelectedState(team, selected);
+  },
+
+  render() {
+    var teamId = this.props.data;
+    var selected = this.props.rowData.selected;
+
+    return (
+      <input
+        type="checkbox"
+        className="bulkCheck"
+        value={teamId}
+        checked={selected}
+        onChange={this.handleChange} />
+    );
+  }
+});
+
+var SelectCellHeader = React.createClass({
+  getInitialState() {
+    return {
+      allChecked: false
+    }
+  },
+
+  _selectAll() {
+    var allChecked = !this.state.allChecked;
+    this.setState({ allChecked: allChecked });
+    TeamsStore.setSelected(allChecked);
+  },
+
+  render() {
+    return <input type='checkbox' onClick={this._selectAll} />;
+  }
+});
 
 var LinkCell = React.createClass({
   render() {
@@ -22,37 +63,45 @@ var LinkCell = React.createClass({
 
 var columnsMeta = [
   {
+    columnName: "id",
+    order: 1,
+    cssClassName: "col-md-1",
+    customComponent: SelectCell,
+    customHeaderComponent: SelectCellHeader,
+    sortable: false
+  },
+  {
     columnName: "name",
     displayName: "Name",
     cssClassName: "table-link",
-    order: 1,
+    order: 2,
     customComponent: LinkCell
   },
   {
     columnName: "email",
     displayName: "Email",
     cssClassName: 'hidden-xs',
-    order: 2,
+    order: 3,
     sortable: false
   },
   {
     columnName: "sms",
     displayName: "SMS",
     cssClassName: 'hidden-xs',
-    order: 3,
+    order: 4,
     sortable: false
   },
   {
     columnName: "division",
     displayName: "Division",
     cssClassName: "table-link",
-    order: 4
+    order: 5
   },
   {
     columnName: "seed",
     displayName: "Seed",
     cssClassName: "table-link",
-    order: 5
+    order: 6
   },
 ];
 
@@ -64,16 +113,30 @@ var TeamsIndex = React.createClass({
     TeamsStore.init(teams);
 
     this.searchColumns = this.props.searchColumns;
-
     this.teamsFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
+      bulkActions: this.props.bulkActions,
+      componentDidMount() { TeamsStore.addChangeListener(this._onChange) },
+      componentWillUnmount() { TeamsStore.removeChangeListener(this._onChange) },
       render() { return this.renderBar() }
     });
 
     return {
       teams: TeamsStore.all(),
     };
+  },
+
+  componentDidMount() {
+    TeamsStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount() {
+    TeamsStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange() {
+    this.setState({ teams: TeamsStore.all() });
   },
 
   render() {

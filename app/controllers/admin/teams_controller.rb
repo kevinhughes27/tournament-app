@@ -2,10 +2,11 @@ require 'csv'
 
 class Admin::TeamsController < AdminController
   before_action :load_team, only: [:show, :update, :destroy]
+  before_action :check_update_safety, only: [:update]
   before_action :check_delete_safety, only: [:destroy]
 
   def index
-    @teams = @tournament.teams
+    @teams = @tournament.teams.includes(:division)
   end
 
   def show
@@ -79,6 +80,17 @@ class Admin::TeamsController < AdminController
   end
 
   private
+
+  def check_update_safety
+    @team.assign_attributes(team_params)
+    return if @team.update_safe?
+
+    if !@team.allow_change?
+      render partial: 'unable_to_update', status: :not_allowed
+    elsif !(params[:confirm] == 'true' || @team.safe_to_change?)
+      render partial: 'confirm_update', status: :unprocessable_entity
+    end
+  end
 
   def check_delete_safety
     if !@team.allow_delete?

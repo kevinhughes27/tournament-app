@@ -37,6 +37,8 @@ namespace :admin do
   get '/account', to: 'account#show'
   put '/account', to: 'account#update'
 
+  put '/bulk_action', to: 'bulk_actions#perform'
+
   unless Rails.application.config.consider_all_requests_local
     get '/*a', to: 'errors#not_found'
   end

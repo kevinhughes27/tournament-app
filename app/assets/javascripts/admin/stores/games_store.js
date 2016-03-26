@@ -22,7 +22,7 @@ var GamesStore = _.extend({}, Store, {
     this.emitChange();
   },
 
-  _findGameIdx(game){
+  _findGameIdx(game) {
     var idx = _.findIndex(_games, function(g) {
       return g.id == game.id;
     });
