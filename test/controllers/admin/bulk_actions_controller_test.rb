@@ -19,8 +19,10 @@ class Admin::BulkActionsControllerTest < ActionController::TestCase
   end
 
   test "with missing job" do
-    assert_raises Admin::BulkActionsController::MissingActionError do
-      put :perform, {job: 'missing'}
+    Rollbar.expects(:error) do |error|
+      assert error.is_a?(Admin::BulkActionsController::MissingActionError)
     end
+
+    put :perform, {job: 'missing'}
   end
 end
