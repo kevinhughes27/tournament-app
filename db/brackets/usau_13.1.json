@@ -1,0 +1,28 @@
+{
+  "games": [
+    <%= bracket_partial('table_5.1.2', pool: 'A', seeds: [1,6,7,12,13]) %>
+    <%= bracket_partial('table_4.1', pool: 'B', seeds: [2,5,8,11]) %>
+    <%= bracket_partial('table_4.1', pool: 'C', seeds: [3,4,9,10]) %>
+
+    {"round":1, "uid":"a", "home":"B3", "away":"C3"},
+    {"round":1, "uid":"x", "home":"B4", "away":"C4"},
+
+    {"round":2, "uid":"b", "home":"A1", "away":"Wa"},
+    {"round":2, "uid":"c", "home":"C2", "away":"B2"},
+    {"round":2, "uid":"d", "home":"C1", "away":"A2"},
+    {"round":2, "uid":"e", "home":"B1", "away":"A3"},
+
+    {"round": 2, "uid":"f", "home":"Wb", "away":"Wc"},
+    {"round": 2, "uid":"g", "home":"Wd", "away":"We"},
+    {"round": 2, "uid":"i", "home":"Lb", "away":"Ld"},
+    {"round": 2, "uid":"j", "home":"Lc", "away":"Le"},
+
+    {"round": 3, "place":"1st", "uid": "h", "home":"Wf", "away":"Wg"},
+    {"round": 3, "uid": "k", "home":"Wi", "away":"Lf"},
+    {"round": 3, "uid": "l", "home":"Wj", "away":"Lg"},
+    {"round": 3, "place":"7th", "uid": "o", "home":"Li", "away":"Lj"},
+
+    {"round": 4, "place":"3rd", "uid": "m", "home":"Wk", "away":"Wl"},
+    {"round": 4, "place":"5th", "uid": "n", "home":"Lk", "away":"Ll"}
+  ]
+}

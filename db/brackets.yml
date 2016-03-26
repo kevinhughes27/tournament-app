@@ -434,6 +434,15 @@
   template: <%= load_bracket('usau_12.1') %>
 
 -
+  name: USAU 13.1
+  tagline: One team advances
+  num_teams: 13
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_13.1') %>
+
+-
   name: USAU 14.1
   tagline: One team advances
   num_teams: 14
