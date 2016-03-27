@@ -10,6 +10,7 @@ var React = require('react'),
 var columns = [
   "name",
   "division",
+  "pool",
   "has_score",
   "confirmed"
 ];
@@ -25,22 +26,28 @@ var columnsMeta = [
   {
     columnName: "division",
     displayName: "Division",
-    cssClassName: "col-md-2 table-link",
+    cssClassName: "col-md-1 table-link",
     order: 2,
+  },
+  {
+    columnName: "pool",
+    displayName: "Pool",
+    cssClassName: "col-md-1 table-link",
+    order: 3,
   },
   {
     columnName: "has_score",
     displayName: "Score",
     cssClassName: "col-md-1",
-    order: 3,
+    order: 4,
     sortable: false,
     customComponent: ScoreCell
   },
   {
     columnName: "confirmed",
     displayName: "Confirmed",
-    cssClassName: "col-md-2 table-link hidden-xs",
-    order: 4,
+    cssClassName: "col-md-1 table-link hidden-xs",
+    order: 5,
     customComponent: ConfirmedCell
   },
 ];
