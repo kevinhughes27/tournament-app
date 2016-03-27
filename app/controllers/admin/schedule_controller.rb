@@ -1,9 +1,7 @@
 class Admin::ScheduleController < AdminController
 
   def index
-    @games = @tournament.games.includes(:division)
-    @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
-    @times = time_slots
+    load_index_data
   end
 
   def update
@@ -14,12 +12,19 @@ class Admin::ScheduleController < AdminController
       end
     end
 
-    head :ok
+    load_index_data
+    render :index
   rescue => error
     render json: {game_id: error.record.id, error: error.message}, status: :unprocessable_entity
   end
 
   private
+
+  def load_index_data
+    @games = @tournament.games.includes(:division)
+    @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
+    @times = time_slots
+  end
 
   def time_slots
     times = @games.pluck(:start_time).uniq
@@ -42,5 +47,4 @@ class Admin::ScheduleController < AdminController
     @games_params[:games] ||= {}
     @games_params[:games].values
   end
-
 end

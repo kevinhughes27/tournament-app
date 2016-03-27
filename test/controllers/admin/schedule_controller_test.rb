@@ -6,6 +6,10 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)
     sign_in users(:kevin)
+
+    @game = games(:swift_goose)
+    @field = fields(:upi2)
+    @start_time = '2016-03-10 19:13:00 -0500'
   end
 
   test "should get index" do
@@ -30,4 +34,28 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     end
   end
 
+  test "update schedule" do
+    params = {
+      games: {
+        "0" => {id: @game.id, field_id: @field.id, start_time: @start_time}
+      }
+    }
+
+    put :update, params
+    assert_response :ok
+    assert_template :index
+  end
+
+  test "update schedule 422" do
+    params = {
+      games: {
+        "0" => {id: @game.id, field_id: 'wat', start_time: @start_time}
+      }
+    }
+
+    put :update, params
+
+    assert_response :unprocessable_entity
+    assert_equal "Validation failed: Field can't be blank", response_json['error']
+  end
 end
