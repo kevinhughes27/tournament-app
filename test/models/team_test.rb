@@ -20,6 +20,12 @@ class TeamTest < ActiveSupport::TestCase
     assert_nil @game.reload.away
   end
 
+  test "deleting a team destroys any submitted scores" do
+    report = score_reports(:swift_goose)
+    @team.destroy
+    assert report.reload.deleted?
+  end
+
   test "updating a team's division unassigns if from all games (home)" do
     assert_equal @team, @game.home
     @team.update_attributes(division: divisions(:women))

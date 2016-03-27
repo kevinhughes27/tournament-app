@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.3"
+ruby '2.2.3'
 
 # rails gems
 gem 'rails', '4.2.5.2'
@@ -9,10 +9,11 @@ gem 'unicorn'
 gem 'wicked'
 gem 'friendly_id'
 gem 'frozen_record', '~> 0.5.0'
+gem 'paranoia', '~> 2.0'
 gem 'responders'
+gem 'render_anywhere', require: false
 gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
-gem 'render_anywhere', require: false
 
 gem 'date_validator'
 gem 'browser-timezone-rails'
@@ -27,20 +28,20 @@ gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
-# frontend gems
+# asset gems
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
-gem 'interact-rails'
 
-# frontend frameworks
-gem 'twine-rails'
+# javascript gems
 gem 'turbolinks', git: 'https://github.com/rails/turbolinks', branch: 'master'
 gem 'react-rails', git: 'https://github.com/reactjs/react-rails', branch: 'master'
 gem 'browserify-rails'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'jquery-rails'
+gem 'twine-rails'
+gem 'interact-rails'
 
 group :production do
   gem 'pg'

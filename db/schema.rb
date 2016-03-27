@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326191334) do
+ActiveRecord::Schema.define(version: 20160327172948) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -90,9 +90,10 @@ ActiveRecord::Schema.define(version: 20160326191334) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "comments"
+    t.datetime "deleted_at"
   end
 
-  add_index "score_reports", ["tournament_id", "game_id"], name: "index_score_reports_on_tournament_id_and_game_id"
+  add_index "score_reports", ["tournament_id", "game_id", "deleted_at"], name: "tournament_game_deleted_at"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
