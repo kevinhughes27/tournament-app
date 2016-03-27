@@ -121,11 +121,25 @@ class Admin.ScheduleEditor
     interact('.dropzone').dropzone({
     accept: '.game',
     overlap: 0.5,
-    ondragenter: (event) -> event.target.classList.add('drop-target')
+    ondragenter: (event) ->
+      th = getTableHeader($(event.target))
+      th.addClass('drop-target')
+      event.target.classList.add('drop-target')
+
     ondragleave: (event) =>
+      th = getTableHeader($(event.target))
+      th.removeClass('drop-target')
       event.target.classList.remove('drop-target')
       @gameUnassigned(event.relatedTarget)
-    ondropdeactivate: (event) -> event.target.classList.remove('drop-target')
+
+    ondropdeactivate: (event) ->
+      th = getTableHeader($(event.target))
+      th.removeClass('drop-target')
+      event.target.classList.remove('drop-target')
+
     ondrop: (event) =>
       @gameAssigned(event.relatedTarget, event.target)
   })
+
+getTableHeader = ($td) ->
+  $td.closest('table').find('th').eq($td.index())
