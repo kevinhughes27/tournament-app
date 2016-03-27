@@ -34,10 +34,18 @@ class Admin.Bracket
     games = _.filter(games, 'pool')
 
     if games.length > 0
+      teamsByPool = {}
       gamesByPool = _.groupBy(games, 'pool')
 
+      _.each(gamesByPool, (games, pool) ->
+        homeTeams = _.pluck(games, 'home')
+        awayTeams = _.pluck(games, 'away')
+        teams = _.union(homeTeams, awayTeams)
+        teamsByPool[pool] = _.sortBy(teams, (t) -> t)
+      )
+
       @$bracketPoolsNode.append(
-        @poolsTemplate({gamesByPool: gamesByPool})
+        @poolsTemplate({teamsByPool: teamsByPool})
       )
     else
       @$bracketPoolsNode.append(
@@ -61,23 +69,27 @@ TEMPLATES =
     </p>
   """
   pools: """
-    <% _.each(gamesByPool, function(pool, name) { %>
-      <table class="table table-bordered table-striped table-hover table-condensed">
-        <thead>
-          <tr>
-            <th>Pool <%= name %></th>
-          </tr>
-        </thead>
+    <div class="row">
+      <% _.each(teamsByPool, function(teams, pool) { %>
+        <div class="col-md-6">
+          <table class="table table-bordered table-striped table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>Pool <%= pool %></th>
+              </tr>
+            </thead>
 
-        <tbody>
-          <% _.each(pool, function(game) { %>
-            <tr>
-              <td><%= game.home %> vs <%= game.away %></td>
-            </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    <% }) %>
+            <tbody>
+              <% _.each(teams, function(team) { %>
+                <tr>
+                  <td><%= team %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% }) %>
+    </div>
   """
   no_pools: """
     <div class="blank-slate" style="margin-top: 60px;">
