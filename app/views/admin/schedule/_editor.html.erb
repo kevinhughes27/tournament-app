@@ -52,8 +52,9 @@
                     </div>
                   </td>
                   <% @fields.each do |field| %>
-                    <td class="dropzone" data-field-id="<%= field.id %>">
-                      <% if game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+                    <% game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+                    <td class="<%= 'occupied' if game %> dropzone" data-field-id="<%= field.id %>">
+                      <% if game %>
                         <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
                           <%= game_draggable_text(game) %>
                         </div>

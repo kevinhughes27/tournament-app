@@ -122,24 +122,32 @@ class Admin.ScheduleEditor
     accept: '.game',
     overlap: 0.5,
     ondragenter: (event) ->
-      th = getTableHeader($(event.target))
-      th.addClass('drop-target')
-      event.target.classList.add('drop-target')
+      return if $(event.target).hasClass('occupied')
+      highlightCell(event.target)
 
     ondragleave: (event) =>
-      th = getTableHeader($(event.target))
-      th.removeClass('drop-target')
-      event.target.classList.remove('drop-target')
+      $(event.target).removeClass('occupied')
+      unhighlightCell(event.target)
       @gameUnassigned(event.relatedTarget)
 
     ondropdeactivate: (event) ->
-      th = getTableHeader($(event.target))
-      th.removeClass('drop-target')
-      event.target.classList.remove('drop-target')
+      unhighlightCell(event.target)
 
     ondrop: (event) =>
+      return if $(event.target).hasClass('occupied')
+      $(event.target).addClass('occupied')
       @gameAssigned(event.relatedTarget, event.target)
   })
+
+highlightCell = (td) ->
+  $td = $(td)
+  getTableHeader($td).addClass('drop-target')
+  $td.addClass('drop-target')
+
+unhighlightCell = (td) ->
+  $td = $(td)
+  getTableHeader($td).removeClass('drop-target')
+  $td.removeClass('drop-target')
 
 getTableHeader = ($td) ->
   $td.closest('table').find('th').eq($td.index())
