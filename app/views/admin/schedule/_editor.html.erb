@@ -6,7 +6,7 @@
   context='scheduleEditor'>
 
   <%= form_tag admin_schedule_path, "bind-event-submit" => "saveSchedule(this)" do %>
-    <div class="box box-solid" style="overflow-x: scroll;">
+    <div id="ScheduleEditor" class="box box-solid" style="overflow-x: scroll;">
 
       <div class="box-header">
         <% @games.group_by{ |g| g.division }.each do |division, games| %>
@@ -16,7 +16,9 @@
             </h3>
             <% games.each_with_index do |game, idx| %>
               <% if game.unassigned? %>
-                <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>">
+                <div class="game draggable"
+                     style="<%= color_for_game(game) %>"
+                     data-game-id="<%= game.id %>">
                   <%= game_draggable_text(game) %>
                 </div>
               <% end %>
@@ -42,14 +44,22 @@
                 <tr>
                   <td class="td-input time">
                     <div class="td-input">
-                      <input type="text" class="td-input datetimepicker form-control" value="<%= time.to_formatted_s(:datetimepicker) %>" bind-event-blur="timeUpdated(event)">
+                      <input type="text"
+                             class="td-input datetimepicker form-control"
+                             value="<%= time.to_formatted_s(:datetimepicker) %>"
+                             bind-event-blur="timeUpdated(event)">
                     </div>
                   </td>
                   <% @fields.each do |field| %>
                     <% game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
                     <td class="<%= 'occupied' if game %> dropzone" data-field-id="<%= field.id %>">
                       <% if game %>
-                        <div class="game draggable" style="<%= color_for_game(game) %>" data-game-id="<%= game.id %>" data-field-id="<%= field.id %>" data-start-time="'<%= time %>'" data-row-idx="<%= index %>">
+                        <div class="game draggable"
+                             style="<%= color_for_game(game) %>"
+                             data-game-id="<%= game.id %>"
+                             data-field-id="<%= field.id %>"
+                             data-start-time="'<%= time %>'"
+                             data-row-idx="<%= index %>">
                           <%= game_draggable_text(game) %>
                         </div>
                       <% end %>

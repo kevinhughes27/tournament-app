@@ -51,6 +51,7 @@ class Admin.ScheduleEditor
 
   saveSchedule: (form) ->
     @_startLoading(form)
+    @_clearGameErrors()
     games = @_collectGames()
     @_save(form, games)
 
@@ -69,19 +70,32 @@ class Admin.ScheduleEditor
     games
 
   _save: (form, games) ->
-    @_clearGameErrors()
-
     $.ajax
       type: 'POST'
       url: form.action
       data: {games: games}
       error: (response) =>
         @_finishLoading(form)
-        @_addGameErrors(response.responseJSON.game_id)
-        Admin.Flash.error(response.responseJSON.error)
+        if response.status == 422
+          @_addGameErrors(response.responseJSON.game_id)
+          Admin.Flash.error(response.responseJSON.error)
+        else
+          Admin.Flash.error('Sorry, something went wrong.')
       success: (response) =>
         @_finishLoading(form)
+        @_keepScroll( -> Turbolinks.replace(response))
         Admin.Flash.notice('Schedule saved')
+
+  _keepScroll: (func) ->
+    node = $('#ScheduleEditor')[0]
+    scrollLeft = node.scrollLeft
+    scrollTop = node.scrollTop
+
+    func.call()
+
+    node = $('#ScheduleEditor')[0]
+    node.scrollLeft = scrollLeft
+    node.scrollTop = scrollTop
 
   _addGameErrors: (game_id) ->
     $("[data-game-id=#{game_id}]").addClass('game-error')
@@ -114,6 +128,7 @@ class Admin.ScheduleEditor
     target.style.transform =
       'translate(' + x + 'px, ' + y + 'px)'
 
+    target.classList.remove('game-error')
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
 
