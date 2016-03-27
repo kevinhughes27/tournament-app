@@ -3,6 +3,8 @@ class ScoreReport < ActiveRecord::Base
   belongs_to :game
   belongs_to :team
 
+  acts_as_paranoid
+
   validates_presence_of :tournament,
                         :game,
                         :team,

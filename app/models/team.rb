@@ -10,6 +10,7 @@ class Team < ActiveRecord::Base
 
   after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
   after_destroy :unassign_games
+  after_destroy :delete_score_reports
 
   # intended to be called after assign_attributes
   def update_safe?
@@ -32,6 +33,13 @@ class Team < ActiveRecord::Base
 
   def unassign_games
     Teams::UnassignGamesJob.perform_later(
+      tournament_id: tournament_id,
+      team_id: id
+    )
+  end
+
+  def delete_score_reports
+    Teams::DeleteScoreReportsJob.perform_later(
       tournament_id: tournament_id,
       team_id: id
     )
