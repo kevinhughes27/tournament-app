@@ -126,8 +126,14 @@ class Admin.ScheduleEditor
       highlightCell(event.target)
 
     ondragleave: (event) =>
-      $(event.target).removeClass('occupied')
       unhighlightCell(event.target)
+
+      draggableFieldId = $(event.relatedTarget).attr('data-field-id')
+      dropzoneFieldId = $(event.target).attr('data-field-id')
+
+      if draggableFieldId == dropzoneFieldId
+        $(event.target).removeClass('occupied')
+
       @gameUnassigned(event.relatedTarget)
 
     ondropdeactivate: (event) ->
