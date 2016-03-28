@@ -1,7 +1,7 @@
 Ultimate Tournament
 ===================
 
-[![Circle CI](https://circleci.com/gh/kevinhughes27/ultimate-tournament.svg?style=svg&circle-token=4cdbaf7bb8107c054bbb6d22c52aa6bef97eb8e3)](https://circleci.com/gh/kevinhughes27/ultimate-tournament)
+[![Circle CI](https://circleci.com/gh/kevinhughes27/ultimate-tournament/tree/master.svg?style=svg&circle-token=4cdbaf7bb8107c054bbb6d22c52aa6bef97eb8e3)](https://circleci.com/gh/kevinhughes27/ultimate-tournament/tree/master)
 
 A web application for running ultimate tournaments
 
