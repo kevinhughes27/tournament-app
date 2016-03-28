@@ -1,8 +1,7 @@
 var React = require('react'),
     ReactDOM = require('react-dom'),
     Collapse = require('react-bootstrap').Collapse,
-    Popover = require('react-bootstrap').Popover,
-    Overlay = require('react-bootstrap').Overlay,
+    Modal = require('react-bootstrap').Modal,
     classNames = require('classnames'),
     ScoreReports = require('./score_reports'),
     GamesStore = require('../stores/games_store'),
@@ -64,12 +63,12 @@ exports.ScoreCell = React.createClass({
     };
   },
 
-  toggle(ev) {
+  open(ev) {
     ev.preventDefault();
-    this.setState({show: !this.state.show});
+    this.setState({show: true});
   },
 
-  hide(ev) {
+  close(ev) {
     if(ev){ ev.preventDefault(); }
     this.setState({ show: false });
   },
@@ -102,11 +101,11 @@ exports.ScoreCell = React.createClass({
       },
       success: (response) => {
         this._finishLoading();
-        this.hide();
         var game = response.game;
         var scroll = window.scrollY;
         GamesStore.updateGame(game);
         window.scrollTo(0, scroll);
+        this.close();
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {
@@ -118,55 +117,71 @@ exports.ScoreCell = React.createClass({
 
   render() {
     var game = this.props.rowData;
-    var btnClasses = classNames('btn', 'btn-default', {'is-loading': this.state.isLoading});
 
     if (!game.has_teams) {
       return(<div></div>);
     };
 
+    var text;
+    if(game.has_score) {
+      text = `${game.home_score} - ${game.away_score}`;
+    } else {
+      text = <i className="fa fa-plus-square-o"></i>;
+    }
+
+    var btnClasses = classNames('btn', 'btn-primary', {'is-loading': this.state.isLoading});
+
     return (
       <div>
-        <a href="#" ref="target" onClick={this.toggle}>
-          {game.home_score} - {game.away_score}
+        <a href="#" ref="target" onClick={this.open}>
+          {text}
         </a>
 
-        <Overlay
+        <Modal
           show={this.state.show}
-          onHide={() => this.hide()}
+          onHide={this.close}
           onEnter={this._opened}
-          onEntered={this._setFocus}
-          target={() => ReactDOM.findDOMNode(this.refs.target)}
-          placement="top"
-          rootClose={true}
-        >
-          <Popover id={"scoreForm#{game.id}"}>
-            <h5>
-              {game.name}
-              <a href="#" className="pull-right" onClick={this.hide}>X</a>
-            </h5>
-            <form className="form-inline">
-              <input type="number"
-                     value={this.state.homeScore}
-                     min='0'
-                     className="form-control score-input"
-                     onChange={ (e) => {
-                       this.setState({homeScore: e.target.valueAsNumber})
-                     }}
-                     ref="input"/>
-              <span> &mdash; </span>
-              <input type="number"
-                     value={this.state.awayScore}
-                     min='0'
-                     className="form-control score-input"
-                     onChange={ (e) => {
-                       this.setState({awayScore: e.target.valueAsNumber})
-                     }}/>
-              <button className={btnClasses} onClick={this.updateScore}>
-                Save
-              </button>
+          onEntered={this._setFocus}>
+          <Modal.Header closeButton>
+            <Modal.Title>{game.name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <div className='row'>
+                <div className="col-md-5 col-sm-5 col-xs-5">
+                  <input type="number"
+                         value={this.state.homeScore}
+                         placeholder={game.home}
+                         min='0'
+                         className="form-control score-input"
+                         onChange={ (e) => {
+                           this.setState({homeScore: e.target.valueAsNumber})
+                         }}
+                         ref="input"/>
+                </div>
+                <div className='col-md-1 col-sm-1 col-xs-1 text-center'>
+                  <span> &mdash; </span>
+                </div>
+                <div className="col-md-6 col-sm-6 col-xs-5">
+                  <input type="number"
+                         value={this.state.awayScore}
+                         placeholder={game.away}
+                         min='0'
+                         className="form-control score-input"
+                         onChange={ (e) => {
+                           this.setState({awayScore: e.target.valueAsNumber})
+                         }}/>
+                </div>
+              </div>
             </form>
-          </Popover>
-        </Overlay>
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="btn btn-default" onClick={this.close}>Cancel</button>
+            <button className={btnClasses} onClick={this.updateScore}>
+              Save
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
