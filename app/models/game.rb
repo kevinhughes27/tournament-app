@@ -22,6 +22,7 @@ class Game < ActiveRecord::Base
 
   after_save :update_pool
   after_save :update_bracket
+  after_save :update_places
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
@@ -135,5 +136,10 @@ class Game < ActiveRecord::Base
     return if self.pool_game?
     return unless self.confirmed?
     Divisions::UpdateBracketJob.perform_later(game_id: self.id)
+  end
+
+  def update_places
+    return unless self.confirmed?
+    Divisions::UpdatePlacesJob.perform_later(game_id: self.id)
   end
 end

@@ -6,5 +6,9 @@
     <%= bracket_partial('table_4.1', pool: 'D', seeds: [4,5,12,13]) %>
 
     <%= bracket_partial('bracket_16.1') %>
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "Wk"},
+    {"position":2, "prereq_uid": "Lk"}
   ]
 }

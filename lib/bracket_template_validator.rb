@@ -2,10 +2,12 @@ class BracketTemplateValidator
   BRACKET_SCHEMA = {
     "type" => "object",
     "properties" => {
-      "games" => { "type" => "array" }
+      "games" => { "type" => "array" },
+      "places" => { "type" => "array" }
     },
     "required" => [
-      "games"
+      "games",
+      "places"
     ],
     "additionalProperties" => false
   }
@@ -47,12 +49,26 @@ class BracketTemplateValidator
     "oneOf": [POOL_GAME_SCHEMA, BRACKET_GAME_SCHEMA]
   }
 
+  PLACE_SCHEMA = {
+    "properties" => {
+      "position" => { "type" => "integer" },
+      "prereq_uid"  => { "type" => ["string", "integer"] },
+    },
+    "required" => [
+      "position",
+      "prereq_uid"
+    ],
+    "additionalProperties" => false,
+  }
+
   class ProgressionError < StandardError; end
+  class MissingPlaceError < StandardError; end
 
   class << self
     def validate_schema(template_json)
       JSON::Validator.validate!(BRACKET_SCHEMA, template_json)
       JSON::Validator.validate!(GAME_SCHEMA, template_json[:games], list: true)
+      JSON::Validator.validate!(PLACE_SCHEMA, template_json[:places], list: true)
     end
 
     # validates the presence of all seats (1 to N) in the seed round
@@ -96,7 +112,12 @@ class BracketTemplateValidator
       true
     end
 
-    # validate that places are logical
+    def validate_places(template_json)
+      positions = template_json[:places].map { |p| p[:position] }
+      positions.each_with_index do |p, idx|
+        raise MissingPlaceError unless (idx+1) == p
+      end
+    end
 
     private
 

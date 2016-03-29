@@ -5,12 +5,15 @@ class Division < ActiveRecord::Base
   belongs_to :tournament
   has_many :teams, dependent: :nullify
   has_many :games, dependent: :destroy
+  has_many :places, dependent: :destroy
 
   validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
 
   after_create :create_games
+  after_create :create_places
   after_update :update_games
+  after_update :update_places
 
   class InvalidNumberOfTeams < StandardError; end
   class InvalidSeedRound < StandardError; end
@@ -50,15 +53,25 @@ class Division < ActiveRecord::Base
     )
   end
 
-  def update_games
-    return unless self.bracket_type_changed?
-    self.games.destroy_all
-    @bracket = Bracket.find_by(name: self.bracket_type)
-
-    Divisions::CreateGamesJob.perform_later(
+  def create_places
+    Divisions::CreatePlacesJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       template: bracket.template
     )
+  end
+
+  def update_games
+    return unless self.bracket_type_changed?
+    self.games.destroy_all
+    @bracket = Bracket.find_by(name: self.bracket_type)
+    create_games
+  end
+
+  def update_places
+    return unless self.bracket_type_changed?
+    self.games.destroy_all
+    @bracket = Bracket.find_by(name: self.bracket_type)
+    create_places
   end
 end

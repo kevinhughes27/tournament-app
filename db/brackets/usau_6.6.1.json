@@ -4,6 +4,14 @@
     {"pool":"A", "home":1, "away":5}, {"pool":"A", "home":2, "away":4}, {"pool":"A", "home":3, "away":6},
     {"pool":"A", "home":1, "away":6}, {"pool":"A", "home":2, "away":3}, {"pool":"A", "home":4, "away":5},
     {"pool":"A", "home":1, "away":4}, {"pool":"A", "home":2, "away":6}, {"pool":"A", "home":3, "away":5},
-    {"pool":"A", "home":1, "away":2}, {"pool":"A", "home":3, "away":4}, {"pool":"A", "home":5, "away":6},
+    {"pool":"A", "home":1, "away":2}, {"pool":"A", "home":3, "away":4}, {"pool":"A", "home":5, "away":6}
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "A1"},
+    {"position":2, "prereq_uid": "A2"},
+    {"position":3, "prereq_uid": "A3"},
+    {"position":4, "prereq_uid": "A4"},
+    {"position":5, "prereq_uid": "A5"},
+    {"position":6, "prereq_uid": "A6"}
   ]
 }

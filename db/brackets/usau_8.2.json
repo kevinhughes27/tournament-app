@@ -3,5 +3,15 @@
     <%= bracket_partial('table_4.1', pool: 'A', seeds: [1,3,6,8]) %>
     <%= bracket_partial('table_4.1', pool: 'B', seeds: [2,4,5,7]) %>
     <%= bracket_partial('bracket_8.2.1') %>
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "Wc"},
+    {"position":2, "prereq_uid": "Wi"},
+    {"position":3, "prereq_uid": "Li"},
+    {"position":4, "prereq_uid": "Lh"},
+    {"position":5, "prereq_uid": "Wk"},
+    {"position":6, "prereq_uid": "Lk"},
+    {"position":7, "prereq_uid": "Wj"},
+    {"position":8, "prereq_uid": "Lj"}
   ]
 }
