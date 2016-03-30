@@ -8,7 +8,7 @@
                           autofocus: true,
                           autocomplete: false %>
       <% if @tournament.errors.present? %>
-        <span class="help-block">
+        <span class="error_message help-block">
           <%= @tournament.errors.full_messages.first %>
         </span>
       <% end %>
