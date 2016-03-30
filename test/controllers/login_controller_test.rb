@@ -68,15 +68,9 @@ class LoginControllerTest < ActionController::TestCase
     assert_login_error("Invalid login for tournament.")
   end
 
-  test "logout clears session" do
+  test "logout" do
     sign_in @user
-    session[:tournament_id] = @tournament.id
-    session[:tournament_friendly_id] = @tournament.friendly_id
-
     delete :destroy
-
-    assert_nil session[:tournament_id]
-    assert_nil session[:tournament_friendly_id]
   end
 
   private

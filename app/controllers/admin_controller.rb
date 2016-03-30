@@ -7,7 +7,6 @@ class AdminController < ApplicationController
   respond_to :html
 
   before_action :load_tournament
-  before_action :store_tournament
   before_action :store_location
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
@@ -34,12 +33,6 @@ class AdminController < ApplicationController
     @tournament = Tournament.friendly.find(request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
-  end
-
-  def store_tournament
-    return unless request.get?
-    session[:tournament_id] = @tournament.id
-    session[:tournament_friendly_id] = @tournament.friendly_id
   end
 
   def store_location

@@ -32,9 +32,6 @@ class LoginController < Devise::SessionsController
 
   def destroy
     sign_out(current_user)
-    session.delete(:tournament_id)
-    session.delete(:tournament_friendly_id)
-
     redirect_to root_url(subdomain: '')
   end
 
