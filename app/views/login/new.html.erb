@@ -1,7 +1,10 @@
 <div class="register-box animated <%= login_animation %>">
-  <div class="register-logo">
-    <%= session[:tournament_friendly_id] || 'Ultimate Tournament' %>
-  </div>
+
+  <% if session[:tournament_friendly_id] %>
+    <div class="register-logo">
+      <%= session[:tournament_friendly_id] %>
+    </div>
+  <% end %>
 
   <div class="register-subtext">
     <p>Log in to manage your tournament</p>
