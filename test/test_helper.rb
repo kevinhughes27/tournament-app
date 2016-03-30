@@ -26,7 +26,10 @@ class ActionController::TestCase
   include Devise::TestHelpers
 
   def set_tournament(tournament)
-    subdomain = tournament.try(:handle) || tournament
+    set_subdomain(tournament.try(:handle) || tournament)
+  end
+
+  def set_subdomain(subdomain)
     @request.host = "#{subdomain}.ultimate-tournament.io"
   end
 end
