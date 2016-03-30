@@ -24,11 +24,16 @@ $(document).ready ->
     $('.modal-content').addClass('animated pulse').one 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', ->
       $(this).removeClass('animated pulse')
 
+    $('.help-block').remove()
+
     if errors.email
       $('#user_email').parent().addClass('field_with_errors')
+      $('#user_email').after("<span class='help-block'>#{errors.email}</span>")
 
     if errors.password
       $('#user_password').parent().addClass('field_with_errors')
+      $('#user_password').after("<span class='help-block'>#{errors.password}</span>")
 
     $('.field_with_errors').on "keyup", (event) ->
+      $(event.target).parent().find('.help-block').remove()
       $(event.target).parent().removeClass('field_with_errors')
