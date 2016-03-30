@@ -18,7 +18,7 @@ $(document).ready ->
 
 toHandle = (string) ->
   string = string.toLowerCase()
-  string = string.replace(/ /g, "-").trim()
+  string = string.trim().replace(/ /g, "-")
   string
 
 setUrl = (handle) ->
