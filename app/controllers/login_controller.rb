@@ -1,6 +1,6 @@
 class LoginController < Devise::SessionsController
   before_action :sign_out_user, only: [:new]
-  before_action :load_tournament, only: [:new]
+  before_action :load_tournament, only: [:new, :create]
 
   skip_before_action :require_no_authentication
   skip_before_action :verify_signed_out_user
@@ -20,9 +20,9 @@ class LoginController < Devise::SessionsController
     user = warden.authenticate!(auth_options)
     return redirect_to setup_path unless user.tournaments.exists?
 
-    if session[:tournament_id].blank?
+    if @tournament.nil?
       login_no_tournament_id(user)
-    elsif user.is_tournament_user?(session[:tournament_id])
+    elsif user.is_tournament_user?(@tournament.id)
       login(user)
     else
       flash.now[:alert] = "Invalid login for tournament."
@@ -31,8 +31,7 @@ class LoginController < Devise::SessionsController
   end
 
   def destroy
-    sign_out(User)
-    clear_session
+    sign_out(current_user)
     redirect_to root_url(subdomain: '')
   end
 
@@ -57,8 +56,8 @@ class LoginController < Devise::SessionsController
   end
 
   def sign_out_user
-    sign_out(User)
-    current_user = nil
+    return unless current_user
+    sign_out(current_user)
   end
 
   def load_tournament
@@ -72,17 +71,12 @@ class LoginController < Devise::SessionsController
     params.require(:user).except(:password).permit(:email)
   end
 
-  def clear_session
-    session.delete(:tournament_id)
-    session.delete(:tournament_friendly_id)
-  end
-
   def redirect_to_login
     self.resource = User.new(user_params)
     render :new
   end
 
   def after_login_in_path
-    admin_url(subdomain: session[:tournament_friendly_id]) + session[:previous_path].to_s
+    admin_url(subdomain: @tournament.handle) + session[:previous_path].to_s
   end
 end

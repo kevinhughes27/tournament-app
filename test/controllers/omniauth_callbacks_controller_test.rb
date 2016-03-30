@@ -6,6 +6,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)
+    @request.env["omniauth.origin"] = "http://no-borders.ultimate-tournament.io"
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
@@ -44,6 +45,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
     TournamentUser.create!(tournament_id: tournament.id, user_id: @user.id)
     assert_equal 2, @user.tournaments.count
 
+    @request.env["omniauth.origin"] = "http://www.ultimate-tournament.io"
     @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:google_oauth2, {
       provider: 'google',
       uid: '12345',
@@ -70,22 +72,6 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
 
     get :google_oauth2
     assert_redirected_to setup_path
-  end
-
-  test "auth callback with tournament_id in session for existing user redirects to tournament page" do
-    session[:tournament_id] = @tournament.id
-    session[:tournament_friendly_id] = @tournament.friendly_id
-
-    @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:google_oauth2, {
-      provider: 'google',
-      uid: '12345',
-      info: {
-        email: @user.email
-      }
-    })
-
-    get :google_oauth2
-    assert_redirected_to admin_url(subdomain: @tournament.friendly_id)
   end
 
   test "auth callback for existing user with no auth type creates new UserAuthentication" do
@@ -128,5 +114,4 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
     get :facebook
     assert_redirected_to setup_path
   end
-
 end

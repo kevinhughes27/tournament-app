@@ -19,8 +19,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def after_sign_in_path(user)
-    if session[:tournament_friendly_id]
-      return admin_url(subdomain: session[:tournament_friendly_id]) + session[:previous_path].to_s
+    if tournament_subdomain
+      return admin_url(subdomain: tournament_subdomain) + session[:previous_path].to_s
     end
 
     if user.tournaments.count == 1
@@ -29,5 +29,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       choose_tournament_path
     end
+  end
+
+  def tournament_subdomain
+    subdomain unless subdomain == 'www'
+  end
+
+  def subdomain
+    parts = URI.parse(omniauth_origin).host.split('.')
+    parts.size == 3 ? parts.first : nil
+  end
+
+  def omniauth_origin
+    request.env['omniauth.origin']
   end
 end
