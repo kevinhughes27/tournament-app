@@ -1,14 +1,12 @@
 class LoginController < Devise::SessionsController
+  before_action :sign_out_user, only: [:new]
+  before_action :load_tournament, only: [:new]
+
   skip_before_action :require_no_authentication
   skip_before_action :verify_signed_out_user
+
   prepend_view_path 'app/views/login'
   layout 'login'
-
-  def new
-    sign_out(User)
-    clear_session if from_brochure?
-    super
-  end
 
   def choose_tournament
     if request.post?
@@ -58,12 +56,16 @@ class LoginController < Devise::SessionsController
     respond_with user, location: after_login_in_path
   end
 
-  def from_brochure?
-    referer == root_url
+  def sign_out_user
+    sign_out(User)
+    current_user = nil
   end
 
-  def referer
-    request.env['HTTP_REFERER']
+  def load_tournament
+    return unless request.subdomain.present?
+    @tournament = Tournament.friendly.find(request.subdomain)
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 
   def user_params

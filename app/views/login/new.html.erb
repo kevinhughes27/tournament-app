@@ -1,8 +1,8 @@
 <div class="register-box animated <%= login_animation %>">
 
-  <% if session[:tournament_friendly_id] %>
+  <% if @tournament %>
     <div class="register-logo">
-      <%= session[:tournament_friendly_id] %>
+      <%= @tournament.name %>
     </div>
   <% end %>
 

@@ -31,7 +31,7 @@ class AdminController < ApplicationController
   end
 
   def load_tournament
-    @tournament = tournament_scope.find(request.subdomain)
+    @tournament = Tournament.friendly.find(request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
   end
@@ -53,12 +53,6 @@ class AdminController < ApplicationController
 
   def set_admin_cookie
     cookies[:td] = true
-  end
-
-  private
-
-  def tournament_scope
-    Tournament.friendly
   end
 end
 
