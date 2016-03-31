@@ -9,6 +9,23 @@
   ],
   "places": [
     {"position":1, "prereq_uid": "Wk"},
-    {"position":2, "prereq_uid": "Lk"}
+    {"position":2, "prereq_uid": "Lk"},
+    {"position":3, "prereq_uid": "Li"},
+    {"position":4, "prereq_uid": "Lj"},
+    {"position":5, "prereq_uid": "Le"},
+    {"position":6, "prereq_uid": "Lf"},
+    {"position":7, "prereq_uid": "Lg"},
+    {"position":8, "prereq_uid": "Lh"},
+    {"position":9, "prereq_uid": "La"},
+    {"position":10, "prereq_uid": "Lb"},
+    {"position":11, "prereq_uid": "Lc"},
+    {"position":12, "prereq_uid": "Ld"},
+    {"position":13, "prereq_uid": "A4"},
+    {"position":14, "prereq_uid": "B4"},
+    {"position":15, "prereq_uid": "C4"},
+    {"position":16, "prereq_uid": "D4"},
+    {"position":17, "prereq_uid": "A5"},
+    {"position":18, "prereq_uid": "B5"},
+    {"position":19, "prereq_uid": "C5"}
   ]
 }

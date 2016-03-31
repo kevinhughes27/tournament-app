@@ -20,8 +20,8 @@
     {"position":2, "prereq_uid": "La"},
     {"position":3, "prereq_uid": "Wd"},
     {"position":4, "prereq_uid": "Ld"},
-    {"position":5, "prereq_uid": "A5"},
-    {"position":6, "prereq_uid": "A6"},
+    {"position":5, "prereq_uid": "Lb"},
+    {"position":6, "prereq_uid": "Lc"},
     {"position":7, "prereq_uid": "A7"}
   ]
 }
