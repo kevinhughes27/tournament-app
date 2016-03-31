@@ -41,17 +41,17 @@ class BracketSimulationTest < BrowserTest
   end
 
   Bracket.all.each do |bracket|
-    test "render bracket: #{bracket.name}" do
-      visit("/render_test?bracket=#{bracket.name}")
+    test "render bracket: #{bracket.handle}" do
+      visit("/render_test?bracket=#{bracket.handle}")
       assert page.find(".vis-network")
       sleep(1)
-      compare_or_new(bracket.name)
+      compare_or_new(bracket.handle)
     end
   end
 
-  def compare_or_new(bracket_name)
-    test_file = "test/fixtures/screenshots/#{bracket_name}.png"
-    new_file = new_screenshot_path(bracket_name)
+  def compare_or_new(bracket_handle)
+    test_file = "test/fixtures/screenshots/#{bracket_handle}.png"
+    new_file = new_screenshot_path(bracket_handle)
 
     if File.exists?(test_file)
       page.save_screenshot(new_file)
@@ -82,11 +82,11 @@ class BracketSimulationTest < BrowserTest
     assert_operator percent_changed, :<=, 6.0
   end
 
-  def new_screenshot_path(bracket_name)
+  def new_screenshot_path(bracket_handle)
     if ENV['CIRCLECI']
-      File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_name}.png")
+      File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_handle}.png")
     else
-      "tmp/#{bracket_name}.png"
+      "tmp/#{bracket_handle}.png"
     end
   end
 end

@@ -9,7 +9,7 @@ module Divisions
 
     test "creates places as spec'd by the bracket template" do
       type = 'single_elimination_8'
-      template = Bracket.find_by(name: type).template
+      template = Bracket.find_by(handle: type).template
       template_place = template[:places].first
 
       CreatePlacesJob.perform_now(

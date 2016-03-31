@@ -59,10 +59,7 @@ class Admin.Bracket
 TEMPLATES =
   description: """
     <p>
-      <strong><%= bracket.name %>
-      <% if(bracket.tagline) { %>
-        : <%= bracket.tagline %></strong>
-      <% } %>
+      <strong><%= bracket.name %></strong>
     </p>
     <p>
       <%= bracket.description %>

@@ -8,23 +8,23 @@ class BracketSimulationTest < ActiveSupport::TestCase
   end
 
   Bracket.all.each do |bracket|
-    test "create a division with bracket_type: #{bracket.name}" do
-      @division = new_division(bracket.name)
+    test "create a division with bracket_type: #{bracket.handle}" do
+      @division = new_division(bracket.handle)
       assert division
     end
   end
 
   Bracket.all.each do |bracket|
-    test "seed a division with bracket_type: #{bracket.name}" do
-      @division = new_division(bracket.name)
+    test "seed a division with bracket_type: #{bracket.handle}" do
+      @division = new_division(bracket.handle)
       create_teams
       division.seed
     end
   end
 
   Bracket.all.each do |bracket|
-    test "play a division with bracket_type: #{bracket.name}" do
-      @division = new_division(bracket.name)
+    test "play a division with bracket_type: #{bracket.handle}" do
+      @division = new_division(bracket.handle)
       create_teams
       division.seed
       play_games

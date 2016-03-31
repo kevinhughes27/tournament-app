@@ -9,7 +9,7 @@ module Divisions
 
     test "creates games as spec'd by the bracket template" do
       type = 'single_elimination_8'
-      template = Bracket.find_by(name: type).template
+      template = Bracket.find_by(handle: type).template
       template_game = template[:games].first
 
       CreateGamesJob.perform_now(

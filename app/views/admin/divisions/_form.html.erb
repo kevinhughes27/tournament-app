@@ -1,8 +1,12 @@
 <%= form.ui_text_field :name %>
 
 <div class="form-group row" define="{bracketChoice: new Admin.BracketChoice(this)}">
-  <div class="col-md-4">
+  <div class="col-md-2">
     <%= form.ui_number_field :num_teams, label_html: '# Teams' %>
+  </div>
+
+  <div class="col-md-2">
+    <%= form.ui_number_field :num_days, label_html: '# Days' %>
   </div>
 
   <div class="col-md-8">

@@ -2,13 +2,19 @@ class Admin.BracketChoice
 
   constructor: (node) ->
     @$numberInput = $(node).find('#division_num_teams')
+    @$daysInput = $(node).find('#division_num_days')
     @$selectInput = $(node).find('#division_bracket_type')
 
-    @$numberInput.on 'change', @numberChanged
+    @$numberInput.on 'change', @updateChoices
+    @$daysInput.on 'change', @updateChoices
 
-  numberChanged: =>
-    num = parseInt(@$numberInput.val())
-    validBrackets = _.filter(Admin.BracketDb.BRACKETS, (b) -> b.num_teams == num)
+  updateChoices: =>
+    numDays = parseInt(@$daysInput.val())
+    numTeams = parseInt(@$numberInput.val())
+
+    validBrackets = _.filter(Admin.BracketDb.BRACKETS, (b) ->
+      b.num_teams == numTeams && b.days == numDays
+    )
 
     @$selectInput.empty()
 
@@ -18,6 +24,6 @@ class Admin.BracketChoice
       @$selectInput.attr('disabled', false)
 
     @$selectInput.append validBrackets.map (b) =>
-      $("<option>#{b.name}</option>")
+      $("<option value='#{b.handle}'>#{b.name}</option>")
 
     @$selectInput.change()
