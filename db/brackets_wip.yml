@@ -30,7 +30,3 @@
   days: 1
   rounds: 3
   template: <%= File.read('db/brackets/usau_4.1.1.json') %>
-
-# USAU 7.1 3rd place is given to pool winner out of 2 losers.
-# USAU 7.1 4th and 5th place is given to pool winner out of 2 losers.
-# USAU 13.1 needs consolation bracket
