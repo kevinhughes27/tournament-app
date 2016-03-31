@@ -53,10 +53,11 @@ class BracketTemplateValidator
     "properties" => {
       "position" => { "type" => "integer" },
       "prereq_uid"  => { "type" => ["string", "integer"] },
+      "prereq_logic"  => { "type" => ["string", "integer"] },
     },
-    "required" => [
-      "position",
-      "prereq_uid"
+    "oneOf" => [
+      {"required" => ["position", "prereq_uid"]},
+      {"required" => ["position", "prereq_logic"]},
     ],
     "additionalProperties" => false,
   }
