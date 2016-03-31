@@ -7,7 +7,7 @@ class Division < ActiveRecord::Base
   has_many :games, dependent: :destroy
   has_many :places, dependent: :destroy
 
-  validates_presence_of :tournament, :name
+  validates_presence_of :tournament, :name, :num_teams, :num_days
   validates_uniqueness_of :name, scope: :tournament
 
   after_create :create_games
