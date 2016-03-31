@@ -3,8 +3,43 @@
   Home
 <% end %>
 
-<%= ui_box do %>
-  <div class="alert alert-success">
-    Welcome to Ultimate Tournament!
-  </div>
-<% end %>
+<section class="content-header">
+  <h1>Welcome to Ultimate Tournament!</h1>
+  <br>
+</section>
+
+<ul class="timeline">
+  <li class="time-label">
+    <span class="bg-purple">
+      Your Tournament Checklist:
+    </span>
+  </li>
+
+  <li>
+    <i class="fa fa-list-ol bg-purple"></i>
+    <div class="timeline-item">
+      <h3 class="timeline-header">Plan</h3>
+      <%= render "plan" %>
+    </div>
+  </li>
+
+  <li>
+    <i class="fa fa-calendar-check-o bg-purple"></i>
+    <div class="timeline-item">
+      <h3 class="timeline-header">Schedule</h3>
+      <%= render "schedule" %>
+    </div>
+  </li>
+
+  <li>
+    <i class="fa fa-play-circle bg-purple"></i>
+    <div class="timeline-item">
+      <h3 class="timeline-header">Play</h3>
+      <%= render "play" %>
+    </div>
+  </li>
+
+  <li>
+    <i class="fa fa-hourglass-end bg-purple"></i>
+  </li>
+</ul>
