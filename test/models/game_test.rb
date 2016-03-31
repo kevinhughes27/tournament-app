@@ -81,6 +81,11 @@ class GameTest < ActiveSupport::TestCase
     @game.update_score(15, 11)
   end
 
+  test "update_score updates the places" do
+    Divisions::UpdatePlacesJob.expects(:perform_later)
+    @game.update_score(15, 11)
+  end
+
   test "update_score confirms the game" do
     @game.stubs(:update_bracket)
     @game.update_score(15, 11)
