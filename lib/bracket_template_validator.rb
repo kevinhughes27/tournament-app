@@ -62,6 +62,7 @@ class BracketTemplateValidator
   }
 
   class ProgressionError < StandardError; end
+  class NotEnoughPlaces < StandardError; end
   class MissingPlaceError < StandardError; end
   class GamesPlacesMismatch < StandardError; end
 
@@ -115,6 +116,7 @@ class BracketTemplateValidator
 
     def validate_places(template_json)
       positions = template_json[:places].map { |p| p[:position] }
+      raise NotEnoughPlaces unless num_teams(template_json) == positions.size
       positions.each_with_index do |p, idx|
         raise MissingPlaceError unless (idx+1) == p
       end
@@ -160,6 +162,23 @@ class BracketTemplateValidator
       (1..num_teams_for_pool(template_json, pool_name)).map do |num|
         "#{pool_name}#{num}"
       end
+    end
+
+    def num_teams(template_json)
+      games = template_json[:games].select{ |g| g[:pool] || g[:seed] == 1 }
+
+      teams = Set.new
+      games.each do |game|
+        if game[:home].to_s.is_i?
+          teams << game[:home]
+        end
+
+        if game[:away].to_s.is_i?
+          teams << game[:away]
+        end
+      end
+
+      teams.size
     end
 
     def num_teams_for_pool(template_json, pool_name)
