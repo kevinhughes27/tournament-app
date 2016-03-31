@@ -1,0 +1,22 @@
+<div class="timeline-body">
+  <div class="row">
+    <div class="col-md-3">
+      Once games get created by your divisions its up to you to schedule them on fields.
+    </div>
+
+    <%= link_to admin_schedule_path do %>
+      <div class="col-md-6 col-xs-12">
+        <div class="info-box bg-yellow">
+          <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Games scheduled</span>
+            <span class="info-box-number"><%= @games_scheduled %> / <%= @tournament.games.count %></span>
+            <div class="progress">
+              <div class="progress-bar" style="width: 70%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
