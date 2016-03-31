@@ -20,7 +20,7 @@ class Division < ActiveRecord::Base
   class AmbiguousSeedList < StandardError; end
 
   def bracket
-    @bracket ||= Bracket.find_by(name: self.bracket_type)
+    @bracket ||= Bracket.find_by(handle: self.bracket_type)
   end
 
   def dirty_seed?

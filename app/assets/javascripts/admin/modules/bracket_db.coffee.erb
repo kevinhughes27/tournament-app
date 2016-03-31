@@ -3,5 +3,5 @@
 
 Admin.BracketDb =
   BRACKETS: <%= Bracket.all.to_json %>
-  find: (bracketName) ->
-    _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.name == bracketName)
+  find: (handle) ->
+    _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.handle == handle)
