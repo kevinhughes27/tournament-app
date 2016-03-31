@@ -63,6 +63,7 @@ class BracketTemplateValidator
 
   class ProgressionError < StandardError; end
   class MissingPlaceError < StandardError; end
+  class GamesPlacesMismatch < StandardError; end
 
   class << self
     def validate_schema(template_json)
@@ -116,6 +117,18 @@ class BracketTemplateValidator
       positions = template_json[:places].map { |p| p[:position] }
       positions.each_with_index do |p, idx|
         raise MissingPlaceError unless (idx+1) == p
+      end
+    end
+
+    # verifies that the game which have a place (which is used for visualization only)
+    # matches the places array. aka if a game has the field place => 1st then the winner
+    # of that game better be the prereq_uid of 1st place or else they don't match
+    def validate_nodes_match_places(template_json)
+      place_games = template_json[:games].map{ |g| g if g[:place] }.compact
+      place_games.each do |game|
+        place_num = game[:place].gsub(/[A-Za-z]/, '').to_i
+        place_obj = template_json[:places].detect{ |p| p[:position] == place_num }
+        raise GamesPlacesMismatch unless place_obj[:prereq_uid] == "W#{game[:uid]}"
       end
     end
 
