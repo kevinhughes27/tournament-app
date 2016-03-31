@@ -2,10 +2,12 @@ class BracketTemplateValidator
   BRACKET_SCHEMA = {
     "type" => "object",
     "properties" => {
-      "games" => { "type" => "array" }
+      "games" => { "type" => "array" },
+      "places" => { "type" => "array" }
     },
     "required" => [
-      "games"
+      "games",
+      "places"
     ],
     "additionalProperties" => false
   }
@@ -47,12 +49,28 @@ class BracketTemplateValidator
     "oneOf": [POOL_GAME_SCHEMA, BRACKET_GAME_SCHEMA]
   }
 
+  PLACE_SCHEMA = {
+    "properties" => {
+      "position" => { "type" => "integer" },
+      "prereq_uid"  => { "type" => ["string", "integer"] },
+    },
+    "required" => [
+      "position",
+      "prereq_uid"
+    ],
+    "additionalProperties" => false,
+  }
+
   class ProgressionError < StandardError; end
+  class NotEnoughPlaces < StandardError; end
+  class MissingPlaceError < StandardError; end
+  class GamesPlacesMismatch < StandardError; end
 
   class << self
     def validate_schema(template_json)
       JSON::Validator.validate!(BRACKET_SCHEMA, template_json)
       JSON::Validator.validate!(GAME_SCHEMA, template_json[:games], list: true)
+      JSON::Validator.validate!(PLACE_SCHEMA, template_json[:places], list: true)
     end
 
     # validates the presence of all seats (1 to N) in the seed round
@@ -96,7 +114,25 @@ class BracketTemplateValidator
       true
     end
 
-    # validate that places are logical
+    def validate_places(template_json)
+      positions = template_json[:places].map { |p| p[:position] }
+      raise NotEnoughPlaces unless num_teams(template_json) == positions.size
+      positions.each_with_index do |p, idx|
+        raise MissingPlaceError unless (idx+1) == p
+      end
+    end
+
+    # verifies that the game which have a place (which is used for visualization only)
+    # matches the places array. aka if a game has the field place => 1st then the winner
+    # of that game better be the prereq_uid of 1st place or else they don't match
+    def validate_nodes_match_places(template_json)
+      place_games = template_json[:games].map{ |g| g if g[:place] }.compact
+      place_games.each do |game|
+        place_num = game[:place].gsub(/[A-Za-z]/, '').to_i
+        place_obj = template_json[:places].detect{ |p| p[:position] == place_num }
+        raise GamesPlacesMismatch unless place_obj[:prereq_uid] == "W#{game[:uid]}"
+      end
+    end
 
     private
 
@@ -126,6 +162,23 @@ class BracketTemplateValidator
       (1..num_teams_for_pool(template_json, pool_name)).map do |num|
         "#{pool_name}#{num}"
       end
+    end
+
+    def num_teams(template_json)
+      games = template_json[:games].select{ |g| g[:pool] || g[:seed] == 1 }
+
+      teams = Set.new
+      games.each do |game|
+        if game[:home].to_s.is_i?
+          teams << game[:home]
+        end
+
+        if game[:away].to_s.is_i?
+          teams << game[:away]
+        end
+      end
+
+      teams.size
     end
 
     def num_teams_for_pool(template_json, pool_name)

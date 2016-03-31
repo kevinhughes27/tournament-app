@@ -29,6 +29,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
       division.seed
       play_games
       assert_winner
+      assert_places
     end
   end
 
@@ -86,8 +87,24 @@ class BracketSimulationTest < ActiveSupport::TestCase
   end
 
   def assert_winner
-    first_uid = division.bracket.game_uid_for_place('1st')
-    game = division.games.find_by(bracket_uid: first_uid)
-    assert game.winner
+    place = division.places.find_by(position: 1)
+    assert place.team
+  end
+
+  def assert_places
+    division.places.each do |place|
+      assert place.team, "place #{place.position} missing team"
+    end
+
+    division.teams.each do |team|
+      assert Place.find_by(division: division, team: team), "team missing place, games_uids: #{games_uids_for_team(division, team)}"
+    end
+  end
+
+  def games_uids_for_team(division, team)
+    game_uids = []
+    game_uids << Game.where(division: division, home: team).pluck(:bracket_uid, :pool)
+    game_uids << Game.where(division: division, away: team).pluck(:bracket_uid, :pool)
+    game_uids.flatten.compact.uniq
   end
 end

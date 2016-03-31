@@ -125,6 +125,18 @@
   template: <%= load_bracket('usau_5.3') %>
 
 -
+  name: USAU 5.4
+  tagline: Four teams advance
+  description: >
+    Note that the top team is determined on
+    the first day, and that team has no games the second day.
+  num_teams: 5
+  days: 2
+  rounds: 2
+  pool: true
+  template: <%= load_bracket('usau_5.4') %>
+
+-
   name: USAU 5.5
   tagline: Five teams advance
   description: >
@@ -207,6 +219,17 @@
   rounds: 3
   pool: true
   template: <%= load_bracket('usau_6.1') %>
+
+-
+  name: USAU 6.6.1
+  tagline: Six teams advance
+  description: >
+    Round-robin as a one-day event
+    Pool games are played to 13 and over 2 days.
+  num_teams: 6
+  days: 1
+  pool: true
+  template: <%= load_bracket('usau_6.6.1') %>
 
 -
   name: USAU 7.1

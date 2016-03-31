@@ -14,5 +14,14 @@
     {"round":1, "uid":"d", "home":"A6", "away":"A7"},
 
     {"round":2, "place":"5th", "uid":"e", "home":"Lc", "away":"Wd"}
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "Wa"},
+    {"position":2, "prereq_uid": "La"},
+    {"position":3, "prereq_uid": "A3"},
+    {"position":4, "prereq_uid": "Wc"},
+    {"position":5, "prereq_uid": "We"},
+    {"position":6, "prereq_uid": "Le"},
+    {"position":7, "prereq_uid": "Ld"}
   ]
 }

@@ -6,27 +6,24 @@ module Divisions
 
     def perform(division:, pool:)
       @division, @pool = division, pool
-      reseed if pool_finished?
+      if pool_finished?
+        reseed
+        push_places
+      end
     end
 
     private
 
     def pool_finished?
       tournament_id = division.tournament_id
-
       games = Game.where(tournament_id: tournament_id, division_id: division.id, pool: pool)
       games.all? { |game| game.confirmed? }
     end
 
     def reseed
-      #TODO is this how tie breakers should be done?
-      teams = teams_for_pool(pool).order(
-        wins: :desc, points_for: :desc
-      )
-
       division.games.each do |game|
         if game.home_prereq_uid =~ /#{pool}\d/
-          game.home = teams[ game.home_prereq_uid.gsub(pool, '').to_i - 1 ]
+          game.home = sorted_teams[ game.home_prereq_uid.gsub(pool, '').to_i - 1 ]
           game.home_score = nil
           game.away_score = nil
           game.score_confirmed = false
@@ -34,12 +31,30 @@ module Divisions
         end
 
         if game.away_prereq_uid =~ /#{pool}\d/
-          game.away = teams[ game.away_prereq_uid.gsub(pool, '').to_i - 1 ]
+          game.away = sorted_teams[ game.away_prereq_uid.gsub(pool, '').to_i - 1 ]
           game.home_score = nil
           game.away_score = nil
           game.score_confirmed = false
           game.save!
         end
+      end
+    end
+
+    def push_places
+      division.places.each do |place|
+        if place.prereq_uid =~ /#{pool}\d/
+          place.team = sorted_teams[ place.prereq_uid.gsub(pool, '').to_i - 1 ]
+          place.save!
+        end
+      end
+    end
+
+    #TODO is this how tie breakers should be done?
+    def sorted_teams
+      @sorted_teams ||= begin
+        teams = teams_for_pool(pool).order(
+          wins: :desc, points_for: :desc
+        )
       end
     end
 

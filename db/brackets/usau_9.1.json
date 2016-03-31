@@ -24,5 +24,16 @@
     {"round": 3, "place": "3rd", "uid": "k", "home":"Le", "away":"Lf"},
     {"round": 3, "place": "5th", "uid": "j", "home":"Wh", "away":"Wi"},
     {"round": 3, "place": "7th", "uid": "l", "home":"Lh", "away":"Li"}
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "Wg"},
+    {"position":2, "prereq_uid": "Lg"},
+    {"position":3, "prereq_uid": "Wk"},
+    {"position":4, "prereq_uid": "Lk"},
+    {"position":5, "prereq_uid": "Wj"},
+    {"position":6, "prereq_uid": "Lj"},
+    {"position":7, "prereq_uid": "Wl"},
+    {"position":8, "prereq_uid": "Ll"},
+    {"position":9, "prereq_uid": "A5"}
   ]
 }

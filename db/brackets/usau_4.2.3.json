@@ -9,5 +9,11 @@
     {"round":2, "uid":"d", "home":"La", "away":"Lb"},
 
     {"round":3, "place":"2nd", "uid":"e", "home":"Wd", "away":"Lc"}
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "Wc"},
+    {"position":2, "prereq_uid": "We"},
+    {"position":3, "prereq_uid": "Le"},
+    {"position":4, "prereq_uid": "Ld"}
   ]
 }
