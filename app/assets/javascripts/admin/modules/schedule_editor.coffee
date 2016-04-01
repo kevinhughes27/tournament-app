@@ -1,8 +1,22 @@
 class Admin.ScheduleEditor
 
   constructor: (@$tableNode, @timeCap) ->
-    @initDraggable()
-    @initDropzone()
+    @rd = REDIPS.drag
+    @rd.init()
+    @rd.dropMode = 'single'
+    @rd.hover = {}
+
+    @rd.event.clicked = (dropCell) ->
+      gameNode = dropCell.children[0]
+      gameNode.classList.remove('game-error')
+
+    @rd.event.dropped = (dropCell) =>
+      unhighlightCells()
+      gameNode = dropCell.children
+      @gameAssigned(gameNode, dropCell)
+
+    @rd.event.changed = (dropCell) ->
+      highlightHeaderCell(dropCell)
 
   addRow: ->
     trs = @$tableNode.find('tr')
@@ -32,13 +46,6 @@ class Admin.ScheduleEditor
     $game.attr('data-row-idx', rowIdx)
     $game.attr('data-field-id', fieldId)
     $game.attr('data-start-time', startTime)
-
-  gameUnassigned: (game) ->
-    $game = $(game)
-    $game.attr('data-changed', true)
-    $game.attr('data-row-idx', -1)
-    $game.attr('data-field-id', '')
-    $game.attr('data-start-time', '')
 
   timeUpdated: (event) ->
     rowIdx = $(event.target).closest('tr').index()
@@ -88,15 +95,21 @@ class Admin.ScheduleEditor
         Admin.Flash.notice('Schedule saved')
 
   _keepScroll: (func) ->
-    node = $('#ScheduleEditor')[0]
-    scrollLeft = node.scrollLeft
-    scrollTop = node.scrollTop
+    if node = $('#games-card')[0]
+      scrollLeft1 = node.scrollLeft
+      scrollTop1 = node.scrollTop
+    node = $('#fields-card')[0]
+    scrollLeft2 = node.scrollLeft
+    scrollTop2 = node.scrollTop
 
     func.call()
 
-    node = $('#ScheduleEditor')[0]
-    node.scrollLeft = scrollLeft
-    node.scrollTop = scrollTop
+    if node = $('#games-card')[0]
+      node.scrollLeft = scrollLeft1
+      node.scrollTop = scrollTop1
+    node = $('#fields-card')[0]
+    node.scrollLeft = scrollLeft2
+    node.scrollTop = scrollTop2
 
   _addGameErrors: (game_id) ->
     $("[data-game-id=#{game_id}]").addClass('game-error')
@@ -108,68 +121,14 @@ class Admin.ScheduleEditor
     Turbolinks.ProgressBar.done()
     $(form).find(':submit').removeClass('is-loading')
 
-  initDraggable: ->
-    interact('.draggable').draggable({
-      inertia: true,
-
-      restrict:
-        restriction: "parent",
-        endOnly: true,
-        elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-
-      onmove: (event) =>
-        @_moveElement(event.target, event.dx, event.dy)
-    })
-
-  _moveElement: (target, dx, dy) ->
-    x = (parseFloat(target.getAttribute('data-x')) || 0) + dx
-    y = (parseFloat(target.getAttribute('data-y')) || 0) + dy
-
-    target.style.webkitTransform =
-    target.style.transform =
-      'translate(' + x + 'px, ' + y + 'px)'
-
-    target.classList.remove('game-error')
-    target.setAttribute('data-x', x)
-    target.setAttribute('data-y', y)
-
-  initDropzone: ->
-    interact('.dropzone').dropzone({
-    accept: '.game',
-    overlap: 0.5,
-    ondragenter: (event) ->
-      return if $(event.target).hasClass('occupied')
-      highlightCell(event.target)
-
-    ondragleave: (event) =>
-      unhighlightCell(event.target)
-
-      draggableFieldId = $(event.relatedTarget).attr('data-field-id')
-      dropzoneFieldId = $(event.target).attr('data-field-id')
-
-      if draggableFieldId == dropzoneFieldId
-        $(event.target).removeClass('occupied')
-
-      @gameUnassigned(event.relatedTarget)
-
-    ondropdeactivate: (event) ->
-      unhighlightCell(event.target)
-
-    ondrop: (event) =>
-      return if $(event.target).hasClass('occupied')
-      $(event.target).addClass('occupied')
-      @gameAssigned(event.relatedTarget, event.target)
-  })
-
-highlightCell = (td) ->
+highlightHeaderCell = (td) ->
+  unhighlightCells()
   $td = $(td)
   getTableHeader($td).addClass('drop-target')
   $td.addClass('drop-target')
 
-unhighlightCell = (td) ->
-  $td = $(td)
-  getTableHeader($td).removeClass('drop-target')
-  $td.removeClass('drop-target')
+unhighlightCells = ->
+  $('.drop-target').removeClass('drop-target')
 
 getTableHeader = ($td) ->
   $td.closest('table').find('th').eq($td.index())

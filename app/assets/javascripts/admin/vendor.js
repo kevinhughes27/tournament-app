@@ -5,3 +5,4 @@
 //= require vendor/leaflet.editable/src/Leaflet.Editable
 //= require vendor/vis/dist/vis
 //= require vendor/jquery-touchswipe/jquery.touchSwipe
+//= require vendor/redips-drag

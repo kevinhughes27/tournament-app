@@ -1,0 +1,46 @@
+<div id="fields-card" class="box box-solid" style='<%= "height: 80vh;" if @games.all? { |game| game.assigned? } %>'>
+  <div class="box-body">
+    <div class="schedule-table">
+      <table class="table table-bordered table-striped table-hover table-condensed">
+        <thead>
+          <tr>
+            <th class="redips-mark">Time</th>
+            <% @fields.each do |field| %>
+              <th class="redips-mark"><%= field.name %></th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @times.each_with_index do |time, index| %>
+            <tr>
+              <td class="td-input time redips-mark">
+                <div class="td-input">
+                  <input type="text"
+                         class="td-input datetimepicker form-control"
+                         value="<%= time.to_formatted_s(:datetimepicker) %>"
+                         bind-event-blur="timeUpdated(event)">
+                </div>
+              </td>
+              <% @fields.each do |field| %>
+                <% game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+                <td class="dropzone" data-field-id="<%= field.id %>">
+                  <% if game %>
+                    <div class="game redips-drag"
+                         style="<%= color_for_game(game) %>"
+                         data-game-id="<%= game.id %>"
+                         data-field-id="<%= field.id %>"
+                         data-start-time="'<%= time %>'"
+                         data-row-idx="<%= index %>">
+                      <%= game_draggable_text(game) %>
+                    </div>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

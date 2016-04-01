@@ -11,20 +11,11 @@ $time-input-width: 160px;
 }
 
 .game {
-  display: inline-block;
-  min-width: $game-width;
-  min-height: $game-height;
-
+  width: $game-width;
+  height: $game-height;
   text-align: center;
-
   color: white;
   border: solid 2px white;
-
-  -webkit-transform: translate(0px, 0px);
-          transform: translate(0px, 0px);
-
-  transition: background-color 0.3s;
-
   p {
     margin: 0;
   }
@@ -60,4 +51,16 @@ $time-input-width: 160px;
   td {
     min-width: $slot-width;
   }
+}
+
+#games-card {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  height: 40vh;
+}
+
+#fields-card {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  height: 40vh;
 }
