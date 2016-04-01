@@ -8,7 +8,7 @@ module Fields
       @game = games(:swift_goose)
     end
 
-    test "unassigns all games from the field" do
+    test "unassigns all games from the field and removes start time" do
       assert_equal @field, @game.field
 
       UnassignGamesJob.perform_now(
@@ -17,6 +17,7 @@ module Fields
       )
 
       assert_nil @game.reload.field
+      assert_nil @game.start_time
     end
   end
 end

@@ -95,18 +95,18 @@ class Admin.ScheduleEditor
         Admin.Flash.notice('Schedule saved')
 
   _keepScroll: (func) ->
-    node = $('#games-card')[0]
-    scrollLeft1 = node.scrollLeft
-    scrollTop1 = node.scrollTop
+    if node = $('#games-card')[0]
+      scrollLeft1 = node.scrollLeft
+      scrollTop1 = node.scrollTop
     node = $('#fields-card')[0]
     scrollLeft2 = node.scrollLeft
     scrollTop2 = node.scrollTop
 
     func.call()
 
-    node = $('#games-card')[0]
-    node.scrollLeft = scrollLeft1
-    node.scrollTop = scrollTop1
+    if node = $('#games-card')[0]
+      node.scrollLeft = scrollLeft1
+      node.scrollTop = scrollTop1
     node = $('#fields-card')[0]
     node.scrollLeft = scrollLeft2
     node.scrollTop = scrollTop2

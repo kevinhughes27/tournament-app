@@ -1,4 +1,4 @@
-<div id="fields-card" class="box box-solid">
+<div id="fields-card" class="box box-solid" style='<%= "height: 80vh;" if @games.all? { |game| game.assigned? } %>'>
   <div class="box-body">
     <div class="schedule-table">
       <table class="table table-bordered table-striped table-hover table-condensed">
