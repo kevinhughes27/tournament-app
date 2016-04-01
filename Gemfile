@@ -41,7 +41,6 @@ gem 'browserify-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'twine-rails'
-gem 'interact-rails'
 
 group :production do
   gem 'pg'

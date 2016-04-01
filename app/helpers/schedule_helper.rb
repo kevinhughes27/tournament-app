@@ -26,5 +26,4 @@ module ScheduleHelper
     content_tag(:p, game.bracket_uid) +
     content_tag(:p, "#{game.home_prereq_uid} v #{game.away_prereq_uid}")
   end
-
 end
