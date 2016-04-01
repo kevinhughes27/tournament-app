@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331025332) do
+ActiveRecord::Schema.define(version: 20160401014935) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -68,10 +68,12 @@ ActiveRecord::Schema.define(version: 20160331025332) do
   add_index "games", ["tournament_id"], name: "index_games_on_tournament_id"
 
   create_table "maps", force: :cascade do |t|
-    t.integer "tournament_id"
-    t.decimal "lat",           precision: 15, scale: 10, default: 56.0,  null: false
-    t.decimal "long",          precision: 15, scale: 10, default: -96.0, null: false
-    t.integer "zoom",                                    default: 4,     null: false
+    t.integer  "tournament_id"
+    t.decimal  "lat",           precision: 15, scale: 10, default: 56.0,  null: false
+    t.decimal  "long",          precision: 15, scale: 10, default: -96.0, null: false
+    t.integer  "zoom",                                    default: 4,     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "maps", ["tournament_id"], name: "index_maps_on_tournament_id"
