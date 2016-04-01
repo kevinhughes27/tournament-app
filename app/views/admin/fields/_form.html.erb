@@ -8,10 +8,9 @@
 
   <div class="col-md-6">
     <div class="row" define="{fieldEditor: new Admin.FieldEditor(
-        <%= @field.lat %>,
-        <%= @field.long %>,
         <%= @map.zoom %>,
-        <%= @field.geo_json || 'null' %>
+        <%= @field.to_json %>,
+        <%= @fields.to_json || [] %>
       )}">
       <div class="col-md-12">
         <div id="_map" style="width: 100%; height: 640px;"></div>

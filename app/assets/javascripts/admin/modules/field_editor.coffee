@@ -3,10 +3,13 @@ class Admin.FieldEditor
   LONG_FIELD: '#field_long'
   GEO_JSON_FIELD: '#field_geo_json'
 
-  constructor: (lat, long, zoom, @geoJson)->
-    @center = new L.LatLng(lat, long)
+  constructor: (zoom, @field, fields)->
+    @geoJson = if @field.geo_json then JSON.parse(@field.geo_json) else null
+    @center = new L.LatLng(@field.lat, @field.long)
     @map = UT.Map(@center, zoom, {}, true)
     @historyBuffer = []
+
+    @_drawFields(fields)
 
     if @geoJson
       @_drawField()
@@ -21,6 +24,14 @@ class Admin.FieldEditor
     @map.on 'editable:drawing:commit', @_updateField
     @map.on 'editable:vertex:dragend', @_updateField
     $(document).on 'keydown', @_keyHandler
+
+  _drawFields: (fields) ->
+    for field in fields
+      unless field.id == @field.id
+        geoJson = JSON.parse(field.geo_json)
+        layer = L.geoJson(geoJson, {
+          style: Admin.OtherFieldStyle
+        }).addTo(@map)
 
   # sets leaflet in drawing mode if we don't have a drawing yet
   # can still pan the map using the middle mouse
