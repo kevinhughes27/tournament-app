@@ -17,6 +17,11 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get index pdf" do
+    get :index, format: 'pdf'
+    assert_response :success
+  end
+
   test "blank slate" do
     @tournament.games.destroy_all
     get :index
