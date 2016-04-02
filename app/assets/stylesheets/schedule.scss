@@ -1,0 +1,43 @@
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+$game-width: 80px;
+$game-height: 45px;
+$slot-width: 90px;
+$slot-height: 50px;
+
+.legend {
+  display: inline-block;
+  min-width: 20px;
+  min-height: 20px;
+  border-style: solid;
+}
+
+.game {
+  display: inline-block;
+  width: $game-width;
+  height: $game-height;
+  text-align: center;
+  color: white;
+  border: solid 2px white;
+  p {
+    margin: 0;
+  }
+}
+
+.schedule-table {
+  tbody > tr {
+    line-height: $slot-height;
+    min-height: $slot-height;
+    height: $slot-height;
+  }
+  td {
+    min-width: $slot-width;
+  }
+}
+
+.page-break {
+  display:block;
+  clear:both;
+  page-break-after:always;
+}

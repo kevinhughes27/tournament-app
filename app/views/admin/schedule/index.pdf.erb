@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <%= wicked_pdf_stylesheet_link_tag 'pdf' -%>
+    <%= wicked_pdf_stylesheet_link_tag 'schedule' -%>
+    <%= wicked_pdf_javascript_include_tag 'number_pages' %>
+  </head>
+
+  <body onload='number_pages'>
+    <% @times.group_by{ |t| t.day }.each do |_, times| %>
+      <%= render 'day_page', times: times %>
+    <% end %>
+
+    <% @divisions.each do |division| %>
+      <%= render 'division_page', division: division %>
+    <% end %>
+  </body>
+</html>

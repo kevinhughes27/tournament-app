@@ -4,6 +4,7 @@
 <% end %>
 
 <%= content_for :top_bar_right do %>
+<%= link_to 'View Pdf', admin_schedule_path(format: :pdf), class: 'btn btn-default', target: '_blank' %>
   <%= ui_save_button_tag(form_id:'.edit_schedule') %>
 <% end %>
 
@@ -12,7 +13,7 @@
     <%= form_tag admin_schedule_path, class: 'edit_schedule', 'bind-event-submit' => 'save(this)' do %>
       <div id="redips-drag">
         <%= render 'games' %>
-        <%= render 'fields_table' %>
+        <%= render 'schedule_table' %>
       </div>
       <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
       <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>

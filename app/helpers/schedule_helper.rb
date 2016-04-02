@@ -18,6 +18,10 @@ module ScheduleHelper
     "color: #{COLORS[division.id % 12]};"
   end
 
+  def background_color_for_division(division)
+    "background-color: #{COLORS[division.id % 12]};"
+  end
+
   def color_for_game(game)
     "background-color: #{COLORS[game.division_id % 12]};"
   end

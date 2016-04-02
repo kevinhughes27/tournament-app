@@ -70,7 +70,7 @@ class Admin.Schedule
     if node = $('#games-card')[0]
       scrollLeft1 = node.scrollLeft
       scrollTop1 = node.scrollTop
-    node = $('#fields-card')[0]
+    node = $('#schedule-card')[0]
     scrollLeft2 = node.scrollLeft
     scrollTop2 = node.scrollTop
 
@@ -79,7 +79,7 @@ class Admin.Schedule
     if node = $('#games-card')[0]
       node.scrollLeft = scrollLeft1
       node.scrollTop = scrollTop1
-    node = $('#fields-card')[0]
+    node = $('#schedule-card')[0]
     node.scrollLeft = scrollLeft2
     node.scrollTop = scrollTop2
 
