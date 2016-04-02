@@ -3,8 +3,21 @@
   Schedule
 <% end %>
 
+<%= content_for :top_bar_right do %>
+  <%= ui_save_button_tag(form_id:'.edit_schedule') %>
+<% end %>
+
 <% if @games.present? %>
-  <%= render 'editor' %>
+  <section define='{schedule: new Admin.Schedule(<%= @tournament.time_cap %>)}' context='schedule'>
+    <%= form_tag admin_schedule_path, class: 'edit_schedule', 'bind-event-submit' => 'save(this)' do %>
+      <div id="redips-drag">
+        <%= render 'games' %>
+        <%= render 'fields_table' %>
+      </div>
+      <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
+      <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>
+    <% end %>
+  </section>
 <% else %>
   <div class="blank-slate">
     <h3>Create the Schedule for your Tournament</h3>
