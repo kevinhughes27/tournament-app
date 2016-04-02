@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402204818) do
+ActiveRecord::Schema.define(version: 20160402214342) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
-    t.string   "bracket_type",              null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "bracket_type",                  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "name"
     t.integer  "num_teams",     default: 8
-    t.integer  "num_days",      default: 2, null: false
+    t.integer  "num_days",      default: 2,     null: false
+    t.boolean  "seeded",        default: false
   end
 
   add_index "divisions", ["tournament_id", "name"], name: "index_divisions_on_tournament_id_and_name"

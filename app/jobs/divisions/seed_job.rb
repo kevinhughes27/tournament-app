@@ -34,6 +34,7 @@ module Divisions
       end
 
       reset_games(division: division, seed_round: seed_round)
+      division.update_attribute(:seeded, true)
     end
 
     private
