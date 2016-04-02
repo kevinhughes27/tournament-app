@@ -15,6 +15,8 @@ class Division < ActiveRecord::Base
   after_update :update_games
   after_update :update_places
 
+  scope :un_seeded, -> { where(seeded: false) }
+
   class InvalidNumberOfTeams < StandardError; end
   class InvalidSeedRound < StandardError; end
   class AmbiguousSeedList < StandardError; end
@@ -25,10 +27,6 @@ class Division < ActiveRecord::Base
 
   def dirty_seed?
     Divisions::DirtySeedJob.perform_now(division: self)
-  end
-
-  def seeded?
-    games.where.not(home: nil).exists?
   end
 
   def seed(seed_round = 1)

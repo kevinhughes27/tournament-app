@@ -70,6 +70,19 @@ module Divisions
       assert_equal teams.first, game.away
     end
 
+    test "sets division seeded to true" do
+      division = new_division('single_elimination_8')
+
+      teams = @teams.to_a
+      @teams.update_all(division_id: division.id)
+
+      refute division.seeded?
+
+      SeedJob.perform_now(division: division, seed_round: 1)
+
+      assert division.reload.seeded?
+    end
+
     private
 
     def new_division(type)
