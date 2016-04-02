@@ -26,7 +26,7 @@
         <%= sidebar_link "fa fa-sitemap", "Divisions", admin_divisions_path %>
         <%= sidebar_link "fa fa-map-signs", "Fields", admin_fields_path %>
         <%= sidebar_link "fa fa-calendar", "Schedule", admin_schedule_path %>
-        <%= sidebar_link "fa fa-list", "Games", admin_games_path %>
+        <%= sidebar_link "fa fa-list", "Games", admin_games_path, badge: games_badge(@tournament) %>
 
         <li class="treeview <%= sidebar_menu_class('settings') %>" define="{menu: new Admin.TreeMenu('settings', this)}">
           <a href="#">
