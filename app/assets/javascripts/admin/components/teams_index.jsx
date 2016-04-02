@@ -8,7 +8,7 @@ var columns = [
   "id",
   "name",
   "email",
-  "sms",
+  "phone",
   "division",
   "seed"
 ];
@@ -85,8 +85,8 @@ var columnsMeta = [
     sortable: false
   },
   {
-    columnName: "sms",
-    displayName: "SMS",
+    columnName: "phone",
+    displayName: "Phone",
     cssClassName: 'hidden-xs',
     order: 4,
     sortable: false
