@@ -14,7 +14,7 @@ gem 'responders'
 gem 'render_anywhere', require: false
 gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
-
+gem 'wicked_pdf'
 gem 'date_validator'
 gem 'browser-timezone-rails'
 
@@ -46,10 +46,12 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'newrelic_rpm'
+  gem 'wkhtmltopdf-heroku'
 end
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'wkhtmltopdf-binary'
   gem 'byebug'
   gem 'faker'
   gem 'spring'

@@ -10,6 +10,7 @@ Rails.application.config.assets.precompile += [
   'brochure.js',
   'admin.css',
   'admin.js',
+  'schedule.css',
   'app.css',
   'app.js',
   'fingerblast.js'

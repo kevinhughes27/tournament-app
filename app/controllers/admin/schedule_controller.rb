@@ -1,7 +1,14 @@
 class Admin::ScheduleController < AdminController
+  before_action :load_index_data, only: [:index]
 
   def index
-    load_index_data
+    respond_to do |format|
+      format.html
+      format.pdf do
+        load_divisions
+        render pdf: 'schedule', orientation: 'Landscape'
+      end
+    end
   end
 
   def update
@@ -24,6 +31,10 @@ class Admin::ScheduleController < AdminController
     @games = @tournament.games.includes(:division)
     @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
     @times = time_slots
+  end
+
+  def load_divisions
+    @divisions = @tournament.divisions.includes(:teams, games: [:home, :away])
   end
 
   def time_slots

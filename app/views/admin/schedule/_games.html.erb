@@ -1,30 +1,28 @@
-<% if @games.any? { |game| game.unassigned? } %>
-  <div id="games-card" class="box box-solid">
-    <div class="box-body">
-      <% @games.group_by{ |g| g.division }.each do |division, games| %>
-        <div class="col-md-2">
-          <h3>
-            <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
-          </h3>
-          <table id="<%= division %>">
-            <tbody>
-              <% games.each_with_index do |game, idx| %>
-                <% if game.unassigned? %>
-                  <tr>
-                  <td>
-                  <div class="game redips-drag"
-                       style="<%= color_for_game(game) %>"
-                       data-game-id="<%= game.id %>">
-                    <%= game_draggable_text(game) %>
-                  </div>
-                  </td>
-                  </tr>
-                <% end %>
+<div id="games-card" class="box box-solid" style='<%= "height: 10vh;" if @games.all? { |game| game.assigned? } %>'>
+  <div class="box-body">
+    <% @games.group_by{ |g| g.division }.each do |division, games| %>
+      <div class="col-md-2">
+        <h3>
+          <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
+        </h3>
+        <table id="<%= division %>">
+          <tbody>
+            <% games.each_with_index do |game, idx| %>
+              <% if game.unassigned? %>
+                <tr>
+                <td>
+                <div class="game redips-drag"
+                     style="<%= color_for_game(game) %>"
+                     data-game-id="<%= game.id %>">
+                  <%= game_draggable_text(game) %>
+                </div>
+                </td>
+                </tr>
               <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% end %>
-    </div>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
