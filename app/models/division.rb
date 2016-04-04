@@ -5,6 +5,7 @@ class Division < ActiveRecord::Base
   belongs_to :tournament
   has_many :teams, dependent: :nullify
   has_many :games, dependent: :destroy
+  has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy
 
   validates_presence_of :tournament, :name, :num_teams, :num_days

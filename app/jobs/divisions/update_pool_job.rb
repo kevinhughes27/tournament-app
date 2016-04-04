@@ -7,6 +7,7 @@ module Divisions
     def perform(division:, pool:)
       @division, @pool = division, pool
       if pool_finished?
+        record_results
         reseed
         push_places
       end
@@ -18,6 +19,19 @@ module Divisions
       tournament_id = division.tournament_id
       games = Game.where(tournament_id: tournament_id, division_id: division.id, pool: pool)
       games.all? { |game| game.confirmed? }
+    end
+
+    def record_results
+      sorted_teams.each_with_index do |team, idx|
+        position = idx + 1
+        PoolResult.create!(
+          tournament_id: division.tournament_id,
+          division_id: division.id,
+          pool: pool,
+          position: position,
+          team: team
+        )
+      end
     end
 
     def reseed

@@ -12,6 +12,7 @@ class Tournament < ActiveRecord::Base
   has_many :teams, dependent: :destroy
   has_many :divisions, dependent: :destroy
   has_many :games, dependent: :destroy
+  has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy
   has_many :score_reports, dependent: :destroy
 
