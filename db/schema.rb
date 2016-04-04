@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402214342) do
+ActiveRecord::Schema.define(version: 20160404032250) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -90,6 +90,16 @@ ActiveRecord::Schema.define(version: 20160402214342) do
   end
 
   add_index "places", ["tournament_id", "division_id", "prereq_uid"], name: "index_places_on_tournament_id_and_division_id_and_prereq_uid"
+
+  create_table "pool_results", force: :cascade do |t|
+    t.integer  "tournament_id", null: false
+    t.integer  "division_id",   null: false
+    t.integer  "team_id",       null: false
+    t.string   "pool",          null: false
+    t.integer  "position",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "score_reports", force: :cascade do |t|
     t.integer  "tournament_id"
