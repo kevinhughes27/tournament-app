@@ -7,18 +7,18 @@
         </h3>
         <table id="<%= division %>">
           <tbody>
-            <% games.each_with_index do |game, idx| %>
-              <% if game.unassigned? %>
-                <tr>
-                <td>
-                <div class="game redips-drag"
-                     style="<%= color_for_game(game) %>"
-                     data-game-id="<%= game.id %>">
-                  <%= game_draggable_text(game) %>
-                </div>
-                </td>
-                </tr>
-              <% end %>
+            <% games.select{ |g| g.unassigned? }.each_slice(2) do |_games| %>
+              <tr>
+                <% _games.each do |game| %>
+                  <td>
+                    <div class="game redips-drag"
+                         style="<%= color_for_game(game) %>"
+                         data-game-id="<%= game.id %>">
+                      <%= game_draggable_text(game) %>
+                    </div>
+                  </td>
+                <% end %>
+              </tr>
             <% end %>
           </tbody>
         </table>
