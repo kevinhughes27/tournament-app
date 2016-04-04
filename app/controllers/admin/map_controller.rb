@@ -15,8 +15,12 @@ class Admin::MapController < AdminController
   private
 
   def tournament_params
-    params.require(:tournament).permit(
+    tournament_params = params.require(:tournament).permit(
       map_attributes: [:lat, :long, :zoom]
     )
+
+    # hack is this a rails bug?
+    tournament_params[:map_attributes][:created_at] = @map.created_at
+    tournament_params
   end
 end

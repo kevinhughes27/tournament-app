@@ -5,7 +5,7 @@ class Admin::FieldsController < AdminController
   TAB_KEY = 'fieldsTab'
 
   before_action :load_field, only: [:show, :update, :destroy]
-  before_action :load_fields, only: [:index, :new, :show]
+  before_action :load_fields, only: [:index, :new, :create, :show, :update]
   before_action :check_delete_safety, only: [:destroy]
 
   def index

@@ -1,21 +1,48 @@
 <div class="row">
   <div class="col-md-6">
     <%= form.ui_text_field :name %>
-    <%= form.ui_text_field :lat, readonly: true %>
-    <%= form.ui_text_field :long, readonly: true %>
-    <%= form.ui_text_area :geo_json, rows: 10, readonly: true, style: 'resize: none;' %>
+    <% if @map.edited? %>
+      <br>
+      <p>
+        The following fields are created when you draw your field.
+        They're shown in case you want to copy and paste to another map
+        program.
+      </p>
+      <%= form.ui_text_field :lat, readonly: true %>
+      <%= form.ui_text_field :long, readonly: true %>
+      <%= form.ui_text_area :geo_json, rows: 10, readonly: true, style: 'resize: none;' %>
+    <% end %>
   </div>
 
   <div class="col-md-6">
-    <div class="row" define="{fieldEditor: new Admin.FieldEditor(
-        <%= @map.zoom %>,
-        <%= @field.to_json %>,
-        <%= @fields.to_json || [] %>
-      )}">
-      <div class="col-md-12">
-        <div id="_map" style="width: 100%; height: 640px;"></div>
+    <% if @map.edited? %>
+      <% if @field.new_record? %>
+        <p>
+          Draw your field on the map.
+        </p>
+      <% else %>
+        <p>
+          Edit your field drawing.
+        </p>
+      <% end %>
+      <p>
+        If the map isn't quite where you want it positioned you can edit it <%= link_to 'here', admin_map_path %>.
+      </p>
+      <div class="row" define="{fieldEditor: new Admin.FieldEditor(
+          <%= @map.zoom %>,
+          <%= @field.to_json %>,
+          <%= @fields.to_json || [] %>
+        )}">
+        <div class="col-md-12">
+          <div id="_map" style="width: 100%; height: 640px;"></div>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div style="padding-top: 30px;">
+        <i class="fa fa-exclamation-triangle"></i>
+        Set up your <%= link_to 'Map', admin_map_path %> so you can add fields to it!
+      </div>
+    <% end %>
   </div>
 </div>
 
