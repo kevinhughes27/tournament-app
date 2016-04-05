@@ -15,6 +15,7 @@
       <div id="_map" style="width:100%; height: 640px;"></div>
       <hr>
       <%= form.fields_for :map do |f| %>
+        <%= f.hidden_field :id %>
         <%= f.hidden_field :lat %>
         <%= f.hidden_field :long %>
         <%= f.hidden_field :zoom %>

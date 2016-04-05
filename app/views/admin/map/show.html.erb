@@ -31,6 +31,7 @@
     <div class="col-md-4">
       <%= ui_box do %>
         <%= form.fields_for :map do |f| %>
+          <%= f.hidden_field :id %>
           <%= f.ui_text_field :lat %>
           <%= f.ui_text_field :long %>
           <%= f.ui_text_field :zoom %>
