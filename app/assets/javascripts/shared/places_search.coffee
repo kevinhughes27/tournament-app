@@ -18,10 +18,20 @@ class UT.PlacesSearch
 
   googleAPIsLoaded: =>
     input = document.getElementById('placesSearch')
+
     @searchBox = new google.maps.places.SearchBox(input)
     @searchBox.addListener('places_changed', @placesChanged)
+
+    # hack since otherwise the click events don't work but only in admin ...
+    $(document.body).on 'click', '.pac-container', (ev) => @_fixClickEvent(ev, input)
 
   placesChanged: =>
     places = @searchBox.getPlaces()
     place = places[0]
     @searchCallback(place)
+
+  _fixClickEvent: (ev, input) ->
+    $node = $(ev.target)
+    $node = $node.closest('.pac-item') unless $node.hasClass('pac-item')
+    input.value = $node.children()[1].innerText + " " + $node.children()[2].innerText
+    input.blur()
