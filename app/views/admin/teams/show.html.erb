@@ -4,6 +4,7 @@
 <% end %>
 
 <%= content_for :top_bar_right do %>
+  <%= link_to 'New', new_admin_team_path, class: "btn btn-default" %>
   <%= ui_save_button_tag(form_id:'.edit_team') %>
 <% end %>
 
