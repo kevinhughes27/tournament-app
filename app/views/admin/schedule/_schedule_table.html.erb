@@ -14,13 +14,11 @@
         <tbody>
           <% @times.each_with_index do |time, index| %>
             <tr>
-              <td class="td-input time redips-mark">
-                <div class="td-input">
-                  <input type="text"
-                         class="td-input datetimepicker form-control"
-                         value="<%= time.to_formatted_s(:datetimepicker) %>"
-                         bind-event-blur="timeUpdated(event)">
-                </div>
+              <td class="time redips-mark">
+                <input type="text"
+                       class="td-input datetimepicker form-control"
+                       value="<%= time.to_formatted_s(:datetimepicker) %>"
+                       bind-event-blur="timeUpdated(event)">
               </td>
               <% @fields.each do |field| %>
                 <% game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>

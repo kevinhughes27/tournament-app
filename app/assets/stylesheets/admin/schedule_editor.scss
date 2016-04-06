@@ -44,9 +44,6 @@ $time-input-width: 160px;
   }
   td.time {
     min-width: $time-input-width;
-    input {
-      padding-top: $slot-height / 2;
-    }
   }
   td {
     min-width: $slot-width;
