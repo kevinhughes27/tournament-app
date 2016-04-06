@@ -15,8 +15,11 @@ gem 'render_anywhere', require: false
 gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
 gem 'wicked_pdf'
-gem 'date_validator'
 gem 'browser-timezone-rails'
+
+# added validations
+gem 'date_validator'
+gem 'phonelib'
 
 # exception tracking
 gem 'rollbar', '~> 2.7.1'

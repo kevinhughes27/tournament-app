@@ -8,6 +8,8 @@ class Team < ActiveRecord::Base
   validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
 
+  validates :phone, phone: { possible: true, allow_blank: true }
+
   after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
   after_destroy :unassign_games
   after_destroy :delete_score_reports
