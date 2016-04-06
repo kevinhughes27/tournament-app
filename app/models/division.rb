@@ -62,6 +62,7 @@ class Division < ActiveRecord::Base
 
   def update_games
     return unless self.bracket_type_changed?
+    self.update_column(:seeded, false)
     self.games.destroy_all
     @bracket = Bracket.find_by(name: self.bracket_type)
     create_games

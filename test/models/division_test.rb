@@ -63,7 +63,7 @@ class DivisionTest < ActiveSupport::TestCase
     refute division.seeded?
     assert division.dirty_seed?
 
-    division.seed(1)
+    division.seed
 
     assert division.seeded?
     refute division.dirty_seed?
@@ -79,6 +79,15 @@ class DivisionTest < ActiveSupport::TestCase
     assert_equal 12, division.games.count
     division.update_attributes(bracket_type: 'single_elimination_4')
     assert_equal 4, division.games.count
+  end
+
+  test "updating the bracket_type resets seeded status" do
+    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
+    @teams.update_all(division_id: division.id)
+    division.seed
+    assert division.seeded?
+    division.update_attributes(bracket_type: 'single_elimination_4')
+    refute division.seeded?
   end
 
   test "updating the bracket_type clears the previous places" do

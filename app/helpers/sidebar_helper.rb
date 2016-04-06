@@ -11,15 +11,6 @@ module SidebarHelper
     'active' if request.cookies['sidebar-menu'] == name
   end
 
-  def divisions_badge(tournament)
-    count = tournament.divisions.un_seeded.count
-    if count > 0
-      content_tag(:span, count, class: 'badge')
-    else
-      nil
-    end
-  end
-
   def games_badge(tournament)
     count = tournament.games.reported_unconfirmed.count
     if count > 0
