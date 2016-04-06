@@ -33,8 +33,8 @@ class Admin::TeamsController < AdminController
 
   def sample_csv
     csv = CSV.generate do |csv|
-      csv << ['Name', 'Division', 'Seed']
-      csv << ['Swift', 'Open', '1']
+      csv << ['Name', 'Email', 'Phone', 'Division', 'Seed']
+      csv << ['Swift', 'swift@gmail.com', '613-979-4997', 'Open', '1']
     end
 
     respond_to do |format|
@@ -109,7 +109,7 @@ class Admin::TeamsController < AdminController
       :id,
       :name,
       :email,
-      :sms,
+      :phone,
       :division_id,
       :seed
     )
@@ -119,7 +119,7 @@ class Admin::TeamsController < AdminController
     attributes.slice(
       :name,
       :email,
-      :sms,
+      :phone,
       :division,
       :seed
     )
