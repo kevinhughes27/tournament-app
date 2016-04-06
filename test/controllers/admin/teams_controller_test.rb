@@ -141,7 +141,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "sample_csv returns a csv download" do
     get :sample_csv, format: :csv
-    assert_match 'Name,Division,Seed', response.body
+    assert_match 'Name,Email,Phone,Division,Seed', response.body
   end
 
   test "import csv" do
