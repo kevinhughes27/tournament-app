@@ -8,23 +8,39 @@
   <%= ui_save_button_tag(form_id:'.edit_schedule') %>
 <% end %>
 
-<% if @games.present? %>
+<% if @games.present? && @fields.present? %>
+  <% if @games.all? { |game| game.unassigned? } %>
+    <div class="alert alert-info alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <i class="icon fa fa-info"></i>
+        Drag and drop games to field time slots to build your schedule
+    </div>
+  <% end %>
+
   <section define='{schedule: new Admin.Schedule(<%= @tournament.time_cap %>)}' context='schedule'>
     <%= form_tag admin_schedule_path, class: 'edit_schedule', 'bind-event-submit' => 'save(this)' do %>
       <div id="redips-drag">
         <%= render 'games' %>
         <%= render 'schedule_table' %>
+        <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
+        <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>
       </div>
-      <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
-      <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>
     <% end %>
   </section>
-<% else %>
+<% elsif @games.blank? %>
   <div class="blank-slate">
     <h3>Create the Schedule for Your Tournament</h3>
     <p>
       After you create Divisions you'll be able to make your schedule on this page.
     </p>
     <%= link_to 'Go to Divisions', admin_divisions_path, class: "btn btn-primary" %>
+  </div>
+<% else %>
+  <div class="blank-slate">
+    <h3>Create the Schedule for Your Tournament</h3>
+    <p>
+      You need to create fields before you can build your schedule.
+    </p>
+    <%= link_to 'Add a Field', new_admin_field_path, class: "btn btn-primary" %>
   </div>
 <% end %>
