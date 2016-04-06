@@ -30,6 +30,8 @@
       </p>
       <div class="row" define="{fieldEditor: new Admin.FieldEditor(
           <%= @map.zoom %>,
+          <%= @map.lat %>,
+          <%= @map.long %>,
           <%= @field.to_json %>,
           <%= @fields.to_json || [] %>
         )}">

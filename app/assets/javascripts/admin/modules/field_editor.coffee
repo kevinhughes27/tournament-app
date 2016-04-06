@@ -3,9 +3,11 @@ class Admin.FieldEditor
   LONG_FIELD: '#field_long'
   GEO_JSON_FIELD: '#field_geo_json'
 
-  constructor: (zoom, @field, fields)->
+  constructor: (zoom, mapLat, mapLong, @field, fields)->
     @geoJson = if @field.geo_json then JSON.parse(@field.geo_json) else null
-    @center = new L.LatLng(@field.lat, @field.long)
+    lat = @field.lat || mapLat
+    long = @field.long || mapLong
+    @center = new L.LatLng(lat, long)
     @map = UT.Map(@center, zoom, {}, true)
     @historyBuffer = []
 
