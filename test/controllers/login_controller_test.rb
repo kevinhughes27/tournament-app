@@ -3,7 +3,7 @@ require 'test_helper'
 class LoginControllerTest < ActionController::TestCase
 
   setup do
-    @user = users(:kevin)
+    @user = users(:bob)
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)
     @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -66,6 +66,17 @@ class LoginControllerTest < ActionController::TestCase
     post :create, user: {email: @user.email, password: 'password'}
 
     assert_login_error("Invalid login for tournament.")
+  end
+
+  test "login staff bypass" do
+    tournament = tournaments(:jazz_fest)
+    set_tournament(tournament)
+    user = users(:kevin)
+    assert user.staff?
+
+    post :create, user: {email: user.email, password: 'password'}
+
+    assert_redirected_to admin_path
   end
 
   test "logout" do

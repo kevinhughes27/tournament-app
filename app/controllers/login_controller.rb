@@ -22,7 +22,7 @@ class LoginController < Devise::SessionsController
 
     if @tournament.nil?
       login_no_tournament_id(user)
-    elsif user.is_tournament_user?(@tournament.id)
+    elsif user.is_tournament_user?(@tournament.id) || user.staff?
       login(user)
     else
       flash.now[:alert] = "Invalid login for tournament."

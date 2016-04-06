@@ -55,7 +55,9 @@ class AdminController < ApplicationController
   end
 
   def authenticate_tournament_user!
-    redirect_to new_user_session_path unless current_user.is_tournament_user?(@tournament.id)
+    unless current_user.is_tournament_user?(@tournament.id) || current_user.staff?
+      redirect_to new_user_session_path
+    end
   end
 
   def set_admin_cookie
