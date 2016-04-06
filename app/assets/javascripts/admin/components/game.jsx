@@ -30,8 +30,10 @@ exports.NameCell = React.createClass({
     var name = game.name;
     var reports = game.score_reports;
 
+    var nameClasses = classNames({'subdued': !game.has_teams});
+
     if (reports.length == 0) {
-      return( <span>{name}</span> );
+      return( <span className={nameClasses}>{name}</span> );
     };
 
     return (
