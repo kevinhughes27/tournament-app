@@ -12,7 +12,7 @@
             <span class="info-box-text">Games scheduled</span>
             <span class="info-box-number"><%= @games_scheduled %> / <%= @tournament.games.count %></span>
             <div class="progress">
-              <div class="progress-bar" style="width: 70%"></div>
+              <div class="progress-bar" style="width: <%= (@games_scheduled.to_f / @tournament.games.count)*100 %>%"></div>
             </div>
           </div>
         </div>
