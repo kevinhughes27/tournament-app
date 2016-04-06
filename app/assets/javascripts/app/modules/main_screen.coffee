@@ -91,10 +91,12 @@ class App.MainScreen
     moment.utc()
 
   pointToField: (field) ->
+    @map.clearMarkers()
+    return unless field.lat && field.long
+
     @findingField = true
     @tooFarAlert = false
 
-    @map.clearMarkers()
     @map.addMarker(field.lat, field.long)
 
     @pointMeThere.setDestination(field.lat, field.long, field.name)
