@@ -6,7 +6,7 @@
   </div>
 
   <div class="col-md-2">
-    <%= form.ui_number_field :num_days, label_html: '# Days' %>
+    <%= form.ui_number_field :num_days, min: 1, max: 2, label_html: '# Days' %>
   </div>
 
   <div class="col-md-8">
