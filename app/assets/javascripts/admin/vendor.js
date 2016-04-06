@@ -6,4 +6,3 @@
 //= require vendor/vis/dist/vis
 //= require vendor/jquery-touchswipe/jquery.touchSwipe
 //= require vendor/redips-drag
-//= require vendor/jquery.inputmask/dist/jquery.inputmask.bundle

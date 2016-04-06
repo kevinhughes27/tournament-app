@@ -1,6 +1,6 @@
 <%= form.ui_text_field :name %>
 <%= form.ui_text_field :email %>
-<%= form.ui_text_field :phone, 'data-inputmask' => '"mask": "(999) 999-9999"', 'data-mask' => true %>
+<%= form.ui_text_field :phone %>
 
 <% if @tournament.divisions.present? %>
   <%= form.ui_select :division_id, 'Division', division_options(@tournament, team) %>
