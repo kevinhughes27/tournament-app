@@ -7,7 +7,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   end
 
   test "tournament login" do
-    get 'http://lvh.me/sign_in'
+    get 'http://lvh.me/log_in'
     assert_equal 200, status
     assert_equal new_user_session_path, path
 

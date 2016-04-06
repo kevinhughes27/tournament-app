@@ -8,7 +8,7 @@ class Team < ActiveRecord::Base
   validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
 
-  validates_format_of :email, with: Devise.email_regexp
+  validates_format_of :email, with: Devise.email_regexp, allow_blank: true
   validates :phone, phone: { possible: true, allow_blank: true }
 
   after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
