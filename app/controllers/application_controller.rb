@@ -12,8 +12,7 @@ class ApplicationController < ActionController::Base
 
   def render_404
     respond_to do |format|
-      format.html { render "login/404", layout: 'login', status: :not_found }
-      format.xml  { head :not_found }
+      format.html { render 'login/404', layout: 'login', status: :not_found }
       format.any  { head :not_found }
     end
   end
