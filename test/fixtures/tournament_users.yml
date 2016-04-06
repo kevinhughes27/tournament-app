@@ -1,3 +1,7 @@
 noborders_kevin:
   user: kevin
   tournament: noborders
+
+noborders_bob:
+  user: bob
+  tournament: noborders

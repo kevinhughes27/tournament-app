@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LoginTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:kevin)
+    @user = users(:bob)
     @tournament = tournaments(:noborders)
   end
 

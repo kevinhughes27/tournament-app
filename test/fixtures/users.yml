@@ -7,3 +7,8 @@ sam:
   email: samcluthe@gmail.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   sign_in_count: 5
+
+bob:
+  email: bob@gmail.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  sign_in_count: 5

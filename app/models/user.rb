@@ -23,6 +23,15 @@ class User < ActiveRecord::Base
     authentication.user
   end
 
+  STAFF = [
+    'kevinhughes27@gmail.com',
+    'samcluthe@gmail.com'
+  ]
+
+  def staff?
+    STAFF.include?(email)
+  end
+
   def name
     email.split('@').first
   end
