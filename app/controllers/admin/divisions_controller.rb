@@ -72,6 +72,7 @@ class Admin::DivisionsController < AdminController
     @bracket_params ||= params.require(:division).permit(
       :name,
       :num_teams,
+      :num_days,
       :bracket_type
     )
   end
