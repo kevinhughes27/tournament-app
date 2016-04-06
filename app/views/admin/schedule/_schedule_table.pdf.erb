@@ -13,7 +13,7 @@
       <% times.each_with_index do |time, index| %>
         <tr>
           <td>
-            <%= time.time.strftime("%l:%M %P") %>
+            <%= time.strftime("%l:%M %P") %>
           </td>
 
           <% @fields.each do |field| %>
