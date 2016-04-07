@@ -1,5 +1,6 @@
 $game-width: 80px;
 $game-height: 40px;
+$game-col-width: 220px;
 $slot-width: 90px;
 $slot-height: 50px;
 $time-input-width: 160px;
@@ -21,6 +22,20 @@ $time-input-width: 160px;
   }
 }
 
+#games-card {
+  .table {
+    width: auto;
+  }
+  td.game-col {
+    h3 {
+      margin-top: 0px;
+    }
+    border: none;
+    max-width: $game-col-width;
+    min-width: $game-col-width;
+  }
+}
+
 .game-error {
   border-color: rgb(189, 79, 79) !important;
 }
@@ -37,6 +52,9 @@ $time-input-width: 160px;
 
 .schedule-table {
   padding-top: 20px;
+  table {
+    width: auto;
+  }
   tbody > tr {
     line-height: $slot-height;
     min-height: $slot-height;

@@ -1,28 +1,34 @@
 <div id="games-card" class="box box-solid" style='<%= "height: 10vh;" if @games.all? { |game| game.assigned? } %>'>
   <div class="box-body">
-    <% @games.group_by{ |g| g.division }.each do |division, games| %>
-      <div class="col-md-2">
-        <h3>
-          <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
-        </h3>
-        <table id="<%= division %>">
-          <tbody>
-            <% games.select{ |g| g.unassigned? }.each_slice(2) do |_games| %>
-              <tr>
-                <% _games.each do |game| %>
-                  <td>
-                    <div class="game redips-drag"
-                         style="<%= color_for_game(game) %>"
-                         data-game-id="<%= game.id %>">
-                      <%= game_draggable_text(game) %>
-                    </div>
-                  </td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
+    <table class="table">
+      <tbody>
+        <tr>
+          <% @games.group_by{ |g| g.division }.each do |division, games| %>
+            <td class="game-col">
+              <h3>
+                <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
+              </h3>
+              <table id="<%= division %>">
+                <tbody>
+                  <% games.select{ |g| g.unassigned? }.each_slice(2) do |_games| %>
+                    <tr>
+                      <% _games.each do |game| %>
+                        <td>
+                          <div class="game redips-drag"
+                               style="<%= color_for_game(game) %>"
+                               data-game-id="<%= game.id %>">
+                            <%= game_draggable_text(game) %>
+                          </div>
+                        </td>
+                      <% end %>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </td>
+          <% end %>
+        </tbody>
+      </tr>
+    </table>
   </div>
 </div>
