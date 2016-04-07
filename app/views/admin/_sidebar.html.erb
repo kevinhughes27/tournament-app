@@ -41,10 +41,21 @@
           </ul>
         </li>
 
+        <br>
+
         <li>
           <%= link_to '#', 'bind-event-click' => 'window.open("/", "_blank")' do %>
             <i class="fa fa-external-link-square"></i>
             <span>Player App</span>
+          <% end %>
+        </li>
+
+        <br>
+
+        <li>
+          <%= mail_to 'support@ultimate-tournament.io' do %>
+            <i class="icon fa fa-question-circle"></i>
+            <span>Need Help?</span>
           <% end %>
         </li>
       </ul>
