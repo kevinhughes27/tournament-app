@@ -13,7 +13,7 @@
                   <% games.select{ |g| g.unassigned? }.each_slice(2) do |_games| %>
                     <tr>
                       <% _games.each do |game| %>
-                        <td>
+                        <td class="redips-mark">
                           <div class="game redips-drag"
                                style="<%= color_for_game(game) %>"
                                data-game-id="<%= game.id %>">
