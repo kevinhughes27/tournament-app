@@ -16,10 +16,13 @@ class Admin::SettingsController < AdminController
   private
 
   def tournament_params
-    params.require(:tournament).permit(
+    tournament_params = params.require(:tournament).permit(
       :name,
       :handle,
       :time_cap
     )
+
+    tournament_params.merge!(timezone: Time.zone.name)
+    tournament_params
   end
 end

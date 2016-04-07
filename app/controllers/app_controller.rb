@@ -1,5 +1,6 @@
 class AppController < ApplicationController
   before_action :load_tournament
+  before_action :set_tournament_timezone
   layout 'app'
 
   def show
@@ -9,7 +10,7 @@ class AppController < ApplicationController
     @games = @tournament.games
                .assigned
                .with_teams
-               .includes(:home, :away, :field)
+               .includes(:home, :away, :field, :division)
 
     render :show
   end
@@ -22,13 +23,14 @@ class AppController < ApplicationController
   private
 
   def load_tournament
-    @tournament = tournament_scope.find(request.subdomain)
+    @tournament = Tournament.friendly.find(request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
   end
 
-  def tournament_scope
-    Tournament.friendly
+  # this can still be overridden by the user's timezone cookie
+  def set_tournament_timezone
+    Time.zone = @tournament.timezone
   end
 
   def score_report_params
@@ -50,5 +52,4 @@ class AppController < ApplicationController
     @score_report_params[:tournament_id] = @tournament.id
     @score_report_params
   end
-
 end
