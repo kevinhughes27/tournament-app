@@ -32,6 +32,12 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal ["can't be blank", "is not a number"], tournament.errors[:time_cap]
   end
 
+  test "tournament requires a positive time cap" do
+    tournament = Tournament.new(name: 'No Borders', handle: 'no-borders', time_cap: -1)
+    refute tournament.valid?
+    assert_equal ["must be greater than or equal to 0"], tournament.errors[:time_cap]
+  end
+
   test "tournament requires at least one tournament user" do
     tournament = tournaments(:noborders)
     tournament.tournament_users.destroy_all
