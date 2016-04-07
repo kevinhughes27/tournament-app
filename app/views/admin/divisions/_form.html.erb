@@ -12,6 +12,15 @@
   <div class="col-md-8">
     <% options = bracket_options(division) %>
     <%= form.ui_select :bracket_type, 'Bracket', options, disabled:  options.blank? %>
+
+    <div class="panel panel-default subdued">
+      <div class="panel-body">
+        <i class="fa fa-question-circle"></i>
+        Can't find the bracket you need?
+        <%= contact_us(text: 'contact us') %>
+        and we'll sort you out.
+      </div>
+    </div>
   </div>
 </div>
 
