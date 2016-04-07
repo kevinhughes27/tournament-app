@@ -4,7 +4,9 @@
     <div class="container">
       <div class="info">
         <h1>Get started now for free!</h1>
-        <%= link_to "Sign up", "#animatedModal", class: "btn btn-neutral btn-lg signupModal" %>
+        <%= link_to "Sign up", "#animatedModal",
+            class: "btn btn-neutral btn-lg signupModal",
+            "track-click" => "{category: 'Signup', action: 'click'}" %>
       </div>
     </div>
   </div>

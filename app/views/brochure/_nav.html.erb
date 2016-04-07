@@ -20,7 +20,11 @@
         <li><a href="#" onclick="$('body').scrollTo('.section-features', 500); return false;">Features</a></li>
         <li><a href="#" onclick="$('body').scrollTo('.section-contact', 600); return false;">Contact</a></li>
         <li><%= link_to 'Log in', new_user_session_path %></li>
-        <li><a class="signupModal" href="#animatedModal">Sign up</a></li>
+        <li>
+          <a class="signupModal" href="#animatedModal" track-click="{category: 'Signup.Nav', action: 'click'}">
+            Sign up
+          </a>
+        </li>
       </ul>
     </div>
 
