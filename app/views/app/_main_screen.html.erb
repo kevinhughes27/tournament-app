@@ -1,9 +1,9 @@
 <!-- main-view -->
 <div class="bar bar-nav bar-tblue">
-  <a class="nav-btn pull-left" href="#" bind-event-click="scheduleScreen.show()" track-click="{category: 'Main', action: 'ViewSchedule'}">
+  <a class="nav-btn pull-left" href="#" bind-event-click="scheduleScreen.show()" track-click="{category: 'App.Main', action: 'ViewSchedule'}">
     <i class="fa fa-list-alt"></i> Schedule
   </a>
-  <a class="nav-btn pull-right" href="#" bind-event-click="submitScoreScreen.show()" track-click="{category: 'Main', action: 'SubmitScore'}">
+  <a class="nav-btn pull-right" href="#" bind-event-click="submitScoreScreen.show()" track-click="{category: 'App.Main', action: 'SubmitScore'}">
     Submit a score <i class="fa fa-star-half-o"></i>
   </a>
 </div>
@@ -63,12 +63,12 @@
 <!-- find-drawer -->
 <div id="drawer" class="drawer" bind-class="{active: drawerOpen}">
   <div class="content transparent">
-    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showFieldSelect()" track-click="{category: 'Main', action: 'FindField'}">Find a field</button>
-    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showTeamSelect()" track-click="{category: 'Main', action: 'FindTeam'}">Find a team</button>
+    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showFieldSelect()" track-click="{category: 'App.Main', action: 'FindField'}">Find a field</button>
+    <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showTeamSelect()" track-click="{category: 'App.Main', action: 'FindTeam'}">Find a team</button>
   </div>
 
   <div class="bar bar-standard bar-footer">
-    <a class="pull-right" href="#" bind-event-click="drawerOpen = false" track-click="{category: 'Main', action: 'CloseDrawer'}">Back to map</a>
+    <a class="pull-right" href="#" bind-event-click="drawerOpen = false" track-click="{category: 'App.Main', action: 'CloseDrawer'}">Back to map</a>
   </div>
 </div>
 <!-- end find-drawer -->

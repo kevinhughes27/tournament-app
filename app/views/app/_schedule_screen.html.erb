@@ -46,7 +46,7 @@
               <% if game.score_confirmed %>
                 <%= "(#{game.home_score}/#{game.away_score})" %>
               <% end %>
-              <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='findField("<%= game.field.name %>")' track-click="{category: 'ScheduleScreen', action: 'FindField'}">
+              <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='findField("<%= game.field.name %>")' track-click="{category: 'App.ScheduleScreen', action: 'FindField'}">
                 <%= game.field.name %>
                 <i class="fa fa-map-marker"></i>
               </a>
