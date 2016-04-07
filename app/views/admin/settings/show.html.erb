@@ -13,8 +13,12 @@
   <%= form_for @tournament, url: admin_settings_path, method: :put, remote: true do |form| %>
 
     <%= form.ui_text_field :name %>
-    <%= form.ui_text_field :handle %>
-    <%= form.ui_number_field :time_cap, min: 0 %>
+
+    <%= form.ui_text_field :handle,
+        help_text: 'This dicates the first part of your website address' %>
+
+    <%= form.ui_number_field :time_cap, min: 0,
+        help_text: "This is used to make sure games don't overlap and to help when building your schedule." %>
 
     <hr>
     <%= form.ui_save_button %>

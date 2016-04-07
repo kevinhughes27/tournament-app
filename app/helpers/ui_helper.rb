@@ -5,6 +5,11 @@ module UiHelper
     def ui_text_field(method, options = {})
       content_tag(:div, class: 'form-group') do
         concat label(method)
+
+        if options.key?(:help_text)
+          concat content_tag(:p, options.delete(:help_text))
+        end
+
         concat text_field(method, options.merge(class: 'form-control'))
       end
     end
@@ -30,6 +35,11 @@ module UiHelper
         else
           concat label(method)
         end
+
+        if options.key?(:help_text)
+          concat content_tag(:p, options.delete(:help_text))
+        end
+
         concat number_field(method, options.merge(class: 'form-control'))
       end
     end
