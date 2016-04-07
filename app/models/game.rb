@@ -88,6 +88,10 @@ class Game < ActiveRecord::Base
     score_confirmed
   end
 
+  def unconfirmed?
+    !score_confirmed
+  end
+
   def valid_for_seed_round?
     home_prereq_uid.match(/\A\d+\z/) || away_prereq_uid.match(/\A\d+\z/)
   end
