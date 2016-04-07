@@ -8,8 +8,10 @@ class Division < ActiveRecord::Base
   has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy
 
-  validates_presence_of :tournament, :name, :num_teams, :num_days
+  validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
+  validates :num_teams, presence: true, numericality: {greater_than_or_equal_to: 0}
+  validates :num_days, presence: true, numericality: {greater_than_or_equal_to: 0}
 
   after_create :create_games
   after_create :create_places
