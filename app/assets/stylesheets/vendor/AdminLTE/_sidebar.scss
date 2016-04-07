@@ -57,27 +57,37 @@
 .user-panel {
   position: absolute;
   bottom: 0px;
-  width: 100%;
   padding: 10px;
   overflow: hidden;
   @include clearfix;
 
   .image > img {
     width: 100%;
-    max-width: 35px;
+    max-width: 30px;
     height: auto;
   }
 
   .info {
-    padding: 5px 5px 5px 15px;
-    line-height: 1;
-    position: relative;
+    padding-left: 30px;
+    margin-left: 10px;
+    transition: opacity 0.25s ease-in-out;
+    -webkit-transition: opacity 0.25s ease-in-out;
+    -moz-transition: opacity 0.25s ease-in-out;
+    -o-transition: opacity 0.25s ease-in-out;
+    -ms-transition: opacity 0.25s ease-in-out;
+    .sidebar-collapse & {
+      opacity: 0;
+    }
+    .sidebar-open & {
+      opacity: 1;
+    }
   }
 
   .dropdown-menu {
-    position: relative;
-    bottom: 10px;
-    width: 100%;
+    position: fixed;
+    bottom: 48px;
+    left: 10px;
+    width: 200px;
     a {
       color: $link-color !important;
     }
@@ -108,10 +118,6 @@
       margin-top: 3px;
       margin-right: 5px;
     }
-  }
-  li.header {
-    padding: 10px 25px 10px 15px;
-    font-size: 12px;
   }
   li > a > .fa-angle-left {
     width: auto;

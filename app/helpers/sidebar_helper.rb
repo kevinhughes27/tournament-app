@@ -3,10 +3,6 @@ module SidebarHelper
     request.cookies['sidebar']
   end
 
-  def sidebar_user_class
-    'display: none;' if sidebar_class.present?
-  end
-
   def sidebar_menu_class(name)
     'active' if request.cookies['sidebar-menu'] == name
   end
