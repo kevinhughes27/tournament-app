@@ -39,6 +39,11 @@ class GameTest < ActiveSupport::TestCase
     assert @game.errors.empty?
   end
 
+  test "game must have a valid field" do
+    @game.update_attributes(field_id: 999, start_time: nil)
+    assert_equal ["is invalid"], @game.errors[:field]
+  end
+
   test "valid_for_seed_round? returns true if either top and bottom are integers" do
     game = Game.new(home_prereq_uid: 1, away_prereq_uid: 8)
     assert game.valid_for_seed_round?

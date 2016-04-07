@@ -111,7 +111,6 @@ class Admin::FieldsController < AdminController
   def field_params
     @field_params ||= params.require(:field)
       .permit(
-        :id,
         :name,
         :lat,
         :long,

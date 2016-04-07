@@ -14,7 +14,7 @@ class Admin::ScheduleController < AdminController
   def update
     ActiveRecord::Base.transaction do
       games_params.each do |p|
-        game = Game.find(p[:id])
+        game = Game.find_by(tournament_id: @tournament.id, id: p[:id])
         game.update_attributes!(p)
       end
     end

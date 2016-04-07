@@ -15,8 +15,10 @@ class Game < ActiveRecord::Base
   validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
-  validates_presence_of :field,      if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
+
+  validates_presence_of :field, if: Proc.new{ |g| g.start_time.present? }
+  validate :validate_field
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
@@ -146,5 +148,10 @@ class Game < ActiveRecord::Base
   def update_places
     return unless self.confirmed?
     Divisions::UpdatePlacesJob.perform_later(game_id: self.id)
+  end
+
+  def validate_field
+    return if field_id.blank? || errors[:field].present?
+    errors.add(:field, 'is invalid') unless tournament.fields.where(id: field_id).exists?
   end
 end

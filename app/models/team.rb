@@ -10,6 +10,8 @@ class Team < ActiveRecord::Base
 
   validates_format_of :email, with: Devise.email_regexp, allow_blank: true
   validates :phone, phone: { possible: true, allow_blank: true }
+  validates :seed, numericality: { allow_blank: true }
+  validate :validate_division
 
   after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
   after_destroy :unassign_games
@@ -46,5 +48,10 @@ class Team < ActiveRecord::Base
       tournament_id: tournament_id,
       team_id: id
     )
+  end
+
+  def validate_division
+    return unless division_id.present?
+    errors.add(:division, 'is invalid') unless tournament.divisions.where(id: division_id).exists?
   end
 end
