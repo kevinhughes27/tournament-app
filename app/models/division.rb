@@ -12,6 +12,7 @@ class Division < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :tournament
   validates :num_teams, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :num_days, presence: true, numericality: {greater_than_or_equal_to: 0}
+  validate :validate_bracket_type
 
   after_create :create_games
   after_create :create_places
@@ -75,5 +76,9 @@ class Division < ActiveRecord::Base
     self.games.destroy_all
     @bracket = Bracket.find_by(name: self.bracket_type)
     create_places
+  end
+
+  def validate_bracket_type
+    errors.add(:bracket_type, 'is invalid') unless bracket.present?
   end
 end
