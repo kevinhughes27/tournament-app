@@ -4,7 +4,7 @@
       <tbody>
         <tr>
           <% @games.group_by{ |g| g.division }.each do |division, games| %>
-            <td class="game-col">
+            <td class="game-col redips-mark">
               <h3>
                 <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
               </h3>
