@@ -23,13 +23,16 @@ class TournamentsBuildController < ApplicationController
   private
 
   def tournament_params
-    params.require(:tournament).permit(
+    tournament_params = params.require(:tournament).permit(
       :name,
       :handle,
       :time_cap,
       :location,
       map_attributes: [:lat, :long, :zoom]
     )
+
+    tournament_params.merge!(timezone: Time.zone.name)
+    tournament_params
   end
 
   def load_tournament

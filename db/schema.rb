@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404032250) do
+ActiveRecord::Schema.define(version: 20160407191720) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20160404032250) do
     t.string   "handle"
     t.integer  "time_cap",   default: 90, null: false
     t.string   "location"
+    t.string   "timezone"
   end
 
   create_table "user_authentications", force: :cascade do |t|
