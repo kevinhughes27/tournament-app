@@ -106,7 +106,6 @@ class Admin::TeamsController < AdminController
 
   def team_params
     @team_params ||= params.require(:team).permit(
-      :id,
       :name,
       :email,
       :phone,

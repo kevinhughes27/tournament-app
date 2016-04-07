@@ -5,6 +5,7 @@ class TeamTest < ActiveSupport::TestCase
     @team = teams(:swift)
     @game = games(:swift_goose)
     @tournament = tournaments(:noborders)
+    @division = divisions(:open)
   end
 
   test "deleting a team unassigns if from all games (home)" do
@@ -65,7 +66,40 @@ class TeamTest < ActiveSupport::TestCase
     end
   end
 
+  test "seed must be numeric" do
+    attrs = new_team_attributes
+    attrs[:seed] = 'a'
+
+    team = Team.new(attrs)
+
+    refute team.valid?
+    assert_equal ['is not a number'], team.errors[:seed]
+  end
+
+  test "division must be division" do
+    attrs = new_team_attributes
+    attrs[:division_id] = 999
+
+    team = Team.new(attrs)
+
+    refute team.valid?
+    assert_equal ['is invalid'], team.errors[:division]
+  end
+
   test "limit is define" do
     assert_equal 256, Team::LIMIT
+  end
+
+  private
+
+  def new_team_attributes
+    {
+      name: 'Goat',
+      division_id: @division.id,
+      tournament_id: @tournament.id,
+      email: 'goat@goat.com',
+      phone: '999-999-9999',
+      seed: 1
+    }
   end
 end
