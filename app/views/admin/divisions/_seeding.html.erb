@@ -1,5 +1,9 @@
 <%= ui_box do %>
   <h4>Seeding</h4>
+  <p>
+    You can update the seeds for the teams in this division conviently here.
+    Remeber if you change the teams you'll have to re-seed the division.
+  </p>
 
   <%= form_tag update_teams_admin_division_path(division), method: :put, remote: true do %>
 
