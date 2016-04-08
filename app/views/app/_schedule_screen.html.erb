@@ -19,43 +19,47 @@
     </div>
 
     <div class="content">
-      <ul class="table-view">
+      <% if @games.present? %>
+        <ul class="table-view">
 
-        <% @games.group_by{ |g| g.start_time }.sort.each do |time, games| %>
+          <% @games.group_by{ |g| g.start_time }.sort.each do |time, games| %>
 
-          <li class="table-view-divider"  bind-show="filter(<%= games.map{|g| [g.name]}.flatten.to_json %>)">
-            <div class='divider-container'>
-              <div class="divider-time" data-time="<%= time%>">
-                <strong><%= time.strftime("%l:%M %P") %></strong>
+            <li class="table-view-divider"  bind-show="filter(<%= games.map{|g| [g.name]}.flatten.to_json %>)">
+              <div class='divider-container'>
+                <div class="divider-time" data-time="<%= time%>">
+                  <strong><%= time.strftime("%l:%M %P") %></strong>
+                </div>
+                <div class="divider-day">
+                  <strong><%= time.strftime("%A") %></strong>
+                </div>
               </div>
-              <div class="divider-day">
-                <strong><%= time.strftime("%A") %></strong>
-              </div>
-            </div>
-          </li>
-
-          <% games.each do |game| %>
-
-            <li id="game-<%= game.id %>" class="table-view-cell" bind-show="filter(<%= game.name.to_json %>)">
-              <% if game.home && game.away %>
-                <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
-              <% else %>
-                <%= game.name %>
-              <% end %>
-
-              <% if game.score_confirmed %>
-                <%= "(#{game.home_score}/#{game.away_score})" %>
-              <% end %>
-              <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='findField("<%= game.field.name %>")' track-click="{category: 'App.ScheduleScreen', action: 'FindField'}">
-                <%= game.field.name %>
-                <i class="fa fa-map-marker"></i>
-              </a>
             </li>
 
-          <% end %>
-        <% end %>
+            <% games.each do |game| %>
 
-      </ul>
+              <li id="game-<%= game.id %>" class="table-view-cell" bind-show="filter(<%= game.name.to_json %>)">
+                <% if game.home && game.away %>
+                  <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
+                <% else %>
+                  <%= game.name %>
+                <% end %>
+
+                <% if game.score_confirmed %>
+                  <%= "(#{game.home_score}/#{game.away_score})" %>
+                <% end %>
+                <a class="navigate-right btn btn-invis btn-green btn-field" bind-event-click='findField("<%= game.field.name %>")' track-click="{category: 'App.ScheduleScreen', action: 'FindField'}">
+                  <%= game.field.name %>
+                  <i class="fa fa-map-marker"></i>
+                </a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="blank-slate">
+          There are no games scheduled yet
+        </div>
+      <% end %>
     </div>
 
   </div>
