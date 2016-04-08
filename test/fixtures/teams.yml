@@ -8,6 +8,7 @@ goose:
   tournament: noborders
   division: open
   name: Goose
+  email: goose@losers.com
   seed: 7
   points_for: 1
 

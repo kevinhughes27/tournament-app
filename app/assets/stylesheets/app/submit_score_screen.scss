@@ -65,6 +65,12 @@ input.score-input {
   color: $positive-color;
 }
 
+.warning-icon {
+  padding-top: 160px;
+  padding-bottom: 50px;
+  color: $negative-color;
+}
+
 @keyframes bounceIn {
   from, 20%, 80%, 100% {
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);

@@ -1,6 +1,8 @@
 class AppController < ApplicationController
   before_action :load_tournament
   before_action :set_tournament_timezone
+  before_action :load_confirm_token, only: [:confirm]
+
   layout 'app'
 
   def show
@@ -20,12 +22,28 @@ class AppController < ApplicationController
     render json: true
   end
 
+  def confirm
+    if request.post?
+      ScoreReport.create!(score_report_params.merge(is_confirmation: true))
+      render 'confirm_score_success'
+    else
+      @report = @confirm_token.score_report
+    end
+  end
+
   private
 
   def load_tournament
     @tournament = Tournament.friendly.find(request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def load_confirm_token
+    @confirm_token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])
+    if @confirm_token.blank?
+      render 'token_not_found', status: :not_found
+    end
   end
 
   # this can still be overridden by the user's timezone cookie
@@ -35,7 +53,6 @@ class AppController < ApplicationController
 
   def score_report_params
     @score_report_params ||= params.permit(
-      :tournament_id,
       :game_id,
       :team_id,
       :submitter_fingerprint,

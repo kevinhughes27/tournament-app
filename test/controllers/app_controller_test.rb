@@ -5,6 +5,7 @@ class AppControllerTest < ActionController::TestCase
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)
     @report = score_reports(:swift_goose)
+    @token = score_report_confirm_tokens(:goose_confirm_token)
   end
 
   test "get show" do
@@ -25,6 +26,45 @@ class AppControllerTest < ActionController::TestCase
 
     assert_difference "ScoreReport.count", +1 do
       post :score_submit, params, format: :json
+    end
+  end
+
+  test "get confirm page" do
+    get :confirm, id: @token.id, token: @token.token
+    assert_response :ok
+    assert_template :confirm
+  end
+
+  test "get confirm page without token param 404s" do
+    get :confirm, id: @token.id
+    assert_response :not_found
+    assert_template 'token_not_found'
+  end
+
+  test "confirm a score report" do
+    params = @report.attributes.merge(
+      id: @token.id,
+      token: @token.token,
+      submitter_fingerprint: 'fingerprint'
+    )
+
+    assert_difference "ScoreReport.count", +1 do
+      post :confirm, params
+      assert_response :ok
+      assert_template 'confirm_score_success'
+    end
+  end
+
+  test "confirm a score report requires token" do
+    params = @report.attributes.merge(
+      id: @token.id,
+      submitter_fingerprint: 'fingerprint'
+    )
+
+    assert_no_difference "ScoreReport.count" do
+      post :confirm, params
+      assert_response :not_found
+      assert_template 'token_not_found'
     end
   end
 end
