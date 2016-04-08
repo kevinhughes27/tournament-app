@@ -21,7 +21,7 @@ class LoginController < Devise::SessionsController
     return redirect_to setup_path unless user.tournaments.exists?
 
     if flash[:internal_path] && current_user.staff?
-      return redirect_to session[:internal_path]
+      return redirect_to flash[:internal_path]
     end
 
     if @tournament.nil?

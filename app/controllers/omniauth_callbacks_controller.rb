@@ -5,7 +5,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     sign_in(:user, user)
 
     if flash[:internal_path] && current_user.staff?
-      return redirect_to session[:internal_path]
+      return redirect_to flash[:internal_path]
     end
 
     if user.sign_in_count == 1 || !user.tournaments.exists?
