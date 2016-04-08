@@ -10,9 +10,10 @@
     </div>
 
     <%= form.fields_for :map do |f| %>
-      <%= f.hidden_field :lat, value: 56.0 %>
-      <%= f.hidden_field :long, value: -96.0 %>
-      <%= f.hidden_field :zoom, value: 12 %>
+      <%= f.hidden_field :id %>
+      <%= f.hidden_field :lat %>
+      <%= f.hidden_field :long %>
+      <%= f.hidden_field :zoom %>
     <% end %>
 
     <div class="builder-next-btn">

@@ -12,6 +12,7 @@ class TournamentsController < ApplicationController
     Tournament.transaction do
       @tournament.save!
       TournamentUser.create!(tournament_id: @tournament.id, user_id: current_user.id)
+      create_map
     end
 
     redirect_to tournament_build_path(@tournament.id, :step1)
@@ -27,5 +28,13 @@ class TournamentsController < ApplicationController
       :name,
       :handle,
     )
+  end
+
+  def create_map
+    @tournament.build_map(
+      lat: 56.0,
+      long: -96.0,
+      zoom: 12
+    ).save!
   end
 end
