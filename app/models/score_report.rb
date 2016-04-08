@@ -57,6 +57,9 @@ class ScoreReport < ActiveRecord::Base
     end
   end
 
+  def other_team_score
+  end
+
   def sotg_score
     [rules_knowledge, fouls, fairness, attitude, communication].join("-")
   end
@@ -68,10 +71,13 @@ class ScoreReport < ActiveRecord::Base
   private
 
   def notify_other_team
+    return if is_confirmation?
+
     token = ScoreReportConfirmToken.create!({
       tournament_id: tournament_id,
       score_report_id: id
     })
+
     ScoreReportMailer.notify_team_email(other_team, team, self, token).deliver_later
   end
 end

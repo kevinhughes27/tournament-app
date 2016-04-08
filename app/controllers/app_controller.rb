@@ -21,7 +21,13 @@ class AppController < ApplicationController
   end
 
   def confirm
-    @confirm_token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])
+    if request.post?
+      ScoreReport.create!(score_report_params.merge(is_confirmation: true))
+      render 'confirm_score_success'
+    else
+      @confirm_token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])
+      @report = @confirm_token.score_report
+    end
   end
 
   private

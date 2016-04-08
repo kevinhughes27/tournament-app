@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     draw :admin
     get '/' => 'app#show', as: 'app'
     post '/submit_score' => 'app#score_submit', as: 'app_score_submit'
-    get '/confirm/:id' => 'app#confirm'
+    get '/confirm/:id' => 'app#confirm', as: 'app_confirm'
     post '/confirm/:id' => 'app#confirm'
   end
 

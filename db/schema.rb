@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408032852) do
+ActiveRecord::Schema.define(version: 20160408190820) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -121,10 +121,11 @@ ActiveRecord::Schema.define(version: 20160408032852) do
     t.integer  "fairness",              limit: 1
     t.integer  "attitude",              limit: 1
     t.integer  "communication",         limit: 1
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "comments"
     t.datetime "deleted_at"
+    t.boolean  "is_confirmation",                 default: false
   end
 
   add_index "score_reports", ["tournament_id", "game_id", "deleted_at"], name: "tournament_game_deleted_at"
