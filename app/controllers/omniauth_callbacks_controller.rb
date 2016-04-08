@@ -4,7 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.from_omniauth(request.env['omniauth.auth'])
     sign_in(:user, user)
 
-    if session[:internal_path] && current_user.staff?
+    if flash[:internal_path] && current_user.staff?
       return redirect_to session[:internal_path]
     end
 

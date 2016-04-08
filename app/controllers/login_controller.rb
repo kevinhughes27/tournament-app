@@ -20,7 +20,7 @@ class LoginController < Devise::SessionsController
     user = warden.authenticate!(auth_options)
     return redirect_to setup_path unless user.tournaments.exists?
 
-    if session[:internal_path] && current_user.staff?
+    if flash[:internal_path] && current_user.staff?
       return redirect_to session[:internal_path]
     end
 

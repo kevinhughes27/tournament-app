@@ -9,7 +9,7 @@ class InternalController < ApplicationController
 
   def store_location
     return unless request.get?
-    session[:internal_path] = request.path
+    flash[:internal_path] = request.path
   end
 
   def ensure_staff
