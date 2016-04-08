@@ -20,6 +20,10 @@ class LoginController < Devise::SessionsController
     user = warden.authenticate!(auth_options)
     return redirect_to setup_path unless user.tournaments.exists?
 
+    if session[:internal_path] && current_user.staff?
+      return redirect_to session[:internal_path]
+    end
+
     if @tournament.nil?
       login_no_tournament_id(user)
     elsif user.is_tournament_user?(@tournament.id) || user.staff?
@@ -38,19 +42,15 @@ class LoginController < Devise::SessionsController
   private
 
   def login_no_tournament_id(user)
-    sign_in(:user, user)
-
     if user.tournaments.count == 1
-      flash[:animate] = "fadeIn"
-      tournament = user.tournaments.first
-      respond_with user, location: admin_url(subdomain: tournament.handle)
+      @tournament = user.tournaments.first
+      login(user)
     else
       redirect_to choose_tournament_path
     end
   end
 
   def login(user)
-    sign_in(:user, user)
     flash[:animate] = "fadeIn"
     respond_with user, location: after_login_in_path
   end

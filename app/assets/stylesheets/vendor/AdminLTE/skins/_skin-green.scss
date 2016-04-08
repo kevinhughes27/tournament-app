@@ -2,6 +2,7 @@
  * Skin: Green
  * -----------
  */
+
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 @import "../variables";
@@ -52,5 +53,4 @@
 
   //Create the sidebar skin
   @include skin-dark-sidebar($green);
-
 }
