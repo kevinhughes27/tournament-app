@@ -20,6 +20,10 @@ class AppController < ApplicationController
     render json: true
   end
 
+  def confirm
+    @confirm_token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])
+  end
+
   private
 
   def load_tournament

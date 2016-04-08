@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @team.name %>,</h1>
+    <p>
+      Your opponent <%= @opponent.name %> submitted the result as a <%= @report.score %>
+      <strong>
+        <% if @report.submitter_won? %>
+          loss
+        <% else %>
+          win
+        <% end %>
+      </strong>
+      for your team.
+    </p>
+    <p>
+      To confirm the result <%= link_to 'click this link', "#{@tournament.domain}/confirm/#{@token.path}" %>
+    </p>
+    <p>
+      To submit a different score and fill out a SOTF questionaire
+      <%= link_to 'click here', "#{@tournament.domain}/#submit-score" %>
+    </p>
+  </body>
+</html>

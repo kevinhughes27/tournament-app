@@ -2,6 +2,7 @@ class ScoreReport < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :game
   belongs_to :team
+  has_one :score_report_confirm_token
 
   acts_as_paranoid
 
@@ -14,8 +15,18 @@ class ScoreReport < ActiveRecord::Base
 
   validates_numericality_of :team_score, :opponent_score
 
+  after_create :notify_other_team
+
   def submitted_by
     team.name
+  end
+
+  def submitter_won?
+    if team == game.home
+      home_score > away_score
+    else
+      away_score > home_score
+    end
   end
 
   def score
@@ -38,11 +49,29 @@ class ScoreReport < ActiveRecord::Base
     end
   end
 
+  def other_team
+    if team == game.home
+      game.away
+    else
+      game.home
+    end
+  end
+
   def sotg_score
     [rules_knowledge, fouls, fairness, attitude, communication].join("-")
   end
 
   def sotg_warning?
     [rules_knowledge, fouls, fairness, attitude, communication].any?{ |v| v < 2 }
+  end
+
+  private
+
+  def notify_other_team
+    token = ScoreReportConfirmToken.create!({
+      tournament_id: tournament_id,
+      score_report_id: id
+    })
+    ScoreReportMailer.notify_team_email(other_team, team, self, token).deliver_later
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407191720) do
+ActiveRecord::Schema.define(version: 20160408032852) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -100,6 +100,14 @@ ActiveRecord::Schema.define(version: 20160407191720) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "score_report_confirm_tokens", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "score_report_id"
+    t.string  "token"
+  end
+
+  add_index "score_report_confirm_tokens", ["token"], name: "index_score_report_confirm_tokens_on_token"
 
   create_table "score_reports", force: :cascade do |t|
     t.integer  "tournament_id"
