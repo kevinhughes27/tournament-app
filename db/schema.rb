@@ -102,9 +102,9 @@ ActiveRecord::Schema.define(version: 20160408190820) do
   end
 
   create_table "score_report_confirm_tokens", force: :cascade do |t|
-    t.integer "tournament_id"
-    t.integer "score_report_id"
-    t.string  "token"
+    t.integer "tournament_id",   null: false
+    t.integer "score_report_id", null: false
+    t.string  "token",           null: false
   end
 
   add_index "score_report_confirm_tokens", ["token"], name: "index_score_report_confirm_tokens_on_token"
