@@ -9,6 +9,7 @@ swift_goose:
   fairness: 3
   attitude: 3
   communication: 3
+  is_confirmation: false
 
 swift_goose_by_goose:
   tournament: noborders
@@ -21,3 +22,4 @@ swift_goose_by_goose:
   fairness: 3
   attitude: 3
   communication: 3
+  is_confirmation: true

@@ -1,6 +1,4 @@
 class ScoreReportMailer < ApplicationMailer
-  default from: 'no-reply@ultimate-tournament.io'
-
   def notify_team_email(team, opponent, report, token)
     return unless team.email.present?
     @team, @opponent, @report, @token = team, opponent, report, token

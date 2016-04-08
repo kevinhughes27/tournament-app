@@ -22,7 +22,6 @@ class Game < ActiveRecord::Base
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
-  after_save :email_teams
   after_save :update_pool
   after_save :update_bracket
   after_save :update_places

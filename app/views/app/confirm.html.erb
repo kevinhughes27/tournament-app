@@ -4,6 +4,7 @@
 
 <div id="score-form" class="content">
   <%= form_tag app_confirm_path, method: :post do |form| %>
+    <%= hidden_field_tag 'token', @confirm_token.token %>
     <%= hidden_field_tag 'game_id', @report.game_id %>
     <%= hidden_field_tag 'team_id', @report.other_team.id %>
     <%= hidden_field_tag 'submitter_fingerprint' %>

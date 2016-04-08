@@ -57,9 +57,6 @@ class ScoreReport < ActiveRecord::Base
     end
   end
 
-  def other_team_score
-  end
-
   def sotg_score
     [rules_knowledge, fouls, fairness, attitude, communication].join("-")
   end
