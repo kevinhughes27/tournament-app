@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     resources :build, path: '', controller: 'tournaments_build', only: [:show, :update]
   end
 
+  namespace :internal do
+    get "/" => "dashboard#show"
+  end
+
   constraints(Subdomain) do
     draw :admin
     get '/' => 'app#show', as: 'app'

@@ -4,6 +4,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.from_omniauth(request.env['omniauth.auth'])
     sign_in(:user, user)
 
+    if session[:internal_path] && current_user.staff?
+      return redirect_to session[:internal_path]
+    end
+
     if user.sign_in_count == 1 || !user.tournaments.exists?
       redirect_to setup_path
     else
