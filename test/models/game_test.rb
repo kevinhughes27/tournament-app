@@ -169,8 +169,8 @@ class GameTest < ActiveSupport::TestCase
   test "games checks for schedule order conflicts" do
     game = games(:semi_final)
     dependent_uid = game.home_prereq_uid.gsub('W','')
-    new_game = Game.new(bracket_uid: dependent_uid, start_time: game.start_time, tournament: @tournament)
+    new_game = Game.new(bracket_uid: dependent_uid, start_time: game.start_time, division: divisions(:women), tournament: @tournament)
     refute new_game.valid?
-    assert_equal ["This game must be played before #{game.bracket_uid}"], new_game.errors[:start_time]
+    assert_equal ["This game must be played before game #{game.bracket_uid}"], new_game.errors[:start_time]
   end
 end

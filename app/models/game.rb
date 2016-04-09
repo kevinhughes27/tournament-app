@@ -21,6 +21,7 @@ class Game < ActiveRecord::Base
   validate :validate_field
   validate :validate_field_conflict
   validate :validate_team_conflict
+  validate :validate_schedule_conflicts
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
@@ -170,7 +171,6 @@ class Game < ActiveRecord::Base
 
   def validate_team_conflict
     return unless start_time_changed?
-
     if tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: start_time..end_time).present?
       name = home.try(:name) || home_prereq_uid
       errors.add(:home, "Team #{name} is already playing at #{start_time}")
@@ -179,6 +179,14 @@ class Game < ActiveRecord::Base
     if tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: start_time..end_time).present?
       name = away.try(:name) || away_prereq_uid
       errors.add(:away, "Team #{name} is already playing at #{start_time}")
+    end
+  end
+
+  def validate_schedule_conflicts
+    return unless start_time_changed?
+    games = dependent_games.select { |dg| dg.start_time < end_time }
+    if games.present?
+      errors.add(:start_time, "This game must be played before game #{games.first.bracket_uid}")
     end
   end
 end
