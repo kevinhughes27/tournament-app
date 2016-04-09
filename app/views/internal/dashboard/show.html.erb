@@ -10,7 +10,18 @@
       <div class="info-box-content">
         <span class="info-box-text">Tournaments</span>
         <span class="info-box-number"><%= Tournament.count %></span>
-        <span class="info-box-text"><%= Tournament.where('created_at < ?', Date.yesterday).count %> (in the last day)</span>
+        <span class="info-box-text"><%= Tournament.where('created_at > ?', Date.yesterday).count %> (in the last day)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-purple"><i class="fa fa-user"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">User Logins</span>
+        <span class="info-box-number"><%= User.where('last_sign_in_at > ?', Time.now - 1.week).count %></span>
+        <span class="info-box-text">(in the last week)</span>
       </div>
     </div>
   </div>
@@ -21,7 +32,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Teams</span>
         <span class="info-box-number"><%= Team.count %></span>
-        <span class="info-box-text"><%= Team.where('created_at < ?', Date.yesterday).count %> (in the last day)</span>
+        <span class="info-box-text"><%= Team.where('created_at > ?', Date.yesterday).count %> (in the last day)</span>
       </div>
     </div>
   </div>
@@ -32,7 +43,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Fields</span>
         <span class="info-box-number"><%= Field.count %></span>
-        <span class="info-box-text"><%= Field.where('created_at < ?', Date.yesterday).count %> (in the last day)</span>
+        <span class="info-box-text"><%= Field.where('created_at > ?', Date.yesterday).count %> (in the last day)</span>
       </div>
     </div>
   </div>
@@ -43,7 +54,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Divisions</span>
         <span class="info-box-number"><%= Division.count %></span>
-        <span class="info-box-text"><%= Division.where('created_at < ?', Date.yesterday).count %> (in the last day)</span>
+        <span class="info-box-text"><%= Division.where('created_at > ?', Date.yesterday).count %> (in the last day)</span>
       </div>
     </div>
   </div>
@@ -54,7 +65,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Games</span>
         <span class="info-box-number"><%= Game.count %></span>
-        <span class="info-box-text"><%= Game.where('created_at < ?', Date.yesterday).count %> (in the last day)</span>
+        <span class="info-box-text"><%= Game.where('created_at > ?', Date.yesterday).count %> (in the last day)</span>
       </div>
     </div>
   </div>
