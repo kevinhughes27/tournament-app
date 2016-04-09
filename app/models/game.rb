@@ -164,6 +164,7 @@ class Game < ActiveRecord::Base
 
   def validate_field_conflict
     return unless field_id_changed? || start_time_changed?
+    return if field_id.blank? || start_time.blank?
     if tournament.games.where(field_id: field_id, start_time: start_time..end_time).present?
       errors.add(:field, "This field is in use at #{start_time} already")
     end
@@ -171,6 +172,7 @@ class Game < ActiveRecord::Base
 
   def validate_team_conflict
     return unless start_time_changed?
+    return if start_time.blank?
     if tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: start_time..end_time).present?
       name = home.try(:name) || home_prereq_uid
       errors.add(:home, "Team #{name} is already playing at #{start_time}")
@@ -184,6 +186,7 @@ class Game < ActiveRecord::Base
 
   def validate_schedule_conflicts
     return unless start_time_changed?
+    return if start_time.blank?
     games = dependent_games.select { |dg| dg.start_time < end_time }
     if games.present?
       errors.add(:start_time, "This game must be played before game #{games.first.bracket_uid}")
