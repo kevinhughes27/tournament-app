@@ -16,7 +16,7 @@
 
   <%= ui_box do %>
     <%= react_component('Admin.GamesIndex', {
-      games: render(template: 'admin/games/games.json.jbuilder'),
+      games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games}),
       searchColumns: [
         "name",
         "division"

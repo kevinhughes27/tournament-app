@@ -103,9 +103,8 @@ exports.ScoreCell = React.createClass({
       },
       success: (response) => {
         this._finishLoading();
-        var game = response.game;
         var scroll = window.scrollY;
-        GamesStore.updateGame(game);
+        _.each(response, function(game) { GamesStore.updateGame(game) });
         window.scrollTo(0, scroll);
         this.close();
         Admin.Flash.notice('Score updated')
