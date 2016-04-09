@@ -126,6 +126,13 @@ class Game < ActiveRecord::Base
     ].compact
   end
 
+  def prerequisite_games
+    [
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq_uid.to_s.gsub(/W|L/,'')),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq_uid.to_s.gsub(/W|L/,'')),
+    ].compact
+  end
+
   private
 
   def set_score(home_score, away_score)
@@ -200,6 +207,11 @@ class Game < ActiveRecord::Base
     games = dependent_games.select { |dg| dg.start_time < end_time if dg.start_time }
     if games.present?
       errors.add(:base, "Game '#{bracket_uid}' must be played before game '#{games.first.bracket_uid}'")
+    end
+
+    games = prerequisite_games.select { |pg| pg.start_time >= start_time if pg.start_time }
+    if games.present?
+      errors.add(:base, "Game '#{bracket_uid}' must be played after game '#{games.first.bracket_uid}'")
     end
   end
 end

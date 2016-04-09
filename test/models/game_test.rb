@@ -171,11 +171,19 @@ class GameTest < ActiveSupport::TestCase
     refute_equal ["Field #{@game.field.name} is in use at #{@game.start_time.to_formatted_s(:timeonly)} already"], new_game.errors[:base]
   end
 
-  test "games checks for schedule order conflicts" do
+  test "games checks for schedule order conflicts (dependent game)" do
     game = games(:semi_final)
     dependent_uid = game.home_prereq_uid.gsub('W','')
     new_game = Game.new(bracket_uid: dependent_uid, start_time: game.start_time, division: divisions(:women), tournament: @tournament)
     refute new_game.valid?
     assert_equal ["Game '#{dependent_uid}' must be played before game '#{game.bracket_uid}'"], new_game.errors[:base]
+  end
+
+  test "games checks for schedule order conflicts (prerequisite game)" do
+    game = games(:semi_final)
+    prerequisite_uid = "W#{game.bracket_uid}"
+    new_game = Game.new(home_prereq_uid: prerequisite_uid, bracket_uid: 'k', start_time: game.start_time, division: divisions(:women), tournament: @tournament)
+    refute new_game.valid?
+    assert_equal ["Game 'k' must be played after game '#{game.bracket_uid}'"], new_game.errors[:base]
   end
 end

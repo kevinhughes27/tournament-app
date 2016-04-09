@@ -61,7 +61,7 @@ class Admin.Schedule
           message = response.responseJSON.error
           message = message.replace('Validation failed: ', '')
           message = message.split(', ')[0]
-          Admin.Flash.error(message, 10000)
+          Admin.Flash.error(message, 6000)
         else
           Admin.Flash.error('Sorry, something went wrong.')
       success: (response) =>
