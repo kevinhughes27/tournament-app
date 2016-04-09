@@ -13,6 +13,12 @@ class Admin::ScheduleController < AdminController
 
   def update
     ActiveRecord::Base.transaction do
+      # reset field and start times first so swapping can work.
+      # Otherwise it might trigger conflict validations.
+      game_ids = games_params.map{ |p| p[:id].to_i }
+      games = Game.where(tournament_id: @tournament.id, id: game_ids)
+      games.update_all(field_id: nil, start_time: nil)
+
       games_params.each do |p|
         game = Game.find_by(tournament_id: @tournament.id, id: p[:id])
         game.update_attributes!(p)
@@ -29,7 +35,7 @@ class Admin::ScheduleController < AdminController
 
   def load_index_data
     @games = @tournament.games.includes(:division)
-    @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
+    @fields = @tournament.fields.sort_by{ |f| f.name.gsub(/\D/, '').to_i }
     @times = time_slots
   end
 

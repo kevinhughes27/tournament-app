@@ -166,6 +166,11 @@ class GameTest < ActiveSupport::TestCase
     assert_equal ["Field #{@game.field.name} is in use at #{@game.start_time.to_formatted_s(:timeonly)} already"], new_game.errors[:base]
   end
 
+  test "game field conflict check works with timecap increments" do
+    new_game = Game.new(field: @game.field, start_time: @game.start_time + @tournament.time_cap.minutes, tournament: @tournament)
+    refute_equal ["Field #{@game.field.name} is in use at #{@game.start_time.to_formatted_s(:timeonly)} already"], new_game.errors[:base]
+  end
+
   test "games checks for schedule order conflicts" do
     game = games(:semi_final)
     dependent_uid = game.home_prereq_uid.gsub('W','')

@@ -87,6 +87,10 @@ class Game < ActiveRecord::Base
     start_time + tournament.time_cap.minutes
   end
 
+  def playing_time_range
+    (start_time)..(end_time - 1.minutes)
+  end
+
   def confirmed?
     score_confirmed
   end
@@ -165,7 +169,9 @@ class Game < ActiveRecord::Base
   def validate_field_conflict
     return unless field_id_changed? || start_time_changed?
     return if field_id.blank? || start_time.blank?
-    if tournament.games.where(field_id: field_id, start_time: start_time..end_time).where.not(id: id).present?
+    games = tournament.games.where(field_id: field_id, start_time: playing_time_range)
+    games = games.where.not(id: id)
+    if games.present?
       errors.add(:base, "Field #{field.name} is in use at #{start_time.to_formatted_s(:timeonly)} already")
     end
   end
@@ -173,12 +179,16 @@ class Game < ActiveRecord::Base
   def validate_team_conflict
     return unless start_time_changed?
     return if start_time.blank?
-    if tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: start_time..end_time).where.not(id: id).present?
+    games = tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: playing_time_range)
+    games = games.where.not(id: id)
+    if games.present?
       name = home.try(:name) || home_prereq_uid
       errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
     end
 
-    if tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: start_time..end_time).where.not(id: id).present?
+    games = tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: playing_time_range)
+    games = games.where.not(id: id)
+    if games.present?
       name = away.try(:name) || away_prereq_uid
       errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
     end
@@ -187,11 +197,7 @@ class Game < ActiveRecord::Base
   def validate_schedule_conflicts
     return unless start_time_changed?
     return if start_time.blank?
-
-    games = dependent_games.select do |dg|
-      dg.start_time < end_time if dg.start_time
-    end
-
+    games = dependent_games.select { |dg| dg.start_time < end_time if dg.start_time }
     if games.present?
       errors.add(:base, "Game '#{bracket_uid}' must be played before game '#{games.first.bracket_uid}'")
     end
