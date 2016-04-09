@@ -30,8 +30,10 @@ class Admin::DivisionsController < AdminController
   end
 
   def update_teams
-    @teams = Team.where( id: params[:team_ids] )
-    @teams.each_with_index do |team, idx|
+    team_ids = params[:team_ids]
+    @teams = Team.where( id: team_ids )
+    team_ids.each_with_index do |team_id, idx|
+      team = @teams.detect { |t| t.id == team_id.to_i}
       team.update_attribute( :seed, params[:seeds][idx] )
     end
 
