@@ -36,7 +36,8 @@ class Admin.ScheduleEditor
     $game.attr('data-start-time', startTime)
 
 hideBanner = ->
-  $('.alert-dismissable').fadeOut()
+  $banner = $('.alert-dismissable')
+  $banner.fadeOut(400, -> $('.schedule-table > table').floatThead('reflow'))
 
 highlightHeaderCell = (td) ->
   unhighlightCells()
