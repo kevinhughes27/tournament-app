@@ -20,6 +20,7 @@ class Game < ActiveRecord::Base
   validates_presence_of :field, if: Proc.new{ |g| g.start_time.present? }
   validate :validate_field
   validate :validate_field_conflict
+  validate :validate_team_conflict
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
@@ -161,10 +162,23 @@ class Game < ActiveRecord::Base
   end
 
   def validate_field_conflict
-    return unless field_id_changed?
-    end_time = start_time + tournament.time_cap
+    return unless field_id_changed? || start_time_changed?
     if tournament.games.where(field_id: field_id, start_time: start_time..end_time).present?
       errors.add(:field, "This field is in use at #{start_time} already")
+    end
+  end
+
+  def validate_team_conflict
+    return unless start_time_changed?
+
+    if tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: start_time..end_time).present?
+      name = home.try(:name) || home_prereq_uid
+      errors.add(:home, "Team #{name} is already playing at #{start_time}")
+    end
+
+    if tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: start_time..end_time).present?
+      name = away.try(:name) || away_prereq_uid
+      errors.add(:away, "Team #{name} is already playing at #{start_time}")
     end
   end
 end

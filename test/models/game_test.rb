@@ -136,10 +136,28 @@ class GameTest < ActiveSupport::TestCase
     end
   end
 
-  test "game checks for team time conflicts" do
-    new_game = Game.new(home: @game.home, start_time: @game.start_time)
+  test "game checks for home team time conflicts" do
+    new_game = Game.new(home_prereq_uid: @game.home_prereq_uid, start_time: @game.start_time, tournament: @tournament)
+    refute new_game.valid?
+    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.start_time}"], new_game.errors[:home]
+  end
+
+  test "game checks for home team time conflicts (uses name if present)" do
+    new_game = Game.new(home_prereq_uid: @game.home_prereq_uid, home: @game.home, start_time: @game.start_time, tournament: @tournament)
     refute new_game.valid?
     assert_equal ["Team #{@game.home.name} is already playing at #{@game.start_time}"], new_game.errors[:home]
+  end
+
+  test "game checks for away team time conflicts" do
+    new_game = Game.new(away_prereq_uid: @game.away_prereq_uid, start_time: @game.start_time, tournament: @tournament)
+    refute new_game.valid?
+    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.start_time}"], new_game.errors[:away]
+  end
+
+  test "game checks for away team time conflicts (uses name if present)" do
+    new_game = Game.new(away_prereq_uid: @game.away_prereq_uid, away: @game.away, start_time: @game.start_time, tournament: @tournament)
+    refute new_game.valid?
+    assert_equal ["Team #{@game.away.name} is already playing at #{@game.start_time}"], new_game.errors[:away]
   end
 
   test "game checks for field conflicts" do
@@ -151,7 +169,7 @@ class GameTest < ActiveSupport::TestCase
   test "games checks for schedule order conflicts" do
     game = games(:semi_final)
     dependent_uid = game.home_prereq_uid.gsub('W','')
-    new_game = Game.new(bracket_uid: dependent_uid, start_time: game.start_time)
+    new_game = Game.new(bracket_uid: dependent_uid, start_time: game.start_time, tournament: @tournament)
     refute new_game.valid?
     assert_equal ["This game must be played before #{game.bracket_uid}"], new_game.errors[:start_time]
   end
