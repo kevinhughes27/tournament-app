@@ -1,6 +1,11 @@
 class Admin.Schedule
   constructor: (@timeCap) ->
     @$tableNode = $('.schedule-table > table')
+    @$tableNode.floatThead({
+      position: 'fixed'
+      scrollContainer: -> $('#schedule-card')
+    })
+    $('th.floatThead-col').addClass('redips-mark')
     @editor = new Admin.ScheduleEditor()
 
   addRow: ->

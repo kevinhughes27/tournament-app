@@ -51,9 +51,11 @@ $time-input-width: 160px;
 }
 
 .schedule-table {
-  padding-top: 20px;
   table {
     width: auto;
+  }
+  thead {
+    background-color: white;
   }
   tbody > tr {
     line-height: $slot-height;
@@ -78,4 +80,7 @@ $time-input-width: 160px;
   overflow-x: scroll;
   overflow-y: scroll;
   height: 40vh;
+  .box-body {
+    padding: 0px;
+  }
 }

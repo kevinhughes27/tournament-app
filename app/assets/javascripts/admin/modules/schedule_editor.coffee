@@ -41,11 +41,13 @@ hideBanner = ->
 highlightHeaderCell = (td) ->
   unhighlightCells()
   $td = $(td)
-  getTableHeader($td).addClass('drop-target')
+  $th = getTableHeader($td)
+  $th.addClass('drop-target')
   $td.addClass('drop-target')
 
 unhighlightCells = ->
   $('.drop-target').removeClass('drop-target')
 
 getTableHeader = ($td) ->
-  $td.closest('table').find('th').eq($td.index())
+  $table = $('.floatThead-container')
+  $table.find('th').eq($td.index())
