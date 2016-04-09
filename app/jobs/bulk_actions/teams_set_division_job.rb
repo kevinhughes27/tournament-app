@@ -11,6 +11,7 @@ class BulkActions::TeamsSetDivisionJob < ActiveJob::Base
 
     if teams.all? {|t| t.safe_to_change? }
       teams.update_all(division_id: division.id)
+      teams.reload
       response = render_response(teams)
       status = 200
     else
