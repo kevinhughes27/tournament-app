@@ -22,7 +22,7 @@ swift_goose_no_score:
   away_prereq_uid: '8'
   home: swift
   away: goose
-  field: upi1
+  field: upi3
   start_time: 2015-06-06 12:06:53
   score_confirmed: false
 
@@ -48,6 +48,6 @@ semi_final:
   bracket_uid: 's1'
   home_prereq_uid: 'Wq1'
   away_prereq_uid: 'Wq2'
-  field: upi2
+  field: upi4
   start_time: 2015-06-06 12:06:53
   score_confirmed: false

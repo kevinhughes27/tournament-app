@@ -135,4 +135,24 @@ class GameTest < ActiveSupport::TestCase
       @game.destroy
     end
   end
+
+  test "game checks for team time conflicts" do
+    new_game = Game.new(home: @game.home, start_time: @game.start_time)
+    refute new_game.valid?
+    assert_equal ["Team #{@game.home.name} is already playing at #{@game.start_time}"], new_game.errors[:home]
+  end
+
+  test "game checks for field conflicts" do
+    new_game = Game.new(field: @game.field, start_time: @game.start_time, tournament: @tournament)
+    refute new_game.valid?
+    assert_equal ["This field is in use at #{@game.start_time} already"], new_game.errors[:field]
+  end
+
+  test "games checks for schedule order conflicts" do
+    game = games(:semi_final)
+    dependent_uid = game.home_prereq_uid.gsub('W','')
+    new_game = Game.new(bracket_uid: dependent_uid, start_time: game.start_time)
+    refute new_game.valid?
+    assert_equal ["This game must be played before #{game.bracket_uid}"], new_game.errors[:start_time]
+  end
 end
