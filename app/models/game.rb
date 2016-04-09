@@ -165,22 +165,22 @@ class Game < ActiveRecord::Base
   def validate_field_conflict
     return unless field_id_changed? || start_time_changed?
     return if field_id.blank? || start_time.blank?
-    if tournament.games.where(field_id: field_id, start_time: start_time..end_time).present?
-      errors.add(:field, "This field is in use at #{start_time} already")
+    if tournament.games.where(field_id: field_id, start_time: start_time..end_time).where.not(id: id).present?
+      errors.add(:base, "Field #{field.name} is in use at #{start_time.to_formatted_s(:timeonly)} already")
     end
   end
 
   def validate_team_conflict
     return unless start_time_changed?
     return if start_time.blank?
-    if tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: start_time..end_time).present?
+    if tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: start_time..end_time).where.not(id: id).present?
       name = home.try(:name) || home_prereq_uid
-      errors.add(:home, "Team #{name} is already playing at #{start_time}")
+      errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
     end
 
-    if tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: start_time..end_time).present?
+    if tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: start_time..end_time).where.not(id: id).present?
       name = away.try(:name) || away_prereq_uid
-      errors.add(:away, "Team #{name} is already playing at #{start_time}")
+      errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
     end
   end
 
@@ -193,7 +193,7 @@ class Game < ActiveRecord::Base
     end
 
     if games.present?
-      errors.add(:start_time, "Game '#{bracket_uid}' must be played before game '#{games.first.bracket_uid}'")
+      errors.add(:base, "Game '#{bracket_uid}' must be played before game '#{games.first.bracket_uid}'")
     end
   end
 end

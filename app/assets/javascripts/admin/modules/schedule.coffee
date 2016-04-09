@@ -58,7 +58,10 @@ class Admin.Schedule
         @_finishLoading(form)
         if response.status == 422
           @_addGameErrors(response.responseJSON.game_id)
-          Admin.Flash.error(response.responseJSON.error)
+          message = response.responseJSON.error
+          message = message.replace('Validation failed: ', '')
+          message = message.split(', ')[0]
+          Admin.Flash.error(message, 10000)
         else
           Admin.Flash.error('Sorry, something went wrong.')
       success: (response) =>

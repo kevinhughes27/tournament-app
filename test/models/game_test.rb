@@ -139,31 +139,31 @@ class GameTest < ActiveSupport::TestCase
   test "game checks for home team time conflicts" do
     new_game = Game.new(home_prereq_uid: @game.home_prereq_uid, start_time: @game.start_time, tournament: @tournament)
     refute new_game.valid?
-    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.start_time}"], new_game.errors[:home]
+    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
   test "game checks for home team time conflicts (uses name if present)" do
     new_game = Game.new(home_prereq_uid: @game.home_prereq_uid, home: @game.home, start_time: @game.start_time, tournament: @tournament)
     refute new_game.valid?
-    assert_equal ["Team #{@game.home.name} is already playing at #{@game.start_time}"], new_game.errors[:home]
+    assert_equal ["Team #{@game.home.name} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
   test "game checks for away team time conflicts" do
     new_game = Game.new(away_prereq_uid: @game.away_prereq_uid, start_time: @game.start_time, tournament: @tournament)
     refute new_game.valid?
-    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.start_time}"], new_game.errors[:away]
+    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
   test "game checks for away team time conflicts (uses name if present)" do
     new_game = Game.new(away_prereq_uid: @game.away_prereq_uid, away: @game.away, start_time: @game.start_time, tournament: @tournament)
     refute new_game.valid?
-    assert_equal ["Team #{@game.away.name} is already playing at #{@game.start_time}"], new_game.errors[:away]
+    assert_equal ["Team #{@game.away.name} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
   test "game checks for field conflicts" do
     new_game = Game.new(field: @game.field, start_time: @game.start_time, tournament: @tournament)
     refute new_game.valid?
-    assert_equal ["This field is in use at #{@game.start_time} already"], new_game.errors[:field]
+    assert_equal ["Field #{@game.field.name} is in use at #{@game.start_time.to_formatted_s(:timeonly)} already"], new_game.errors[:base]
   end
 
   test "games checks for schedule order conflicts" do
@@ -171,6 +171,6 @@ class GameTest < ActiveSupport::TestCase
     dependent_uid = game.home_prereq_uid.gsub('W','')
     new_game = Game.new(bracket_uid: dependent_uid, start_time: game.start_time, division: divisions(:women), tournament: @tournament)
     refute new_game.valid?
-    assert_equal ["Game '#{dependent_uid}' must be played before game '#{game.bracket_uid}'"], new_game.errors[:start_time]
+    assert_equal ["Game '#{dependent_uid}' must be played before game '#{game.bracket_uid}'"], new_game.errors[:base]
   end
 end
