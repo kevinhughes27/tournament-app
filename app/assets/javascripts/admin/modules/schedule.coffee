@@ -14,7 +14,6 @@ class Admin.Schedule
     $tr.find('input').val(time)
     $tr.find('.datetimepicker').datetimepicker(Admin.DatePickerOptions)
     $tr.find('div.game').remove()
-    $tr.find('.occupied').removeClass('occupied')
 
     @$tableNode.append(tr[0])
     Twine.bind()

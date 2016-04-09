@@ -11,6 +11,9 @@ class Admin.ScheduleEditor
       gameNode.classList.remove('game-error')
 
     @rd.event.dropped = (dropCell) =>
+      # game was dropped and returned to list
+      return if dropCell.classList[0] == 'redips-mark'
+
       unhighlightCells()
       gameNode = dropCell.children
       @gameAssigned(gameNode, dropCell)
