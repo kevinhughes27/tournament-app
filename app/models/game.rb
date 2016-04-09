@@ -19,6 +19,7 @@ class Game < ActiveRecord::Base
 
   validates_presence_of :field, if: Proc.new{ |g| g.start_time.present? }
   validate :validate_field
+  validate :validate_field_conflict
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
@@ -157,5 +158,13 @@ class Game < ActiveRecord::Base
   def validate_field
     return if field_id.blank? || errors[:field].present?
     errors.add(:field, 'is invalid') unless tournament.fields.where(id: field_id).exists?
+  end
+
+  def validate_field_conflict
+    return unless field_id_changed?
+    end_time = start_time + tournament.time_cap
+    if tournament.games.where(field_id: field_id, start_time: start_time..end_time).present?
+      errors.add(:field, "This field is in use at #{start_time} already")
+    end
   end
 end
