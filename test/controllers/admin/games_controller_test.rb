@@ -34,7 +34,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
     assert_equal 13, @game.away_score
   end
 
-  test "update returns game json" do
+  test "update returns games json" do
     put :update,
       id: @game.id,
       home_score: 15,
@@ -42,6 +42,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
       format: :json
 
     assert_response :ok
-    assert response_json['game']
+    assert_template 'games'
+    assert_equal response_json.first['name'], @game.name
   end
 end

@@ -54,10 +54,9 @@ var ScoreReport = React.createClass({
       },
       success: (response) => {
         this._finishLoading();
-        var game = response.game;
-        game.reportsOpen = true;
+        response[0].reportsOpen = true;
         var scroll = window.scrollY;
-        GamesStore.updateGame(game);
+        _.each(response, function(game) { GamesStore.updateGame(game) });
         window.scrollTo(0, scroll);
         Admin.Flash.notice('Score report accepted');
       },
