@@ -14,6 +14,7 @@ class Admin.ScheduleEditor
       # game was dropped and returned to list
       return if dropCell.classList[0] == 'redips-mark'
 
+      hideBanner()
       unhighlightCells()
       gameNode = dropCell.children
       @gameAssigned(gameNode, dropCell)
@@ -33,6 +34,9 @@ class Admin.ScheduleEditor
     $game.attr('data-row-idx', rowIdx)
     $game.attr('data-field-id', fieldId)
     $game.attr('data-start-time', startTime)
+
+hideBanner = ->
+  $('.alert-dismissable').fadeOut()
 
 highlightHeaderCell = (td) ->
   unhighlightCells()
