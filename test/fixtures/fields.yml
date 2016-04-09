@@ -21,3 +21,9 @@ upi4:
   name: UPI4
   lat: 45.2455548613268
   long: -75.6144225597382
+
+upi5:
+  tournament: noborders
+  name: UPI5
+  lat: 45.2455548613268
+  long: -75.6144225597382

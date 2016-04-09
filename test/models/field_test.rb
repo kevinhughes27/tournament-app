@@ -16,7 +16,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "safe_to_delete? is true for field with no games" do
-    field = fields(:upi4)
+    field = fields(:upi5)
     assert field.safe_to_delete?
   end
 
