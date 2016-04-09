@@ -187,9 +187,13 @@ class Game < ActiveRecord::Base
   def validate_schedule_conflicts
     return unless start_time_changed?
     return if start_time.blank?
-    games = dependent_games.select { |dg| dg.start_time < end_time }
+
+    games = dependent_games.select do |dg|
+      dg.start_time < end_time if dg.start_time
+    end
+
     if games.present?
-      errors.add(:start_time, "This game must be played before game #{games.first.bracket_uid}")
+      errors.add(:start_time, "Game '#{bracket_uid}' must be played before game '#{games.first.bracket_uid}'")
     end
   end
 end
