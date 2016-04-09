@@ -63,4 +63,25 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     assert_response :unprocessable_entity
     assert_equal "Validation failed: Field can't be blank", response_json['error']
   end
+
+  test "can swap 2 games without triggering conflict errors" do
+    game1 = games(:swift_goose)
+    game2 = games(:pheonix_mavericks)
+
+    game1_original_field = game1.field
+    game2_original_field = game2.field
+
+    params = {
+      games: {
+        "0" => {id: game1.id, field_id: game2.field_id, start_time: game1.start_time},
+        "1" => {id: game2.id, field_id: game1.field_id, start_time: game2.start_time}
+      }
+    }
+
+    put :update, params
+    assert_response :ok
+
+    assert_equal game1_original_field, game2.reload.field
+    assert_equal game2_original_field, game1.reload.field
+  end
 end

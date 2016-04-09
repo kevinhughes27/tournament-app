@@ -19,6 +19,9 @@ class Game < ActiveRecord::Base
 
   validates_presence_of :field, if: Proc.new{ |g| g.start_time.present? }
   validate :validate_field
+  validate :validate_field_conflict
+  validate :validate_team_conflict
+  validate :validate_schedule_conflicts
 
   validates_numericality_of :home_score, :away_score, allow_blank: true
 
@@ -84,6 +87,10 @@ class Game < ActiveRecord::Base
     start_time + tournament.time_cap.minutes
   end
 
+  def playing_time_range
+    (start_time)..(end_time - 1.minutes)
+  end
+
   def confirmed?
     score_confirmed
   end
@@ -116,6 +123,13 @@ class Game < ActiveRecord::Base
       Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "L#{bracket_uid}"),
       Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "W#{bracket_uid}"),
       Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "L#{bracket_uid}")
+    ].compact
+  end
+
+  def prerequisite_games
+    [
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq_uid.to_s.gsub(/W|L/,'')),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq_uid.to_s.gsub(/W|L/,'')),
     ].compact
   end
 
@@ -157,5 +171,55 @@ class Game < ActiveRecord::Base
   def validate_field
     return if field_id.blank? || errors[:field].present?
     errors.add(:field, 'is invalid') unless tournament.fields.where(id: field_id).exists?
+  end
+
+  def validate_field_conflict
+    return unless field_id_changed? || start_time_changed?
+    return if field_id.blank? || start_time.blank?
+
+    games = tournament.games.where(field_id: field_id, start_time: playing_time_range)
+    games = games.where.not(id: id)
+
+    if games.present?
+      errors.add(:base, "Field #{field.name} is in use at #{start_time.to_formatted_s(:timeonly)} already")
+    end
+  end
+
+  def validate_team_conflict
+    return unless start_time_changed?
+    return if start_time.blank?
+
+    games = tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: playing_time_range)
+    games = games.where.not(id: id)
+
+    if games.present?
+      name = home.try(:name) || home_prereq_uid
+      errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
+    end
+
+    games = tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: playing_time_range)
+    games = games.where.not(id: id)
+
+    if games.present?
+      name = away.try(:name) || away_prereq_uid
+      errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
+    end
+  end
+
+  def validate_schedule_conflicts
+    return unless start_time_changed?
+    return if start_time.blank?
+
+    games = dependent_games.select { |dg| dg.start_time < end_time if dg.start_time }
+
+    if games.present?
+      errors.add(:base, "Game '#{bracket_uid}' must be played before game '#{games.first.bracket_uid}'")
+    end
+
+    games = prerequisite_games.select { |pg| pg.start_time >= start_time if pg.start_time }
+
+    if games.present?
+      errors.add(:base, "Game '#{bracket_uid}' must be played after game '#{games.first.bracket_uid}'")
+    end
   end
 end

@@ -77,7 +77,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   end
 
   test "delete a field" do
-    field = fields(:upi4)
+    field = fields(:upi5)
     assert_difference "Field.count", -1 do
       delete :destroy, id: field.id
       assert_redirected_to admin_fields_path
@@ -105,13 +105,13 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   end
 
   test "import csv" do
-    assert_difference "Field.count", +15 do
+    assert_difference "Field.count", +14 do
       post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
     end
   end
 
   test "import csv (ignore matches)" do
-    assert_difference "Field.count", +15 do
+    assert_difference "Field.count", +14 do
       post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
     end
 
@@ -129,7 +129,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   end
 
   test "import csv with extra headings" do
-    assert_difference "Field.count", +15 do
+    assert_difference "Field.count", +14 do
       post :import_csv, csv_file: fixture_file_upload('files/fields-extra.csv','text/csv'), match_behaviour: 'ignore'
     end
   end
