@@ -103,8 +103,30 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
     params = {
       id: @division.id,
-      team_ids: [team1.id, team2.id],
+      team_ids: [ team1.id, team2.id],
       seeds: [new_seed, current_seed]
+    }
+
+    put :update_teams, params
+    assert_response :success
+
+    assert_equal new_seed, team1.reload.seed
+    assert_equal current_seed, team2.reload.seed
+  end
+
+  test "update teams in a division (ids not in order)" do
+    team1 = @division.teams.first
+    team2 = @division.teams.last
+
+    new_seed = 5
+    refute_equal new_seed, team1.seed
+
+    current_seed = team2.seed
+
+    params = {
+      id: @division.id,
+      team_ids: [team2.id, team1.id],
+      seeds: [current_seed, new_seed]
     }
 
     put :update_teams, params
