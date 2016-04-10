@@ -1,5 +1,5 @@
 <div id="animatedModal">
-  <div id="closebt-container" class="close-animatedModal" track-click="{category: 'Signup.Modal', action: 'close'}">
+  <div id="closebt-container" class="close-animatedModal" track-click="{category: 'Signup.Close', action: 'close'}">
     <%= image_tag "brochure/closebt.svg", class: "closebt" %>
   </div>
 
@@ -22,7 +22,7 @@
       <div class="form-group text-center">
         <%= f.submit "Sign up",
             class: 'btn btn-lg btn-block btn-primary',
-            "track-click" => "{category: 'Signup.Modal', action: 'click_signup'}" %>
+            "track-click" => "{category: 'Signup.NewUser', action: 'click'}" %>
       </div>
 
       <div class="form-group text-center">or</div>
@@ -30,13 +30,13 @@
       <div class="social-auth-links text-center">
         <%= link_to user_omniauth_authorize_path(:google_oauth2),
               class: "btn btn-block btn-social btn-google btn-flat",
-              "track-click" => "{category: 'Signup.Modal', action: 'click_google'}" do %>
+              "track-click" => "{category: 'Signup.Google', action: 'click'}" do %>
           <span class="fa fa-google"></span> Sign up with Google
         <% end %>
 
         <%= link_to user_omniauth_authorize_path(:facebook),
               class: "btn btn-block btn-social btn-facebook btn-flat", style: "margin-bottom: 5px;",
-              "track-click" => "{category: 'Signup.Modal', action: 'click_facebook'}" do %>
+              "track-click" => "{category: 'Signup.Facebook', action: 'click'}" do %>
           <span class="fa fa-facebook"></span> Sign up with Facebook
         <% end %>
       </div>
