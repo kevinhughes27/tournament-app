@@ -20,7 +20,6 @@ class AdminController < ApplicationController
     end
 
     rescue_from Exception do |e|
-      raise if Rails.env.test?
       Rollbar.error(e)
       render_admin_500
     end
