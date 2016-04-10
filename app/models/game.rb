@@ -203,9 +203,9 @@ class Game < ActiveRecord::Base
       conflicting_game = games.first
 
       name = if prereq_uids.include? conflicting_game.home_prereq_uid
-        conflicting_game.home.try(:name) || conflicting_game.home_prereq_uid
+        conflicting_game.home_prereq_uid
       else
-        conflicting_game.away.try(:name) || conflicting_game.away_prereq_uid
+        conflicting_game.away_prereq_uid
       end
 
       errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")

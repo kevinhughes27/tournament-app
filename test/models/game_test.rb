@@ -167,7 +167,7 @@ class GameTest < ActiveSupport::TestCase
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.home.name} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
   test "game finds home team time conflicts in games when the team is the away team in another game" do
@@ -179,7 +179,7 @@ class GameTest < ActiveSupport::TestCase
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.home.name} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
   test "game checks for home team time conflicts (uses uid if required)" do
@@ -204,7 +204,7 @@ class GameTest < ActiveSupport::TestCase
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.away.name} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
   test "game finds away team time conflicts when the team is the home team in another game" do
@@ -216,7 +216,7 @@ class GameTest < ActiveSupport::TestCase
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.away.name} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
 
 
