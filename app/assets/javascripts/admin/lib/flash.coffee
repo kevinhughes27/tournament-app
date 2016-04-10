@@ -3,8 +3,10 @@ $(document).on 'ready page:change', (event) ->
 
   _.delay ->
     $node = $('#flash-message')
+    message = $node.text()
     isError = $node.hasClass('error')
-    Flash.display(message, isError) if message = $node.text()
+    if message
+      if isError then Flash.error(message) else Flash.notice(message)
 
 Admin.Flash = Flash =
   error: (message, duration = 4000) ->
