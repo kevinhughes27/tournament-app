@@ -196,7 +196,7 @@ class Game < ActiveRecord::Base
       division: division,
       start_time: playing_time_range
     ).where(
-      "home_prereq_uid = ? OR away_prereq_uid = ?", prereq_uids, prereq_uids
+      "home_prereq_uid IN (?) OR away_prereq_uid IN (?)", prereq_uids, prereq_uids
     ).where.not(id: id)
 
     if games.present?

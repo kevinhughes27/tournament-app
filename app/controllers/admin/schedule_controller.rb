@@ -27,7 +27,7 @@ class Admin::ScheduleController < AdminController
 
     load_index_data
     render :index
-  rescue => error
+  rescue ActiveRecord::RecordInvalid => error
     render json: {game_id: error.record.id, error: error.message}, status: :unprocessable_entity
   end
 
