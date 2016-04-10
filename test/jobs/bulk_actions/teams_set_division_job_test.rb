@@ -19,6 +19,7 @@ module BulkActions
       assert_equal 200, status
       json = JSON.parse(response)
       assert_equal team.name, json.first["name"]
+      assert_equal @division.name, json.first["division"]
       assert_equal @division, team.reload.division
     end
 
