@@ -7,13 +7,13 @@ $(document).on 'ready page:change', (event) ->
     Flash.display(message, isError) if message = $node.text()
 
 Admin.Flash = Flash =
-  error: (message, duration = 2200) ->
+  error: (message, duration = 4000) ->
     Flash.display message, true, duration
 
   notice: (message, duration = 2200) ->
     Flash.display message, false, duration
 
-  display: (message, isError, duration = 2200) ->
+  display: (message, isError, duration) ->
     clearTimeout(@timeout) if @timeout
 
     $node = $('#flash')
