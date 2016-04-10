@@ -23,7 +23,7 @@ class Game < ActiveRecord::Base
   validate :validate_team_conflict
   validate :validate_schedule_conflicts
 
-  validates_numericality_of :home_score, :away_score, allow_blank: true
+  validates_numericality_of :home_score, :away_score, allow_blank: true, greater_than_or_equal_to: 0
 
   after_save :update_pool
   after_save :update_bracket

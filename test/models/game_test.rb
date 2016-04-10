@@ -75,6 +75,13 @@ class GameTest < ActiveSupport::TestCase
     assert_equal @home, game.loser
   end
 
+  test "scores must be posetive" do
+    game = Game.new(home_score: -1, away_score: -1)
+    refute game.valid?
+    assert_equal ["must be greater than or equal to 0"], game.errors[:home_score]
+    assert_equal ["must be greater than or equal to 0"], game.errors[:away_score]
+  end
+
   test "update_score updates the pool for pool game" do
     @game.update_column(:pool, 'A')
     Divisions::UpdatePoolJob.expects(:perform_later)

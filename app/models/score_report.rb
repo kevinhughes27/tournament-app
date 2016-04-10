@@ -13,7 +13,7 @@ class ScoreReport < ActiveRecord::Base
                         :team_score,
                         :opponent_score
 
-  validates_numericality_of :team_score, :opponent_score
+  validates_numericality_of :team_score, :opponent_score, greater_than_or_equal_to: 0
 
   after_create :notify_other_team
   after_create :confirm_game
