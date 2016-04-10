@@ -189,19 +189,25 @@ class Game < ActiveRecord::Base
     return unless start_time_changed?
     return if start_time.blank?
 
-    games = tournament.games.where(home_prereq_uid: home_prereq_uid, start_time: playing_time_range)
-    games = games.where.not(id: id)
+    prereq_uids = [home_prereq_uid, away_prereq_uid].compact
+    return unless prereq_uids.present?
+
+    games = tournament.games.where(
+      division: division,
+      start_time: playing_time_range
+    ).where(
+      "home_prereq_uid = ? OR away_prereq_uid = ?", prereq_uids, prereq_uids
+    ).where.not(id: id)
 
     if games.present?
-      name = home.try(:name) || home_prereq_uid
-      errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
-    end
+      conflicting_game = games.first
 
-    games = tournament.games.where(away_prereq_uid: away_prereq_uid, start_time: playing_time_range)
-    games = games.where.not(id: id)
+      name = if prereq_uids.include? conflicting_game.home_prereq_uid
+        conflicting_game.home.try(:name) || conflicting_game.home_prereq_uid
+      else
+        conflicting_game.away.try(:name) || conflicting_game.away_prereq_uid
+      end
 
-    if games.present?
-      name = away.try(:name) || away_prereq_uid
       errors.add(:base, "Team #{name} is already playing at #{start_time.to_formatted_s(:timeonly)}")
     end
   end
