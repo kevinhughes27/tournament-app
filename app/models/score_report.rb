@@ -16,6 +16,7 @@ class ScoreReport < ActiveRecord::Base
   validates_numericality_of :team_score, :opponent_score
 
   after_create :notify_other_team
+  after_create :confirm_game
 
   def submitted_by
     team.name
@@ -76,5 +77,11 @@ class ScoreReport < ActiveRecord::Base
     })
 
     ScoreReportMailer.notify_team_email(other_team, team, self, token).deliver_later
+  end
+
+  def confirm_game
+    if is_confirmation?
+      game.update_score(home_score, away_score)
+    end
   end
 end

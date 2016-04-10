@@ -42,6 +42,10 @@ class AppControllerTest < ActionController::TestCase
   end
 
   test "confirm a score report" do
+    game = @report.game
+    game.update_columns(home_score: nil, away_score: nil, score_confirmed: false)
+    refute game.score_confirmed
+
     params = @report.attributes.merge(
       id: @token.id,
       token: @token.token,
@@ -53,6 +57,8 @@ class AppControllerTest < ActionController::TestCase
       assert_response :ok
       assert_template 'confirm_score_success'
     end
+
+    assert game.reload.score_confirmed
   end
 
   test "confirm a score report requires token" do
