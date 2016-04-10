@@ -31,7 +31,9 @@ class TournamentsBuildController < ApplicationController
     )
 
     # don't touch updated_at yet. I want to know when the user has edited it
-    tournament_params[:map_attributes][:updated_at] = @tournament.map.created_at
+    if tournament_params[:map_attributes]
+      tournament_params[:map_attributes][:updated_at] = @tournament.map.created_at
+    end
 
     tournament_params.merge!(timezone: Time.zone.name)
     tournament_params
