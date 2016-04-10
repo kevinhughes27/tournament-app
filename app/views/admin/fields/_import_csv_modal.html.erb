@@ -9,7 +9,7 @@
 
       <%= form_tag import_csv_admin_fields_path, multipart: true do %>
         <div class="modal-body">
-          <%= file_field_tag :csv_file, bind: 'csvFile'%>
+          <%= file_field_tag :csv_file, accept: '.csv', bind: 'csvFile'%>
           <br>
 
           <p>
