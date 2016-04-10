@@ -1,7 +1,8 @@
 $(document).on 'page:change', ->
   $('.js-btn-loadable').on 'click', (e) ->
     form = $(e.target).parents('form')
-    if _.isEmpty(form.find(':invalid'))
+    formHtml5Errors = form.find(':invalid')
+    if formHtml5Errors.length == 0
       $(e.target).addClass('is-loading')
 
 $(document).ajaxComplete ->
