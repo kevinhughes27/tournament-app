@@ -10,7 +10,7 @@ module SidebarHelper
   def games_badge(tournament)
     count = tournament.games.reported_unconfirmed.count
     if count > 0
-      content_tag(:span, count, class: 'badge pull-right')
+      content_tag(:span, count, id: 'games-badge', class: 'badge pull-right')
     else
       nil
     end

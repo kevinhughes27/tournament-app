@@ -18,6 +18,11 @@ var GamesStore = _.extend({}, Store, {
 
   updateGame(game) {
     var idx = this._findGameIdx(game);
+
+    if(!_games[idx].confirmed && game.confirmed) {
+      this._updateSidebarBadge();
+    }
+
     _games[idx] = game;
     this.emitChange();
   },
@@ -28,6 +33,17 @@ var GamesStore = _.extend({}, Store, {
     });
 
     return idx;
+  },
+
+  _updateSidebarBadge() {
+    var $node = $('#games-badge');
+    var count = parseInt($node.text());
+    count = count - 1;
+    if(count == 0) {
+      $node.hide();
+    } else {
+      $node.text(count);
+    }
   }
 });
 
