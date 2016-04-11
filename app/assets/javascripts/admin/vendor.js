@@ -3,6 +3,7 @@
 //= require vendor/underscore/underscore
 //= require vendor/leaflet/dist/leaflet
 //= require vendor/leaflet.editable/src/Leaflet.Editable
+//= require vendor/Leaflet.label/dist/leaflet.label
 //= require vendor/vis/dist/vis
 //= require vendor/jquery-touchswipe/jquery.touchSwipe
 //= require vendor/redips-drag

@@ -27,3 +27,10 @@ class Admin.FieldsIndexMap extends UT.MapForm
       layer.on 'click', -> Turbolinks.visit("fields/#{field.id}")
       layer.on 'mouseover', (e) -> layer.setStyle(Admin.FieldHoverStyle)
       layer.on 'mouseout', (e) -> layer.setStyle(Admin.FieldStyle)
+
+    # try this http://leafletjs.com/examples/map-panes.html
+    label = new L.Label({zoomAnimation: false})
+    label.setContent(field.name)
+    label.setLatLng([field.lat, field.long])
+    debugger
+    @map.showLabel(label)
