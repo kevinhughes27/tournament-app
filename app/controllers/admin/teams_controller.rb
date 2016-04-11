@@ -75,7 +75,8 @@ class Admin::TeamsController < AdminController
     flash[:notice] = 'Teams imported successfully'
     redirect_to action: :index
   rescue => e
-    flash[:alert] = "Error importing teams. Row: #{rowNum} #{e}"
+    flash[:alert] = "Error importing teams"
+    flash[:import_error] = "Row: #{rowNum} #{e}"
     redirect_to action: :index
   end
 

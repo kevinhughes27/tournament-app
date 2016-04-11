@@ -69,7 +69,8 @@ class Admin::FieldsController < AdminController
     flash[:notice] = 'Fields imported successfully'
     redirect_to action: :index
   rescue => e
-    flash[:alert] = "Error importing fields. Row: #{rowNum} #{e}"
+    flash[:alert] = "Error importing fields"
+    flash[:import_error] = "Row: #{rowNum} #{e}"
     redirect_to action: :index
   end
 

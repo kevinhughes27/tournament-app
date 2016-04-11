@@ -12,6 +12,7 @@
 <% end %>
 
 <%= render 'import_csv_modal' %>
+<%= render 'import_errors' %>
 
 <% if @fields.present? %>
   <%= tabs(key: Admin::FieldsController::TAB_KEY) do |t| %>
