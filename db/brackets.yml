@@ -91,10 +91,6 @@
 -
   handle: USAU 5.1
   name: One team advances (USAU 5.1)
-  description: >
-    The top four teams qualify for the bracket on the second day.
-    The losers in the first round on the second day play one another in
-    order to get a second game that day.
   num_teams: 5
   days: 2
   rounds: 2
@@ -118,7 +114,7 @@
   name: Three teams advance (USAU 5.3)
   description: >
     This format requires seven rounds, five for the round-robin and two for the
-    elimination bracket. Note that the top seed and the bottom finisher will only
+    elimination bracket. The top seed and the bottom finisher will only
     get one game on Sunday. This is almost unavoidable, given the desire to keep
     all five teams in contention.
   num_teams: 5
@@ -131,8 +127,8 @@
   handle: USAU 5.4
   name: Four teams advance (USAU 5.4)
   description: >
-    Note that the top team is determined on
-    the first day, and that team has no games the second day.
+    The top team is determined on the first day, and
+    that team has no games the second day.
   num_teams: 5
   days: 2
   rounds: 2
@@ -142,10 +138,6 @@
 -
   handle: USAU 5.5
   name: Five teams advance (USAU 5.5)
-  description: >
-    The top four teams qualify and play a bracket on the second day.
-    For five teams advancing, simply playing the round-robin as a one-day event is
-    an acceptable alternative.
   num_teams: 5
   days: 2
   rounds: 2
@@ -156,11 +148,6 @@
   handle: USAU 6.1
   name: One team advances (USAU 6.1)
   description: >
-    The teams that make it to the finals will be playing seven games
-    over the weekend. The bottom two teams in the round-robin can play an
-    additional game for place, in order to give them a second game on the second
-    day.
-
     Pool games are played to 13 and over 2 days.
   num_teams: 6
   days: 2
@@ -226,9 +213,6 @@
 -
   handle: USAU 6.6.1
   name: Six teams advance (USAU 6.6.1)
-  description: >
-    Round-robin as a one-day event
-    Pool games are played to 13 and over 2 days.
   num_teams: 6
   days: 1
   pool: true
@@ -278,7 +262,7 @@
   handle: USAU 7.5
   name: Five teams advance (USAU 7.5)
   description: >
-    Pool games are played over 2 days. 3rd place is from pool play.
+    Pool games are played over 2 days. 3rd place is determined from pool play.
   num_teams: 7
   days: 2
   pool: true
@@ -289,8 +273,6 @@
   name: Six teams advance (USAU 7.6)
   description: >
     Pool games are played over 2 days. 3rd place is from pool play.
-    4th place is given to the winner of the pool play game between Wb and Wc.
-    5th place is given to the loser of the pool play game between Wb and Wc.
   num_teams: 7
   days: 2
   pool: true
@@ -310,10 +292,8 @@
   handle: USAU 8.1
   name: One team advances (USAU 8.1)
   description: >
-    On the first day, play two pools of four according to Table 8.1.2. On the
-    second day, play single elimination according to Table 8.1, eight-team modified
-    elimination. The games outside the initial bracket are only for place. This
-    format requires only three rounds each day, so games can be spaced out well.
+    The first day has two pools of four and the second day is a single elimination
+    bracket.
   num_teams: 8
   days: 2
   rounds: 3
@@ -324,10 +304,8 @@
   handle: USAU 8.2
   name: Two teams advance (USAU 8.2)
   description: >
-    On the first day, play two pools of four according to Table 8.1.2. Then,
-    continue into Bracket 8.2.1, eight-team clipped double elimination. The first
-    round of the bracket is played on the first day, while the remaining three
-    rounds are played on the second day.
+    The first day has two pools of four and the second day is a clipped double
+    elimination bracket.
   num_teams: 8
   days: 2
   rounds: 4
@@ -338,9 +316,7 @@
   handle: USAU 8.3
   name: Three, Seven, or Eight teams advance (USAU 8.3)
   description: >
-    On the first day, play two pools of four according to Table 8.1.3. Then,
-    continue into Bracket 8.3, Eight-team modified elimination – three teams
-    advance. The first round of the bracket is played on the first day.
+    On the first day, play two pools of four and the first round of the bracket.
   num_teams: 8
   days: 2
   rounds: 4
@@ -350,10 +326,6 @@
 -
   handle: USAU 8.4
   name: Four teams advance (USAU 8.4)
-  description: >
-    On the first day, play two pools of four according to Table 8.1.1. On the
-    second day, use Bracket 8.4, eight-team modified elimination – four teams
-    advance. There are only three games each day, so rounds can be spaced out.
   num_teams: 8
   days: 2
   rounds: 3
@@ -363,10 +335,6 @@
 -
   handle: USAU 8.5
   name: Five teams advance (USAU 8.5)
-  description: >
-    On the first day, play two pools of four according to Table 8.1.2. Then,
-    continue into Bracket 8.2.2, eight-team double elimination. The first round of
-    the brackets are played on the first day.
   num_teams: 8
   days: 2
   rounds: 5
@@ -376,10 +344,6 @@
 -
   handle: USAU 8.6
   name: Six teams advance (USAU 8.6)
-  description: >
-    On the first day, play two pools of four according to Table 8.1.3. Then,
-    continue into Bracket 8.5, eight-team modified elimination – six teams advance.
-    The first round of the brackets are played on the first day.
   num_teams: 8
   days: 2
   rounds: 4
@@ -390,8 +354,7 @@
   handle: USAU 9.1
   name: One team advances (USAU 9.1)
   description: >
-    A nine team tournament requires two unequal pools of 4 and 5. When fewer than
-    five teams advance, the pool of five plays games to 11, while the pool of four
+    The pool of five plays games to 11, while the pool of four
     plays games to 15 in order to balance the total number of points played between
     pools.
   num_teams: 9
@@ -404,8 +367,7 @@
   handle: USAU 9.2
   name: Two teams advance (USAU 9.2)
   description: >
-    A nine team tournament requires two unequal pools of 4 and 5. When fewer than
-    five teams advance, the pool of five plays games to 11, while the pool of four
+    The pool of five plays games to 11, while the pool of four
     plays games to 15 in order to balance the total number of points played between
     pools.
   num_teams: 9
