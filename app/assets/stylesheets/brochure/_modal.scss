@@ -1,3 +1,19 @@
+#animatedModal {
+  .modal-footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -133px;
+    border-top: none;
+    font-size: 10px;
+    color: black;
+    a:link, a:visited {
+      color: black;
+      text-decoration: underline;
+    }
+  }
+}
+
 #closebt-container {
   position: relative;
   width:100%;

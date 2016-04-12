@@ -30,5 +30,6 @@ Rails.application.routes.draw do
     post '/confirm/:id' => 'app#confirm'
   end
 
+  get '/tos' => 'brochure#tos'
   root 'brochure#index'
 end
