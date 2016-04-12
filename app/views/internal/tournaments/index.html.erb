@@ -1,0 +1,26 @@
+<% content_for :top_bar_left do %>
+  <i class="fa fa-trophy"></i>
+  Tournaments
+<% end %>
+
+<%= ui_box do %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tournaments.each do |tournament| %>
+        <tr>
+          <td><%= tournament.domain %></td>
+          <td><%= tournament.users.first.email %></td>
+          <td><%= tournament.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
