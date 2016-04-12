@@ -7,6 +7,6 @@ class Map < ActiveRecord::Base
   validates :zoom, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 20 }
 
   def edited?
-    updated_at > created_at
+    edited_at.present?
   end
 end

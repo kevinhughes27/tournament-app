@@ -15,8 +15,11 @@ class Admin::MapController < AdminController
   private
 
   def tournament_params
-    params.require(:tournament).permit(
+    tournament_params = params.require(:tournament).permit(
       map_attributes: [:id, :lat, :long, :zoom]
     )
+
+    tournament_params[:map_attributes][:edited_at] = Time.now
+    tournament_params
   end
 end

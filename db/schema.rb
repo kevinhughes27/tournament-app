@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408190820) do
+ActiveRecord::Schema.define(version: 20160412022236) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20160408190820) do
     t.integer  "zoom",                                    default: 4,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "edited_at"
   end
 
   add_index "maps", ["tournament_id"], name: "index_maps_on_tournament_id"
