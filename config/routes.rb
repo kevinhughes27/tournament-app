@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   namespace :internal do
     get "/" => "dashboard#show"
+    resources :tournaments, only: [:index]
   end
 
   constraints(Subdomain) do
