@@ -57,5 +57,7 @@ class @GoogleAnalytics
 
 GoogleAnalytics.load()
 
-$(document).on 'click', '[track-click]', (event) ->
-  GoogleAnalytics.trackEvent(event)
+<% if Rails.env.production? %>
+  $(document).on 'click', '[track-click]', (event) ->
+    GoogleAnalytics.trackEvent(event)
+<% end %>
