@@ -8,9 +8,11 @@
         They're shown in case you want to copy and paste to another map
         program.
       </p>
-      <%= form.ui_text_field :lat, readonly: true %>
-      <%= form.ui_text_field :long, readonly: true %>
-      <%= form.ui_text_area :geo_json, rows: 10, readonly: true, style: 'resize: none;' %>
+      <div class="hidden-xs hidden-sm">
+        <%= form.ui_text_field :lat, readonly: true %>
+        <%= form.ui_text_field :long, readonly: true %>
+        <%= form.ui_text_area :geo_json, rows: 10, readonly: true, style: 'resize: none;' %>
+      </div>
     <% end %>
   </div>
 
