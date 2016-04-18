@@ -38,12 +38,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0'
 
 # javascript gems
-gem 'turbolinks', git: 'https://github.com/rails/turbolinks', branch: 'master'
-gem 'react-rails', git: 'https://github.com/reactjs/react-rails', branch: 'master'
-gem 'browserify-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
+gem 'turbolinks', git: 'https://github.com/rails/turbolinks', branch: 'master'
 gem 'twine-rails'
+gem 'react-rails', git: 'https://github.com/reactjs/react-rails', branch: 'master'
+gem 'browserify-rails'
 
 group :production do
   gem 'pg'

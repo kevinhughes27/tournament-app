@@ -18,6 +18,7 @@ class Admin.FieldEditor
       @historyBuffer.push({center: @center, geoJson: @geoJson})
     else
       @map.on 'mouseover', @_initDrawingMode
+      @map.on 'contextmenu', @_initDrawingModeMobile
 
     @undoControl = new Admin.MapUndoControl(undoCallback: @_undoHandler)
     @map.addControl(@undoControl)
@@ -44,6 +45,10 @@ class Admin.FieldEditor
   _initDrawingMode: =>
     return if @historyBuffer.length >= 1
     @map.editTools.startPolygon()
+
+  _initDrawingModeMobile: (event) =>
+    return if @historyBuffer.length >= 1
+    @map.editTools.startPolygon(event.latlng)
 
   # auto complete the polygon on the 4th vertex
   _autoFinishHandler: (e) ->

@@ -51,8 +51,3 @@ instance = new Sidebar
 
 Admin.Sidebar = ->
   return instance
-
-$(document).on 'page:change', ->
-  $('body').swipe
-    swipeRight: -> Admin.Sidebar().open("sidebar-open")
-    swipeLeft: -> Admin.Sidebar().close("sidebar-open")
