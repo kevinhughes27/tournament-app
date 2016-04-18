@@ -14,7 +14,7 @@
           data-minchars="1"
           data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
           bind-event-change="searchChange(event)"
-          track-click="{category: 'ScheduleScreen', action: 'Search'}">
+          track-click="{category: 'App.ScheduleScreen', action: 'Search'}">
       </div>
     </div>
 
