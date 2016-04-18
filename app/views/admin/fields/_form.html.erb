@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6">
-    <%= form.ui_text_field :name %>
+    <%= form.ui_text_field :name, autocomplete: 'off' %>
     <% if @map.edited? %>
       <div class="hidden-xs hidden-sm">
         <br>
