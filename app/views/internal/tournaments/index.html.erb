@@ -9,16 +9,16 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
-        <th>Created At</th>
+        <th class="hidden-xs">Created At</th>
       </tr>
     </thead>
 
     <tbody>
       <% @tournaments.each do |tournament| %>
         <tr>
-          <td><%= tournament.domain %></td>
+          <td><%= link_to tournament.handle, tournament.domain %></td>
           <td><%= tournament.users.first.email %></td>
-          <td><%= tournament.created_at %></td>
+          <td class="hidden-xs"><%= tournament.created_at %></td>
         </tr>
       <% end %>
     </tbody>
