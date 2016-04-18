@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd "app/assets/javascripts/vendor"
-bower install

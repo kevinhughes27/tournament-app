@@ -45,6 +45,16 @@ gem 'twine-rails'
 gem 'react-rails', git: 'https://github.com/reactjs/react-rails', branch: 'master'
 gem 'browserify-rails'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-leaflet', '~> 1.0.0.beta.2'
+  gem 'rails-assets-datetimepicker', '~> 2.4.5'
+  gem 'rails-assets-underscore', '~> 1.8.3'
+  gem 'rails-assets-moment', '~> 2.10.6'
+  gem 'rails-assets-fingerprintjs2' , '~> 0.7.4'
+  gem 'rails-assets-jquery.scrollTo', '~> 2.1.2'
+  gem 'rails-assets-vis', '~> 4.15'
+end
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

@@ -8,12 +8,14 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += [
   'brochure.css',
   'brochure.js',
+  'brochure_vendor.js',
   'admin.css',
   'admin.js',
-  'schedule.css',
+  'admin_vendor.js',
+  'schedule_pdf.css',
   'app.css',
   'app.js',
-  'fingerblast.js'
+  'app_vendor.js',
 ]
 
 Rails.application.config.browserify_rails.commandline_options = [
