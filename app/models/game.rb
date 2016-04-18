@@ -61,8 +61,10 @@ class Game < ActiveRecord::Base
   def name
     if teams_present?
       "#{home.name} vs #{away.name}"
+    elsif bracket_uid.present?
+      "#{bracket_uid} (#{home_prereq_uid} vs #{away_prereq_uid})"
     else
-      "#{division.name} #{bracket_uid} (#{home_prereq_uid} vs #{away_prereq_uid})"
+      "#{home_prereq_uid} vs #{away_prereq_uid}"
     end
   end
 
