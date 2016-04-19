@@ -1,6 +1,4 @@
-window.UT ||= {}
-
-class UT.MapForm
+class Admin.MapForm
   LAT_FIELD: '#tournament_map_attributes_lat'
   LONG_FIELD: '#tournament_map_attributes_long'
   ZOOM_FIELD: '#tournament_map_attributes_zoom'

@@ -1,4 +1,4 @@
-class Admin.FieldsIndexMap extends UT.MapForm
+class Admin.FieldsIndexMap extends Admin.MapForm
   DEFAULT_ZOOM: 15
 
   constructor: (@$form, lat, long, zoom, @fields) ->
