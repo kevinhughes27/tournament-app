@@ -54,19 +54,6 @@
   }
 }
 
-//Direct Chat Variant
-@mixin direct-chat-variant($bg-color, $color: #fff) {
-  .right > .direct-chat-text {
-    background: $bg-color;
-    border-color: $bg-color;
-    color: $color;
-    &:after,
-      &:before {
-      border-left-color: $bg-color;
-    }
-  }
-}
-
 //border radius creator
 @mixin border-radius-same($radius) {
   border-radius: $radius;
@@ -94,7 +81,7 @@
     $start 0%,
     $stop 100%);
   background: -o-linear-gradient($stop,
-    $start);  
+    $start);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($stop)}', endColorstr='#{ie-hex-str($start)}', GradientType=0); // IE9 and down
 }
 
