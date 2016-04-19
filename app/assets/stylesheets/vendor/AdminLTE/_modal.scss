@@ -4,6 +4,7 @@
  */
 .modal {
   background: rgba(0,0,0,.3);
+  z-index: 2001;
 }
 .modal-content {
   @include border-radius-same(0);
