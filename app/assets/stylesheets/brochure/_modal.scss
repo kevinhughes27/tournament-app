@@ -1,4 +1,7 @@
 #animatedModal {
+  .modal-content {
+    top: 8%;
+  }
   .modal-footer {
     position: absolute;
     bottom: 0;
@@ -11,6 +14,9 @@
       color: black;
       text-decoration: underline;
     }
+  }
+  .btn-lg {
+    line-height: 0.9;
   }
 }
 
@@ -38,7 +44,6 @@
 .modal-content {
   border: none;
   padding: 20px 20px 10px 20px;
-  top: 15%;
 
   .form-control {
     border-radius: 0;
