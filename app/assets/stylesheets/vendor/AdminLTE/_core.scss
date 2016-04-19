@@ -99,6 +99,12 @@ body.sidebar-open {
   min-height: 250px;
   padding: 15px;
   @include container-fixed($grid-gutter-width);
+
+  @media (max-width: $screen-xs-max) {
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 /* H1 - H6 font */
