@@ -9,7 +9,8 @@
   top: 0;
   left: 0;
   padding-top: 50px;
-  min-height: 100%;
+  min-height: 600px;
+  height: 100%;
   width: $sidebar-width;
   z-index: 810;
   //Using disposable variable to join statements with a comma
@@ -50,48 +51,6 @@
   }
   @media (min-width: $screen-sm) {
     display: none;
-  }
-}
-
-//Sidebar user panel
-.user-panel {
-  position: absolute;
-  bottom: 0px;
-  padding: 10px;
-  overflow: hidden;
-  @include clearfix;
-
-  .image > img {
-    width: 100%;
-    max-width: 30px;
-    height: auto;
-  }
-
-  .info {
-    padding-left: 30px;
-    margin-left: 10px;
-    margin-top: 4px;
-    transition: opacity 0.25s ease-in-out;
-    -webkit-transition: opacity 0.25s ease-in-out;
-    -moz-transition: opacity 0.25s ease-in-out;
-    -o-transition: opacity 0.25s ease-in-out;
-    -ms-transition: opacity 0.25s ease-in-out;
-    .sidebar-collapse & {
-      opacity: 0;
-    }
-    .sidebar-open & {
-      opacity: 1;
-    }
-  }
-
-  .dropdown-menu {
-    position: fixed;
-    bottom: 48px;
-    left: 10px;
-    width: 200px;
-    a {
-      color: $link-color !important;
-    }
   }
 }
 
@@ -162,6 +121,48 @@
           width: auto;
         }
       }
+    }
+  }
+}
+
+//Sidebar user panel
+.user-panel {
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+  overflow: hidden;
+  @include clearfix;
+
+  .image > img {
+    width: 100%;
+    max-width: 30px;
+    height: auto;
+  }
+
+  .info {
+    padding-left: 30px;
+    margin-left: 10px;
+    margin-top: 4px;
+    transition: opacity 0.25s ease-in-out;
+    -webkit-transition: opacity 0.25s ease-in-out;
+    -moz-transition: opacity 0.25s ease-in-out;
+    -o-transition: opacity 0.25s ease-in-out;
+    -ms-transition: opacity 0.25s ease-in-out;
+    .sidebar-collapse & {
+      opacity: 0;
+    }
+    .sidebar-open & {
+      opacity: 1;
+    }
+  }
+
+  .dropdown-menu {
+    position: fixed;
+    bottom: 48px;
+    left: 10px;
+    width: 200px;
+    a {
+      color: $link-color !important;
     }
   }
 }

@@ -17,6 +17,10 @@ body {
   overflow-y: auto;
 }
 
+body.sidebar-open {
+  overflow-y: hidden;
+}
+
 /* Layout */
 .wrapper {
   @include clearfix;
