@@ -1,6 +1,8 @@
 class BrochureController < ApplicationController
+  layout 'brochure'
+
   def index
-    render :index, layout: false
+    render :index
   end
 
   def tos
