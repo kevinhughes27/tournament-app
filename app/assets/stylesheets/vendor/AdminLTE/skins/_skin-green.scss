@@ -16,8 +16,16 @@
       @include navbar-variant($white, $black);
       .page-title {
         color: $black;
+        font-size: 20px;
+        i {
+          padding-right: 5px;
+        }
         a {
           color: $black;
+          &:hover {
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+          }
         }
       }
       @media(max-width: $screen-header-collapse) {
