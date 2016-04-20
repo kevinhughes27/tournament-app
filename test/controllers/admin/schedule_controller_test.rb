@@ -35,7 +35,7 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     Timecop.freeze do
       get :index
       assert_response :success
-      assert_match Time.now.to_formatted_s(:datetimepicker), response.body
+      assert_match Time.now.to_formatted_s(:schedule), response.body
     end
   end
 
