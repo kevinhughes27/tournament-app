@@ -8,6 +8,7 @@ class BracketRenderController < ApplicationController
       <html>
       <head>
         <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'admin_vendor', 'data-turbolinks-track' => true %>
         <%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
       </head>
       <body>
