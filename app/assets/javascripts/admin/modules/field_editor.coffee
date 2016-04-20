@@ -12,20 +12,30 @@ class Admin.FieldEditor
     @historyBuffer = []
 
     @_drawOtherFields(fields)
+    if @geoJson then @_initEdit() else @_initCreate()
+    @_initEvents()
+    @_initUndo()
 
-    if @geoJson
-      @_drawField()
-      @historyBuffer.push({center: @center, geoJson: @geoJson})
-    else
-      @map.on 'mouseover', @_initDrawingMode
-      @map.on 'contextmenu', @_initDrawingModeMobile
-
-    @undoControl = new Admin.MapUndoControl(undoCallback: @_undoHandler)
-    @map.addControl(@undoControl)
-
+  _initCreate: ->
+    @map.on 'mouseover', @_initDrawingMode
+    @map.on 'contextmenu', @_initDrawingModeMobile
     @map.on 'editable:drawing:clicked', @_autoFinishHandler
     @map.on 'editable:drawing:commit', @_updateField
     @map.on 'editable:vertex:dragend', @_updateField
+
+  _initEdit: ->
+    @_drawField()
+    @historyBuffer.push({center: @center, geoJson: @geoJson})
+
+  _initEvents: ->
+    @map.on 'editable:vertex:dragend', @_updateField
+    # prevent vertex delete
+    @map.on 'editable:vertex:rawclick', (e) ->
+      e.cancel()
+
+  _initUndo: ->
+    @undoControl = new Admin.MapUndoControl(undoCallback: @_undoHandler)
+    @map.addControl(@undoControl)
     $(document).on 'keydown', @_keyHandler
 
   _drawOtherFields: (fields) ->
@@ -52,10 +62,11 @@ class Admin.FieldEditor
     $('#_map').vibrate('short')
 
   # auto complete the polygon on the 4th vertex
-  _autoFinishHandler: (e) ->
+  _autoFinishHandler: (e) =>
     if e.layer.getLatLngs()[0].length == 4
       e.editTools.commitDrawing()
       e.layer.setStyle(Admin.FieldStyle)
+      @map.off('editable:drawing:clicked', @_autoFinishHandler)
 
   # draw a field we've previously saved
   _drawField: ->
