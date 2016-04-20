@@ -1,3 +1,4 @@
+#= require app_vendor
 #= require app
 
 describe 'MainScreen', ->
