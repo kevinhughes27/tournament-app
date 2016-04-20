@@ -49,6 +49,7 @@ class Admin.FieldEditor
   _initDrawingModeMobile: (event) =>
     return if @historyBuffer.length >= 1
     @map.editTools.startPolygon(event.latlng)
+    $('#_map').vibrate('short')
 
   # auto complete the polygon on the 4th vertex
   _autoFinishHandler: (e) ->

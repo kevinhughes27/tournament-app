@@ -16,3 +16,4 @@
 //= require vis
 //= require vendor/redips-drag
 //= require vendor/jquery.floatThead
+//= require vendor/jquery.vibrate
