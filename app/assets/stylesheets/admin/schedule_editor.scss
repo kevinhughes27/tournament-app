@@ -3,7 +3,7 @@ $game-height: 40px;
 $game-col-width: 220px;
 $slot-width: 90px;
 $slot-height: 50px;
-$time-input-width: 160px;
+$time-input-width: 170px;
 
 .legend {
   display: inline-block;
@@ -64,6 +64,7 @@ $time-input-width: 160px;
   }
   td.time {
     min-width: $time-input-width;
+    max-width: $time-input-width;
   }
   td {
     min-width: $slot-width;
