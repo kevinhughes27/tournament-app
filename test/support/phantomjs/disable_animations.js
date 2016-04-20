@@ -14,7 +14,7 @@ var disableAnimationStyles = 'transition-property: none !important;' +
                              '-ms-animation: none !important;' +
                              '-webkit-animation: none !important;' +
                              'html.turbolinks-progress-bar::before {' +
-                               'display: none; important!' +
+                               'display: none important!;' +
                              '}'
 
 window.onload = function() {
