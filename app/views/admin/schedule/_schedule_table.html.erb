@@ -16,8 +16,8 @@
             <tr>
               <td class="time redips-mark">
                 <input type="text"
-                       class="td-input datetimepicker form-control"
-                       value="<%= time.to_formatted_s(:datetimepicker) %>"
+                       class="td-input form-control"
+                       value="<%= time.to_formatted_s(:schedule) %>"
                        bind-event-blur="timeUpdated(event)">
               </td>
               <% @fields.each do |field| %>
