@@ -15,7 +15,7 @@
           <% @times.each_with_index do |time, index| %>
             <tr>
               <td class="time redips-mark">
-                <input type="text"
+                <input type="datetime"
                        class="td-input form-control"
                        value="<%= time.to_formatted_s(:schedule) %>"
                        bind-event-blur="timeUpdated(event)">
