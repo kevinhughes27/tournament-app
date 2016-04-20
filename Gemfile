@@ -7,9 +7,6 @@ gem 'sprockets-rails', '< 3.0' # breaks Teaspoon
 
 gem 'unicorn'
 gem 'wicked'
-gem 'friendly_id'
-gem 'frozen_record', '~> 0.5.0'
-gem 'paranoia', '~> 2.0'
 gem 'responders'
 gem 'render_anywhere', require: false
 gem 'json-schema', '~> 2.6.0'
@@ -17,7 +14,11 @@ gem 'jbuilder'
 gem 'wicked_pdf'
 gem 'browser-timezone-rails'
 
-# added validations
+# model gems
+gem 'friendly_id'
+gem 'frozen_record', '~> 0.5.0'
+gem 'paranoia', '~> 2.0'
+gem 'auto_strip_attributes', '~> 2.0'
 gem 'date_validator'
 gem 'phonelib'
 

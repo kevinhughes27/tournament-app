@@ -5,6 +5,8 @@ class Field < ActiveRecord::Base
   has_many :games
   belongs_to :tournament
 
+  auto_strip_attributes :name
+
   validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
   validates :lat , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }
