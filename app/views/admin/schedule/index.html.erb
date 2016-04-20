@@ -18,7 +18,7 @@
     </div>
   <% end %>
 
-  <section define='{schedule: new Admin.Schedule(<%= @tournament.time_cap %>)}' context='schedule'>
+  <section define='{scheduleEditor: new Admin.ScheduleEditor(<%= @tournament.time_cap %>)}' context='scheduleEditor'>
     <%= form_tag admin_schedule_path, class: 'edit_schedule', 'bind-event-submit' => 'save(this)' do %>
       <div class="schedule_editor" id="redips-drag">
         <%= render 'games' %>

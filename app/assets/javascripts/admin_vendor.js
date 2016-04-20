@@ -14,4 +14,3 @@
 //= require vendor/Leaflet.Editable
 //= require vis
 //= require vendor/redips-drag
-//= require vendor/jquery.floatThead
