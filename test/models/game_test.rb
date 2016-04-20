@@ -13,9 +13,14 @@ class GameTest < ActiveSupport::TestCase
     assert_equal "#{@home.name} vs #{@away.name}", @game.name
   end
 
-  test "name returns bracket pos name if teams aren't assigned yet" do
+  test "name returns seed vs name if teams aren't assigned yet" do
     game = Game.new(division: @division, home_prereq_uid: 1, away_prereq_uid: 8)
-    assert_equal "Open  (1 vs 8)", game.name
+    assert_equal "1 vs 8", game.name
+  end
+
+  test "name returns bracket pos name if teams aren't assigned yet" do
+    game = Game.new(division: @division, bracket_uid: 'a', home_prereq_uid: 1, away_prereq_uid: 8)
+    assert_equal "a (1 vs 8)", game.name
   end
 
   test "teams_present? is true if home and away are set" do
