@@ -1,6 +1,6 @@
 class Admin.Bracket
 
-  constructor: (node, bracketName) ->
+  constructor: (node) ->
     @descTemplate = _.template(TEMPLATES.description)
     @poolsTemplate = _.template(TEMPLATES.pools)
     @noPoolsTemplate = _.template(TEMPLATES.no_pools)
@@ -8,7 +8,12 @@ class Admin.Bracket
     @$node = $(node)
     @$bracketDescNode = @$node.find('#bracketDescription')
     @$bracketPoolsNode = @$node.find('#bracketPools')
-    @$bracketGraphNode = @$node.find('#bracketGraph')
+
+    # bracket graph is in modal on small screens
+    @$bracketGraphNode = if window.smallScreen()
+      @$node.find('.modal').find('#bracketGraph')
+    else
+      @$node.find('.col-md-8').find('#bracketGraph')
 
   render: (bracketName) ->
     bracket = Admin.BracketDb.find(bracketName)

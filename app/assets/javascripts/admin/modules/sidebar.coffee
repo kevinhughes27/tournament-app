@@ -1,7 +1,7 @@
 class Sidebar
 
   toggle: ->
-    if @_smallScreen()
+    if window.smallScreen()
       klass = "sidebar-open"
       if @_open(klass) then @close(klass) else @open(klass)
     else
@@ -17,7 +17,7 @@ class Sidebar
     return if $node.length == 0
     event.preventDefault()
 
-    @close() if @_smallScreen()
+    @close() if window.smallScreen()
     Turbolinks.visit($node.attr('href'))
 
   # desktop and tablet
@@ -43,9 +43,6 @@ class Sidebar
 
   _open: (klass) ->
     $('body').hasClass(klass)
-
-  _smallScreen: ->
-    $(window).width() < 767
 
 instance = new Sidebar
 

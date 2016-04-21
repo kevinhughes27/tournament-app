@@ -44,6 +44,9 @@ class Admin.BracketVis
     data = @graphFromBracket(bracket)
     vis = new window.vis.Network(@node, data, options)
 
+    $('#bracketVisModal').on 'shown.bs.modal', (e) ->
+      vis.fit()
+
     if @debug
       vis.on "configChange", =>
         div = $('.vis-configuration-wrapper')[0]
