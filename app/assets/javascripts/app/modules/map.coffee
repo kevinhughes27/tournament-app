@@ -12,7 +12,7 @@ class App.Map
     @_drawField(field) for field in @app.fields
 
   _drawField: (field) ->
-    return unless field.geoJson
+    return unless field.geo_json
     geoJson = JSON.parse(field.geo_json)
 
     layers = L.geoJson(geoJson, {
