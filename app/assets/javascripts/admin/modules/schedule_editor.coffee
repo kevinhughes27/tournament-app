@@ -1,54 +1,95 @@
 class Admin.ScheduleEditor
+  constructor: (@timeCap) ->
+    @$tableNode = $('.schedule-table > table')
+    @editor = new Admin.ScheduleDnD()
 
-  constructor: ->
-    @rd = REDIPS.drag
-    @rd.init()
-    @rd.dropMode = 'single'
-    @rd.hover = {}
+  addRow: ->
+    trs = @$tableNode.find('tr')
+    tr = trs[trs.length - 1]
+    tr = $(tr).clone()
 
-    @rd.event.clicked = (dropCell) ->
-      gameNode = dropCell.children[0]
-      gameNode.classList.remove('game-error')
+    $tr = $(tr)
+    lastTime = $tr.find('input').val()
+    time = moment(lastTime).add(@timeCap, 'minutes').format('MM/DD/YYYY h:mm A')
+    $tr.find('input').val(time)
+    $tr.find('div.game').remove()
 
-    @rd.event.dropped = (dropCell) =>
-      # game was dropped and returned to list
-      return if dropCell.classList[0] == 'redips-mark'
+    @$tableNode.append(tr[0])
+    Twine.bind()
 
-      hideBanner()
-      unhighlightCells()
-      gameNode = dropCell.children
-      @gameAssigned(gameNode, dropCell)
+  timeUpdated: (event) ->
+    rowIdx = $(event.target).closest('tr').index()
 
-    @rd.event.changed = (dropCell) ->
-      highlightHeaderCell(dropCell)
-
-  gameAssigned: (game, slot) ->
-    fieldId = $(slot).data('field-id')
-    rowIdx = $(slot).parent().index()
-
-    startTime = $(slot).parent().find('input').val()
+    startTime = $(event.target).val()
     startTime = moment(startTime).format()
 
-    $game = $(game)
-    $game.attr('data-changed', true)
-    $game.attr('data-row-idx', rowIdx)
-    $game.attr('data-field-id', fieldId)
-    $game.attr('data-start-time', startTime)
+    games = $("[data-row-idx=#{rowIdx}]")
+    games.attr('data-changed', true)
+    games.attr('data-start-time', startTime)
 
-hideBanner = ->
-  $banner = $('.alert-dismissable')
-  $banner.fadeOut(400, -> $('.schedule-table > table').floatThead('reflow'))
+  save: (form) ->
+    @_startLoading(form)
+    @_clearGameErrors()
+    games = @_collectGames()
+    @_save(form, games)
 
-highlightHeaderCell = (td) ->
-  unhighlightCells()
-  $td = $(td)
-  $th = getTableHeader($td)
-  $th.addClass('drop-target')
-  $td.addClass('drop-target')
+  _startLoading: (form) ->
+    Turbolinks.ProgressBar.start()
+    $(form).find(':submit').addClass('is-loading')
 
-unhighlightCells = ->
-  $('.drop-target').removeClass('drop-target')
+  _collectGames: ->
+    games = _.filter $('.game'), (g) -> $(g).data('changed') == true
+    games = _.map games, (g) ->
+      {
+        id: $(g).attr('data-game-id')
+        field_id: $(g).attr('data-field-id')
+        start_time: $(g).attr('data-start-time')
+      }
+    games
 
-getTableHeader = ($td) ->
-  $table = $('.floatThead-container')
-  $table.find('th').eq($td.index())
+  _save: (form, games) ->
+    $.ajax
+      type: 'POST'
+      url: form.action
+      data: {games: games}
+      error: (response) =>
+        @_finishLoading(form)
+        if response.status == 422
+          @_addGameErrors(response.responseJSON.game_id)
+          message = response.responseJSON.error
+          message = message.replace('Validation failed: ', '')
+          message = message.split(', ')[0]
+          Admin.Flash.error(message, 6000)
+        else
+          Admin.Flash.error('Sorry, something went wrong.')
+      success: (response) =>
+        @_finishLoading(form)
+        @_keepScroll( -> Turbolinks.replace(response))
+        Admin.Flash.notice('Schedule saved')
+
+  _keepScroll: (func) ->
+    if node = $('#games-card')[0]
+      scrollLeft1 = node.scrollLeft
+      scrollTop1 = node.scrollTop
+    node = $('#schedule-card')[0]
+    scrollLeft2 = node.scrollLeft
+    scrollTop2 = node.scrollTop
+
+    func.call()
+
+    if node = $('#games-card')[0]
+      node.scrollLeft = scrollLeft1
+      node.scrollTop = scrollTop1
+    node = $('#schedule-card')[0]
+    node.scrollLeft = scrollLeft2
+    node.scrollTop = scrollTop2
+
+  _addGameErrors: (game_id) ->
+    $("[data-game-id=#{game_id}]").addClass('game-error')
+
+  _clearGameErrors: ->
+    $('.game').removeClass('game-error')
+
+  _finishLoading: (form) ->
+    Turbolinks.ProgressBar.done()
+    $(form).find(':submit').removeClass('is-loading')

@@ -18,13 +18,15 @@
     </div>
   <% end %>
 
-  <section define='{schedule: new Admin.Schedule(<%= @tournament.time_cap %>)}' context='schedule'>
+  <section define='{scheduleEditor: new Admin.ScheduleEditor(<%= @tournament.time_cap %>)}' context='scheduleEditor'>
     <%= form_tag admin_schedule_path, class: 'edit_schedule', 'bind-event-submit' => 'save(this)' do %>
-      <div id="redips-drag">
+      <div class="schedule_editor" id="redips-drag">
         <%= render 'games' %>
         <%= render 'schedule_table' %>
-        <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
-        <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>
+        <div>
+          <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
+          <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>
+        </div>
       </div>
     <% end %>
   </section>

@@ -1,4 +1,4 @@
-<div id="schedule-card" class="box box-solid" style='<%= "height: 70vh;" if @games.all? { |game| game.assigned? } %>'>
+<div id="schedule-card" class="box box-solid">
   <div class="box-body">
     <div class="schedule-table">
       <table class="table table-bordered table-striped table-hover table-condensed">
@@ -22,7 +22,9 @@
               </td>
               <% @fields.each do |field| %>
                 <% game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
-                <td class="dropzone" data-field-id="<%= field.id %>">
+                <td class="dropzone"
+                    data-field-id="<%= field.id %>"
+                    data-field-name="<%= field.name %>">
                   <% if game %>
                     <div class="game redips-drag"
                          style="<%= color_for_game(game) %>"

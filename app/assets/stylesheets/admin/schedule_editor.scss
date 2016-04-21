@@ -3,7 +3,8 @@ $game-height: 40px;
 $game-col-width: 220px;
 $slot-width: 90px;
 $slot-height: 50px;
-$time-input-width: 160px;
+$time-input-width: 170px;
+$header-height: 32px;
 
 .legend {
   display: inline-block;
@@ -62,25 +63,52 @@ $time-input-width: 160px;
     min-height: $slot-height;
     height: $slot-height;
   }
-  td.time {
+  th.time, td.time {
     min-width: $time-input-width;
+    max-width: $time-input-width;
   }
-  td {
+  th {
+    text-align: center;
+    min-height: $header-height;
+  }
+  th, td {
     min-width: $slot-width;
   }
 }
 
-#games-card {
-  overflow-x: scroll;
-  overflow-y: scroll;
-  height: 40vh;
+.schedule_editor {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: calc(100vh - 80px);
+
+  @media (max-width: $screen-xs-max) {
+    height: calc(100vh - 120px);
+  }
+
+  #games-card {
+    flex-basis: 30%;
+    flex-grow: 2;
+    overflow-x: scroll;
+    overflow-y: scroll;
+  }
+
+  #schedule-card {
+    flex-basis: 30%;
+    flex-grow: 3;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    .box-body {
+      padding: 0px;
+    }
+  }
 }
 
-#schedule-card {
-  overflow-x: scroll;
-  overflow-y: scroll;
-  height: 40vh;
-  .box-body {
-    padding: 0px;
-  }
+.dropzone-label {
+  background-color: #29e;
+  min-height: $header-height;
+  line-height: $header-height;
+  width: $slot-width;
+  text-align: center;
+  font-weight: bold;
 }
