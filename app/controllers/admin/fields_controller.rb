@@ -2,7 +2,6 @@ require 'csv'
 
 class Admin::FieldsController < AdminController
   include LoadTournamentWithMap
-  TAB_KEY = 'fieldsTab'
 
   before_action :load_field, only: [:show, :update, :destroy]
   before_action :load_fields, only: [:index, :new, :create, :show, :update]

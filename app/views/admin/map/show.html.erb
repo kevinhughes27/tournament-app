@@ -8,11 +8,12 @@
 <% end %>
 
 <%= form_for @tournament, url: admin_map_path, html: { define: "{
-  fieldsIndexMap: new Admin.MapForm(
+  fieldsIndexMap: new Admin.FieldsIndexMap(
     $(this),
     #{@map.lat},
     #{@map.long},
-    #{@map.zoom}
+    #{@map.zoom},
+    #{render(template: 'admin/fields/fields.json.jbuilder')}
   )}"} do |form| %>
 
   <div class="row">

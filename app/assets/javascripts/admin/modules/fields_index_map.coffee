@@ -1,6 +1,4 @@
 class Admin.FieldsIndexMap extends Admin.MapForm
-  DEFAULT_ZOOM: 15
-
   constructor: (@$form, lat, long, zoom, @fields) ->
     super
     @_constructor()

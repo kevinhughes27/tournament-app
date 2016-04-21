@@ -1,6 +1,8 @@
 class Admin::MapController < AdminController
   include LoadTournamentWithMap
 
+  before_action :load_fields
+
   def show
   end
 
@@ -13,6 +15,10 @@ class Admin::MapController < AdminController
   end
 
   private
+
+  def load_fields
+    @fields = @tournament.fields
+  end
 
   def tournament_params
     tournament_params = params.require(:tournament).permit(
