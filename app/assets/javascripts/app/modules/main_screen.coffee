@@ -10,7 +10,7 @@ class App.MainScreen
     @initApp()
 
   initializeMap: ->
-    @map = new App.Map(@, @lat, @long, @zoom)
+    @appMap = new App.Map(@, @lat, @long, @zoom)
 
   initApp: ->
     @scheduleScreen = new App.ScheduleScreen(@)
@@ -91,13 +91,13 @@ class App.MainScreen
     moment.utc()
 
   pointToField: (field) ->
-    @map.clearMarkers()
+    @appMap.clearMarkers()
     return unless field.lat && field.long
 
     @findingField = true
     @tooFarAlert = false
 
-    @map.addMarker(field.lat, field.long)
+    @appMap.addMarker(field.lat, field.long)
 
     @pointMeThere.setDestination(field.lat, field.long, field.name)
     @pointMeThere.start (event) => _.throttle(@_pointToFieldCallback(event), 500)
@@ -107,11 +107,11 @@ class App.MainScreen
       alert("You're too far away!") unless @tooFarAlert
       @tooFarAlert = true
     else if event.lat && event.long
-      @map.drawPointer(event.lat, event.long, event.heading)
+      @appMap.drawPointer(event.lat, event.long, event.heading)
 
   finishPointToField: ->
     @findingField = false
-    @map.clearMarkers()
-    @map.clearPointer()
-    @map.centerMap()
+    @appMap.clearMarkers()
+    @appMap.clearPointer()
+    @appMap.centerMap()
     Twine.refresh()

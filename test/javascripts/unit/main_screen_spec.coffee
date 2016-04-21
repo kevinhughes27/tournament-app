@@ -132,14 +132,14 @@ describe 'MainScreen', ->
     expect(window.alert).toHaveBeenCalledWith("No Upcoming games for Swift")
 
   it "pointToField adds markers and starts pointMeThere", ->
-    app.map = jasmine.createSpyObj('map', ['clearMarkers', 'addMarker'])
+    app.appMap = jasmine.createSpyObj('appMap', ['clearMarkers', 'addMarker'])
     spyOn(app.pointMeThere, 'setDestination')
     spyOn(app.pointMeThere, 'start')
 
     app.pointToField({lat: 45, long: -72, name: 'UPI1'})
 
-    expect(app.map.clearMarkers).toHaveBeenCalled()
-    expect(app.map.addMarker).toHaveBeenCalledWith(45, -72)
+    expect(app.appMap.clearMarkers).toHaveBeenCalled()
+    expect(app.appMap.addMarker).toHaveBeenCalledWith(45, -72)
 
     expect(app.pointMeThere.setDestination).toHaveBeenCalledWith(45, -72, 'UPI1')
     expect(app.pointMeThere.start).toHaveBeenCalled()
@@ -155,21 +155,21 @@ describe 'MainScreen', ->
     expect(window.alert.calls.count()).toEqual(1)
 
   it "pointToField callback drawsPointer", ->
-    app.map = jasmine.createSpyObj('map', ['drawPointer'])
+    app.appMap = jasmine.createSpyObj('appMap', ['drawPointer'])
     event = {distance: 500, lat: 45, long: -72, heading: 90}
 
     app._pointToFieldCallback(event)
 
-    expect(app.map.drawPointer).toHaveBeenCalledWith(45, -72, 90)
+    expect(app.appMap.drawPointer).toHaveBeenCalledWith(45, -72, 90)
 
-  it "finishPointToField clears map", ->
+  it "finishPointToField clears appMap", ->
     app.findingField = true
-    app.map = jasmine.createSpyObj('map', ['clearMarkers', 'clearPointer', 'centerMap'])
+    app.appMap = jasmine.createSpyObj('appMap', ['clearMarkers', 'clearPointer', 'centerMap'])
 
     app.finishPointToField()
 
     expect(app.findingField).toBe(false)
-    expect(app.map.clearMarkers).toHaveBeenCalled()
-    expect(app.map.clearPointer).toHaveBeenCalled()
-    expect(app.map.centerMap).toHaveBeenCalled()
+    expect(app.appMap.clearMarkers).toHaveBeenCalled()
+    expect(app.appMap.clearPointer).toHaveBeenCalled()
+    expect(app.appMap.centerMap).toHaveBeenCalled()
     expect(Twine.refresh).toHaveBeenCalled()
