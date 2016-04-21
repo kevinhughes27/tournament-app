@@ -1,0 +1,15 @@
+#bracketVisModal {
+  .modal-header {
+    border: none;
+  }
+  .modal-dialog {
+    top: -5px;
+  }
+
+  .animated {
+    -webkit-animation-duration: 0.25s;
+    -moz-animation-duration: 0.25s;
+    -ms-animation-duration: 0.25s;
+    -o-animation-duration: 0.25s;
+  }
+}
