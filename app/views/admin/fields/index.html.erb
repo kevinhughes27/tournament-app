@@ -15,22 +15,12 @@
 <%= render 'import_errors' %>
 
 <% if @fields.present? %>
-  <%= tabs(key: Admin::FieldsController::TAB_KEY) do |t| %>
-    <%= t.nav(['List', 'Map']) %>
-    <%= t.panes do %>
-
-      <%= t.pane('List') do %>
-        <%= react_component('Admin.FieldsIndex', {
-          fields: render(template: 'admin/fields/fields.json.jbuilder'),
-          searchColumns: ["name"],
-          filters: []
-        }) %>
-      <% end %>
-
-      <%= t.pane('Map') do %>
-        <%= render 'map' %>
-      <% end %>
-    <% end %>
+  <%= ui_box do %>
+    <%= react_component('Admin.FieldsIndex', {
+      fields: render(template: 'admin/fields/fields.json.jbuilder'),
+      searchColumns: ["name"],
+      filters: []
+    }) %>
   <% end %>
 <% else %>
   <div class="blank-slate">
