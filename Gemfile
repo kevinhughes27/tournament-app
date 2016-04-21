@@ -52,6 +52,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-moment', '~> 2.10.6'
   gem 'rails-assets-fingerprintjs2' , '~> 0.7.4'
   gem 'rails-assets-jquery.scrollTo', '~> 2.1.2'
+  gem 'rails-assets-tether', '~> 1.3.1'
+  gem 'rails-assets-tether-drop', '~> 1.4.2'
   gem 'rails-assets-vis', '~> 4.15'
 end
 

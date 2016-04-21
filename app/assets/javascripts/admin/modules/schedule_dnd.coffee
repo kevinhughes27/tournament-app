@@ -11,18 +11,19 @@ class Admin.ScheduleDnD
       gameNode.classList.remove('game-error')
 
     @rd.event.dropped = (dropCell) =>
-      # game was dropped and returned to list
-      return if dropCell.classList[0] == 'redips-mark'
+      # game was dropped and returned to original position
+      return if 'redips-mark' in dropCell.classList
 
-      hideBanner()
-      unhighlightCells()
+      @_hideBanner()
+      @_unhighlightCells()
       gameNode = dropCell.children
-      @gameAssigned(gameNode, dropCell)
+      @_gameAssigned(gameNode, dropCell)
 
-    @rd.event.changed = (dropCell) ->
-      highlightHeaderCell(dropCell)
+    @rd.event.changed = (dropCell) =>
+      @_unhighlightCells()
+      @_highlightCells(dropCell)
 
-  gameAssigned: (game, slot) ->
+  _gameAssigned: (game, slot) ->
     fieldId = $(slot).data('field-id')
     rowIdx = $(slot).parent().index()
 
@@ -35,19 +36,23 @@ class Admin.ScheduleDnD
     $game.attr('data-field-id', fieldId)
     $game.attr('data-start-time', startTime)
 
-hideBanner = ->
-  $banner = $('.alert-dismissable')
-  $banner.fadeOut(400)
+  _hideBanner: ->
+    $banner = $('.alert-dismissable')
+    $banner.fadeOut(400)
 
-highlightHeaderCell = (td) ->
-  unhighlightCells()
-  $td = $(td)
-  $th = getTableHeader($td)
-  $th.addClass('drop-target')
-  $td.addClass('drop-target')
+  _highlightCells: (td) ->
+    $td = $(td)
+    $td.addClass('drop-target')
+    fieldName = $td.data('field-name')
 
-unhighlightCells = ->
-  $('.drop-target').removeClass('drop-target')
+    @_drop = new Drop
+      target: document.querySelector('.drop-target')
+      content: fieldName
+      classes: 'dropzone-label'
+      position: 'top center'
+    @_drop.open()
 
-getTableHeader = ($td) ->
-  $td.closest('table').find('th').eq($td.index())
+  _unhighlightCells: ->
+    $('.drop-target').removeClass('drop-target')
+    $('.dropzone-label').removeClass('dropzone-label')
+    @_drop.destroy() if @_drop && this._drop.drop

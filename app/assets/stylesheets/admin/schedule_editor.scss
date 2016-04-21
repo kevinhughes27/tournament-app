@@ -4,6 +4,7 @@ $game-col-width: 220px;
 $slot-width: 90px;
 $slot-height: 50px;
 $time-input-width: 170px;
+$header-height: 32px;
 
 .legend {
   display: inline-block;
@@ -62,11 +63,15 @@ $time-input-width: 170px;
     min-height: $slot-height;
     height: $slot-height;
   }
-  td.time {
+  th.time, td.time {
     min-width: $time-input-width;
     max-width: $time-input-width;
   }
-  td {
+  th {
+    text-align: center;
+    min-height: $header-height;
+  }
+  th, td {
     min-width: $slot-width;
   }
 }
@@ -97,4 +102,13 @@ $time-input-width: 170px;
       padding: 0px;
     }
   }
+}
+
+.dropzone-label {
+  background-color: #29e;
+  min-height: $header-height;
+  line-height: $header-height;
+  width: $slot-width;
+  text-align: center;
+  font-weight: bold;
 }

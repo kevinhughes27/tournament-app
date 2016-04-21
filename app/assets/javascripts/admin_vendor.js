@@ -13,4 +13,6 @@
 //= require leaflet
 //= require vendor/Leaflet.Editable
 //= require vis
+//= require tether
+//= require tether-drop
 //= require vendor/redips-drag
