@@ -9,8 +9,8 @@ class Field < ActiveRecord::Base
 
   validates_presence_of :tournament, :name
   validates_uniqueness_of :name, scope: :tournament
-  validates :lat , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }
-  validates :long, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
+  validates :lat , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90, allow_blank: true }
+  validates :long, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180, allow_blank: true }
   validates :geo_json, json: { allow_blank: true }
 
   after_destroy :unassign_games
