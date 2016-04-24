@@ -26,8 +26,14 @@ class PasswordsControllerTest < ActionController::TestCase
 
   test "put update (aka change password)" do
     token = @user.send_reset_password_instructions
-    put :update, user: {password: 'password', password_confirmation:'password', reset_password_token: token}
+    put :update, user: {password: 'password', password_confirmation: 'password', reset_password_token: token}
     assert_redirected_to new_user_session_path
   end
 
+  test "update error" do
+    token = @user.send_reset_password_instructions
+    put :update, user: {password: '', password_confirmation: '', reset_password_token: token}
+    assert_response :ok
+    assert_template 'passwords/show'
+  end
 end

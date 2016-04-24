@@ -64,11 +64,3 @@ class AdminController < ApplicationController
     cookies[:td] = true
   end
 end
-
-class ActionController::Responder
-  DEFAULT_ACTIONS_FOR_VERBS = {
-    :post => :new,
-    :patch => :show,
-    :put => :show
-  }
-end
