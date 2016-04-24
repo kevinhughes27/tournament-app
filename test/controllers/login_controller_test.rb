@@ -79,16 +79,6 @@ class LoginControllerTest < ActionController::TestCase
     assert_redirected_to admin_path
   end
 
-  test "login for internal area" do
-    set_subdomain('www')
-    user = users(:kevin)
-    assert user.staff?
-
-    set_internal_flash
-    post :create, user: {email: user.email, password: 'password'}
-    assert_redirected_to internal_path
-  end
-
   test "logout" do
     sign_in @user
     delete :destroy
@@ -100,11 +90,5 @@ class LoginControllerTest < ActionController::TestCase
     assert_match 'Log in', response.body, 'did not render the login page'
     error = css_select('.callout-danger > span')
     assert_equal text, error.text.strip
-  end
-
-  def set_internal_flash
-    flash_hash = ActionDispatch::Flash::FlashHash.new
-    flash_hash[:internal_path] = internal_path
-    session['flash'] = flash_hash.to_session_value
   end
 end

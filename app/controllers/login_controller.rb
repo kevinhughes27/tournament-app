@@ -5,7 +5,9 @@ class LoginController < Devise::SessionsController
   skip_before_action :require_no_authentication
   skip_before_action :verify_signed_out_user
 
-  prepend_view_path 'app/views/login'
+  def self.controller_path
+    'login'
+  end
   layout 'login'
 
   def choose_tournament
@@ -19,10 +21,6 @@ class LoginController < Devise::SessionsController
   def create
     user = warden.authenticate!(auth_options)
     return redirect_to setup_path unless user.tournaments.exists?
-
-    if flash[:internal_path] && current_user.staff?
-      return redirect_to flash[:internal_path]
-    end
 
     if @tournament.nil?
       login_no_tournament_id(user)

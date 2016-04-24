@@ -1,18 +1,20 @@
 class InternalController < ApplicationController
-  before_action :store_location
-  before_action :authenticate_user!
-  before_action :ensure_staff
-
   layout 'internal'
+
+  before_action :authenticate_user!
+  before_action :authenticate_staff!
+
+  alias_method :current_user, :current_internal_user
+
+  protected
+
+  def authenticate_user!
+    redirect_to new_internal_user_session_url unless internal_user_signed_in?
+  end
 
   private
 
-  def store_location
-    return unless request.get?
-    flash[:internal_path] = request.path
-  end
-
-  def ensure_staff
-    redirect_to new_user_session_path unless current_user.staff?
+  def authenticate_staff!
+    redirect_to new_internal_user_session_url unless current_internal_user.staff?
   end
 end

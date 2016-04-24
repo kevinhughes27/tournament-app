@@ -24,18 +24,18 @@ class InternalControllerTest < ActionController::TestCase
   test "admin requires staff login" do
     sign_out users(:kevin)
     get :index
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_internal_user_session_path
   end
 
   test "admin with staff login" do
-    sign_in users(:kevin)
+    sign_in :internal_user, users(:kevin)
     get :index
     assert_response :success
   end
 
   test "admin 404s for non staff login" do
-    sign_in users(:bob)
+    sign_in :internal_user, users(:bob)
     get :index
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_internal_user_session_path
   end
 end
