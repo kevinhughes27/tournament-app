@@ -2,6 +2,7 @@ var React = require('react'),
     Griddle = require('griddle-react'),
     FilterBar = require('../mixins/filter_bar'),
     FilterFunction = require('../mixins/filter_function'),
+    LinkCell = require('./link_cell'),
     DivisionsStore = require('../stores/divisions_store');
 
 var columns = [
@@ -10,14 +11,6 @@ var columns = [
   "teams_count",
   "seeded"
 ];
-
-var LinkCell = React.createClass({
-  render() {
-    var division = this.props.rowData;
-    var url = "divisions/" + division.id;
-    return <a href={url}>{this.props.data}</a>;
-  }
-});
 
 var TeamsCell = React.createClass({
   render() {
