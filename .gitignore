@@ -25,6 +25,7 @@ test/javascripts/coverage
 test/reports
 
 # ssl
+server.crt
 server.csr
 server.key
 server.pass.key
