@@ -5,17 +5,9 @@ Ultimate Tournament
 
 A web application for running ultimate tournaments
 
-domain: [http://ultimate-tournament.io](http://ultimate-tournament.io)
+[http://ultimate-tournament.io](http://ultimate-tournament.io)
 
-production: [http://ultimate-tournament.herokuapp.com/](http://ultimate-tournament.herokuapp.com/)
-
-Links
------
-
-[![heroku](http://i.imgur.com/5VVREDx.png)](https://dashboard.heroku.com/apps/ultimate-tournament)
-[![newrelic](http://i.imgur.com/X4OJe4r.png)](https://rpm.newrelic.com/accounts/1045852/applications/9539779)
-[![google-analytics](http://imgur.com/vZmWkmr.png)](https://analytics.google.com/analytics/web/?authuser=0#report/defaultid/a76316112w114919615p120118515/)
-[![slack](http://i.imgur.com/FAx0EGq.png)](https://ocua.slack.com)
+[Internal Dashboard](http://ultimate-tournament.io/internal)
 
 ### Auth Providers
 
