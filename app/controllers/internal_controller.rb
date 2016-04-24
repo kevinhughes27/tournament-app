@@ -6,6 +6,11 @@ class InternalController < ApplicationController
 
   alias_method :current_user, :current_internal_user
 
+  def destroy
+    sign_out(current_user)
+    redirect_to root_url(subdomain: 'www')
+  end
+
   protected
 
   def authenticate_user!
