@@ -55,9 +55,9 @@ class @GoogleAnalytics
     # your google analytics ID(s) here...
     'UA-76316112-1'
 
+<% if Rails.env.production? %>
 GoogleAnalytics.load()
 
-<% if Rails.env.production? %>
 $(document).on 'click', '[track-click]', (event) ->
   GoogleAnalytics.trackEvent(event)
 <% end %>
