@@ -3,8 +3,8 @@ var React = require('react');
 var LinkCell = React.createClass({
   render() {
     var obj = this.props.rowData;
-    var url = obj.url;
-    return <a href={url}>{this.props.data}</a>;
+    var path = obj.path;
+    return <a href={path}>{this.props.data}</a>;
   }
 });
 

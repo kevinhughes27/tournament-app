@@ -1,5 +1,5 @@
 json.id team.id
-json.url "teams/#{team.id}"
+json.path "teams/#{team.id}"
 json.name team.name
 json.email team.email
 json.phone team.phone
