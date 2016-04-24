@@ -26,6 +26,8 @@ class App.MainScreen
         Twine.refresh()
 
   showFieldSelect: =>
+    return alert("There are no fields!") if _.isEmpty(@fields)
+
     @fieldSearchOpen = true
     @teamSearchOpen = false
     @drawerOpen = false
@@ -34,6 +36,8 @@ class App.MainScreen
     _.defer -> $('#main-field-search').focus()
 
   showTeamSelect: =>
+    return alert("There are no teams!") if _.isEmpty(@teams)
+
     @teamSearchOpen = true
     @fieldSearchOpen = false
     @drawerOpen = false
@@ -92,7 +96,9 @@ class App.MainScreen
 
   pointToField: (field) ->
     @appMap.clearMarkers()
-    return unless field.lat && field.long
+
+    unless field.lat && field.long
+      return alert("Field has no location!")
 
     @findingField = true
     @tooFarAlert = false
