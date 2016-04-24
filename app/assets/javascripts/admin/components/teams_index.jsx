@@ -2,6 +2,7 @@ var React = require('react'),
     Griddle = require('griddle-react'),
     FilterBar = require('../mixins/filter_bar'),
     FilterFunction = require('../mixins/filter_function'),
+    LinkCell = require('./link_cell'),
     TeamsStore = require('../stores/teams_store');
 
 var columns = [
@@ -50,14 +51,6 @@ var SelectCellHeader = React.createClass({
 
   render() {
     return <input type='checkbox' onClick={this._selectAll} />;
-  }
-});
-
-var LinkCell = React.createClass({
-  render() {
-    var team = this.props.rowData;
-    var url = "teams/" + team.id;
-    return <a href={url}>{this.props.data}</a>;
   }
 });
 

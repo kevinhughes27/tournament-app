@@ -2,6 +2,7 @@ var React = require('react'),
     Griddle = require('griddle-react'),
     FilterBar = require('../mixins/filter_bar'),
     FilterFunction = require('../mixins/filter_function'),
+    LinkCell = require('./link_cell'),
     FieldsStore = require('../stores/fields_store');
 
 var columns = [
@@ -9,14 +10,6 @@ var columns = [
   "lat",
   "long"
 ];
-
-var LinkCell = React.createClass({
-  render() {
-    var field = this.props.rowData;
-    var url = "fields/" + field.id;
-    return <a href={url}>{this.props.data}</a>;
-  }
-});
 
 var columnsMeta = [
   {
