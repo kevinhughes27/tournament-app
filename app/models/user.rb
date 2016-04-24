@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def gravatar_url
-    "http://www.gravatar.com/avatar/#{gravatar_hash}?s=200&d=mm"
+    "https://www.gravatar.com/avatar/#{gravatar_hash}?s=200&d=mm"
   end
 
   def is_tournament_user?(tournament_id)
