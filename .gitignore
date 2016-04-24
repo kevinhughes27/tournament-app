@@ -23,3 +23,8 @@ npm-debug.log
 test/coverage
 test/javascripts/coverage
 test/reports
+
+# ssl
+server.csr
+server.key
+server.pass.key
