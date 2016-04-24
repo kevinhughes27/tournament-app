@@ -32,10 +32,11 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
   test "first row is set to time.now" do
     @tournament.games.update_all(field_id: nil, start_time: nil)
 
-    Timecop.freeze do
+    Timecop.freeze('2015/08/20') do
       get :index
       assert_response :success
-      assert_match Time.now.to_formatted_s(:schedule), response.body
+      assert_match '08/21/2015', response.body
+      assert_match '9:00', response.body
     end
   end
 

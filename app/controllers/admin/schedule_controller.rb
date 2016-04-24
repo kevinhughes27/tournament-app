@@ -66,6 +66,6 @@ class Admin::ScheduleController < AdminController
   end
 
   def default_start_time
-    Time.now
+    DateTime.parse(Date.tomorrow.to_s + ' 09:00:00 ' + Time.zone.name)
   end
 end
