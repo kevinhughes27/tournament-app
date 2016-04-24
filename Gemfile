@@ -66,7 +66,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'wkhtmltopdf-binary'
+  gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
   gem 'byebug'
   gem 'faker'
   gem 'spring'

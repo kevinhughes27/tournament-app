@@ -43,3 +43,7 @@ $slot-height: 50px;
   clear:both;
   page-break-after:always;
 }
+
+table, tr, td, th, tbody, thead, tfoot {
+  page-break-inside: avoid !important;
+}
