@@ -51,7 +51,7 @@ class Admin::ScheduleController < AdminController
       times.sort!
     end
 
-    times = [Time.now] if times.first.blank?
+    times = [default_start_time] if times.first.blank?
     times
   end
 
@@ -63,5 +63,9 @@ class Admin::ScheduleController < AdminController
     ])
     @games_params[:games] ||= {}
     @games_params[:games].values
+  end
+
+  def default_start_time
+    Time.now
   end
 end
