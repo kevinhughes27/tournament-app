@@ -17,7 +17,11 @@ class Tournament < ActiveRecord::Base
   has_many :score_reports, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  validates :handle, presence: true, uniqueness: true, format: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/
+  validates :handle, presence: true,
+                     uniqueness: true,
+                     format: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/,
+                     exclusion: { in: %w(www us ca jp) }
+
   validates :time_cap, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates_presence_of :tournament_users, on: :update
 

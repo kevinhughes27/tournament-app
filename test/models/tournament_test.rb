@@ -26,6 +26,12 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal ["has already been taken"], tournament.errors[:handle]
   end
 
+  test "www is invalid handle" do
+    tournament = Tournament.new(name: 'New Tournament', handle: 'www')
+    refute tournament.save
+    assert_equal ["is reserved"], tournament.errors[:handle]
+  end
+
   test "tournament requires a time cap" do
     tournament = Tournament.new(name: 'No Borders', handle: 'no-borders', time_cap: '')
     refute tournament.valid?
