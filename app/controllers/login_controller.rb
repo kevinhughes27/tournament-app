@@ -34,7 +34,7 @@ class LoginController < Devise::SessionsController
 
   def destroy
     sign_out(current_user)
-    redirect_to root_url(subdomain: '')
+    redirect_to root_url(subdomain: 'www')
   end
 
   private
