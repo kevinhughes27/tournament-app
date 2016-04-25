@@ -12,3 +12,8 @@ bob:
   email: bob@gmail.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   sign_in_count: 5
+
+jill:
+  email: jill@gmail.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  sign_in_count: 5

@@ -5,3 +5,11 @@ noborders_kevin:
 noborders_bob:
   user: bob
   tournament: noborders
+
+blank_jill:
+  user: jill
+  tournament: blank_slate_tournament
+
+jazz_jill:
+  user: jill
+  tournament: jazz_fest
