@@ -5,9 +5,9 @@ Ultimate Tournament
 
 A web application for running ultimate tournaments
 
-[http://ultimate-tournament.io](http://ultimate-tournament.io)
+[http://ultimate-tournament.io](https://www.ultimate-tournament.io)
 
-[Internal Dashboard](http://ultimate-tournament.io/internal)
+[Internal Dashboard](https://www.ultimate-tournament.io/internal)
 
 ### Auth Providers
 
