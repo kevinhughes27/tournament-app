@@ -3,7 +3,6 @@ ruby '2.2.3'
 
 # rails gems
 gem 'rails', '4.2.5.2'
-gem 'sprockets-rails', '< 3.0' # breaks Teaspoon
 
 gem 'unicorn'
 gem 'wicked'
@@ -71,7 +70,7 @@ group :development, :test do
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
-  gem 'teaspoon-jasmine', git: 'https://github.com/modeset/teaspoon', branch: 'master'
+  gem 'teaspoon-jasmine', '~> 2.3.4'
 end
 
 group :development do
