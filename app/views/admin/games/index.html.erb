@@ -19,7 +19,8 @@
       games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games}),
       searchColumns: [
         "name",
-        "division"
+        "division",
+        "pool"
       ],
       filters: division_filters(@tournament) + [
         {text: 'Has teams', key: 'has_teams', value: 1},
