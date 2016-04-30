@@ -4,11 +4,11 @@
       <tbody>
         <tr>
           <% @games.group_by{ |g| g.division }.each do |division, games| %>
-            <td class="game-col redips-mark">
+            <td class="game-col redips-mark redips-trash">
               <h3>
                 <i class="fa fa-stop" style="<%= color_for_division(division) %>"></i> <%= division.name %>
               </h3>
-              <table id="<%= division %>">
+              <table id="division-<%= division.id %>">
                 <tbody>
                   <% games.select{ |g| g.unassigned? }.each_slice(2) do |_games| %>
                     <tr>
@@ -16,7 +16,8 @@
                         <td class="redips-mark">
                           <div class="game redips-drag"
                                style="<%= color_for_game(game) %>"
-                               data-game-id="<%= game.id %>">
+                               data-game-id="<%= game.id %>"
+                               data-division-id="<%= game.division_id %>">
                             <%= game_draggable_text(game) %>
                           </div>
                         </td>

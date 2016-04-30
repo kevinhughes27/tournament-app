@@ -1,3 +1,6 @@
+// modified by Kevin Hughes to return the object being deleted
+// in the deleted event
+
 /*
 Copyright (c) 2008-2011, www.redips.net All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
@@ -1197,7 +1200,7 @@ REDIPS.drag = (function () {
 						// Are you sure?
 						if (confirm(REDIPS.drag.trash.question)) {
 							// yes, do all actions needed after element is deleted
-							elementDeleted();
+							elementDeleted(obj);
 						}
 						// no, do undelete
 						else {
@@ -1215,7 +1218,7 @@ REDIPS.drag = (function () {
 				}
 				// element is deleted and do all actions needed after element is deleted
 				else {
-					elementDeleted();
+					elementDeleted(obj);
 				}
 			}
 			else if (REDIPS.drag.dropMode === 'switch') {
@@ -1416,7 +1419,7 @@ REDIPS.drag = (function () {
 	 * @private
 	 * @memberOf REDIPS.drag#
 	 */
-	elementDeleted = function () {
+	elementDeleted = function (obj) {
 		// set param needed to find last cell (for case where shift.after is 'always' or 'delete')
 		var param;
 		// if object is cloned, update climit1_X or climit2_X classname
@@ -1441,7 +1444,7 @@ REDIPS.drag = (function () {
 		}
 		// call event.deleted() method and send cloned flag
 		// inside event.deleted it's possible to know whether cloned element is directly moved to the trash
-		REDIPS.drag.event.deleted(cloned);
+		REDIPS.drag.event.deleted(cloned, obj);
 	};
 
 

@@ -10,18 +10,40 @@ class Admin.ScheduleDnD
       gameNode = dropCell.children[0]
       gameNode.classList.remove('game-error')
 
+    @rd.event.deleted = (__, gameNode) =>
+      @_unhighlight()
+      @_gameUnassigned(gameNode)
+
+      divisionId = $(gameNode).attr('data-division-id')
+      # consciously appending a simple row on purpose
+      # this table actually has 2 rows but its edge casey
+      # enough to not need to insert at maximum space efficiency
+      $("table#division-#{divisionId} tbody").append(
+        "<tr>
+          <td class='redips-mark'>
+            #{gameNode.outerHTML}
+          </td>
+        </tr>"
+      )
+
+      @rd.init()
+
     @rd.event.dropped = (dropCell) =>
-      # game was dropped and returned to original position
+      # game was dropped and returned to original unscheduled position
       return if 'redips-mark' in dropCell.classList
 
       @_hideBanner()
-      @_unhighlightCells()
+      @_unhighlight()
       gameNode = dropCell.children
       @_gameAssigned(gameNode, dropCell)
 
     @rd.event.changed = (dropCell) =>
-      @_unhighlightCells()
-      @_highlightCells(dropCell)
+      @_unhighlight()
+
+      if 'redips-trash' in dropCell.classList
+        $('#games-card').find('.box-body').addClass('drop-hover')
+      else
+        @_highlightCells(dropCell)
 
   _gameAssigned: (game, slot) ->
     fieldId = $(slot).data('field-id')
@@ -35,6 +57,13 @@ class Admin.ScheduleDnD
     $game.attr('data-row-idx', rowIdx)
     $game.attr('data-field-id', fieldId)
     $game.attr('data-start-time', startTime)
+
+  _gameUnassigned: (game) ->
+    $game = $(game)
+    $game.attr('data-changed', true)
+    $game.removeAttr('data-row-idx')
+    $game.removeAttr('data-field-id')
+    $game.removeAttr('data-start-time')
 
   _hideBanner: ->
     $banner = $('.alert-dismissable')
@@ -51,6 +80,10 @@ class Admin.ScheduleDnD
       classes: 'dropzone-label'
       position: 'top center'
     @_drop.open()
+
+  _unhighlight: ->
+    $('.drop-hover').removeClass('drop-hover')
+    @_unhighlightCells()
 
   _unhighlightCells: ->
     $('.drop-target').removeClass('drop-target')
