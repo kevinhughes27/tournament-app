@@ -41,7 +41,7 @@ class Admin.ScheduleDnD
       @_unhighlight()
 
       if 'redips-trash' in dropCell.classList
-        $('#games-card').find('.box-body').addClass('drop-hover')
+        @_highlightTrash()
       else
         @_highlightCells(dropCell)
 
@@ -68,6 +68,9 @@ class Admin.ScheduleDnD
   _hideBanner: ->
     $banner = $('.alert-dismissable')
     $banner.fadeOut(400)
+
+  _highlightTrash: ->
+    $('#games-card').find('.box-body').addClass('drop-hover')
 
   _highlightCells: (td) ->
     $td = $(td)
