@@ -22,7 +22,7 @@ gem 'date_validator'
 gem 'phonelib'
 
 # exception tracking
-gem 'rollbar', '~> 2.7.1'
+gem 'rollbar'
 
 # engines
 gem 'devise'
