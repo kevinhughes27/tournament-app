@@ -142,7 +142,7 @@
   .info {
     padding-left: 30px;
     margin-left: 10px;
-    margin-top: 4px;
+    margin-top: -4px;
     transition: opacity 0.25s ease-in-out;
     -webkit-transition: opacity 0.25s ease-in-out;
     -moz-transition: opacity 0.25s ease-in-out;
@@ -158,9 +158,9 @@
 
   .dropdown-menu {
     position: fixed;
-    bottom: 48px;
+    bottom: 54px;
     left: 10px;
-    width: 200px;
+    width: 180px;
     a {
       color: $link-color !important;
     }
