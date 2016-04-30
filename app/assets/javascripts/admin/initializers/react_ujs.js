@@ -19,12 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
   return mount(document);
 });
 
-document.addEventListener('page:load', function(event) {
-  if (event.data) {
-    for (let node of event.data) {
-      mount(node);
-    }
-  } else {
-    mount(document);
-  }
+document.addEventListener('turbolinks:load', function(event) {
+  return mount(document);
 });

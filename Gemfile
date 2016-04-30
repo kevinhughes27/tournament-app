@@ -43,9 +43,9 @@ gem 'sassc-rails'
 # javascript gems
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic', ref: '37a7c296232d20a61bd1946f600da7f2009189db'
 gem 'twine-rails'
 gem 'sprockets-commoner', '~> 0.4.0'
+gem 'turbolinks', '~> 5.0.0'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet', '~> 1.0.0.beta.2'

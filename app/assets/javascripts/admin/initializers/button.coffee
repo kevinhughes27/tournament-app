@@ -1,4 +1,4 @@
-$(document).on 'page:change', ->
+$(document).on 'turbolinks:load', ->
   $('.js-btn-loadable').on 'click', (e) ->
     form = $(e.target).parents('form')
     formHtml5Errors = form.find(':invalid')

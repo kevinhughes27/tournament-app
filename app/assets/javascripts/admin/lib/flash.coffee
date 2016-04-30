@@ -1,4 +1,4 @@
-$(document).on 'ready page:change', (event) ->
+$(document).on 'ready turbolinks:load', (event) ->
   return unless $('#flash').hasClass('hide')
 
   _.delay ->

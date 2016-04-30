@@ -12,12 +12,12 @@ Admin.ActionWithCheck = (url, method, confirmed = false, form = null) ->
       $modal.html(modalContent)
 
       Twine.bind($modal[0])
-      $(document).trigger('page:change')
+      $(document).trigger('turbolinks:load')
 
       $modal.modal('show')
       $('.btn').removeClass('is-loading')
     success: (response) ->
-      if response.substring(0, 16) == 'Turbolinks.visit'
+      if response.substring(0, 10) == 'Turbolinks'
         eval(response)
       else
         Turbolinks.replace(response)

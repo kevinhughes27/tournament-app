@@ -13,8 +13,8 @@ var disableAnimationStyles = 'transition-property: none !important;' +
                              '-moz-animation: none !important;' +
                              '-ms-animation: none !important;' +
                              '-webkit-animation: none !important;' +
-                             'html.turbolinks-progress-bar::before {' +
-                               'height: 0px !important;' +
+                             '.turbolinks-progress-bar {' +
+                               'visibility: hidden;' +
                              '}'
 
 window.onload = function() {
