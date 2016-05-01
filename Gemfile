@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # rails gems
-gem 'rails', '4.2.5.2'
+gem 'rails', '5.0.0.beta4'
 gem 'puma'
 gem 'wicked'
 gem 'responders'
@@ -15,8 +15,8 @@ gem 'browser-timezone-rails'
 # model gems
 gem 'friendly_id'
 gem 'frozen_record', '~> 0.5.0'
-gem 'paranoia', '~> 2.0'
-gem 'auto_strip_attributes', '~> 2.0'
+gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
+gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
 
@@ -24,7 +24,7 @@ gem 'phonelib'
 gem 'rollbar'
 
 # engines
-gem 'devise'
+gem 'devise', '~> 4.0.1'
 
 # auth
 gem 'omniauth-google-oauth2'
@@ -76,7 +76,6 @@ end
 group :development do
   gem 'dotenv-rails'
   gem 'bullet'
-  gem 'lol_dba'
   gem 'letter_opener'
   gem 'web-console', '~> 2.0'
 end
