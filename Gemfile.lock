@@ -240,6 +240,10 @@ GEM
       rails-assets-tether (>= 1.1.0, < 2)
     rails-assets-underscore (1.8.3)
     rails-assets-vis (4.16.1)
+    rails-controller-testing (0.1.1)
+      actionpack (~> 5.x)
+      actionview (~> 5.x)
+      activesupport (~> 5.x)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -374,6 +378,7 @@ DEPENDENCIES
   rails-assets-tether-drop (~> 1.4.2)!
   rails-assets-underscore (~> 1.8.3)!
   rails-assets-vis (~> 4.15)!
+  rails-controller-testing
   rails_12factor
   react-rails (~> 1.7.0)
   render_anywhere
