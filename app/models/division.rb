@@ -1,4 +1,4 @@
-class Division < ActiveRecord::Base
+class Division < ApplicationRecord
   include Limits
   LIMIT = 32
 

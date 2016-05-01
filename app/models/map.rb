@@ -1,4 +1,4 @@
-class Map < ActiveRecord::Base
+class Map < ApplicationRecord
   belongs_to :tournament
   validates_presence_of :tournament, :lat, :long, :zoom
 
