@@ -42,7 +42,7 @@ gem 'jquery-rails'
 gem 'turbolinks', git: 'https://github.com/rails/turbolinks', branch: 'master'
 gem 'twine-rails'
 gem 'react-rails', '~> 1.7.0'
-gem 'browserify-rails'
+gem 'browserify-rails', '~> 3.0.1'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet', '~> 1.0.0.beta.2'
