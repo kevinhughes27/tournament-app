@@ -41,7 +41,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks', git: 'https://github.com/rails/turbolinks', branch: 'master'
 gem 'twine-rails'
-gem 'react-rails', git: 'https://github.com/reactjs/react-rails', branch: 'master'
+gem 'react-rails', '~> 1.7.0'
 gem 'browserify-rails'
 
 source 'https://rails-assets.org' do
