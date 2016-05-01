@@ -4,6 +4,8 @@ ruby '2.3.1'
 # rails gems
 gem 'rails', '5.0.0.beta4'
 gem 'puma'
+gem 'actioncable'
+gem 'redis'
 gem 'wicked'
 gem 'responders'
 gem 'json-schema', '~> 2.6.0'
