@@ -28,7 +28,7 @@ class BracketRenderController < ApplicationController
   end
 end
 
-class BracketSimulationTest < BrowserTest
+class BracketRenderTest < BrowserTest
   setup do
     Rails.application.routes.draw do
       get '/render_test', to: 'bracket_render#index'
