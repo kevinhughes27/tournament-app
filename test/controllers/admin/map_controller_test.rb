@@ -13,7 +13,7 @@ class Admin::MapControllerTest < ActionController::TestCase
   end
 
   test "update map" do
-    put :update, tournament: map_params
+    put :update, params: { tournament: map_params }
     assert_response :ok
     assert_equal 45, @tournament.map.reload.lat
   end

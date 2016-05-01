@@ -22,11 +22,11 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update updates the games score" do
-    put :update,
+    put :update, params: {
       id: @game.id,
       home_score: 15,
-      away_score: 13,
-      format: :json
+      away_score: 13
+    }, format: :json
 
     assert_response :ok
 
@@ -35,11 +35,11 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update returns games json" do
-    put :update,
+    put :update, params: {
       id: @game.id,
       home_score: 15,
-      away_score: 13,
-      format: :json
+      away_score: 13
+    }, format: :json
 
     assert_response :ok
     assert_template 'games'

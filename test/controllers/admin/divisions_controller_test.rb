@@ -16,7 +16,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "get show" do
-    get :show, id: @division.id
+    get :show, params: { id: @division.id }
     assert_response :success
     assert_not_nil assigns(:division)
   end
@@ -35,7 +35,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
   test "create a division" do
     assert_difference "Division.count" do
-      post :create, division: division_params
+      post :create, params: { division: division_params }
 
       division = assigns(:division)
       assert_redirected_to admin_division_path(division)
@@ -47,13 +47,13 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     params.delete(:name)
 
     assert_no_difference "Division.count" do
-      post :create, division: params
+      post :create, params: { division: params }
       assert_template :new
     end
   end
 
   test "update a division" do
-    put :update, id: @division.id, division: division_params
+    put :update, params: { id: @division.id, division: division_params }
 
     assert_redirected_to admin_division_path(@division)
     assert_equal division_params[:name], @division.reload.name
@@ -63,7 +63,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     params = division_params
     params.delete(:name)
 
-    put :update, id: @division.id, division: params
+    put :update, params: { id: @division.id, division: params }
 
     assert_redirected_to admin_division_path(@division)
     refute_equal division_params[:name], @division.reload.name
@@ -72,14 +72,14 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   test "delete a division" do
     division = divisions(:women)
     assert_difference "Division.count", -1 do
-      delete :destroy, id: division.id
+      delete :destroy, params: { id: division.id }
       assert_redirected_to admin_divisions_path
     end
   end
 
   test "delete a division needs confirm" do
     assert_no_difference "Division.count" do
-      delete :destroy, id: @division.id
+      delete :destroy, params: { id: @division.id }
       assert_response :unprocessable_entity
       assert_template 'admin/divisions/_confirm_delete'
     end
@@ -87,7 +87,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
   test "confirm delete a division" do
     assert_difference "Division.count", -1 do
-      delete :destroy, id: @division.id, confirm: 'true'
+      delete :destroy, params: { id: @division.id, confirm: 'true' }
       assert_redirected_to admin_divisions_path
     end
   end
@@ -107,7 +107,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
       seeds: [new_seed, current_seed]
     }
 
-    put :update_teams, params
+    put :update_teams, params: params
     assert_response :success
 
     assert_equal new_seed, team1.reload.seed
@@ -129,7 +129,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
       seeds: [current_seed, new_seed]
     }
 
-    put :update_teams, params
+    put :update_teams, params: params
     assert_response :success
 
     assert_equal new_seed, team1.reload.seed
@@ -141,7 +141,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     @division.update_attribute(:bracket_type, 'single_elimination_4')
     @division.update_attribute(:bracket_type, 'single_elimination_8')
 
-    put :seed, id: @division.id
+    put :seed, params: { id: @division.id }
     assert_response :success
     assert_equal 'Division seeded', flash[:notice]
   end
@@ -149,7 +149,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   test "seed a division with an error" do
     @division.update_attribute(:bracket_type, 'single_elimination_4')
 
-    put :seed, id: @division.id
+    put :seed, params: { id: @division.id }
     assert_response :success
     assert_equal '4 seats but 8 teams present', flash[:error]
   end

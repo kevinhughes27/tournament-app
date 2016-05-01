@@ -25,18 +25,18 @@ class AppControllerTest < ActionController::TestCase
     )
 
     assert_difference "ScoreReport.count", +1 do
-      post :score_submit, params, format: :json
+      post :score_submit, params: params, format: :json
     end
   end
 
   test "get confirm page" do
-    get :confirm, id: @token.id, token: @token.token
+    get :confirm, params: { id: @token.id, token: @token.token }
     assert_response :ok
     assert_template :confirm
   end
 
   test "get confirm page without token param 404s" do
-    get :confirm, id: @token.id
+    get :confirm, params: { id: @token.id }
     assert_response :not_found
     assert_template 'token_not_found'
   end
@@ -53,7 +53,7 @@ class AppControllerTest < ActionController::TestCase
     )
 
     assert_difference "ScoreReport.count", +1 do
-      post :confirm, params
+      post :confirm, params: params
       assert_response :ok
       assert_template 'confirm_score_success'
     end
@@ -68,7 +68,7 @@ class AppControllerTest < ActionController::TestCase
     )
 
     assert_no_difference "ScoreReport.count" do
-      post :confirm, params
+      post :confirm, params: params
       assert_response :not_found
       assert_template 'token_not_found'
     end

@@ -47,7 +47,7 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
       }
     }
 
-    put :update, params
+    put :update, params: params
     assert_response :ok
     assert_template :index
   end
@@ -59,7 +59,7 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
       }
     }
 
-    put :update, params
+    put :update, params: params
 
     assert_response :unprocessable_entity
     assert_equal "Validation failed: Field can't be blank", response_json['error']
@@ -79,7 +79,7 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
       }
     }
 
-    put :update, params
+    put :update, params: params
     assert_response :ok
 
     assert_equal game1_original_field, game2.reload.field

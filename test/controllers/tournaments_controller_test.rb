@@ -19,24 +19,24 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "create a new tournament" do
     assert_difference "Tournament.count" do
-      post :create, tournament: tournament_params
+      post :create, params: { tournament: tournament_params }
     end
   end
 
   test "create a new tournament creates a new TournamentUser" do
     assert_difference "TournamentUser.count" do
-      post :create, tournament: tournament_params
+      post :create, params: { tournament: tournament_params }
     end
   end
 
   test "create a new tournament redirects to builder" do
-    post :create, tournament: tournament_params
+    post :create, params: { tournament: tournament_params }
     tournament = assigns(:tournament)
     assert_redirected_to tournament_build_path(tournament.id, :step1)
   end
 
   test "create with errors renders form again" do
-    post :create, tournament: {name: 'No Borders'}
+    post :create, params: { tournament: {name: 'No Borders'} }
     assert_template :new
   end
 
@@ -45,7 +45,7 @@ class TournamentsControllerTest < ActionController::TestCase
     TournamentUser.expects(:create!).raises(error)
 
     assert_no_difference "Tournament.count" do
-      post :create, tournament: tournament_params
+      post :create, params: { tournament: tournament_params }
       assert_template :new
     end
   end
@@ -58,5 +58,4 @@ class TournamentsControllerTest < ActionController::TestCase
       handle: 'new-tournament'
     }
   end
-
 end
