@@ -2,4 +2,4 @@
 
 window.UT ||= {}
 
-UT.cable = Cable.createConsumer('ws://no-borders.lvh.me:28080')
+UT.cable = Cable.createConsumer('/cable')
