@@ -1,4 +1,8 @@
+require 'render_anywhere'
+
 class Game < ActiveRecord::Base
+  include RenderAnywhere
+
   belongs_to :tournament
   belongs_to :division
   belongs_to :field
@@ -28,6 +32,7 @@ class Game < ActiveRecord::Base
   after_save :update_pool
   after_save :update_bracket
   after_save :update_places
+  after_save :broadcast
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
@@ -168,6 +173,17 @@ class Game < ActiveRecord::Base
   def update_places
     return unless self.confirmed?
     Divisions::UpdatePlacesJob.perform_later(game_id: self.id)
+  end
+
+  def broadcast
+    ActionCable.server.broadcast(
+      "games_#{tournament_id}",
+      render(
+        template: 'admin/games/_game.json.jbuilder',
+        layout: false,
+        locals: {game: self}
+      )
+    )
   end
 
   def validate_field
