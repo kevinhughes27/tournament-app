@@ -42,12 +42,12 @@
 
   <div class="social-auth-links text-center">
     <div style="width: 55%; margin: auto;">
-      <%= link_to user_omniauth_authorize_url(:google_oauth2, subdomain: 'www'),
+      <%= link_to user_google_oauth2_omniauth_authorize_url(subdomain: 'www'),
             class: "btn btn-block btn-social btn-google btn-flat", style: 'margin-bottom: 10px;' do %>
         <span class="fa fa-google"></span> Sign in with Google
       <% end %>
 
-      <%= link_to user_omniauth_authorize_url(:facebook, subdomain: 'www'),
+      <%= link_to user_facebook_omniauth_authorize_path(subdomain: 'www'),
             class: "btn btn-block btn-social btn-facebook btn-flat", style: "margin-bottom: 5px;" do %>
         <span class="fa fa-facebook"></span> Sign in with Facebook
       <% end %>
