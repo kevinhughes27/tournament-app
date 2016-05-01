@@ -14,7 +14,7 @@ gem 'browser-timezone-rails'
 
 # model gems
 gem 'friendly_id'
-gem 'frozen_record', '~> 0.5.0'
+gem 'frozen_record', git: 'https://github.com/kevinhughes27/frozen_record', ref: '48f569c2ca3e60fa76b8b99bdf7d33c91bcdc1ee'
 gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
 gem 'auto_strip_attributes'
 gem 'date_validator'

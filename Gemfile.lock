@@ -6,6 +6,14 @@ GIT
       minitest (~> 5.0, >= 5.0.6)
 
 GIT
+  remote: https://github.com/kevinhughes27/frozen_record
+  revision: 48f569c2ca3e60fa76b8b99bdf7d33c91bcdc1ee
+  ref: 48f569c2ca3e60fa76b8b99bdf7d33c91bcdc1ee
+  specs:
+    frozen_record (0.6.0)
+      activemodel
+
+GIT
   remote: https://github.com/rubysherpas/paranoia
   revision: 3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a
   ref: 3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a
@@ -135,8 +143,6 @@ GEM
       railties (>= 3.2, < 5.1)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    frozen_record (0.5.1)
-      activemodel
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (3.4.4)
@@ -341,7 +347,7 @@ DEPENDENCIES
   faker
   font-awesome-rails
   friendly_id
-  frozen_record (~> 0.5.0)
+  frozen_record!
   jbuilder
   jquery-rails
   json-schema (~> 2.6.0)
