@@ -1,5 +1,5 @@
 module Divisions
-  class UpdatePlacesJob < ActiveJob::Base
+  class UpdatePlacesJob < ApplicationJob
     queue_as :default
 
     def perform(game_id:)

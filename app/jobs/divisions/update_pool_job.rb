@@ -1,5 +1,5 @@
 module Divisions
-  class UpdatePoolJob < ActiveJob::Base
+  class UpdatePoolJob < ApplicationJob
     queue_as :default
 
     attr_reader :division, :pool

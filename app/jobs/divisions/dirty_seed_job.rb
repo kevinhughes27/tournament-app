@@ -1,5 +1,5 @@
 module Divisions
-  class DirtySeedJob < ActiveJob::Base
+  class DirtySeedJob < ApplicationJob
     queue_as :default
 
     attr_reader :division

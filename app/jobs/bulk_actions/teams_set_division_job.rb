@@ -1,6 +1,6 @@
 require 'render_anywhere'
 
-class BulkActions::TeamsSetDivisionJob < ActiveJob::Base
+class BulkActions::TeamsSetDivisionJob < ApplicationJob
   include RenderAnywhere
 
   queue_as :default
