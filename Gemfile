@@ -4,7 +4,6 @@ ruby '2.2.3'
 # rails gems
 gem 'rails', '4.2.5.2'
 gem 'puma'
-gem 'rack-timeout'
 gem 'wicked'
 gem 'responders'
 gem 'render_anywhere', require: false
@@ -61,6 +60,7 @@ group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'wkhtmltopdf-heroku'
+  gem 'rack-timeout'
 end
 
 group :development, :test do
