@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FakeInternalController < InternalController
   def index
-    render text: "OK"
+    render plain: "OK"
   end
 end
 

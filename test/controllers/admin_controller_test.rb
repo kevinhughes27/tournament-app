@@ -6,7 +6,7 @@ class FakeAdminController < AdminController
   end
 
   def render_index
-    render text: "OK"
+    render plain: "OK"
   end
 end
 
