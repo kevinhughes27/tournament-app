@@ -39,7 +39,7 @@ gem 'sass-rails', '~> 5.0'
 # javascript gems
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-gem 'turbolinks', github: 'turbolinks/turbolinks-classic', ref: '37a7c296232d20a61bd1946f600da7f2009189db'
+gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic', ref: '37a7c296232d20a61bd1946f600da7f2009189db'
 gem 'twine-rails'
 gem 'react-rails', '~> 1.7.0'
 gem 'browserify-rails', '~> 3.0.1'

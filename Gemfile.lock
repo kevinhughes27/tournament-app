@@ -1,17 +1,17 @@
 GIT
-  remote: git://github.com/turbolinks/turbolinks-classic.git
-  revision: 37a7c296232d20a61bd1946f600da7f2009189db
-  ref: 37a7c296232d20a61bd1946f600da7f2009189db
-  specs:
-    turbolinks (3.0.0)
-      coffee-rails
-
-GIT
   remote: git@github.com:circleci/minitest-ci.git
   revision: 5ff612993491fcf8355a3d4b196345af82337a3a
   specs:
     minitest-ci (3.0.4.pre)
       minitest (~> 5.0, >= 5.0.6)
+
+GIT
+  remote: https://github.com/turbolinks/turbolinks-classic
+  revision: 37a7c296232d20a61bd1946f600da7f2009189db
+  ref: 37a7c296232d20a61bd1946f600da7f2009189db
+  specs:
+    turbolinks (3.0.0)
+      coffee-rails
 
 GEM
   remote: https://rubygems.org/
