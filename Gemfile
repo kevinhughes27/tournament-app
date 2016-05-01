@@ -3,8 +3,8 @@ ruby '2.2.3'
 
 # rails gems
 gem 'rails', '4.2.5.2'
-
-gem 'unicorn'
+gem 'puma'
+gem 'rack-timeout'
 gem 'wicked'
 gem 'responders'
 gem 'render_anywhere', require: false
