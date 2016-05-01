@@ -30,7 +30,7 @@ class TournamentsBuildController < ApplicationController
       map_attributes: [:id, :lat, :long, :zoom]
     )
 
-    tournament_params.merge!(timezone: Time.zone.name)
+    tournament_params[:timezone] = Time.zone.name
     tournament_params
   end
 
