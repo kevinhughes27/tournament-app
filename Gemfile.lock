@@ -6,6 +6,21 @@ GIT
       minitest (~> 5.0, >= 5.0.6)
 
 GIT
+  remote: https://github.com/rails/actioncable
+  revision: 92adbc2fab09445cd29022e1ac19bd65e66e9760
+  branch: archive
+  specs:
+    actioncable (0.0.3)
+      actionpack (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      celluloid (~> 0.16.0)
+      coffee-rails
+      em-hiredis (~> 0.3.0)
+      faye-websocket (~> 0.10.0)
+      redis (~> 3.0)
+      websocket-driver (~> 0.6.1)
+
+GIT
   remote: https://github.com/rails/turbolinks
   revision: dd31f4b2996f2300631f89339ada82c65b95f4c2
   branch: master
@@ -105,6 +120,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
     chunky_png (1.3.4)
     cliver (0.3.2)
     coffee-rails (4.1.1)
@@ -132,12 +149,19 @@ GEM
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
       railties (~> 4.0)
+    em-hiredis (0.3.1)
+      eventmachine (~> 1.0)
+      hiredis (~> 0.6.0)
     erubis (2.7.0)
+    eventmachine (1.2.0.1)
     execjs (2.6.0)
     faker (1.6.3)
       i18n (~> 0.5)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    faye-websocket (0.10.3)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.5.1)
     font-awesome-rails (4.4.0.0)
       railties (>= 3.2, < 5.0)
     friendly_id (5.1.0)
@@ -147,6 +171,8 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (3.4.3)
+    hiredis (0.6.1)
+    hitimes (1.2.3)
     i18n (0.7.0)
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
@@ -261,6 +287,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.5.0)
+    redis (3.3.0)
     render_anywhere (0.0.12)
       rails (>= 3.0.7)
     responders (2.1.1)
@@ -296,6 +323,8 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.8.0)
+    timers (4.0.4)
+      hitimes
     twine-rails (0.1.0)
       coffee-rails
     tzinfo (1.2.2)
@@ -326,6 +355,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actioncable!
   auto_strip_attributes (~> 2.0)
   bootstrap-sass
   browser-timezone-rails
