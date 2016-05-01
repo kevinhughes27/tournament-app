@@ -94,7 +94,7 @@ exports.ScoreCell = React.createClass({
     this._startLoading();
 
     $.ajax({
-      url: 'games/' + gameId + '.json',
+      url: 'games/' + gameId,
       type: 'PUT',
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
@@ -103,9 +103,6 @@ exports.ScoreCell = React.createClass({
       },
       success: (response) => {
         this._finishLoading();
-        var scroll = window.scrollY;
-        _.each(response, function(game) { GamesStore.updateGame(game) });
-        window.scrollTo(0, scroll);
         this.close();
         Admin.Flash.notice('Score updated')
       },

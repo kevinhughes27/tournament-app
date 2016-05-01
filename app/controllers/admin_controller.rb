@@ -10,6 +10,7 @@ class AdminController < ApplicationController
   before_action :store_location
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
+  before_action :set_tournament_cookie
   before_action :set_admin_cookie
 
   protected
@@ -58,6 +59,17 @@ class AdminController < ApplicationController
     unless current_user.is_tournament_user?(@tournament.id) || current_user.staff?
       redirect_to new_user_session_path
     end
+  end
+
+  def set_tournament_cookie
+    cookies.signed['tournament.id'] = {
+      value: @tournament.id,
+      domain: :all
+    }
+    cookies.signed['tournament.expires_at'] = {
+      value: 30.minutes.from_now,
+      domain: :all
+    }
   end
 
   def set_admin_cookie

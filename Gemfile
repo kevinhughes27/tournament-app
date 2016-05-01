@@ -4,6 +4,7 @@ ruby '2.2.3'
 # rails gems
 gem 'rails', '4.2.5.2'
 gem 'puma'
+gem 'actioncable', github: 'rails/actioncable', branch: 'archive'
 gem 'wicked'
 gem 'responders'
 gem 'render_anywhere', require: false

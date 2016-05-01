@@ -1,10 +1,20 @@
 var Store = require('./store');
 
 var _games;
+var _cable;
 
 var GamesStore = _.extend({}, Store, {
   init(games){
     _games = games;
+
+    _cable = UT.cable.subscriptions.create("GamesChannel", {
+      received: function(data) {
+        var game = JSON.parse(data);
+        var scroll = window.scrollY;
+        GamesStore.updateGame(game);
+        window.scrollTo(0, scroll);
+      }
+    });
   },
 
   all(){
@@ -18,12 +28,13 @@ var GamesStore = _.extend({}, Store, {
 
   updateGame(game) {
     var idx = this._findGameIdx(game);
+    if(idx == -1) { return; }
 
     if(!_games[idx].confirmed && game.confirmed) {
       this._updateSidebarBadge();
     }
 
-    _games[idx] = game;
+    _.extend(_games[idx], game);
     this.emitChange();
   },
 
