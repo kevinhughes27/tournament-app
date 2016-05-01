@@ -51,7 +51,7 @@ class AdminController < ApplicationController
 
   def store_location
     return unless request.get?
-    session[:previous_path] = request.path.gsub('admin', '')
+    session[:previous_path] = request.path.gsub('admin/', '').gsub('admin', '')
   end
 
   def authenticate_tournament_user!
