@@ -5,7 +5,7 @@ machine:
     RAILS_ENV: test
   ruby:
     version:
-      2.2.3
+      2.3.1
 
 dependencies:
   pre:
