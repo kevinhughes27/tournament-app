@@ -1,2 +1,0 @@
-#!/bin/bash
-./bin/rails test test/models test/controllers
