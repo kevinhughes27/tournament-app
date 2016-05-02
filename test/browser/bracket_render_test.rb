@@ -45,7 +45,7 @@ class BracketRenderTest < BrowserTest
     test "render bracket: #{bracket.handle}" do
       visit("/render_test?bracket=#{bracket.handle}")
       assert page.find(".vis-network")
-      sleep(1)
+      sleep(1) # this waits for vis to render
       compare_or_new(bracket.handle)
     end
   end
@@ -87,7 +87,7 @@ class BracketRenderTest < BrowserTest
     if ENV['CIRCLECI']
       File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_handle}.png")
     else
-      "tmp/#{bracket_handle}.png"
+      "tmp/capybara/tmp/#{bracket_handle}.png"
     end
   end
 end
