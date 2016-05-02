@@ -16,6 +16,8 @@ class Tournament < ActiveRecord::Base
   has_many :places, dependent: :destroy
   has_many :score_reports, dependent: :destroy
 
+  before_save :downcase_handle
+
   validates :name, presence: true, uniqueness: true
   validates :handle, presence: true,
                      uniqueness: true,
@@ -24,6 +26,10 @@ class Tournament < ActiveRecord::Base
 
   validates :time_cap, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates_presence_of :tournament_users, on: :update
+
+  def downcase_handle
+    self.handle.downcase!
+  end
 
   def domain
     "https://#{handle}.ultimate-tournament.io"
