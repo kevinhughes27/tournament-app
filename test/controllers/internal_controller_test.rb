@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FakeInternalController < InternalController
+class Internal::TestCaseController < InternalController
   def index
     render plain: "OK"
   end
@@ -9,13 +9,10 @@ end
 Rails.application.routes.disable_clear_and_finalize = true
 
 Rails.application.routes.draw do
-  controller :fake_internal do
-    get 'index' => :index
-  end
+  get 'internal/test_case' => 'internal/test_case#index'
 end
 
-class InternalControllerTest < ActionController::TestCase
-  tests FakeInternalController
+class Internal::TestCaseControllerTest < ActionController::TestCase
 
   setup do
     set_subdomain('www')

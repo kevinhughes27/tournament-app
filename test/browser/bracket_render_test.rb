@@ -28,17 +28,15 @@ class BracketRenderController < ApplicationController
   end
 end
 
+Rails.application.routes.disable_clear_and_finalize = true
+
+Rails.application.routes.draw do
+  get '/render_test', to: 'bracket_render#index'
+end
+
 class BracketRenderTest < BrowserTest
   setup do
-    Rails.application.routes.draw do
-      get '/render_test', to: 'bracket_render#index'
-    end
-
     page.driver.resize(400, 460)
-  end
-
-  teardown do
-    Rails.application.reload_routes!
   end
 
   Bracket.all.each do |bracket|

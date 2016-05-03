@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FakeAdminController < AdminController
+class Admin::TestCaseController < AdminController
   def index
     render_index
   end
@@ -13,13 +13,10 @@ end
 Rails.application.routes.disable_clear_and_finalize = true
 
 Rails.application.routes.draw do
-  controller :fake_admin do
-    get 'index' => :index
-  end
+  get 'admin/testcase' => 'admin/test_case#index'
 end
 
-class AdminControllerTest < ActionController::TestCase
-  tests FakeAdminController
+class Admin::TestCaseControllerTest < ActionController::TestCase
 
   setup do
     @tournament = tournaments(:noborders)
