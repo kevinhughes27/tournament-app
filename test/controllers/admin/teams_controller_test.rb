@@ -18,7 +18,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "get show" do
-    get :show, id: @team.id
+    get :show, params: { id: @team.id }
     assert_response :success
     assert_not_nil assigns(:team)
   end
@@ -38,7 +38,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "create a team" do
     assert_difference "Team.count" do
-      post :create, team: new_team_params
+      post :create, params: { team: new_team_params }
 
       team = assigns(:team)
       assert_redirected_to admin_team_path(team)
@@ -50,13 +50,13 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     params.delete(:name)
 
     assert_no_difference "Team.count" do
-      post :create, team: params
+      post :create, params: { team: params }
       assert_template :new
     end
   end
 
   test "update a team" do
-    put :update, id: @team.id, team: safe_update_params
+    put :update, params: { id: @team.id, team: safe_update_params }
 
     assert_redirected_to admin_team_path(@team)
     assert_equal safe_update_params[:name], @team.reload.name
@@ -66,7 +66,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     params = safe_update_params
     params[:name] = ''
 
-    put :update, id: @team.id, team: params
+    put :update, params: { id: @team.id, team: params }
 
     assert_template :show
     refute_equal safe_update_params[:name], @team.reload.name
@@ -78,7 +78,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     params = safe_update_params
     params[:seed] = 3
 
-    put :update, id: @team.id, team: params
+    put :update, params: { id: @team.id, team: params }
 
     assert_response :unprocessable_entity
     assert_template 'admin/teams/_confirm_update'
@@ -90,7 +90,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     params = safe_update_params
     params[:seed] = 3
 
-    put :update, id: @team.id, team: params, confirm: 'true'
+    put :update, params: { id: @team.id, team: params, confirm: 'true' }
 
     assert_redirected_to admin_team_path(@team)
     assert_equal 3, @team.reload.seed
@@ -100,7 +100,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     params = safe_update_params
     params[:seed] = 3
 
-    put :update, id: @team.id, team: params
+    put :update, params: { id: @team.id, team: params }
 
     assert_template 'admin/teams/_unable_to_update'
   end
@@ -108,7 +108,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   test "delete a team" do
     team = teams(:stella)
     assert_difference "Team.count", -1 do
-      delete :destroy, id: team.id
+      delete :destroy, params: { id: team.id }
       assert_redirected_to admin_teams_path
     end
   end
@@ -117,7 +117,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     @division.games.update_all(score_confirmed: false)
 
     assert_no_difference "Team.count" do
-      delete :destroy, id: @team.id
+      delete :destroy, params: { id: @team.id }
       assert_response :unprocessable_entity
       assert_template 'admin/teams/_confirm_delete'
     end
@@ -127,14 +127,14 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     @division.games.update_all(score_confirmed: false)
 
     assert_difference "Team.count", -1 do
-      delete :destroy, id: @team.id, confirm: 'true'
+      delete :destroy, params: { id: @team.id, confirm: 'true' }
       assert_redirected_to admin_teams_path
     end
   end
 
   test "delete a team not allowed if division has any scores" do
     assert_no_difference "Team.count" do
-      delete :destroy, id: @team.id
+      delete :destroy, params: { id: @team.id }
       assert_template 'admin/teams/_unable_to_delete'
     end
   end
@@ -146,7 +146,10 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "import csv" do
     assert_difference "Team.count", +7 do
-      post :import_csv, csv_file: fixture_file_upload('files/teams.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/teams.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
 
     assert_equal @division, Team.last.division
@@ -154,11 +157,17 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "import csv (ignore matches)" do
     assert_difference "Team.count", +7 do
-      post :import_csv, csv_file: fixture_file_upload('files/teams.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/teams.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
 
     assert_no_difference "Team.count" do
-      post :import_csv, csv_file: fixture_file_upload('files/teams.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/teams.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
   end
 
@@ -166,19 +175,28 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     @team.update_attributes(name: 'SE7EN')
 
     assert_difference "Team.count", +6 do
-      post :import_csv, csv_file: fixture_file_upload('files/teams.csv','text/csv'), match_behaviour: 'update'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/teams.csv','text/csv'),
+        match_behaviour: 'update'
+      }
     end
   end
 
   test "import csv with extra headings" do
     assert_difference "Team.count", +7 do
-      post :import_csv, csv_file: fixture_file_upload('files/teams-extra.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/teams-extra.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
   end
 
   test "import csv with bad row data" do
     assert_no_difference "Team.count" do
-      post :import_csv, csv_file: fixture_file_upload('files/teams-bad-row.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/teams-bad-row.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
       # assert that some sort of error is shown or flashed
     end
   end

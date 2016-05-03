@@ -1,5 +1,5 @@
 module Fields
-  class UnassignGamesJob < ActiveJob::Base
+  class UnassignGamesJob < ApplicationJob
     queue_as :default
 
     def perform(tournament_id:, field_id:)

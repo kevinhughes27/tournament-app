@@ -15,7 +15,7 @@ class Admin::BulkActionsControllerTest < ActionController::TestCase
   test "queues the bulk action job" do
     params = {tournament_id: @tournament.id, ids: ['1','2','3'], arg: 'beans'}
     BulkActions::TestJob.expects(:perform_now).with(params)
-    put :perform, params.merge(job: 'test')
+    put :perform, params: params.merge(job: 'test')
   end
 
   test "with missing job" do
@@ -23,6 +23,6 @@ class Admin::BulkActionsControllerTest < ActionController::TestCase
       assert error.is_a?(Admin::BulkActionsController::MissingActionError)
     end
 
-    put :perform, {job: 'missing'}
+    put :perform, params: {job: 'missing'}
   end
 end

@@ -1,5 +1,5 @@
 module Games
-  class AdjustScoreJob < ActiveJob::Base
+  class AdjustScoreJob < ApplicationJob
     queue_as :default
 
     def perform(game:, home_score:, away_score:)

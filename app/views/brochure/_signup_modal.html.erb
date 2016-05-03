@@ -28,13 +28,13 @@
       <div class="form-group text-center">or</div>
 
       <div class="social-auth-links text-center">
-        <%= link_to user_omniauth_authorize_path(:google_oauth2),
+        <%= link_to user_google_oauth2_omniauth_authorize_path,
               class: "btn btn-block btn-social btn-google btn-flat",
               "track-click" => "{category: 'Signup.Google', action: 'click'}" do %>
           <span class="fa fa-google"></span> Sign up with Google
         <% end %>
 
-        <%= link_to user_omniauth_authorize_path(:facebook),
+        <%= link_to user_facebook_omniauth_authorize_path,
               class: "btn btn-block btn-social btn-facebook btn-flat", style: "margin-bottom: 5px;",
               "track-click" => "{category: 'Signup.Facebook', action: 'click'}" do %>
           <span class="fa fa-facebook"></span> Sign up with Facebook

@@ -1,4 +1,4 @@
-class ScoreReportConfirmToken < ActiveRecord::Base
+class ScoreReportConfirmToken < ApplicationRecord
   belongs_to :tournament
   belongs_to :score_report
 

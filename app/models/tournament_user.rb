@@ -1,4 +1,4 @@
-class TournamentUser < ActiveRecord::Base
+class TournamentUser < ApplicationRecord
   include Limits
   LIMIT = 32
 

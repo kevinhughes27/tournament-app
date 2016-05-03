@@ -15,7 +15,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   end
 
   test "get show" do
-    get :show, id: @field.id
+    get :show, params: { id: @field.id }
     assert_response :success
     assert_not_nil assigns(:field)
   end
@@ -42,7 +42,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
 
   test "create a field" do
     assert_difference "Field.count" do
-      post :create, field: field_params
+      post :create, params: { field: field_params }
 
       field = assigns(:field)
       assert_redirected_to admin_field_path(field)
@@ -54,13 +54,13 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     params.delete(:name)
 
     assert_no_difference "Field.count" do
-      post :create, field: params
+      post :create, params: { field: params }
       assert_template :new
     end
   end
 
   test "update a field" do
-    put :update, id: @field.id, field: field_params
+    put :update, params: { id: @field.id, field: field_params }
 
     assert_redirected_to admin_field_path(@field)
     assert_equal field_params[:name], @field.reload.name
@@ -70,7 +70,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     params = field_params
     params.delete(:name)
 
-    put :update, id: @field.id, field: params
+    put :update, params: { id: @field.id, field: params }
 
     assert_redirected_to admin_field_path(@field)
     refute_equal field_params[:name], @field.reload.name
@@ -79,14 +79,14 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   test "delete a field" do
     field = fields(:upi5)
     assert_difference "Field.count", -1 do
-      delete :destroy, id: field.id
+      delete :destroy, params: { id: field.id }
       assert_redirected_to admin_fields_path
     end
   end
 
   test "delete a field needs confirm" do
     assert_no_difference "Field.count" do
-      delete :destroy, id: @field.id
+      delete :destroy, params: { id: @field.id }
       assert_response :unprocessable_entity
       assert_template 'admin/fields/_confirm_delete'
     end
@@ -94,7 +94,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
 
   test "confirm delete a field" do
     assert_difference "Field.count", -1 do
-      delete :destroy, id: @field.id, confirm: 'true'
+      delete :destroy, params: { id: @field.id, confirm: 'true' }
       assert_redirected_to admin_fields_path
     end
   end
@@ -106,17 +106,26 @@ class Admin::FieldsControllerTest < ActionController::TestCase
 
   test "import csv" do
     assert_difference "Field.count", +14 do
-      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
   end
 
   test "import csv (ignore matches)" do
     assert_difference "Field.count", +14 do
-      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
 
     assert_no_difference "Field.count" do
-      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
   end
 
@@ -124,19 +133,28 @@ class Admin::FieldsControllerTest < ActionController::TestCase
     @field.update_attributes(name: 'UPI5')
 
     assert_difference "Field.count", +14 do
-      post :import_csv, csv_file: fixture_file_upload('files/fields.csv','text/csv'), match_behaviour: 'update'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/fields.csv','text/csv'),
+        match_behaviour: 'update'
+      }
     end
   end
 
   test "import csv with extra headings" do
     assert_difference "Field.count", +14 do
-      post :import_csv, csv_file: fixture_file_upload('files/fields-extra.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/fields-extra.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
     end
   end
 
   test "import csv with bad row data" do
     assert_no_difference "Field.count" do
-      post :import_csv, csv_file: fixture_file_upload('files/fields-bad-row.csv','text/csv'), match_behaviour: 'ignore'
+      post :import_csv, params: {
+        csv_file: fixture_file_upload('files/fields-bad-row.csv','text/csv'),
+        match_behaviour: 'ignore'
+      }
       # assert that some sort of error is shown or flashed
     end
   end

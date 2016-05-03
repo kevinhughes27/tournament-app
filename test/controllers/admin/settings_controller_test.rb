@@ -15,15 +15,13 @@ class Admin::SettingsControllerTest < ActionController::TestCase
 
   test "update settings" do
     params = @tournament.attributes.merge(name: 'Updated Name')
-    put :update, tournament: params
+    put :update, params: { tournament: params }
     assert_equal 'Settings saved.', flash[:notice]
     assert_equal 'Updated Name', @tournament.reload.name
   end
 
   test "update settings error" do
-    params = @tournament.attributes.merge(name: '')
-    put :update, tournament: params
+    put :update, params: { tournament: {name: ''} }
     assert_equal 'Error saving Settings.', flash[:error]
   end
-
 end

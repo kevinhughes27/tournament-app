@@ -31,7 +31,7 @@ class LoginControllerTest < ActionController::TestCase
   end
 
   test "successful login redirects to tournament" do
-    post :create, user: {email: @user.email, password: 'password'}
+    post :create, params: { user: {email: @user.email, password: 'password'} }
 
     assert_redirected_to admin_path
     assert_equal 'fadeIn', flash[:animate]
@@ -43,19 +43,19 @@ class LoginControllerTest < ActionController::TestCase
     assert_equal 2, @user.tournaments.count
 
     set_subdomain('www')
-    post :create, user: {email: @user.email, password: 'password'}
+    post :create, params: { user: {email: @user.email, password: 'password'} }
 
     assert_redirected_to choose_tournament_path
   end
 
   test "successful login with no tournaments" do
     @user.tournaments.delete_all
-    post :create, user: {email: @user.email, password: 'password'}
+    post :create, params: { user: {email: @user.email, password: 'password'} }
     assert_redirected_to setup_path
   end
 
   test "unsuccessful login" do
-    post :create, user: {email: @user.email}
+    post :create, params: { user: {email: @user.email} }
     assert_login_error("Invalid email or password.")
   end
 
@@ -63,7 +63,7 @@ class LoginControllerTest < ActionController::TestCase
     tournament = tournaments(:jazz_fest)
     set_tournament(tournament)
 
-    post :create, user: {email: @user.email, password: 'password'}
+    post :create, params: { user: {email: @user.email, password: 'password'} }
 
     assert_login_error("Invalid login for tournament.")
   end
@@ -74,7 +74,7 @@ class LoginControllerTest < ActionController::TestCase
     user = users(:kevin)
     assert user.staff?
 
-    post :create, user: {email: user.email, password: 'password'}
+    post :create, params: { user: {email: user.email, password: 'password'} }
 
     assert_redirected_to admin_path
   end

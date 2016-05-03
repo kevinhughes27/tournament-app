@@ -28,24 +28,22 @@ class BracketRenderController < ApplicationController
   end
 end
 
-class BracketSimulationTest < BrowserTest
+Rails.application.routes.disable_clear_and_finalize = true
+
+Rails.application.routes.draw do
+  get '/render_test', to: 'bracket_render#index'
+end
+
+class BracketRenderTest < BrowserTest
   setup do
-    Rails.application.routes.draw do
-      get '/render_test', to: 'bracket_render#index'
-    end
-
     page.driver.resize(400, 460)
-  end
-
-  teardown do
-    Rails.application.reload_routes!
   end
 
   Bracket.all.each do |bracket|
     test "render bracket: #{bracket.handle}" do
       visit("/render_test?bracket=#{bracket.handle}")
       assert page.find(".vis-network")
-      sleep(1)
+      sleep(1) # this waits for vis to render
       compare_or_new(bracket.handle)
     end
   end
@@ -87,7 +85,7 @@ class BracketSimulationTest < BrowserTest
     if ENV['CIRCLECI']
       File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_handle}.png")
     else
-      "tmp/#{bracket_handle}.png"
+      "tmp/capybara/tmp/#{bracket_handle}.png"
     end
   end
 end

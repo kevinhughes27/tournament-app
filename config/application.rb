@@ -8,6 +8,5 @@ module UltimateTournament
   class Application < Rails::Application
     config.autoload_paths += Dir["#{config.root}/lib/**/"].reject{|d| d['tasks']}
     config.active_record.default_timezone = :local
-    config.active_record.raise_in_transactional_callbacks = true
   end
 end

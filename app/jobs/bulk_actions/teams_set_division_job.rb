@@ -1,8 +1,4 @@
-require 'render_anywhere'
-
-class BulkActions::TeamsSetDivisionJob < ActiveJob::Base
-  include RenderAnywhere
-
+class BulkActions::TeamsSetDivisionJob < ApplicationJob
   queue_as :default
 
   def perform(tournament_id:, ids:, arg:)
@@ -25,7 +21,7 @@ class BulkActions::TeamsSetDivisionJob < ActiveJob::Base
   private
 
   def render_response(teams)
-    render(
+    Admin::BulkActionsController.render(
       template: 'admin/teams/teams.json.jbuilder',
       layout: false,
       locals: {teams: teams}

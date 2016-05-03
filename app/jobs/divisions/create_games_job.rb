@@ -1,5 +1,5 @@
 module Divisions
-  class CreateGamesJob < ActiveJob::Base
+  class CreateGamesJob < ApplicationJob
     queue_as :default
 
     def perform(tournament_id:, division_id:, template:)

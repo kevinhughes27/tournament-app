@@ -5,7 +5,7 @@ machine:
     RAILS_ENV: test
   ruby:
     version:
-      2.2.3
+      2.3.1
 
 dependencies:
   pre:
@@ -28,3 +28,7 @@ dependencies:
 database:
   override:
     - bundle exec rake db:setup --trace
+
+test:
+  post:
+    - bundle exec rake teaspoon

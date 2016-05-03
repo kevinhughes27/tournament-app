@@ -14,7 +14,7 @@ class Internal::LoginControllerTest < ActionController::TestCase
     user = users(:kevin)
     assert user.staff?
 
-    post :create, user: {email: user.email, password: 'password'}
+    post :create, params: { user: {email: user.email, password: 'password'} }
     assert_redirected_to internal_path
   end
 end

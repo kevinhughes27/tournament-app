@@ -14,18 +14,14 @@ class Admin::AccountControllerTest < ActionController::TestCase
   end
 
   test "update account" do
-    put :update, user: {
-      email: 'bob@example.com'
-    }
+    put :update, params: { user: { email: 'bob@example.com' } }
     assert_response :success
     assert_equal 'bob@example.com', @user.reload.email
     assert_equal 'Account updated.', flash[:notice]
   end
 
   test "update account error" do
-    put :update, user: {
-      email: ''
-    }
+    put :update, params: { user: { email: '' } }
     assert_response :success
     assert @user.reload.email.present?
     assert_equal 'Error updating Account.', flash[:alert]

@@ -1,5 +1,5 @@
 module Divisions
-  class SeedJob < ActiveJob::Base
+  class SeedJob < ApplicationJob
     queue_as :default
 
     attr_reader :division, :seed_round
