@@ -6,7 +6,6 @@ gem 'rails', '5.0.0.beta4'
 gem 'puma'
 gem 'wicked'
 gem 'responders'
-gem 'render_anywhere', require: false
 gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
 gem 'wicked_pdf'
