@@ -30,6 +30,7 @@ namespace :admin do
 
   get '/settings', to: 'settings#show'
   put '/settings', to: 'settings#update'
+  post '/reset', to: 'settings#reset_data'
 
   get '/map', to: 'map#show'
   put '/map', to: 'map#update'

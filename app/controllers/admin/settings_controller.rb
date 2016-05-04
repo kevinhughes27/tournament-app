@@ -13,6 +13,12 @@ class Admin::SettingsController < AdminController
     end
   end
 
+  def reset_data
+    @tournament.reset_data!
+    flash[:notice] = 'Data reset.'
+    redirect_to admin_settings_path
+  end
+
   private
 
   def tournament_params

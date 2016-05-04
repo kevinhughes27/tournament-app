@@ -27,6 +27,16 @@ class Tournament < ApplicationRecord
   validates :time_cap, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates_presence_of :tournament_users, on: :update
 
+  def reset_data!
+    fields.destroy_all
+    teams.destroy_all
+    divisions.destroy_all
+    games.destroy_all
+    pool_results.destroy_all
+    places.destroy_all
+    score_reports.destroy_all
+  end
+
   def downcase_handle
     self.handle.downcase!
   end
