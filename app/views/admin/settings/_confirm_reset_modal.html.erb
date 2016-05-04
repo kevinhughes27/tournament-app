@@ -19,7 +19,7 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <%= link_to 'Reset', admin_reset_path,
           method: :post,
-          class: 'btn btn-danger',
+          class: 'btn btn-danger js-btn-loadable',
           "bind-class" => "{disabled: input != '#{@tournament.handle}'}" %>
       </div>
     </div>
