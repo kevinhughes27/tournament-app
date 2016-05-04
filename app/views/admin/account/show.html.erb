@@ -9,13 +9,37 @@
 
 <%= render 'admin/errors', object: @user %>
 
-<%= ui_box do %>
-  <%= form_for @user, url: admin_account_path, method: :put, remote: true do |form| %>
+<div class="row">
+  <div class="col-md-8">
+    <%= ui_box do %>
+      <%= form_for @user, url: admin_account_path, method: :put, remote: true do |form| %>
 
-    <%= form.ui_text_field :email %>
-    <%= form.ui_password_field :password %>
-    <%= form.ui_password_field :password_confirmation %>
+        <%= form.ui_text_field :email %>
+        <%= form.ui_password_field :password %>
+        <%= form.ui_password_field :password_confirmation %>
 
-    <%= form.ui_save_button %>
-  <% end %>
-<% end %>
+        <%= form.ui_save_button %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <%= ui_box do %>
+      <h4>Tournaments:</h4>
+
+      <% @user.tournaments.each do |tournament| %>
+        <% if tournament == @tournament %>
+          <%= link_to tournament.handle, "#", class: 'btn btn-info btn-block' %>
+        <% else %>
+          <%= link_to tournament.handle, admin_account_url(subdomain: tournament.handle), class: 'btn btn-default btn-block' %>
+        <% end %>
+      <% end %>
+
+      <hr>
+
+      <%= link_to setup_url(subdomain: 'www'), class: 'btn btn-primary btn-block' do %>
+        Create new Tournament
+      <% end %>
+    <% end %>
+  </div>
+</div>
