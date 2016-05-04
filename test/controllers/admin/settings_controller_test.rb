@@ -24,4 +24,18 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     put :update, params: { tournament: {name: ''} }
     assert_equal 'Error saving Settings.', flash[:error]
   end
+
+  test "reset clears data" do
+    post :reset_data
+    assert_redirected_to admin_settings_path
+    assert_equal 'Data reset.', flash[:notice]
+
+    assert_equal 0, @tournament.reload.fields.count
+    assert_equal 0, @tournament.reload.teams.count
+    assert_equal 0, @tournament.reload.divisions.count
+    assert_equal 0, @tournament.reload.games.count
+    assert_equal 0, @tournament.reload.pool_results.count
+    assert_equal 0, @tournament.reload.places.count
+    assert_equal 0, @tournament.reload.score_reports.count
+  end
 end
