@@ -6,7 +6,7 @@ class Admin::SettingsController < AdminController
   def update
     if @tournament.update(tournament_params)
       flash[:notice] = 'Settings saved.'
-      redirect_to admin_settings_path
+      redirect_to admin_settings_url(subdomain: @tournament.handle)
     else
       flash[:error] = 'Error saving Settings.'
       render :show

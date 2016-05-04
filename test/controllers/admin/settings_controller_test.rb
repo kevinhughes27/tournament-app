@@ -15,9 +15,19 @@ class Admin::SettingsControllerTest < ActionController::TestCase
 
   test "update settings" do
     params = @tournament.attributes.merge(name: 'Updated Name')
+
     put :update, params: { tournament: params }
+    assert_redirected_to admin_settings_url(subdomain: @tournament.handle)
+
     assert_equal 'Settings saved.', flash[:notice]
     assert_equal 'Updated Name', @tournament.reload.name
+  end
+
+  test "update handle redirects properly" do
+    new_handle = 'new-handle'
+    put :update, params: { tournament: {handle: new_handle} }
+    assert_redirected_to admin_settings_url(subdomain: new_handle)
+    assert_equal new_handle, @tournament.reload.handle
   end
 
   test "update settings error" do
