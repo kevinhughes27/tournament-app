@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, prepend: true
 
   force_ssl if: :ssl_configured?
 
