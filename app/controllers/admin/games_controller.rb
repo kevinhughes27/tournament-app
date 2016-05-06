@@ -1,6 +1,4 @@
 class Admin::GamesController < AdminController
-  respond_to :json, only: [:update]
-
   def index
     @games = @tournament.games.includes(:home, :away, :division, score_reports: [:team])
   end
@@ -12,6 +10,6 @@ class Admin::GamesController < AdminController
     away_score = params[:away_score].to_i
 
     @game.update_score(home_score, away_score)
-    render 'games', locals: {games: [@game, @game.dependent_games].flatten }
+    head :ok
   end
 end

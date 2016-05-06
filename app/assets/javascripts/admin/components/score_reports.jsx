@@ -45,7 +45,7 @@ var ScoreReport = React.createClass({
     this._startLoading();
 
     $.ajax({
-      url: 'games/' + report.game_id + '.json',
+      url: 'games/' + report.game_id,
       type: 'PUT',
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
@@ -54,10 +54,6 @@ var ScoreReport = React.createClass({
       },
       success: (response) => {
         this._finishLoading();
-        response[0].reportsOpen = true;
-        var scroll = window.scrollY;
-        _.each(response, function(game) { GamesStore.updateGame(game) });
-        window.scrollTo(0, scroll);
         Admin.Flash.notice('Score report accepted');
       },
       error: (response) => {

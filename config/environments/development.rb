@@ -3,6 +3,8 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :inline
 
+  config.action_cable.allowed_request_origins = [/http:\/\/.*.lvh.me:3000/]
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

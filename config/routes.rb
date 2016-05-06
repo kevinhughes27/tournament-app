@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     post '/confirm/:id' => 'app#confirm'
   end
 
+  mount ActionCable.server => '/cable'
+
   get '/tos' => 'brochure#tos'
   root 'brochure#index'
 end
