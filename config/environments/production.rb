@@ -3,6 +3,8 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :inline
 
+  config.action_cable.allowed_request_origins = [/http:\/\/.*.ultimate-tournament.io/]
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
