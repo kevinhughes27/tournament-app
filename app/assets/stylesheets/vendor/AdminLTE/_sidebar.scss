@@ -125,6 +125,40 @@
   }
 }
 
+// staff links
+.staff-panel {
+  position: absolute;
+  bottom: 60px;
+  left: -10px;
+  li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    > a {
+      padding: 12px 5px 12px 15px;
+      display: block;
+      > .fa,
+      > .glyphicon,
+      > .ion {
+        width: 20px;
+      }
+    }
+    .label,
+    .badge {
+      margin-top: 3px;
+      margin-right: 5px;
+    }
+  }
+  span {
+    .sidebar-collapse & {
+      opacity: 0;
+    }
+    .sidebar-open & {
+      opacity: 1;
+    }
+  }
+}
+
 //Sidebar user panel
 .user-panel {
   position: absolute;
