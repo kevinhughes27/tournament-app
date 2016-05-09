@@ -4,6 +4,17 @@
 <% end %>
 
 <%= ui_box do %>
+  <div class="filter-container" style="padding-bottom: 10px;">
+    <%= form_tag(internal_tournaments_path, id: 'search-form', method: :get) do %>
+      <input type="text"
+             name="search"
+             id="search"
+             placeholder="Search..."
+             class="form-control"
+             value="<%= params[:search] %>"/>
+    <% end %>
+  </div>
+
   <table class="table table-striped table-hover">
     <thead>
       <tr>
