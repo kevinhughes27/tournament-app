@@ -60,6 +60,12 @@
         </li>
       </ul>
 
+      <% if current_user.staff? %>
+        <div class="staff-panel">
+          <%= sidebar_link "fa fa-user-secret", "Internal Area", internal_url(subdomain: 'www') %>
+        </div>
+      <% end %>
+
       <div class="user-panel dropup">
         <ul class="dropdown-menu" aria-labelledby="userDropdown">
           <li><%= link_to "Account", admin_account_path %></li>

@@ -16,6 +16,7 @@ Rails.application.config.assets.precompile += [
   'app.css',
   'app.js',
   'app_vendor.js',
+  'internal.js',
 ]
 
 Rails.application.config.browserify_rails.commandline_options = [

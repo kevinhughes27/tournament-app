@@ -6,6 +6,14 @@ GIT
       minitest (~> 5.0, >= 5.0.6)
 
 GIT
+  remote: https://github.com/amatsuda/kaminari
+  revision: 17d0fb83aa8e257ecf887d3c9774f4289bee4458
+  specs:
+    kaminari (1.0.0.alpha)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
+GIT
   remote: https://github.com/rubysherpas/paranoia
   revision: 3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a
   ref: 3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a
@@ -355,6 +363,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   json-schema (~> 2.6.0)
+  kaminari!
   launchy
   letter_opener
   minitest-ci!
