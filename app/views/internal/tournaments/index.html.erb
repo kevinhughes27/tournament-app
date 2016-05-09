@@ -10,6 +10,10 @@
         <th>Name</th>
         <th>Email</th>
         <th class="hidden-xs">Created At</th>
+        <th class="hidden-xs">Teams</th>
+        <th class="hidden-xs">Fields</th>
+        <th class="hidden-xs">Divisions</th>
+        <th class="hidden-xs">Score Reports</th>
       </tr>
     </thead>
 
@@ -19,6 +23,10 @@
           <td><%= link_to tournament.handle, "#{tournament.domain}/admin" %></td>
           <td><%= tournament.users.first.email %></td>
           <td class="hidden-xs"><%= tournament.created_at.strftime("%d/%m/%Y") %></td>
+          <td class="hidden-xs"><%= tournament.teams.count %></td>
+          <td class="hidden-xs"><%= tournament.fields.count %></td>
+          <td class="hidden-xs"><%= tournament.divisions.count %></td>
+          <td class="hidden-xs"><%= tournament.score_reports.count %></td>
         </tr>
       <% end %>
     </tbody>
