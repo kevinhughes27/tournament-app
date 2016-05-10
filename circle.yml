@@ -9,6 +9,8 @@ machine:
   ruby:
     version:
       2.3.1
+  node:
+    version: 4.2.6
 
 dependencies:
   pre:
@@ -34,4 +36,4 @@ database:
 
 test:
   post:
-    - bundle exec rake teaspoon
+    - bundle exec teaspoon
