@@ -37,7 +37,7 @@
           <td class="hidden-xs"><%= tournament.teams.count %></td>
           <td class="hidden-xs"><%= tournament.fields.count %></td>
           <td class="hidden-xs"><%= tournament.divisions.count %></td>
-          <td class="hidden-xs"><%= tournament.score_reports.count %></td>
+          <td class="hidden-xs"><%= tournament.score_reports.with_deleted.count %></td>
         </tr>
       <% end %>
     </tbody>
