@@ -100,6 +100,20 @@ class GameTest < ActiveSupport::TestCase
     @game.update_score(15, 11)
   end
 
+  test "can't update_score for pool game if winner changes and pool is already finished" do
+    @game.update_column(:pool, 'A')
+    Divisions::UpdatePoolJob.expects(:perform_later)
+    assert @game.update_score(15, 11)
+    refute @game.update_score(11, 15)
+  end
+
+  test "can update_score for pool game if pool is already finished but winner doesn't change" do
+    @game.update_column(:pool, 'A')
+    Divisions::UpdatePoolJob.expects(:perform_later).twice
+    assert @game.update_score(15, 11)
+    assert @game.update_score(14, 11)
+  end
+
   test "update_score updates the bracket" do
     Divisions::UpdateBracketJob.expects(:perform_later)
     @game.update_score(15, 11)
