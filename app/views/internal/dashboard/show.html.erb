@@ -75,7 +75,7 @@
       <span class="info-box-icon bg-purple"><i class="fa fa-file-o"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Score Reports</span>
-        <span class="info-box-number"><%= ScoreReport.count %></span>
+        <span class="info-box-number"><%= ScoreReport.with_deleted.count %></span>
         <span class="info-box-text"><%= ScoreReport.where('created_at > ?', Time.now - 1.day).count %> (in the last day)</span>
       </div>
     </div>
