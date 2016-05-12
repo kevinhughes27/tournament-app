@@ -143,7 +143,7 @@ class GameTest < ActiveSupport::TestCase
     game2 = Game.create(
       tournament: @tournament,
       division: @division,
-      bracket_uid: 'q1',
+      bracket_uid: 's1',
       home_prereq_uid: 'Wq1',
       away_prereq_uid: 'Wq2'
     )
@@ -155,7 +155,7 @@ class GameTest < ActiveSupport::TestCase
     assert_equal @away, game2.reload.home
   end
 
-  test "safe_to_update_score? is false if dependent games are scored" do
+  test "can't update_score if dependent games are scored" do
     game1 = Game.create(
       tournament: @tournament,
       division: @division,
@@ -169,19 +169,17 @@ class GameTest < ActiveSupport::TestCase
     game2 = Game.create(
       tournament: @tournament,
       division: @division,
-      bracket_uid: 'q1',
+      bracket_uid: 's1',
       home_prereq_uid: 'Wq1',
       away_prereq_uid: 'Wq2'
     )
 
     game1.update_score(15, 11)
-    assert game1.safe_to_update_score?(11, 15)
-
     game2.update_column(:score_confirmed, true)
-    refute game1.safe_to_update_score?(11, 15)
+    refute game1.update_score(11, 15)
   end
 
-  test "safe_to_update_score? is true if winner doesn't change" do
+  test "can update_score if winner doesn't change but dependent games are scored" do
     game1 = Game.create(
       tournament: @tournament,
       division: @division,
@@ -195,17 +193,14 @@ class GameTest < ActiveSupport::TestCase
     game2 = Game.create(
       tournament: @tournament,
       division: @division,
-      bracket_uid: 'q1',
+      bracket_uid: 's1',
       home_prereq_uid: 'Wq1',
       away_prereq_uid: 'Wq2'
     )
 
     game1.update_score(15, 11)
-    assert game1.safe_to_update_score?(11, 15)
-
     game2.update_column(:score_confirmed, true)
-    refute game1.safe_to_update_score?(11, 15)
-    assert game1.safe_to_update_score?(14, 11)
+    assert game1.update_score(14, 11)
   end
 
   test "when a game is destroyed its score reports are too" do

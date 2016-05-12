@@ -121,15 +121,6 @@ class Game < ApplicationRecord
     end
   end
 
-  def safe_to_update_score?(home_score, away_score)
-    return true if unconfirmed?
-
-    winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
-    return true unless winner_changed
-
-    dependent_games.all?{ |game| game.unconfirmed? }
-  end
-
   def dependent_games
     [
       Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}"),
@@ -147,6 +138,15 @@ class Game < ApplicationRecord
   end
 
   private
+
+  def safe_to_update_score?(home_score, away_score)
+    return true if unconfirmed?
+
+    winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
+    return true unless winner_changed
+
+    dependent_games.all?{ |game| game.unconfirmed? }
+  end
 
   def set_score(home_score, away_score)
     Games::SetScoreJob.perform_now(
