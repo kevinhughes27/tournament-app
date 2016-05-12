@@ -107,6 +107,11 @@ exports.ScoreCell = React.createClass({
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {
+        if(response.status == 422) {
+          // pop confirm modal, re-submit with force param
+          debugger;
+        };
+
         this._finishLoading();
         Admin.Flash.error('Error updating score');
       }
