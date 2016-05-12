@@ -8,14 +8,6 @@ module Divisions
       @teams = @division.teams.order(:seed)
     end
 
-    test "pool not finished" do
-      division = new_division('USAU 8.1')
-      @teams.update_all(division_id: division.id)
-
-      Game.any_instance.expects(:save!).never
-      UpdatePoolJob.perform_now(division: division, pool: 'A')
-    end
-
     test "records pool results" do
       division = new_division('USAU 8.1')
       teams = @teams.to_a

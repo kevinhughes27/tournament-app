@@ -145,7 +145,11 @@ class Game < ApplicationRecord
     winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
     return true unless winner_changed
 
-    dependent_games.all?{ |game| game.unconfirmed? }
+    if pool_game?
+      !pool_finished?
+    else
+      dependent_games.all?{ |game| game.unconfirmed? }
+    end
   end
 
   def set_score(home_score, away_score)
@@ -165,9 +169,17 @@ class Game < ApplicationRecord
   end
 
   def update_pool
-    return if !self.pool_game?
-    return unless self.confirmed?
-    Divisions::UpdatePoolJob.perform_later(division: self.division, pool: self.pool)
+    return if !pool_game?
+    return unless confirmed?
+    return unless pool_finished?
+    Divisions::UpdatePoolJob.perform_later(division: division, pool: pool)
+  end
+
+  def pool_finished?
+    @pool_finished ||= begin
+      games = Game.where(tournament_id: tournament_id, division_id: division.id, pool: pool)
+      games.all? { |game| game.confirmed? }
+    end
   end
 
   def update_bracket

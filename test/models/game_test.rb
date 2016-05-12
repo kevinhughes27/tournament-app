@@ -93,6 +93,13 @@ class GameTest < ActiveSupport::TestCase
     @game.update_score(15, 11)
   end
 
+  test "pool is not updated unless all games are completed" do
+    @game.update_column(:pool, 'A')
+    games(:pheonix_mavericks).update_columns(pool: 'A', score_confirmed: false)
+    Divisions::UpdatePoolJob.expects(:perform_later).never
+    @game.update_score(15, 11)
+  end
+
   test "update_score updates the bracket" do
     Divisions::UpdateBracketJob.expects(:perform_later)
     @game.update_score(15, 11)
