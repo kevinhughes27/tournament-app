@@ -110,14 +110,24 @@ class Game < ApplicationRecord
     home_score.present? && away_score.present?
   end
 
-  def update_score(home_score, away_score)
+  def update_score(home_score, away_score, force: false)
     return unless teams_present?
+    return unless safe_to_update_score?(home_score, away_score) || force
 
     if scores_present?
       adjust_score(home_score, away_score)
     else
       set_score(home_score, away_score)
     end
+  end
+
+  def safe_to_update_score?(home_score, away_score)
+    return true if unconfirmed?
+
+    winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
+    return true unless winner_changed
+
+    dependent_games.all?{ |game| game.unconfirmed? }
   end
 
   def dependent_games
