@@ -27,9 +27,7 @@ module Divisions
       games.each do |game|
         game.home = teams[ game.home_prereq_uid.to_i - 1 ] if game.home_prereq_uid.is_i?
         game.away = teams[ game.away_prereq_uid.to_i - 1 ] if game.away_prereq_uid.is_i?
-        game.home_score = nil
-        game.away_score = nil
-        game.score_confirmed = false
+        game.reset!
         game.save!
       end
 
