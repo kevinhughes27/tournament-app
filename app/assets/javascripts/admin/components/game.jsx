@@ -4,6 +4,7 @@ var React = require('react'),
     Modal = require('react-bootstrap').Modal,
     classNames = require('classnames'),
     ScoreReports = require('./score_reports'),
+    confirm = require('./confirm'),
     GamesStore = require('../stores/games_store'),
     LoadingMixin = require('../mixins/loading_mixin');
 
@@ -75,7 +76,7 @@ exports.ScoreCell = React.createClass({
     this.setState({ show: false });
   },
 
-  _opened() {
+  opened() {
     var game = this.props.rowData;
 
     this.setState({
@@ -84,12 +85,16 @@ exports.ScoreCell = React.createClass({
     });
   },
 
-  _setFocus() {
+  setFocus() {
     this.refs.input.focus();
   },
 
-  updateScore(ev) {
+  submit(ev) {
     ev.preventDefault();
+    this.updateScore()
+  },
+
+  updateScore(force = false) {
     var gameId = this.props.rowData.id;
     this._startLoading();
 
@@ -99,7 +104,8 @@ exports.ScoreCell = React.createClass({
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
         home_score: this.state.homeScore,
-        away_score: this.state.awayScore
+        away_score: this.state.awayScore,
+        force: force
       },
       success: (response) => {
         this._finishLoading();
@@ -107,15 +113,32 @@ exports.ScoreCell = React.createClass({
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {
-        if(response.status == 422) {
-          // pop confirm modal, re-submit with force param
-          debugger;
-        };
-
         this._finishLoading();
-        Admin.Flash.error('Error updating score');
+
+        if(response.status == 422) {
+          this.close();
+          this.confirmUpdateScore();
+        } else {
+          Admin.Flash.error('Error updating score');
+        }
       }
     })
+  },
+
+  confirmUpdateScore() {
+    confirm(
+      "This update will change the teams in games that come after it\
+      and some of those games have been scored. If you update this\
+      score those games will be reset. This cannot be undone.",
+      {title: "Confirm Update Score"}
+    ).then(
+      (result) => {
+        this.updateScore(true);
+      },
+      (result) => {
+        console.log('cancelled');
+      }
+    );
   },
 
   render() {
@@ -143,8 +166,8 @@ exports.ScoreCell = React.createClass({
         <Modal
           show={this.state.show}
           onHide={this.close}
-          onEnter={this._opened}
-          onEntered={this._setFocus}>
+          onEnter={this.opened}
+          onEntered={this.setFocus}>
           <Modal.Header closeButton>
             <Modal.Title>{game.name}</Modal.Title>
           </Modal.Header>
@@ -180,7 +203,7 @@ exports.ScoreCell = React.createClass({
           </Modal.Body>
           <Modal.Footer>
             <button className="btn btn-default" onClick={this.close}>Cancel</button>
-            <button className={btnClasses} onClick={this.updateScore}>
+            <button className={btnClasses} onClick={this.submit}>
               Save
             </button>
           </Modal.Footer>

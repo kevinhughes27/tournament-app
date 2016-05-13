@@ -18,7 +18,7 @@ module Games
     def safe_to_update_score?(game, home_score, away_score)
       return true if game.unconfirmed?
 
-      winner_changed = (game.home_score > game.away_score) && !(home_score > away_score)
+      winner_changed = (game.home_score > game.away_score) ^ (home_score > away_score)
       return true unless winner_changed
 
       if game.pool_game?
