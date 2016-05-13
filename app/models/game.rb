@@ -110,6 +110,12 @@ class Game < ApplicationRecord
     home_score.present? && away_score.present?
   end
 
+  def reset!
+    self.home_score = nil
+    self.away_score = nil
+    self.score_confirmed = false
+  end
+
   def update_score(home_score, away_score, force: false)
     Games::UpdateScoreJob.perform_now(
       game: self,
