@@ -14,6 +14,8 @@
     <%= ui_box do %>
       <%= form_for [:admin, @division], remote: true do |form| %>
         <%= render 'form', form: form, division: @division %>
+        <hr>
+        <%= form.ui_save_button %>
       <% end %>
       <%= link_to "Cancel", admin_divisions_path, class: 'btn btn-default' %>
     <% end %>

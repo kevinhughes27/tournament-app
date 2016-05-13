@@ -114,6 +114,7 @@ class Game < ApplicationRecord
     self.home_score = nil
     self.away_score = nil
     self.score_confirmed = false
+    # should delete score reports
   end
 
   def update_score(home_score, away_score, force: false)

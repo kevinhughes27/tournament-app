@@ -86,6 +86,8 @@ class Admin::TeamsController < AdminController
     @team.assign_attributes(team_params)
     return if @team.update_safe?
 
+    # this is correct since as long as we don't render we continue
+    # with the controller action
     if !@team.allow_change?
       render partial: 'unable_to_update', status: :not_allowed
     elsif !(params[:confirm] == 'true' || @team.safe_to_change?)

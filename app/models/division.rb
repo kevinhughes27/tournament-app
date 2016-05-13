@@ -39,11 +39,19 @@ class Division < ApplicationRecord
     Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
   end
 
-  def safe_to_delete?
+  def update_safe?
+    !(self.bracket_type_changed?)
+  end
+
+  def safe_to_change?
     !games.where(score_confirmed: true).exists?
   end
 
   def safe_to_seed?
+    !games.where(score_confirmed: true).exists?
+  end
+
+  def safe_to_delete?
     !games.where(score_confirmed: true).exists?
   end
 
