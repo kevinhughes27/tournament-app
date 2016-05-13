@@ -100,20 +100,6 @@ class GameTest < ActiveSupport::TestCase
     @game.update_score(15, 11)
   end
 
-  test "can't update_score for pool game if winner changes and pool is already finished" do
-    @game.update_column(:pool, 'A')
-    Divisions::UpdatePoolJob.expects(:perform_later)
-    assert @game.update_score(15, 11)
-    refute @game.update_score(11, 15)
-  end
-
-  test "can update_score for pool game if pool is already finished but winner doesn't change" do
-    @game.update_column(:pool, 'A')
-    Divisions::UpdatePoolJob.expects(:perform_later).twice
-    assert @game.update_score(15, 11)
-    assert @game.update_score(14, 11)
-  end
-
   test "update_score updates the bracket" do
     Divisions::UpdateBracketJob.expects(:perform_later)
     @game.update_score(15, 11)
@@ -122,32 +108,6 @@ class GameTest < ActiveSupport::TestCase
   test "update_score updates the places" do
     Divisions::UpdatePlacesJob.expects(:perform_later)
     @game.update_score(15, 11)
-  end
-
-  test "update_score confirms the game" do
-    @game.stubs(:update_bracket)
-    @game.update_score(15, 11)
-    assert @game.confirmed?
-  end
-
-  test "can't update score unless teams" do
-    game = games(:semi_final)
-    refute game.teams_present?
-    game.update_score(10, 5)
-    assert_nil game.score
-  end
-
-  test "update_score sets the score if no previous score" do
-    game = games(:swift_goose_no_score)
-    game.expects(:set_score).once
-    game.stubs(:update_bracket)
-    game.update_score(15, 11)
-  end
-
-  test "update_score adjusts the score if game already has a score" do
-    @game.expects(:adjust_score).once
-    @game.stubs(:update_bracket)
-    @game.update_score(14, 12)
   end
 
   test "update_score updates the bracket if the winner is changed" do
@@ -174,54 +134,6 @@ class GameTest < ActiveSupport::TestCase
 
     game1.update_score(10, 13)
     assert_equal @away, game2.reload.home
-  end
-
-  test "can't update_score if dependent games are scored" do
-    game1 = Game.create(
-      tournament: @tournament,
-      division: @division,
-      bracket_uid: 'q1',
-      home_prereq_uid: '1',
-      away_prereq_uid: '2',
-      home: @home,
-      away: @away
-    )
-
-    game2 = Game.create(
-      tournament: @tournament,
-      division: @division,
-      bracket_uid: 's1',
-      home_prereq_uid: 'Wq1',
-      away_prereq_uid: 'Wq2'
-    )
-
-    game1.update_score(15, 11)
-    game2.update_column(:score_confirmed, true)
-    refute game1.update_score(11, 15)
-  end
-
-  test "can update_score if winner doesn't change but dependent games are scored" do
-    game1 = Game.create(
-      tournament: @tournament,
-      division: @division,
-      bracket_uid: 'q1',
-      home_prereq_uid: '1',
-      away_prereq_uid: '2',
-      home: @home,
-      away: @away
-    )
-
-    game2 = Game.create(
-      tournament: @tournament,
-      division: @division,
-      bracket_uid: 's1',
-      home_prereq_uid: 'Wq1',
-      away_prereq_uid: 'Wq2'
-    )
-
-    game1.update_score(15, 11)
-    game2.update_column(:score_confirmed, true)
-    assert game1.update_score(14, 11)
   end
 
   test "when a game is destroyed its score reports are too" do

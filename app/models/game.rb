@@ -111,14 +111,12 @@ class Game < ApplicationRecord
   end
 
   def update_score(home_score, away_score, force: false)
-    return unless teams_present?
-    return unless safe_to_update_score?(home_score, away_score) || force
-
-    if scores_present?
-      adjust_score(home_score, away_score)
-    else
-      set_score(home_score, away_score)
-    end
+    Games::UpdateScoreJob.perform_now(
+      game: self,
+      home_score: home_score,
+      away_score: away_score,
+      force: force
+    )
   end
 
   def dependent_games
@@ -137,49 +135,20 @@ class Game < ApplicationRecord
     ].compact
   end
 
-  private
-
-  def safe_to_update_score?(home_score, away_score)
-    return true if unconfirmed?
-
-    winner_changed = (self.home_score > self.away_score) && !(home_score > away_score)
-    return true unless winner_changed
-
-    if pool_game?
-      !pool_finished?
-    else
-      dependent_games.all?{ |game| game.unconfirmed? }
+  def pool_finished?
+    @pool_finished ||= begin
+      games = Game.where(tournament_id: tournament_id, division_id: division.id, pool: pool)
+      games.all? { |game| game.confirmed? }
     end
   end
 
-  def set_score(home_score, away_score)
-    Games::SetScoreJob.perform_now(
-      game: self,
-      home_score: home_score,
-      away_score: away_score
-    )
-  end
-
-  def adjust_score(home_score, away_score)
-    Games::AdjustScoreJob.perform_now(
-      game: self,
-      home_score: home_score,
-      away_score: away_score
-    )
-  end
+  private
 
   def update_pool
     return if !pool_game?
     return unless confirmed?
     return unless pool_finished?
     Divisions::UpdatePoolJob.perform_later(division: division, pool: pool)
-  end
-
-  def pool_finished?
-    @pool_finished ||= begin
-      games = Game.where(tournament_id: tournament_id, division_id: division.id, pool: pool)
-      games.all? { |game| game.confirmed? }
-    end
   end
 
   def update_bracket
