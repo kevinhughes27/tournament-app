@@ -30,17 +30,13 @@ module Divisions
       division.games.each do |game|
         if game.home_prereq_uid =~ /#{pool}\d/
           game.home = sorted_teams[ game.home_prereq_uid.gsub(pool, '').to_i - 1 ]
-          game.home_score = nil
-          game.away_score = nil
-          game.score_confirmed = false
+          game.reset!
           game.save!
         end
 
         if game.away_prereq_uid =~ /#{pool}\d/
           game.away = sorted_teams[ game.away_prereq_uid.gsub(pool, '').to_i - 1 ]
-          game.home_score = nil
-          game.away_score = nil
-          game.score_confirmed = false
+          game.reset!
           game.save!
         end
       end
