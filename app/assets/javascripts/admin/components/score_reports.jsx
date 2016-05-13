@@ -3,6 +3,7 @@ var _ = require('underscore'),
     Tooltip = require('react-bootstrap').Tooltip,
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,
     classNames = require('classnames'),
+    confirm = require('./confirm'),
     GamesStore = require('../stores/games_store'),
     LoadingMixin = require('../mixins/loading_mixin');
 
@@ -40,7 +41,11 @@ var ScoreReports = React.createClass({
 var ScoreReport = React.createClass({
   mixins: [LoadingMixin],
 
-  acceptScoreReport() {
+  submit() {
+    this.acceptScoreReport();
+  },
+
+  acceptScoreReport(force = false) {
     var report = this.props.report;
     this._startLoading();
 
@@ -50,7 +55,8 @@ var ScoreReport = React.createClass({
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
         home_score: report.home_score,
-        away_score: report.away_score
+        away_score: report.away_score,
+        force: force
       },
       success: (response) => {
         this._finishLoading();
@@ -58,9 +64,30 @@ var ScoreReport = React.createClass({
       },
       error: (response) => {
         this._finishLoading();
-        Admin.Flash.error('Error accepting score report');
+
+        if(response.status == 422) {
+          this.confirmAcceptScore();
+        } else {
+          Admin.Flash.error('Error accepting score report');
+        }
       }
     });
+  },
+
+  confirmAcceptScore() {
+    confirm(
+      "This update will change the teams in games that come after it\
+      and some of those games have been scored. If you update this\
+      score those games will be reset. This cannot be undone.",
+      {title: "Confirm Accept Score"}
+    ).then(
+      (result) => {
+        this.acceptScoreReport(true);
+      },
+      (result) => {
+        console.log('cancelled');
+      }
+    );
   },
 
   render() {
@@ -88,7 +115,7 @@ var ScoreReport = React.createClass({
           {report.comments}
         </td>
         <td>
-          <button className={btnClasses} onClick={this.acceptScoreReport}>
+          <button className={btnClasses} onClick={this.submit}>
             Accept
           </button>
         </td>
