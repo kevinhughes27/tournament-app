@@ -56,7 +56,7 @@ module Games
         away_prereq_uid: 'Wq2'
       )
 
-      Games::UpdateScoreJob.perform_now(game: game1, home_score: 15, away_score: 11)
+      assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 15, away_score: 11)
       game2.update_column(:score_confirmed, true)
       refute Games::UpdateScoreJob.perform_now(game: game1, home_score: 11, away_score: 15)
     end
@@ -80,9 +80,80 @@ module Games
         away_prereq_uid: 'Wq2'
       )
 
-      Games::UpdateScoreJob.perform_now(game: game1, home_score: 15, away_score: 11)
+      assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 15, away_score: 11)
       game2.update_column(:score_confirmed, true)
       assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 14, away_score: 11)
+    end
+
+    test "force update_score resets dependent_games" do
+      game1 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away,
+        home_score: 15,
+        away_score: 11,
+        score_confirmed: true
+      )
+
+      game2 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 's1',
+        home_prereq_uid: 'Wq1',
+        away_prereq_uid: 'Wq2',
+        home: @home,
+        score_confirmed: true
+      )
+
+      perform_enqueued_jobs do
+        assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 11, away_score: 15, force: true)
+        assert_equal @away, game2.reload.home
+        refute game2.confirmed?
+      end
+    end
+
+    test "force update_score resets future games as required" do
+      game1 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away,
+        home_score: 15,
+        away_score: 11,
+        score_confirmed: true
+      )
+
+      game2 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 's1',
+        home_prereq_uid: 'Wq1',
+        away_prereq_uid: 'Wq2',
+        home: @home,
+        score_confirmed: true
+      )
+
+      game3 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'f1',
+        home_prereq_uid: 'Ws1',
+        away_prereq_uid: 'Ws2',
+        home: @home,
+        score_confirmed: true
+      )
+
+      perform_enqueued_jobs do
+        assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 11, away_score: 15, force: true)
+        assert_nil game3.reload.home
+      end
     end
 
     test "update_score sets the score if no previous score" do
