@@ -59,6 +59,26 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     assert_equal division_params[:name], @division.reload.name
   end
 
+  test "update a division (unsafe)" do
+    refute @division.safe_to_change?
+
+    params = division_params.merge(bracket_type: 'single_elimination_4')
+    put :update, params: { id: @division.id, division: params }
+
+    assert_response :unprocessable_entity
+    assert_template 'admin/divisions/_confirm_update'
+  end
+
+  test "update a division (unsafe) + confirm" do
+    refute @division.safe_to_change?
+
+    params = division_params.merge(bracket_type: 'single_elimination_4')
+    put :update, params: { id: @division.id, division: params, confirm: 'true' }
+
+    assert_redirected_to admin_division_path(@division)
+    assert_equal params[:bracket_type], @division.reload.bracket_type
+  end
+
   test "update a division with errors" do
     params = division_params
     params.delete(:name)
@@ -90,6 +110,23 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @division.id, confirm: 'true' }
       assert_redirected_to admin_divisions_path
     end
+  end
+
+  test "update teams in a division (unsafe)" do
+    assert @division.teams.any?{ |t| !t.allow_change? }
+
+    team1 = @division.teams.first
+    team2 = @division.teams.last
+
+    params = {
+      id: @division.id,
+      team_ids: [team1.id, team2.id],
+      seeds: [team2.seed, team1.seed]
+    }
+
+    put :update_teams, params: params
+
+    assert_template 'admin/divisions/_unable_to_update_teams'
   end
 
   test "update teams in a division" do
