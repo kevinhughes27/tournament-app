@@ -93,6 +93,8 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update teams in a division" do
+    reset_division(@division)
+
     team1 = @division.teams.first
     team2 = @division.teams.last
 
@@ -103,7 +105,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
     params = {
       id: @division.id,
-      team_ids: [ team1.id, team2.id],
+      team_ids: [team1.id, team2.id],
       seeds: [new_seed, current_seed]
     }
 
@@ -115,6 +117,8 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update teams in a division (ids not in order)" do
+    reset_division(@division)
+
     team1 = @division.teams.first
     team2 = @division.teams.last
 
@@ -137,9 +141,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "seed a division" do
-    # hack to get all the games created
-    @division.update_attribute(:bracket_type, 'single_elimination_4')
-    @division.update_attribute(:bracket_type, 'single_elimination_8')
+    reset_division(@division)
 
     put :seed, params: { id: @division.id }
     assert_response :success
@@ -155,6 +157,12 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   private
+
+  # hack to get all the games created
+  def reset_division(division)
+    division.update_attribute(:bracket_type, 'single_elimination_4')
+    division.update_attribute(:bracket_type, 'single_elimination_8')
+  end
 
   def division_params
     {
