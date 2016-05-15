@@ -126,12 +126,12 @@ exports.ScoreCell = React.createClass({
   },
 
   confirmUpdateScore() {
-    confirm(
-      "This update will change the teams in games that come after it\
+    confirm({
+      title: "Confirm Update Score",
+      message: "This update will change the teams in games that come after it\
       and some of those games have been scored. If you update this\
-      score those games will be reset. This cannot be undone.",
-      {title: "Confirm Update Score"}
-    ).then(
+      score those games will be reset. This cannot be undone."
+    }).then(
       (result) => {
         this.updateScore(true);
       },

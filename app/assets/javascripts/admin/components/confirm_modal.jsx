@@ -10,7 +10,7 @@ const ConfirmModal = React.createClass({
     var proceed = this.props.proceed;
     var dismiss = this.props.dismiss;
     var title = this.props.title;
-    var confirmation = this.props.confirmation;
+    var message = this.props.message;
 
     return (
       <Modal onHide={dismiss} show={show}>
@@ -19,7 +19,7 @@ const ConfirmModal = React.createClass({
         </Modal.Header>
 
         <Modal.Body>
-          {confirmation}
+          {message}
         </Modal.Body>
 
         <Modal.Footer>

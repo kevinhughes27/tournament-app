@@ -6,12 +6,21 @@ module Divisions
 
     def perform(division:, pool:)
       @division, @pool = division, pool
+      return unless pool_finished?
       record_results
       reseed
       push_places
     end
 
     private
+
+    def pool_finished?
+      Divisions::PoolFinishedJob.perform_now(
+        tournament_id: division.tournament_id,
+        division_id: division.id,
+        pool: pool
+      )
+    end
 
     def record_results
       sorted_teams.each_with_index do |team, idx|

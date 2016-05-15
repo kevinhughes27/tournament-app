@@ -142,19 +142,11 @@ class Game < ApplicationRecord
     ].compact
   end
 
-  def pool_finished?
-    @pool_finished ||= begin
-      games = Game.where(tournament_id: tournament_id, division_id: division.id, pool: pool)
-      games.all? { |game| game.confirmed? }
-    end
-  end
-
   private
 
   def update_pool
     return if !pool_game?
     return unless confirmed?
-    return unless pool_finished?
     Divisions::UpdatePoolJob.perform_later(division: division, pool: pool)
   end
 
