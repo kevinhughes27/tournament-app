@@ -59,6 +59,26 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     assert_equal division_params[:name], @division.reload.name
   end
 
+  test "update a division (unsafe)" do
+    refute @division.safe_to_change?
+
+    params = division_params.merge(bracket_type: 'single_elimination_4')
+    put :update, params: { id: @division.id, division: params }
+
+    assert_response :unprocessable_entity
+    assert_template 'admin/divisions/_confirm_update'
+  end
+
+  test "update a division (unsafe) + confirm" do
+    refute @division.safe_to_change?
+
+    params = division_params.merge(bracket_type: 'single_elimination_4')
+    put :update, params: { id: @division.id, division: params, confirm: 'true' }
+
+    assert_redirected_to admin_division_path(@division)
+    assert_equal params[:bracket_type], @division.reload.bracket_type
+  end
+
   test "update a division with errors" do
     params = division_params
     params.delete(:name)
@@ -92,7 +112,26 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     end
   end
 
+  test "update teams in a division (unsafe)" do
+    assert @division.teams.any?{ |t| !t.allow_change? }
+
+    team1 = @division.teams.first
+    team2 = @division.teams.last
+
+    params = {
+      id: @division.id,
+      team_ids: [team1.id, team2.id],
+      seeds: [team2.seed, team1.seed]
+    }
+
+    put :update_teams, params: params
+
+    assert_template 'admin/divisions/_unable_to_update_teams'
+  end
+
   test "update teams in a division" do
+    reset_division(@division)
+
     team1 = @division.teams.first
     team2 = @division.teams.last
 
@@ -103,7 +142,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
     params = {
       id: @division.id,
-      team_ids: [ team1.id, team2.id],
+      team_ids: [team1.id, team2.id],
       seeds: [new_seed, current_seed]
     }
 
@@ -115,6 +154,8 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update teams in a division (ids not in order)" do
+    reset_division(@division)
+
     team1 = @division.teams.first
     team2 = @division.teams.last
 
@@ -137,9 +178,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "seed a division" do
-    # hack to get all the games created
-    @division.update_attribute(:bracket_type, 'single_elimination_4')
-    @division.update_attribute(:bracket_type, 'single_elimination_8')
+    reset_division(@division)
 
     put :seed, params: { id: @division.id }
     assert_response :success
@@ -155,6 +194,12 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   private
+
+  # hack to get all the games created
+  def reset_division(division)
+    division.update_attribute(:bracket_type, 'single_elimination_4')
+    division.update_attribute(:bracket_type, 'single_elimination_8')
+  end
 
   def division_params
     {

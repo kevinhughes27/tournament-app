@@ -8,8 +8,12 @@ class Admin::GamesController < AdminController
 
     home_score = params[:home_score].to_i
     away_score = params[:away_score].to_i
+    force = params[:force] == 'true'
 
-    @game.update_score(home_score, away_score)
-    head :ok
+    if @game.update_score(home_score, away_score, force: force)
+      head :ok
+    else
+      head :unprocessable_entity
+    end
   end
 end

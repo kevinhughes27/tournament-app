@@ -1,5 +1,6 @@
 class Admin::DivisionsController < AdminController
   before_action :load_division, only: [:show, :update, :destroy, :update_teams, :seed]
+  before_action :check_update_safety, only: [:update]
   before_action :check_seed_safety, only: [:seed]
   before_action :check_delete_safety, only: [:destroy]
 
@@ -32,13 +33,20 @@ class Admin::DivisionsController < AdminController
   def update_teams
     team_ids = params[:team_ids]
     @teams = Team.where( id: team_ids )
-    team_ids.each_with_index do |team_id, idx|
-      team = @teams.detect { |t| t.id == team_id.to_i}
-      team.update_attribute( :seed, params[:seeds][idx] )
+
+    Team.transaction do
+      team_ids.each_with_index do |team_id, idx|
+        team = @teams.detect { |t| t.id == team_id.to_i}
+        team.assign_attributes(seed: params[:seeds][idx])
+        raise if team.seed_changed? && !team.allow_change?
+        team.save!
+      end
     end
 
     flash.now[:notice] = 'Seeds updated'
     render :show
+  rescue => e
+    render partial: 'unable_to_update_teams', status: :not_allowed
   end
 
   def seed
@@ -54,15 +62,26 @@ class Admin::DivisionsController < AdminController
 
   private
 
-  def check_delete_safety
-    unless params[:confirm] == 'true' || @division.safe_to_delete?
-      render partial: 'confirm_delete', status: :unprocessable_entity
+  def check_update_safety
+    @division.assign_attributes(division_params)
+    return if @division.update_safe?
+
+    # this is correct since as long as we don't render we continue
+    # with the controller action
+    if !(params[:confirm] == 'true' || @division.safe_to_change?)
+      render partial: 'confirm_update', status: :unprocessable_entity
     end
   end
 
   def check_seed_safety
     unless params[:confirm] == 'true' || @division.safe_to_seed?
       render partial: 'confirm_seed', status: :unprocessable_entity
+    end
+  end
+
+  def check_delete_safety
+    unless params[:confirm] == 'true' || @division.safe_to_delete?
+      render partial: 'confirm_delete', status: :unprocessable_entity
     end
   end
 

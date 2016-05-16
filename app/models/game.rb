@@ -110,14 +110,20 @@ class Game < ApplicationRecord
     home_score.present? && away_score.present?
   end
 
-  def update_score(home_score, away_score)
-    return unless teams_present?
+  def reset!
+    self.home_score = nil
+    self.away_score = nil
+    self.score_confirmed = false
+    self.score_reports.destroy_all
+  end
 
-    if scores_present?
-      adjust_score(home_score, away_score)
-    else
-      set_score(home_score, away_score)
-    end
+  def update_score(home_score, away_score, force: false)
+    Games::UpdateScoreJob.perform_now(
+      game: self,
+      home_score: home_score,
+      away_score: away_score,
+      force: force
+    )
   end
 
   def dependent_games
@@ -138,22 +144,6 @@ class Game < ApplicationRecord
 
   private
 
-  def set_score(home_score, away_score)
-    Games::SetScoreJob.perform_now(
-      game: self,
-      home_score: home_score,
-      away_score: away_score
-    )
-  end
-
-  def adjust_score(home_score, away_score)
-    Games::AdjustScoreJob.perform_now(
-      game: self,
-      home_score: home_score,
-      away_score: away_score
-    )
-  end
-
   def update_pool
     return if !self.pool_game?
     return unless self.confirmed?
@@ -162,8 +152,12 @@ class Game < ApplicationRecord
 
   def update_bracket
     return if self.pool_game?
-    return unless self.confirmed?
-    Divisions::UpdateBracketJob.perform_later(game_id: self.id)
+
+    if self.confirmed?
+      Divisions::UpdateBracketJob.perform_later(game_id: self.id)
+    elsif self.score_confirmed_changed?
+      Divisions::ResetBracketJob.perform_later(game_id: self.id)
+    end
   end
 
   def update_places

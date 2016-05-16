@@ -103,32 +103,6 @@ class GameTest < ActiveSupport::TestCase
     @game.update_score(15, 11)
   end
 
-  test "update_score confirms the game" do
-    @game.stubs(:update_bracket)
-    @game.update_score(15, 11)
-    assert @game.confirmed?
-  end
-
-  test "can't update score unless teams" do
-    game = games(:semi_final)
-    refute game.teams_present?
-    game.update_score(10, 5)
-    assert_nil game.score
-  end
-
-  test "update_score sets the score if no previous score" do
-    game = games(:swift_goose_no_score)
-    game.expects(:set_score).once
-    game.stubs(:update_bracket)
-    game.update_score(15, 11)
-  end
-
-  test "update_score adjusts the score if game already has a score" do
-    @game.expects(:adjust_score).once
-    @game.stubs(:update_bracket)
-    @game.update_score(14, 12)
-  end
-
   test "update_score updates the bracket if the winner is changed" do
     game1 = Game.create(
       tournament: @tournament,
@@ -143,7 +117,7 @@ class GameTest < ActiveSupport::TestCase
     game2 = Game.create(
       tournament: @tournament,
       division: @division,
-      bracket_uid: 'q1',
+      bracket_uid: 's1',
       home_prereq_uid: 'Wq1',
       away_prereq_uid: 'Wq2'
     )
@@ -223,7 +197,6 @@ class GameTest < ActiveSupport::TestCase
     refute new_game.valid?
     assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.start_time.to_formatted_s(:timeonly)}"], new_game.errors[:base]
   end
-
 
   test "game checks for away team time conflicts (uses uid if required)" do
     @game.update_columns(away_id: nil)

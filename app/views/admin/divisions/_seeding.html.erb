@@ -6,7 +6,13 @@
   </p>
 
   <div id="redips-drag" define="{seeding: new Admin.Seeding()}">
-    <%= form_tag update_teams_admin_division_path(division), method: :put, remote: true do %>
+    <%= form_tag update_teams_admin_division_path(division),
+      'bind-event-submit' => "Admin.ActionWithCheck(
+        '#{update_teams_admin_division_path(division)}',
+        'PUT',
+        false,
+        this
+      )" do %>
       <table class="table table-bordered table-striped table-hover table-condensed">
         <thead>
           <tr>
@@ -36,7 +42,7 @@
       </table>
 
       <div class="pull-right">
-        <%= ui_save_button_tag(text: 'Update') %>
+        <%= button_tag 'Update', class: "btn btn-primary js-btn-loadable" %>
       </div>
     <% end %>
   </div>
