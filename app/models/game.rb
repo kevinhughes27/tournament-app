@@ -145,9 +145,9 @@ class Game < ApplicationRecord
   private
 
   def update_pool
-    return if !pool_game?
-    return unless confirmed?
-    Divisions::UpdatePoolJob.perform_later(division: division, pool: pool)
+    return if !self.pool_game?
+    return unless self.confirmed?
+    Divisions::UpdatePoolJob.perform_later(division: self.division, pool: self.pool)
   end
 
   def update_bracket
@@ -155,7 +155,7 @@ class Game < ApplicationRecord
 
     if self.confirmed?
       Divisions::UpdateBracketJob.perform_later(game_id: self.id)
-    elsif score_confirmed_changed?
+    elsif self.score_confirmed_changed?
       Divisions::ResetBracketJob.perform_later(game_id: self.id)
     end
   end
