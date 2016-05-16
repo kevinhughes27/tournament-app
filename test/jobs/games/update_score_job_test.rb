@@ -24,6 +24,15 @@ module Games
       assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 14, away_score: 11)
     end
 
+    test "can update_score for pool game if winner changes and pool is already finished but bracket hasn't started" do
+      @game.update_columns(pool: 'A', round: nil)
+      games(:pheonix_mavericks).update_column(:score_confirmed, false)
+
+      Divisions::UpdatePoolJob.expects(:perform_later).twice
+      assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
+      assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 11, away_score: 15)
+    end
+
     test "can't update score unless teams" do
       game = games(:semi_final)
       refute game.teams_present?

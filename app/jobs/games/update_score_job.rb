@@ -26,9 +26,9 @@ module Games
       return true unless winner_changed
 
       if game.pool_game?
-        !pool_finished?
+        !(pool_finished? && bracket_games_played?)
       else
-        game.dependent_games.all?{ |g| g.unconfirmed? }
+        !dependent_games_played?
       end
     end
 
@@ -38,6 +38,19 @@ module Games
         division_id: game.division_id,
         pool: game.pool
       )
+    end
+
+    def bracket_games_played?
+      games = Game.where(
+        tournament_id: game.tournament_id,
+        division_id: game.division_id,
+        round: 1
+      )
+      games.any?{ |g| g.confirmed? }
+    end
+
+    def dependent_games_played?
+      game.dependent_games.any?{ |g| g.confirmed? }
     end
 
     def set_score(home_score, away_score)
