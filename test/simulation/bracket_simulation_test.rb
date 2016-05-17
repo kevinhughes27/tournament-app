@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class BracketSimulationTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   attr_reader :division, :tournament
 
   setup do
@@ -36,7 +38,9 @@ class BracketSimulationTest < ActiveSupport::TestCase
   private
 
   def new_division(type)
-    Division.create!(tournament: tournament, name: 'New Division', bracket_type: type)
+    perform_enqueued_jobs do
+      Division.create!(tournament: tournament, name: 'New Division', bracket_type: type)
+    end
   end
 
   def create_teams
@@ -74,17 +78,23 @@ class BracketSimulationTest < ActiveSupport::TestCase
     Timeout::timeout(5) do
       while games_to_be_played.present? do
         games_to_be_played.each do |game|
-          score = ScoreGenerator.generate
-          Games::UpdateScoreJob.perform_now(
-            game: game,
-            home_score: score[0],
-            away_score: score[1]
-          )
+          play_game(game)
         end
       end
     end
   rescue Timeout::Error
     puts "Simulation took too long"
+  end
+
+  def play_game(game)
+    score = ScoreGenerator.generate
+    perform_enqueued_jobs do
+      Games::UpdateScoreJob.perform_now(
+        game: game,
+        home_score: score[0],
+        away_score: score[1]
+      )
+    end
   end
 
   def games_to_be_played

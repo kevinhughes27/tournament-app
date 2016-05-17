@@ -1,7 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.active_job.queue_adapter = :inline
+  config.active_job.queue_adapter = ActiveJob::QueueAdapters::AsyncAdapter.new \
+    min_threads: 1,
+    max_threads: 1
 
   config.action_cable.allowed_request_origins = [/http:\/\/.*.lvh.me:3000/]
 
