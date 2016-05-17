@@ -85,7 +85,7 @@ class BracketRenderTest < BrowserTest
     if ENV['CIRCLECI']
       File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_handle}.png")
     else
-      "tmp/capybara/tmp/#{bracket_handle}.png"
+      File.join(Rails.root, "tmp/capybara/#{bracket_handle}.png")
     end
   end
 end
