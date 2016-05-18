@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412022236) do
+ActiveRecord::Schema.define(version: 20160518053311) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -151,12 +151,13 @@ ActiveRecord::Schema.define(version: 20160412022236) do
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "handle"
-    t.integer  "time_cap",   default: 90, null: false
+    t.integer  "time_cap",           default: 90,    null: false
     t.string   "location"
     t.string   "timezone"
+    t.boolean  "welcome_email_sent", default: false
   end
 
   create_table "user_authentications", force: :cascade do |t|
