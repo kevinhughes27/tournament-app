@@ -29,6 +29,17 @@ class AppControllerTest < ActionController::TestCase
     end
   end
 
+  test "create score report with error" do
+    params = @report.attributes.merge(
+      team_score: -1,
+      submitter_fingerprint: 'some_fingerprint'
+    )
+
+    post :score_submit, params: params, format: :json
+    assert_response :unprocessable_entity
+    assert_match 'must be greater than or equal to 0', @response.body
+  end
+
   test "get confirm page" do
     get :confirm, params: { id: @token.id, token: @token.token }
     assert_response :ok
