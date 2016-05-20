@@ -23,15 +23,22 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     assert_equal 'Updated Name', @tournament.reload.name
   end
 
-  test "update handle redirects properly" do
+  test "update handle requires confirm" do
     new_handle = 'new-handle'
     put :update, params: { tournament: {handle: new_handle} }
+    assert_response :unprocessable_entity
+    assert_template 'admin/settings/_confirm_update'
+  end
+
+  test "update handle redirects properly" do
+    new_handle = 'new-handle'
+    put :update, params: { tournament: {handle: new_handle}, confirm: 'true' }
     assert_redirected_to admin_settings_url(subdomain: new_handle)
     assert_equal new_handle, @tournament.reload.handle
   end
 
   test "update settings error" do
-    put :update, params: { tournament: {name: ''} }
+    put :update, params: { tournament: {name: '', handle: @tournament.handle} }
     assert_equal 'Error saving Settings.', flash[:error]
   end
 

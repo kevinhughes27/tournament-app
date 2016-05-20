@@ -1,4 +1,5 @@
 class Admin::SettingsController < AdminController
+  before_action :check_update_safety, only: [:update]
 
   def show
   end
@@ -20,6 +21,14 @@ class Admin::SettingsController < AdminController
   end
 
   private
+
+  def check_update_safety
+    return if params[:confirm] == 'true'
+    return if @tournament.handle == tournament_params[:handle]
+
+    @tournament.assign_attributes(tournament_params)
+    render partial: 'confirm_update', status: :unprocessable_entity
+  end
 
   def tournament_params
     tournament_params = params.require(:tournament).permit(
