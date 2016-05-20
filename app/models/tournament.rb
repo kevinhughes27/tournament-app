@@ -46,6 +46,8 @@ class Tournament < ApplicationRecord
   end
 
   def domain
-    "https://#{handle}.ultimate-tournament.io"
+    # need domain setting
+    #"https://#{handle}.ultimate-tournament.io"
+    "http://#{handle}.lvh.me:3000"
   end
 end

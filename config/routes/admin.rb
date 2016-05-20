@@ -1,6 +1,9 @@
 namespace :admin do
   get "/" => "home#show"
 
+  get '/map', to: 'map#show'
+  put '/map', to: 'map#update'
+
   resources :fields do
     collection do
       get :sample_csv
@@ -32,11 +35,10 @@ namespace :admin do
   put '/settings', to: 'settings#update'
   post '/reset', to: 'settings#reset_data'
 
-  get '/map', to: 'map#show'
-  put '/map', to: 'map#update'
-
   get '/account', to: 'account#show'
   put '/account', to: 'account#update'
+
+  get '/player_app', to: 'player_app#show'
 
   put '/bulk_action', to: 'bulk_actions#perform'
 
