@@ -104,7 +104,7 @@ describe 'SubmitScoreScreen', ->
     expect(Twine.refresh).toHaveBeenCalled()
 
   it "submitForm makes an ajax request and shows success when done", ->
-    spyOn($, 'ajax').and.callFake( (params) -> params.complete({}) )
+    spyOn($, 'ajax').and.callFake( (params) -> params.success({}) )
     spyOn(screen, '_submitComplete').and.callFake( (form) -> return true )
     screen.active = true
     screen.formActive = true
