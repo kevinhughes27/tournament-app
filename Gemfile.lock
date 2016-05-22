@@ -142,8 +142,6 @@ GEM
     ffi (1.9.10)
     font-awesome-rails (4.6.1.0)
       railties (>= 3.2, < 5.1)
-    friendly_id (5.1.0)
-      activerecord (>= 4.0.0)
     frozen_record (0.7.1)
       activemodel
     globalid (0.3.6)
@@ -358,7 +356,6 @@ DEPENDENCIES
   dotenv-rails
   faker
   font-awesome-rails
-  friendly_id
   frozen_record (~> 0.7.1)
   jbuilder
   jquery-rails

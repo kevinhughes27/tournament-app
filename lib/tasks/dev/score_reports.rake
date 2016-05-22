@@ -2,13 +2,13 @@ namespace :dev do
   namespace :score_reports do
     desc "Generates score reports. Parameters: TOURNAMENT, DIVISION and ROUND."
     task :generate => :environment do
-      tournament_id = ENV['TOURNAMENT']
+      handle = ENV['TOURNAMENT']
       division_name = ENV['DIVISION'].gsub('_', ' ')
       round = ENV['ROUND'].to_i
 
-      puts "creating score reports for tournament: #{tournament_id} division: #{division_name}, round: #{round}"
+      puts "creating score reports for tournament: #{handle} division: #{division_name}, round: #{round}"
 
-      tournament = Tournament.friendly.find(tournament_id)
+      tournament = Tournament.find_by(handle: handle)
       division = tournament.divisions.find_by!(name: division_name)
       bracket = division.bracket
       bracket_uids = bracket.game_uids_for_round(round)

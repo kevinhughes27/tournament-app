@@ -2,13 +2,13 @@ namespace :dev do
   namespace :bracket do
     desc "Advances the bracketby assigning random winners. Parameters: TOURNAMENT, DIVISION and ROUND"
     task :advance => :environment do
-      tournament_id = ENV['TOURNAMENT']
+      handle = ENV['TOURNAMENT']
       division = ENV['DIVISION'].gsub('_', ' ')
       round = ENV['ROUND'].to_i
 
-      puts "advancing bracket for tournament: #{tournament_id} division: #{division}, round: #{round}"
+      puts "advancing bracket for tournament: #{handle} division: #{division}, round: #{round}"
 
-      tournament = Tournament.friendly.find(tournament_id)
+      tournament = Tournament.find_by(handle: handle)
       bracket = tournament.brackets.find_by!(division: division)
       bracket_uids = bracket.bracket_uids_for_round(round)
 
