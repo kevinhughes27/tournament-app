@@ -18,8 +18,12 @@ class AppController < ApplicationController
   end
 
   def score_submit
-    ScoreReport.create!(score_report_params)
-    render json: true
+    report = ScoreReport.new(score_report_params)
+    if report.save
+      render json: true
+    else
+      render json: report.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def confirm

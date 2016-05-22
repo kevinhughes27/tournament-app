@@ -50,9 +50,14 @@ class App.SubmitScoreScreen
       url: form.action
       type: 'POST'
       data: $(form).serialize()
-      complete: =>
+      success: =>
         @showSuccess()
         @_submitComplete(form)
+      error: (response) =>
+        $('div#score-form').scrollTo(0)
+        errorMessage = response.responseJSON.join('\n')
+        alert(errorMessage)
+
 
   showSuccess: ->
     @successActive = true
