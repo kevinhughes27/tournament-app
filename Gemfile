@@ -13,6 +13,7 @@ gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
 gem 'wicked_pdf'
 gem 'browser-timezone-rails'
+gem 'config'
 
 # model gems
 gem 'friendly_id'
