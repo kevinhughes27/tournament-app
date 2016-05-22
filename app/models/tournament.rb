@@ -46,8 +46,6 @@ class Tournament < ApplicationRecord
   end
 
   def domain
-    # need domain setting
-    #"https://#{handle}.ultimate-tournament.io"
-    "http://#{handle}.lvh.me:3000"
+    "#{Settings.ssl ? 'https' : 'http'}://#{handle}.#{Settings.domain}"
   end
 end

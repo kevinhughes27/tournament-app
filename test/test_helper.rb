@@ -30,7 +30,7 @@ class ActionController::TestCase
   end
 
   def set_subdomain(subdomain)
-    @request.host = "#{subdomain}.ultimate-tournament.io"
+    @request.host = "#{subdomain}.#{Settings.domain}"
   end
 end
 
