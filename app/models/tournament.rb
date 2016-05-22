@@ -46,6 +46,6 @@ class Tournament < ApplicationRecord
   end
 
   def domain
-    "https://#{handle}.ultimate-tournament.io"
+    "#{Settings.ssl ? 'https' : 'http'}://#{handle}.#{Settings.domain}"
   end
 end
