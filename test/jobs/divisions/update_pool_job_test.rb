@@ -46,6 +46,40 @@ module Divisions
       assert_equal teams.first, game2.away
     end
 
+    test "update pool resets dependent bracket games" do
+      division = new_division('USAU 8.1')
+      teams = @teams.to_a
+      @teams.update_all(division_id: division.id)
+      division.seed
+
+      play_pool(@teams, division, 'A')
+
+      game1 = division.games.find_by(home_prereq_uid: 'A1')
+      game2 = division.games.find_by(away_prereq_uid: 'A4')
+
+      perform_enqueued_jobs do
+        UpdatePoolJob.perform_now(division: division, pool: 'A')
+        assert_equal teams.last, game1.reload.home
+        assert_equal teams.first, game2.reload.away
+      end
+
+      game1.update_column(:score_confirmed, true)
+      game2.update_column(:score_confirmed, true)
+
+      # reverse wins in the pool
+      teams.each_with_index do |team, idx|
+        team.update_column(:wins, 8 - idx)
+      end
+
+      division.reload
+
+      perform_enqueued_jobs do
+        UpdatePoolJob.perform_now(division: division, pool: 'A')
+        refute game1.reload.confirmed?
+        refute game2.reload.confirmed?
+      end
+    end
+
     private
 
     def play_pool(teams, division, pool)

@@ -37,17 +37,26 @@ module Divisions
 
     def reseed
       division.games.each do |game|
+        changed = false
+
         if game.home_prereq_uid =~ /#{pool}\d/
           game.home = sorted_teams[ game.home_prereq_uid.gsub(pool, '').to_i - 1 ]
-          game.reset!
-          game.save!
+          changed = true
         end
 
         if game.away_prereq_uid =~ /#{pool}\d/
           game.away = sorted_teams[ game.away_prereq_uid.gsub(pool, '').to_i - 1 ]
-          game.reset!
-          game.save!
+          changed = true
         end
+
+        next unless changed
+
+        if game.confirmed?
+          game.reset!
+          Divisions::ResetBracketJob.perform_later(game_id: game.id)
+        end
+
+        game.save!
       end
     end
 

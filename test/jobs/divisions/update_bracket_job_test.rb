@@ -9,24 +9,132 @@ module Divisions
       @away = teams(:goose)
     end
 
-    test "game pushes its winner through the bracket when its score is confirmed" do
-      game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-      game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'Wq1', away_prereq_uid: 'Wq2')
+    test "pushes winner through the bracket" do
+      game1 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away,
+        home_score: 15,
+        away_score: 11,
+        score_confirmed: true
+      )
 
-      game1.update_columns(home_score: 15, away_score: 11)
-      UpdateBracketJob.perform_now(game_id: game1.id)
+      game2 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 's1',
+        home_prereq_uid: 'Wq1',
+        away_prereq_uid: 'Wq2'
+      )
 
-      assert_equal @home, game2.reload.home
+      perform_enqueued_jobs do
+        UpdateBracketJob.perform_now(game_id: game1.id)
+        assert_equal @home, game2.reload.home
+      end
     end
 
-    test "game pushes its loser through the bracket when its score is confirmed" do
-      game1 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-      game2 = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: 'Lq2', away_prereq_uid: 'Lq1')
+    test "pushes loser through the bracket" do
+      game1 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away,
+        home_score: 15,
+        away_score: 11,
+        score_confirmed: true
+      )
 
-      game1.update_columns(home_score: 15, away_score: 11)
-      UpdateBracketJob.perform_now(game_id: game1.id)
+      game2 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'c1',
+        home_prereq_uid: 'Lq2',
+        away_prereq_uid: 'Lq1'
+      )
 
-      assert_equal @away, game2.reload.away
+      perform_enqueued_jobs do
+        UpdateBracketJob.perform_now(game_id: game1.id)
+        assert_equal @away, game2.reload.away
+      end
+    end
+
+    test "resets dependent_games if required" do
+      game1 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away,
+        home_score: 11,
+        away_score: 15,
+        score_confirmed: true
+      )
+
+      game2 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 's1',
+        home_prereq_uid: 'Wq1',
+        away_prereq_uid: 'Wq2',
+        home: @home,
+        score_confirmed: true
+      )
+
+      perform_enqueued_jobs do
+        UpdateBracketJob.perform_now(game_id: game1.id)
+        assert_equal @away, game2.reload.home
+        refute game2.confirmed?
+      end
+    end
+
+    test "resets future games as required (recursive reset)" do
+      game1 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away,
+        home_score: 15,
+        away_score: 11,
+        score_confirmed: true
+      )
+
+      game2 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 's1',
+        home_prereq_uid: 'Wq1',
+        away_prereq_uid: 'Wq2',
+        home: @home,
+        score_confirmed: true
+      )
+
+      game3 = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'f1',
+        home_prereq_uid: 'Ws1',
+        away_prereq_uid: 'Ws2',
+        home: @home,
+        score_confirmed: true
+      )
+
+      perform_enqueued_jobs do
+        UpdateBracketJob.perform_now(game_id: game1.id)
+        refute game2.reload.confirmed?
+        assert_nil game3.reload.home
+      end
     end
   end
 end

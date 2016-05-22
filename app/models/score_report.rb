@@ -81,7 +81,12 @@ class ScoreReport < ApplicationRecord
 
   def confirm_game
     if is_confirmation?
-      game.update_score(home_score, away_score)
+      Games::UpdateScoreJob.perform_later(
+        game: game,
+        home_score: home_score,
+        away_score: away_score,
+        force: true
+      )
     end
   end
 end

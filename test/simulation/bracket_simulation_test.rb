@@ -74,7 +74,12 @@ class BracketSimulationTest < ActiveSupport::TestCase
     Timeout::timeout(5) do
       while games_to_be_played.present? do
         games_to_be_played.each do |game|
-          game.update_score(*ScoreGenerator.generate)
+          score = ScoreGenerator.generate
+          Games::UpdateScoreJob.perform_now(
+            game: game,
+            home_score: score[0],
+            away_score: score[1]
+          )
         end
       end
     end
