@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
   private
 
   def ssl_configured?
-    Rails.env.production?
+    Settings.ssl
   end
 end

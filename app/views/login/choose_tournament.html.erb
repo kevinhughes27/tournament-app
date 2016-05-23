@@ -9,7 +9,7 @@
 
   <div class="register-box-body">
     <% current_user.tournaments.each do |tournament| %>
-      <%= form_tag(choose_tournament_path) do |f| %>
+      <%= form_tag choose_tournament_path, class: 'form-group' do |f| %>
         <%= hidden_field_tag :tournament, tournament.handle %>
         <%= submit_tag tournament.name, class: 'btn btn-block' %>
       <% end %>
