@@ -1,5 +1,6 @@
 class AppController < ApplicationController
-  before_action :load_tournament
+  include LoadTournament
+
   before_action :set_tournament_timezone
   before_action :load_confirm_token, only: [:confirm]
 
@@ -36,12 +37,6 @@ class AppController < ApplicationController
   end
 
   private
-
-  def load_tournament
-    @tournament = Tournament.find_by!(handle: request.subdomain)
-  rescue ActiveRecord::RecordNotFound
-    render_404
-  end
 
   def load_confirm_token
     @confirm_token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])

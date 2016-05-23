@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+  include LoadTournament
+
   layout 'admin'
 
   helper UiHelper
@@ -42,12 +44,6 @@ class AdminController < ApplicationController
 
   def respond_with(obj)
     super :admin, obj
-  end
-
-  def load_tournament
-    @tournament = Tournament.find_by!(handle: request.subdomain)
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 
   def store_location
