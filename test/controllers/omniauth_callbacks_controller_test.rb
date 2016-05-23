@@ -36,7 +36,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
 
     assert_no_difference 'User.count' do
       get :google_oauth2
-      assert_redirected_to admin_url(subdomain: @tournament.friendly_id)
+      assert_redirected_to admin_url(subdomain: @tournament.handle)
     end
   end
 

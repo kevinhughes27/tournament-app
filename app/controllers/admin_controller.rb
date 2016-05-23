@@ -45,7 +45,7 @@ class AdminController < ApplicationController
   end
 
   def load_tournament
-    @tournament = Tournament.friendly.find(request.subdomain)
+    @tournament = Tournament.find_by!(handle: request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
   end

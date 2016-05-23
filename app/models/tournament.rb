@@ -1,7 +1,4 @@
 class Tournament < ApplicationRecord
-  extend FriendlyId
-  friendly_id :handle
-
   has_many :tournament_users
   has_many :users, through: :tournament_users
 

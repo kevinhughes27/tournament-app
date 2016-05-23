@@ -12,7 +12,7 @@ class LoginController < Devise::SessionsController
 
   def choose_tournament
     if request.post?
-      tournament = Tournament.friendly.find(params[:tournament])
+      tournament = Tournament.find_by!(handle: params[:tournament])
       flash[:animate] = "fadeIn"
       redirect_to admin_url(subdomain: tournament.handle)
     end
@@ -60,7 +60,7 @@ class LoginController < Devise::SessionsController
 
   def load_tournament
     return unless request.subdomain.present?
-    @tournament = Tournament.friendly.find(request.subdomain)
+    @tournament = Tournament.find_by!(handle: request.subdomain)
   rescue ActiveRecord::RecordNotFound
     nil
   end

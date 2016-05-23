@@ -4,8 +4,10 @@ module LoadTournamentWithMap
   included do
     before_action :set_map
 
-    def tournament_scope
-      Tournament.includes(:map).friendly
+    def load_tournament
+      @tournament = Tournament.includes(:map).find_by!(handle: request.subdomain)
+    rescue ActiveRecord::RecordNotFound
+      render_404
     end
 
     def set_map
