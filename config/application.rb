@@ -8,5 +8,10 @@ module UltimateTournament
   class Application < Rails::Application
     config.autoload_paths += Dir["#{config.root}/lib/**/"].reject{|d| d['tasks']}
     config.active_record.default_timezone = :local
+
+    config.generators do |generate|
+      generate.helper false
+      generate.assets false
+    end
   end
 end
