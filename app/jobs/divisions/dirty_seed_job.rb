@@ -5,12 +5,11 @@ module Divisions
     attr_reader :division
 
     # returns true if seeding would result in changes
-    # only for initial seed
     def perform(division:)
       @division = division
 
-      return true if division.teams.blank?
       return true unless division.seeded?
+      return true if division.teams.blank?
 
       teams = division.teams.order(:seed)
       seeds = division.teams.pluck(:seed).map(&:to_i).sort
@@ -31,11 +30,11 @@ module Divisions
 
       games.each do |game|
         if game.home_prereq_uid.is_i?
-          return true if game.home != teams[game.home_prereq_uid.to_i - 1]
+          return true if game.home_id != teams[game.home_prereq_uid.to_i - 1].id
         end
 
         if game.away_prereq_uid.is_i?
-          return true if game.away != teams[game.away_prereq_uid.to_i - 1]
+          return true if game.away_id != teams[game.away_prereq_uid.to_i - 1].id
         end
       end
 
@@ -46,10 +45,17 @@ module Divisions
 
     def games_for_seed
       if division.bracket.pool
-        Game.where(tournament_id: division.tournament_id, division_id: division.id).where.not(pool: nil)
+        Game.where(
+          tournament_id: division.tournament_id,
+          division_id: division.id
+        ).where.not(pool: nil)
       else
         game_uids = division.bracket.game_uids_for_seeding(1)
-        Game.where(tournament_id: division.tournament_id, division_id: division.id, bracket_uid: game_uids)
+        Game.where(
+          tournament_id: division.tournament_id,
+          division_id: division.id,
+          bracket_uid: game_uids
+        )
       end
     end
   end
