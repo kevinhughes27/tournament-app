@@ -1,6 +1,6 @@
 class Division < ApplicationRecord
   include Limits
-  LIMIT = 32
+  LIMIT = 12
 
   belongs_to :tournament
   has_many :teams, dependent: :nullify

@@ -10,8 +10,8 @@ module ScheduleHelper
     '#ff7f00',
     '#cab2d6',
     '#6a3d9a',
-    '#ffff99',
-    '#b15928',
+    '#ffcc00',
+    '#ff0066',
   ]
 
   def color_for_division(division)
