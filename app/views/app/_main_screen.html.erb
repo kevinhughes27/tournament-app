@@ -36,13 +36,14 @@
 </div>
 
 <div class="bar bar-standard bar-footer" bind-show="!(drawerOpen || scheduleScreen.active)">
-  <% if cookies[:td] %>
+  <div class="hide" bind-show="showAdminLink">
     <%= link_to admin_path do %>
       <span style="color: white;">
         <i class="fa fa-external-link fa-flip-horizontal"></i> View Admin
       </span>
     <% end %>
-  <% end %>
+  </div>
+
   <a class="btn btn-find pull-right" href="#" bind-event-click="drawerOpen = true">
     Find <i class="fa fa-caret-up"></i>
   </a>
