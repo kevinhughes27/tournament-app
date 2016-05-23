@@ -116,6 +116,6 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "limit is define" do
-    assert_equal 32, Division::LIMIT
+    assert_equal 12, Division::LIMIT
   end
 end
