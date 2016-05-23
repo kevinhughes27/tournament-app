@@ -11,22 +11,19 @@
 <% end %>
 
 <div class="row">
-  <div class="col-md-3 col-md-offset-1">
+  <div class="device-column hidden-sm hidden-xs">
     <div class="device">
       <div class="device-content">
-        <iframe src="<%= @tournament.domain %>" height="569" width="321" frameBorder="0"></iframe>
+        <iframe src="<%= @tournament.domain %>" class="device-iframe"></iframe>
       </div>
     </div>
   </div>
 
-  <div class="col-md-4 col-md-offset-2">
+  <div class="col-md-12 col-offset-480">
     <%= ui_box do %>
       <p>
         Your player is available at
         <a href="<%= @tournament.domain %>"><%= @tournament.domain %></a>
-      </p>
-
-      <p>
         (its the same as your admin url without without the <mark>/admin</mark> part).
       </p>
 
@@ -36,9 +33,9 @@
         The player app is a mobile first website which means its feels very
         natural to use on a phone but downloading an app is not required.
       </p>
+    <% end %>
 
-      <br>
-
+    <%= ui_box do %>
       <p>
         Using the player app anyone can view the schedule, field map,
         find a team or field and submit score reports
