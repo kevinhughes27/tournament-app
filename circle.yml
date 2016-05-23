@@ -3,6 +3,8 @@ machine:
     ENV: circleci
     RACK_ENV: test
     RAILS_ENV: test
+  hosts:
+    lvh.me: 127.0.0.1
   ruby:
     version:
       2.3.1
