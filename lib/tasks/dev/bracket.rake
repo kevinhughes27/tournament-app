@@ -8,7 +8,7 @@ namespace :dev do
 
       puts "advancing bracket for tournament: #{handle} division: #{division}, round: #{round}"
 
-      tournament = Tournament.find_by(handle: handle)
+      tournament = Tournament.find_by!(handle: handle)
       bracket = tournament.brackets.find_by!(division: division)
       bracket_uids = bracket.bracket_uids_for_round(round)
 

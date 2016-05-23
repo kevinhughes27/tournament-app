@@ -8,7 +8,7 @@ namespace :dev do
 
       puts "creating score reports for tournament: #{handle} division: #{division_name}, round: #{round}"
 
-      tournament = Tournament.find_by(handle: handle)
+      tournament = Tournament.find_by!(handle: handle)
       division = tournament.divisions.find_by!(name: division_name)
       bracket = division.bracket
       bracket_uids = bracket.game_uids_for_round(round)

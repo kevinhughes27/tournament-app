@@ -3,7 +3,7 @@ namespace :dev do
     desc "Creates the UPI fields. Parameters: TOURNAMENT"
     task :create => :environment do
       handle = ENV['TOURNAMENT'] || 'no-borders'
-      tournament = Tournament.find_by(handle: handle)
+      tournament = Tournament.find_by!(handle: handle)
 
       tournament.fields.create!(
         name: 'UPI1',

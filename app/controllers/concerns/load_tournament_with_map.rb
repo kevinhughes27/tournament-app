@@ -5,7 +5,7 @@ module LoadTournamentWithMap
     before_action :set_map
 
     def load_tournament
-      @tournament = Tournament.includes(:map).find_by(handle: request.subdomain)
+      @tournament = Tournament.includes(:map).find_by!(handle: request.subdomain)
     rescue ActiveRecord::RecordNotFound
       render_404
     end
