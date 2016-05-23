@@ -5,6 +5,7 @@ machine:
     RAILS_ENV: test
   hosts:
     lvh.me: 127.0.0.1
+    no-borders.lvh.me: 127.0.0.1
   ruby:
     version:
       2.3.1
