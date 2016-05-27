@@ -67,8 +67,11 @@ module Divisions
       game2.update_column(:score_confirmed, true)
 
       # reverse wins in the pool
-      teams.each_with_index do |team, idx|
-        team.update_column(:wins, 8 - idx)
+      division.games.where(pool: 'A').each do |game|
+        game.update_columns(
+          home_score: game.away_score,
+          away_score: game.home_score
+        )
       end
 
       division.reload
@@ -83,18 +86,24 @@ module Divisions
     private
 
     def play_pool(teams, division, pool)
-      # sort by wins is reverse of sort by seed now
-      teams.each_with_index do |team, idx|
-        team.update_column(:wins, idx)
+      division.games.where(pool: 'A').each do |game|
+        home_score = game.home_id < game.away_id ? 2 : 1
+        away_score = game.home_id < game.away_id ? 1 : 2
+        game.update_columns(
+          home_score: home_score,
+          away_score: away_score,
+          score_confirmed: true
+        )
       end
-
-      # confirm games
-      division.games.where(pool: 'A').update_all(score_confirmed: true)
     end
 
     def new_division(type)
       perform_enqueued_jobs do
-        division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
+        division = Division.create!(
+          tournament: @tournament,
+          name: 'New Division',
+          bracket_type: type
+        )
       end
     end
   end

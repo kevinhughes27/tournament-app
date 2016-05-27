@@ -10,13 +10,13 @@ module Games
       @game = games(:swift_goose)
     end
 
-    test "unsafe if winner changes and pool is already finished" do
+    test "unsafe if pool is already finished regardless of winner change or not" do
       @game.update_column(:pool, 'A')
 
       assert @game.division.games.where(pool: 'A').all? { |g| g.confirmed? },
              'all pool games need to be confirmed for this test to be correct'
 
-      assert Games::SafeToUpdateScoreJob.perform_now(
+      refute Games::SafeToUpdateScoreJob.perform_now(
         game: @game,
         home_score: @game.home_score,
         away_score: @game.away_score
@@ -27,16 +27,6 @@ module Games
         home_score: @game.away_score,
         away_score: @game.home_score
       ), 'expected update to be unsafe'
-    end
-
-    test "safe if pool is already finished but winner doesn't change" do
-      @game.update_column(:pool, 'A')
-
-      assert Games::SafeToUpdateScoreJob.perform_now(
-        game: @game,
-        home_score: @game.home_score,
-        away_score: @game.away_score
-      ), 'expected update to be safe'
     end
 
     test "safe if winner changes and pool is already finished but bracket hasn't started" do

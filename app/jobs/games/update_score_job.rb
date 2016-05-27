@@ -2,7 +2,7 @@ module Games
   class UpdateScoreJob < ApplicationJob
     queue_as :default
 
-    attr_reader :game, :home_score, :away_score
+    attr_reader :game, :home_score, :away_score, :winner_changed
 
     def perform(game:, home_score:, away_score:, force: false)
       @game, @home_score, @away_score = game, home_score, away_score
@@ -13,7 +13,7 @@ module Games
       update_score
 
       update_pool if game.pool_game?
-      update_bracket if game.bracket_game?
+      update_bracket if game.bracket_game? && winner_changed
 
       # pool places are pushed by update_pool
       update_places if game.bracket_game?
@@ -32,6 +32,9 @@ module Games
     end
 
     def update_score
+      @winner_changed = !game.scores_present? ||
+                        (game.home_score > game.away_score) ^ (home_score > away_score)
+
       if game.scores_present?
         adjust_score
       else

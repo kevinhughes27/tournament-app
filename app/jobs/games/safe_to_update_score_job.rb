@@ -8,19 +8,16 @@ module Games
       @game, @home_score, @away_score = game, home_score, away_score
 
       return true if game.unconfirmed?
-      return true unless winner_changed?
-
       if game.pool_game?
         !(pool_finished? && bracket_games_played?)
-      else
-        !dependent_games_played?
+      elsif game.bracket_game?
+        !winner_changed? || !dependent_games_played?
       end
     end
 
     private
 
     def winner_changed?
-      # `^` is the XOR operator
       (game.home_score > game.away_score) ^ (home_score > away_score)
     end
 

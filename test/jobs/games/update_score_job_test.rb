@@ -42,13 +42,25 @@ module Games
 
     test "updates the pool for pool game" do
       @game.update_column(:pool, 'A')
+      SafeToUpdateScoreJob.expects(:perform_now).returns(true)
       Divisions::UpdatePoolJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
-    test "updates the bracket for bracket game" do
+    test "doesn't update the bracket for bracket game if winner is the same" do
+      Divisions::UpdateBracketJob.expects(:perform_later).never
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
+    end
+
+    test "updates the bracket for bracket game if no existing score" do
+      @game.reset! && @game.save!
       Divisions::UpdateBracketJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
+    end
+
+    test "updates the bracket for bracket game if winner changes" do
+      Divisions::UpdateBracketJob.expects(:perform_later)
+      UpdateScoreJob.perform_now(game: @game, home_score: 11, away_score: 15)
     end
 
     test "updates the places for bracket_game" do
