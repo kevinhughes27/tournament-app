@@ -87,48 +87,6 @@ class GameTest < ActiveSupport::TestCase
     assert_equal ["must be greater than or equal to 0"], game.errors[:away_score]
   end
 
-  test "update_score updates the pool for pool game" do
-    @game.update_column(:pool, 'A')
-    Divisions::UpdatePoolJob.expects(:perform_later)
-    @game.update_score(15, 11)
-  end
-
-  test "update_score updates the bracket" do
-    Divisions::UpdateBracketJob.expects(:perform_later)
-    @game.update_score(15, 11)
-  end
-
-  test "update_score updates the places" do
-    Divisions::UpdatePlacesJob.expects(:perform_later)
-    @game.update_score(15, 11)
-  end
-
-  test "update_score updates the bracket if the winner is changed" do
-    game1 = Game.create(
-      tournament: @tournament,
-      division: @division,
-      bracket_uid: 'q1',
-      home_prereq_uid: '1',
-      away_prereq_uid: '2',
-      home: @home,
-      away: @away
-    )
-
-    game2 = Game.create(
-      tournament: @tournament,
-      division: @division,
-      bracket_uid: 's1',
-      home_prereq_uid: 'Wq1',
-      away_prereq_uid: 'Wq2'
-    )
-
-    game1.update_score(15, 11)
-    assert_equal @home, game2.reload.home
-
-    game1.update_score(10, 13)
-    assert_equal @away, game2.reload.home
-  end
-
   test "when a game is destroyed its score reports are too" do
     assert_equal 2, @game.score_reports.count
 

@@ -10,172 +10,62 @@ module Games
       @game = games(:swift_goose)
     end
 
-    test "can't update_score for pool game if winner changes and pool is already finished" do
-      @game.update_column(:pool, 'A')
-      Divisions::UpdatePoolJob.expects(:perform_later)
-      assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
-      refute Games::UpdateScoreJob.perform_now(game: @game, home_score: 11, away_score: 15)
-    end
-
-    test "can update_score for pool game if pool is already finished but winner doesn't change" do
-      @game.update_column(:pool, 'A')
-      Divisions::UpdatePoolJob.expects(:perform_later).twice
-      assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
-      assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 14, away_score: 11)
-    end
-
-    test "can update_score for pool game if winner changes and pool is already finished but bracket hasn't started" do
-      @game.update_columns(pool: 'A', round: nil)
-      games(:pheonix_mavericks).update_column(:score_confirmed, false)
-
-      Divisions::UpdatePoolJob.expects(:perform_later).twice
-      assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
-      assert Games::UpdateScoreJob.perform_now(game: @game, home_score: 11, away_score: 15)
-    end
-
     test "can't update score unless teams" do
       game = games(:semi_final)
       refute game.teams_present?
-      Games::UpdateScoreJob.perform_now(game: game, home_score: 10, away_score: 5)
+      refute UpdateScoreJob.perform_now(game: game, home_score: 10, away_score: 5)
       assert_nil game.score
     end
 
-    test "update_score confirms the game" do
-      @game.stubs(:update_bracket)
-      Games::UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
+    test "can't update score if not safe" do
+      SafeToUpdateScoreJob.expects(:perform_now).returns(false)
+      SetScoreJob.expects(:perform_now).never
+      AdjustScoreJob.expects(:perform_now).never
+      refute UpdateScoreJob.perform_now(game: @game, home_score: 14, away_score: 12)
+    end
+
+    test "sets the score if no previous score" do
+      game = games(:swift_goose_no_score)
+      SetScoreJob.expects(:perform_now)
+      UpdateScoreJob.perform_now(game: game, home_score: 15, away_score: 11)
+    end
+
+    test "adjusts the score if game already has a score" do
+      AdjustScoreJob.expects(:perform_now)
+      UpdateScoreJob.perform_now(game: @game, home_score: 14, away_score: 12)
+    end
+
+    test "confirms the game" do
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
       assert @game.confirmed?
     end
 
-    test "can't update_score if dependent games are scored" do
-      game1 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
-        home: @home,
-        away: @away
-      )
-
-      game2 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2'
-      )
-
-      assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 15, away_score: 11)
-      game2.update_column(:score_confirmed, true)
-      refute Games::UpdateScoreJob.perform_now(game: game1, home_score: 11, away_score: 15)
+    test "updates the pool for pool game" do
+      @game.update_column(:pool, 'A')
+      SafeToUpdateScoreJob.expects(:perform_now).returns(true)
+      Divisions::UpdatePoolJob.expects(:perform_later)
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
-    test "can update_score if winner doesn't change but dependent games are scored" do
-      game1 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
-        home: @home,
-        away: @away
-      )
-
-      game2 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2'
-      )
-
-      assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 15, away_score: 11)
-      game2.update_column(:score_confirmed, true)
-      assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 14, away_score: 11)
+    test "doesn't update the bracket for bracket game if winner is the same" do
+      Divisions::UpdateBracketJob.expects(:perform_later).never
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
-    test "force update_score resets dependent_games" do
-      game1 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
-        home: @home,
-        away: @away,
-        home_score: 15,
-        away_score: 11,
-        score_confirmed: true
-      )
-
-      game2 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2',
-        home: @home,
-        score_confirmed: true
-      )
-
-      perform_enqueued_jobs do
-        assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 11, away_score: 15, force: true)
-        assert_equal @away, game2.reload.home
-        refute game2.confirmed?
-      end
+    test "updates the bracket for bracket game if no existing score" do
+      @game.reset! && @game.save!
+      Divisions::UpdateBracketJob.expects(:perform_later)
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
-    test "force update_score resets future games as required" do
-      game1 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
-        home: @home,
-        away: @away,
-        home_score: 15,
-        away_score: 11,
-        score_confirmed: true
-      )
-
-      game2 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2',
-        home: @home,
-        score_confirmed: true
-      )
-
-      game3 = Game.create!(
-        tournament: @tournament,
-        division: @division,
-        bracket_uid: 'f1',
-        home_prereq_uid: 'Ws1',
-        away_prereq_uid: 'Ws2',
-        home: @home,
-        score_confirmed: true
-      )
-
-      perform_enqueued_jobs do
-        assert Games::UpdateScoreJob.perform_now(game: game1, home_score: 11, away_score: 15, force: true)
-        assert_nil game3.reload.home
-      end
+    test "updates the bracket for bracket game if winner changes" do
+      Divisions::UpdateBracketJob.expects(:perform_later)
+      UpdateScoreJob.perform_now(game: @game, home_score: 11, away_score: 15)
     end
 
-    test "update_score sets the score if no previous score" do
-      game = games(:swift_goose_no_score)
-      game.stubs(:update_bracket)
-      Games::SetScoreJob.expects(:perform_now)
-      Games::UpdateScoreJob.perform_now(game: game, home_score: 15, away_score: 11)
-    end
-
-    test "update_score adjusts the score if game already has a score" do
-      @game.stubs(:update_bracket)
-      Games::AdjustScoreJob.expects(:perform_now)
-      Games::UpdateScoreJob.perform_now(game: @game, home_score: 14, away_score: 12)
+    test "updates the places for bracket_game" do
+      Divisions::UpdatePlacesJob.expects(:perform_later)
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
   end
 end

@@ -17,13 +17,18 @@ module Divisions
 
       if next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}")
         next_game.home = game.winner
-        next_game.reset!
-        next_game.save!
       elsif next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "W#{bracket_uid}")
         next_game.away = game.winner
-        next_game.reset!
-        next_game.save!
       end
+
+      return unless next_game
+
+      if next_game.confirmed?
+        next_game.reset!
+        Divisions::ResetBracketJob.perform_later(game_id: next_game.id)
+      end
+
+      next_game.save!
     end
 
     def advanceLoser(game)
@@ -33,13 +38,18 @@ module Divisions
 
       if next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "L#{bracket_uid}")
         next_game.home = game.loser
-        next_game.reset!
-        next_game.save!
       elsif next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "L#{bracket_uid}")
         next_game.away = game.loser
-        next_game.reset!
-        next_game.save!
       end
+
+      return unless next_game
+
+      if next_game.confirmed?
+        next_game.reset!
+        Divisions::ResetBracketJob.perform_later(game_id: next_game.id)
+      end
+
+      next_game.save!
     end
   end
 end

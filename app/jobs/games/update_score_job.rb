@@ -2,58 +2,49 @@ module Games
   class UpdateScoreJob < ApplicationJob
     queue_as :default
 
-    attr_reader :game
+    attr_reader :game, :home_score, :away_score, :winner_changed
 
     def perform(game:, home_score:, away_score:, force: false)
-      @game = game
-      return unless game.teams_present?
-      return unless safe_to_update_score?(home_score, away_score) || force
+      @game, @home_score, @away_score = game, home_score, away_score
 
-      if game.scores_present?
-        adjust_score(home_score, away_score)
-      else
-        set_score(home_score, away_score)
-      end
+      return unless game.teams_present?
+      return unless force || safe_to_update_score?
+
+      update_score
+
+      # resets all pool games even if the results haven't changed
+      update_pool if game.pool_game?
+
+      update_bracket if game.bracket_game? && winner_changed
+
+      # pool places are pushed by update_pool
+      update_places if game.bracket_game?
+
+      true
     end
 
     private
 
-    def safe_to_update_score?(home_score, away_score)
-      return true if game.unconfirmed?
+    def safe_to_update_score?
+      Games::SafeToUpdateScoreJob.perform_now(
+        game: game,
+        home_score: home_score,
+        away_score: away_score
+      )
+    end
 
-      # `^` is the XOR operator
-      winner_changed = (game.home_score > game.away_score) ^ (home_score > away_score)
-      return true unless winner_changed
+    def update_score
+      @winner_changed = !game.scores_present? ||
+                        (game.home_score > game.away_score) ^ (home_score > away_score)
 
-      if game.pool_game?
-        !(pool_finished? && bracket_games_played?)
+      if game.scores_present?
+        adjust_score
       else
-        !dependent_games_played?
+        set_score
       end
     end
 
-    def pool_finished?
-      Divisions::PoolFinishedJob.perform_now(
-        tournament_id: game.tournament_id,
-        division_id: game.division_id,
-        pool: game.pool
-      )
-    end
-
-    def bracket_games_played?
-      games = Game.where(
-        tournament_id: game.tournament_id,
-        division_id: game.division_id,
-        round: 1
-      )
-      games.any?{ |g| g.confirmed? }
-    end
-
-    def dependent_games_played?
-      game.dependent_games.any?{ |g| g.confirmed? }
-    end
-
-    def set_score(home_score, away_score)
+    def set_score
       Games::SetScoreJob.perform_now(
         game: game,
         home_score: home_score,
@@ -61,12 +52,27 @@ module Games
       )
     end
 
-    def adjust_score(home_score, away_score)
+    def adjust_score
       Games::AdjustScoreJob.perform_now(
         game: game,
         home_score: home_score,
         away_score: away_score
       )
+    end
+
+    def update_pool
+      Divisions::UpdatePoolJob.perform_later(
+        division: game.division,
+        pool: game.pool
+      )
+    end
+
+    def update_bracket
+      Divisions::UpdateBracketJob.perform_later(game_id: game.id)
+    end
+
+    def update_places
+      Divisions::UpdatePlacesJob.perform_later(game_id: game.id)
     end
   end
 end

@@ -25,9 +25,6 @@ class Game < ApplicationRecord
 
   validates_numericality_of :home_score, :away_score, allow_blank: true, greater_than_or_equal_to: 0
 
-  after_save :update_pool
-  after_save :update_bracket
-  after_save :update_places
   after_save :broadcast
 
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
@@ -36,6 +33,10 @@ class Game < ApplicationRecord
 
   def pool_game?
     pool.present?
+  end
+
+  def bracket_game?
+    bracket_uid.present?
   end
 
   def winner
@@ -117,15 +118,6 @@ class Game < ApplicationRecord
     self.score_reports.destroy_all
   end
 
-  def update_score(home_score, away_score, force: false)
-    Games::UpdateScoreJob.perform_now(
-      game: self,
-      home_score: home_score,
-      away_score: away_score,
-      force: force
-    )
-  end
-
   def dependent_games
     [
       Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}"),
@@ -143,27 +135,6 @@ class Game < ApplicationRecord
   end
 
   private
-
-  def update_pool
-    return if !self.pool_game?
-    return unless self.confirmed?
-    Divisions::UpdatePoolJob.perform_later(division: self.division, pool: self.pool)
-  end
-
-  def update_bracket
-    return if self.pool_game?
-
-    if self.confirmed?
-      Divisions::UpdateBracketJob.perform_later(game_id: self.id)
-    elsif self.score_confirmed_changed?
-      Divisions::ResetBracketJob.perform_later(game_id: self.id)
-    end
-  end
-
-  def update_places
-    return unless self.confirmed?
-    Divisions::UpdatePlacesJob.perform_later(game_id: self.id)
-  end
 
   def broadcast
     ActionCable.server.broadcast(

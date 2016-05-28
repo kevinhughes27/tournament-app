@@ -43,18 +43,33 @@ module Divisions
       division = new_division('single_elimination_8')
       @teams.update_all(division_id: division.id)
 
-      SeedJob.perform_now(division: division, seed_round: 1)
+      perform_enqueued_jobs do
+        SeedJob.perform_now(division: division, seed_round: 1)
+      end
 
       round1_games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
       round2_games = division.games.where(bracket_uid: ['s1', 's2', 'c3', 'c4'])
 
-      round1_games.each do |game|
-        game.update_score(15,13)
+      perform_enqueued_jobs do
+        round1_games.each do |game|
+          Games::UpdateScoreJob.perform_now(
+            game: game,
+            home_score: 15,
+            away_score: 13,
+          )
+        end
       end
 
-      assert = round2_games.all?{ |g| g.teams_present? }
-      SeedJob.perform_now(division: division, seed_round: 1)
-      assert = round2_games.all?{ |g| not g.teams_present? }
+      round2_games.reload
+      assert round2_games.all?{ |g| g.teams_present? }
+
+      perform_enqueued_jobs do
+        SeedJob.perform_now(division: division, seed_round: 1)
+      end
+
+      round2_games.reload
+      assert round2_games.all?{ |g| not g.teams_present? }
+      assert round2_games.all?{ |g| not g.confirmed? }
     end
 
     test "round robin 5" do
