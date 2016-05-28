@@ -49,7 +49,7 @@ class BracketRenderTest < BrowserTest
   end
 
   def compare_or_new(bracket_handle)
-    test_file = "test/fixtures/screenshots/#{bracket_handle}.png"
+    test_file = File.join(Rails.root, "test/fixtures/screenshots/#{bracket_handle}.png")
     new_file = new_screenshot_path(bracket_handle)
 
     if File.exists?(test_file)

@@ -1,0 +1,54 @@
+{
+  "games": [
+    <%= bracket_partial('table_5.1.2', pool: 'A', seeds: [1,8,12,13,17]) %>
+    <%= bracket_partial('table_6.1.2', pool: 'B', seeds: [2,7,11,14,18,23]) %>
+    <%= bracket_partial('table_6.1.2', pool: 'C', seeds: [3,6,10,15,19,22]) %>
+    <%= bracket_partial('table_6.1.2', pool: 'D', seeds: [4,5,9,16,20,21]) %>
+
+    <%= bracket_partial('bracket_16.1') %>,
+
+    {"round": 1, "uid":"aa", "home":"A4", "away":"D4"},
+    {"round": 1, "uid":"bb", "home":"B4", "away":"C4"},
+    {"round": 1, "uid":"cc", "home":"A5", "away":"D5"},
+    {"round": 1, "uid":"dd", "home":"B5", "away":"C5"},
+
+    {"round": 2, "uid": "ee", "home":"Waa", "away":"Wbb"},
+    {"round": 2, "uid": "ff", "home":"Wcc", "away":"Wdd"},
+    {"round": 2, "uid": "hh", "home":"Laa", "away":"Lbb"},
+    {"round": 2, "uid": "ii", "home":"Lcc", "away":"Ldd"},
+
+    {"round": 3, "place": "13th", "uid": "gg", "home":"Wee", "away":"Wff"},
+    {"round": 3, "place": "15th", "uid": "kk", "home":"Lee", "away":"Lff"},
+    {"round": 3, "place": "17th", "uid": "jj", "home":"Whh", "away":"Wii"},
+    {"round": 3, "place": "19th", "uid": "ll", "home":"Lhh", "away":"Lii"},
+
+    {"round": 1, "uid": "aaa", "home":"B6", "away":"D6"},
+    {"round": 2, "uid": "bbb", "home":"C6", "away":"D6"},
+    {"round": 3, "uid": "ccc", "home":"B6", "away":"C6"}
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "Wk"},
+    {"position":2, "prereq_uid": "Lk"},
+    {"position":3, "prereq_uid": "Li"},
+    {"position":4, "prereq_uid": "Lj"},
+    {"position":5, "prereq_uid": "Le"},
+    {"position":6, "prereq_uid": "Lf"},
+    {"position":7, "prereq_uid": "Lg"},
+    {"position":8, "prereq_uid": "Lh"},
+    {"position":9, "prereq_uid": "La"},
+    {"position":10, "prereq_uid": "Lb"},
+    {"position":11, "prereq_uid": "Lc"},
+    {"position":12, "prereq_uid": "Ld"},
+    {"position":13, "prereq_uid": "Wgg"},
+    {"position":14, "prereq_uid": "Lgg"},
+    {"position":15, "prereq_uid": "Wkk"},
+    {"position":16, "prereq_uid": "Lkk"},
+    {"position":17, "prereq_uid": "Wjj"},
+    {"position":18, "prereq_uid": "Ljj"},
+    {"position":19, "prereq_uid": "Wll"},
+    {"position":20, "prereq_uid": "Lll"},
+    {"position":21, "prereq_uid": "B6"},
+    {"position":22, "prereq_uid": "C6"},
+    {"position":23, "prereq_uid": "D6"}
+  ]
+}
