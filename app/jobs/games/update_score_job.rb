@@ -8,11 +8,13 @@ module Games
       @game, @home_score, @away_score = game, home_score, away_score
 
       return unless game.teams_present?
-      return unless safe_to_update_score? || force
+      return unless force || safe_to_update_score?
 
       update_score
 
+      # resets all pool games even if the results haven't changed
       update_pool if game.pool_game?
+
       update_bracket if game.bracket_game? && winner_changed
 
       # pool places are pushed by update_pool
