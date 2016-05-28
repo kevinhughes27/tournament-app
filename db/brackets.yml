@@ -458,6 +458,15 @@
   template: <%= load_bracket('usau_16.1') %>
 
 -
+  handle: USAU 16.1 full
+  name: One team advances (USAU 16.1) full losers bracket
+  num_teams: 16
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= load_bracket('usau_16.1_full') %>
+
+-
   handle: USAU 17.1
   name: One team advances (USAU 17.1)
   num_teams: 17
