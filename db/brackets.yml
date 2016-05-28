@@ -397,6 +397,8 @@
 -
   handle: USAU 11.1
   name: One team advances (USAU 11.1)
+  description: >
+    Bottom 3 teams play a round robin on the second day.
   num_teams: 11
   days: 2
   rounds: 3
