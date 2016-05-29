@@ -444,6 +444,8 @@
 -
   handle: USAU 15.1
   name: One team advances (USAU 15.1)
+  description: >
+    Bottom 3 teams play a round robin on the second day
   num_teams: 15
   days: 2
   rounds: 4
