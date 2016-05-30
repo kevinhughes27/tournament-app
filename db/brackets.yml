@@ -444,6 +444,17 @@
   template: <%= load_bracket('usau_14.1') %>
 
 -
+  handle: 14 pool crossover
+  name: 2 Pools with a crossover match
+  description: >
+    After the pool of 7 each teams plays a single crossover match
+  num_teams: 14
+  days: 2
+  rounds: 1
+  pool: true
+  template: <%= load_bracket('14_pool_crossover') %>
+
+-
   handle: USAU 15.1
   name: One team advances (USAU 15.1)
   description: >
