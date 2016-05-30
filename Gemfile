@@ -43,8 +43,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic', ref: '37a7c296232d20a61bd1946f600da7f2009189db'
 gem 'twine-rails'
-gem 'react-rails', '~> 1.7.0'
-gem 'browserify-rails', '~> 3.0.1'
+gem 'sprockets-commoner', '~> 0.2.6'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet', '~> 1.0.0.beta.2'
@@ -72,7 +71,9 @@ group :development, :test do
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
-  gem 'teaspoon-jasmine', '~> 2.3.4'
+  gem 'teaspoon'
+  gem 'teaspoon-jasmine'
+  gem 'teaspoon-bundle'
 end
 
 group :development do

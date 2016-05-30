@@ -1,4 +1,5 @@
 var _ = require('underscore'),
+    React = require('react'),
     squish = require('object-squish'),
     queryString = require('query-string'),
     setQuery = require('set-query-string'),
