@@ -178,8 +178,8 @@ GEM
     mime-types-data (3.2016.0221)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
-    minitest-rg (5.2.0)
-      minitest (~> 5.0)
+    minitest-retry (0.1.4)
+      minitest (>= 5.0)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.11.3)
@@ -369,7 +369,7 @@ DEPENDENCIES
   launchy
   letter_opener
   minitest-ci!
-  minitest-rg
+  minitest-retry
   mocha
   newrelic_rpm
   omniauth-facebook
@@ -414,4 +414,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.3
+   1.12.5

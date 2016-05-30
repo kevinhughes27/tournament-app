@@ -85,7 +85,7 @@ end
 group :test do
   gem 'rails-controller-testing'
   gem 'mocha', :require => false
-  gem 'minitest-rg'
+  gem 'minitest-retry'
   gem 'timecop'
   gem 'capybara'
   gem 'poltergeist'
