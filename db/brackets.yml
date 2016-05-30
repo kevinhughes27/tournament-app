@@ -435,6 +435,8 @@
 -
   handle: USAU 14.1
   name: One team advances (USAU 14.1)
+  description: >
+    Teams not in the bracket play a final game against their matching finish in the opposite pool
   num_teams: 14
   days: 2
   rounds: 3
