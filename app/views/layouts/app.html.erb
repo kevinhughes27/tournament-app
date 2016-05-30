@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title><%= @tournament.name %></title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <%= stylesheet_link_tag    'app', media: 'all' %>
-    <%= render 'shared/rollbar' %>
-    <%= javascript_include_tag 'app_vendor' %>
-    <%= javascript_include_tag 'app' %>
-  </head>
+<html lang="en">
+<head>
+  <title><%= @tournament.name %></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <%= stylesheet_link_tag    'app', media: 'all' %>
+  <%= render 'shared/rollbar' %>
+  <%= javascript_include_tag 'app_vendor' %>
+  <%= javascript_include_tag 'app' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <%= yield %>
+</body>
 </html>
