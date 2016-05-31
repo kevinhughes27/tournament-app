@@ -22,7 +22,8 @@ Mar 06, 2015.
  * @name REDIPS
  * @description create REDIPS namespace (if is not already defined in another REDIPS package)
  */
-var REDIPS = REDIPS || {};
+//var REDIPS = REDIPS || {};
+window.REDIPS = {};
 
 
 /**

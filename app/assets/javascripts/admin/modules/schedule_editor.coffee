@@ -93,3 +93,4 @@ class Admin.ScheduleEditor
   _finishLoading: (form) ->
     Turbolinks.ProgressBar.done()
     $(form).find(':submit').removeClass('is-loading')
+    $(form).find(':submit').removeAttr("disabled")
