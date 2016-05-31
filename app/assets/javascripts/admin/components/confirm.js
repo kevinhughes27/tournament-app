@@ -5,7 +5,7 @@ var ConfirmModal = require ('./confirm_modal'),
 const confirm = createConfirmation(ConfirmModal);
 
 // define confirm function easy to call.
-export default function(options = {}) {
+module.exports = function(options = {}) {
   // These arguments will be ConfirmModal props
   return confirm({ null, ...options });
 }

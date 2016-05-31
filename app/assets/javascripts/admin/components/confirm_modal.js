@@ -31,4 +31,4 @@ const ConfirmModal = React.createClass({
   }
 });
 
-export default confirmable(ConfirmModal);
+module.exports = confirmable(ConfirmModal);
