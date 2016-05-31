@@ -4,7 +4,11 @@ module UiHelper
 
     def ui_text_field(method, options = {})
       content_tag(:div, class: 'form-group') do
-        concat label(method)
+        if options.key?(:label_html)
+          concat label(method, options.delete(:label_html))
+        else
+          concat label(method)
+        end
 
         if options.key?(:help_text)
           concat content_tag(:p, options.delete(:help_text))

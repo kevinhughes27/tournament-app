@@ -7,7 +7,7 @@
     <p>Choose tournament</p>
   </div>
 
-  <div class="register-box-body">
+  <div class="register-box-body" style="padding-bottom: 5px;">
     <% current_user.tournaments.each do |tournament| %>
       <%= form_tag choose_tournament_path, class: 'form-group' do |f| %>
         <%= hidden_field_tag :tournament, tournament.handle %>
