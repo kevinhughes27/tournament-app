@@ -83,7 +83,7 @@ class BracketRenderTest < BrowserTest
 
   def new_screenshot_path(bracket_handle)
     if ENV['CIRCLECI']
-      File.join(ENV['CIRCLE_ARTIFACTS'], "#{bracket_handle}.png")
+      File.join(ENV['CIRCLE_ARTIFACTS'], "render_tests/#{bracket_handle}.png")
     else
       File.join(Rails.root, "tmp/capybara/#{bracket_handle}.png")
     end
