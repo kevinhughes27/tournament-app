@@ -33,7 +33,7 @@ module BulkActions
       )
 
       assert_equal 422, status
-      assert_equal 'Cancelled: not all teams could be update safely', response[:message]
+      assert_equal 'Cancelled: not all teams could be updated safely', response[:message]
       refute_equal @division, team.reload.division
     end
   end

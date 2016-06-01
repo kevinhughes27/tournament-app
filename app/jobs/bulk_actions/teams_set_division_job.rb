@@ -11,7 +11,7 @@ class BulkActions::TeamsSetDivisionJob < ApplicationJob
       response = render_response(teams)
       status = 200
     else
-      response = {message: 'Cancelled: not all teams could be update safely'}
+      response = {message: 'Cancelled: not all teams could be updated safely'}
       status = 422
     end
 
