@@ -32,7 +32,7 @@ class Admin::DivisionsController < AdminController
 
   def update_teams
     team_ids = params[:team_ids]
-    @teams = Team.where( id: team_ids )
+    @teams = @division.teams
 
     Team.transaction do
       team_ids.each_with_index do |team_id, idx|

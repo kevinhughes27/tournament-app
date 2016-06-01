@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class AppControllerTest < ActionController::TestCase
+  include ActiveJob::TestHelper
+
   setup do
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)
@@ -64,7 +66,9 @@ class AppControllerTest < ActionController::TestCase
     )
 
     assert_difference "ScoreReport.count", +1 do
-      post :confirm, params: params
+      perform_enqueued_jobs do
+        post :confirm, params: params
+      end
       assert_response :ok
       assert_template 'confirm_score_success'
     end

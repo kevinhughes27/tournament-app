@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class Admin::DivisionsControllerTest < ActionController::TestCase
+  include ActiveJob::TestHelper
 
   setup do
     @tournament = tournaments(:noborders)
@@ -42,7 +43,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "create a division error re-renders form zzz" do
+  test "create a division error re-renders form" do
     params = division_params
     params.delete(:name)
 
@@ -186,7 +187,9 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "seed a division with an error" do
-    @division.update_attribute(:bracket_type, 'single_elimination_4')
+    perform_enqueued_jobs do
+      @division.update_attribute(:bracket_type, 'single_elimination_4')
+    end
 
     put :seed, params: { id: @division.id }
     assert_response :success
@@ -197,8 +200,10 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
   # hack to get all the games created
   def reset_division(division)
-    division.update_attribute(:bracket_type, 'single_elimination_4')
-    division.update_attribute(:bracket_type, 'single_elimination_8')
+    perform_enqueued_jobs do
+      division.update_attribute(:bracket_type, 'single_elimination_4')
+      division.update_attribute(:bracket_type, 'single_elimination_8')
+    end
   end
 
   def division_params

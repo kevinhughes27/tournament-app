@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class DivisionTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   setup do
     @tournament = tournaments(:noborders)
     @division = divisions(:open)
@@ -10,32 +12,32 @@ class DivisionTest < ActiveSupport::TestCase
   test "division creates all required games" do
     type = 'single_elimination_8'
     assert_difference "Game.count", +12 do
-      Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
+      create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
+    end
+  end
+
+  test "division deletes games when it is deleted" do
+    type = 'single_elimination_8'
+    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
+
+    assert_difference "Game.count", -12 do
+      perform_enqueued_jobs { division.destroy }
     end
   end
 
   test "division creates all required places" do
     type = 'single_elimination_8'
     assert_difference "Place.count", +8 do
-      Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-    end
-  end
-
-  test "division deletes games when it is deleted" do
-    type = 'single_elimination_8'
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-
-    assert_difference "Game.count", -12 do
-      division.destroy
+      create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
     end
   end
 
   test "division deletes places when it is deleted" do
     type = 'single_elimination_8'
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
+    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
 
     assert_difference "Place.count", -8 do
-      division.destroy
+      perform_enqueued_jobs { division.destroy }
     end
   end
 
@@ -45,7 +47,9 @@ class DivisionTest < ActiveSupport::TestCase
     teams = division.teams
     assert teams.present?
 
-    division.destroy
+    perform_enqueued_jobs do
+      division.destroy
+    end
 
     assert teams.reload.all? { |team| team.division.nil? }
   end
@@ -57,7 +61,7 @@ class DivisionTest < ActiveSupport::TestCase
 
   test "dirty_seed?" do
     type = 'single_elimination_8'
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
+    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
     @teams.update_all(division_id: division.id)
 
     refute division.seeded?
@@ -75,25 +79,39 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "updating the bracket_type clears the previous games" do
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
+    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
-    division.update_attributes(bracket_type: 'single_elimination_4')
+
+    perform_enqueued_jobs do
+      division.update_attributes(bracket_type: 'single_elimination_4')
+    end
+
     assert_equal 4, division.games.count
   end
 
   test "updating the bracket_type resets seeded status" do
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
+    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     @teams.update_all(division_id: division.id)
+
     division.seed
+
     assert division.seeded?
-    division.update_attributes(bracket_type: 'single_elimination_4')
+
+    perform_enqueued_jobs do
+      division.update_attributes(bracket_type: 'single_elimination_4')
+    end
+
     refute division.seeded?
   end
 
   test "updating the bracket_type clears the previous places" do
-    division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
+    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
-    division.update_attributes(bracket_type: 'single_elimination_4')
+
+    perform_enqueued_jobs do
+      division.update_attributes(bracket_type: 'single_elimination_4')
+    end
+
     assert_equal 4, division.games.count
   end
 
@@ -117,5 +135,13 @@ class DivisionTest < ActiveSupport::TestCase
 
   test "limit is define" do
     assert_equal 12, Division::LIMIT
+  end
+
+  private
+
+  def create_division(params)
+    perform_enqueued_jobs do
+      Division.create!(params)
+    end
   end
 end

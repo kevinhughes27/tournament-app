@@ -16,8 +16,8 @@ class Division < ApplicationRecord
   validates :num_days, presence: true, numericality: {greater_than_or_equal_to: 0}
   validate :validate_bracket_type
 
-  after_create :create_games
-  after_create :create_places
+  after_commit :create_games, on: :create
+  after_commit :create_places, on: :create
   after_update :update_games
   after_update :update_places
 
