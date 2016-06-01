@@ -1,3 +1,5 @@
 host: lvh.me:3000
 domain: lvh.me
+cable_redis_url: ''
+job_redis_url: ''
 ssl: false
