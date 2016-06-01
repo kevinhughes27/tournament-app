@@ -1,5 +1,5 @@
 host: ultimate-tournament.io
 domain: ultimate-tournament.io
-cable_redis_url: ENV['REDIS_URL']
-job_redis_url: ENV['HEROKU_REDIS_WHITE_URL']
+cable_redis_url: <%= ENV['REDIS_URL'] %>
+job_redis_url: <%= ENV['HEROKU_REDIS_WHITE_URL'] %>
 ssl: true
