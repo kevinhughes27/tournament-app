@@ -1,6 +1,6 @@
 production:
   adapter: redis
-  url: <%= ENV['REDIS_URL'] %>
+  url: <%= Settings.cable_redis_url %>
 
 development:
   adapter: async
