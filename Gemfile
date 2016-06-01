@@ -73,7 +73,7 @@ group :development, :test do
   gem 'bundler-audit', require: false
   gem 'teaspoon'
   gem 'teaspoon-jasmine'
-  gem 'teaspoon-bundle'
+  gem 'teaspoon-bundle', '~> 0.1.3'
 end
 
 group :development do
