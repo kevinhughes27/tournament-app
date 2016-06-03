@@ -2,6 +2,8 @@ class Division < ApplicationRecord
   include Limits
   LIMIT = 12
 
+  attr_reader :change_message
+
   belongs_to :tournament
   has_many :teams, dependent: :nullify
   has_many :games, dependent: :destroy
@@ -39,12 +41,10 @@ class Division < ApplicationRecord
     Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
   end
 
-  def update_safe?
-    !(self.bracket_type_changed?)
-  end
-
   def safe_to_change?
-    !games.where(score_confirmed: true).exists?
+    return true unless self.bracket_type_changed?
+    safe, @change_message = Divisions::SafeToUpdateBracketJob.perform_now(division: self)
+    safe
   end
 
   def safe_to_seed?

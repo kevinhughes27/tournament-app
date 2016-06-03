@@ -61,8 +61,6 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update a division (unsafe)" do
-    refute @division.safe_to_change?
-
     params = division_params.merge(bracket_type: 'single_elimination_4')
     put :update, params: { id: @division.id, division: params }
 
@@ -71,8 +69,6 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update a division (unsafe) + confirm" do
-    refute @division.safe_to_change?
-
     params = division_params.merge(bracket_type: 'single_elimination_4')
     put :update, params: { id: @division.id, division: params, confirm: 'true' }
 

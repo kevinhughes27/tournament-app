@@ -64,7 +64,6 @@ class Admin::DivisionsController < AdminController
 
   def check_update_safety
     @division.assign_attributes(division_params)
-    return if @division.update_safe?
 
     # this is correct since as long as we don't render we continue
     # with the controller action
