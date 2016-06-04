@@ -34,7 +34,7 @@ class Admin::ScheduleController < AdminController
   private
 
   def load_index_data
-    @games = @tournament.games.includes(:division)
+    @games = @tournament.games.includes(:division).order(division_id: :asc)
     @fields = @tournament.fields.sort_by{ |f| f.name.gsub(/\D/, '').to_i }
     @times = time_slots
   end
