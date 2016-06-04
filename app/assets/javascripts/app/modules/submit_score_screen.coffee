@@ -69,6 +69,7 @@ class App.SubmitScoreScreen
       @active = false
       @formActive = false
       $(form)[0].reset();
+      $(form).find('#submit-score').prop('disabled', false)
       $('div#score-form').scrollTo(0)
       Twine.refresh()
 
