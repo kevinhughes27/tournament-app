@@ -52,7 +52,6 @@ class App.MainScreen
     Twine.refresh()
 
   fieldSelected: (event) ->
-    return if event.type == 'keyup' && event.keyCode != 13
     return if event.type == 'change' && $(event.target).val() == ''
 
     @fieldSearchOpen = false
@@ -66,7 +65,6 @@ class App.MainScreen
     Twine.refresh()
 
   teamSelected: (event) =>
-    return if event.type == 'keyup' && event.keyCode != 13
     return if event.type == 'change' && $(event.target).val() == ''
 
     @teamSearchOpen = false

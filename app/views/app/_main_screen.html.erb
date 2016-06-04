@@ -9,12 +9,10 @@
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!fieldSearchOpen">
-  <input id="main-field-search" class="awesomplete" type="text" placeholder="Start typing a field name or number..."
+  <input id="main-field-search" class="awesomplete" placeholder="Start typing a field name or number..."
     data-minchars="1"
     data-list="<%= @fields.map{ |t| t.name }.join(', ') %>"
     bind-event-change="fieldSelected(event)"
-    bind-event-click="fieldSelected(event)"
-    bind-event-keyup="fieldSelected(event)"
     bind-event-blur="searchBlur()">
 </div>
 
@@ -23,8 +21,6 @@
     data-minchars="1"
     data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
     bind-event-change="teamSelected(event)"
-    bind-event-click="teamSelected(event)"
-    bind-event-keyup="teamSelected(event)"
     bind-event-blur="searchBlur()">
 </div>
 
