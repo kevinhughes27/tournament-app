@@ -9,19 +9,29 @@
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!fieldSearchOpen">
-  <input id="main-field-search" class="awesomplete" placeholder="Start typing a field name or number..."
+  <input id="main-field-search" class="awesomplete" type="text" placeholder="Start typing a field name or number..."
     data-minchars="1"
-    data-list="<%= @fields.map{ |t| t.name }.join(', ') %>"
+    data-list="#fieldList"
     bind-event-change="fieldSelected(event)"
     bind-event-blur="searchBlur()">
+    <datalist id="fieldList">
+      <% @fields.each do |field| %>
+        <option><%= field.name %></option>
+      <% end %>
+    </datalist>
 </div>
 
 <div class="bar bar-standard bar-header-secondary search-bar hide" bind-show="!!teamSearchOpen">
   <input id="main-team-search" class="awesomplete" type="text" placeholder="Start typing a team name..."
     data-minchars="1"
-    data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
+    data-list="#teamList"
     bind-event-change="teamSelected(event)"
     bind-event-blur="searchBlur()">
+    <datalist id="teamList">
+      <% @teams.each do |team| %>
+        <option><%= team.name %></option>
+      <% end %>
+    </datalist>
 </div>
 
 <div class="bar bar-standard bar-header-secondary transparent hide" bind-show="!!findingField">

@@ -12,7 +12,7 @@
       <div class="team-search">
         <input id="search" class="awesomplete" placeholder="Search ..."
           data-minchars="1"
-          data-list="<%= @teams.map{ |t| t.name }.join(', ') %>"
+          data-list="#teamList"
           bind-event-change="searchChange(event)"
           track-click="{category: 'App.ScheduleScreen', action: 'Search'}">
       </div>
