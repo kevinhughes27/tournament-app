@@ -70,6 +70,7 @@ class App.MainScreen
     @teamSearchOpen = false
     selected = $.trim( $(event.target).val() )
     team = _.find(@teams, (team) -> team.name is selected)
+    return unless team
 
     # filter games where the team isn't playing
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
