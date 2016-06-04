@@ -7,7 +7,6 @@
 
     <%= bracket_partial('bracket_16.1_full') %>,
 
-
     {"round": 1, "uid":"aa", "home":"A4", "away":"D5"},
     {"round": 1, "uid":"bb", "home":"B4", "away":"C5"},
     {"round": 1, "uid":"cc", "home":"A5", "away":"D4"},
