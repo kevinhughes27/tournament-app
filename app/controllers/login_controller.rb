@@ -75,6 +75,11 @@ class LoginController < Devise::SessionsController
   end
 
   def after_login_in_path
-    admin_url(subdomain: @tournament.handle) + session[:previous_path].to_s
+    stored_url_for_user || admin_url(subdomain: @tournament.handle)
+  end
+
+  def stored_url_for_user
+    path = stored_location_for(current_user)
+    @tournament.domain + path if path
   end
 end

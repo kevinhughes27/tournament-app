@@ -25,7 +25,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def after_sign_in_path(user)
     if tournament_subdomain
-      return admin_url(subdomain: tournament_subdomain) + session[:previous_path].to_s
+      return admin_url(subdomain: tournament_subdomain) + stored_path
     end
 
     if user.tournaments.count == 1
@@ -38,6 +38,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def tournament_subdomain
     subdomain unless subdomain == 'www'
+  end
+
+  def stored_path
+    stored_location_for(current_user).to_s.gsub('/admin', '')
   end
 
   def subdomain

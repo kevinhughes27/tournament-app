@@ -9,7 +9,6 @@ class AdminController < ApplicationController
   respond_to :html
 
   before_action :load_tournament
-  before_action :store_location
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
   before_action :set_tournament_cookie
@@ -44,11 +43,6 @@ class AdminController < ApplicationController
 
   def respond_with(obj)
     super :admin, obj
-  end
-
-  def store_location
-    return unless request.get?
-    session[:previous_path] = request.path.gsub('admin/', '').gsub('admin', '')
   end
 
   def authenticate_tournament_user!

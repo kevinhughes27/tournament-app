@@ -12,7 +12,8 @@ end
 Capybara.configure do |config|
   config.current_driver = :poltergeist
   config.ignore_hidden_elements = false
-  config.app_host = "http://lvh.me"
+  config.app_host = "http://#{Settings.domain}"
+  config.server_port = 3000
   config.always_include_port = true
 end
 
@@ -23,7 +24,6 @@ class BrowserTest < ActiveSupport::TestCase
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)
-    @domain = "lvh.me"
   end
 
   teardown do

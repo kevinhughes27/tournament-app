@@ -6,18 +6,18 @@ class AppBrowserTest < BrowserTest
   end
 
   test "drawer is closed" do
-    visit("http://no-borders.#{@domain}/")
+    visit("http://no-borders.#{Settings.domain}/")
     refute page.find("#drawer")[:class].include?("active"), 'Drawer is open'
   end
 
   test "find opens the drawer" do
-    visit("http://no-borders.#{@domain}/")
+    visit("http://no-borders.#{Settings.domain}/")
     click_on('Find')
     assert page.find("#drawer")[:class].include?("active"), 'Drawer is not open'
   end
 
   test "user views the schedule screen and performs a search" do
-    visit("http://no-borders.#{@domain}/")
+    visit("http://no-borders.#{Settings.domain}/")
 
     # navigate to schedule screen
     refute page.find("#schedule-screen")[:class].include?("active")
@@ -40,7 +40,7 @@ class AppBrowserTest < BrowserTest
   end
 
   test "user can submit a score" do
-    visit("http://no-borders.#{@domain}/")
+    visit("http://no-borders.#{Settings.domain}/")
 
     # navigate to schedule screen
     refute page.find("#submit-score-screen")[:class].include?("active")
