@@ -7,6 +7,7 @@ var React = require('react'),
 var columns = [
   "name",
   "division",
+  "avg",
   "total"
 ];
 
@@ -14,20 +15,26 @@ var columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
-    cssClassName: "col-md-4",
+    cssClassName: "col-md-3",
     order: 1,
   },
   {
     columnName: "division",
     displayName: "Division",
-    cssClassName: "col-md-4",
+    cssClassName: "col-md-3",
     order: 2,
+  },
+  {
+    columnName: "avg",
+    displayName: "Average",
+    cssClassName: "col-md-3",
+    order: 3,
   },
   {
     columnName: "total",
     displayName: "Total",
-    cssClassName: "col-md-4",
-    order: 3,
+    cssClassName: "col-md-3",
+    order: 4,
   }
 ];
 

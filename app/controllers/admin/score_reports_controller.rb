@@ -11,8 +11,9 @@ class Admin::ScoreReportsController < AdminController
     @reports.group_by{ |r| r.other_team }.each do |team, reports|
       division_name = reports.first.game.division.name
       total = reports.sum { |r| r.total }
+      avg = (total / reports.size.to_f).round(1)
       @reports_by_team << {
-        name: team.name, division: division_name, total: total
+        name: team.name, division: division_name, avg: avg, total: total
       }
     end
   end
