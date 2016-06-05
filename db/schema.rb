@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518053311) do
+ActiveRecord::Schema.define(version: 20160604200406) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20160518053311) do
     t.integer  "num_teams",     default: 8
     t.integer  "num_days",      default: 2,     null: false
     t.boolean  "seeded",        default: false
-    t.index ["tournament_id", "name"], name: "index_divisions_on_tournament_id_and_name"
+    t.index ["tournament_id", "name"], name: "index_divisions_on_tournament_id_and_name", unique: true
     t.index ["tournament_id"], name: "index_divisions_on_tournament_id"
   end
 
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20160518053311) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "geo_json"
+    t.index ["tournament_id", "name"], name: "index_fields_on_tournament_id_and_name", unique: true
     t.index ["tournament_id"], name: "index_fields_on_tournament_id"
   end
 
@@ -73,7 +74,7 @@ ActiveRecord::Schema.define(version: 20160518053311) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "edited_at"
-    t.index ["tournament_id"], name: "index_maps_on_tournament_id"
+    t.index ["tournament_id"], name: "index_maps_on_tournament_id", unique: true
   end
 
   create_table "places", force: :cascade do |t|
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20160518053311) do
     t.integer "tournament_id",   null: false
     t.integer "score_report_id", null: false
     t.string  "token",           null: false
+    t.index ["score_report_id"], name: "index_score_report_confirm_tokens_on_score_report_id", unique: true
     t.index ["token"], name: "index_score_report_confirm_tokens_on_token"
   end
 
@@ -136,6 +138,7 @@ ActiveRecord::Schema.define(version: 20160518053311) do
     t.integer  "seed"
     t.integer  "division_id"
     t.index ["tournament_id", "division_id"], name: "index_teams_on_tournament_id_and_division_id"
+    t.index ["tournament_id", "name"], name: "index_teams_on_tournament_id_and_name", unique: true
     t.index ["tournament_id"], name: "index_teams_on_tournament_id"
   end
 
@@ -145,7 +148,7 @@ ActiveRecord::Schema.define(version: 20160518053311) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["tournament_id"], name: "index_tournament_users_on_tournament_id"
-    t.index ["user_id", "tournament_id"], name: "index_tournament_users_on_user_id_and_tournament_id"
+    t.index ["user_id", "tournament_id"], name: "index_tournament_users_on_user_id_and_tournament_id", unique: true
     t.index ["user_id"], name: "index_tournament_users_on_user_id"
   end
 
@@ -158,6 +161,8 @@ ActiveRecord::Schema.define(version: 20160518053311) do
     t.string   "location"
     t.string   "timezone"
     t.boolean  "welcome_email_sent", default: false
+    t.index ["handle"], name: "index_tournaments_on_handle", unique: true
+    t.index ["name"], name: "index_tournaments_on_name", unique: true
   end
 
   create_table "user_authentications", force: :cascade do |t|
