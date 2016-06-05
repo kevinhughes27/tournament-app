@@ -3,6 +3,10 @@
   Games
 <% end %>
 
+<%= content_for :top_bar_right do %>
+  <%= link_to 'Spirit Scores', admin_score_reports_path, class: "btn btn-default" %>
+<% end %>
+
 <% if @games.present? %>
   <% if @games.all? { |game| game.unconfirmed? && game.score_reports.blank? } %>
     <div class="alert alert-info alert-dismissable">

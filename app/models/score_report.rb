@@ -67,6 +67,10 @@ class ScoreReport < ApplicationRecord
     [rules_knowledge, fouls, fairness, attitude, communication].any?{ |v| v < 2 }
   end
 
+  def total
+    rules_knowledge + fouls + fairness + attitude + communication
+  end
+
   private
 
   def notify_other_team

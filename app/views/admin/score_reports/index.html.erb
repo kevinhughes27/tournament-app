@@ -1,0 +1,24 @@
+<% content_for :top_bar_left do %>
+  <i class="fa fa-list"></i>
+  <%= link_to 'Games', admin_games_path %> / Spirit Scores
+<% end %>
+
+<% if @reports.present? %>
+  <%= ui_box do %>
+    <%= react_component('Admin.ReportsIndex', {
+      reports: @reports_by_team.to_json,
+      searchColumns: [
+        "team",
+      ],
+      filters: division_filters(@tournament)
+    }) %>
+  <% end %>
+<% else %>
+  <div class="blank-slate">
+    <h3>Score Reports</h3>
+    <p>
+      As scores are submitted you'll be able to see the spirit scores grouped by
+      team on this page. Useful for giving out a spirit award!
+    </p>
+  </div>
+<% end %>
