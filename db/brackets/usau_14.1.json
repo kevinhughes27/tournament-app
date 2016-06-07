@@ -9,11 +9,11 @@
     {"round":2, "place":"1st", "uid":"c", "home":"Wa", "away":"Wb"},
     {"round":2, "place":"3rd", "uid":"d", "home":"La", "away":"Lb"},
 
-    {"round":1, "uid":"e", "home":"A3", "away":"B3"},
-    {"round":1, "uid":"f", "home":"A4", "away":"B4"},
-    {"round":1, "uid":"g", "home":"A5", "away":"B5"},
-    {"round":1, "uid":"h", "home":"A6", "away":"B6"},
-    {"round":1, "uid":"i", "home":"A7", "away":"B7"}
+    {"round":1, "place":"5th", "uid":"e", "home":"A3", "away":"B3"},
+    {"round":1, "place":"7th", "uid":"f", "home":"A4", "away":"B4"},
+    {"round":1, "place":"9th", "uid":"g", "home":"A5", "away":"B5"},
+    {"round":1, "place":"11th", "uid":"h", "home":"A6", "away":"B6"},
+    {"round":1, "place":"13th", "uid":"i", "home":"A7", "away":"B7"}
   ],
   "places": [
     {"position":1, "prereq_uid": "Wc"},
