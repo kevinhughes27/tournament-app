@@ -5,14 +5,14 @@
     {"round":1, "uid":"a", "home":"A2", "away":"A5"},
     {"round":1, "uid":"b", "home":"A4", "away":"A3"},
 
-    {"round":2, "place":"2nd", "uid":"c", "home":"Wa", "away":"Wb"},
-    {"round":2, "place":"4th", "uid":"d", "home":"La", "away":"Lb"}
+    {"round":2, "uid":"2", "home":"Wa", "away":"Wb"},
+    {"round":2, "uid":"4", "home":"La", "away":"Lb"}
   ],
   "places": [
     {"position":1, "prereq_uid": "A1"},
-    {"position":2, "prereq_uid": "Wc"},
-    {"position":3, "prereq_uid": "Lc"},
-    {"position":4, "prereq_uid": "Wd"},
-    {"position":5, "prereq_uid": "Ld"}
+    {"position":2, "prereq_uid": "W2"},
+    {"position":3, "prereq_uid": "L2"},
+    {"position":4, "prereq_uid": "W4"},
+    {"position":5, "prereq_uid": "L4"}
   ]
 }

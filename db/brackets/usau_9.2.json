@@ -12,7 +12,7 @@
 
     {"round": 1, "uid":"a", "home":"A1", "away":"B2"},
     {"round": 1, "uid":"b", "home":"A2", "away":"B1"},
-    {"round": 2, "place": "1st", "uid":"c", "home":"Wa", "away":"Wb"},
+    {"round": 2, "uid":"1", "home":"Wa", "away":"Wb"},
 
     {"round": 1, "uid":"d", "home":"A3", "away":"B4"},
     {"round": 1, "uid":"e", "home":"A4", "away":"B3"},
@@ -20,20 +20,20 @@
     {"round": 2, "uid":"g", "home":"We", "away":"Lb"},
 
     {"round": 3, "uid":"h", "home":"Wf", "away":"Wg"},
-    {"round": 4, "place": "2nd", "uid":"i", "home":"Lc", "away":"Wh"},
+    {"round": 4, "uid":"2", "home":"L1", "away":"Wh"},
 
-    {"round": 3, "place": "5th", "uid":"k", "home":"Lf", "away":"Lg"},
-    {"round": 3, "place": "7th", "uid":"j", "home":"Ld", "away":"Le"}
+    {"round": 3, "uid":"5", "home":"Lf", "away":"Lg"},
+    {"round": 3, "uid":"7", "home":"Ld", "away":"Le"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "Wc"},
-    {"position":2, "prereq_uid": "Wi"},
-    {"position":3, "prereq_uid": "Li"},
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "W2"},
+    {"position":3, "prereq_uid": "L2"},
     {"position":4, "prereq_uid": "Lh"},
-    {"position":5, "prereq_uid": "Wk"},
-    {"position":6, "prereq_uid": "Lk"},
-    {"position":7, "prereq_uid": "Wj"},
-    {"position":8, "prereq_uid": "Lj"},
+    {"position":5, "prereq_uid": "W5"},
+    {"position":6, "prereq_uid": "L5"},
+    {"position":7, "prereq_uid": "W7"},
+    {"position":8, "prereq_uid": "L7"},
     {"position":9, "prereq_uid": "A5"}
   ]
 }
