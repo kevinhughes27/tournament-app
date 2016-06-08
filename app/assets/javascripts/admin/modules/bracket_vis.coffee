@@ -70,7 +70,7 @@ class Admin.BracketVis
   _addNode: (gameUid, level) ->
     game = _.find(@games, (game) -> game.uid == gameUid)
 
-    if game && !game.seed
+    if game
       @__addInnerNode(game, level)
     else
       @__addLeafNode(gameUid, level)
@@ -82,24 +82,30 @@ class Admin.BracketVis
       label = parseInt(label).ordinalize()
 
     @nodes.push({
-      id: game.uid,
+      id: label,
       label: label,
       level: level
     })
 
     homeUid = game.home.toString().replace('W', '')
     @edges.push({
-      from: game.uid,
+      from: label,
       to: homeUid
     })
-    @_addNode(homeUid, level+1)
+    if game.seed
+      @__addLeafNode(homeUid, level+1)
+    else
+      @_addNode(homeUid, level+1)
 
     awayUid = game.away.toString().replace('W', '')
     @edges.push({
-      from: game.uid,
+      from: label,
       to: awayUid
     })
-    @_addNode(awayUid, level+1)
+    if game.seed
+      @__addLeafNode(awayUid, level+1)
+    else
+      @_addNode(awayUid, level+1)
 
   __addLeafNode: (uid, level) ->
     group = if uid.match(/L./) then 'loser' else 'initial'
