@@ -16,13 +16,13 @@
     {"round": 3, "uid": "7", "home":"Lc1", "away":"Lc2"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "Wf1"},
-    {"position":2, "prereq_uid": "Lf1"},
-    {"position":3, "prereq_uid": "Wf3"},
-    {"position":4, "prereq_uid": "Lf3"},
-    {"position":5, "prereq_uid": "Wf5"},
-    {"position":6, "prereq_uid": "Lf5"},
-    {"position":7, "prereq_uid": "Wf7"},
-    {"position":8, "prereq_uid": "Lf7"}
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "L1"},
+    {"position":3, "prereq_uid": "W3"},
+    {"position":4, "prereq_uid": "L3"},
+    {"position":5, "prereq_uid": "W5"},
+    {"position":6, "prereq_uid": "L5"},
+    {"position":7, "prereq_uid": "W7"},
+    {"position":8, "prereq_uid": "L7"}
   ]
 }

@@ -9,7 +9,7 @@
 
     {"round": 1, "uid":"d", "home":"A3", "away":"B4"},
     {"round": 1, "uid":"e", "home":"A4", "away":"B3"},
-    {"round": 2, "uid":"6", "home":"Wd", "away":"We"},
+    {"round": 2, "uid":"f", "home":"Wd", "away":"We"},
 
     {"round": 3, "uid":"4", "home":"Lb", "away":"Wf"},
     {"round": 3, "uid":"7", "home":"Ld", "away":"Le"}
@@ -20,7 +20,7 @@
     {"position":3, "prereq_uid": "L2"},
     {"position":4, "prereq_uid": "W4"},
     {"position":5, "prereq_uid": "L4"},
-    {"position":6, "prereq_uid": "L6"},
+    {"position":6, "prereq_uid": "Lf"},
     {"position":7, "prereq_uid": "W7"},
     {"position":8, "prereq_uid": "L7"}
   ]
