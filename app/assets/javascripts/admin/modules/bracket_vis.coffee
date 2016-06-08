@@ -57,8 +57,8 @@ class Admin.BracketVis
     @edges = []
 
     @games = bracket.template.games
-    roots = _.filter(@games, (g) -> g.place)
-    roots = _.sortBy(roots, (g) -> parseInt(g.place.replace(/[A-Za-z]./, '')))
+    roots = _.filter(@games, (g) -> !isNaN(g.uid))
+    roots = _.sortBy(roots, (g) -> parseInt(g.uid))
 
     _.map(roots, (game) => @_addNode(game.uid, 1))
 
@@ -70,15 +70,20 @@ class Admin.BracketVis
   _addNode: (gameUid, level) ->
     game = _.find(@games, (game) -> game.uid == gameUid)
 
-    if game
+    if game && !game.seed
       @__addInnerNode(game, level)
     else
       @__addLeafNode(gameUid, level)
 
   __addInnerNode: (game, level) ->
+    label = game.uid
+
+    unless isNaN(label)
+      label = parseInt(label).ordinalize()
+
     @nodes.push({
       id: game.uid,
-      label: game.place || game.uid,
+      label: label,
       level: level
     })
 
