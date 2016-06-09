@@ -82,6 +82,7 @@ group :development do
   gem 'bullet'
   gem 'letter_opener'
   gem 'web-console', '~> 2.0'
+  gem 'rugged'
 end
 
 group :test do

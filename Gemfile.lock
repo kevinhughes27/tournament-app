@@ -269,6 +269,7 @@ GEM
       railties (>= 4.2.0, < 5.1)
     rollbar (2.11.1)
       multi_json
+    rugged (0.24.0)
     sass (3.4.22)
     sassc (1.9.0)
       bundler
@@ -391,6 +392,7 @@ DEPENDENCIES
   redis
   responders
   rollbar
+  rugged
   sassc-rails
   sidekiq
   simplecov
