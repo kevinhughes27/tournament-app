@@ -57,7 +57,7 @@ namespace :dev do
         end
       end
 
-      File.open("bracket_db_diff.json","w") do |f|
+      File.open("db/bracket_db_diff.json","w") do |f|
         f.write(JSON.pretty_generate(dbDiff))
       end
     end
