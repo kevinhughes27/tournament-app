@@ -1,0 +1,4615 @@
+{
+  "14 pool crossover": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "B1"
+      },
+      {
+        "round": 1,
+        "place": "3rd",
+        "uid": "b",
+        "home": "A2",
+        "away": "B2"
+      },
+      {
+        "round": 1,
+        "place": "5th",
+        "uid": "c",
+        "home": "A3",
+        "away": "B3"
+      },
+      {
+        "round": 1,
+        "place": "7th",
+        "uid": "d",
+        "home": "A4",
+        "away": "B4"
+      },
+      {
+        "round": 1,
+        "place": "9th",
+        "uid": "e",
+        "home": "A5",
+        "away": "B5"
+      },
+      {
+        "round": 1,
+        "place": "11th",
+        "uid": "f",
+        "home": "A6",
+        "away": "B6"
+      },
+      {
+        "round": 1,
+        "place": "13th",
+        "uid": "g",
+        "home": "A7",
+        "away": "B7"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "La"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wb"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lb"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Ld"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Le"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Wf"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "Lf"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "Lg"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "B1"
+      },
+      {
+        "round": 1,
+        "uid": "3",
+        "home": "A2",
+        "away": "B2"
+      },
+      {
+        "round": 1,
+        "uid": "5",
+        "home": "A3",
+        "away": "B3"
+      },
+      {
+        "round": 1,
+        "uid": "7",
+        "home": "A4",
+        "away": "B4"
+      },
+      {
+        "round": 1,
+        "uid": "9",
+        "home": "A5",
+        "away": "B5"
+      },
+      {
+        "round": 1,
+        "uid": "11",
+        "home": "A6",
+        "away": "B6"
+      },
+      {
+        "round": 1,
+        "uid": "13",
+        "home": "A7",
+        "away": "B7"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "W9"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "L9"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "W11"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "L11"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "W13"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "L13"
+      }
+    ]
+  },
+  "round_robin_5": {
+    "old": [
+      {
+        "round": 3,
+        "place": "3rd",
+        "uid": "rr4",
+        "home": "Lrr1",
+        "away": "Lrr2"
+      },
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "rr5",
+        "home": "Wrr3",
+        "away": "Wrr2"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wrr5"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lrr5"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wrr4"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lrr4"
+      }
+    ],
+    "new": [
+      {
+        "round": 3,
+        "uid": "3",
+        "home": "Lrr1",
+        "away": "Lrr2"
+      },
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "Wrr3",
+        "away": "Wrr2"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      }
+    ]
+  },
+  "single_elimination_4": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "f1",
+        "home": "Ws1",
+        "away": "Ws2"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "f2",
+        "home": "Ls1",
+        "away": "Ls2"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wf1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lf1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wf2"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lf2"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Ws1",
+        "away": "Ws2"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "Ls1",
+        "away": "Ls2"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      }
+    ]
+  },
+  "single_elimination_8": {
+    "old": [
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "f1",
+        "home": "Ws1",
+        "away": "Ws2"
+      },
+      {
+        "round": 3,
+        "place": "3rd",
+        "uid": "f2",
+        "home": "Ls1",
+        "away": "Ls2"
+      },
+      {
+        "round": 3,
+        "place": "5th",
+        "uid": "f3",
+        "home": "Wc1",
+        "away": "Wc2"
+      },
+      {
+        "round": 3,
+        "place": "7th",
+        "uid": "f4",
+        "home": "Lc1",
+        "away": "Lc2"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wf1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lf1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wf2"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lf2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wf3"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lf3"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wf4"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lf4"
+      }
+    ],
+    "new": [
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "Ws1",
+        "away": "Ws2"
+      },
+      {
+        "round": 3,
+        "uid": "3",
+        "home": "Ls1",
+        "away": "Ls2"
+      },
+      {
+        "round": 3,
+        "uid": "5",
+        "home": "Wc1",
+        "away": "Wc2"
+      },
+      {
+        "round": 3,
+        "uid": "7",
+        "home": "Lc1",
+        "away": "Lc2"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 10.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lg"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lj"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wl"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Ll"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 10.2": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wi"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Li"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lj"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 11.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lg"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lj"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wl"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Ll"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 11.2": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wi"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Li"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lj"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 12.1": {
+    "old": [
+      {
+        "round": 2,
+        "place": "9th",
+        "uid": "cc",
+        "home": "Wca",
+        "away": "Wcb"
+      },
+      {
+        "round": 2,
+        "place": "11th",
+        "uid": "cd",
+        "home": "Lca",
+        "away": "Lcb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wi"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Li"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lj"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "Wcc"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Lcc"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Wcd"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "Lcd"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "9",
+        "home": "Wca",
+        "away": "Wcb"
+      },
+      {
+        "round": 2,
+        "uid": "11",
+        "home": "Lca",
+        "away": "Lcb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "W9"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "L9"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "W11"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "L11"
+      }
+    ]
+  },
+  "USAU 13.1": {
+    "old": [
+      {
+        "round": 1,
+        "uid": "x",
+        "home": "B4",
+        "away": "C4"
+      },
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "h",
+        "home": "Wf",
+        "away": "Wg"
+      },
+      {
+        "round": 3,
+        "place": "7th",
+        "uid": "o",
+        "home": "Li",
+        "away": "Lj"
+      },
+      {
+        "round": 4,
+        "place": "3rd",
+        "uid": "m",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 4,
+        "place": "5th",
+        "uid": "n",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wh"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lh"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wm"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lm"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wn"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Ln"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wo"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lo"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Wx"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Lx"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "10",
+        "home": "B4",
+        "away": "C4"
+      },
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "Wf",
+        "away": "Wg"
+      },
+      {
+        "round": 3,
+        "uid": "7",
+        "home": "Li",
+        "away": "Lj"
+      },
+      {
+        "round": 4,
+        "uid": "3",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "W10"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "L10"
+      }
+    ]
+  },
+  "USAU 14.1": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 1,
+        "place": "5th",
+        "uid": "e",
+        "home": "A3",
+        "away": "B3"
+      },
+      {
+        "round": 1,
+        "place": "7th",
+        "uid": "f",
+        "home": "A4",
+        "away": "B4"
+      },
+      {
+        "round": 1,
+        "place": "9th",
+        "uid": "g",
+        "home": "A5",
+        "away": "B5"
+      },
+      {
+        "round": 1,
+        "place": "11th",
+        "uid": "h",
+        "home": "A6",
+        "away": "B6"
+      },
+      {
+        "round": 1,
+        "place": "13th",
+        "uid": "i",
+        "home": "A7",
+        "away": "B7"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Le"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wf"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lf"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Lg"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Wh"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "Lh"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "Wi"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "Li"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 1,
+        "uid": "5",
+        "home": "A3",
+        "away": "B3"
+      },
+      {
+        "round": 1,
+        "uid": "7",
+        "home": "A4",
+        "away": "B4"
+      },
+      {
+        "round": 1,
+        "uid": "9",
+        "home": "A5",
+        "away": "B5"
+      },
+      {
+        "round": 1,
+        "uid": "11",
+        "home": "A6",
+        "away": "B6"
+      },
+      {
+        "round": 1,
+        "uid": "13",
+        "home": "A7",
+        "away": "B7"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "W9"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "L9"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "W11"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "L11"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "W13"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "L13"
+      }
+    ]
+  },
+  "USAU 15.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wr"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lr"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Ws"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Ls"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wt"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lt"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "Wn"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Ln"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Wo"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "Lo"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "W9"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "L9"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "W11"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "L11"
+      }
+    ]
+  },
+  "USAU 16.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 16.1 full": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      },
+      {
+        "round": 2,
+        "place": "13th",
+        "uid": "cc",
+        "home": "Waa",
+        "away": "Wbb"
+      },
+      {
+        "round": 2,
+        "place": "15th",
+        "uid": "dd",
+        "home": "Laa",
+        "away": "Lbb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wr"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lr"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Ws"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Ls"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wt"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lt"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "Wn"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Ln"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Wo"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "Lo"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "Wcc"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "Lcc"
+      },
+      {
+        "position": 15,
+        "prereq_uid": "Wdd"
+      },
+      {
+        "position": 16,
+        "prereq_uid": "Ldd"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "round": 2,
+        "uid": "13",
+        "home": "Waa",
+        "away": "Wbb"
+      },
+      {
+        "round": 2,
+        "uid": "15",
+        "home": "Laa",
+        "away": "Lbb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "W9"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "L9"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "W11"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "L11"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "W13"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "L13"
+      },
+      {
+        "position": 15,
+        "prereq_uid": "W15"
+      },
+      {
+        "position": 16,
+        "prereq_uid": "L15"
+      }
+    ]
+  },
+  "USAU 17.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 18.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 19.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 20.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 23.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 23.1 full": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      },
+      {
+        "round": 3,
+        "place": "13th",
+        "uid": "gg",
+        "home": "Wee",
+        "away": "Wff"
+      },
+      {
+        "round": 3,
+        "place": "15th",
+        "uid": "kk",
+        "home": "Lee",
+        "away": "Lff"
+      },
+      {
+        "round": 3,
+        "place": "17th",
+        "uid": "jj",
+        "home": "Whh",
+        "away": "Wii"
+      },
+      {
+        "round": 3,
+        "place": "19th",
+        "uid": "ll",
+        "home": "Lhh",
+        "away": "Lii"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wr"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lr"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Ws"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Ls"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wt"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lt"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "Wn"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Ln"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Wo"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "Lo"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "Wgg"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "Lgg"
+      },
+      {
+        "position": 15,
+        "prereq_uid": "Wkk"
+      },
+      {
+        "position": 16,
+        "prereq_uid": "Lkk"
+      },
+      {
+        "position": 17,
+        "prereq_uid": "Wjj"
+      },
+      {
+        "position": 18,
+        "prereq_uid": "Ljj"
+      },
+      {
+        "position": 19,
+        "prereq_uid": "Wll"
+      },
+      {
+        "position": 20,
+        "prereq_uid": "Lll"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "round": 3,
+        "uid": "13",
+        "home": "Wee",
+        "away": "Wff"
+      },
+      {
+        "round": 3,
+        "uid": "15",
+        "home": "Lee",
+        "away": "Lff"
+      },
+      {
+        "round": 3,
+        "uid": "17",
+        "home": "Whh",
+        "away": "Wii"
+      },
+      {
+        "round": 3,
+        "uid": "19",
+        "home": "Lhh",
+        "away": "Lii"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "W9"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "L9"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "W11"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "L11"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "W13"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "L13"
+      },
+      {
+        "position": 15,
+        "prereq_uid": "W15"
+      },
+      {
+        "position": 16,
+        "prereq_uid": "L15"
+      },
+      {
+        "position": 17,
+        "prereq_uid": "W17"
+      },
+      {
+        "position": 18,
+        "prereq_uid": "L17"
+      },
+      {
+        "position": 19,
+        "prereq_uid": "W19"
+      },
+      {
+        "position": 20,
+        "prereq_uid": "L19"
+      }
+    ]
+  },
+  "USAU 24.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 24.1 full": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      },
+      {
+        "round": 3,
+        "place": "13th",
+        "uid": "gg",
+        "home": "Wee",
+        "away": "Wff"
+      },
+      {
+        "round": 3,
+        "place": "15th",
+        "uid": "kk",
+        "home": "Lee",
+        "away": "Lff"
+      },
+      {
+        "round": 3,
+        "place": "17th",
+        "uid": "jj",
+        "home": "Whh",
+        "away": "Wii"
+      },
+      {
+        "round": 3,
+        "place": "19th",
+        "uid": "ll",
+        "home": "Lhh",
+        "away": "Lii"
+      },
+      {
+        "round": 2,
+        "place": "21st",
+        "uid": "ccc",
+        "home": "Waaa",
+        "away": "Wbbb"
+      },
+      {
+        "round": 2,
+        "place": "23rd",
+        "uid": "ddd",
+        "home": "Laaa",
+        "away": "Lbbb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wr"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lr"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Ws"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Ls"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wt"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lt"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "Wn"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "Ln"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "Wo"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "Lo"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "Wgg"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "Lgg"
+      },
+      {
+        "position": 15,
+        "prereq_uid": "Wkk"
+      },
+      {
+        "position": 16,
+        "prereq_uid": "Lkk"
+      },
+      {
+        "position": 17,
+        "prereq_uid": "Wjj"
+      },
+      {
+        "position": 18,
+        "prereq_uid": "Ljj"
+      },
+      {
+        "position": 19,
+        "prereq_uid": "Wll"
+      },
+      {
+        "position": 20,
+        "prereq_uid": "Lll"
+      },
+      {
+        "position": 21,
+        "prereq_uid": "Wccc"
+      },
+      {
+        "position": 22,
+        "prereq_uid": "Lccc"
+      },
+      {
+        "position": 23,
+        "prereq_uid": "Wddd"
+      },
+      {
+        "position": 24,
+        "prereq_uid": "Lddd"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "round": 3,
+        "uid": "13",
+        "home": "Wee",
+        "away": "Wff"
+      },
+      {
+        "round": 3,
+        "uid": "15",
+        "home": "Lee",
+        "away": "Lff"
+      },
+      {
+        "round": 3,
+        "uid": "17",
+        "home": "Whh",
+        "away": "Wii"
+      },
+      {
+        "round": 3,
+        "uid": "19",
+        "home": "Lhh",
+        "away": "Lii"
+      },
+      {
+        "round": 2,
+        "uid": "21",
+        "home": "Waaa",
+        "away": "Wbbb"
+      },
+      {
+        "round": 2,
+        "uid": "23",
+        "home": "Laaa",
+        "away": "Lbbb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      },
+      {
+        "position": 9,
+        "prereq_uid": "W9"
+      },
+      {
+        "position": 10,
+        "prereq_uid": "L9"
+      },
+      {
+        "position": 11,
+        "prereq_uid": "W11"
+      },
+      {
+        "position": 12,
+        "prereq_uid": "L11"
+      },
+      {
+        "position": 13,
+        "prereq_uid": "W13"
+      },
+      {
+        "position": 14,
+        "prereq_uid": "L13"
+      },
+      {
+        "position": 15,
+        "prereq_uid": "W15"
+      },
+      {
+        "position": 16,
+        "prereq_uid": "L15"
+      },
+      {
+        "position": 17,
+        "prereq_uid": "W17"
+      },
+      {
+        "position": 18,
+        "prereq_uid": "L17"
+      },
+      {
+        "position": 19,
+        "prereq_uid": "W19"
+      },
+      {
+        "position": 20,
+        "prereq_uid": "L19"
+      },
+      {
+        "position": 21,
+        "prereq_uid": "W21"
+      },
+      {
+        "position": 22,
+        "prereq_uid": "L21"
+      },
+      {
+        "position": 23,
+        "prereq_uid": "W23"
+      },
+      {
+        "position": 24,
+        "prereq_uid": "L23"
+      }
+    ]
+  },
+  "USAU 4.1.2": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "place": "2nd",
+        "uid": "e",
+        "home": "Wd",
+        "away": "Lc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "uid": "2",
+        "home": "Wd",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      }
+    ]
+  },
+  "USAU 4.1.3": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "place": "2nd",
+        "uid": "e",
+        "home": "Wd",
+        "away": "Lc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "uid": "2",
+        "home": "Wd",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      }
+    ]
+  },
+  "USAU 4.2.1": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      }
+    ]
+  },
+  "USAU 4.2.2": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "Wb",
+        "away": "La"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "Wb",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      }
+    ]
+  },
+  "USAU 4.2.3": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "place": "2nd",
+        "uid": "e",
+        "home": "Wd",
+        "away": "Lc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "uid": "2",
+        "home": "Wd",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      }
+    ]
+  },
+  "USAU 4.2.4": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "place": "2nd",
+        "uid": "e",
+        "home": "Wd",
+        "away": "Lc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "uid": "2",
+        "home": "Wd",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      }
+    ]
+  },
+  "USAU 5.1": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      }
+    ]
+  },
+  "USAU 5.2": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "Wb",
+        "away": "La"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "Wb",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      }
+    ]
+  },
+  "USAU 5.3": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "b",
+        "home": "A1",
+        "away": "Wa"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "Wc",
+        "away": "La"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wb"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lb"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "A1",
+        "away": "Wa"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "Wc",
+        "away": "La"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      }
+    ]
+  },
+  "USAU 5.4": {
+    "old": [
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "4th",
+        "uid": "d",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Ld"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "4",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "W4"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "L4"
+      }
+    ]
+  },
+  "USAU 5.5": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      }
+    ]
+  },
+  "USAU 6.1": {
+    "old": [
+      {
+        "round": 1,
+        "place": "5th",
+        "uid": "e",
+        "home": "A5",
+        "away": "A6"
+      },
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "5",
+        "home": "A5",
+        "away": "A6"
+      },
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      }
+    ]
+  },
+  "USAU 6.6": {
+    "old": [
+      {
+        "round": 1,
+        "place": "5th",
+        "uid": "e",
+        "home": "A5",
+        "away": "A6"
+      },
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "5",
+        "home": "A5",
+        "away": "A6"
+      },
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      }
+    ]
+  },
+  "USAU 6.2": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 1,
+        "place": "5th",
+        "uid": "e",
+        "home": "A5",
+        "away": "A6"
+      },
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "Wb",
+        "away": "La"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 1,
+        "uid": "5",
+        "home": "A5",
+        "away": "A6"
+      },
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "Wb",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      }
+    ]
+  },
+  "USAU 6.3": {
+    "old": [
+      {
+        "round": 2,
+        "place": "5th",
+        "uid": "g",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "e",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 3,
+        "place": "3rd",
+        "uid": "f",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Le"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wf"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lf"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lg"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "5",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 3,
+        "uid": "3",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      }
+    ]
+  },
+  "USAU 6.5": {
+    "old": [
+      {
+        "round": 2,
+        "place": "5th",
+        "uid": "g",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "e",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 3,
+        "place": "3rd",
+        "uid": "f",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Le"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wf"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lf"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lg"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "5",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 3,
+        "uid": "3",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      }
+    ]
+  },
+  "USAU 6.4": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "La",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "4th",
+        "uid": "e",
+        "home": "Lb",
+        "away": "Wd"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "L1",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "4",
+        "home": "Lb",
+        "away": "Wd"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "W4"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "L4"
+      }
+    ]
+  },
+  "USAU 7.1": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 7.7": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lc"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      }
+    ]
+  },
+  "USAU 7.2": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "Wb",
+        "away": "La"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "Wb",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      }
+    ]
+  },
+  "USAU 7.3": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "place": "3rd",
+        "uid": "d",
+        "home": "Wb",
+        "away": "Wc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "La"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wd"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Ld"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "uid": "3",
+        "home": "Wb",
+        "away": "Wc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      }
+    ]
+  },
+  "USAU 7.4": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "La",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "place": "4th",
+        "uid": "e",
+        "home": "Lb",
+        "away": "Wd"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "L1",
+        "away": "Wb"
+      },
+      {
+        "round": 2,
+        "uid": "4",
+        "home": "Lb",
+        "away": "Wd"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "W4"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "L4"
+      }
+    ]
+  },
+  "USAU 7.5": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 1,
+        "place": "4th",
+        "uid": "c",
+        "home": "A4",
+        "away": "A5"
+      },
+      {
+        "round": 2,
+        "place": "5th",
+        "uid": "e",
+        "home": "Lc",
+        "away": "Wd"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "La"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 1,
+        "uid": "4",
+        "home": "A4",
+        "away": "A5"
+      },
+      {
+        "round": 2,
+        "uid": "5",
+        "home": "L4",
+        "away": "Wd"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "W4"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      }
+    ]
+  },
+  "USAU 7.6": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "place": "6th",
+        "uid": "e",
+        "home": "Lb",
+        "away": "Lc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "La"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Le"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "A2"
+      },
+      {
+        "round": 2,
+        "uid": "6",
+        "home": "Lb",
+        "away": "Lc"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "W6"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "L6"
+      }
+    ]
+  },
+  "USAU 8.1": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lg"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lj"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wl"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Ll"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 8.2": {
+    "old": [
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wi"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Li"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lj"
+      }
+    ],
+    "new": [
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 8.3": {
+    "old": [
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "e",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 3,
+        "place": "7th",
+        "uid": "k",
+        "home": "Lf",
+        "away": "Lg"
+      },
+      {
+        "round": 4,
+        "place": "3rd",
+        "uid": "j",
+        "home": "Wh",
+        "away": "Wi"
+      },
+      {
+        "round": 4,
+        "place": "5th",
+        "uid": "l",
+        "home": "Lh",
+        "away": "Li"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Le"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lj"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wl"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Ll"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lk"
+      }
+    ],
+    "new": [
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 3,
+        "uid": "7",
+        "home": "Lf",
+        "away": "Lg"
+      },
+      {
+        "round": 4,
+        "uid": "3",
+        "home": "Wh",
+        "away": "Wi"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Lh",
+        "away": "Li"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 8.4": {
+    "old": [
+      {
+        "round": 1,
+        "place": "1st",
+        "uid": "a",
+        "home": "A1",
+        "away": "B1"
+      },
+      {
+        "round": 2,
+        "place": "2nd",
+        "uid": "c",
+        "home": "La",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "place": "4th",
+        "uid": "g",
+        "home": "Lb",
+        "away": "Wf"
+      },
+      {
+        "round": 3,
+        "uid": "h",
+        "home": "Ld",
+        "away": "Le"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wa"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lc"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Lg"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wh"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lh"
+      }
+    ],
+    "new": [
+      {
+        "round": 1,
+        "uid": "1",
+        "home": "A1",
+        "away": "B1"
+      },
+      {
+        "round": 2,
+        "uid": "2",
+        "home": "L1",
+        "away": "Wb"
+      },
+      {
+        "round": 3,
+        "uid": "4",
+        "home": "Lb",
+        "away": "Wf"
+      },
+      {
+        "round": 3,
+        "uid": "7",
+        "home": "Ld",
+        "away": "Le"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "W4"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "L4"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 8.5": {
+    "old": [
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "g",
+        "home": "We",
+        "away": "Wf"
+      },
+      {
+        "round": 3,
+        "place": "7th",
+        "uid": "n",
+        "home": "Lh",
+        "away": "Li"
+      },
+      {
+        "round": 4,
+        "place": "5th",
+        "uid": "o",
+        "home": "Lj",
+        "away": "Lk"
+      },
+      {
+        "round": 5,
+        "place": "2nd",
+        "uid": "m",
+        "home": "Wl",
+        "away": "Lg"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wm"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lm"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wo"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lo"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wn"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Ln"
+      }
+    ],
+    "new": [
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "We",
+        "away": "Wf"
+      },
+      {
+        "round": 3,
+        "uid": "7",
+        "home": "Lh",
+        "away": "Li"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Lj",
+        "away": "Lk"
+      },
+      {
+        "round": 5,
+        "uid": "2",
+        "home": "Wl",
+        "away": "L1"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 8.6": {
+    "old": [
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "e",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 4,
+        "place": "2nd",
+        "uid": "g",
+        "home": "Le",
+        "away": "Wf"
+      },
+      {
+        "round": 4,
+        "place": "4th",
+        "uid": "k",
+        "home": "Lf",
+        "away": "Wj"
+      },
+      {
+        "round": 4,
+        "place": "6th",
+        "uid": "m",
+        "home": "Lj",
+        "away": "Wl"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "We"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Lg"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Wm"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Lm"
+      }
+    ],
+    "new": [
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "Wc",
+        "away": "Wd"
+      },
+      {
+        "round": 4,
+        "uid": "2",
+        "home": "L1",
+        "away": "Wf"
+      },
+      {
+        "round": 4,
+        "uid": "4",
+        "home": "Lf",
+        "away": "Wj"
+      },
+      {
+        "round": 4,
+        "uid": "6",
+        "home": "Lj",
+        "away": "Wl"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "W4"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "L4"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "W6"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "L6"
+      }
+    ]
+  },
+  "USAU 9.1": {
+    "old": [
+      {
+        "round": 3,
+        "place": "1st",
+        "uid": "g",
+        "home": "We",
+        "away": "Wf"
+      },
+      {
+        "round": 3,
+        "place": "3rd",
+        "uid": "k",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "place": "5th",
+        "uid": "j",
+        "home": "Wh",
+        "away": "Wi"
+      },
+      {
+        "round": 3,
+        "place": "7th",
+        "uid": "l",
+        "home": "Lh",
+        "away": "Li"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wg"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Lg"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lj"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wl"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Ll"
+      }
+    ],
+    "new": [
+      {
+        "round": 3,
+        "uid": "1",
+        "home": "We",
+        "away": "Wf"
+      },
+      {
+        "round": 3,
+        "uid": "3",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "5",
+        "home": "Wh",
+        "away": "Wi"
+      },
+      {
+        "round": 3,
+        "uid": "7",
+        "home": "Lh",
+        "away": "Li"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "L1"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "W3"
+      },
+      {
+        "position": 4,
+        "prereq_uid": "L3"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  },
+  "USAU 9.2": {
+    "old": [
+      {
+        "round": 2,
+        "place": "1st",
+        "uid": "c",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 4,
+        "place": "2nd",
+        "uid": "i",
+        "home": "Lc",
+        "away": "Wh"
+      },
+      {
+        "round": 3,
+        "place": "5th",
+        "uid": "k",
+        "home": "Lf",
+        "away": "Lg"
+      },
+      {
+        "round": 3,
+        "place": "7th",
+        "uid": "j",
+        "home": "Ld",
+        "away": "Le"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "Wc"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "Wi"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "Li"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "Wk"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "Lk"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "Wj"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "Lj"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "1",
+        "home": "Wa",
+        "away": "Wb"
+      },
+      {
+        "round": 4,
+        "uid": "2",
+        "home": "L1",
+        "away": "Wh"
+      },
+      {
+        "round": 3,
+        "uid": "5",
+        "home": "Lf",
+        "away": "Lg"
+      },
+      {
+        "round": 3,
+        "uid": "7",
+        "home": "Ld",
+        "away": "Le"
+      },
+      {
+        "position": 1,
+        "prereq_uid": "W1"
+      },
+      {
+        "position": 2,
+        "prereq_uid": "W2"
+      },
+      {
+        "position": 3,
+        "prereq_uid": "L2"
+      },
+      {
+        "position": 5,
+        "prereq_uid": "W5"
+      },
+      {
+        "position": 6,
+        "prereq_uid": "L5"
+      },
+      {
+        "position": 7,
+        "prereq_uid": "W7"
+      },
+      {
+        "position": 8,
+        "prereq_uid": "L7"
+      }
+    ]
+  }
+}

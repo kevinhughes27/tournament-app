@@ -9,17 +9,17 @@
     {"pool":"A", "home":1, "away":3}, {"pool":"A", "home":2, "away":5}, {"pool":"A", "home":4, "away":7},
     {"pool":"A", "home":1, "away":6}, {"pool":"A", "home":2, "away":4}, {"pool":"A", "home":3, "away":5},
 
-    {"round":1, "place":"1st", "uid":"a", "home":"A1", "away":"A2"},
+    {"round":1, "uid":"1", "home":"A1", "away":"A2"},
     {"round":1, "uid":"b", "home":"A3", "away":"A6"},
     {"round":1, "uid":"c", "home":"A5", "away":"A4"},
 
-    {"round":2, "place":"3rd", "uid":"d", "home":"Wb", "away":"Wc"}
+    {"round":2, "uid":"3", "home":"Wb", "away":"Wc"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "Wa"},
-    {"position":2, "prereq_uid": "La"},
-    {"position":3, "prereq_uid": "Wd"},
-    {"position":4, "prereq_uid": "Ld"},
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "L1"},
+    {"position":3, "prereq_uid": "W3"},
+    {"position":4, "prereq_uid": "L3"},
     {"position":5, "prereq_uid": "Lb"},
     {"position":6, "prereq_uid": "Lc"},
     {"position":7, "prereq_uid": "A7"}

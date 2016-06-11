@@ -5,7 +5,7 @@
     <%= bracket_partial('table_4.1', pool: 'C', seeds: [3,4,9,10]) %>
 
     {"round":1, "uid":"a", "home":"B3", "away":"C3"},
-    {"round":1, "uid":"x", "home":"B4", "away":"C4"},
+    {"round":1, "uid":"10", "home":"B4", "away":"C4"},
 
     {"round":2, "uid":"b", "home":"A1", "away":"Wa"},
     {"round":2, "uid":"c", "home":"C2", "away":"B2"},
@@ -17,26 +17,26 @@
     {"round": 2, "uid":"i", "home":"Lb", "away":"Ld"},
     {"round": 2, "uid":"j", "home":"Lc", "away":"Le"},
 
-    {"round": 3, "place":"1st", "uid": "h", "home":"Wf", "away":"Wg"},
+    {"round": 3, "uid": "1", "home":"Wf", "away":"Wg"},
     {"round": 3, "uid": "k", "home":"Wi", "away":"Lf"},
     {"round": 3, "uid": "l", "home":"Wj", "away":"Lg"},
-    {"round": 3, "place":"7th", "uid": "o", "home":"Li", "away":"Lj"},
+    {"round": 3, "uid": "7", "home":"Li", "away":"Lj"},
 
-    {"round": 4, "place":"3rd", "uid": "m", "home":"Wk", "away":"Wl"},
-    {"round": 4, "place":"5th", "uid": "n", "home":"Lk", "away":"Ll"}
+    {"round": 4, "uid": "3", "home":"Wk", "away":"Wl"},
+    {"round": 4, "uid": "5", "home":"Lk", "away":"Ll"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "Wh"},
-    {"position":2, "prereq_uid": "Lh"},
-    {"position":3, "prereq_uid": "Wm"},
-    {"position":4, "prereq_uid": "Lm"},
-    {"position":5, "prereq_uid": "Wn"},
-    {"position":6, "prereq_uid": "Ln"},
-    {"position":7, "prereq_uid": "Wo"},
-    {"position":8, "prereq_uid": "Lo"},
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "L1"},
+    {"position":3, "prereq_uid": "W3"},
+    {"position":4, "prereq_uid": "L3"},
+    {"position":5, "prereq_uid": "W5"},
+    {"position":6, "prereq_uid": "L5"},
+    {"position":7, "prereq_uid": "W7"},
+    {"position":8, "prereq_uid": "L7"},
     {"position":9, "prereq_uid": "La"},
-    {"position":10, "prereq_uid": "Wx"},
-    {"position":11, "prereq_uid": "Lx"},
+    {"position":10, "prereq_uid": "W10"},
+    {"position":11, "prereq_uid": "L10"},
     {"position":12, "prereq_uid": "A4"},
     {"position":13, "prereq_uid": "A5"}
   ]

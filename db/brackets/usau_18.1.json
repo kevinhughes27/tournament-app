@@ -8,8 +8,8 @@
     <%= bracket_partial('bracket_16.1') %>
   ],
   "places": [
-    {"position":1, "prereq_uid": "Wk"},
-    {"position":2, "prereq_uid": "Lk"},
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "L1"},
     {"position":3, "prereq_uid": "Li"},
     {"position":4, "prereq_uid": "Lj"},
     {"position":5, "prereq_uid": "Le"},

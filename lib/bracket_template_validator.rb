@@ -30,7 +30,6 @@ class BracketTemplateValidator
     "properties" => {
       "seed"  => { "type" => "integer" },
       "round" => { "type" => "integer" },
-      "place" => { "type" => "string" },
       "uid"   => { "type" => ["string", "integer"] },
       "home"  => { "type" => ["string", "integer"] },
       "away"  => { "type" => ["string", "integer"] },
@@ -126,9 +125,9 @@ class BracketTemplateValidator
     # matches the places array. aka if a game has the field place => 1st then the winner
     # of that game better be the prereq_uid of 1st place or else they don't match
     def validate_nodes_match_places(template_json)
-      place_games = template_json[:games].map{ |g| g if g[:place] }.compact
+      place_games = template_json[:games].map{ |g| g if g[:uid].try(:is_i?) }.compact
       place_games.each do |game|
-        place_num = game[:place].gsub(/[A-Za-z]/, '').to_i
+        place_num = game[:uid].to_i
         place_obj = template_json[:places].detect{ |p| p[:position] == place_num }
         raise GamesPlacesMismatch unless place_obj[:prereq_uid] == "W#{game[:uid]}"
       end

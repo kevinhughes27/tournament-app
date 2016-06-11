@@ -10,19 +10,19 @@
     {"round": 2, "uid": "c1", "home":"Lq1", "away":"Lq4"},
     {"round": 2, "uid": "c2", "home":"Lq2", "away":"Lq3"},
 
-    {"round": 3, "place": "1st", "uid": "f1", "home":"Ws1", "away":"Ws2"},
-    {"round": 3, "place": "3rd", "uid": "f2", "home":"Ls1", "away":"Ls2"},
-    {"round": 3, "place": "5th", "uid": "f3", "home":"Wc1", "away":"Wc2"},
-    {"round": 3, "place": "7th", "uid": "f4", "home":"Lc1", "away":"Lc2"}
+    {"round": 3, "uid": "1", "home":"Ws1", "away":"Ws2"},
+    {"round": 3, "uid": "3", "home":"Ls1", "away":"Ls2"},
+    {"round": 3, "uid": "5", "home":"Wc1", "away":"Wc2"},
+    {"round": 3, "uid": "7", "home":"Lc1", "away":"Lc2"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "Wf1"},
-    {"position":2, "prereq_uid": "Lf1"},
-    {"position":3, "prereq_uid": "Wf2"},
-    {"position":4, "prereq_uid": "Lf2"},
-    {"position":5, "prereq_uid": "Wf3"},
-    {"position":6, "prereq_uid": "Lf3"},
-    {"position":7, "prereq_uid": "Wf4"},
-    {"position":8, "prereq_uid": "Lf4"}
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "L1"},
+    {"position":3, "prereq_uid": "W3"},
+    {"position":4, "prereq_uid": "L3"},
+    {"position":5, "prereq_uid": "W5"},
+    {"position":6, "prereq_uid": "L5"},
+    {"position":7, "prereq_uid": "W7"},
+    {"position":8, "prereq_uid": "L7"}
   ]
 }

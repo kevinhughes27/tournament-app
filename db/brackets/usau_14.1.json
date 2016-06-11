@@ -6,29 +6,29 @@
     {"round":1, "uid":"a", "home":"A1", "away":"B2"},
     {"round":1, "uid":"b", "home":"B1", "away":"A2"},
 
-    {"round":2, "place":"1st", "uid":"c", "home":"Wa", "away":"Wb"},
-    {"round":2, "place":"3rd", "uid":"d", "home":"La", "away":"Lb"},
+    {"round":2, "uid":"1", "home":"Wa", "away":"Wb"},
+    {"round":2, "uid":"3", "home":"La", "away":"Lb"},
 
-    {"round":1, "place":"5th", "uid":"e", "home":"A3", "away":"B3"},
-    {"round":1, "place":"7th", "uid":"f", "home":"A4", "away":"B4"},
-    {"round":1, "place":"9th", "uid":"g", "home":"A5", "away":"B5"},
-    {"round":1, "place":"11th", "uid":"h", "home":"A6", "away":"B6"},
-    {"round":1, "place":"13th", "uid":"i", "home":"A7", "away":"B7"}
+    {"round":1, "uid":"5", "home":"A3", "away":"B3"},
+    {"round":1, "uid":"7", "home":"A4", "away":"B4"},
+    {"round":1, "uid":"9", "home":"A5", "away":"B5"},
+    {"round":1, "uid":"11", "home":"A6", "away":"B6"},
+    {"round":1, "uid":"13", "home":"A7", "away":"B7"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "Wc"},
-    {"position":2, "prereq_uid": "Lc"},
-    {"position":3, "prereq_uid": "Wd"},
-    {"position":4, "prereq_uid": "Ld"},
-    {"position":5, "prereq_uid": "We"},
-    {"position":6, "prereq_uid": "Le"},
-    {"position":7, "prereq_uid": "Wf"},
-    {"position":8, "prereq_uid": "Lf"},
-    {"position":9, "prereq_uid": "Wg"},
-    {"position":10, "prereq_uid": "Lg"},
-    {"position":11, "prereq_uid": "Wh"},
-    {"position":12, "prereq_uid": "Lh"},
-    {"position":13, "prereq_uid": "Wi"},
-    {"position":14, "prereq_uid": "Li"}
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "L1"},
+    {"position":3, "prereq_uid": "W3"},
+    {"position":4, "prereq_uid": "L3"},
+    {"position":5, "prereq_uid": "W5"},
+    {"position":6, "prereq_uid": "L5"},
+    {"position":7, "prereq_uid": "W7"},
+    {"position":8, "prereq_uid": "L7"},
+    {"position":9, "prereq_uid": "W9"},
+    {"position":10, "prereq_uid": "L9"},
+    {"position":11, "prereq_uid": "W11"},
+    {"position":12, "prereq_uid": "L11"},
+    {"position":13, "prereq_uid": "W13"},
+    {"position":14, "prereq_uid": "L13"}
   ]
 }

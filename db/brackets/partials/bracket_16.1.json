@@ -11,4 +11,4 @@
 {"round": 3, "uid": "i", "home":"We", "away":"Wf"},
 {"round": 3, "uid": "j", "home":"Wg", "away":"Wh"},
 
-{"round": 4, "place": "1st", "uid": "k", "home":"Wi", "away":"Wj"}
+{"round": 4, "uid": "1", "home":"Wi", "away":"Wj"}
