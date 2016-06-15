@@ -14,7 +14,8 @@ class BracketTemplateValidator
 
   POOL_GAME_SCHEMA = {
     "properties" => {
-      "pool" => { "type" => ["string", "integer"] },
+      "pool" => { "type" => "string" },
+      "round" => { "type" => "integer" },
       "home"  => { "type" => ["string", "integer"] },
       "away"  => { "type" => ["string", "integer"] },
     },
