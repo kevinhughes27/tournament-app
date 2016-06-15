@@ -10,7 +10,7 @@ class Game < ApplicationRecord
 
   validates_presence_of :tournament
   validates_presence_of :division, :home_prereq_uid, :away_prereq_uid
-
+  validates_presence_of :round
   validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }
   validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
 
