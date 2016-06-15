@@ -9,20 +9,12 @@ class Bracket < FrozenRecord::Base
     template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
   end
 
-  def game_uids_past_round(round)
-    template[:games].map{ |g| g[:uid] if g[:round] > round }.compact
-  end
-
   def game_uids_for_seeding(seed_round)
     template[:games].map{ |g| g[:uid] if g[:seed] == seed_round }.compact
   end
 
   def game_uids_not_for_seeding(seed_round)
     template[:games].map{ |g| g[:uid] if g[:seed] != seed_round }.compact
-  end
-
-  def game_uid_for_place(place)
-    template[:games].detect{ |g| g[:place] == place }[:uid]
   end
 end
 
