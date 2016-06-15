@@ -1,5 +1,51 @@
-{"pool":"<%= pool %>", "home":<%= seeds[0] %>, "away":<%= seeds[1] %>}, {"pool":"<%= pool %>", "home":<%= seeds[2] %>, "away":<%= seeds[3] %>},
-{"pool":"<%= pool %>", "home":<%= seeds[0] %>, "away":<%= seeds[3] %>}, {"pool":"<%= pool %>", "home":<%= seeds[1] %>, "away":<%= seeds[4] %>},
-{"pool":"<%= pool %>", "home":<%= seeds[0] %>, "away":<%= seeds[2] %>}, {"pool":"<%= pool %>", "home":<%= seeds[3] %>, "away":<%= seeds[4] %>},
-{"pool":"<%= pool %>", "home":<%= seeds[1] %>, "away":<%= seeds[3] %>}, {"pool":"<%= pool %>", "home":<%= seeds[2] %>, "away":<%= seeds[4] %>},
-{"pool":"<%= pool %>", "home":<%= seeds[1] %>, "away":<%= seeds[2] %>}, {"pool":"<%= pool %>", "home":<%= seeds[0] %>, "away":<%= seeds[4] %>},
+{
+  "pool":"<%= pool %>",
+  "round": 1,
+  "home":<%= seeds[0] %>, "away":<%= seeds[1] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 2,
+  "home":<%= seeds[0] %>, "away":<%= seeds[3] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 3,
+  "home":<%= seeds[0] %>, "away":<%= seeds[2] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 4,
+  "home":<%= seeds[1] %>, "away":<%= seeds[3] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 5,
+  "home":<%= seeds[1] %>, "away":<%= seeds[2] %>
+},
+
+{
+  "pool":"<%= pool %>",
+  "round": 1,
+  "home":<%= seeds[2] %>, "away":<%= seeds[3] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 2,
+  "home":<%= seeds[1] %>, "away":<%= seeds[4] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 3,
+  "home":<%= seeds[3] %>, "away":<%= seeds[4] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 4,
+  "home":<%= seeds[2] %>, "away":<%= seeds[4] %>
+},
+{
+  "pool":"<%= pool %>",
+  "round": 5,
+  "home":<%= seeds[0] %>, "away":<%= seeds[4] %>
+},
