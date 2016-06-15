@@ -106,7 +106,7 @@ class Admin.FieldEditor
       @_cancelDrawing()
 
   _undoHandler: =>
-    return if @historyBuffer.length == 1
+    return if @historyBuffer.length <= 1
 
     @historyBuffer.pop()
     console.log("Map History Buffer size: #{@historyBuffer.length}")
