@@ -1,10 +1,22 @@
 {
   "games": [
-    {"pool":"A", "home":1, "away":3}, {"pool":"A", "home":2, "away":5}, {"pool":"A", "home":4, "away":6},
-    {"pool":"A", "home":1, "away":5}, {"pool":"A", "home":2, "away":4}, {"pool":"A", "home":3, "away":6},
-    {"pool":"A", "home":1, "away":6}, {"pool":"A", "home":2, "away":3}, {"pool":"A", "home":4, "away":5},
-    {"pool":"A", "home":1, "away":4}, {"pool":"A", "home":2, "away":6}, {"pool":"A", "home":3, "away":5},
-    {"pool":"A", "home":1, "away":2}, {"pool":"A", "home":3, "away":4}, {"pool":"A", "home":5, "away":6}
+    {"pool":"A", "round":1, "home":1, "away":3},
+    {"pool":"A", "round":2, "home":1, "away":5},
+    {"pool":"A", "round":3, "home":1, "away":6},
+    {"pool":"A", "round":4, "home":1, "away":4},
+    {"pool":"A", "round":5, "home":1, "away":2},
+
+    {"pool":"A", "round":1, "home":2, "away":5},
+    {"pool":"A", "round":2, "home":2, "away":4},
+    {"pool":"A", "round":3, "home":2, "away":3},
+    {"pool":"A", "round":4, "home":2, "away":6},
+    {"pool":"A", "round":5, "home":3, "away":4},
+
+    {"pool":"A", "round":1, "home":4, "away":6},
+    {"pool":"A", "round":2, "home":3, "away":6},
+    {"pool":"A", "round":3, "home":4, "away":5},
+    {"pool":"A", "round":4, "home":3, "away":5},
+    {"pool":"A", "round":5, "home":5, "away":6}
   ],
   "places": [
     {"position":1, "prereq_uid": "A1"},

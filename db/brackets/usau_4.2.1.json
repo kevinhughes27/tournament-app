@@ -1,5 +1,4 @@
 {
-
   "games": [
     <%= bracket_partial('table_4.1', pool: 'A', seeds: [1,2,3,4]) %>
 
