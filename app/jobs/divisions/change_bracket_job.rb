@@ -1,6 +1,5 @@
 module Divisions
   class ChangeBracketJob < ApplicationJob
-    queue_as :default
 
     def perform(tournament_id:, division_id:, new_template:)
       Game.where(

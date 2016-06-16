@@ -1,7 +1,5 @@
 module Divisions
   class DirtySeedJob < ApplicationJob
-    queue_as :default
-
     attr_reader :division
 
     # returns true if seeding would result in changes

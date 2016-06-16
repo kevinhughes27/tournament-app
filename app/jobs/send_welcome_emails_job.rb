@@ -1,5 +1,4 @@
 class SendWelcomeEmailsJob < ApplicationJob
-  queue_as :default
 
   def perform
     tournaments.each do |tournament|

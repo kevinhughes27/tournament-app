@@ -1,7 +1,5 @@
 module Divisions
   class SeedJob < ApplicationJob
-    queue_as :default
-
     attr_reader :division, :seed_round
 
     def perform(division:, seed_round:)

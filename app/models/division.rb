@@ -40,6 +40,11 @@ class Division < ApplicationRecord
     Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
   end
 
+  def self.pool_finished?(tournament_id:, division_id:, pool:)
+    games = Game.where(tournament_id: tournament_id, division_id: division_id, pool: pool)
+    games.all? { |game| game.confirmed? }
+  end
+
   def safe_to_change?
     return true unless self.bracket_type_changed?
     safe, @change_message = Divisions::SafeToAdvanceBracketJob.perform_now(division: self)
