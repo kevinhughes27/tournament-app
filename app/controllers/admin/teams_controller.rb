@@ -43,34 +43,11 @@ class Admin::TeamsController < AdminController
   end
 
   def import_csv
-    file_path = params[:csv_file].path
+    file = params[:csv_file].path
     ignore = params[:match_behaviour] == 'ignore'
 
-    @teams = @tournament.teams
-
-    rowNum = 1
-    Team.transaction do
-      CSV.foreach(file_path, headers: true, :header_converters => lambda { |h| h.try(:downcase).strip }) do |row|
-        rowNum += 1
-        attributes = row.to_hash.with_indifferent_access
-        attributes = csv_params(attributes)
-
-        if attributes[:division]
-          if division = Division.find_by(tournament_id: @tournament.id, name: attributes[:division])
-            attributes[:division] = division
-          else
-            attributes.delete(:division)
-          end
-        end
-
-        if team = @teams.detect{ |t| t.name == attributes[:name] }
-          next if ignore
-          team.update_attributes!(attributes)
-        else
-          @tournament.teams.create!(attributes)
-        end
-      end
-    end
+    importer = TeamCsvImporter.new(@tournament, file, ignore)
+    importer.run!
 
     flash[:notice] = 'Teams imported successfully'
     redirect_to action: :index
@@ -113,16 +90,6 @@ class Admin::TeamsController < AdminController
       :email,
       :phone,
       :division_id,
-      :seed
-    )
-  end
-
-  def csv_params(attributes)
-    attributes.slice(
-      :name,
-      :email,
-      :phone,
-      :division,
       :seed
     )
   end
