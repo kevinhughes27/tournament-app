@@ -25,6 +25,8 @@ def template_game_for_game(template, game)
 end
 
 def remap(template_game)
+  template_game.delete('seed')
+
   keymap = {
     "home" => "home_prereq_uid",
     "away" => "away_prereq_uid",
