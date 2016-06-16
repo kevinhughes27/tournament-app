@@ -9,7 +9,9 @@ else
   SimpleCov.coverage_dir(dir)
 end
 
-SimpleCov.start 'rails'
+if ENV['CIRCLE_ARTIFACTS'] || ENV['COVERAGE']
+  SimpleCov.start 'rails'
+end
 
 ENV['RAILS_ENV'] ||= 'test'
 
