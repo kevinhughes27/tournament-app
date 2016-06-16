@@ -1,5 +1,5 @@
 module Divisions
-  class SafeToAdvanceBracketJob < ApplicationJob
+  class SafeToUpdateBracketJob < ApplicationJob
     attr_reader :division, :games
 
     GAMES_SCHEDULE_MESSAGE = 'This division has games that have been scheduled. Changing the bracket' \

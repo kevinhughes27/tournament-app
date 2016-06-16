@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Divisions
-  class SafeToAdvanceBracketJobTest < ActiveJob::TestCase
+  class SafeToUpdateBracketJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
       @division = divisions(:women)
@@ -29,7 +29,7 @@ module Divisions
     end
 
     def perform
-      SafeToAdvanceBracketJob.perform_now(division: @division)
+      SafeToUpdateBracketJob.perform_now(division: @division)
     end
   end
 end

@@ -1,5 +1,5 @@
 module Divisions
-  class UpdatePoolJob < ApplicationJob
+  class FinishPoolJob < ApplicationJob
     attr_reader :division, :pool
 
     def perform(division:, pool:)

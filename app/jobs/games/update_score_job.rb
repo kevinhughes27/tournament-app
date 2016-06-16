@@ -61,7 +61,7 @@ module Games
     end
 
     def update_pool
-      Divisions::UpdatePoolJob.perform_later(
+      Divisions::FinishPoolJob.perform_later(
         division: game.division,
         pool: game.pool
       )

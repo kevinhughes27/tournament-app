@@ -43,7 +43,7 @@ module Games
     test "updates the pool for pool game" do
       @game.update_column(:pool, 'A')
       SafeToUpdateScoreJob.expects(:perform_now).returns(true)
-      Divisions::UpdatePoolJob.expects(:perform_later)
+      Divisions::FinishPoolJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
