@@ -10,8 +10,23 @@ module Divisions
     end
 
     test "game pushes its winner to a place when its score is confirmed" do
-      game = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-      place = Place.create(tournament: @tournament, division: @division, prereq_uid: 'Wq1', position: 1)
+      game = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        round: 1,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away
+      )
+
+      place = Place.create!(
+        tournament: @tournament,
+        division: @division,
+        prereq_uid: 'Wq1',
+        position: 1
+      )
 
       game.update_columns(home_score: 15, away_score: 11)
       UpdatePlacesJob.perform_now(game_id: game.id)
@@ -20,8 +35,23 @@ module Divisions
     end
 
     test "game pushes its loser to a place when its score is confirmed" do
-      game = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
-      place = Place.create(tournament: @tournament, division: @division, prereq_uid: 'Lq1', position: 2)
+      game = Game.create!(
+        tournament: @tournament,
+        division: @division,
+        round: 1,
+        bracket_uid: 'q1',
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away
+      )
+
+      place = Place.create!(
+        tournament: @tournament,
+        division: @division,
+        prereq_uid: 'Lq1',
+        position: 2
+      )
 
       game.update_columns(home_score: 15, away_score: 11)
       UpdatePlacesJob.perform_now(game_id: game.id)
