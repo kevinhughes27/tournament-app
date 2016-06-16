@@ -31,7 +31,17 @@ module Games
     end
 
     test "can flip the winner" do
-      game = Game.create(tournament: @tournament, division: @division, bracket_uid: 'q1', home_prereq_uid: '1', away_prereq_uid: '2', home: @home, away: @away)
+      game = Game.create(
+        tournament: @tournament,
+        division: @division,
+        bracket_uid: 'q1',
+        round: 1,
+        home_prereq_uid: '1',
+        away_prereq_uid: '2',
+        home: @home,
+        away: @away
+      )
+
       home_wins = @home.wins
       home_pts_for = @home.points_for
       away_wins = @away.wins

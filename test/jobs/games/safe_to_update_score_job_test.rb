@@ -44,6 +44,7 @@ module Games
       game1 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 1,
         bracket_uid: 'q1',
         home_prereq_uid: '1',
         away_prereq_uid: '2',
@@ -57,6 +58,7 @@ module Games
       game2 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 2,
         bracket_uid: 's1',
         home_prereq_uid: 'Wq1',
         away_prereq_uid: 'Wq2'
@@ -81,6 +83,7 @@ module Games
       game1 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 1,
         bracket_uid: 'q1',
         home_prereq_uid: '1',
         away_prereq_uid: '2',
@@ -93,6 +96,7 @@ module Games
       game2 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 2,
         bracket_uid: 's1',
         home_prereq_uid: 'Wq1',
         away_prereq_uid: 'Wq2'

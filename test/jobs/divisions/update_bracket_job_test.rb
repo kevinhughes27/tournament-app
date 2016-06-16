@@ -13,6 +13,7 @@ module Divisions
       game1 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 1,
         bracket_uid: 'q1',
         home_prereq_uid: '1',
         away_prereq_uid: '2',
@@ -26,6 +27,7 @@ module Divisions
       game2 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 2,
         bracket_uid: 's1',
         home_prereq_uid: 'Wq1',
         away_prereq_uid: 'Wq2'
@@ -41,6 +43,7 @@ module Divisions
       game1 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 1,
         bracket_uid: 'q1',
         home_prereq_uid: '1',
         away_prereq_uid: '2',
@@ -54,6 +57,7 @@ module Divisions
       game2 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 2,
         bracket_uid: 'c1',
         home_prereq_uid: 'Lq2',
         away_prereq_uid: 'Lq1'
@@ -69,6 +73,7 @@ module Divisions
       game1 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 1,
         bracket_uid: 'q1',
         home_prereq_uid: '1',
         away_prereq_uid: '2',
@@ -82,6 +87,7 @@ module Divisions
       game2 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 2,
         bracket_uid: 's1',
         home_prereq_uid: 'Wq1',
         away_prereq_uid: 'Wq2',
@@ -100,6 +106,7 @@ module Divisions
       game1 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 1,
         bracket_uid: 'q1',
         home_prereq_uid: '1',
         away_prereq_uid: '2',
@@ -113,6 +120,7 @@ module Divisions
       game2 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 2,
         bracket_uid: 's1',
         home_prereq_uid: 'Wq1',
         away_prereq_uid: 'Wq2',
@@ -123,6 +131,7 @@ module Divisions
       game3 = Game.create!(
         tournament: @tournament,
         division: @division,
+        round: 3,
         bracket_uid: 'f1',
         home_prereq_uid: 'Ws1',
         away_prereq_uid: 'Ws2',
