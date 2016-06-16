@@ -20,8 +20,7 @@ class Division < ApplicationRecord
 
   after_commit :create_games, on: :create
   after_commit :create_places, on: :create
-  after_update :update_games
-  after_update :update_places
+  after_update :update_bracket
 
   scope :un_seeded, -> { where(seeded: false) }
 
@@ -73,19 +72,17 @@ class Division < ApplicationRecord
     )
   end
 
-  def update_games
+  def update_bracket
     return unless self.bracket_type_changed?
     self.update_column(:seeded, false)
-    self.games.destroy_all
-    @bracket = Bracket.find_by(name: self.bracket_type)
-    create_games
-  end
 
-  def update_places
-    return unless self.bracket_type_changed?
-    self.games.destroy_all
-    @bracket = Bracket.find_by(name: self.bracket_type)
-    create_places
+    bracket = Bracket.find_by(handle: self.bracket_type)
+
+    Divisions::ChangeBracketJob.perform_later(
+      tournament_id: tournament_id,
+      division_id: id,
+      new_template: bracket.template
+    )
   end
 
   def validate_bracket_type
