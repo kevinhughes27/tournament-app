@@ -5,6 +5,7 @@ namespace :m do
       template = bracket.template
       division.games.each do |game|
         template_game = template_game_for_game(template, game)
+        next unless template_game
         game.update_columns(remap(template_game))
       end
     end
@@ -15,8 +16,8 @@ def template_game_for_game(template, game)
   if game.pool_game?
     template['games'].detect do |tg|
       tg[:pool] == game.pool &&
-      tg[:home] == game.home_prereq_uid &&
-      tg[:away] == game.away_prereq_uid
+      tg[:home].to_s == game.home_prereq_uid &&
+      tg[:away].to_s == game.away_prereq_uid
     end
   else
     template['games'].detect{ |tg| tg[:uid] == game.bracket_uid }
