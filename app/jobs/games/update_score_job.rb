@@ -68,7 +68,7 @@ module Games
     end
 
     def update_bracket
-      Divisions::UpdateBracketJob.perform_later(game_id: game.id)
+      Divisions::AdvanceBracketJob.perform_later(game_id: game.id)
     end
 
     def update_places

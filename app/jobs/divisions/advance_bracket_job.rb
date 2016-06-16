@@ -1,5 +1,5 @@
 module Divisions
-  class UpdateBracketJob < ApplicationJob
+  class AdvanceBracketJob < ApplicationJob
     queue_as :default
 
     def perform(game_id:)

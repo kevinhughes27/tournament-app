@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Divisions
-  class UpdateBracketJobTest < ActiveJob::TestCase
+  class AdvanceBracketJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
       @division = divisions(:open)
@@ -34,7 +34,7 @@ module Divisions
       )
 
       perform_enqueued_jobs do
-        UpdateBracketJob.perform_now(game_id: game1.id)
+        AdvanceBracketJob.perform_now(game_id: game1.id)
         assert_equal @home, game2.reload.home
       end
     end
@@ -64,7 +64,7 @@ module Divisions
       )
 
       perform_enqueued_jobs do
-        UpdateBracketJob.perform_now(game_id: game1.id)
+        AdvanceBracketJob.perform_now(game_id: game1.id)
         assert_equal @away, game2.reload.away
       end
     end
@@ -96,7 +96,7 @@ module Divisions
       )
 
       perform_enqueued_jobs do
-        UpdateBracketJob.perform_now(game_id: game1.id)
+        AdvanceBracketJob.perform_now(game_id: game1.id)
         assert_equal @away, game2.reload.home
         refute game2.confirmed?
       end
@@ -140,7 +140,7 @@ module Divisions
       )
 
       perform_enqueued_jobs do
-        UpdateBracketJob.perform_now(game_id: game1.id)
+        AdvanceBracketJob.perform_now(game_id: game1.id)
         refute game2.reload.confirmed?
         assert_nil game3.reload.home
       end

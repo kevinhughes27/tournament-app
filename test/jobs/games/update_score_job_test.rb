@@ -48,18 +48,18 @@ module Games
     end
 
     test "doesn't update the bracket for bracket game if winner is the same" do
-      Divisions::UpdateBracketJob.expects(:perform_later).never
+      Divisions::AdvanceBracketJob.expects(:perform_later).never
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
     test "updates the bracket for bracket game if no existing score" do
       @game.reset! && @game.save!
-      Divisions::UpdateBracketJob.expects(:perform_later)
+      Divisions::AdvanceBracketJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
     test "updates the bracket for bracket game if winner changes" do
-      Divisions::UpdateBracketJob.expects(:perform_later)
+      Divisions::AdvanceBracketJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 11, away_score: 15)
     end
 

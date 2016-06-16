@@ -1,5 +1,5 @@
 module Divisions
-  class SafeToUpdateBracketJob < ApplicationJob
+  class SafeToAdvanceBracketJob < ApplicationJob
     queue_as :default
 
     attr_reader :division, :games
