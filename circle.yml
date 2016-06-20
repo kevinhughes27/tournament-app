@@ -36,6 +36,6 @@ database:
 
 test:
   override:
-    - rails test -v
+    - bundle exec rails test -v
   post:
     - bundle exec teaspoon
