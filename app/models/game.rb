@@ -27,6 +27,9 @@ class Game < ApplicationRecord
 
   after_save :broadcast
 
+  scope :bracket_game, -> { where.not(bracket_uid: nil) }
+  scope :pool_game, -> { where.not(pool: nil) }
+
   scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
   scope :reported_unconfirmed, -> { includes(:score_reports).where(score_confirmed: false).where.not(score_reports: {id: nil})}
@@ -120,17 +123,17 @@ class Game < ApplicationRecord
 
   def dependent_games
     [
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "L#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "W#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "L#{bracket_uid}")
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}"),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "L#{bracket_uid}"),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "W#{bracket_uid}"),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "L#{bracket_uid}")
     ].compact
   end
 
   def prerequisite_games
     [
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq_uid.to_s.gsub(/W|L/,'')),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq_uid.to_s.gsub(/W|L/,'')),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq_uid.to_s.gsub(/W|L/,'')),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq_uid.to_s.gsub(/W|L/,'')),
     ].compact
   end
 
