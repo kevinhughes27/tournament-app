@@ -5,7 +5,7 @@
     <%= bracket_partial('table_4.1', pool: 'C', seeds: [3,6,11,14]) %>
     <%= bracket_partial('table_4.1', pool: 'D', seeds: [4,5,12,13]) %>
 
-    <%= bracket_partial('bracket_16.1_full') %>,
+    <%= bracket_partial('bracket_16.1') %>,
 
     {"round": 1, "uid": "aa", "home":"B4", "away":"D4"},
     {"round": 2, "uid": "bb", "home":"C4", "away":"D4"},
