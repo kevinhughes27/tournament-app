@@ -13,19 +13,6 @@ swift_goose:
   start_time: 2015-06-06 12:06:53
   score_confirmed: true
 
-swift_goose_no_score:
-  tournament: noborders
-  division: open
-  round: 1
-  bracket_uid: 'q1'
-  home_prereq_uid: '1'
-  away_prereq_uid: '8'
-  home: swift
-  away: goose
-  field: upi3
-  start_time: 2015-06-06 03:06:53
-  score_confirmed: false
-
 pheonix_mavericks:
   tournament: noborders
   division: open

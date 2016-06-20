@@ -13,6 +13,7 @@ class Game < ApplicationRecord
   validates_presence_of :round
   validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }
   validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
+  validates_uniqueness_of :bracket_uid, scope: :division, if: :bracket_game?
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }

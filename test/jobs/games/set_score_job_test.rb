@@ -5,7 +5,8 @@ module Games
     setup do
       @home = teams(:swift)
       @away = teams(:goose)
-      @game = games(:swift_goose_no_score)
+      @game = games(:swift_goose)
+      @game.reset! && @game.save!
     end
 
     test "updates the teams wins and points_for" do

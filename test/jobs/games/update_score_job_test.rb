@@ -25,7 +25,7 @@ module Games
     end
 
     test "sets the score if no previous score" do
-      game = games(:swift_goose_no_score)
+      @game.reset! && @game.save!
       SetScoreJob.expects(:perform_now)
       UpdateScoreJob.perform_now(game: game, home_score: 15, away_score: 11)
     end

@@ -29,6 +29,12 @@ class GameTest < ActiveSupport::TestCase
     refute @game.teams_present?
   end
 
+  test "bracket_uid must be unique" do
+    game = Game.new(division: @division, bracket_uid: @game.bracket_uid)
+    refute game.valid?
+    assert_equal ['has already been taken'], game.errors[:bracket_uid]
+  end
+
   test "game must have field if it has a start_time" do
     @game.update_attributes(field: nil)
     assert_equal ["can't be blank"], @game.errors[:field]
