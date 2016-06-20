@@ -38,7 +38,9 @@ class App.ScheduleScreen
     teamNames = teamNames.join(',') if $.isArray(teamNames)
 
     if @lastSearch
-      teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
+      teamNames.match("#{@lastSearch} vs") ||
+      teamNames.match("vs #{@lastSearch},") ||
+      teamNames.endsWith("vs #{@lastSearch}")
     else
       true
 
