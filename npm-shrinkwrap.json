@@ -27,9 +27,9 @@
       "resolved": "https://registry.npmjs.org/babel-core/-/babel-core-6.9.1.tgz",
       "dependencies": {
         "minimatch": {
-          "version": "2.0.10",
-          "from": "minimatch@>=2.0.3 <3.0.0",
-          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-2.0.10.tgz"
+          "version": "3.0.2",
+          "from": "minimatch@>=2.0.3",
+          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.2.tgz"
         }
       }
     },

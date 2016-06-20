@@ -16,7 +16,6 @@
     "classnames": "^2.2.3",
     "events": "^1.1.0",
     "griddle-react": "^0.4.0",
-    "minimatch": "^3.0.2",
     "object-squish": "^1.0.0",
     "query-string": "^3.0.0",
     "react": "^0.14.3",
