@@ -39,12 +39,14 @@ class BracketRenderTest < BrowserTest
     page.driver.resize(400, 460)
   end
 
-  Bracket.all.each do |bracket|
-    test "render bracket: #{bracket.handle}" do
-      visit("/render_test?bracket=#{bracket.handle}")
-      assert page.find(".vis-network")
-      sleep(1) # this waits for vis to render
-      compare_or_new(bracket.handle)
+  unless ENV['CIRCLECI']
+    Bracket.all.each do |bracket|
+      test "render bracket: #{bracket.handle}" do
+        visit("/render_test?bracket=#{bracket.handle}")
+        assert page.find(".vis-network")
+        sleep(1) # this waits for vis to render
+        compare_or_new(bracket.handle)
+      end
     end
   end
 
