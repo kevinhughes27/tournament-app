@@ -3,8 +3,8 @@ swift_goose:
   division: open
   round: 1
   bracket_uid: 'q3'
-  home_prereq_uid: '1'
-  away_prereq_uid: '8'
+  home_prereq_uid: '3'
+  away_prereq_uid: '6'
   home: swift
   away: goose
   field: upi1
@@ -18,8 +18,8 @@ pheonix_mavericks:
   division: open
   round: 1
   bracket_uid: 'q4'
-  home_prereq_uid: '2'
-  away_prereq_uid: '7'
+  home_prereq_uid: '4'
+  away_prereq_uid: '5'
   home: pheonix
   away: maverick
   field: upi2

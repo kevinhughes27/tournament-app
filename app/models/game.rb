@@ -35,6 +35,18 @@ class Game < ApplicationRecord
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
   scope :reported_unconfirmed, -> { includes(:score_reports).where(score_confirmed: false).where.not(score_reports: {id: nil})}
 
+  def self.create_from_template!(tournament_id:, division_id:, template_game:)
+    Game.create!(
+      tournament_id: tournament_id,
+      division_id: division_id,
+      pool: template_game[:pool],
+      round: template_game[:round],
+      bracket_uid: template_game[:uid],
+      home_prereq_uid: template_game[:home],
+      away_prereq_uid: template_game[:away]
+    )
+  end
+
   def pool_game?
     pool.present?
   end
