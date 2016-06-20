@@ -1,6 +1,5 @@
 module Divisions
   class CreatePlacesJob < ApplicationJob
-    queue_as :default
 
     def perform(tournament_id:, division_id:, template:)
       template[:places].each do |place|

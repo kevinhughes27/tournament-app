@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604200406) do
+ActiveRecord::Schema.define(version: 20160616233831) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20160604200406) do
     t.string   "pool"
     t.index ["tournament_id", "away_id"], name: "index_games_on_tournament_id_and_away_id"
     t.index ["tournament_id", "division_id", "away_prereq_uid"], name: "tournament_division_away_prereq_uid"
-    t.index ["tournament_id", "division_id", "bracket_uid"], name: "tournament_division_bracket_uid"
+    t.index ["tournament_id", "division_id", "bracket_uid"], name: "index_games_on_tournament_id_and_division_id_and_bracket_uid", unique: true
     t.index ["tournament_id", "division_id", "home_prereq_uid"], name: "tournament_division_home_prereq_uid"
     t.index ["tournament_id", "division_id", "pool"], name: "tournament_division_pool"
     t.index ["tournament_id", "division_id", "score_confirmed"], name: "tournament_division_confirmed"

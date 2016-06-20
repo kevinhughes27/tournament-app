@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Divisions
-  class UpdatePoolJobTest < ActiveJob::TestCase
+  class FinishPoolJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
       @division = divisions(:open)
@@ -13,7 +13,7 @@ module Divisions
       @teams.update_all(division_id: division.id)
 
       Game.any_instance.expects(:save!).never
-      UpdatePoolJob.perform_now(division: division, pool: 'A')
+      FinishPoolJob.perform_now(division: division, pool: 'A')
     end
 
     test "records pool results" do
@@ -25,7 +25,7 @@ module Divisions
       play_pool(@teams, division, 'A')
 
       assert_difference 'PoolResult.count', +4 do
-        UpdatePoolJob.perform_now(division: division, pool: 'A')
+        FinishPoolJob.perform_now(division: division, pool: 'A')
       end
     end
 
@@ -37,7 +37,7 @@ module Divisions
 
       play_pool(@teams, division, 'A')
 
-      UpdatePoolJob.perform_now(division: division, pool: 'A')
+      FinishPoolJob.perform_now(division: division, pool: 'A')
 
       game1 = division.games.find_by(home_prereq_uid: 'A1')
       game2 = division.games.find_by(away_prereq_uid: 'A4')
@@ -58,7 +58,7 @@ module Divisions
       game2 = division.games.find_by(away_prereq_uid: 'A4')
 
       perform_enqueued_jobs do
-        UpdatePoolJob.perform_now(division: division, pool: 'A')
+        FinishPoolJob.perform_now(division: division, pool: 'A')
         assert_equal teams.last, game1.reload.home
         assert_equal teams.first, game2.reload.away
       end
@@ -77,7 +77,7 @@ module Divisions
       division.reload
 
       perform_enqueued_jobs do
-        UpdatePoolJob.perform_now(division: division, pool: 'A')
+        FinishPoolJob.perform_now(division: division, pool: 'A')
         refute game1.reload.confirmed?
         refute game2.reload.confirmed?
       end

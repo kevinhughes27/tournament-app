@@ -35,8 +35,13 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update updates the games score (unsafe)" do
-    games(:semi_final).update_attributes!(
+    Game.create!(
+      tournament: @tournament,
       division: @game.division,
+      round: 2,
+      bracket_uid: 's2',
+      home_prereq_uid: "W#{@game.bracket_uid}",
+      away_prereq_uid: "Wnon",
       score_confirmed: true
     )
 
@@ -50,8 +55,13 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update updates the games score (unsafe) + force" do
-    games(:semi_final).update_attributes!(
+    Game.create!(
+      tournament: @tournament,
       division: @game.division,
+      round: 2,
+      bracket_uid: 's2',
+      home_prereq_uid: "W#{@game.bracket_uid}",
+      away_prereq_uid: "Wnon",
       score_confirmed: true
     )
 

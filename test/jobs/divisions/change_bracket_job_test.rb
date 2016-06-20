@@ -1,22 +1,21 @@
 require 'test_helper'
 
 module Divisions
-  class CreateGamesJobTest < ActiveJob::TestCase
+  class ChangeBracketJobTest < ActiveJob::TestCase
     setup do
       @tournament = tournaments(:noborders)
       @division = divisions(:open)
-      @division.games.destroy_all
     end
 
-    test "creates games as spec'd by the bracket template" do
-      type = 'single_elimination_8'
+    test "re-creates games as spec'd by the bracket template" do
+      type = 'single_elimination_4'
       template = Bracket.find_by(handle: type).template
       template_game = template[:games].first
 
-      CreateGamesJob.perform_now(
+      ChangeBracketJob.perform_now(
         tournament_id: @tournament.id,
         division_id: @division.id,
-        template: template
+        new_template: template
       )
 
       game = Game.find_by(division: @division, bracket_uid: template_game[:uid])

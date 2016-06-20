@@ -15,7 +15,7 @@ module Games
       # resets all pool games even if the results haven't changed
       update_pool if game.pool_game?
 
-      update_bracket if game.bracket_game? && winner_changed
+      advance_bracket if game.bracket_game? && winner_changed
 
       # pool places are pushed by update_pool
       update_places if game.bracket_game?
@@ -61,14 +61,14 @@ module Games
     end
 
     def update_pool
-      Divisions::UpdatePoolJob.perform_later(
+      Divisions::FinishPoolJob.perform_later(
         division: game.division,
         pool: game.pool
       )
     end
 
-    def update_bracket
-      Divisions::UpdateBracketJob.perform_later(game_id: game.id)
+    def advance_bracket
+      Divisions::AdvanceBracketJob.perform_later(game_id: game.id)
     end
 
     def update_places

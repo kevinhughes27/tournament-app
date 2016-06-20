@@ -1,7 +1,5 @@
 module Teams
   class UnassignGamesJob < ApplicationJob
-    queue_as :default
-
     def perform(tournament_id:, team_id:)
       games = Game.where(tournament_id: tournament_id, home_id: team_id)
       games.update_all(home_id: nil)

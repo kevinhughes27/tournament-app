@@ -1,7 +1,5 @@
 module Games
   class SafeToUpdateScoreJob < ApplicationJob
-    queue_as :default
-
     attr_reader :game, :home_score, :away_score
 
     def perform(game:, home_score:, away_score:)
@@ -22,7 +20,7 @@ module Games
     end
 
     def pool_finished?
-      Divisions::PoolFinishedJob.perform_now(
+      Division::pool_finished?(
         tournament_id: game.tournament_id,
         division_id: game.division_id,
         pool: game.pool

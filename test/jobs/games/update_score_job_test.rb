@@ -25,9 +25,9 @@ module Games
     end
 
     test "sets the score if no previous score" do
-      game = games(:swift_goose_no_score)
+      @game.reset! && @game.save!
       SetScoreJob.expects(:perform_now)
-      UpdateScoreJob.perform_now(game: game, home_score: 15, away_score: 11)
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
     test "adjusts the score if game already has a score" do
@@ -43,23 +43,23 @@ module Games
     test "updates the pool for pool game" do
       @game.update_column(:pool, 'A')
       SafeToUpdateScoreJob.expects(:perform_now).returns(true)
-      Divisions::UpdatePoolJob.expects(:perform_later)
+      Divisions::FinishPoolJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
     test "doesn't update the bracket for bracket game if winner is the same" do
-      Divisions::UpdateBracketJob.expects(:perform_later).never
+      Divisions::AdvanceBracketJob.expects(:perform_later).never
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
     test "updates the bracket for bracket game if no existing score" do
       @game.reset! && @game.save!
-      Divisions::UpdateBracketJob.expects(:perform_later)
+      Divisions::AdvanceBracketJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
     test "updates the bracket for bracket game if winner changes" do
-      Divisions::UpdateBracketJob.expects(:perform_later)
+      Divisions::AdvanceBracketJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 11, away_score: 15)
     end
 

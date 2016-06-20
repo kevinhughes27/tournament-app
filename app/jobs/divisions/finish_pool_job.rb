@@ -1,7 +1,5 @@
 module Divisions
-  class UpdatePoolJob < ApplicationJob
-    queue_as :default
-
+  class FinishPoolJob < ApplicationJob
     attr_reader :division, :pool
 
     def perform(division:, pool:)
@@ -15,7 +13,7 @@ module Divisions
     private
 
     def pool_finished?
-      Divisions::PoolFinishedJob.perform_now(
+      Division::pool_finished?(
         tournament_id: division.tournament_id,
         division_id: division.id,
         pool: pool

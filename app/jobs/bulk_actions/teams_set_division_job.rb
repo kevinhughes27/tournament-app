@@ -1,5 +1,4 @@
 class BulkActions::TeamsSetDivisionJob < ApplicationJob
-  queue_as :default
 
   def perform(tournament_id:, ids:, arg:)
     division = Division.find_by(tournament_id: tournament_id, name: arg)
