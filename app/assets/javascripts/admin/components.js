@@ -1,3 +1,5 @@
+require('babel-polyfill')
+
 Admin.FieldsIndex = require('./components/fields_index');
 Admin.DivisionsIndex = require('./components/divisions_index');
 Admin.TeamsIndex = require('./components/teams_index');
