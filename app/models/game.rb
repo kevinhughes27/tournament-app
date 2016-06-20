@@ -198,6 +198,7 @@ class Game < ApplicationRecord
   def validate_schedule_conflicts
     return unless start_time_changed?
     return if start_time.blank?
+    return if pool_game?
 
     games = dependent_games.select { |dg| dg.start_time < end_time if dg.start_time }
 
