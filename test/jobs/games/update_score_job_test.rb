@@ -27,7 +27,7 @@ module Games
     test "sets the score if no previous score" do
       @game.reset! && @game.save!
       SetScoreJob.expects(:perform_now)
-      UpdateScoreJob.perform_now(game: game, home_score: 15, away_score: 11)
+      UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
 
     test "adjusts the score if game already has a score" do

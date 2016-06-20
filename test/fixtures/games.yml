@@ -2,7 +2,7 @@ swift_goose:
   tournament: noborders
   division: open
   round: 1
-  bracket_uid: 'q1'
+  bracket_uid: 'q3'
   home_prereq_uid: '1'
   away_prereq_uid: '8'
   home: swift
@@ -17,7 +17,7 @@ pheonix_mavericks:
   tournament: noborders
   division: open
   round: 1
-  bracket_uid: 'q2'
+  bracket_uid: 'q4'
   home_prereq_uid: '2'
   away_prereq_uid: '7'
   home: pheonix

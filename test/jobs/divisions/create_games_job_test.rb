@@ -5,6 +5,7 @@ module Divisions
     setup do
       @tournament = tournaments(:noborders)
       @division = divisions(:open)
+      @division.games.destroy_all
     end
 
     test "creates games as spec'd by the bracket template" do
