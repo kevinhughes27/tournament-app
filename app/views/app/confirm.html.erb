@@ -21,7 +21,7 @@
 
     <div class="score-inputs">
       <div class="form-grid">
-        <%= number_field_tag 'team_score', @report.opponent_score, class: "score-input", readonly: true %>
+        <%= number_field_tag 'team_score', @report.opponent_score, class: "score-input" %>
       </div>
 
       <div class="form-grid form-grid-spacer">
@@ -29,7 +29,7 @@
       </div>
 
       <div class="form-grid">
-        <%= number_field_tag 'opponent_score', @report.team_score, class: "score-input", readonly: true %>
+        <%= number_field_tag 'opponent_score', @report.team_score, class: "score-input" %>
       </div>
     </div>
 
