@@ -3,7 +3,7 @@ module Divisions
     attr_reader :division, :games
 
     GAMES_SCHEDULE_MESSAGE = 'This division has games that have been scheduled. Changing the bracket' \
-                             ' will reset those games. Are you sure this is what you want to do?'
+                             ' might reset some of those games. Are you sure this is what you want to do?'
 
     GAMES_PLAYED_MESSAGE = 'This division has games that have been scored. Changing the bracket' \
                            ' will reset those games. Are you sure this is what you want to do?'
