@@ -85,13 +85,31 @@ class ScoreReport < ApplicationRecord
   end
 
   def confirm_game
-    if is_confirmation?
+    return if tournament.game_confirm_setting == 'validated' && !is_confirmation?
+    return if tournament.game_confirm_setting == 'multiple' && game.score_reports.size < 2
+
+    if matches_other_reports?
       Games::UpdateScoreJob.perform_later(
         game: game,
         home_score: home_score,
         away_score: away_score,
         force: true
       )
+    else
+      game.score_confirmed = false
+      game.save!
+    end
+  end
+
+  def matches_other_reports?
+    game.score_reports.all? do |report|
+      if self.team_id == report.team_id
+        self.team_score == report.team_score &&
+        self.opponent_score == report.opponent_score
+      else
+        self.team_score == report.opponent_score &&
+        self.opponent_score == report.team_score
+      end
     end
   end
 
