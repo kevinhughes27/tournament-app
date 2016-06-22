@@ -475,15 +475,6 @@
   template: <%= load_bracket('usau_16.1') %>
 
 -
-  handle: USAU 16.1 full
-  name: One team advances (USAU 16.1) full losers bracket
-  num_teams: 16
-  days: 2
-  rounds: 4
-  pool: true
-  template: <%= load_bracket('usau_16.1_full') %>
-
--
   handle: USAU 17.1
   name: One team advances (USAU 17.1)
   num_teams: 17
@@ -522,22 +513,13 @@
 -
   handle: USAU 23.1
   name: One team advances (USAU 23.1)
-  num_teams: 23
-  days: 2
-  rounds: 4
-  pool: true
-  template: <%= load_bracket('usau_23.1') %>
-
--
-  handle: USAU 23.1 full
-  name: One team advances (USAU 23.1) with full losers bracket
   description: >
     Bottom 3 teams play a round robin on the second day.
   num_teams: 23
   days: 2
   rounds: 4
   pool: true
-  template: <%= load_bracket('usau_23.1_full') %>
+  template: <%= load_bracket('usau_23.1') %>
 
 -
   handle: USAU 24.1
@@ -547,12 +529,3 @@
   rounds: 4
   pool: true
   template: <%= load_bracket('usau_24.1') %>
-
--
-  handle: USAU 24.1 full
-  name: One team advances (USAU 24.1) with full losers bracket
-  num_teams: 24
-  days: 2
-  rounds: 4
-  pool: true
-  template: <%= load_bracket('usau_24.1_full') %>
