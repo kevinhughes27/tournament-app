@@ -59,11 +59,21 @@ class AppControllerTest < ActionController::TestCase
     game.update_columns(home_score: nil, away_score: nil, score_confirmed: false)
     refute game.score_confirmed
 
-    params = @report.attributes.merge(
+    params = {
       id: @token.id,
       token: @token.token,
+      game_id: game.id,
+      team_id: @report.other_team.id,
+      team_score: @report.opponent_score,
+      opponent_score: @report.team_score,
+      rules_knowledge: 3,
+      fouls: 3,
+      fairness: 3,
+      attitude: 3,
+      communication: 3,
+      comments: '',
       submitter_fingerprint: 'fingerprint'
-    )
+    }
 
     assert_difference "ScoreReport.count", +1 do
       perform_enqueued_jobs do
@@ -87,5 +97,37 @@ class AppControllerTest < ActionController::TestCase
       assert_response :not_found
       assert_template 'token_not_found'
     end
+  end
+
+  test "report a different score" do
+    game = @report.game
+    game.update_columns(home_score: nil, away_score: nil, score_confirmed: false)
+    refute game.score_confirmed
+
+    params = {
+      id: @token.id,
+      token: @token.token,
+      game_id: game.id,
+      team_id: @report.other_team.id,
+      team_score: @report.opponent_score + 1,
+      opponent_score: @report.team_score,
+      rules_knowledge: 3,
+      fouls: 3,
+      fairness: 3,
+      attitude: 3,
+      communication: 3,
+      comments: '',
+      submitter_fingerprint: 'fingerprint'
+    }
+
+    assert_difference "ScoreReport.count", +1 do
+      perform_enqueued_jobs do
+        post :confirm, params: params
+      end
+      assert_response :ok
+      assert_template 'submit_score_success'
+    end
+
+    refute game.reload.score_confirmed
   end
 end

@@ -29,8 +29,10 @@ class AppController < ApplicationController
 
   def confirm
     if request.post?
-      ScoreReport.create!(score_report_params.merge(is_confirmation: true))
-      render 'confirm_score_success'
+      ScoreReport.create!(
+        score_report_params.merge(is_confirmation: is_confirmation)
+      )
+      render is_confirmation ? 'confirm_score_success' : 'submit_score_success'
     else
       @report = @confirm_token.score_report
     end
@@ -42,6 +44,15 @@ class AppController < ApplicationController
     @confirm_token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])
     if @confirm_token.blank?
       render 'token_not_found', status: :not_found
+    end
+  end
+
+  def is_confirmation
+    @is_confirmation ||= begin
+      first_report = @confirm_token.score_report
+
+      first_report.opponent_score.to_s == score_report_params[:team_score] &&
+      first_report.team_score.to_s == score_report_params[:opponent_score]
     end
   end
 
