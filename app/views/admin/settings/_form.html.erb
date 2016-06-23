@@ -5,3 +5,23 @@
 
 <%= form.ui_number_field :time_cap, min: 0,
     help_text: "This is used to make sure games don't overlap and to help when building your schedule." %>
+
+
+<%= label_tag nil, "Score Confirmation Settings" %>
+<p>
+  This setting is for the automated behaviour when a score report is received.<br>
+  You'll always be able to manually accept score reports and enter scores regardless
+  of this setting.
+</p>
+
+<%= form.ui_radio_button :game_confirm_setting,
+    'Automatic: the first submitted score report will be accepted.',
+    'automatic' %>
+
+<%= form.ui_radio_button :game_confirm_setting,
+    'Multiple: two matching reports must be submitted.',
+    'multiple' %>
+
+<%= form.ui_radio_button :game_confirm_setting,
+    'Validated: A score report must be confirmed by the opposite captain.',
+    'validated' %>

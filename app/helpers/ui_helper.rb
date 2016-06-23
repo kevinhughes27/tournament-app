@@ -55,6 +55,17 @@ module UiHelper
       end
     end
 
+    def ui_radio_button(method, label, value)
+      content_tag(:div, class: 'form-group') do
+        content_tag(:div, class: 'radio') do
+          content_tag(:label) do
+            concat radio_button(method, value)
+            concat label
+          end
+        end
+      end
+    end
+
     def ui_save_button(text = 'Save')
       content_tag(:div, class: 'form-group') do
         submit(text, class: 'btn btn-primary pull-right js-btn-loadable')
