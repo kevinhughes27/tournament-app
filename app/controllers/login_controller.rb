@@ -40,12 +40,16 @@ class LoginController < Devise::SessionsController
   private
 
   def login_no_tournament_id(user)
-    if user.tournaments.count == 1
+    if user_has_multiple_tournaments?(user)
+      redirect_to choose_tournament_path
+    else
       @tournament = user.tournaments.first
       login(user)
-    else
-      redirect_to choose_tournament_path
     end
+  end
+
+  def user_has_multiple_tournaments?(user)
+    user.tournaments.count > 1
   end
 
   def login(user)
