@@ -3,7 +3,7 @@ machine:
     ENV: circleci
     RACK_ENV: test
     RAILS_ENV: test
-    RAILS_MAX_THREADS: 2
+    RAILS_MAX_THREADS: 1
   hosts:
     lvh.me: 127.0.0.1
     no-borders.lvh.me: 127.0.0.1
@@ -24,11 +24,15 @@ dependencies:
     - bundle exec bundle-audit update && bundle exec bundle-audit check
     - npm install
     - npm install -g nsp && nsp check
+    - bundle exec rake assets:precompile assets:clean:
+        environment:
+          RAILS_GROUPS: assets
   override:
-    - bundle install --path .bundle --without production --without development
+    - bundle install --path .bundle --with circleci --without production --without development
   cache_directories:
     - ".bundle"
     - "node_modules"
+    - "public/assets"
 
 database:
   override:

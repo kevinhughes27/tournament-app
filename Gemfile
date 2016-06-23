@@ -77,6 +77,11 @@ group :development, :test do
   gem 'teaspoon-bundle', '~> 0.1.3'
 end
 
+group :circleci do
+  gem 'minitest-retry'
+  gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
+end
+
 group :development do
   gem 'dotenv-rails'
   gem 'bullet'
@@ -88,12 +93,10 @@ end
 group :test do
   gem 'rails-controller-testing'
   gem 'mocha', :require => false
-  gem 'minitest-retry'
   gem 'timecop'
   gem 'capybara'
   gem 'poltergeist'
   gem 'chunky_png'
   gem 'launchy'
   gem 'simplecov', :require => false
-  gem 'minitest-ci', :git => 'git@github.com:circleci/minitest-ci.git'
 end
