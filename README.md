@@ -23,6 +23,17 @@ Docs
 Development
 -----------
 
+postgres from [here](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-14-04):
+
+```
+sudo apt-get install postgresql postgresql-contrib libpq-dev
+sudo -u postgres createuser -s ut
+sudo -u postgres psql
+postgres# \password ut
+ut
+ut
+```
+
 setup:
 
 ```

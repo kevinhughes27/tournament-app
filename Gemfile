@@ -3,6 +3,7 @@ ruby '2.3.1'
 
 # rails gems
 gem 'rails', '5.0.0.rc1'
+gem 'pg'
 gem 'puma'
 gem 'actioncable'
 gem 'sidekiq'
@@ -58,7 +59,6 @@ source 'https://rails-assets.org' do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'wkhtmltopdf-heroku'
@@ -66,7 +66,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
   gem 'byebug'
   gem 'faker'

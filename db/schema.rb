@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160622192644) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
     t.string   "bracket_type",                  null: false
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.integer  "num_teams",     default: 8
     t.integer  "num_days",      default: 2,     null: false
     t.boolean  "seeded",        default: false
-    t.index ["tournament_id", "name"], name: "index_divisions_on_tournament_id_and_name", unique: true
-    t.index ["tournament_id"], name: "index_divisions_on_tournament_id"
+    t.index ["tournament_id", "name"], name: "index_divisions_on_tournament_id_and_name", unique: true, using: :btree
+    t.index ["tournament_id"], name: "index_divisions_on_tournament_id", using: :btree
   end
 
   create_table "fields", force: :cascade do |t|
@@ -34,8 +37,8 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "geo_json"
-    t.index ["tournament_id", "name"], name: "index_fields_on_tournament_id_and_name", unique: true
-    t.index ["tournament_id"], name: "index_fields_on_tournament_id"
+    t.index ["tournament_id", "name"], name: "index_fields_on_tournament_id_and_name", unique: true, using: :btree
+    t.index ["tournament_id"], name: "index_fields_on_tournament_id", using: :btree
   end
 
   create_table "games", force: :cascade do |t|
@@ -55,15 +58,15 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.integer  "division_id",     null: false
     t.integer  "round"
     t.string   "pool"
-    t.index ["tournament_id", "away_id"], name: "index_games_on_tournament_id_and_away_id"
-    t.index ["tournament_id", "division_id", "away_prereq_uid"], name: "tournament_division_away_prereq_uid"
-    t.index ["tournament_id", "division_id", "bracket_uid"], name: "index_games_on_tournament_id_and_division_id_and_bracket_uid", unique: true
-    t.index ["tournament_id", "division_id", "home_prereq_uid"], name: "tournament_division_home_prereq_uid"
-    t.index ["tournament_id", "division_id", "pool"], name: "tournament_division_pool"
-    t.index ["tournament_id", "division_id", "score_confirmed"], name: "tournament_division_confirmed"
-    t.index ["tournament_id", "field_id"], name: "index_games_on_tournament_id_and_field_id"
-    t.index ["tournament_id", "home_id"], name: "index_games_on_tournament_id_and_home_id"
-    t.index ["tournament_id"], name: "index_games_on_tournament_id"
+    t.index ["tournament_id", "away_id"], name: "index_games_on_tournament_id_and_away_id", using: :btree
+    t.index ["tournament_id", "division_id", "away_prereq_uid"], name: "tournament_division_away_prereq_uid", using: :btree
+    t.index ["tournament_id", "division_id", "bracket_uid"], name: "index_games_on_tournament_id_and_division_id_and_bracket_uid", unique: true, using: :btree
+    t.index ["tournament_id", "division_id", "home_prereq_uid"], name: "tournament_division_home_prereq_uid", using: :btree
+    t.index ["tournament_id", "division_id", "pool"], name: "tournament_division_pool", using: :btree
+    t.index ["tournament_id", "division_id", "score_confirmed"], name: "tournament_division_confirmed", using: :btree
+    t.index ["tournament_id", "field_id"], name: "index_games_on_tournament_id_and_field_id", using: :btree
+    t.index ["tournament_id", "home_id"], name: "index_games_on_tournament_id_and_home_id", using: :btree
+    t.index ["tournament_id"], name: "index_games_on_tournament_id", using: :btree
   end
 
   create_table "maps", force: :cascade do |t|
@@ -74,7 +77,7 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "edited_at"
-    t.index ["tournament_id"], name: "index_maps_on_tournament_id", unique: true
+    t.index ["tournament_id"], name: "index_maps_on_tournament_id", unique: true, using: :btree
   end
 
   create_table "places", force: :cascade do |t|
@@ -85,7 +88,7 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.string   "prereq_uid",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["tournament_id", "division_id", "prereq_uid"], name: "index_places_on_tournament_id_and_division_id_and_prereq_uid"
+    t.index ["tournament_id", "division_id", "prereq_uid"], name: "index_places_on_tournament_id_and_division_id_and_prereq_uid", using: :btree
   end
 
   create_table "pool_results", force: :cascade do |t|
@@ -102,8 +105,8 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.integer "tournament_id",   null: false
     t.integer "score_report_id", null: false
     t.string  "token",           null: false
-    t.index ["score_report_id"], name: "index_score_report_confirm_tokens_on_score_report_id", unique: true
-    t.index ["token"], name: "index_score_report_confirm_tokens_on_token"
+    t.index ["score_report_id"], name: "index_score_report_confirm_tokens_on_score_report_id", unique: true, using: :btree
+    t.index ["token"], name: "index_score_report_confirm_tokens_on_token", using: :btree
   end
 
   create_table "score_reports", force: :cascade do |t|
@@ -113,17 +116,17 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.string   "submitter_fingerprint"
     t.integer  "team_score",            limit: 2
     t.integer  "opponent_score",        limit: 2
-    t.integer  "rules_knowledge",       limit: 1
-    t.integer  "fouls",                 limit: 1
-    t.integer  "fairness",              limit: 1
-    t.integer  "attitude",              limit: 1
-    t.integer  "communication",         limit: 1
+    t.integer  "rules_knowledge",       limit: 2
+    t.integer  "fouls",                 limit: 2
+    t.integer  "fairness",              limit: 2
+    t.integer  "attitude",              limit: 2
+    t.integer  "communication",         limit: 2
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "comments"
     t.datetime "deleted_at"
     t.boolean  "is_confirmation",                 default: false
-    t.index ["tournament_id", "game_id", "deleted_at"], name: "tournament_game_deleted_at"
+    t.index ["tournament_id", "game_id", "deleted_at"], name: "tournament_game_deleted_at", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|
@@ -137,9 +140,9 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.integer  "points_for",    default: 0
     t.integer  "seed"
     t.integer  "division_id"
-    t.index ["tournament_id", "division_id"], name: "index_teams_on_tournament_id_and_division_id"
-    t.index ["tournament_id", "name"], name: "index_teams_on_tournament_id_and_name", unique: true
-    t.index ["tournament_id"], name: "index_teams_on_tournament_id"
+    t.index ["tournament_id", "division_id"], name: "index_teams_on_tournament_id_and_division_id", using: :btree
+    t.index ["tournament_id", "name"], name: "index_teams_on_tournament_id_and_name", unique: true, using: :btree
+    t.index ["tournament_id"], name: "index_teams_on_tournament_id", using: :btree
   end
 
   create_table "tournament_users", force: :cascade do |t|
@@ -147,9 +150,9 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.integer  "user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["tournament_id"], name: "index_tournament_users_on_tournament_id"
-    t.index ["user_id", "tournament_id"], name: "index_tournament_users_on_user_id_and_tournament_id", unique: true
-    t.index ["user_id"], name: "index_tournament_users_on_user_id"
+    t.index ["tournament_id"], name: "index_tournament_users_on_tournament_id", using: :btree
+    t.index ["user_id", "tournament_id"], name: "index_tournament_users_on_user_id_and_tournament_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_tournament_users_on_user_id", using: :btree
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -162,8 +165,8 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.string   "timezone"
     t.boolean  "welcome_email_sent",   default: false
     t.string   "game_confirm_setting", default: "automatic"
-    t.index ["handle"], name: "index_tournaments_on_handle", unique: true
-    t.index ["name"], name: "index_tournaments_on_name", unique: true
+    t.index ["handle"], name: "index_tournaments_on_handle", unique: true, using: :btree
+    t.index ["name"], name: "index_tournaments_on_name", unique: true, using: :btree
   end
 
   create_table "user_authentications", force: :cascade do |t|
@@ -172,8 +175,8 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.string   "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["provider"], name: "index_user_authentications_on_provider"
-    t.index ["user_id"], name: "index_user_authentications_on_user_id"
+    t.index ["provider"], name: "index_user_authentications_on_provider", using: :btree
+    t.index ["user_id"], name: "index_user_authentications_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -189,8 +192,8 @@ ActiveRecord::Schema.define(version: 20160622192644) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
 end
