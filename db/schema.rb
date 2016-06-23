@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620222151) do
+ActiveRecord::Schema.define(version: 20160622192644) do
 
   create_table "divisions", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -154,13 +154,14 @@ ActiveRecord::Schema.define(version: 20160620222151) do
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "handle"
-    t.integer  "time_cap",           default: 90,    null: false
+    t.integer  "time_cap",             default: 90,          null: false
     t.string   "location"
     t.string   "timezone"
-    t.boolean  "welcome_email_sent", default: false
+    t.boolean  "welcome_email_sent",   default: false
+    t.string   "game_confirm_setting", default: "automatic"
     t.index ["handle"], name: "index_tournaments_on_handle", unique: true
     t.index ["name"], name: "index_tournaments_on_name", unique: true
   end

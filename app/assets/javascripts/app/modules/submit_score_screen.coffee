@@ -32,7 +32,8 @@ class App.SubmitScoreScreen
     vsTeam = @vsTeam(home, away)
     @_prepareForm(team.name, vsTeam, gameId, team.id)
     @formActive = true
-    Twine.refresh()
+    Twine.refreshImmediately()
+    delay 100, -> $($('.score-label')[0]).focus()
 
   _prepareForm: (teamName, vsTeam, gameId, teamId) ->
     $('.score-label')[0].innerHTML = teamName

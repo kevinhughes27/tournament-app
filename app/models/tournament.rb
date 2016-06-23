@@ -24,6 +24,9 @@ class Tournament < ApplicationRecord
   validates :time_cap, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates_presence_of :tournament_users, on: :update
 
+  GAME_CONFIRM_SETTINGS = %w(automatic multiple validated)
+  validates :game_confirm_setting, inclusion: { in: GAME_CONFIRM_SETTINGS }
+
   def owner
     @owner ||= users.first
   end

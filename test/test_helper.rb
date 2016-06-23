@@ -18,8 +18,11 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/mini_test'
-require 'minitest/retry'
-Minitest::Retry.use!(retry_count: 1)
+
+if ENV['CIRCLECI']
+  require 'minitest/retry'
+  Minitest::Retry.use!(retry_count: 1)
+end
 
 OmniAuth.config.test_mode = true
 

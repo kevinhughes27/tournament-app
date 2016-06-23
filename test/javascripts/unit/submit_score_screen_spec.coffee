@@ -93,7 +93,7 @@ describe 'SubmitScoreScreen', ->
 
     expect(screen.formActive).toBe(true)
     expect(screen._prepareForm).toHaveBeenCalledWith('Swift', 'Goose', 27, 14)
-    expect(Twine.refresh).toHaveBeenCalled()
+    expect(Twine.refreshImmediately).toHaveBeenCalled()
 
   it "closeForm closes the form", ->
     screen.formActive = true
