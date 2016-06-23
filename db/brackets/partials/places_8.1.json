@@ -1,0 +1,8 @@
+{"position":1, "prereq_uid": "W1"},
+{"position":2, "prereq_uid": "L1"},
+{"position":3, "prereq_uid": "W3"},
+{"position":4, "prereq_uid": "L3"},
+{"position":5, "prereq_uid": "W5"},
+{"position":6, "prereq_uid": "L5"},
+{"position":7, "prereq_uid": "W7"},
+{"position":8, "prereq_uid": "L7"}
