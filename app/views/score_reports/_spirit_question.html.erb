@@ -1,0 +1,32 @@
+<div class="radio-group">
+  <div class="radio-control">
+    <%= label field, '0' do %>
+      <%= radio_button_tag field, '0' %>
+      Poor
+    <% end %>
+  </div>
+  <div class="radio-control">
+    <%= label field, '1' do %>
+      <%= radio_button_tag field, '1' %>
+      Not Good
+    <% end %>
+  </div>
+  <div class="radio-control">
+    <%= label field, '2' do %>
+      <%= radio_button_tag field, '2', true %>
+      Good
+    <% end %>
+  </div>
+  <div class="radio-control">
+    <%= label field, '3' do %>
+      <%= radio_button_tag field, '3' %>
+      Very Good
+    <% end %>
+  </div>
+  <div class="radio-control">
+    <%= label field, '4' do %>
+      <%= radio_button_tag field, '4' %>
+      Excellent
+    <% end %>
+  </div>
+</div>
