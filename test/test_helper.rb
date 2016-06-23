@@ -20,6 +20,9 @@ require 'rails/test_help'
 require 'mocha/mini_test'
 
 if ENV['CIRCLECI']
+  require 'minitest/ci'
+  Minitest::Ci.new.start
+
   require 'minitest/retry'
   Minitest::Retry.use!(retry_count: 1)
 end
