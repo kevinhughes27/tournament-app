@@ -1,0 +1,11 @@
+#peek {
+  position: fixed;
+  bottom: 0;
+  left: $sidebar-width;
+  right: 0;
+  z-index: 999;
+  background: #222d32 !important;
+  .wrapper {
+    margin-left: 10px;
+  }
+}

@@ -4,6 +4,9 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 
+//= require peek
+//= require peek/views/performance_bar
+
 //= require jquery.cookie
 //= require jstz
 //= require browser_timezone_rails/set_time_zone
