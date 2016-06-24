@@ -51,6 +51,7 @@ class AdminController < ApplicationController
     end
   end
 
+  # for action cable
   def set_tournament_cookie
     cookies.signed['tournament.id'] = {
       value: @tournament.id,
@@ -60,6 +61,10 @@ class AdminController < ApplicationController
       value: 30.minutes.from_now,
       domain: :all
     }
+  end
+
+  def peek_enabled?
+    current_user.staff?
   end
 
   def set_admin_cookie

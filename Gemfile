@@ -16,6 +16,11 @@ gem 'wicked_pdf'
 gem 'browser-timezone-rails'
 gem 'config'
 
+gem 'peek'
+gem 'peek-git'
+gem 'peek-host'
+gem 'peek-performance_bar'
+
 # model gems
 gem 'frozen_record', '~> 0.7.1'
 gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
