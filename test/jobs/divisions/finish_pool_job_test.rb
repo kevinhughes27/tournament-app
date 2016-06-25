@@ -29,6 +29,31 @@ module Divisions
       end
     end
 
+    test "clears previous pool results" do
+      division = new_division('USAU 8.1')
+      teams = @teams.to_a
+      @teams.update_all(division_id: division.id)
+      division.seed
+
+      play_pool(@teams, division, 'A')
+
+      result = PoolResult.create!(
+        tournament_id: @tournament.id,
+        division_id: division.id,
+        pool: 'A',
+        position: 1,
+        team: teams.first
+      )
+
+      assert_difference 'PoolResult.count', +3 do
+        FinishPoolJob.perform_now(division: division, pool: 'A')
+      end
+
+      assert_raises ActiveRecord::RecordNotFound do
+        result.reload
+      end
+    end
+
     test "update pool" do
       division = new_division('USAU 8.1')
       teams = @teams.to_a
@@ -42,8 +67,8 @@ module Divisions
       game1 = division.games.find_by(home_prereq_uid: 'A1')
       game2 = division.games.find_by(away_prereq_uid: 'A4')
 
-      assert_equal teams.last, game1.home
-      assert_equal teams.first, game2.away
+      assert_equal teams.first, game1.home
+      assert_equal teams.last, game2.away
     end
 
     test "update pool resets dependent bracket games" do
@@ -59,8 +84,8 @@ module Divisions
 
       perform_enqueued_jobs do
         FinishPoolJob.perform_now(division: division, pool: 'A')
-        assert_equal teams.last, game1.reload.home
-        assert_equal teams.first, game2.reload.away
+        assert_equal teams.first, game1.reload.home
+        assert_equal teams.last, game2.reload.away
       end
 
       game1.update_column(:score_confirmed, true)

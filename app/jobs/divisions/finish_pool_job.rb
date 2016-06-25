@@ -5,6 +5,7 @@ module Divisions
     def perform(division:, pool:)
       @division, @pool = division, pool
       return unless pool_finished?
+      clear_results
       record_results
       reseed
       push_places
@@ -31,6 +32,14 @@ module Divisions
           team: team
         )
       end
+    end
+
+    def clear_results
+      PoolResult.where(
+        tournament_id: division.tournament_id,
+        division_id: division.id,
+        pool: pool,
+      ).destroy_all
     end
 
     def reseed
@@ -80,7 +89,7 @@ module Divisions
 
         teams = teams_for_pool.sort_by do |team|
           [team_wins[team.id], team_pts[team.id]]
-        end
+        end.reverse
 
         teams
       end
