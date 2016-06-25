@@ -71,6 +71,98 @@ module Divisions
       assert_equal teams.last, game2.away
     end
 
+    test "update pool using points_for for tie breaker" do
+      division = divisions(:open)
+      Game.create!(
+        tournament_id: @tournament.id,
+        division_id: division.id,
+        pool: 'A',
+        round: 1,
+        home_prereq_uid: 1,
+        away_prereq_uid: 2,
+        home: @teams[0],
+        away: @teams[1],
+        home_score: 5,
+        away_score: 0,
+        score_confirmed: true
+      )
+
+      Game.create!(
+        tournament_id: @tournament.id,
+        division_id: division.id,
+        pool: 'A',
+        round: 1,
+        home_prereq_uid: 3,
+        away_prereq_uid: 4,
+        home: @teams[2],
+        away: @teams[3],
+        home_score: 10,
+        away_score: 2,
+        score_confirmed: true
+      )
+
+      FinishPoolJob.perform_now(division: division, pool: 'A')
+      results = division.pool_results.order(:position)
+
+      assert_equal @teams[2], results[0].team
+      assert_equal @teams[0], results[1].team
+      assert_equal @teams[3], results[2].team
+      assert_equal @teams[1], results[3].team
+    end
+
+    test "update pool using points_for for tie breaker with a tie game" do
+      division = divisions(:open)
+      Game.create!(
+        tournament_id: @tournament.id,
+        division_id: division.id,
+        pool: 'A',
+        round: 1,
+        home_prereq_uid: 1,
+        away_prereq_uid: 2,
+        home: @teams[0],
+        away: @teams[1],
+        home_score: 10,
+        away_score: 0,
+        score_confirmed: true
+      )
+
+      Game.create!(
+        tournament_id: @tournament.id,
+        division_id: division.id,
+        pool: 'A',
+        round: 1,
+        home_prereq_uid: 3,
+        away_prereq_uid: 4,
+        home: @teams[2],
+        away: @teams[3],
+        home_score: 5,
+        away_score: 2,
+        score_confirmed: true
+      )
+
+      Game.create!(
+        tournament_id: @tournament.id,
+        division_id: division.id,
+        pool: 'A',
+        round: 1,
+        home_prereq_uid: 1,
+        away_prereq_uid: 3,
+        home: @teams[0],
+        away: @teams[2],
+        home_score: 10,
+        away_score: 10,
+        score_confirmed: true
+      )
+
+      FinishPoolJob.perform_now(division: division, pool: 'A')
+      results = division.pool_results.order(:position)
+
+      assert_equal @teams[0], results[0].team
+      assert_equal @teams[2], results[1].team
+      assert_equal @teams[3], results[2].team
+      assert_equal @teams[1], results[3].team
+    end
+
     test "update pool resets dependent bracket games" do
       division = new_division('USAU 8.1')
       teams = @teams.to_a

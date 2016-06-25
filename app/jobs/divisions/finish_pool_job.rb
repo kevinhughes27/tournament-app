@@ -82,7 +82,13 @@ module Divisions
         team_wins = Hash.new(0)
         team_pts = Hash.new(0)
         games_for_pool.each do |game|
-          team_wins[game.winner.id] += 1
+          if game.tie?
+            team_wins[game.home_id] += 1
+            team_wins[game.away_id] += 1
+          else
+            team_wins[game.winner.id] += 1
+          end
+
           team_pts[game.home_id] += game.home_score
           team_pts[game.away_id] += game.away_score
         end

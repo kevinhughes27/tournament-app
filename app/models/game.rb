@@ -55,11 +55,17 @@ class Game < ApplicationRecord
     bracket_uid.present?
   end
 
+  def tie?
+    home_score == away_score
+  end
+
   def winner
+    return if home_score == away_score
     home_score > away_score ? home : away
   end
 
   def loser
+    return if home_score == away_score
     home_score < away_score ? home : away
   end
 
