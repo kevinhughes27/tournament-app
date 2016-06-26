@@ -44,19 +44,18 @@ module Divisions
 
     def reseed
       division.games.each do |game|
-        changed = false
 
-        if game.home_prereq_uid =~ /#{pool}\d/
-          game.home = sorted_teams[ game.home_prereq_uid.gsub(pool, '').to_i - 1 ]
-          changed = true
+        if prereq_uid_from_pool?(game.home_prereq_uid)
+          team = team_for_prereq(game.home_prereq_uid)
+          game.home = team
         end
 
-        if game.away_prereq_uid =~ /#{pool}\d/
-          game.away = sorted_teams[ game.away_prereq_uid.gsub(pool, '').to_i - 1 ]
-          changed = true
+        if prereq_uid_from_pool?(game.away_prereq_uid)
+          team = team_for_prereq(game.away_prereq_uid)
+          game.away = team
         end
 
-        next unless changed
+        next unless game.changed?
 
         if game.confirmed?
           game.reset!
@@ -69,11 +68,23 @@ module Divisions
 
     def push_places
       division.places.each do |place|
-        if place.prereq_uid =~ /#{pool}\d/
-          place.team = sorted_teams[ place.prereq_uid.gsub(pool, '').to_i - 1 ]
+        if prereq_uid_from_pool?(place.prereq_uid)
+          place.team = team_for_prereq(place.prereq_uid)
           place.save!
         end
       end
+    end
+
+    def prereq_uid_from_pool?(prereq_uid)
+      prereq_uid =~ /#{pool}\d/
+    end
+
+    def team_for_prereq(prereq_uid)
+      sorted_teams[ pool_place_index_from_prereq(prereq_uid) ]
+    end
+
+    def pool_place_index_from_prereq(prereq_uid)
+      prereq_uid.gsub(pool, '').to_i - 1
     end
 
     def sorted_teams

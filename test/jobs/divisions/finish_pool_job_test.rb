@@ -200,6 +200,33 @@ module Divisions
       end
     end
 
+    test "update pool doesn't reset dependent bracket games if no change" do
+      division = new_division('USAU 8.1')
+      teams = @teams.to_a
+      @teams.update_all(division_id: division.id)
+      division.seed
+
+      play_pool(@teams, division, 'A')
+
+      game1 = division.games.find_by(home_prereq_uid: 'A1')
+      game2 = division.games.find_by(away_prereq_uid: 'A4')
+
+      perform_enqueued_jobs do
+        FinishPoolJob.perform_now(division: division, pool: 'A')
+        assert_equal teams.first, game1.reload.home
+        assert_equal teams.last, game2.reload.away
+      end
+
+      game1.update_column(:score_confirmed, true)
+      game2.update_column(:score_confirmed, true)
+
+      perform_enqueued_jobs do
+        FinishPoolJob.perform_now(division: division, pool: 'A')
+        assert game1.reload.confirmed?
+        assert game2.reload.confirmed?
+      end
+    end
+
     private
 
     def play_pool(teams, division, pool)
