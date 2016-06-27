@@ -10,17 +10,23 @@ module Games
       @game = games(:swift_goose)
     end
 
-    test "unsafe if pool is already finished regardless of winner change or not" do
-      @game.update_column(:pool, 'A')
+    test "safe if pool is not finished" do
+      @game.update_columns(pool: 'A', score_confirmed: false)
+
+      assert Games::SafeToUpdateScoreJob.perform_now(
+        game: @game,
+        home_score: @game.away_score,
+        away_score: @game.home_score
+      ), 'expected update to be safe'
+    end
+
+    test "unsafe if pool is finished and results change" do
+      @game.update_columns(pool: 'A', score_confirmed: true)
+      create_pool_place(@game.home, 1)
+      create_pool_place(@game.away, 2)
 
       assert @game.division.games.where(pool: 'A').all? { |g| g.confirmed? },
              'all pool games need to be confirmed for this test to be correct'
-
-      refute Games::SafeToUpdateScoreJob.perform_now(
-        game: @game,
-        home_score: @game.home_score,
-        away_score: @game.away_score
-      ), 'expected update to be safe'
 
       refute Games::SafeToUpdateScoreJob.perform_now(
         game: @game,
@@ -29,7 +35,22 @@ module Games
       ), 'expected update to be unsafe'
     end
 
-    test "safe if winner changes and pool is already finished but bracket hasn't started" do
+    test "safe if pool is finished but results are not changed" do
+      @game.update_columns(pool: 'A', score_confirmed: true)
+      create_pool_place(@game.home, 1)
+      create_pool_place(@game.away, 2)
+
+      assert @game.division.games.where(pool: 'A').all? { |g| g.confirmed? },
+             'all pool games need to be confirmed for this test to be correct'
+
+      assert Games::SafeToUpdateScoreJob.perform_now(
+        game: @game,
+        home_score: @game.home_score + 1,
+        away_score: @game.away_score
+      ), 'expected update to be safe'
+    end
+
+    test "safe if pool results change but bracket hasn't started" do
       @game.update_columns(pool: 'A', round: nil)
       games(:pheonix_mavericks).update_column(:score_confirmed, false)
 
@@ -115,6 +136,18 @@ module Games
         home_score: game1.home_score,
         away_score: game1.away_score
       ), 'expected update to be safe'
+    end
+
+    private
+
+    def create_pool_place(team, position)
+      PoolResult.create!(
+        tournament_id: @tournament.id,
+        division_id: @division.id,
+        pool: 'A',
+        position: position,
+        team: team
+      )
     end
   end
 end
