@@ -22,7 +22,6 @@ var ScoreReports = React.createClass({
                 <th className="hidden-xs">Submitted at</th>
                 <th className="hidden-xs">SOTG</th>
                 <th className="hidden-xs">Comments</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -38,60 +37,8 @@ var ScoreReports = React.createClass({
 });
 
 var ScoreReport = React.createClass({
-  mixins: [LoadingMixin],
-
-  submit() {
-    this.acceptScoreReport();
-  },
-
-  acceptScoreReport(force = false) {
-    var report = this.props.report;
-    this._startLoading();
-
-    $.ajax({
-      url: 'games/' + report.game_id,
-      type: 'PUT',
-      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-      data: {
-        home_score: report.home_score,
-        away_score: report.away_score,
-        force: force
-      },
-      success: (response) => {
-        this._finishLoading();
-        Admin.Flash.notice('Score report accepted');
-      },
-      error: (response) => {
-        this._finishLoading();
-
-        if(response.status == 422) {
-          this.confirmAcceptScore();
-        } else {
-          Admin.Flash.error('Error accepting score report');
-        }
-      }
-    });
-  },
-
-  confirmAcceptScore() {
-    confirm({
-      title: "Confirm Accept Score",
-      message: "This update will change the teams in games that come after it\
-      and some of those games have been scored. If you update this\
-      score those games will be reset. This cannot be undone."
-    }).then(
-      (result) => {
-        this.acceptScoreReport(true);
-      },
-      (result) => {
-        console.log('cancelled');
-      }
-    );
-  },
-
   render() {
     var report = this.props.report;
-    var btnClasses = classNames('btn', 'btn-success', 'btn-xs', {'is-loading': this.state.isLoading});
     var tooltip = <Tooltip id={"report#{report.id}submitter"} placement="top">{report.submitter_fingerprint}</Tooltip>;
 
     return (
@@ -112,11 +59,6 @@ var ScoreReport = React.createClass({
         </td>
         <td className="comments hidden-xs">
           {report.comments}
-        </td>
-        <td>
-          <button className={btnClasses} onClick={this.submit}>
-            Accept
-          </button>
         </td>
       </tr>
     );

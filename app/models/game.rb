@@ -3,11 +3,12 @@ class Game < ApplicationRecord
   belongs_to :division
   belongs_to :field
 
-  belongs_to :home, :class_name => "Team", :foreign_key => :home_id
-  belongs_to :away, :class_name => "Team", :foreign_key => :away_id
+  belongs_to :home, class_name: 'Team', foreign_key: :home_id
+  belongs_to :away, class_name: 'Team', foreign_key: :away_id
 
   has_many :score_reports, dependent: :destroy
   has_many :score_entries, dependent: :destroy
+  has_many :score_disputes, dependent: :destroy
 
   validates_presence_of :tournament
   validates_presence_of :division, :home_prereq_uid, :away_prereq_uid
@@ -27,6 +28,7 @@ class Game < ApplicationRecord
 
   validates_numericality_of :home_score, :away_score, allow_blank: true, greater_than_or_equal_to: 0
 
+  before_save :set_confirmed
   after_save :broadcast
 
   scope :bracket_game, -> { where.not(bracket_uid: nil) }
@@ -71,7 +73,7 @@ class Game < ApplicationRecord
   end
 
   def score
-    return unless scores_present?
+    return unless confirmed?
     "#{home_score} - #{away_score}"
   end
 
@@ -137,7 +139,6 @@ class Game < ApplicationRecord
   def reset_score!
     self.home_score = nil
     self.away_score = nil
-    self.score_confirmed = false
     self.score_reports.destroy_all
   end
 
@@ -168,6 +169,10 @@ class Game < ApplicationRecord
         locals: {game: self}
       )
     )
+  end
+
+  def set_confirmed
+    self.confirmed = self.home_score.present? && self.away_score.present?
   end
 
   def validate_field

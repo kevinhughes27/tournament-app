@@ -65,7 +65,6 @@ module Divisions
         game.away = nil
         game.home_score = nil
         game.away_score = nil
-        game.score_confirmed = false
         game.save!
       end
     end

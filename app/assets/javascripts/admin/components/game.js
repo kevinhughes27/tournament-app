@@ -35,11 +35,18 @@ exports.NameCell = React.createClass({
       return( <span className={nameClasses}>{name}</span> );
     };
 
+    var badgeText;
+    if (true) { // tournament confirm game setting == automatic
+      badgeText = reports.length;
+    } else {
+      badgeText = "${reports.length} / 2"
+    };
+
     return (
       <div>
         <a href="#" onClick={this._toggleCollapse}>
           {name + " "}
-          <span className="badge">{reports.length}</span>
+          <span className="badge">{badgeText}</span>
         </a>
         <Collapse in={this.state.reportsOpen}>
           <div>
@@ -60,7 +67,7 @@ exports.ScoreCell = React.createClass({
     };
 
     var text;
-    if(game.has_score) {
+    if(game.confirmed) {
       text = `${game.home_score} - ${game.away_score}`;
     } else {
       text = <i className="fa fa-plus-square-o"></i>;
@@ -70,29 +77,6 @@ exports.ScoreCell = React.createClass({
       <UpdateScoreModal game={game}
                         linkText={text}
                         linkClass="btn-inline"/>
-    );
-  }
-});
-
-exports.ConfirmedCell = React.createClass({
-  render() {
-    var game = this.props.rowData;
-    var iconClass;
-    var iconColor;
-
-    if(game.confirmed) {
-      iconClass = "fa fa-check";
-      iconColor = "green";
-    } else if(game.played) {
-      iconClass = "fa fa-exclamation-circle";
-      iconColor = 'orange';
-    } else {
-      iconClass = "fa fa-question-circle";
-      iconColor ="#008B8B";
-    };
-
-    return (
-      <i className={iconClass} style={{color: iconColor}}></i>
     );
   }
 });

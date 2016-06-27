@@ -96,8 +96,10 @@ class ScoreReport < ApplicationRecord
         force: true
       )
     else
-      game.score_confirmed = false
-      game.save!
+      ScoreDispute.create!(
+        tournament_id: tournament_id,
+        game_id: game_id
+      )
     end
   end
 

@@ -35,7 +35,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update creates ScoreEntry" do
-    assert_difference "ScoreEntry.count",1 do
+    assert_difference "ScoreEntry.count", +1 do
       put :update, params: {
         id: @game.id,
         home_score: 15,
@@ -57,7 +57,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
       bracket_uid: 's2',
       home_prereq_uid: "W#{@game.bracket_uid}",
       away_prereq_uid: "Wnon",
-      score_confirmed: true
+      home_score: 1,
+      away_score: 2
     )
 
     put :update, params: {
@@ -77,7 +78,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
       bracket_uid: 's2',
       home_prereq_uid: "W#{@game.bracket_uid}",
       away_prereq_uid: "Wnon",
-      score_confirmed: true
+      home_score: 1,
+      away_score: 2
     )
 
     put :update, params: {
