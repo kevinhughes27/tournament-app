@@ -32,7 +32,7 @@ OmniAuth.config.test_mode = true
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def set_tournament(tournament)
     set_subdomain(tournament.try(:handle) || tournament)

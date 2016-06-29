@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Internal::DashboardControllerTest < ActionController::TestCase
   setup do
-    sign_in :internal_user, users(:kevin)
+    sign_in users(:kevin), scope: :internal_user
   end
 
   test "get show" do

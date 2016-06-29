@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 # rails gems
-gem 'rails', '5.0.0.rc1'
+gem 'rails', '5.0.0.rc2'
 gem 'pg'
 gem 'puma'
 gem 'actioncable'
@@ -28,7 +28,7 @@ gem 'phonelib'
 gem 'rollbar'
 
 # engines
-gem 'devise', '~> 4.0.1'
+gem 'devise', git: 'https://github.com/plataformatec/devise', ref: 'a20cca68733c422116dabb66f28fe769e0bf303b'
 
 # auth
 gem 'omniauth-google-oauth2'

@@ -13,7 +13,11 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "new requires current user" do
     sign_out @user
-    get :new
+    begin
+      get :new
+    rescue => e
+      byebug
+    end
     assert_redirected_to new_user_session_path
   end
 

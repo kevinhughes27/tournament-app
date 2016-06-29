@@ -55,7 +55,7 @@ class LoginControllerTest < ActionController::TestCase
 
   test "unsuccessful login" do
     post :create, params: { user: {email: @user.email} }
-    assert_login_error("Invalid email or password.")
+    assert_login_error("Invalid Email or password.")
   end
 
   test "login with valid user but wrong tournament" do
