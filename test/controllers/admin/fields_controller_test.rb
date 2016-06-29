@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::FieldsControllerTest < ActionController::TestCase
-
   setup do
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)

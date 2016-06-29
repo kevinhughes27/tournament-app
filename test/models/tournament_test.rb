@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class TournamentTest < ActiveSupport::TestCase
-
   test "tournament requires a name" do
     tournament = Tournament.new()
     refute tournament.valid?

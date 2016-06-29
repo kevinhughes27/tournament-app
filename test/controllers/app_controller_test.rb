@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class AppControllerTest < ActionController::TestCase
-  include ActiveJob::TestHelper
-
   setup do
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)

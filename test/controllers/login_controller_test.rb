@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class LoginControllerTest < ActionController::TestCase
-
   setup do
     @user = users(:bob)
     @tournament = tournaments(:noborders)
