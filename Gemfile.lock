@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:circleci/minitest-ci.git
-  revision: 9ab0f71b0c3d683c3dcb94ba053358e04f134d8d
+  revision: 464ad789a37f6a402779a9b4d878066b5b5b73bd
   specs:
     minitest-ci (3.0.4.pre)
       minitest (~> 5.0, >= 5.0.6)
@@ -176,7 +176,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
-    minitest-retry (0.1.4)
+    minitest-retry (0.1.5)
       minitest (>= 5.0)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
