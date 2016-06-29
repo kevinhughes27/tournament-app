@@ -95,7 +95,6 @@ group :test do
   gem 'timecop'
   gem 'capybara'
   gem 'poltergeist'
-  gem 'chunky_png'
   gem 'launchy'
   gem 'simplecov', :require => false
 end
