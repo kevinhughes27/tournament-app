@@ -296,7 +296,7 @@ GEM
     sprockets (3.6.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-commoner (0.2.8)
+    sprockets-commoner (0.4.0)
       schmooze (~> 0.1.6)
       sprockets (>= 3, < 4)
     sprockets-rails (3.0.4)
@@ -396,7 +396,7 @@ DEPENDENCIES
   sidekiq
   simplecov
   spring
-  sprockets-commoner (~> 0.2.8)
+  sprockets-commoner (~> 0.4.0)
   teaspoon
   teaspoon-bundle (~> 0.1.3)
   teaspoon-jasmine
