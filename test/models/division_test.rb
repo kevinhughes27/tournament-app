@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class DivisionTest < ActiveSupport::TestCase
-  include ActiveJob::TestHelper
-
   setup do
     @tournament = tournaments(:noborders)
     @division = divisions(:open)
@@ -21,7 +19,7 @@ class DivisionTest < ActiveSupport::TestCase
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
 
     assert_difference "Game.count", -12 do
-      perform_enqueued_jobs { division.destroy }
+      division.destroy
     end
   end
 
@@ -37,7 +35,7 @@ class DivisionTest < ActiveSupport::TestCase
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
 
     assert_difference "Place.count", -8 do
-      perform_enqueued_jobs { division.destroy }
+      division.destroy
     end
   end
 
@@ -47,9 +45,7 @@ class DivisionTest < ActiveSupport::TestCase
     teams = division.teams
     assert teams.present?
 
-    perform_enqueued_jobs do
-      division.destroy
-    end
+    division.destroy
 
     assert teams.reload.all? { |team| team.division.nil? }
   end
@@ -82,9 +78,7 @@ class DivisionTest < ActiveSupport::TestCase
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
 
-    perform_enqueued_jobs do
-      division.update_attributes(bracket_type: 'single_elimination_4')
-    end
+    division.update_attributes(bracket_type: 'single_elimination_4')
 
     assert_equal 4, division.games.count
   end
@@ -97,9 +91,7 @@ class DivisionTest < ActiveSupport::TestCase
 
     assert division.seeded?
 
-    perform_enqueued_jobs do
-      division.update_attributes(bracket_type: 'single_elimination_4')
-    end
+    division.update_attributes(bracket_type: 'single_elimination_4')
 
     refute division.seeded?
   end
@@ -108,9 +100,7 @@ class DivisionTest < ActiveSupport::TestCase
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
 
-    perform_enqueued_jobs do
-      division.update_attributes(bracket_type: 'single_elimination_4')
-    end
+    division.update_attributes(bracket_type: 'single_elimination_4')
 
     assert_equal 4, division.games.count
   end
@@ -140,8 +130,6 @@ class DivisionTest < ActiveSupport::TestCase
   private
 
   def create_division(params)
-    perform_enqueued_jobs do
-      Division.create!(params)
-    end
+    Division.create!(params)
   end
 end

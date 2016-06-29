@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class OmniauthCallbacksControllerTest < ActionController::TestCase
-
   setup do
     @user = users(:kevin)
     @tournament = tournaments(:noborders)

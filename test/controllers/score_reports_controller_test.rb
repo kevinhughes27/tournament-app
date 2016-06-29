@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class ScoreReportsControllerTest < ActionController::TestCase
-  include ActiveJob::TestHelper
-
   setup do
     @tournament = tournaments(:noborders)
     set_tournament(@tournament)
@@ -18,9 +16,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     @tournament.update_columns(game_confirm_setting: 'automatic')
 
     assert_difference "ScoreReport.count", +1 do
-      perform_enqueued_jobs do
-        post :submit, params: report_params, format: :json
-      end
+      post :submit, params: report_params, format: :json
     end
 
     assert @game.reload.score_confirmed
@@ -30,9 +26,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     @tournament.update_columns(game_confirm_setting: 'validated')
 
     assert_difference "ScoreReport.count", +1 do
-      perform_enqueued_jobs do
-        post :submit, params: report_params, format: :json
-      end
+      post :submit, params: report_params, format: :json
     end
 
     refute @game.reload.score_confirmed
@@ -43,9 +37,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     assert_equal 2, @game.score_reports.count
 
     assert_difference "ScoreReport.count", +1 do
-      perform_enqueued_jobs do
-        post :submit, params: report_params, format: :json
-      end
+      post :submit, params: report_params, format: :json
     end
 
     assert @game.reload.score_confirmed
@@ -76,9 +68,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
 
   test "confirm a score report" do
     assert_difference "ScoreReport.count", +1 do
-      perform_enqueued_jobs do
-        post :confirm, params: confirm_params
-      end
+      post :confirm, params: confirm_params
       assert_response :ok
       assert_template 'confirm_score_success'
     end
@@ -107,9 +97,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     )
 
     assert_difference "ScoreReport.count", +1 do
-      perform_enqueued_jobs do
-        post :confirm, params: params
-      end
+      post :confirm, params: params
       assert_response :ok
       assert_template 'submit_score_success'
     end

@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
-  include ActiveJob::TestHelper
-
   setup do
     @team = teams(:swift)
     @game = games(:swift_goose)
@@ -13,9 +11,7 @@ class TeamTest < ActiveSupport::TestCase
   test "deleting a team unassigns if from all games (home)" do
     assert_equal @team, @game.home
 
-    perform_enqueued_jobs do
-      @team.destroy
-    end
+    @team.destroy
 
     assert_nil @game.reload.home
   end
@@ -24,9 +20,7 @@ class TeamTest < ActiveSupport::TestCase
     team = teams(:goose)
     assert_equal team, @game.away
 
-    perform_enqueued_jobs do
-      team.destroy
-    end
+    team.destroy
 
     assert_nil @game.reload.away
   end
@@ -34,9 +28,7 @@ class TeamTest < ActiveSupport::TestCase
   test "deleting a team destroys any submitted scores" do
     report = score_reports(:swift_goose)
 
-    perform_enqueued_jobs do
-      @team.destroy
-    end
+    @team.destroy
 
     assert report.reload.deleted?
   end
@@ -44,9 +36,7 @@ class TeamTest < ActiveSupport::TestCase
   test "updating a team's division unassigns if from all games (home)" do
     assert_equal @team, @game.home
 
-    perform_enqueued_jobs do
-      @team.update_attributes(division: divisions(:women))
-    end
+    @team.update_attributes(division: divisions(:women))
 
     assert_nil @game.reload.home
   end
@@ -55,9 +45,7 @@ class TeamTest < ActiveSupport::TestCase
     team = teams(:goose)
     assert_equal team, @game.away
 
-    perform_enqueued_jobs do
-      team.update_attributes(division: divisions(:women))
-    end
+    team.update_attributes(division: divisions(:women))
 
     assert_nil @game.reload.away
   end

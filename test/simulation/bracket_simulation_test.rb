@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class BracketSimulationTest < ActiveSupport::TestCase
-  include ActiveJob::TestHelper
-
   attr_reader :division, :tournament
 
   setup do
@@ -27,9 +25,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
   private
 
   def new_division(type)
-    perform_enqueued_jobs do
-      Division.create!(tournament: tournament, name: 'New Division', bracket_type: type)
-    end
+    Division.create!(tournament: tournament, name: 'New Division', bracket_type: type)
   end
 
   def create_teams
@@ -77,13 +73,11 @@ class BracketSimulationTest < ActiveSupport::TestCase
 
   def play_game(game)
     score = ScoreGenerator.generate
-    perform_enqueued_jobs do
-      Games::UpdateScoreJob.perform_now(
-        game: game,
-        home_score: score[0],
-        away_score: score[1]
-      )
-    end
+    Games::UpdateScoreJob.perform_now(
+      game: game,
+      home_score: score[0],
+      away_score: score[1]
+    )
   end
 
   def games_to_be_played
