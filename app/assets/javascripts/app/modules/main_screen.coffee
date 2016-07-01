@@ -7,7 +7,6 @@ class App.MainScreen
     @findText = ''
     @fieldSearchOpen = false
     @teamSearchOpen = false
-    @showAdminLink = @_showAdminLink()
     @initApp()
 
   initializeMap: ->
@@ -121,7 +120,3 @@ class App.MainScreen
     @appMap.clearPointer()
     @appMap.centerMap()
     Twine.refresh()
-
-  _showAdminLink: ->
-    document.cookie.indexOf('td=true') != -1 &&
-    window.frameElement == null

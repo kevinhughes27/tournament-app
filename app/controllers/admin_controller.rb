@@ -12,7 +12,6 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
   before_action :set_tournament_cookie
-  before_action :set_admin_cookie
 
   protected
 
@@ -60,9 +59,5 @@ class AdminController < ApplicationController
       value: 30.minutes.from_now,
       domain: :all
     }
-  end
-
-  def set_admin_cookie
-    cookies[:td] = true
   end
 end
