@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 # rails gems
-gem 'rails', '5.0.0.rc2'
+gem 'rails', '5.0.0'
 gem 'pg'
 gem 'puma'
 gem 'actioncable'
