@@ -66,7 +66,7 @@
     <button class="btn btn-primary btn-block btn-outlined" bind-event-click="showTeamSelect()" track-click="{category: 'App.Main', action: 'FindTeam'}">Find a team</button>
   </div>
 
-  <div class="bar bar-standard bar-footer">
+  <div class="bar bar-standard bar-footer" bind-class="{hide: drawerOpen}">
     <a class="pull-right" href="#" bind-event-click="drawerOpen = false" track-click="{category: 'App.Main', action: 'CloseDrawer'}">Back to map</a>
   </div>
 </div>
