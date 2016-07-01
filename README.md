@@ -15,10 +15,12 @@ A web application for running ultimate tournaments
 
 [Facebook Developer Dashboard](https://developers.facebook.com/apps/754008491396080/dashboard/)
 
+
 Docs
 ----
 
 [USAU Tournament Formats](http://www.usaultimate.org/assets/1/AssetManager/Format%20Manual%20Version%204.3%20_7.1.08__updated%208.25.10_.pdf)
+
 
 Development
 -----------
@@ -41,6 +43,29 @@ bundle install
 bundle exec rake db:migrate
 npm install
 ```
+
+
+Updating Bracket Templates
+--------------------------
+
+**Changing UIDs:**
+
+A bracket_db_diff can be used to update brackets with changed UIDs (but not to change the structure. Changing the structure is not solved yet if the bracket has been used.)
+
+```
+bundle exec rake dev:bracket_db:diff
+```
+
+inspect the diff and the run it on production:
+
+```
+heroku run rake m:process_bracket_db_diff
+```
+
+**Adding data:**
+
+Since the UIDs aren't changing they can be used to identify the games and add the new data.
+
 
 Gotchas
 -------

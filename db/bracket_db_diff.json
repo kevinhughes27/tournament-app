@@ -1,0 +1,818 @@
+{
+  "USAU 15.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  },
+  "USAU 16.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  },
+  "USAU 17.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  },
+  "USAU 18.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  },
+  "USAU 19.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  },
+  "USAU 20.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  },
+  "USAU 23.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  },
+  "USAU 24.1": {
+    "old": [
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "m",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wl",
+        "away": "Wm"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Ll",
+        "away": "Lm"
+      },
+      {
+        "round": 3,
+        "uid": "p",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "q",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wp",
+        "away": "Wq"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lp",
+        "away": "Lq"
+      }
+    ],
+    "new": [
+      {
+        "round": 2,
+        "uid": "k",
+        "home": "La",
+        "away": "Lb"
+      },
+      {
+        "round": 2,
+        "uid": "l",
+        "home": "Lc",
+        "away": "Ld"
+      },
+      {
+        "round": 3,
+        "uid": "9",
+        "home": "Wk",
+        "away": "Wl"
+      },
+      {
+        "round": 3,
+        "uid": "11",
+        "home": "Lk",
+        "away": "Ll"
+      },
+      {
+        "round": 3,
+        "uid": "m",
+        "home": "Le",
+        "away": "Lf"
+      },
+      {
+        "round": 3,
+        "uid": "n",
+        "home": "Lg",
+        "away": "Lh"
+      },
+      {
+        "round": 4,
+        "uid": "5",
+        "home": "Wm",
+        "away": "Wn"
+      },
+      {
+        "round": 4,
+        "uid": "7",
+        "home": "Lm",
+        "away": "Ln"
+      }
+    ]
+  }
+}
