@@ -1,9 +1,10 @@
-#bracketVisModal {
+.modal.fullscreen {
   .modal-header {
     border: none;
   }
   .modal-dialog {
-    top: -5px;
+    top: -10px;
+    margin: 0px;
   }
 
   .animated {
