@@ -34,7 +34,6 @@ class Admin.ScheduleEditor
     @_save(form, games)
 
   _startLoading: (form) ->
-    Turbolinks.ProgressBar.start()
     $(form).find(':submit').addClass('is-loading')
 
   _collectGames: ->
@@ -91,6 +90,5 @@ class Admin.ScheduleEditor
     $('.game').removeClass('game-error')
 
   _finishLoading: (form) ->
-    Turbolinks.ProgressBar.done()
     $(form).find(':submit').removeClass('is-loading')
     $(form).find(':submit').removeAttr("disabled")

@@ -7,8 +7,8 @@
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
   <%= stylesheet_link_tag 'brochure', media: 'all', 'data-turbolinks-track' => true %>
   <%= render 'shared/rollbar' %>
-  <%= javascript_include_tag 'brochure_vendor', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'brochure', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'brochure_vendor', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'brochure', 'data-turbolinks-track' => 'reload' %>
   <%= csrf_meta_tags %>
 </head>
 

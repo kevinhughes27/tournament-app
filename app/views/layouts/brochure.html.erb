@@ -12,7 +12,7 @@
 
 <body class="landing-page">
   <%= yield %>
-  <%= javascript_include_tag 'brochure_vendor', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'brochure', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'brochure_vendor', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'brochure', 'data-turbolinks-track' => 'reload' %>
 </body>
 </html>

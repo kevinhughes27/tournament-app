@@ -2,7 +2,6 @@ $.rails.ajax = (options) ->
   op = $.ajax(options)
 
   op.done (response) ->
-    # if error
-    unless response.substring(0, 16) == 'Turbolinks.visit'
+    unless response.substring(0, 10) == 'Turbolinks'
       Turbolinks.replace(response)
       window.scroll(0,0)
