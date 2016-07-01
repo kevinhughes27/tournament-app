@@ -10,11 +10,11 @@ class AppBrowserTest < BrowserTest
     refute page.find("#drawer")[:class].include?("active"), 'Drawer is open'
   end
 
-  test "find opens the drawer" do
-    visit("http://no-borders.#{Settings.domain}/")
-    click_on('Find')
-    assert page.find("#drawer")[:class].include?("active"), 'Drawer is not open'
-  end
+  # test "find opens the drawer" do
+  #   visit("http://no-borders.#{Settings.domain}/")
+  #   click_on('Find')
+  #   assert page.find("#drawer")[:class].include?("active"), 'Drawer is not open'
+  # end
 
   test "user views the schedule screen and performs a search" do
     visit("http://no-borders.#{Settings.domain}/")
