@@ -13,7 +13,7 @@ module Divisions
       @teams.update_all(division_id: division.id)
 
       Game.any_instance.expects(:save!).never
-      FinishPoolJob.perform_now(division: division, pool: 'A')
+      FinishPoolJob.perform_now(division: division, pool_uid: 'A')
     end
 
     test "records pool results" do
@@ -25,7 +25,7 @@ module Divisions
       play_pool(@teams, division, 'A')
 
       assert_difference 'PoolResult.count', +4 do
-        FinishPoolJob.perform_now(division: division, pool: 'A')
+        FinishPoolJob.perform_now(division: division, pool_uid: 'A')
       end
     end
 
@@ -46,7 +46,7 @@ module Divisions
       )
 
       assert_difference 'PoolResult.count', +3 do
-        FinishPoolJob.perform_now(division: division, pool: 'A')
+        FinishPoolJob.perform_now(division: division, pool_uid: 'A')
       end
 
       assert_raises ActiveRecord::RecordNotFound do
@@ -62,7 +62,7 @@ module Divisions
 
       play_pool(@teams, division, 'A')
 
-      FinishPoolJob.perform_now(division: division, pool: 'A')
+      FinishPoolJob.perform_now(division: division, pool_uid: 'A')
 
       game1 = division.games.find_by(home_prereq_uid: 'A1')
       game2 = division.games.find_by(away_prereq_uid: 'A4')
@@ -101,7 +101,7 @@ module Divisions
         score_confirmed: true
       )
 
-      FinishPoolJob.perform_now(division: division, pool: 'A')
+      FinishPoolJob.perform_now(division: division, pool_uid: 'A')
       results = division.pool_results.order(:position)
 
       assert_equal @teams[2], results[0].team
@@ -154,7 +154,7 @@ module Divisions
         score_confirmed: true
       )
 
-      FinishPoolJob.perform_now(division: division, pool: 'A')
+      FinishPoolJob.perform_now(division: division, pool_uid: 'A')
       results = division.pool_results.order(:position)
 
       assert_equal @teams[0], results[0].team
@@ -175,7 +175,7 @@ module Divisions
       game2 = division.games.find_by(away_prereq_uid: 'A4')
 
       perform_enqueued_jobs do
-        FinishPoolJob.perform_now(division: division, pool: 'A')
+        FinishPoolJob.perform_now(division: division, pool_uid: 'A')
         assert_equal teams.first, game1.reload.home
         assert_equal teams.last, game2.reload.away
       end
@@ -194,9 +194,36 @@ module Divisions
       division.reload
 
       perform_enqueued_jobs do
-        FinishPoolJob.perform_now(division: division, pool: 'A')
+        FinishPoolJob.perform_now(division: division, pool_uid: 'A')
         refute game1.reload.confirmed?
         refute game2.reload.confirmed?
+      end
+    end
+
+    test "update pool doesn't reset dependent bracket games if no change" do
+      division = new_division('USAU 8.1')
+      teams = @teams.to_a
+      @teams.update_all(division_id: division.id)
+      division.seed
+
+      play_pool(@teams, division, 'A')
+
+      game1 = division.games.find_by(home_prereq_uid: 'A1')
+      game2 = division.games.find_by(away_prereq_uid: 'A4')
+
+      perform_enqueued_jobs do
+        FinishPoolJob.perform_now(division: division, pool_uid: 'A')
+        assert_equal teams.first, game1.reload.home
+        assert_equal teams.last, game2.reload.away
+      end
+
+      game1.update_column(:score_confirmed, true)
+      game2.update_column(:score_confirmed, true)
+
+      perform_enqueued_jobs do
+        FinishPoolJob.perform_now(division: division, pool_uid: 'A')
+        assert game1.reload.confirmed?
+        assert game2.reload.confirmed?
       end
     end
 
