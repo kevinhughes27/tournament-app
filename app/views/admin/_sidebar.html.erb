@@ -30,7 +30,7 @@
         <%= sidebar_link "fa fa-list", "Games", admin_games_path, badge: games_badge(@tournament) %>
 
         <li class="treeview <%= sidebar_menu_class('settings') %>" define="{menu: new Admin.TreeMenu('settings', this)}">
-          <a href="#">
+          <a href="#" data-turbolinks="false">
             <i class="fa fa-cogs"></i>
             <span>Settings</span>
             <i class="fa fa-angle-left pull-right"></i>
