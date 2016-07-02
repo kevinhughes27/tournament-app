@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-preview">
+<% end %>
+
 <% content_for :top_bar_left do %>
   <i class="fa fa-map-signs"></i>
   <%= link_to 'Fields', admin_fields_path %> / <%= @field.name.present? ? @field.name : 'Edit'%>

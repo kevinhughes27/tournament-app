@@ -9,6 +9,7 @@
   <%= javascript_include_tag 'admin/vendor', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'admin', 'data-turbolinks-track' => 'reload' %>
   <%= csrf_meta_tags %>
+  <%= yield :head %>
 </head>
 
 <body class="skin-green sidebar-mini <%= sidebar_class %> fixed animated <%= flash[:animate] %>">
