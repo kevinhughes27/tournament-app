@@ -12,11 +12,6 @@ module Divisions
       @new_template = new_template
       @template_games = new_template[:games]
 
-      @games = Game.where(
-        tournament_id: tournament_id,
-        division_id: division_id
-      )
-
       games_to_keep = games.select do |game|
         matches_template_game?(game)
       end
@@ -41,6 +36,13 @@ module Divisions
     end
 
     private
+
+    def games
+      @games ||= Game.where(
+        tournament_id: tournament_id,
+        division_id: division_id
+      )
+    end
 
     def matches_template_game?(game)
       template_games.detect do |template_game|
