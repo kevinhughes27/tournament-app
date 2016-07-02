@@ -1,18 +1,26 @@
-class DirectiveProcessor < Sprockets::DirectiveProcessor
-  def process_depend_on_file_directive(path)
-    _, deps = @environment.resolve!(path, load_paths: [::Rails.root.to_s])
-    @dependencies.merge(deps)
-  end
-
-  def process_depend_on_files_directive(glob)
-    Dir["#{glob}"].sort.each do |filename|
-      _, deps = @environment.resolve!(filename, load_paths: [::Rails.root.to_s])
-      @dependencies.merge(deps)
-    end
-  end
-end
+require 'sprockets/depend_on_file_directive_processor'
 
 Rails.application.config.assets.configure do |env|
   env.unregister_processor('application/javascript', Sprockets::DirectiveProcessor)
-  env.register_processor('application/javascript', DirectiveProcessor)
+  env.register_processor('application/javascript', DependOnFileDirectiveProcessor)
+
+  env.unregister_postprocessor('application/javascript', Sprockets::Commoner::Processor)
+  processor = Sprockets::Commoner::Processor.new(
+    env.root,
+    include: [
+      'app/assets/javascripts/admin',
+      'node_modules',
+    ],
+    exclude: [
+      'app/assets/javascripts/vendor',
+      'app/assets/javascripts/app',
+      'app/assets/javascripts/brochure',
+      'app/assets/javascripts/internal',
+      'app/assets/javascripts/shared',
+    ],
+    babel_exclude: [
+      /node_modules/,
+    ]
+  )
+  env.register_postprocessor('application/javascript', processor)
 end

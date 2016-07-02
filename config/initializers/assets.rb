@@ -8,13 +8,13 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += [
   'brochure.css',
   'brochure.js',
-  'brochure_vendor.js',
+  'brochure/vendor.js',
   'admin.css',
   'admin.js',
-  'admin_vendor.js',
+  'admin/vendor.js',
   'schedule_pdf.css',
   'app.css',
   'app.js',
-  'app_vendor.js',
+  'app/vendor.js',
   'internal.js',
 ]
