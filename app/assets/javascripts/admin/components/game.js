@@ -24,33 +24,70 @@ exports.NameCell = React.createClass({
     this.setState({ reportsOpen: state });
   },
 
-  render() {
-    var game = this.props.rowData;
-    var name = game.name;
-    var reports = game.score_reports;
+  renderReportsBadge(game) {
+    var badgeText;
+    var reportCount = game.score_reports.length;
 
-    var nameClasses = classNames({'subdued': !game.has_teams});
-
-    if (reports.length == 0) {
-      return( <span className={nameClasses}>{name}</span> );
+    // if the game is not confirmed but there is a report
+    // then we know we need 2 reports
+    if (game.confirmed) {
+      badgeText = reportCount
+    } else {
+      badgeText = `${reportCount} / 2`
     };
 
-    var badgeText;
-    if (true) { // tournament confirm game setting == automatic
-      badgeText = reports.length;
-    } else {
-      badgeText = "${reports.length} / 2"
+    return (
+      <span className="badge">
+        {badgeText}
+      </span>
+    );
+  },
+
+  renderDisputeBadge(game) {
+    if (!game.has_dispute) {
+      return;
+    }
+
+    return (
+      <i className="fa fa-lg fa-exclamation-triangle" style={{color: 'orange'}}></i>
+    );
+  },
+
+  renderBadges(game) {
+    return (
+      <span>{this.renderReportsBadge(game)} {this.renderDisputeBadge(game)}
+      </span>
+    );
+  },
+
+  renderDispute(game) {
+    if (!game.has_dispute) {
+      return;
+    }
+
+    return (
+      <ScoreDispute gameId={game.id} disputeId={game.dispute_id}/>
+    );
+  },
+
+  render() {
+    var game = this.props.rowData;
+    var reports = game.score_reports;
+
+    if (reports.length == 0) {
+      var nameClasses = classNames({'subdued': !game.has_teams});
+      return( <span className={nameClasses}>{game.name}</span> );
     };
 
     return (
       <div>
         <a href="#" onClick={this._toggleCollapse}>
-          {name + " "}
-          <span className="badge">{badgeText}</span>
+          <span>{game.name} {this.renderBadges(game)}</span>
         </a>
         <Collapse in={this.state.reportsOpen}>
           <div>
             <ScoreReports reports={reports}/>
+            {this.renderDispute(game)}
           </div>
         </Collapse>
       </div>

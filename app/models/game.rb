@@ -172,7 +172,8 @@ class Game < ApplicationRecord
   end
 
   def set_confirmed
-    self.confirmed = self.home_score.present? && self.away_score.present?
+    self.score_confirmed = self.home_score.present? && self.away_score.present?
+    true
   end
 
   def validate_field

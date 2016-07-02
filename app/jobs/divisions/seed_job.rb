@@ -49,16 +49,30 @@ module Divisions
 
     def games
       @games ||= if division.bracket.pool
-        Game.where(tournament_id: division.tournament_id, division_id: division.id).where.not(pool: nil)
+        Game.where(
+          tournament_id: division.tournament_id,
+          division_id: division.id
+        ).where.not(
+          pool: nil
+        )
       else
         game_uids = division.bracket.game_uids_for_seeding(seed_round)
-        Game.where(tournament_id: division.tournament_id, division_id: division.id, bracket_uid: game_uids)
+        Game.where(
+          tournament_id: division.tournament_id,
+          division_id: division.id,
+          bracket_uid: game_uids
+        )
       end
     end
 
     def reset_games(division:, seed_round:)
       game_uids = division.bracket.game_uids_not_for_seeding(seed_round)
-      games = Game.where(tournament_id: division.tournament_id, division_id: division.id, bracket_uid: game_uids)
+
+      games = Game.where(
+        tournament_id: division.tournament_id,
+        division_id: division.id,
+        bracket_uid: game_uids
+      )
 
       games.each do |game|
         game.home = nil

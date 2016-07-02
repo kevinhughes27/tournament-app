@@ -2,9 +2,7 @@ var React = require('react'),
     ReactDOM = require('react-dom'),
     Tooltip = require('react-bootstrap').Tooltip,
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,
-    classNames = require('classnames'),
-    confirm = require('./confirm'),
-    LoadingMixin = require('../mixins/loading_mixin');
+    classNames = require('classnames');
 
 var ScoreReports = React.createClass({
   render() {

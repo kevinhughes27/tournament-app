@@ -29,7 +29,10 @@ namespace :admin do
   get '/schedule', to: 'schedule#index'
   post '/schedule', to: 'schedule#update'
 
-  resources :games, only: [:index, :update]
+  resources :games, only: [:index, :update] do
+    put '/disputes/:id', to: 'score_disputes#resolve'
+  end
+
   resources :score_reports, only: [:index]
 
   get '/settings', to: 'settings#show'
