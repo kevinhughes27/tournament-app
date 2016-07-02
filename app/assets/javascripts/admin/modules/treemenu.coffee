@@ -16,13 +16,13 @@ class Admin.TreeMenu
       @openMenu()
 
   openMenu: ->
-    $.cookie('sidebar-menu', @name, {path: '/'})
+    Cookies('sidebar-menu', @name, {path: '/'})
     @$treeNode.slideDown @animationSpeed, =>
       @$parentNode.find('li.active').removeClass('active')
       @$node.addClass('active')
 
   closeMenu: ->
-    $.removeCookie('sidebar-menu', {path: '/' })
+    Cookies.remove('sidebar-menu', {path: '/' })
     @$treeNode.slideUp @animationSpeed, =>
       @$node.removeClass('active')
 

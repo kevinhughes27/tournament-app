@@ -23,11 +23,11 @@ class Sidebar
   # desktop and tablet
   expand: (klass) ->
     $("body").removeClass(klass)
-    $.removeCookie('sidebar', {path: '/' })
+    Cookies.remove('sidebar', {path: '/' })
 
   collapse: (klass) ->
     $('body').addClass(klass)
-    $.cookie("sidebar", klass, {path: '/'})
+    Cookies("sidebar", klass, {path: '/'})
 
   _expanded: (klass) ->
     !$('body').hasClass(klass)
@@ -35,11 +35,11 @@ class Sidebar
   # mobile
   open: (klass) ->
     $('body').addClass(klass)
-    $.cookie("sidebar", klass, {path: '/'})
+    Cookies("sidebar", klass, {path: '/'})
 
   close: (klass) ->
     $("body").removeClass(klass)
-    $.removeCookie('sidebar', {path: '/' })
+    Cookies.remove('sidebar', {path: '/' })
 
   _open: (klass) ->
     $('body').hasClass(klass)
