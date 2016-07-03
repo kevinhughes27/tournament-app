@@ -23,7 +23,7 @@ module Divisions
       return unless next_game
 
       if next_game.confirmed?
-        next_game.reset!
+        next_game.reset_score!
         Divisions::ResetBracketJob.perform_later(game_id: next_game.id)
       end
 
@@ -44,7 +44,7 @@ module Divisions
       return unless next_game
 
       if next_game.confirmed?
-        next_game.reset!
+        next_game.reset_score!
         Divisions::ResetBracketJob.perform_later(game_id: next_game.id)
       end
 

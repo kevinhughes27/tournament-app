@@ -133,7 +133,7 @@ class Game < ApplicationRecord
     home_score.present? && away_score.present?
   end
 
-  def reset!
+  def reset_score!
     self.home_score = nil
     self.away_score = nil
     self.score_confirmed = false

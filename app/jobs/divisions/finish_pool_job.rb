@@ -31,7 +31,7 @@ module Divisions
         next unless game.changed?
 
         if game.confirmed?
-          game.reset!
+          game.reset_score!
           Divisions::ResetBracketJob.perform_later(game_id: game.id)
         end
 

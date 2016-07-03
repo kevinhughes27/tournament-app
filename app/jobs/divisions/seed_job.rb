@@ -17,7 +17,7 @@ module Divisions
       games.each do |game|
         game.home = seed_index_for_prereq(game.home_prereq_uid)
         game.away = seed_index_for_prereq(game.away_prereq_uid)
-        game.reset!
+        game.reset_score!
         game.save!
       end
 

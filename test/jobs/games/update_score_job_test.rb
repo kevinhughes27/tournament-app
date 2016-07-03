@@ -25,7 +25,7 @@ module Games
     end
 
     test "sets the score if no previous score" do
-      @game.reset! && @game.save!
+      @game.reset_score! && @game.save!
       SetScoreJob.expects(:perform_now)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end
@@ -53,7 +53,7 @@ module Games
     end
 
     test "updates the bracket for bracket game if no existing score" do
-      @game.reset! && @game.save!
+      @game.reset_score! && @game.save!
       Divisions::AdvanceBracketJob.expects(:perform_later)
       UpdateScoreJob.perform_now(game: @game, home_score: 15, away_score: 11)
     end

@@ -8,7 +8,7 @@ module Divisions
         g.away_id = nil
 
         if g.confirmed?
-          g.reset!
+          g.reset_score!
           Divisions::ResetBracketJob.perform_later(game_id: g.id)
         end
 
