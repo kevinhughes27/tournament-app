@@ -1,0 +1,8 @@
+.btn-inline {
+  border: none;
+  background: transparent;
+  color: #3c8dbc;
+  &:focus {
+    outline: none;
+  }
+}
