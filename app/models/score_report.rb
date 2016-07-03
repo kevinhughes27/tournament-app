@@ -17,7 +17,6 @@ class ScoreReport < ApplicationRecord
 
   after_create :notify_other_team
   after_create :confirm_game
-  after_create :touch_game
 
   def submitted_by
     team.name
@@ -101,6 +100,8 @@ class ScoreReport < ApplicationRecord
         game_id: game_id
       )
     end
+
+    game.update_attributes(updated_at: Time.now)
   end
 
   def matches_other_reports?
@@ -113,9 +114,5 @@ class ScoreReport < ApplicationRecord
         self.opponent_score == report.team_score
       end
     end
-  end
-
-  def touch_game
-    game.update_attributes(updated_at: Time.now)
   end
 end
