@@ -11,8 +11,8 @@
     {"round":1, "uid":"bb", "home":"B4", "away":"C4"},
     {"round":1, "uid":"17", "home":"A5", "away":"B5"},
 
-    {"round":2, "uid":"13", "home":"Wa", "away":"Wb"},
-    {"round":2, "uid":"15", "home":"La", "away":"Lb"}
+    {"round":2, "uid":"13", "home":"Waa", "away":"Wbb"},
+    {"round":2, "uid":"15", "home":"Laa", "away":"Lbb"}
   ],
   "places": [
     <%= bracket_partial('places_16.1') %>
