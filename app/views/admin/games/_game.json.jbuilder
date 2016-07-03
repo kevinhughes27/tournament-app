@@ -19,6 +19,3 @@ json.score_reports(game.score_reports) do |report|
 end
 
 json.has_dispute game.score_disputes.present?
-if game.score_disputes.present?
-  json.dispute_id game.score_disputes.first.id
-end

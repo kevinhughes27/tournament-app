@@ -49,6 +49,26 @@ class Admin::GamesControllerTest < ActionController::TestCase
     end
   end
 
+  test "update with resolve param resolves disputes" do
+    dispute = ScoreDispute.create!(
+      tournament: @tournament,
+      game: @game
+    )
+
+    put :update, params: {
+      id: @game.id,
+      home_score: 15,
+      away_score: 13,
+      resolve: 'true'
+    }, format: :json
+
+    assert_response :ok
+
+    assert_equal 15, @game.reload.home_score
+    assert_equal 13, @game.away_score
+    assert_equal 'resolved', dispute.reload.status
+  end
+
   test "update the games score (unsafe)" do
     Game.create!(
       tournament: @tournament,

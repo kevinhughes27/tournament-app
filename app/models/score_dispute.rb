@@ -17,16 +17,8 @@ class ScoreDispute < ApplicationRecord
     self.status ||= 'open'
   end
 
-  after_save :touch_game
-
   def resolve!
     self.status = 'resolved'
     save!
-  end
-
-  private
-
-  def touch_game
-    game.update_attributes(updated_at: Time.now)
   end
 end

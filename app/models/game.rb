@@ -158,6 +158,11 @@ class Game < ApplicationRecord
     ].compact
   end
 
+  def resolve_disputes!
+    score_disputes.map(&:resolve!)
+    score_disputes.reload
+  end
+
   private
 
   def broadcast

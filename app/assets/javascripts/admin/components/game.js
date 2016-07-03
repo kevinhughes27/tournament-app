@@ -3,6 +3,7 @@ var React = require('react'),
     Collapse = require('react-bootstrap').Collapse,
     classNames = require('classnames'),
     ScoreReports = require('./score_reports'),
+    ScoreDispute = require('./score_dispute'),
     UpdateScoreModal = require('./update_score_modal'),
     GamesStore = require('../stores/games_store');
 
@@ -66,7 +67,7 @@ exports.NameCell = React.createClass({
     }
 
     return (
-      <ScoreDispute gameId={game.id} disputeId={game.dispute_id}/>
+      <ScoreDispute game={game}/>
     );
   },
 
