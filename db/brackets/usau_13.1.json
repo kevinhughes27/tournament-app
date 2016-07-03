@@ -6,6 +6,7 @@
 
     {"round":1, "uid":"a", "home":"B3", "away":"C3"},
     {"round":1, "uid":"10", "home":"B4", "away":"C4"},
+    {"round":1, "uid":"12", "home":"A4", "away":"A5"},
 
     {"round":2, "uid":"b", "home":"A1", "away":"Wa"},
     {"round":2, "uid":"c", "home":"C2", "away":"B2"},
@@ -37,7 +38,7 @@
     {"position":9, "prereq_uid": "La"},
     {"position":10, "prereq_uid": "W10"},
     {"position":11, "prereq_uid": "L10"},
-    {"position":12, "prereq_uid": "A4"},
-    {"position":13, "prereq_uid": "A5"}
+    {"position":12, "prereq_uid": "W12"},
+    {"position":13, "prereq_uid": "L12"}
   ]
 }
