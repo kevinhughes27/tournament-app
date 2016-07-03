@@ -5,15 +5,22 @@
     <%= bracket_partial('table_4.1', pool: 'C', seeds: [3,6,10,15]) %>
     <%= bracket_partial('table_4.1', pool: 'D', seeds: [4,5,9,16]) %>
 
-    <%= bracket_partial('bracket_16.1') %>
+    <%= bracket_partial('bracket_16.1') %>,
+
+    {"round":1, "uid":"aa", "home":"A4", "away":"D4"},
+    {"round":1, "uid":"bb", "home":"B4", "away":"C4"},
+    {"round":1, "uid":"17", "home":"A5", "away":"B5"},
+
+    {"round":2, "uid":"13", "home":"Wa", "away":"Wb"},
+    {"round":2, "uid":"15", "home":"La", "away":"Lb"}
   ],
   "places": [
     <%= bracket_partial('places_16.1') %>
-    {"position":13, "prereq_uid": "A4"},
-    {"position":14, "prereq_uid": "B4"},
-    {"position":15, "prereq_uid": "C4"},
-    {"position":16, "prereq_uid": "D4"},
-    {"position":17, "prereq_uid": "A5"},
-    {"position":18, "prereq_uid": "B5"}
+    {"position":13, "prereq_uid": "W13"},
+    {"position":14, "prereq_uid": "L13"},
+    {"position":15, "prereq_uid": "W15"},
+    {"position":16, "prereq_uid": "L15"},
+    {"position":17, "prereq_uid": "W17"},
+    {"position":18, "prereq_uid": "L17"}
   ]
 }
