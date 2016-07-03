@@ -7,6 +7,7 @@ class Game < ApplicationRecord
   belongs_to :away, :class_name => "Team", :foreign_key => :away_id
 
   has_many :score_reports, dependent: :destroy
+  has_many :score_entries, dependent: :destroy
 
   validates_presence_of :tournament
   validates_presence_of :division, :home_prereq_uid, :away_prereq_uid
