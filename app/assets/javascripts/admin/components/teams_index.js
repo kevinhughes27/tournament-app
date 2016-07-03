@@ -1,4 +1,5 @@
 var React = require('react'),
+    ReactDOM = require('react-dom'),
     Griddle = require('griddle-react'),
     FilterBar = require('../mixins/filter_bar'),
     FilterFunction = require('../mixins/filter_function'),

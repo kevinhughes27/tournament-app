@@ -1,10 +1,9 @@
-var _ = require('underscore'),
-    React = require('react'),
+var React = require('react'),
+    ReactDOM = require('react-dom'),
     Tooltip = require('react-bootstrap').Tooltip,
     OverlayTrigger = require('react-bootstrap').OverlayTrigger,
     classNames = require('classnames'),
     confirm = require('./confirm'),
-    GamesStore = require('../stores/games_store'),
     LoadingMixin = require('../mixins/loading_mixin');
 
 var ScoreReports = React.createClass({
