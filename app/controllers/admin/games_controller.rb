@@ -11,6 +11,7 @@ class Admin::GamesController < AdminController
     force = params[:force] == 'true'
 
     if update_score(@game, home_score, away_score, force)
+      create_score_entry(@game, home_score, away_score)
       head :ok
     else
       head :unprocessable_entity
@@ -25,6 +26,18 @@ class Admin::GamesController < AdminController
       home_score: home_score,
       away_score: away_score,
       force: force
+    )
+  end
+
+  def create_score_entry(game, home_score, away_score)
+    ScoreEntry.create!(
+      tournament: @tournament,
+      user: current_user,
+      game: game,
+      home: game.home,
+      away: game.away,
+      home_score: home_score,
+      away_score: away_score
     )
   end
 end

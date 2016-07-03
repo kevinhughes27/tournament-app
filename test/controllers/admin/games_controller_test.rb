@@ -21,7 +21,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
     assert_match 'blank-slate', response.body
   end
 
-  test "update updates the games score" do
+  test "update the games score" do
     put :update, params: {
       id: @game.id,
       home_score: 15,
@@ -34,7 +34,22 @@ class Admin::GamesControllerTest < ActionController::TestCase
     assert_equal 13, @game.away_score
   end
 
-  test "update updates the games score (unsafe)" do
+  test "update creates ScoreEntry" do
+    assert_difference "ScoreEntry.count",1 do
+      put :update, params: {
+        id: @game.id,
+        home_score: 15,
+        away_score: 13
+      }, format: :json
+
+      assert_response :ok
+
+      assert_equal 15, @game.reload.home_score
+      assert_equal 13, @game.away_score
+    end
+  end
+
+  test "update the games score (unsafe)" do
     Game.create!(
       tournament: @tournament,
       division: @game.division,
@@ -54,7 +69,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
     assert_response :unprocessable_entity
   end
 
-  test "update updates the games score (unsafe) + force" do
+  test "update the games score (unsafe) + force" do
     Game.create!(
       tournament: @tournament,
       division: @game.division,
