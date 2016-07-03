@@ -95,9 +95,11 @@ class ScoreReport < ApplicationRecord
         away_score: away_score,
         force: true
       )
-    else
-      game.score_confirmed = false
-      game.save!
+    elsif game.score_disputes.blank?
+      ScoreDispute.create!(
+        tournament_id: tournament_id,
+        game_id: game_id
+      )
     end
   end
 

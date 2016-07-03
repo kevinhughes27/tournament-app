@@ -34,10 +34,10 @@ module Games
     end
 
     def update_score
-      @winner_changed = !game.scores_present? ||
+      @winner_changed = !game.confirmed? ||
                         (game.home_score > game.away_score) ^ (home_score > away_score)
 
-      if game.scores_present?
+      if game.confirmed?
         adjust_score
       else
         set_score

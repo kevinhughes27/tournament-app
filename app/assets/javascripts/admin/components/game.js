@@ -3,6 +3,7 @@ var React = require('react'),
     Collapse = require('react-bootstrap').Collapse,
     classNames = require('classnames'),
     ScoreReports = require('./score_reports'),
+    ScoreDispute = require('./score_dispute'),
     UpdateScoreModal = require('./update_score_modal'),
     GamesStore = require('../stores/games_store');
 
@@ -24,26 +25,70 @@ exports.NameCell = React.createClass({
     this.setState({ reportsOpen: state });
   },
 
+  renderReportsBadge(game) {
+    var badgeText;
+    var reportCount = game.score_reports.length;
+
+    // if the game is not confirmed but there is a report
+    // then we know we need 2 reports
+    if (game.confirmed) {
+      badgeText = reportCount
+    } else {
+      badgeText = `${reportCount} / 2`
+    };
+
+    return (
+      <span className="badge">
+        {badgeText}
+      </span>
+    );
+  },
+
+  renderDisputeBadge(game) {
+    if (!game.has_dispute) {
+      return;
+    }
+
+    return (
+      <i className="fa fa-lg fa-exclamation-triangle" style={{color: 'orange'}}></i>
+    );
+  },
+
+  renderBadges(game) {
+    return (
+      <span>{this.renderReportsBadge(game)} {this.renderDisputeBadge(game)}
+      </span>
+    );
+  },
+
+  renderDispute(game) {
+    if (!game.has_dispute) {
+      return;
+    }
+
+    return (
+      <ScoreDispute game={game}/>
+    );
+  },
+
   render() {
     var game = this.props.rowData;
-    var name = game.name;
     var reports = game.score_reports;
 
-    var nameClasses = classNames({'subdued': !game.has_teams});
-
     if (reports.length == 0) {
-      return( <span className={nameClasses}>{name}</span> );
+      var nameClasses = classNames({'subdued': !game.has_teams});
+      return( <span className={nameClasses}>{game.name}</span> );
     };
 
     return (
       <div>
         <a href="#" onClick={this._toggleCollapse}>
-          {name + " "}
-          <span className="badge">{reports.length}</span>
+          <span>{game.name} {this.renderBadges(game)}</span>
         </a>
         <Collapse in={this.state.reportsOpen}>
           <div>
             <ScoreReports reports={reports}/>
+            {this.renderDispute(game)}
           </div>
         </Collapse>
       </div>
@@ -60,7 +105,7 @@ exports.ScoreCell = React.createClass({
     };
 
     var text;
-    if(game.has_score) {
+    if(game.confirmed) {
       text = `${game.home_score} - ${game.away_score}`;
     } else {
       text = <i className="fa fa-plus-square-o"></i>;
@@ -70,29 +115,6 @@ exports.ScoreCell = React.createClass({
       <UpdateScoreModal game={game}
                         linkText={text}
                         linkClass="btn-inline"/>
-    );
-  }
-});
-
-exports.ConfirmedCell = React.createClass({
-  render() {
-    var game = this.props.rowData;
-    var iconClass;
-    var iconColor;
-
-    if(game.confirmed) {
-      iconClass = "fa fa-check";
-      iconColor = "green";
-    } else if(game.played) {
-      iconClass = "fa fa-exclamation-circle";
-      iconColor = 'orange';
-    } else {
-      iconClass = "fa fa-question-circle";
-      iconColor ="#008B8B";
-    };
-
-    return (
-      <i className={iconClass} style={{color: iconColor}}></i>
     );
   }
 });

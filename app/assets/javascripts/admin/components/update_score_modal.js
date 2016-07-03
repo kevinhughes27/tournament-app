@@ -11,6 +11,7 @@ var UpdateScoreModal = React.createClass({
 
   getDefaultProps() {
     return {
+      resolve: false,
       linkClass: ''
     }
   },
@@ -65,6 +66,7 @@ var UpdateScoreModal = React.createClass({
       data: {
         home_score: this.state.homeScore,
         away_score: this.state.awayScore,
+        resolve: this.state.resolve,
         force: force
       },
       success: (response) => {

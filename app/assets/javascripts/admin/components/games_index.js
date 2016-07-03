@@ -5,22 +5,20 @@ var React = require('react'),
     FilterFunction = require('../mixins/filter_function'),
     NameCell = require('./game').NameCell,
     ScoreCell = require('./game').ScoreCell,
-    ConfirmedCell = require('./game').ConfirmedCell,
     GamesStore = require('../stores/games_store');
 
 var columns = [
   "name",
   "division",
   "pool",
-  "has_score",
-  "confirmed"
+  "confirmed",
 ];
 
 var columnsMeta = [
   {
     columnName: "name",
     displayName: "Game",
-    cssClassName: "col-md-7 table-link",
+    cssClassName: "col-md-6 table-link",
     order: 1,
     customComponent: NameCell
   },
@@ -37,20 +35,13 @@ var columnsMeta = [
     order: 3,
   },
   {
-    columnName: "has_score",
+    columnName: "confirmed",
     displayName: "Score",
     cssClassName: "col-md-1",
     order: 4,
     sortable: false,
     customComponent: ScoreCell
-  },
-  {
-    columnName: "confirmed",
-    displayName: "Confirmed",
-    cssClassName: "col-md-1 table-link hidden-xs",
-    order: 5,
-    customComponent: ConfirmedCell
-  },
+  }
 ];
 
 var rowMetadata = {

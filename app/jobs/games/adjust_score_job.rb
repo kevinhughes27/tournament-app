@@ -15,8 +15,7 @@ module Games
       ActiveRecord::Base.transaction do
         game.update_attributes!(
           home_score: home_score,
-          away_score: away_score,
-          score_confirmed: true
+          away_score: away_score
         )
 
         game.home.points_for += home_delta

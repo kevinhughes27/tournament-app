@@ -83,8 +83,7 @@ module Divisions
         home: @teams[0],
         away: @teams[1],
         home_score: 5,
-        away_score: 0,
-        score_confirmed: true
+        away_score: 0
       )
 
       Game.create!(
@@ -97,8 +96,7 @@ module Divisions
         home: @teams[2],
         away: @teams[3],
         home_score: 10,
-        away_score: 2,
-        score_confirmed: true
+        away_score: 2
       )
 
       FinishPoolJob.perform_now(division: division, pool_uid: 'A')
@@ -122,8 +120,7 @@ module Divisions
         home: @teams[0],
         away: @teams[1],
         home_score: 10,
-        away_score: 0,
-        score_confirmed: true
+        away_score: 0
       )
 
       Game.create!(
@@ -136,8 +133,7 @@ module Divisions
         home: @teams[2],
         away: @teams[3],
         home_score: 5,
-        away_score: 2,
-        score_confirmed: true
+        away_score: 2
       )
 
       Game.create!(
@@ -150,8 +146,7 @@ module Divisions
         home: @teams[0],
         away: @teams[2],
         home_score: 10,
-        away_score: 10,
-        score_confirmed: true
+        away_score: 10
       )
 
       FinishPoolJob.perform_now(division: division, pool_uid: 'A')

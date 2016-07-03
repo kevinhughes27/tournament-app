@@ -89,7 +89,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     end
   end
 
-  test "report a different score" do
+  test "reporting a different score creates a dispute" do
     @game.update_columns(score_confirmed: true)
 
     params = confirm_params.merge(
@@ -97,12 +97,36 @@ class ScoreReportsControllerTest < ActionController::TestCase
     )
 
     assert_difference "ScoreReport.count", +1 do
-      post :confirm, params: params
-      assert_response :ok
-      assert_template 'submit_score_success'
+      assert_difference "ScoreDispute.count", +1 do
+        post :confirm, params: params
+        assert_response :ok
+        assert_template 'submit_score_success'
+      end
     end
 
-    refute @game.reload.score_confirmed
+    assert_equal 'open', ScoreDispute.last.status
+  end
+
+  test "reporting a different score doesn't create a dispute if there already is one" do
+    @game.update_columns(score_confirmed: true)
+    ScoreDispute.create!(
+      tournament: @tournament,
+      game: @game
+    )
+
+    params = confirm_params.merge(
+      team_score: @report.opponent_score + 1
+    )
+
+    assert_difference "ScoreReport.count", +1 do
+      assert_no_difference "ScoreDispute.count" do
+        post :confirm, params: params
+        assert_response :ok
+        assert_template 'submit_score_success'
+      end
+    end
+
+    assert_equal 'open', ScoreDispute.last.status
   end
 
   private

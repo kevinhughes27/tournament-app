@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628020759) do
+ActiveRecord::Schema.define(version: 20160628020811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +109,15 @@ ActiveRecord::Schema.define(version: 20160628020759) do
     t.integer  "home_score",    null: false
     t.integer  "away_score",    null: false
     t.datetime "deleted_at"
+  end
+
+  create_table "score_disputes", force: :cascade do |t|
+    t.integer  "tournament_id", null: false
+    t.integer  "user_id"
+    t.integer  "game_id",       null: false
+    t.string   "status",        null: false
+    t.datetime "deleted_at"
+    t.index ["tournament_id", "game_id", "deleted_at"], name: "score_dispute_tournament_game_deleted_at", using: :btree
   end
 
   create_table "score_report_confirm_tokens", force: :cascade do |t|

@@ -1,6 +1,12 @@
 class Admin::GamesController < AdminController
   def index
-    @games = @tournament.games.includes(:home, :away, :division, score_reports: [:team])
+    @games = @tournament.games.includes(
+      :home,
+      :away,
+      :division,
+      :score_disputes,
+      score_reports: [:team]
+    )
   end
 
   def update
@@ -9,6 +15,9 @@ class Admin::GamesController < AdminController
     home_score = params[:home_score].to_i
     away_score = params[:away_score].to_i
     force = params[:force] == 'true'
+    resolve = params[:resolve] == 'true'
+
+    @game.resolve_disputes! if resolve
 
     if update_score(@game, home_score, away_score, force)
       create_score_entry(@game, home_score, away_score)

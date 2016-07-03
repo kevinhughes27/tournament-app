@@ -35,7 +35,7 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update creates ScoreEntry" do
-    assert_difference "ScoreEntry.count",1 do
+    assert_difference "ScoreEntry.count", +1 do
       put :update, params: {
         id: @game.id,
         home_score: 15,
@@ -49,6 +49,26 @@ class Admin::GamesControllerTest < ActionController::TestCase
     end
   end
 
+  test "update with resolve param resolves disputes" do
+    dispute = ScoreDispute.create!(
+      tournament: @tournament,
+      game: @game
+    )
+
+    put :update, params: {
+      id: @game.id,
+      home_score: 15,
+      away_score: 13,
+      resolve: 'true'
+    }, format: :json
+
+    assert_response :ok
+
+    assert_equal 15, @game.reload.home_score
+    assert_equal 13, @game.away_score
+    assert_equal 'resolved', dispute.reload.status
+  end
+
   test "update the games score (unsafe)" do
     Game.create!(
       tournament: @tournament,
@@ -57,7 +77,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
       bracket_uid: 's2',
       home_prereq_uid: "W#{@game.bracket_uid}",
       away_prereq_uid: "Wnon",
-      score_confirmed: true
+      home_score: 1,
+      away_score: 2
     )
 
     put :update, params: {
@@ -77,7 +98,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
       bracket_uid: 's2',
       home_prereq_uid: "W#{@game.bracket_uid}",
       away_prereq_uid: "Wnon",
-      score_confirmed: true
+      home_score: 1,
+      away_score: 2
     )
 
     put :update, params: {

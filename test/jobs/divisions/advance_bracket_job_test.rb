@@ -20,8 +20,7 @@ module Divisions
         home: @home,
         away: @away,
         home_score: 15,
-        away_score: 11,
-        score_confirmed: true
+        away_score: 11
       )
 
       game2 = Game.create!(
@@ -50,8 +49,7 @@ module Divisions
         home: @home,
         away: @away,
         home_score: 15,
-        away_score: 11,
-        score_confirmed: true
+        away_score: 11
       )
 
       game2 = Game.create!(
@@ -80,8 +78,7 @@ module Divisions
         home: @home,
         away: @away,
         home_score: 11,
-        away_score: 15,
-        score_confirmed: true
+        away_score: 15
       )
 
       game2 = Game.create!(
@@ -92,7 +89,8 @@ module Divisions
         home_prereq_uid: 'Wq1',
         away_prereq_uid: 'Wq2',
         home: @home,
-        score_confirmed: true
+        home_score: 11,
+        away_score: 15
       )
 
       perform_enqueued_jobs do
@@ -113,8 +111,7 @@ module Divisions
         home: @home,
         away: @away,
         home_score: 15,
-        away_score: 11,
-        score_confirmed: true
+        away_score: 11
       )
 
       game2 = Game.create!(
@@ -125,7 +122,8 @@ module Divisions
         home_prereq_uid: 'Wq1',
         away_prereq_uid: 'Wq2',
         home: @home,
-        score_confirmed: true
+        home_score: 15,
+        away_score: 11
       )
 
       game3 = Game.create!(
@@ -136,7 +134,8 @@ module Divisions
         home_prereq_uid: 'Ws1',
         away_prereq_uid: 'Ws2',
         home: @home,
-        score_confirmed: true
+        home_score: 15,
+        away_score: 11
       )
 
       perform_enqueued_jobs do

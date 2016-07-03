@@ -72,8 +72,7 @@ module Games
         home: @home,
         away: @away,
         home_score: 15,
-        away_score: 11,
-        score_confirmed: true
+        away_score: 11
       )
 
       game2 = Game.create!(

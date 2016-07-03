@@ -13,6 +13,7 @@ class Tournament < ApplicationRecord
   has_many :places, dependent: :destroy
   has_many :score_reports, dependent: :destroy
   has_many :score_entries, dependent: :destroy
+  has_many :score_disputes, dependent: :destroy
 
   before_save :downcase_handle
 

@@ -30,6 +30,10 @@ var GamesStore = _.extend({}, Store, {
     var idx = findGameIdx(game);
     if(idx == -1) { return; }
 
+    if(_games[idx].has_dispute && !game.has_dispute) {
+      updateSidebarBadge();
+    }
+
     if(!_games[idx].confirmed && game.confirmed) {
       updateSidebarBadge();
     }

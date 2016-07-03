@@ -30,6 +30,7 @@ namespace :admin do
   post '/schedule', to: 'schedule#update'
 
   resources :games, only: [:index, :update]
+
   resources :score_reports, only: [:index]
 
   get '/settings', to: 'settings#show'
