@@ -20,7 +20,7 @@
     {"round": 3, "uid": "13", "home":"Wee", "away":"Wff"},
     {"round": 3, "uid": "15", "home":"Lee", "away":"Lff"},
     {"round": 3, "uid": "17", "home":"Whh", "away":"Wii"},
-    {"round": 3, "uid": "19", "home":"Lhh", "away":"Lii"},
+    {"round": 3, "uid": "19", "home":"Lhh", "away":"Lii"}
   ],
   "places": [
     <%= bracket_partial('places_16.1') %>

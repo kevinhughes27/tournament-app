@@ -16,6 +16,8 @@ class Game < ApplicationRecord
   validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }
   validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
   validates_uniqueness_of :bracket_uid, scope: :division, if: :bracket_game?
+  validates_presence_of :home_pool_seed, if: :pool_game?
+  validates_presence_of :away_pool_seed, if: :pool_game?
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
@@ -43,6 +45,8 @@ class Game < ApplicationRecord
       tournament_id: tournament_id,
       division_id: division_id,
       pool: template_game[:pool],
+      home_pool_seed: template_game[:home_seed],
+      away_pool_seed: template_game[:away_seed],
       round: template_game[:round],
       bracket_uid: template_game[:uid],
       home_prereq_uid: template_game[:home],
