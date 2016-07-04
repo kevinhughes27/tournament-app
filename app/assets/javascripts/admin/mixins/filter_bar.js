@@ -8,7 +8,6 @@ var _ = require('underscore'),
     FormControl = require('react-bootstrap').FormControl,
     Dropdown = require('react-bootstrap').Dropdown,
     MenuItem = require('react-bootstrap').MenuItem,
-    ButtonGroup = require('react-bootstrap').ButtonGroup,
     TeamsStore = require('../stores/teams_store'),
     LoadingMixin = require('../mixins/loading_mixin');
 
@@ -91,7 +90,7 @@ var FilterBar = {
       return (
         <div className="input-group-btn">
           <Dropdown id="filter-dropdown">
-            <Dropdown.Toggle>
+            <Dropdown.Toggle style={{lineHeight: '1.42858'}}>
               Filter
             </Dropdown.Toggle>
             <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
@@ -115,7 +114,7 @@ var FilterBar = {
       return (
         <div className="input-group-btn">
           <Dropdown id="actions-dropdown">
-            <Dropdown.Toggle>
+            <Dropdown.Toggle style={{lineHeight: '1.42858'}}>
               Bulk Actions
             </Dropdown.Toggle>
             <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
@@ -154,6 +153,7 @@ var FilterBar = {
                name="search"
                placeholder="Search..."
                className="form-control"
+               style={{marginLeft: '-3px'}}
                onChange={this.searchChange} />
           </InputGroup>
         </FormGroup>
