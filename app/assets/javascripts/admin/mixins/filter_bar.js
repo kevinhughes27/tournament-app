@@ -3,7 +3,9 @@ var _ = require('underscore'),
     squish = require('object-squish'),
     queryString = require('query-string'),
     setQuery = require('set-query-string'),
-    Input = require('react-bootstrap').Input,
+    FormGroup = require('react-bootstrap').FormGroup,
+    InputGroup = require('react-bootstrap').InputGroup,
+    FormControl = require('react-bootstrap').FormControl,
     Dropdown = require('react-bootstrap').Dropdown,
     MenuItem = require('react-bootstrap').MenuItem,
     ButtonGroup = require('react-bootstrap').ButtonGroup,
@@ -84,13 +86,9 @@ var FilterBar = {
     });
   },
 
-  renderBar() {
-    var searchValue = this.props.query.search;
-    var filterDropdown, actionsDropdown, buttonBefore;
-
-    // filterDropdown
-    if(this.filters.length > 0) {
-      filterDropdown = (
+  renderFiltersDropdown() {
+    if (this.filters.length > 0) {
+      return (
         <div className="input-group-btn">
           <Dropdown id="filter-dropdown">
             <Dropdown.Toggle>
@@ -110,10 +108,11 @@ var FilterBar = {
         </div>
       );
     }
+  },
 
-    // actionsDropdown
+  renderBulkActionsDropdown() {
     if (this.bulkActions.length > 0 && TeamsStore.selected().length > 0) {
-      actionsDropdown = (
+      return (
         <div className="input-group-btn">
           <Dropdown id="actions-dropdown">
             <Dropdown.Toggle>
@@ -133,19 +132,10 @@ var FilterBar = {
         </div>
       );
     }
+  },
 
-    // buttonBefore
-    if(actionsDropdown && filterDropdown) {
-      buttonBefore = (
-        <ButtonGroup>
-          {actionsDropdown}
-          {filterDropdown}
-        </ButtonGroup>
-      );
-    } else if(filterDropdown) {
-      buttonBefore = filterDropdown
-    };
-
+  renderBar() {
+    var searchValue = this.props.query.search;
     var currentFilters = _.omit(this.props.query, 'search');
     var filterNames = {};
     _.mapObject(currentFilters, (value, key) => {
@@ -155,13 +145,18 @@ var FilterBar = {
 
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
-        <Input type="text"
+        <FormGroup>
+          <InputGroup>
+            {this.renderBulkActionsDropdown()}
+            {this.renderFiltersDropdown()}
+            <FormControl type="text"
                value={searchValue}
                name="search"
                placeholder="Search..."
                className="form-control"
-               onChange={this.searchChange}
-               buttonBefore={buttonBefore} />
+               onChange={this.searchChange} />
+          </InputGroup>
+        </FormGroup>
         <div className="btn-toolbar">
           { _.keys(currentFilters).map((key, idx) => {
             return <Filter
