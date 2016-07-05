@@ -2,7 +2,6 @@ namespace :dev do
   namespace :bracket_db do
     task :check => :environment do
       require 'bracket'
-      require 'bracket_db/utils'
 
       Dir.glob('db/brackets/*.json') do |bracket_file|
         bracket_name = bracket_file.gsub('db/brackets/', '').gsub('.json', '')
@@ -18,7 +17,6 @@ namespace :dev do
     task :print, [:handle] => [:environment] do |t, args|
       desc "usage: bx rake 'dev:bracket_db:print[usau_8.1]'"
       require 'bracket'
-      require 'bracket_db/utils'
 
       bracket_json = BracketDb::load(args[:handle])
       bracket = JSON.parse(bracket_json)
