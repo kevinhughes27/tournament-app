@@ -15,8 +15,8 @@ namespace :dev do
       end
     end
 
-    # usage: bx rake 'dev:bracket_db:print[usau_8.1]'
     task :print, [:handle] => [:environment] do |t, args|
+      desc "usage: bx rake 'dev:bracket_db:print[usau_8.1]'"
       require 'bracket'
       require 'bracket_db/utils'
 
