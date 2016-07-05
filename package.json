@@ -19,7 +19,7 @@
     "object-squish": "^1.0.0",
     "query-string": "^3.0.0",
     "react": "^0.14.3",
-    "react-bootstrap": "^0.28.3",
+    "react-bootstrap": "^0.29.5",
     "react-confirm": "^0.1.13",
     "react-dom": "^0.14.0",
     "react-overlays": "^0.6.0",
