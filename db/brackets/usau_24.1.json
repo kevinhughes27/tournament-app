@@ -1,11 +1,11 @@
 {
   "games": [
-    <%= bracket_partial('table_6.1.2', pool: 'A', seeds: [1,8,12,13,17,24]) %>
-    <%= bracket_partial('table_6.1.2', pool: 'B', seeds: [2,7,11,14,18,23]) %>
-    <%= bracket_partial('table_6.1.2', pool: 'C', seeds: [3,6,10,15,19,22]) %>
-    <%= bracket_partial('table_6.1.2', pool: 'D', seeds: [4,5,9,16,20,21]) %>
+    <%= BracketDb::table_partial('table_6.1.2', pool: 'A', seeds: [1,8,12,13,17,24]) %>
+    <%= BracketDb::table_partial('table_6.1.2', pool: 'B', seeds: [2,7,11,14,18,23]) %>
+    <%= BracketDb::table_partial('table_6.1.2', pool: 'C', seeds: [3,6,10,15,19,22]) %>
+    <%= BracketDb::table_partial('table_6.1.2', pool: 'D', seeds: [4,5,9,16,20,21]) %>
 
-    <%= bracket_partial('bracket_16.1') %>,
+    <%= BracketDb::partial('bracket_16.1') %>,
 
     {"round": 1, "uid":"aa", "home":"A4", "away":"D5"},
     {"round": 1, "uid":"bb", "home":"B4", "away":"C5"},
@@ -29,7 +29,7 @@
     {"round":2, "uid":"23", "home":"Laaa", "away":"Lbbb"}
   ],
   "places": [
-    <%= bracket_partial('places_16.1') %>
+    <%= BracketDb::partial('places_16.1') %>
     {"position":13, "prereq_uid": "W13"},
     {"position":14, "prereq_uid": "L13"},
     {"position":15, "prereq_uid": "W15"},
