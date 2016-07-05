@@ -30,6 +30,8 @@ def remap(template_game)
   keymap = {
     "home" => "home_prereq_uid",
     "away" => "away_prereq_uid",
+    "home_seed" => "home_pool_seed",
+    "away_seed" => "away_pool_seed",
     "uid" => "bracket_uid"
   }
 
