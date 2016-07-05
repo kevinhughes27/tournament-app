@@ -145,7 +145,7 @@ var FilterBar = {
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
         <FormGroup>
-          <InputGroup>
+          <InputGroup style={{width: '100%'}}>
             {this.renderBulkActionsDropdown()}
             {this.renderFiltersDropdown()}
             <FormControl type="text"
