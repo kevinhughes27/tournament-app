@@ -191,8 +191,8 @@ class Game < ApplicationRecord
   end
 
   def validate_field_conflict
-    return unless field_id_changed? || start_time_changed?
     return if field_id.blank? || start_time.blank?
+    return unless field_id_changed? || start_time_changed?
 
     games = tournament.games.where(field_id: field_id, start_time: playing_time_range)
     games = games.where.not(id: id)
@@ -203,37 +203,16 @@ class Game < ApplicationRecord
   end
 
   def validate_team_conflict
-    return unless start_time_changed?
     return if start_time.blank?
-
-    prereq_uids = [home_prereq_uid, away_prereq_uid].compact
-    return unless prereq_uids.present?
-
-    games = tournament.games.where(
-      division: division,
-      start_time: playing_time_range
-    ).where(
-      "home_prereq_uid IN (?) OR away_prereq_uid IN (?)", prereq_uids, prereq_uids
-    ).where.not(id: id)
-
-    if games.present?
-      conflicting_game = games.first
-
-      name = if prereq_uids.include? conflicting_game.home_prereq_uid
-        conflicting_game.pool_game? ? conflicting_game.home_pool_seed : conflicting_game.home_prereq_uid
-      else
-        conflicting_game.pool_game? ? conflicting_game.away_pool_seed : conflicting_game.away_prereq_uid
-      end
-
-      errors.add(:base, "Team #{name} is already playing at \
-                        #{start_time.to_formatted_s(:timeonly)} - #{end_time.to_formatted_s(:timeonly)}")
-    end
+    return unless start_time_changed?
+    checker = TeamConflictChecker.new(self)
+    errors.add(:base, checker.message) if checker.conflict?
   end
 
   def validate_schedule_conflicts
-    return unless start_time_changed?
-    return if start_time.blank?
     return if pool_game?
+    return if start_time.blank?
+    return unless start_time_changed?
 
     games = dependent_games.select { |dg| dg.start_time < end_time if dg.start_time }
 
