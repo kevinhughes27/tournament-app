@@ -2,15 +2,25 @@ namespace :dev do
   namespace :bracket_db do
     task :check => :environment do
       require 'bracket'
+
       Dir.glob('db/brackets/*.json') do |bracket_file|
         bracket_name = bracket_file.gsub('db/brackets/', '').gsub('.json', '')
-        bracket_json = load_bracket(bracket_name)
+        bracket_json = BracketDb::load(bracket_name)
         begin
           JSON.parse(bracket_json)
         rescue => e
           puts "#{bracket_file} has invalid json"
         end
       end
+    end
+
+    task :print, [:handle] => [:environment] do |t, args|
+      desc "usage: bx rake 'dev:bracket_db:print[usau_8.1]'"
+      require 'bracket'
+
+      bracket_json = BracketDb::load(args[:handle])
+      bracket = JSON.parse(bracket_json)
+      puts JSON.pretty_generate(bracket)
     end
 
     task :diff => :environment do
@@ -97,7 +107,7 @@ end
 
 def template_name_from_bracket_template(bracket_template)
   bracket_template
-    .gsub("<%= load_bracket('", '')
+    .gsub("<%= load('", '')
     .gsub("') %>", '')
 end
 

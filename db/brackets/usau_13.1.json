@@ -1,8 +1,8 @@
 {
   "games": [
-    <%= bracket_partial('table_5.1.2', pool: 'A', seeds: [1,6,7,12,13]) %>
-    <%= bracket_partial('table_4.1', pool: 'B', seeds: [2,5,8,11]) %>
-    <%= bracket_partial('table_4.1', pool: 'C', seeds: [3,4,9,10]) %>
+    <%= BracketDb::table_partial('table_5.1.2', pool: 'A', seeds: [1,6,7,12,13]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'B', seeds: [2,5,8,11]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'C', seeds: [3,4,9,10]) %>,
 
     {"round":1, "uid":"a", "home":"B3", "away":"C3"},
     {"round":1, "uid":"10", "home":"B4", "away":"C4"},

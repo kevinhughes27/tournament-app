@@ -16,8 +16,10 @@ class BracketTemplateValidator
     "properties" => {
       "pool" => { "type" => "string" },
       "round" => { "type" => "integer" },
-      "home"  => { "type" => ["string", "integer"] },
-      "away"  => { "type" => ["string", "integer"] },
+      "home_seed" => { "type" => ["string", "integer"] },
+      "away_seed" => { "type" => ["string", "integer"] },
+      "home" => { "type" => ["string", "integer"] },
+      "away" => { "type" => ["string", "integer"] },
     },
     "required" => [
       "pool",

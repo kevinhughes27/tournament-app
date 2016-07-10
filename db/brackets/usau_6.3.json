@@ -1,6 +1,6 @@
 {
   "games": [
-    <%= bracket_partial('table_6.1.4', pool: 'A', seeds: [1,2,3,4,5,6]) %>
+    <%= BracketDb::table_partial('table_6.1.4', pool: 'A', seeds: [1,2,3,4,5,6]) %>,
 
     {"round":1, "uid":"a", "home":"A4", "away":"A5"},
     {"round":1, "uid":"b", "home":"A3", "away":"A6"},
