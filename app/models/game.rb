@@ -124,6 +124,10 @@ class Game < ApplicationRecord
     (start_time)..(end_time - 1.minutes)
   end
 
+  def playing_time_range_string
+    "#{start_time.to_formatted_s(:timeonly)} - #{end_time.to_formatted_s(:timeonly)}"
+  end
+
   def confirmed?
     score_confirmed
   end
@@ -198,7 +202,7 @@ class Game < ApplicationRecord
     games = games.where.not(id: id)
 
     if games.present?
-      errors.add(:base, "Field #{field.name} is in use at #{start_time.to_formatted_s(:timeonly)} already")
+      errors.add(:base, "Field #{field.name} is in use at #{playing_time_range_string}")
     end
   end
 

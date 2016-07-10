@@ -16,14 +16,10 @@ class TeamConflictChecker
       conflicting_team_name("away")
     end
 
-    "Team #{name} is already playing at #{time_range_string}"
+    "Team #{name} is already playing at #{game.playing_time_range_string}"
   end
 
   private
-
-  def time_range_string
-    "#{game.start_time.to_formatted_s(:timeonly)} - #{game.end_time.to_formatted_s(:timeonly)}"
-  end
 
   def conflicting_team_name(type)
     if conflicting_game.pool_game?
