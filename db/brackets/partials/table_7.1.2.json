@@ -14,8 +14,8 @@
 {"pool":"<%= pool %>", "round":4, "home_seed":5, "away_seed":7},
 {"pool":"<%= pool %>", "round":5, "home_seed":5, "away_seed":6},
 
-{"pool":"<%= pool %>", "round":7, "home_seed":2, "away_seed":3},
-{"pool":"<%= pool %>", "round":8, "home_seed":2, "away_seed":3},
+{"pool":"<%= pool %>", "round":7, "home_seed":2, "away_seed":5},
+{"pool":"<%= pool %>", "round":8, "home_seed":2, "away_seed":4},
 
 
 {"pool":"<%= pool %>", "round":1, "home_seed":4, "away_seed":5},
