@@ -1,118 +1,93 @@
 class Admin.BracketVis
 
-  constructor: (@node) ->
-    @debug = false
-
   options: {
-    layout: {
-      hierarchical: {
-        direction: 'RL',
-        sortMethod: 'directed',
-        edgeMinimization: false,
-        levelSeparation: 228
+    container: "#bracketGraph",
+    levelSeparation:    30,
+    siblingSeparation:  15,
+    subTeeSeparation:   15,
+    rootOrientation: "EAST",
+    hideRootNode: true,
+    nodeAlign: "CENTER",
+    scrollbar: "None",
+
+    node: {
+      collapsable: true
+    },
+
+    connectors: {
+      type: "straight",
+      style: {
+        "stroke-width": 2,
+        "stroke": "#ccc"
       }
-    },
-    physics: {
-      enabled: true
-    },
-    interaction: {
-      dragNodes: false
-    },
-    groups: {
-      initial: {color: {border: 'white', background: 'white'}},
-      loser: {color: {background: 'white'}},
-    },
-    nodes: {
-      font: {size: 42}
-    },
-    edges: {
-      color: {color: '#848484'}
     }
-  }
+  },
 
   render: (bracket) ->
     options = @options
+    nodes = @graphFromBracket(bracket)
 
-    if @debug
-      _.extend(options, {configure: {
-        enabled: true,
-        filter: 'layout, physics',
-        container: document.getElementById('visConfigure'),
-        showButton: false
-      }})
+    vis = new Treant({
+      chart: options,
+      nodeStructure: {
+        text: 'fake',
+        children: nodes
+      }
+    })
 
-    data = @graphFromBracket(bracket)
-    vis = new window.vis.Network(@node, data, options)
-
-    $('#bracketVisModal').on 'shown.bs.modal', (e) ->
-      vis.fit()
-
-    if @debug
-      vis.on "configChange", =>
-        div = $('.vis-configuration-wrapper')[0]
-        div.style["height"] = div.getBoundingClientRect().height + "px"
+    #$('#bracketVisModal').on 'shown.bs.modal', (e) ->
+      #vis.fit()
 
   graphFromBracket: (bracket) ->
-    @nodes = []
-    @edges = []
-
     @games = bracket.template.games
     roots = _.filter(@games, (g) -> !isNaN(g.uid))
     roots = _.sortBy(roots, (g) -> parseInt(g.uid))
+    return _.map(roots, (game) => @_addNode(game.uid))
 
-    _.map(roots, (game) => @_addNode(game.uid, 1))
-
-    return {
-      nodes: @nodes
-      edges: @edges
-    }
-
-  _addNode: (gameUid, level) ->
+  _addNode: (gameUid) ->
     game = _.find(@games, (game) -> game.uid == gameUid)
 
     if game
-      @__addInnerNode(game, level)
+      @__addInnerNode(game)
     else
-      @__addLeafNode(gameUid, level)
+      @__addLeafNode(gameUid)
 
-  __addInnerNode: (game, level) ->
+  __addInnerNode: (game) ->
     label = game.uid
 
     unless isNaN(label)
       label = parseInt(label).ordinalize()
 
-    @nodes.push({
-      id: label,
-      label: label,
-      level: level
-    })
+    node = {
+      text: {
+        name: label
+      },
+      children: [
+        @__homeChild(game),
+        @__awayChild(game)
+      ]
+    }
 
+  __homeChild: (game) ->
     homeUid = game.home.toString().replace('W', '')
-    @edges.push({
-      from: label,
-      to: homeUid
-    })
     if game.seed
-      @__addLeafNode(homeUid, level+1)
+      @__addLeafNode(homeUid)
     else
-      @_addNode(homeUid, level+1)
+      @_addNode(homeUid)
 
+  __awayChild: (game) ->
     awayUid = game.away.toString().replace('W', '')
-    @edges.push({
-      from: label,
-      to: awayUid
-    })
     if game.seed
-      @__addLeafNode(awayUid, level+1)
+      @__addLeafNode(awayUid)
     else
-      @_addNode(awayUid, level+1)
+      @_addNode(awayUid)
 
-  __addLeafNode: (uid, level) ->
-    group = if uid.match(/L./) then 'loser' else 'initial'
+  __addLeafNode: (uid) ->
+    klass = if uid.match(/L./) then 'loser' else 'initial'
 
-    @nodes.push({
-      id: uid,
-      label: uid,
-      level: level
-      group: group
-    })
+    return {
+      text: {
+        name: uid
+      },
+      HTMLclass: klass
+    }
