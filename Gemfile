@@ -55,7 +55,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery.scrollTo', '~> 2.1.2'
   gem 'rails-assets-tether', '~> 1.3.1'
   gem 'rails-assets-tether-drop', '~> 1.4.2'
-  gem 'rails-assets-raphael', '~> 2.1.4'
+  gem 'rails-assets-d3', '~> 3.5.17'
 end
 
 group :production do

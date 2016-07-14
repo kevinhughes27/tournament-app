@@ -12,8 +12,7 @@
 //= require underscore
 //= require leaflet
 //= require vendor/Leaflet.Editable
-//= require raphael
-//= require vendor/treant
+//= require d3
 //= require tether
 //= require tether-drop
 //= require vendor/redips-drag

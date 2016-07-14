@@ -58,8 +58,8 @@ class Admin.Bracket
       )
 
   renderBracket: (bracket) ->
-    @bracketVis ||= new Admin.BracketVis(@$bracketGraphNode[0])
-    @bracketVis.render(bracket)
+    bracketVis = new Admin.BracketVis(@$bracketGraphNode[0])
+    bracketVis.render(bracket)
 
 TEMPLATES =
   description: """

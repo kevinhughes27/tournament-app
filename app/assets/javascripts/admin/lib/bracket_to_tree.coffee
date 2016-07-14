@@ -21,7 +21,7 @@ UT.bracketToTree = (bracket) ->
       label = parseInt(label).ordinalize()
 
     node = {
-      text: {name: label},
+      name: label,
       children: [
         homeChild(game),
         awayChild(game)
@@ -46,7 +46,7 @@ UT.bracketToTree = (bracket) ->
     klass = if uid.match(/L./) then 'loser' else 'initial'
 
     return {
-      text: {name: uid},
+      name: uid,
       HTMLclass: klass
     }
 
