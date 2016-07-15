@@ -1,4 +1,5 @@
 require 'bracket_db/utils'
+require 'bracket_db/to_tree'
 
 class Bracket < FrozenRecord::Base
   self.base_path = 'db'
@@ -7,19 +8,23 @@ class Bracket < FrozenRecord::Base
     @attributes['template'].with_indifferent_access
   end
 
-  def as_tree
+  def template_games
+    template[:games]
+  end
 
+  def bracket_tree
+    @bracket_tree ||= BracketDb::to_tree(template_games)
   end
 
   def game_uids_for_round(round)
-    template[:games].map{ |g| g[:uid] if g[:round] == round }.compact
+    template_games.map{ |g| g[:uid] if g[:round] == round }.compact
   end
 
   def game_uids_for_seeding(seed_round)
-    template[:games].map{ |g| g[:uid] if g[:seed] == seed_round }.compact
+    template_games.map{ |g| g[:uid] if g[:seed] == seed_round }.compact
   end
 
   def game_uids_not_for_seeding(seed_round)
-    template[:games].map{ |g| g[:uid] if g[:seed] != seed_round }.compact
+    template_games.map{ |g| g[:uid] if g[:seed] != seed_round }.compact
   end
 end

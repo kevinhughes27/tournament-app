@@ -35,7 +35,7 @@ class Admin.BracketVis
     treeData = {
       name: 'root',
       HTMLclass: 'hidden',
-      children: UT.bracketToTree(bracket)
+      children: bracket.bracket_tree
     }
 
     # Call visit function to establish

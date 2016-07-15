@@ -23,6 +23,15 @@ namespace :dev do
       puts JSON.pretty_generate(bracket)
     end
 
+    task :print_tree, [:handle] => [:environment] do |t, args|
+      desc "usage: bx rake 'dev:bracket_db:print_tree[usau_8.1]'"
+      require 'bracket'
+
+      bracket = Bracket.find_by(handle: args[:handle])
+      tree = bracket.bracket_tree
+      puts JSON.pretty_generate(tree)
+    end
+
     task :diff => :environment do
       repo = Rugged::Repository.new('.')
       master = repo.branches['master']

@@ -2,6 +2,6 @@
 #= depend_on_files db/brackets/*.json
 
 Admin.BracketDb =
-  BRACKETS: <%= Bracket.all.to_json %>
+  BRACKETS: <%= Bracket.all.to_json(methods: :bracket_tree) %>
   find: (handle) ->
     _.find(Admin.BracketDb.BRACKETS, (bracket) -> bracket.handle == handle)
