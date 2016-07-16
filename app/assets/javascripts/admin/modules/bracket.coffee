@@ -4,16 +4,7 @@ class Admin.Bracket
     @descTemplate = _.template(TEMPLATES.description)
     @poolsTemplate = _.template(TEMPLATES.pools)
     @noPoolsTemplate = _.template(TEMPLATES.no_pools)
-
     @$node = $(node)
-    @$bracketDescNode = @$node.find('#bracketDescription')
-    @$bracketPoolsNode = @$node.find('#bracketPools')
-
-    # bracket graph is in modal on small screens
-    @$bracketGraphNode = if window.smallScreen()
-      @$node.find('.modal').find('#bracketGraph')
-    else
-      @$node.find('.col-md-8').find('#bracketGraph')
 
   render: (bracketName) ->
     bracket = Admin.BracketDb.find(bracketName)
@@ -27,12 +18,14 @@ class Admin.Bracket
       @$node.fadeOut()
 
   renderDescription: (bracket) ->
+    @$bracketDescNode = @$node.find('#bracketDescription')
     @$bracketDescNode.empty()
     @$bracketDescNode.append(
       @descTemplate({bracket: bracket})
     )
 
   renderPools: (bracket) ->
+    @$bracketPoolsNode = @$node.find('#bracketPools')
     @$bracketPoolsNode.empty()
 
     games = bracket.template.games
@@ -58,6 +51,14 @@ class Admin.Bracket
       )
 
   renderBracket: (bracket) ->
+    if window.smallScreen()
+      @$bracketGraphNode = @$node.find('.modal').find('#bracketGraph')
+      $('#bracketVisModal').on 'shown.bs.modal', (e) => @_renderBracket(bracket)
+    else
+      @$bracketGraphNode = @$node.find('.col-md-8').find('#bracketGraph')
+      @_renderBracket(bracket)
+
+  _renderBracket: (bracket) ->
     bracketVis = new Admin.BracketVis(@$bracketGraphNode[0])
     bracketVis.render(bracket)
 
