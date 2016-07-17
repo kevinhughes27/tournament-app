@@ -19,17 +19,30 @@ class Admin::FieldsController < AdminController
 
   def create
     @field = @tournament.fields.create(field_params)
-    respond_with @field
+    if @field.persisted?
+      flash[:notice] = 'Field was successfully create.'
+      redirect_to admin_field_path(@field)
+    else
+      flash[:error] = 'Field could not be created.'
+      render :new
+    end
   end
 
   def update
     @field.update_attributes(field_params)
-    respond_with @field
+    if @field.errors.present?
+      flash[:error] = 'Field could not be updated.'
+      render :show
+    else
+      flash[:notice] = 'Field was successfully updated.'
+      redirect_to admin_field_path(@field)
+    end
   end
 
   def destroy
     @field.destroy()
-    respond_with @field
+    flash[:notice] = 'Field was successfully destroyed.'
+    redirect_to admin_fields_path
   end
 
   def sample_csv

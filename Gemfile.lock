@@ -390,7 +390,6 @@ DEPENDENCIES
   rails-controller-testing
   rails_12factor
   redis
-  responders
   rollbar
   rugged
   sassc-rails

@@ -40,10 +40,6 @@ class AdminController < ApplicationController
     end
   end
 
-  def respond_with(obj)
-    super :admin, obj
-  end
-
   def authenticate_tournament_user!
     unless current_user.is_tournament_user?(@tournament.id) || current_user.staff?
       redirect_to new_user_session_path

@@ -17,17 +17,30 @@ class Admin::DivisionsController < AdminController
 
   def create
     @division = @tournament.divisions.create(division_params)
-    respond_with @division
+    if @division.persisted?
+      flash[:notice] = 'Division was successfully create.'
+      redirect_to admin_division_path(@division)
+    else
+      flash[:error] = 'Division could not be created.'
+      render :new
+    end
   end
 
   def update
     @division.update_attributes(division_params)
-    respond_with @division
+    if @division.errors.present?
+      flash[:error] = 'Division could not be updated.'
+      render :show
+    else
+      flash[:notice] = 'Division was successfully updated.'
+      redirect_to admin_division_path(@division)
+    end
   end
 
   def destroy
     @division.destroy()
-    respond_with @division
+    flash[:notice] = 'Division was successfully destroyed.'
+    redirect_to admin_divisions_path
   end
 
   def update_teams
