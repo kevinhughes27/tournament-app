@@ -35,6 +35,8 @@ database:
     - bundle exec rake db:setup --trace
 
 test:
+  pre:
+    - cd lib/bracket_db && bundle install && bundle exec rake test
   override:
     - bundle exec rails test
   post:

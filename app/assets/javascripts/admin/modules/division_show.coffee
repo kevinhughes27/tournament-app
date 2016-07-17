@@ -4,16 +4,16 @@ class Admin.DivisionShow
 
   constructor: ->
     @canSeed = true
-    @bracketName = $(@BRACKET_TYPE_SELECTOR).val()
+    @bracketHandle = $(@BRACKET_TYPE_SELECTOR).val()
     @seeds = @_seeds()
 
     Twine.afterBound =>
-      bracketName = $(@BRACKET_TYPE_SELECTOR).val()
-      @bracket.render(bracketName)
+      bracketHandle = $(@BRACKET_TYPE_SELECTOR).val()
+      @bracket.render(bracketHandle)
 
     $(@BRACKET_TYPE_SELECTOR).on 'change', (event) =>
-      bracketName = $(event.target).val()
-      @bracket.render(bracketName)
+      bracketHandle = $(event.target).val()
+      @bracket.render(bracketHandle)
       @canSeed = @_canSeed()
       Twine.refreshImmediately()
 
@@ -22,7 +22,7 @@ class Admin.DivisionShow
       Twine.refreshImmediately()
 
   _canSeed: ->
-    @bracketName == $(@BRACKET_TYPE_SELECTOR).val() &&
+    @bracketHandle == $(@BRACKET_TYPE_SELECTOR).val() &&
     _.isEqual(@seeds, @_seeds())
 
   _seeds: ->

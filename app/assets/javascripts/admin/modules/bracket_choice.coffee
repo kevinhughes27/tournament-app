@@ -12,7 +12,7 @@ class Admin.BracketChoice
     numDays = parseInt(@$daysInput.val())
     numTeams = parseInt(@$numberInput.val())
 
-    validBrackets = _.filter(Admin.BracketDb.BRACKETS, (b) ->
+    validBrackets = _.filter(BracketDb.BRACKETS, (b) ->
       b.num_teams == numTeams && b.days == numDays
     )
 

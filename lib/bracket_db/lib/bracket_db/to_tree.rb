@@ -1,11 +1,10 @@
 require 'active_support/inflector'
 
-class BracketDb
-  class << self
-    def to_tree(games)
-      TreeConverter.new(games).build
-    end
+module BracketDb
+  def to_tree(games)
+    TreeConverter.new(games).build
   end
+  module_function :to_tree
 
   class TreeConverter
     attr_reader :games
@@ -44,6 +43,7 @@ class BracketDb
           away_child(game)
         ]
       }
+      node
     end
 
     def home_child(game)
@@ -71,6 +71,7 @@ class BracketDb
         name: uid,
         HTMLclass: klass
       }
+      node
     end
   end
 end

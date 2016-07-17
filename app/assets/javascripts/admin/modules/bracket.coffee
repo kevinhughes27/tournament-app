@@ -6,8 +6,8 @@ class Admin.Bracket
     @noPoolsTemplate = _.template(TEMPLATES.no_pools)
     @$node = $(node)
 
-  render: (bracketName) ->
-    bracket = Admin.BracketDb.find(bracketName)
+  render: (bracketHandle) ->
+    bracket = BracketDb.find(bracketHandle)
 
     if bracket
       @$node.fadeIn()

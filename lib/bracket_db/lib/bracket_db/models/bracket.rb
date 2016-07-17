@@ -1,8 +1,8 @@
-require 'bracket_db/utils'
-require 'bracket_db/to_tree'
+require_relative '../utils'
+require_relative '../to_tree'
 
 class Bracket < FrozenRecord::Base
-  self.base_path = 'db'
+  self.base_path = BracketDb::db_path
 
   def template
     @attributes['template'].with_indifferent_access

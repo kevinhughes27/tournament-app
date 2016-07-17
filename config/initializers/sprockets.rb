@@ -1,9 +1,4 @@
-require 'sprockets/depend_on_file_directive_processor'
-
 Rails.application.config.assets.configure do |env|
-  env.unregister_processor('application/javascript', Sprockets::DirectiveProcessor)
-  env.register_processor('application/javascript', DependOnFileDirectiveProcessor)
-
   env.unregister_postprocessor('application/javascript', Sprockets::Commoner::Processor)
   processor = Sprockets::Commoner::Processor.new(
     env.root,

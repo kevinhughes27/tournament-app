@@ -33,6 +33,14 @@ GIT
     paranoia (3.0.0)
       activerecord (>= 4.0, < 5.1)
 
+PATH
+  remote: lib/bracket_db
+  specs:
+    bracket_db (0.0.1)
+      activesupport
+      frozen_record (~> 0.7.1)
+      tilt
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -152,8 +160,6 @@ GEM
     js_cookie_rails (1.0.1)
       railties (>= 3.1)
     json (1.8.3)
-    json-schema (2.6.2)
-      addressable (~> 2.3.8)
     jstz-rails3-plus (1.0.5)
       railties (>= 3.1)
     jwt (1.5.1)
@@ -342,6 +348,7 @@ DEPENDENCIES
   actioncable
   auto_strip_attributes
   bootstrap-sass
+  bracket_db!
   browser-timezone-rails
   bullet
   bundler-audit
@@ -354,10 +361,8 @@ DEPENDENCIES
   dotenv-rails
   faker
   font-awesome-rails
-  frozen_record (~> 0.7.1)
   jbuilder
   jquery-rails
-  json-schema (~> 2.6.0)
   kaminari!
   launchy
   letter_opener

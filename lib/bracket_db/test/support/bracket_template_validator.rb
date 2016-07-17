@@ -1,4 +1,6 @@
-class BracketTemplateValidator
+require 'json-schema'
+
+class BracketDb::TemplateValidator
   BRACKET_SCHEMA = {
     "type" => "object",
     "properties" => {
@@ -140,10 +142,10 @@ class BracketTemplateValidator
 
     def seats_for_games(games)
       seats = games.inject([]) do |seats, game|
-        if game[:home].to_s.is_i?
+        if is_integer?(game[:home].to_s)
           seats << game[:home].to_i
         end
-        if game[:away].to_s.is_i?
+        if is_integer?(game[:away].to_s)
           seats << game[:away].to_i
         end
         seats
@@ -171,11 +173,11 @@ class BracketTemplateValidator
 
       teams = Set.new
       games.each do |game|
-        if game[:home].to_s.is_i?
+        if is_integer?(game[:home].to_s)
           teams << game[:home]
         end
 
-        if game[:away].to_s.is_i?
+        if is_integer?(game[:away].to_s)
           teams << game[:away]
         end
       end
@@ -192,6 +194,10 @@ class BracketTemplateValidator
       end
 
       teams.size
+    end
+
+    def is_integer?(string)
+      /\A[-+]?\d+\z/ === string
     end
   end
 end
