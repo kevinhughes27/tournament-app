@@ -377,6 +377,17 @@
   template: <%= BracketDb::load('usau_9.2') %>
 
 -
+  handle: 9_pool_bracket
+  name: Two Pools and a Bracket
+  description: >
+    Each team gets 2 games on Sunday.
+  num_teams: 9
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= BracketDb::load('9_pool_bracket') %>
+
+-
   handle: USAU 10.1
   name: One team advances (USAU 10.1)
   num_teams: 10
