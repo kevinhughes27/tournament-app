@@ -1,5 +1,5 @@
 class Admin::DivisionsController < AdminController
-  before_action :load_division, only: [:show, :update, :destroy, :update_teams, :seed]
+  before_action :load_division, only: [:show, :edit, :update, :destroy, :update_teams, :seed]
   before_action :check_update_safety, only: [:update]
   before_action :check_seed_safety, only: [:seed]
   before_action :check_delete_safety, only: [:destroy]
@@ -11,8 +11,12 @@ class Admin::DivisionsController < AdminController
   def show
   end
 
+  def edit
+  end
+
   def new
     @division = @tournament.divisions.build
+    @division.bracket_type = 'USAU 8.1'
   end
 
   def create
@@ -30,7 +34,7 @@ class Admin::DivisionsController < AdminController
     @division.update_attributes(division_params)
     if @division.errors.present?
       flash[:error] = 'Division could not be updated.'
-      render :show
+      render :edit
     else
       flash[:notice] = 'Division was successfully updated.'
       redirect_to admin_division_path(@division)

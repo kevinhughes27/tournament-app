@@ -1,10 +1,16 @@
 class Admin.Bracket
+  BRACKET_TYPE_SELECTOR: '#division_bracket_type'
 
-  constructor: (node) ->
-    @descTemplate = _.template(TEMPLATES.description)
-    @poolsTemplate = _.template(TEMPLATES.pools)
-    @noPoolsTemplate = _.template(TEMPLATES.no_pools)
+  constructor: (node, bracketHandle) ->
     @$node = $(node)
+    @_initTemplates()
+
+    if bracketHandle
+      @render(bracketHandle)
+
+    $(@BRACKET_TYPE_SELECTOR).on 'change', (event) =>
+      bracketHandle = $(event.target).val()
+      @render(bracketHandle)
 
   render: (bracketHandle) ->
     bracket = BracketDb.find(bracketHandle)
@@ -61,6 +67,11 @@ class Admin.Bracket
   _renderBracket: (bracket) ->
     bracketVis = new Admin.BracketVis(@$bracketGraphNode[0])
     bracketVis.render(bracket)
+
+  _initTemplates: ->
+    @descTemplate = _.template(TEMPLATES.description)
+    @poolsTemplate = _.template(TEMPLATES.pools)
+    @noPoolsTemplate = _.template(TEMPLATES.no_pools)
 
 TEMPLATES =
   description: """
