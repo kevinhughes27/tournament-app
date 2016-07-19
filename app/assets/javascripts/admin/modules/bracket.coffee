@@ -1,16 +1,8 @@
 class Admin.Bracket
-  BRACKET_TYPE_SELECTOR: '#division_bracket_type'
 
   constructor: (node, bracketHandle) ->
     @$node = $(node)
     @_initTemplates()
-
-    if bracketHandle
-      @render(bracketHandle)
-
-    $(@BRACKET_TYPE_SELECTOR).on 'change', (event) =>
-      bracketHandle = $(event.target).val()
-      @render(bracketHandle)
 
   render: (bracketHandle) ->
     bracket = BracketDb.find(bracketHandle)

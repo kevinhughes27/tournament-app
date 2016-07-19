@@ -1,6 +1,7 @@
 class Admin.BracketVis
-  constructor: (container) ->
-    $(container).empty()
+  constructor: (selector) ->
+    $container = $(selector)
+    $container.empty()
 
     @maxLabelLength = 3
     @panSpeed = 200
@@ -10,8 +11,8 @@ class Admin.BracketVis
     @widthMultiplier = 15
 
     # size of the diagram
-    @viewerWidth = $(container).width()
-    @viewerHeight = $(container).height()
+    @viewerWidth = $container.width()
+    @viewerHeight = $container.height()
 
     @tree = d3.layout.tree()
       .size([@viewerHeight, @viewerWidth])
@@ -22,7 +23,7 @@ class Admin.BracketVis
 
     @zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on('zoom', @zoom)
 
-    @baseSvg = d3.select(container).append('svg')
+    @baseSvg = d3.select($container[0]).append('svg')
       .attr('width', @viewerWidth)
       .attr('height', @viewerHeight)
       .call(@zoomListener)
