@@ -1,0 +1,63 @@
+{
+  "games": [
+    <%= BracketDb::table_partial('table_4.1', pool: 'A', seeds: [1,4,5,8]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'B', seeds: [2,3,6,7]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'C', seeds: [9,12,14,16]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'D', seeds: [10,11,13,15]) %>,
+
+    {"round":1, "uid":"xa", "home":"A3", "away":"C2"},
+    {"round":1, "uid":"xb", "home":"B3", "away":"D2"},
+    {"round":1, "uid":"xc", "home":"A4", "away":"C1"},
+    {"round":1, "uid":"xd", "home":"B4", "away":"D1"},
+
+
+    {"round": 2, "uid": "a", "home":"A1", "away":"Wxd"},
+    {"round": 2, "uid": "b", "home":"B2", "away":"Wxa"},
+    {"round": 2, "uid": "c", "home":"B1", "away":"Wxc"},
+    {"round": 2, "uid": "d", "home":"A2", "away":"Wxb"},
+
+    {"round": 3, "uid": "e", "home":"Wa", "away":"Wb"},
+    {"round": 3, "uid": "f", "home":"Wc", "away":"Wd"},
+    {"round": 3, "uid": "h", "home":"La", "away":"Lb"},
+    {"round": 3, "uid": "i", "home":"Lc", "away":"Ld"},
+
+    {"round": 4, "uid": "1", "home":"We", "away":"Wf"},
+    {"round": 4, "uid": "3", "home":"Le", "away":"Lf"},
+    {"round": 4, "uid": "5", "home":"Wh", "away":"Wi"},
+    {"round": 4, "uid": "7", "home":"Lh", "away":"Li"},
+
+
+    {"round": 2, "uid": "aa", "home":"Lxc", "away":"D4"},
+    {"round": 2, "uid": "bb", "home":"Lxd", "away":"C4"},
+    {"round": 2, "uid": "cc", "home":"Lxa", "away":"D3"},
+    {"round": 2, "uid": "dd", "home":"Lxb", "away":"C3"},
+
+    {"round": 3, "uid": "ee", "home":"Waa", "away":"Wbb"},
+    {"round": 3, "uid": "ff", "home":"Wcc", "away":"Wdd"},
+    {"round": 3, "uid": "hh", "home":"Laa", "away":"Lbb"},
+    {"round": 3, "uid": "ii", "home":"Lcc", "away":"Ldd"},
+
+    {"round": 4, "uid": "9", "home":"Wee", "away":"Wff"},
+    {"round": 4, "uid": "11", "home":"Lee", "away":"Lff"},
+    {"round": 4, "uid": "13", "home":"Whh", "away":"Wii"},
+    {"round": 4, "uid": "15", "home":"Lhh", "away":"Lii"},
+  ],
+  "places": [
+    {"position":1, "prereq_uid": "W1"},
+    {"position":2, "prereq_uid": "L1"},
+    {"position":3, "prereq_uid": "W3"},
+    {"position":4, "prereq_uid": "L3"},
+    {"position":5, "prereq_uid": "W5"},
+    {"position":6, "prereq_uid": "L5"},
+    {"position":7, "prereq_uid": "W7"},
+    {"position":8, "prereq_uid": "L7"},
+    {"position":9, "prereq_uid": "W9"},
+    {"position":10, "prereq_uid": "L9"},
+    {"position":11, "prereq_uid": "W11"},
+    {"position":12, "prereq_uid": "L11"},
+    {"position":13, "prereq_uid": "W13"},
+    {"position":14, "prereq_uid": "L13"},
+    {"position":15, "prereq_uid": "W15"},
+    {"position":16, "prereq_uid": "L15"}
+  ]
+}

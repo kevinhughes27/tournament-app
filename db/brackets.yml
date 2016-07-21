@@ -145,6 +145,17 @@
   template: <%= BracketDb::load('usau_5.5') %>
 
 -
+  handle: Power Pools 5
+  name: Power Pools
+  description: >
+    The losers in the bracket play the bottom seed for extra games.
+  num_teams: 5
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= BracketDb::load('pp_5') %>
+
+-
   handle: USAU 6.1
   name: One team advances (USAU 6.1)
   description: >
@@ -217,6 +228,15 @@
   days: 1
   pool: true
   template: <%= BracketDb::load('usau_6.6.1') %>
+
+-
+  handle: Power Pools 6
+  name: Power Pools
+  num_teams: 6
+  days: 1
+  rounds: 2
+  pool: true
+  template: <%= BracketDb::load('pp_6') %>
 
 -
   handle: USAU 7.1
@@ -388,6 +408,17 @@
   template: <%= BracketDb::load('9_pool_bracket') %>
 
 -
+  handle: Power Pools 9
+  name: Power Pools
+  description: >
+    The losers in the loser bracket play the bottom seed of the B pool for extra games.
+  num_teams: 9
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= BracketDb::load('pp_9') %>
+
+-
   handle: USAU 10.1
   name: One team advances (USAU 10.1)
   num_teams: 10
@@ -433,6 +464,15 @@
   rounds: 3
   pool: true
   template: <%= BracketDb::load('usau_12.1') %>
+
+-
+  handle: Power Pools 12
+  name: Power Pools
+  num_teams: 12
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= BracketDb::load('pp_12') %>
 
 -
   handle: USAU 13.1
@@ -484,6 +524,15 @@
   rounds: 4
   pool: true
   template: <%= BracketDb::load('usau_16.1') %>
+
+-
+  handle: Power Pools 16
+  name: Power Pools
+  num_teams: 16
+  days: 2
+  rounds: 4
+  pool: true
+  template: <%= BracketDb::load('pp_16') %>
 
 -
   handle: USAU 17.1
