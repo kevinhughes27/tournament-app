@@ -103,17 +103,13 @@ var Division = React.createClass({
 
     return (
       <div>
-        <div className="row">
-          {this.renderDescription(bracket)}
-        </div>
+        {this.renderDescription(bracket)}
         <hr/>
-        <div className="row">
-          <div className="col-md-4">
-            {this.renderPools(bracket)}
-          </div>
-          <div className="col-md-8 pull-right">
-            <div id="bracketGraph" style={{height: '440px'}}></div>
-          </div>
+        <div className="col-md-4">
+          {this.renderPools(bracket)}
+        </div>
+        <div className="col-md-8 pull-right">
+          <div id="bracketGraph" style={{height: '440px'}}></div>
         </div>
       </div>
     );

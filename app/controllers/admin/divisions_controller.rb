@@ -47,6 +47,19 @@ class Admin::DivisionsController < AdminController
     redirect_to admin_divisions_path
   end
 
+  def seed
+    if request.post?
+      begin
+        @division.seed
+        flash[:notice] = 'Division seeded'
+        redirect_to admin_divisions_path(@division)
+      rescue => error
+        flash[:error] = error.message
+        render :seed
+      end
+    end
+  end
+
   def update_teams
     team_ids = params[:team_ids]
     @teams = @division.teams
@@ -61,20 +74,9 @@ class Admin::DivisionsController < AdminController
     end
 
     flash.now[:notice] = 'Seeds updated'
-    render :show
+    render :seed
   rescue => e
     render partial: 'unable_to_update_teams', status: :not_allowed
-  end
-
-  def seed
-    begin
-      @division.seed
-      flash.now[:notice] = 'Division seeded'
-    rescue => error
-      flash.now[:error] = error.message
-    ensure
-      render :show
-    end
   end
 
   private

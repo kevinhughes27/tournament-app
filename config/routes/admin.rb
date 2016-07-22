@@ -14,8 +14,9 @@ namespace :admin do
 
   resources :divisions do
     member do
+      get :seed
       put :update_teams
-      put :seed
+      post :seed
     end
   end
 
