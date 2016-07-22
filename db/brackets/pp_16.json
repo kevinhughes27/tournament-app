@@ -32,10 +32,10 @@
     {"round": 2, "uid": "cc", "home":"Lxa", "away":"D3"},
     {"round": 2, "uid": "dd", "home":"Lxb", "away":"C3"},
 
-    {"round": 3, "uid": "ee", "home":"Waa", "away":"Wbb"},
-    {"round": 3, "uid": "ff", "home":"Wcc", "away":"Wdd"},
-    {"round": 3, "uid": "hh", "home":"Laa", "away":"Lbb"},
-    {"round": 3, "uid": "ii", "home":"Lcc", "away":"Ldd"},
+    {"round": 3, "uid": "ee", "home":"Waa", "away":"Wdd"},
+    {"round": 3, "uid": "ff", "home":"Wcc", "away":"Wbb"},
+    {"round": 3, "uid": "hh", "home":"Laa", "away":"Ldd"},
+    {"round": 3, "uid": "ii", "home":"Lcc", "away":"Lbb"},
 
     {"round": 4, "uid": "9", "home":"Wee", "away":"Wff"},
     {"round": 4, "uid": "11", "home":"Lee", "away":"Lff"},
