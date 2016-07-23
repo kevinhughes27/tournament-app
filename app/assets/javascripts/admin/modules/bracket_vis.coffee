@@ -79,9 +79,7 @@ class Admin.BracketVis
       .attr('transform', (d) ->
         "translate(#{d.y} , #{d.x})"
       )
-      .attr('opacity', (d) ->
-        if d.name == 'root' then 0 else 1
-      )
+      .style('opacity', 0)
 
     nodeEnter.append('circle')
       .attr('class', 'nodeCircle')
@@ -102,7 +100,18 @@ class Admin.BracketVis
     link.enter().insert('path', 'g')
       .attr('class', 'link')
       .attr('d', @diagonal)
-      .attr('opacity', (d) ->
+      .style('opacity', 0)
+
+    # unhide
+    node.transition()
+      .duration(750)
+      .style('opacity', (d) ->
+        if d.name == 'root' then 0 else 1
+      )
+
+    link.transition()
+      .duration(750)
+      .style('opacity', (d) ->
         if d.source.name == 'root' then 0 else 1
       )
 

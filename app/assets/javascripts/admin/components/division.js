@@ -26,7 +26,10 @@ var Division = React.createClass({
     var bracketVis = new Admin.BracketVis('#bracketGraph');
     var handle = this.state.bracketHandle;
     var bracket = BracketDb.find(handle);
-    bracketVis.render(bracket);
+
+    if (bracket) {
+      bracketVis.render(bracket);
+    }
   },
 
   renderDescription(bracket) {
@@ -101,14 +104,22 @@ var Division = React.createClass({
     var handle = this.state.bracketHandle;
     var bracket = BracketDb.find(handle);
 
-    return (
-      <div>
-        {this.renderDescription(bracket)}
-        <hr/>
-        {this.renderPools(bracket)}
-        <div id="bracketGraph" style={{height: '440px'}}></div>
-      </div>
-    );
+    if (bracket) {
+      return (
+        <div>
+          {this.renderDescription(bracket)}
+          <hr/>
+          {this.renderPools(bracket)}
+          <div id="bracketGraph" style={{height: '440px'}}></div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          No brackets found.
+        </div>
+      )
+    }
   }
 });
 

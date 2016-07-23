@@ -3,7 +3,7 @@
 <div define="{bracketChoice: new Admin.BracketChoice(this)}">
   <div class="form-group row">
     <div class="col-md-6">
-      <%= form.ui_number_field :num_teams, label_html: '# Teams' %>
+      <%= form.ui_number_field :num_teams, min: 3, label_html: '# Teams' %>
     </div>
 
     <div class="col-md-6">
