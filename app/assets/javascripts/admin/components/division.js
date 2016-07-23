@@ -58,7 +58,7 @@ var Division = React.createClass({
       });
 
       return (
-        <div className="row">
+        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
           { pools.map((pool) => {
             return this.renderPool(pool, teamsByPool[pool]);
           })}
@@ -75,7 +75,7 @@ var Division = React.createClass({
 
   renderPool(pool, teams) {
     return (
-      <div className="col-md-6" key={pool}>
+      <div style={{minWidth: '140px'}} key={pool}>
         <table className="table table-bordered table-striped table-hover table-condensed">
           <thead>
             <tr>
@@ -105,12 +105,8 @@ var Division = React.createClass({
       <div>
         {this.renderDescription(bracket)}
         <hr/>
-        <div className="col-md-4">
-          {this.renderPools(bracket)}
-        </div>
-        <div className="col-md-8 pull-right">
-          <div id="bracketGraph" style={{height: '440px'}}></div>
-        </div>
+        {this.renderPools(bracket)}
+        <div id="bracketGraph" style={{height: '440px'}}></div>
       </div>
     );
   }

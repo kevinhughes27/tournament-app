@@ -59,11 +59,13 @@ class Admin.BracketVis
     links = @tree.links(nodes)
 
     # Set widths between levels based on maxLabelLength.
+    @treeWidth = 0
     nodes.forEach( (d) =>
       d.y = -(d.depth * (@maxLabelLength * @widthMultiplier))
       # alternatively to keep a fixed scale one can set a fixed depth per level
       # Normalize for fixed-depth by commenting out below line
       # d.y = (d.depth * 500); //500px per level.
+      @treeWidth = _.max([@treeWidth, -1*d.y])
     )
 
     # Declare the nodes…
@@ -137,7 +139,7 @@ class Admin.BracketVis
 
   center: ->
     scale = @viewerHeight / @treeHeight
-    x = @viewerWidth * 0.75
+    x = @treeWidth * 0.5 + @viewerWidth * 0.5
     y = 0
 
     @svgGroup.transition()
