@@ -15,14 +15,6 @@
     <% options = bracket_options(division) %>
     <%= form.ui_select :bracket_type, 'Bracket', options, disabled:  options.blank? %>
 
-    <div class="hidden-sm hidden-md hidden-lg">
-      <div class="form-group">
-        <button type="button" class="btn btn-block btn-info btn-lg" data-toggle="modal" data-target="#bracketVisModal">
-          View Bracket <i class="fa fa-external-link-square" aria-hidden="true"></i>
-        </button>
-      </div>
-    </div>
-
     <div class="panel panel-default subdued">
       <div class="panel-body">
         <i class="fa fa-question-circle"></i>
