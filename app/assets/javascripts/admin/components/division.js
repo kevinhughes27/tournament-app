@@ -4,8 +4,12 @@ var _ = require('underscore'),
 
 var Division = React.createClass({
   getInitialState() {
+    var bracketHandle = this.props.bracket_handle;
+    var bracket = BracketDb.find(bracketHandle);
+
     return {
-      bracketHandle: this.props.bracket_handle
+      bracketHandle: bracketHandle,
+      bracket: bracket
     };
   },
 
@@ -14,7 +18,12 @@ var Division = React.createClass({
 
     $('#division_bracket_type').on('change', (event) => {
       var bracketHandle = $(event.target).val();
-      this.setState({ bracketHandle: bracketHandle });
+      var bracket = BracketDb.find(bracketHandle);
+
+      this.setState({
+        bracketHandle: bracketHandle,
+        bracket: bracket
+      });
     });
   },
 
@@ -24,8 +33,7 @@ var Division = React.createClass({
 
   renderBracket() {
     var bracketVis = new Admin.BracketVis('#bracketGraph');
-    var handle = this.state.bracketHandle;
-    var bracket = BracketDb.find(handle);
+    var bracket = this.state.bracket;
 
     if (bracket) {
       bracketVis.render(bracket);
@@ -101,8 +109,7 @@ var Division = React.createClass({
   },
 
   render() {
-    var handle = this.state.bracketHandle;
-    var bracket = BracketDb.find(handle);
+    var bracket = this.state.bracket;
 
     if (bracket) {
       return (
