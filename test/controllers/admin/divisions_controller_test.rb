@@ -20,6 +20,12 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:division)
   end
 
+  test "get edit" do
+    get :edit, params: { id: @division.id }
+    assert_response :success
+    assert_not_nil assigns(:division)
+  end
+
   test "get index" do
     get :index
     assert_response :success
@@ -175,15 +181,15 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   test "seed a division" do
     reset_division(@division)
 
-    put :seed, params: { id: @division.id }
-    assert_response :success
+    post :seed, params: { id: @division.id }
+    assert_redirected_to admin_division_path(@division)
     assert_equal 'Division seeded', flash[:notice]
   end
 
   test "seed a division with an error" do
     @division.update_attribute(:bracket_type, 'single_elimination_4')
 
-    put :seed, params: { id: @division.id }
+    post :seed, params: { id: @division.id }
     assert_response :success
     assert_equal '4 seats but 8 teams present', flash[:error]
   end

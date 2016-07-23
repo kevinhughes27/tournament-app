@@ -52,7 +52,7 @@ class Admin::DivisionsController < AdminController
       begin
         @division.seed
         flash[:notice] = 'Division seeded'
-        redirect_to admin_divisions_path(@division)
+        redirect_to admin_division_path(@division)
       rescue => error
         flash[:error] = error.message
         render :seed
