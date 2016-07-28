@@ -5,7 +5,6 @@ class Admin.BracketVis
 
     @maxLabelLength = 3
     @panSpeed = 200
-    @panBoundary = 20
 
     @heightMultiplier = 60
     @widthMultiplier = 15
