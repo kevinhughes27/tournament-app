@@ -12,6 +12,10 @@ class Bracket < FrozenRecord::Base
     template[:games]
   end
 
+  def pools
+    template_games.map{ |g| g[:pool] }.compact.uniq
+  end
+
   def bracket_tree
     @bracket_tree ||= BracketDb::to_tree(template_games)
   end

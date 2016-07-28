@@ -32,6 +32,10 @@ class Division < ApplicationRecord
     @bracket ||= Bracket.find_by(handle: self.bracket_type)
   end
 
+  def pools
+    bracket.pools.map{ |p| Pool.new(self, p) }
+  end
+
   def dirty_seed?
     Divisions::DirtySeedJob.perform_now(division: self)
   end

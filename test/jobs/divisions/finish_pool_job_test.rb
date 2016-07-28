@@ -42,7 +42,9 @@ module Divisions
         division_id: division.id,
         pool: 'A',
         position: 1,
-        team: teams.first
+        team: teams.first,
+        wins: 1,
+        points: 10
       )
 
       assert_difference 'PoolResult.count', +3 do
@@ -107,9 +109,20 @@ module Divisions
       results = division.pool_results.order(:position)
 
       assert_equal @teams[2], results[0].team
+      assert_equal 1, results[0].wins
+      assert_equal 10, results[0].points
+
       assert_equal @teams[0], results[1].team
+      assert_equal 1, results[1].wins
+      assert_equal 5, results[1].points
+
       assert_equal @teams[3], results[2].team
+      assert_equal 0, results[2].wins
+      assert_equal 2, results[2].points
+
       assert_equal @teams[1], results[3].team
+      assert_equal 0, results[3].wins
+      assert_equal 0, results[3].points
     end
 
     test "update pool using points_for for tie breaker with a tie game" do
