@@ -1,5 +1,5 @@
 class Pool
-  attr_reader :division, :uid
+  attr_reader :division, :uid, :team_wins, :team_pts
 
   def initialize(division, uid)
     @division = division
@@ -12,8 +12,8 @@ class Pool
 
   def results(updated_game: nil, home_score: nil, away_score: nil)
     @results ||= begin
-      team_wins = Hash.new(0)
-      team_pts = Hash.new(0)
+      @team_wins = Hash.new(0)
+      @team_pts = Hash.new(0)
 
       games.each do |game|
         if updated_game == game
@@ -58,7 +58,9 @@ class Pool
         division_id: division.id,
         pool: uid,
         position: position,
-        team: team
+        team: team,
+        wins: team_wins[team.id],
+        points: team_pts[team.id]
       )
     end
   end

@@ -145,7 +145,9 @@ module Games
         division_id: @division.id,
         pool: 'A',
         position: position,
-        team: team
+        team: team,
+        wins: 2,
+        points: 15
       )
     end
   end
