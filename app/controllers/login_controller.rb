@@ -54,7 +54,7 @@ class LoginController < Devise::SessionsController
 
   def login(user)
     flash[:animate] = "fadeIn"
-    respond_with user, location: after_login_in_path
+    redirect_to after_login_in_path
   end
 
   def sign_out_user

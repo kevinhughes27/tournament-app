@@ -1,40 +1,47 @@
-namespace :dev do
-  namespace :bracket_db do
-    task :check => :environment do
-      require 'bracket'
+require 'bracket_db'
 
-      Dir.glob('db/brackets/*.json') do |bracket_file|
-        bracket_name = bracket_file.gsub('db/brackets/', '').gsub('.json', '')
-        bracket_json = BracketDb::load(bracket_name)
-        begin
-          JSON.parse(bracket_json)
-        rescue => e
-          puts "#{bracket_file} has invalid json"
-        end
+namespace :bracket_db do
+  desc "checks the json of each bracket individualy"
+  task :check do
+
+    Dir.glob('db/brackets/*.json') do |bracket_file|
+      bracket_name = bracket_file.gsub('db/brackets/', '').gsub('.json', '')
+      bracket_json = BracketDb::load(bracket_name)
+      begin
+        JSON.parse(bracket_json)
+        puts "#{bracket_file} \u2713"
+      rescue => e
+        puts "#{bracket_file} has invalid json"
       end
     end
+  end
 
-    task :print, [:handle] => [:environment] do |t, args|
-      desc "usage: bx rake 'dev:bracket_db:print[usau_8.1]'"
-      require 'bracket'
+  desc "usage: bx rake 'bracket_db:print[usau_8.1]'"
+  task :print, [:handle] do |t, args|
+    bracket_json = BracketDb::load(args[:handle])
+    bracket = JSON.parse(bracket_json)
+    puts JSON.pretty_generate(bracket)
+  end
 
-      bracket_json = BracketDb::load(args[:handle])
-      bracket = JSON.parse(bracket_json)
-      puts JSON.pretty_generate(bracket)
+  desc "usage: bx rake 'bracket_db:print_tree[usau_8.1]'"
+  task :print_tree, [:handle] do |t, args|
+    bracket = Bracket.find_by(handle: args[:handle])
+    tree = bracket.bracket_tree
+    puts JSON.pretty_generate(tree)
+  end
+
+  desc "creates a diff of the bracket_db against git master"
+  task :diff do
+    repo = Rugged::Repository.new('.')
+    master = repo.branches['master']
+    diff = master.target.tree.diff(repo.index)
+
+    diff.each_patch do |patch|
+      process_patch(patch)
     end
 
-    task :diff => :environment do
-      repo = Rugged::Repository.new('.')
-      master = repo.branches['master']
-      diff = master.target.tree.diff(repo.index)
-
-      diff.each_patch do |patch|
-        process_patch(patch)
-      end
-
-      File.open("db/bracket_db_diff.json","w") do |f|
-        f.write(JSON.pretty_generate(dbDiff))
-      end
+    File.open("db/bracket_db_diff.json","w") do |f|
+      f.write(JSON.pretty_generate(dbDiff))
     end
   end
 end

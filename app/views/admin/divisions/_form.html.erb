@@ -1,25 +1,19 @@
 <%= form.ui_text_field :name, autocomplete: 'off' %>
 
-<div class="form-group row" define="{bracketChoice: new Admin.BracketChoice(this)}">
-  <div class="col-md-2">
-    <%= form.ui_number_field :num_teams, label_html: '# Teams' %>
+<div define="{bracketChoice: new Admin.BracketChoice(this)}">
+  <div class="form-group row">
+    <div class="col-md-6">
+      <%= form.ui_number_field :num_teams, min: 3, label_html: '# Teams' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.ui_number_field :num_days, min: 1, max: 2, label_html: '# Days' %>
+    </div>
   </div>
 
-  <div class="col-md-2">
-    <%= form.ui_number_field :num_days, min: 1, max: 2, label_html: '# Days' %>
-  </div>
-
-  <div class="col-md-8">
+  <div class="form-group">
     <% options = bracket_options(division) %>
     <%= form.ui_select :bracket_type, 'Bracket', options, disabled:  options.blank? %>
-
-    <div class="hidden-sm hidden-md hidden-lg">
-      <div class="form-group">
-        <button type="button" class="btn btn-block btn-info btn-lg" data-toggle="modal" data-target="#bracketVisModal">
-          View Bracket <i class="fa fa-external-link-square" aria-hidden="true"></i>
-        </button>
-      </div>
-    </div>
 
     <div class="panel panel-default subdued">
       <div class="panel-body">

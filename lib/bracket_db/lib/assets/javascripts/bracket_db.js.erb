@@ -1,0 +1,8 @@
+window.BracketDb = {
+  find: function (handle) {
+    return _.find(BracketDb.BRACKETS, function(bracket) {
+      return bracket.handle == handle
+    });
+  },
+  BRACKETS: <%= Bracket.all.to_json(methods: :bracket_tree) %>
+};

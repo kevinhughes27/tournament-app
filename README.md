@@ -69,6 +69,6 @@ Since the UIDs aren't changing they can be used to identify the games and add th
 
 Gotchas
 -------
-Rails isn't smart enough to reload frozen record objects when the yml or json files are changed (although the asset pipeline is now thanks to some code I added. This can be fixed when I have time)
+Rails isn't smart enough to reload frozen record objects when the yml or json files are changed
 
-Same idea when adding brackets - you need to run `rake assets:clobber` before running the bracket render tests
+Same issue when adding or changing brackets - you need to run `rake assets:clobber` before the changes will appear in JS.

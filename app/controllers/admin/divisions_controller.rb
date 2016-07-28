@@ -1,5 +1,5 @@
 class Admin::DivisionsController < AdminController
-  before_action :load_division, only: [:show, :update, :destroy, :update_teams, :seed]
+  before_action :load_division, only: [:show, :edit, :update, :destroy, :update_teams, :seed]
   before_action :check_update_safety, only: [:update]
   before_action :check_seed_safety, only: [:seed]
   before_action :check_delete_safety, only: [:destroy]
@@ -11,23 +11,53 @@ class Admin::DivisionsController < AdminController
   def show
   end
 
+  def edit
+  end
+
   def new
     @division = @tournament.divisions.build
+    @division.bracket_type = 'USAU 8.1'
   end
 
   def create
     @division = @tournament.divisions.create(division_params)
-    respond_with @division
+    if @division.persisted?
+      flash[:notice] = 'Division was successfully create.'
+      redirect_to admin_division_path(@division)
+    else
+      flash[:error] = 'Division could not be created.'
+      render :new
+    end
   end
 
   def update
     @division.update_attributes(division_params)
-    respond_with @division
+    if @division.errors.present?
+      flash[:error] = 'Division could not be updated.'
+      render :edit
+    else
+      flash[:notice] = 'Division was successfully updated.'
+      redirect_to admin_division_path(@division)
+    end
   end
 
   def destroy
     @division.destroy()
-    respond_with @division
+    flash[:notice] = 'Division was successfully destroyed.'
+    redirect_to admin_divisions_path
+  end
+
+  def seed
+    if request.post?
+      begin
+        @division.seed
+        flash[:notice] = 'Division seeded'
+        redirect_to admin_division_path(@division)
+      rescue => error
+        flash[:error] = error.message
+        render :seed
+      end
+    end
   end
 
   def update_teams
@@ -44,20 +74,9 @@ class Admin::DivisionsController < AdminController
     end
 
     flash.now[:notice] = 'Seeds updated'
-    render :show
+    render :seed
   rescue => e
     render partial: 'unable_to_update_teams', status: :not_allowed
-  end
-
-  def seed
-    begin
-      @division.seed
-      flash.now[:notice] = 'Division seeded'
-    rescue => error
-      flash.now[:error] = error.message
-    ensure
-      render :show
-    end
   end
 
   private

@@ -4,52 +4,19 @@
 <% end %>
 
 <%= content_for :top_bar_right do %>
-  <%= link_to 'New', new_admin_division_path, class: "btn btn-default" %>
-  <%= ui_save_button_tag(form_id:'.edit_division') %>
+  <%= link_to 'Back', admin_divisions_path, class: "btn btn-default" %>
+  <%= link_to 'Edit', edit_admin_division_path(@division), class: "btn btn-primary" %>
 <% end %>
 
-<%= render 'admin/errors', object: @division %>
-
-<div class="row" define="{divisionShow: new Admin.DivisionShow()}" context="divisionShow">
-  <div class="col-md-8">
-    <%= ui_box do %>
-      <%= form_for [:admin, @division], html: {
-        'bind-event-submit' => "Admin.ActionWithCheck(
-          '#{admin_division_path(@division)}',
-          'PUT',
-          false,
-          this
-        )"} do |form| %>
-        <%= render 'form', form: form, division: @division %>
-        <hr>
-        <%= form.ui_save_button %>
-      <% end %>
-      <%= button_tag 'delete', class: 'btn btn-danger js-btn-loadable',
-          'bind-event-click' => "Admin.ActionWithCheck(
-            '#{admin_division_path(@division)}',
-            'DELETE'
-          )" %>
-    <% end %>
-
-    <%= render 'bracket' %>
+<% if @division.dirty_seed? %>
+  <div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <i class="icon fa fa-info"></i>
+    This division needs to be seeded before games can start.
+    <%= link_to 'Seed this division', seed_admin_division_path(@division) %>
   </div>
+<% end %>
 
-  <div class="col-md-4">
-    <% if @division.teams.present? %>
-      <%= render 'seeding', division: @division %>
-    <% else %>
-      <%= ui_box do %>
-        <h4>
-          <i class="fa fa-exclamation-triangle"></i>
-          Seeding
-        </h4>
-        <p>
-          This divisions has no teams and can't be seeded.
-        </p>
-        <p>
-          Add teams from the <%= link_to 'Teams page', admin_teams_path %>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<%= ui_box do %>
+  <%= react_component('Admin.Division', {bracket_handle: @division.bracket_type}) %>
+<% end %>

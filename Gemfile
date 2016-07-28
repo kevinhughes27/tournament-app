@@ -9,16 +9,14 @@ gem 'actioncable'
 gem 'sidekiq'
 gem 'redis'
 gem 'wicked'
-gem 'responders'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
-gem 'json-schema', '~> 2.6.0'
 gem 'jbuilder'
 gem 'wicked_pdf'
 gem 'browser-timezone-rails'
 gem 'config'
 
 # model gems
-gem 'frozen_record', '~> 0.7.1'
+gem 'bracket_db', path: 'lib/bracket_db'
 gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
 gem 'auto_strip_attributes'
 gem 'date_validator'
@@ -55,7 +53,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery.scrollTo', '~> 2.1.2'
   gem 'rails-assets-tether', '~> 1.3.1'
   gem 'rails-assets-tether-drop', '~> 1.4.2'
-  gem 'rails-assets-vis', '~> 4.15'
+  gem 'rails-assets-d3', '~> 3.5.17'
 end
 
 group :production do

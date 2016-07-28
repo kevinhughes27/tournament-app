@@ -11,10 +11,10 @@
   <% if @games.all? { |game| game.unconfirmed? && game.score_reports.blank? } %>
     <div class="alert alert-info alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <i class="icon fa fa-info"></i>
-        These are the games that were automatically created for your tourament.
-        This is where you can enter and review score reports.
-        If your tournament hasn't started yet then there isn't much to do on this page.
+      <i class="icon fa fa-info"></i>
+      These are the games that were automatically created for your tourament.
+      This is where you can enter and review score reports.
+      If your tournament hasn't started yet then there isn't much to do on this page.
     </div>
   <% end %>
 

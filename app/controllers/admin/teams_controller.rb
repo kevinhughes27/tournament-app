@@ -18,17 +18,30 @@ class Admin::TeamsController < AdminController
 
   def create
     @team = @tournament.teams.create(team_params)
-    respond_with @team
+    if @team.persisted?
+      flash[:notice] = 'Team was successfully create.'
+      redirect_to admin_team_path(@team)
+    else
+      flash[:error] = 'Team could not be created.'
+      render :new
+    end
   end
 
   def update
     @team.update_attributes(team_params)
-    respond_with @team
+    if @team.errors.present?
+      flash[:error] = 'Team could not be updated.'
+      render :show
+    else
+      flash[:notice] = 'Team was successfully updated.'
+      redirect_to admin_team_path(@team)
+    end
   end
 
   def destroy
     @team.destroy()
-    respond_with @team
+    flash[:notice] = 'Team was successfully destroyed.'
+    redirect_to admin_teams_path
   end
 
   def sample_csv

@@ -1,3 +1,5 @@
+//= require bracket_db
+
 //= require admin/admin
 //= require_tree ./admin/lib
 //= require_tree ./shared
