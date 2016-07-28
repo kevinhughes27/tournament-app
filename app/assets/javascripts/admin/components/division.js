@@ -81,47 +81,38 @@ var Division = React.createClass({
   },
 
   renderPools(bracket) {
-    var games = bracket.template.games;
-    games = _.filter(games, 'pool');
+    var games = _.filter(bracket.template.games, 'pool');
+    var pools;
+    var teamsByPool = {};
+    var gamesByPool = _.groupBy(games, 'pool');
 
-    if(games.length > 0) {
-      var pools;
-      var teamsByPool = {};
-      var gamesByPool = _.groupBy(games, 'pool');
+    _.each(gamesByPool, function(games, pool) {
+      var homeTeams = _.pluck(games, 'home');
+      var awayTeams = _.pluck(games, 'away');
+      var teams = _.union(homeTeams, awayTeams);
+      teamsByPool[pool] = _.sortBy(teams, function(t){ return t});
+      pools = _.keys(teamsByPool);
+    });
 
-      _.each(gamesByPool, function(games, pool) {
-        var homeTeams = _.pluck(games, 'home');
-        var awayTeams = _.pluck(games, 'away');
-        var teams = _.union(homeTeams, awayTeams);
-        teamsByPool[pool] = _.sortBy(teams, function(t){ return t});
-        pools = _.keys(teamsByPool);
-      });
-
-      return (
-        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
-          { pools.map((pool) => {
-            return <Pool key={pool} pool={pool} teams={teamsByPool[pool]}/>
-          })}
-        </div>
-      );
-    } else {
-      return (
-        <div className="blank-slate" style="margin-top: 60px;">
-          <p>No Pool Games</p>
-        </div>
-      );
-    }
+    return (
+      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+        { pools.map((pool) => {
+          return <Pool key={pool} pool={pool} teams={teamsByPool[pool]}/>
+        })}
+      </div>
+    );
   },
 
   render() {
     var bracket = this.state.bracket;
+    var hasPools = bracket.pool;
 
     if (bracket) {
       return (
         <div>
           {this.renderDescription(bracket)}
           <hr/>
-          {this.renderPools(bracket)}
+          { hasPools ? this.renderPools(bracket) : null }
           <div style={{paddingLeft: '30px', paddingRight: '30px', height: '440px'}}>
             <div id="bracketGraph" style={{height: '100%'}}></div>
           </div>
