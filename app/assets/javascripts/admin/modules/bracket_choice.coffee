@@ -1,5 +1,4 @@
 class Admin.BracketChoice
-
   constructor: (node) ->
     @$numberInput = $(node).find('#division_num_teams')
     @$daysInput = $(node).find('#division_num_days')

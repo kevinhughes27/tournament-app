@@ -2,6 +2,35 @@ var _ = require('underscore'),
     React = require('react'),
     ReactDOM = require('react-dom');
 
+var Pool = React.createClass({
+  render() {
+    var pool = this.props.pool;
+    var teams = this.props.teams;
+
+    return (
+      <div style={{minWidth: '140px'}}>
+        <table className="table table-bordered table-striped table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>Pool {pool}</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            { teams.map(function(team) {
+              return (
+                <tr key={team}>
+                  <td>{team}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+});
+
 var Division = React.createClass({
   getInitialState() {
     var bracketHandle = this.props.bracket_handle;
@@ -71,7 +100,7 @@ var Division = React.createClass({
       return (
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
           { pools.map((pool) => {
-            return this.renderPool(pool, teamsByPool[pool]);
+            return <Pool key={pool} pool={pool} teams={teamsByPool[pool]}/>
           })}
         </div>
       );
@@ -82,30 +111,6 @@ var Division = React.createClass({
         </div>
       );
     }
-  },
-
-  renderPool(pool, teams) {
-    return (
-      <div style={{minWidth: '140px'}} key={pool}>
-        <table className="table table-bordered table-striped table-hover table-condensed">
-          <thead>
-            <tr>
-              <th>Pool {pool}</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            { teams.map(function(team) {
-              return (
-                <tr key={team}>
-                  <td>{team}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
   },
 
   render() {
