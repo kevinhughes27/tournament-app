@@ -11,7 +11,7 @@ class Game < ApplicationRecord
   has_many :score_disputes, dependent: :destroy
 
   validates_presence_of :tournament
-  validates_presence_of :division, :home_prereq_uid, :away_prereq_uid
+  validates_presence_of :division, :home_prereq, :away_prereq
   validates_presence_of :round
   validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }
   validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
@@ -42,15 +42,10 @@ class Game < ApplicationRecord
 
   def self.create_from_template!(tournament_id:, division_id:, template_game:)
     Game.create!(
-      tournament_id: tournament_id,
-      division_id: division_id,
-      pool: template_game[:pool],
-      home_pool_seed: template_game[:home_seed],
-      away_pool_seed: template_game[:away_seed],
-      round: template_game[:round],
-      bracket_uid: template_game[:uid],
-      home_prereq_uid: template_game[:home],
-      away_prereq_uid: template_game[:away]
+      template_game.merge(
+        tournament_id: tournament_id,
+        division_id: division_id
+      )
     )
   end
 
@@ -82,11 +77,11 @@ class Game < ApplicationRecord
   end
 
   def home_name
-    home.present? ? home.name : home_prereq_uid
+    home.present? ? home.name : home_prereq
   end
 
   def away_name
-    away.present? ? away.name : away_prereq_uid
+    away.present? ? away.name : away_prereq
   end
 
   def name
@@ -137,7 +132,7 @@ class Game < ApplicationRecord
   end
 
   def valid_for_seed_round?
-    home_prereq_uid.match(/\A\d+\z/) || away_prereq_uid.match(/\A\d+\z/)
+    home_prereq.match(/\A\d+\z/) || away_prereq.match(/\A\d+\z/)
   end
 
   def scores_present?
@@ -152,17 +147,17 @@ class Game < ApplicationRecord
 
   def dependent_games
     [
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}"),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "L#{bracket_uid}"),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "W#{bracket_uid}"),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "L#{bracket_uid}")
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "W#{bracket_uid}"),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "L#{bracket_uid}"),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "W#{bracket_uid}"),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "L#{bracket_uid}")
     ].compact
   end
 
   def prerequisite_games
     [
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq_uid.to_s.gsub(/W|L/,'')),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq_uid.to_s.gsub(/W|L/,'')),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq.to_s.gsub(/W|L/,'')),
+      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq.to_s.gsub(/W|L/,'')),
     ].compact
   end
 

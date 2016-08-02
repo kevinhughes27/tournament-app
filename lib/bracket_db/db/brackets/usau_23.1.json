@@ -7,37 +7,37 @@
 
     <%= BracketDb::partial('bracket_16.1') %>,
 
-    {"round": 1, "uid":"aa", "home":"A4", "away":"D5"},
-    {"round": 1, "uid":"bb", "home":"B4", "away":"C5"},
-    {"round": 1, "uid":"cc", "home":"A5", "away":"D4"},
-    {"round": 1, "uid":"dd", "home":"B5", "away":"C4"},
+    {"round": 1, "bracket_uid":"aa", "home_prereq":"A4", "away_prereq":"D5"},
+    {"round": 1, "bracket_uid":"bb", "home_prereq":"B4", "away_prereq":"C5"},
+    {"round": 1, "bracket_uid":"cc", "home_prereq":"A5", "away_prereq":"D4"},
+    {"round": 1, "bracket_uid":"dd", "home_prereq":"B5", "away_prereq":"C4"},
 
-    {"round": 2, "uid": "ee", "home":"Waa", "away":"Wbb"},
-    {"round": 2, "uid": "ff", "home":"Wcc", "away":"Wdd"},
-    {"round": 2, "uid": "hh", "home":"Laa", "away":"Lbb"},
-    {"round": 2, "uid": "ii", "home":"Lcc", "away":"Ldd"},
+    {"round": 2, "bracket_uid": "ee", "home_prereq":"Waa", "away_prereq":"Wbb"},
+    {"round": 2, "bracket_uid": "ff", "home_prereq":"Wcc", "away_prereq":"Wdd"},
+    {"round": 2, "bracket_uid": "hh", "home_prereq":"Laa", "away_prereq":"Lbb"},
+    {"round": 2, "bracket_uid": "ii", "home_prereq":"Lcc", "away_prereq":"Ldd"},
 
-    {"round": 3, "uid": "13", "home":"Wee", "away":"Wff"},
-    {"round": 3, "uid": "15", "home":"Lee", "away":"Lff"},
-    {"round": 3, "uid": "17", "home":"Whh", "away":"Wii"},
-    {"round": 3, "uid": "19", "home":"Lhh", "away":"Lii"},
+    {"round": 3, "bracket_uid": "13", "home_prereq":"Wee", "away_prereq":"Wff"},
+    {"round": 3, "bracket_uid": "15", "home_prereq":"Lee", "away_prereq":"Lff"},
+    {"round": 3, "bracket_uid": "17", "home_prereq":"Whh", "away_prereq":"Wii"},
+    {"round": 3, "bracket_uid": "19", "home_prereq":"Lhh", "away_prereq":"Lii"},
 
-    {"round": 1, "uid": "aaa", "home":"B6", "away":"D6"},
-    {"round": 2, "uid": "bbb", "home":"C6", "away":"D6"},
-    {"round": 3, "uid": "ccc", "home":"B6", "away":"C6"}
+    {"round": 1, "bracket_uid": "aaa", "home_prereq":"B6", "away_prereq":"D6"},
+    {"round": 2, "bracket_uid": "bbb", "home_prereq":"C6", "away_prereq":"D6"},
+    {"round": 3, "bracket_uid": "ccc", "home_prereq":"B6", "away_prereq":"C6"}
   ],
   "places": [
     <%= BracketDb::partial('places_16.1') %>
-    {"position":13, "prereq_uid": "W13"},
-    {"position":14, "prereq_uid": "L13"},
-    {"position":15, "prereq_uid": "W15"},
-    {"position":16, "prereq_uid": "L15"},
-    {"position":17, "prereq_uid": "W17"},
-    {"position":18, "prereq_uid": "L17"},
-    {"position":19, "prereq_uid": "W19"},
-    {"position":20, "prereq_uid": "L19"},
-    {"position":21, "prereq_uid": "B6"},
-    {"position":22, "prereq_uid": "C6"},
-    {"position":23, "prereq_uid": "D6"}
+    {"position":13, "prereq": "W13"},
+    {"position":14, "prereq": "L13"},
+    {"position":15, "prereq": "W15"},
+    {"position":16, "prereq": "L15"},
+    {"position":17, "prereq": "W17"},
+    {"position":18, "prereq": "L17"},
+    {"position":19, "prereq": "W19"},
+    {"position":20, "prereq": "L19"},
+    {"position":21, "prereq": "B6"},
+    {"position":22, "prereq": "C6"},
+    {"position":23, "prereq": "D6"}
   ]
 }

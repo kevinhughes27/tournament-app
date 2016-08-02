@@ -12,8 +12,8 @@ class ProcessBracketDbDiffTaskTest < MaintenanceTaskTextCase
   #     division: division,
   #     round: 3,
   #     bracket_uid: 'f1',
-  #     home_prereq_uid: 'Ws1',
-  #     away_prereq_uid: 'Ws2'
+  #     home_prereq: 'Ws1',
+  #     away_prereq: 'Ws2'
   #   )
   #
   #   subject.invoke

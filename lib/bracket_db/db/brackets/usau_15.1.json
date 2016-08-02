@@ -7,14 +7,14 @@
 
     <%= BracketDb::partial('bracket_16.1') %>,
 
-    {"round": 1, "uid": "aa", "home":"B4", "away":"D4"},
-    {"round": 2, "uid": "bb", "home":"C4", "away":"D4"},
-    {"round": 3, "uid": "cc", "home":"B4", "away":"C4"}
+    {"round": 1, "bracket_uid": "aa", "home_prereq":"B4", "away_prereq":"D4"},
+    {"round": 2, "bracket_uid": "bb", "home_prereq":"C4", "away_prereq":"D4"},
+    {"round": 3, "bracket_uid": "cc", "home_prereq":"B4", "away_prereq":"C4"}
   ],
   "places": [
     <%= BracketDb::partial('places_16.1') %>
-    {"position":13, "prereq_uid": "B4"},
-    {"position":14, "prereq_uid": "C4"},
-    {"position":15, "prereq_uid": "D4"}
+    {"position":13, "prereq": "B4"},
+    {"position":14, "prereq": "C4"},
+    {"position":15, "prereq": "D4"}
   ]
 }

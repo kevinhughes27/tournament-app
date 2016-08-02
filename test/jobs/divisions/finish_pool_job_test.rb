@@ -66,8 +66,8 @@ module Divisions
 
       FinishPoolJob.perform_now(division: division, pool_uid: 'A')
 
-      game1 = division.games.find_by(home_prereq_uid: 'A1')
-      game2 = division.games.find_by(away_prereq_uid: 'A4')
+      game1 = division.games.find_by(home_prereq: 'A1')
+      game2 = division.games.find_by(away_prereq: 'A4')
 
       assert_equal teams.first, game1.home
       assert_equal teams.last, game2.away
@@ -80,8 +80,8 @@ module Divisions
         division_id: division.id,
         pool: 'A',
         round: 1,
-        home_prereq_uid: 1,
-        away_prereq_uid: 2,
+        home_prereq: 1,
+        away_prereq: 2,
         home_pool_seed: 1,
         away_pool_seed: 2,
         home: @teams[0],
@@ -95,8 +95,8 @@ module Divisions
         division_id: division.id,
         pool: 'A',
         round: 1,
-        home_prereq_uid: 3,
-        away_prereq_uid: 4,
+        home_prereq: 3,
+        away_prereq: 4,
         home_pool_seed: 3,
         away_pool_seed: 4,
         home: @teams[2],
@@ -132,8 +132,8 @@ module Divisions
         division_id: division.id,
         pool: 'A',
         round: 1,
-        home_prereq_uid: 1,
-        away_prereq_uid: 2,
+        home_prereq: 1,
+        away_prereq: 2,
         home_pool_seed: 1,
         away_pool_seed: 2,
         home: @teams[0],
@@ -147,8 +147,8 @@ module Divisions
         division_id: division.id,
         pool: 'A',
         round: 1,
-        home_prereq_uid: 3,
-        away_prereq_uid: 4,
+        home_prereq: 3,
+        away_prereq: 4,
         home_pool_seed: 3,
         away_pool_seed: 4,
         home: @teams[2],
@@ -162,8 +162,8 @@ module Divisions
         division_id: division.id,
         pool: 'A',
         round: 1,
-        home_prereq_uid: 1,
-        away_prereq_uid: 3,
+        home_prereq: 1,
+        away_prereq: 3,
         home_pool_seed: 1,
         away_pool_seed: 3,
         home: @teams[0],
@@ -189,8 +189,8 @@ module Divisions
 
       play_pool(@teams, division, 'A')
 
-      game1 = division.games.find_by(home_prereq_uid: 'A1')
-      game2 = division.games.find_by(away_prereq_uid: 'A4')
+      game1 = division.games.find_by(home_prereq: 'A1')
+      game2 = division.games.find_by(away_prereq: 'A4')
 
       perform_enqueued_jobs do
         FinishPoolJob.perform_now(division: division, pool_uid: 'A')
@@ -226,8 +226,8 @@ module Divisions
 
       play_pool(@teams, division, 'A')
 
-      game1 = division.games.find_by(home_prereq_uid: 'A1')
-      game2 = division.games.find_by(away_prereq_uid: 'A4')
+      game1 = division.games.find_by(home_prereq: 'A1')
+      game2 = division.games.find_by(away_prereq: 'A4')
 
       perform_enqueued_jobs do
         FinishPoolJob.perform_now(division: division, pool_uid: 'A')

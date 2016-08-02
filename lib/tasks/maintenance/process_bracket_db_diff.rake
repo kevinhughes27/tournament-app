@@ -56,8 +56,8 @@ def remap(template_diff)
   template_diff.delete('place')
 
   keymap = {
-    "home" => "home_prereq_uid",
-    "away" => "away_prereq_uid",
+    "home" => "home_prereq",
+    "away" => "away_prereq",
     "uid" => "bracket_uid"
   }
 

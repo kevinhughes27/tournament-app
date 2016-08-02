@@ -16,8 +16,8 @@ def template_game_for_game(template, game)
   if game.pool_game?
     template['games'].detect do |tg|
       tg[:pool] == game.pool &&
-      tg[:home].to_s == game.home_prereq_uid &&
-      tg[:away].to_s == game.away_prereq_uid
+      tg[:home].to_s == game.home_prereq &&
+      tg[:away].to_s == game.away_prereq
     end
   else
     template['games'].detect{ |tg| tg[:uid] == game.bracket_uid }
@@ -28,8 +28,8 @@ def remap(template_game)
   template_game.delete('seed')
 
   keymap = {
-    "home" => "home_prereq_uid",
-    "away" => "away_prereq_uid",
+    "home" => "home_prereq",
+    "away" => "away_prereq",
     "home_seed" => "home_pool_seed",
     "away_seed" => "away_pool_seed",
     "uid" => "bracket_uid"

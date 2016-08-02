@@ -2,6 +2,7 @@ require 'test_helper'
 
 class BracketSimulationTest < ActiveSupport::TestCase
   attr_reader :division, :tournament
+  MAX_SIMULATION_TIME = 5
 
   setup do
     @tournament = tournaments(:blank_slate_tournament)
@@ -60,7 +61,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
   # update_score is safe and won't score games with
   # no teams.
   def play_games
-    Timeout::timeout(5) do
+    Timeout::timeout(MAX_SIMULATION_TIME) do
       while games_to_be_played.present? do
         games_to_be_played.each do |game|
           play_game(game)

@@ -15,8 +15,8 @@ module Divisions
       raise Division::InvalidNumberOfTeams, "#{num_seats} seats but #{teams.size} teams present" unless num_seats == teams.size
 
       games.each do |game|
-        game.home = seed_index_for_prereq(game.home_prereq_uid)
-        game.away = seed_index_for_prereq(game.away_prereq_uid)
+        game.home = seed_index_for_prereq(game.home_prereq)
+        game.away = seed_index_for_prereq(game.away_prereq)
         game.reset_score!
         game.save!
       end
@@ -41,7 +41,7 @@ module Divisions
     end
 
     def seats
-      @seats ||= games.pluck(:home_prereq_uid, :away_prereq_uid)
+      @seats ||= games.pluck(:home_prereq, :away_prereq)
         .flatten
         .uniq
         .reject{ |s| !s.to_s.is_i? }
@@ -56,22 +56,21 @@ module Divisions
           pool: nil
         )
       else
-        game_uids = division.bracket.game_uids_for_seeding(seed_round)
         Game.where(
           tournament_id: division.tournament_id,
           division_id: division.id,
-          bracket_uid: game_uids
+          seed_round: seed_round
         )
       end
     end
 
     def reset_games(division:, seed_round:)
-      game_uids = division.bracket.game_uids_not_for_seeding(seed_round)
-
       games = Game.where(
         tournament_id: division.tournament_id,
         division_id: division.id,
-        bracket_uid: game_uids
+      ).where.not(
+        bracket_uid: nil,
+        seed_round: seed_round
       )
 
       games.each do |game|

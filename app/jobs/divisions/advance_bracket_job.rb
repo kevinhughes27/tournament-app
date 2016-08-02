@@ -14,9 +14,9 @@ module Divisions
       division_id = game.division_id
       bracket_uid = game.bracket_uid
 
-      if next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "W#{bracket_uid}")
+      if next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "W#{bracket_uid}")
         next_game.home = game.winner
-      elsif next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "W#{bracket_uid}")
+      elsif next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "W#{bracket_uid}")
         next_game.away = game.winner
       end
 
@@ -35,9 +35,9 @@ module Divisions
       division_id = game.division_id
       bracket_uid = game.bracket_uid
 
-      if next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq_uid: "L#{bracket_uid}")
+      if next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "L#{bracket_uid}")
         next_game.home = game.loser
-      elsif next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq_uid: "L#{bracket_uid}")
+      elsif next_game = Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "L#{bracket_uid}")
         next_game.away = game.loser
       end
 

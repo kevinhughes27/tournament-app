@@ -29,7 +29,7 @@ module ScheduleHelper
   def game_draggable_text(game)
     if game.bracket_game?
       content_tag(:p, game.bracket_uid) +
-      content_tag(:p, "#{game.home_prereq_uid} v #{game.away_prereq_uid}")
+      content_tag(:p, "#{game.home_prereq} v #{game.away_prereq}")
     elsif game.pool_game?
       content_tag(:p, game.pool) +
       content_tag(:p, "#{game.home_pool_seed} v #{game.away_pool_seed}")

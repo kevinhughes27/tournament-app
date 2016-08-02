@@ -1,14 +1,14 @@
-{"round": 1, "uid":"a", "home":"A1", "away":"B4"},
-{"round": 1, "uid":"b", "home":"B2", "away":"A3"},
-{"round": 1, "uid":"c", "home":"A2", "away":"B3"},
-{"round": 1, "uid":"d", "home":"B1", "away":"A4"},
+{"round": 1, "bracket_uid":"a", "home_prereq":"A1", "away_prereq":"B4"},
+{"round": 1, "bracket_uid":"b", "home_prereq":"B2", "away_prereq":"A3"},
+{"round": 1, "bracket_uid":"c", "home_prereq":"A2", "away_prereq":"B3"},
+{"round": 1, "bracket_uid":"d", "home_prereq":"B1", "away_prereq":"A4"},
 
-{"round": 2, "uid": "e", "home":"Wa", "away":"Wb"},
-{"round": 2, "uid": "f", "home":"Wc", "away":"Wd"},
-{"round": 2, "uid": "h", "home":"La", "away":"Lb"},
-{"round": 2, "uid": "i", "home":"Lc", "away":"Ld"},
+{"round": 2, "bracket_uid": "e", "home_prereq":"Wa", "away_prereq":"Wb"},
+{"round": 2, "bracket_uid": "f", "home_prereq":"Wc", "away_prereq":"Wd"},
+{"round": 2, "bracket_uid": "h", "home_prereq":"La", "away_prereq":"Lb"},
+{"round": 2, "bracket_uid": "i", "home_prereq":"Lc", "away_prereq":"Ld"},
 
-{"round": 3, "uid": "1", "home":"We", "away":"Wf"},
-{"round": 3, "uid": "3", "home":"Le", "away":"Lf"},
-{"round": 3, "uid": "5", "home":"Wh", "away":"Wi"},
-{"round": 3, "uid": "7", "home":"Lh", "away":"Li"}
+{"round": 3, "bracket_uid": "1", "home_prereq":"We", "away_prereq":"Wf"},
+{"round": 3, "bracket_uid": "3", "home_prereq":"Le", "away_prereq":"Lf"},
+{"round": 3, "bracket_uid": "5", "home_prereq":"Wh", "away_prereq":"Wi"},
+{"round": 3, "bracket_uid": "7", "home_prereq":"Lh", "away_prereq":"Li"}

@@ -19,12 +19,12 @@ module Divisions
       return true unless num_seats == teams.size
 
       games.each do |game|
-        if game.home_prereq_uid.is_i?
-          return true if game.home_id != seed_index_for_prereq(game.home_prereq_uid)
+        if game.home_prereq.is_i?
+          return true if game.home_id != seed_index_for_prereq(game.home_prereq)
         end
 
-        if game.away_prereq_uid.is_i?
-          return true if game.away_id != seed_index_for_prereq(game.away_prereq_uid)
+        if game.away_prereq.is_i?
+          return true if game.away_id != seed_index_for_prereq(game.away_prereq)
         end
       end
 
@@ -46,7 +46,7 @@ module Divisions
     end
 
     def seats
-      @seats ||= games.pluck(:home_prereq_uid, :away_prereq_uid)
+      @seats ||= games.pluck(:home_prereq, :away_prereq)
         .flatten
         .uniq
         .reject{ |s| !s.to_s.is_i? }
@@ -59,11 +59,10 @@ module Divisions
           division_id: division.id
         ).where.not(pool: nil)
       else
-        game_uids = division.bracket.game_uids_for_seeding(1)
         Game.where(
           tournament_id: division.tournament_id,
           division_id: division.id,
-          bracket_uid: game_uids
+          seed_round: 1
         )
       end
     end
