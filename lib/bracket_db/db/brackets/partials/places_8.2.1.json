@@ -1,8 +1,8 @@
-{"position":1, "prereq_uid": "W1"},
-{"position":2, "prereq_uid": "W2"},
-{"position":3, "prereq_uid": "L2"},
-{"position":4, "prereq_uid": "Lh"},
-{"position":5, "prereq_uid": "W5"},
-{"position":6, "prereq_uid": "L5"},
-{"position":7, "prereq_uid": "W7"},
-{"position":8, "prereq_uid": "L7"}
+{"position":1, "prereq": "W1"},
+{"position":2, "prereq": "W2"},
+{"position":3, "prereq": "L2"},
+{"position":4, "prereq": "Lh"},
+{"position":5, "prereq": "W5"},
+{"position":6, "prereq": "L5"},
+{"position":7, "prereq": "W7"},
+{"position":8, "prereq": "L7"}

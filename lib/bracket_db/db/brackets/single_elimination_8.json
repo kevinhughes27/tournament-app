@@ -1,28 +1,28 @@
 {
   "games": [
-    {"round": 1, "seed": 1, "uid":"q1", "home":1, "away":"8"},
-    {"round": 1, "seed": 1, "uid":"q2", "home":2, "away":"7"},
-    {"round": 1, "seed": 1, "uid":"q3", "home":3, "away":"6"},
-    {"round": 1, "seed": 1, "uid":"q4", "home":4, "away":"5"},
+    {"round": 1, "seed_round": 1, "bracket_uid":"q1", "home_prereq":1, "away_prereq":"8"},
+    {"round": 1, "seed_round": 1, "bracket_uid":"q2", "home_prereq":2, "away_prereq":"7"},
+    {"round": 1, "seed_round": 1, "bracket_uid":"q3", "home_prereq":3, "away_prereq":"6"},
+    {"round": 1, "seed_round": 1, "bracket_uid":"q4", "home_prereq":4, "away_prereq":"5"},
 
-    {"round": 2, "uid": "s1", "home":"Wq1", "away":"Wq4"},
-    {"round": 2, "uid": "s2", "home":"Wq2", "away":"Wq3"},
-    {"round": 2, "uid": "c1", "home":"Lq1", "away":"Lq4"},
-    {"round": 2, "uid": "c2", "home":"Lq2", "away":"Lq3"},
+    {"round": 2, "bracket_uid": "s1", "home_prereq":"Wq1", "away_prereq":"Wq4"},
+    {"round": 2, "bracket_uid": "s2", "home_prereq":"Wq2", "away_prereq":"Wq3"},
+    {"round": 2, "bracket_uid": "c1", "home_prereq":"Lq1", "away_prereq":"Lq4"},
+    {"round": 2, "bracket_uid": "c2", "home_prereq":"Lq2", "away_prereq":"Lq3"},
 
-    {"round": 3, "uid": "1", "home":"Ws1", "away":"Ws2"},
-    {"round": 3, "uid": "3", "home":"Ls1", "away":"Ls2"},
-    {"round": 3, "uid": "5", "home":"Wc1", "away":"Wc2"},
-    {"round": 3, "uid": "7", "home":"Lc1", "away":"Lc2"}
+    {"round": 3, "bracket_uid": "1", "home_prereq":"Ws1", "away_prereq":"Ws2"},
+    {"round": 3, "bracket_uid": "3", "home_prereq":"Ls1", "away_prereq":"Ls2"},
+    {"round": 3, "bracket_uid": "5", "home_prereq":"Wc1", "away_prereq":"Wc2"},
+    {"round": 3, "bracket_uid": "7", "home_prereq":"Lc1", "away_prereq":"Lc2"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "W1"},
-    {"position":2, "prereq_uid": "L1"},
-    {"position":3, "prereq_uid": "W3"},
-    {"position":4, "prereq_uid": "L3"},
-    {"position":5, "prereq_uid": "W5"},
-    {"position":6, "prereq_uid": "L5"},
-    {"position":7, "prereq_uid": "W7"},
-    {"position":8, "prereq_uid": "L7"}
+    {"position":1, "prereq": "W1"},
+    {"position":2, "prereq": "L1"},
+    {"position":3, "prereq": "W3"},
+    {"position":4, "prereq": "L3"},
+    {"position":5, "prereq": "W5"},
+    {"position":6, "prereq": "L5"},
+    {"position":7, "prereq": "W7"},
+    {"position":8, "prereq": "L7"}
   ]
 }

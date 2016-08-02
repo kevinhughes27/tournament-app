@@ -20,8 +20,8 @@ module Divisions
       games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
 
       games.each do |game|
-        assert_equal game.home, teams[game.home_prereq_uid.to_i - 1]
-        assert_equal game.away, teams[game.away_prereq_uid.to_i - 1]
+        assert_equal game.home, teams[game.home_prereq.to_i - 1]
+        assert_equal game.away, teams[game.away_prereq.to_i - 1]
       end
     end
 
@@ -30,8 +30,8 @@ module Divisions
       @teams.update_all(division_id: division.id)
 
       division.games.first.update_columns(
-        home_prereq_uid: 'NaN',
-        away_prereq_uid: 'NaN'
+        home_prereq: 'NaN',
+        away_prereq: 'NaN'
       )
 
       assert_raises Division::InvalidSeedRound do

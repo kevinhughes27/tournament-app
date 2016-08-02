@@ -7,26 +7,26 @@
 
     <%= BracketDb::partial('bracket_16.1') %>,
 
-    {"round": 1, "uid":"aa", "home":"B4", "away":"D4"},
-    {"round": 1, "uid":"bb", "home":"A5", "away":"C4"},
-    {"round": 1, "uid":"cc", "home":"B5", "away":"C5"},
+    {"round": 1, "bracket_uid":"aa", "home_prereq":"B4", "away_prereq":"D4"},
+    {"round": 1, "bracket_uid":"bb", "home_prereq":"A5", "away_prereq":"C4"},
+    {"round": 1, "bracket_uid":"cc", "home_prereq":"B5", "away_prereq":"C5"},
 
-    {"round": 2, "uid": "dd", "home":"A4", "away":"Waa"},
-    {"round": 2, "uid": "ee", "home":"Wbb", "away":"Wcc"},
-    {"round": 2, "uid": "ff", "home":"Laa", "away":"Lcc"},
+    {"round": 2, "bracket_uid": "dd", "home_prereq":"A4", "away_prereq":"Waa"},
+    {"round": 2, "bracket_uid": "ee", "home_prereq":"Wbb", "away_prereq":"Wcc"},
+    {"round": 2, "bracket_uid": "ff", "home_prereq":"Laa", "away_prereq":"Lcc"},
 
-    {"round": 3, "uid": "13", "home":"Wee", "away":"Wdd"},
-    {"round": 3, "uid": "15", "home":"Lee", "away":"Ldd"},
-    {"round": 3, "uid": "17", "home":"Wff", "away":"Lbb"}
+    {"round": 3, "bracket_uid": "13", "home_prereq":"Wee", "away_prereq":"Wdd"},
+    {"round": 3, "bracket_uid": "15", "home_prereq":"Lee", "away_prereq":"Ldd"},
+    {"round": 3, "bracket_uid": "17", "home_prereq":"Wff", "away_prereq":"Lbb"}
   ],
   "places": [
     <%= BracketDb::partial('places_16.1') %>
-    {"position":13, "prereq_uid": "W13"},
-    {"position":14, "prereq_uid": "L13"},
-    {"position":15, "prereq_uid": "W15"},
-    {"position":16, "prereq_uid": "L15"},
-    {"position":17, "prereq_uid": "W17"},
-    {"position":18, "prereq_uid": "L17"},
-    {"position":19, "prereq_uid": "Lff"}
+    {"position":13, "prereq": "W13"},
+    {"position":14, "prereq": "L13"},
+    {"position":15, "prereq": "W15"},
+    {"position":16, "prereq": "L15"},
+    {"position":17, "prereq": "W17"},
+    {"position":18, "prereq": "L17"},
+    {"position":19, "prereq": "Lff"}
   ]
 }

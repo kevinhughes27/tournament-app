@@ -14,12 +14,12 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "name returns seed vs name if teams aren't assigned yet" do
-    game = Game.new(division: @division, home_prereq_uid: 1, away_prereq_uid: 8)
+    game = Game.new(division: @division, home_prereq: 1, away_prereq: 8)
     assert_equal "1 vs 8", game.name
   end
 
   test "name returns bracket pos name if teams aren't assigned yet" do
-    game = Game.new(division: @division, bracket_uid: 'a', home_prereq_uid: 1, away_prereq_uid: 8)
+    game = Game.new(division: @division, bracket_uid: 'a', home_prereq: 1, away_prereq: 8)
     assert_equal "a (1 vs 8)", game.name
   end
 
@@ -56,17 +56,17 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "valid_for_seed_round? returns true if either top and bottom are integers" do
-    game = Game.new(home_prereq_uid: 1, away_prereq_uid: 8)
+    game = Game.new(home_prereq: 1, away_prereq: 8)
     assert game.valid_for_seed_round?
   end
 
   test "valid_for_seed_round? returns true if both top and bottom are integer string" do
-    game = Game.new(home_prereq_uid: 1, away_prereq_uid: "8")
+    game = Game.new(home_prereq: 1, away_prereq: "8")
     assert game.valid_for_seed_round?
   end
 
   test "valid_for_seed_round? returns false if both top or bottom are not integers" do
-    game = Game.new(home_prereq_uid: 'B1', away_prereq_uid: 'A1')
+    game = Game.new(home_prereq: 'B1', away_prereq: 'A1')
     refute game.valid_for_seed_round?
   end
 
@@ -103,87 +103,87 @@ class GameTest < ActiveSupport::TestCase
 
   test "game checks for home team time conflicts" do
     new_game = Game.new(
-      home_prereq_uid: @game.home_prereq_uid,
+      home_prereq: @game.home_prereq,
       start_time: @game.start_time,
       division: @division,
       tournament: @tournament
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.home_prereq} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
   end
 
   test "game finds home team time conflicts in games when the team is the away team in another game" do
     new_game = Game.new(
-      away_prereq_uid: @game.home_prereq_uid,
+      away_prereq: @game.home_prereq,
       start_time: @game.start_time,
       division: @division,
       tournament: @tournament
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.home_prereq} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
   end
 
   test "game checks for home team time conflicts (uses uid if required)" do
     @game.update_columns(home_id: nil)
     new_game = Game.new(
-      home_prereq_uid: @game.home_prereq_uid,
+      home_prereq: @game.home_prereq,
       start_time: @game.start_time,
       division: @division,
       tournament: @tournament
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.home_prereq_uid} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.home_prereq} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
   end
 
   test "game checks for away team time conflicts" do
     new_game = Game.new(
-      away_prereq_uid: @game.away_prereq_uid,
+      away_prereq: @game.away_prereq,
       start_time: @game.start_time,
       division: @division,
       tournament: @tournament
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.away_prereq} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
   end
 
   test "game finds away team time conflicts when the team is the home team in another game" do
     new_game = Game.new(
-      home_prereq_uid: @game.away_prereq_uid,
+      home_prereq: @game.away_prereq,
       start_time: @game.start_time,
       division: @division,
       tournament: @tournament
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.away_prereq} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
   end
 
   test "game checks for away team time conflicts (uses uid if required)" do
     @game.update_columns(away_id: nil)
     new_game = Game.new(
-      away_prereq_uid: @game.away_prereq_uid,
+      away_prereq: @game.away_prereq,
       start_time: @game.start_time,
       division: @division,
       tournament: @tournament
     )
 
     refute new_game.valid?
-    assert_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
+    assert_equal ["Team #{@game.away_prereq} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
   end
 
   test "team time conflicts must be same division" do
     new_game = Game.new(
-      home_prereq_uid: @game.home_prereq_uid,
+      home_prereq: @game.home_prereq,
       start_time: @game.start_time,
       division: divisions(:women),
       tournament: @tournament
     )
 
-    refute_equal ["Team #{@game.away_prereq_uid} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
+    refute_equal ["Team #{@game.away_prereq} is already playing at #{@game.playing_time_range_string}"], new_game.errors[:base]
   end
 
   test "game checks for field conflicts" do
@@ -210,7 +210,7 @@ class GameTest < ActiveSupport::TestCase
 
   test "games checks for schedule order conflicts (dependent game)" do
     game = games(:semi_final)
-    dependent_uid = game.home_prereq_uid.gsub('W','')
+    dependent_uid = game.home_prereq.gsub('W','')
 
     new_game = Game.new(
       bracket_uid: dependent_uid,
@@ -228,7 +228,7 @@ class GameTest < ActiveSupport::TestCase
     prerequisite_uid = "W#{game.bracket_uid}"
 
     new_game = Game.new(
-      home_prereq_uid: prerequisite_uid,
+      home_prereq: prerequisite_uid,
       bracket_uid: 'k',
       start_time: game.start_time,
       division: divisions(:women),

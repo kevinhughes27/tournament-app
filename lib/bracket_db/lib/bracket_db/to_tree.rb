@@ -14,16 +14,16 @@ module BracketDb
     end
 
     def build
-      roots = games.select { |g| g[:uid].present? && g[:uid].is_i? }
-      roots.sort_by! { |g| g[:uid].to_i }
+      roots = games.select { |g| g[:bracket_uid].present? && g[:bracket_uid].is_i? }
+      roots.sort_by! { |g| g[:bracket_uid].to_i }
 
-      roots.map { |r| add_node(r[:uid]) }
+      roots.map { |r| add_node(r[:bracket_uid]) }
     end
 
     private
 
     def add_node(game_uid)
-      game = games.detect { |g| g[:uid] == game_uid }
+      game = games.detect { |g| g[:bracket_uid] == game_uid }
 
       if game
         add_inner_node(game)
@@ -33,7 +33,7 @@ module BracketDb
     end
 
     def add_inner_node(game)
-      label = game[:uid]
+      label = game[:bracket_uid]
       label = ActiveSupport::Inflector.ordinalize(label) if label.is_i?
 
       node = {
@@ -47,8 +47,8 @@ module BracketDb
     end
 
     def home_child(game)
-      home_uid = game[:home].to_s.gsub('W', '')
-      if game[:seed]
+      home_uid = game[:home_prereq].to_s.gsub('W', '')
+      if game[:seed_round]
         add_leaf_node(home_uid)
       else
         add_node(home_uid)
@@ -56,8 +56,8 @@ module BracketDb
     end
 
     def away_child(game)
-      away_uid = game[:away].to_s.gsub('W', '')
-      if game[:seed]
+      away_uid = game[:away_prereq].to_s.gsub('W', '')
+      if game[:seed_round]
         add_leaf_node(away_uid)
       else
         add_node(away_uid)

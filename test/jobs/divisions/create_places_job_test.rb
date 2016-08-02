@@ -18,7 +18,7 @@ module Divisions
         template: template
       )
 
-      assert Place.find_by(division: @division, prereq_uid: template_place[:prereq_uid])
+      assert Place.find_by(division: @division, prereq: template_place[:prereq])
     end
   end
 end

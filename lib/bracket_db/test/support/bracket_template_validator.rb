@@ -18,32 +18,32 @@ class BracketDb::TemplateValidator
     "properties" => {
       "pool" => { "type" => "string" },
       "round" => { "type" => "integer" },
-      "home_seed" => { "type" => ["string", "integer"] },
-      "away_seed" => { "type" => ["string", "integer"] },
-      "home" => { "type" => ["string", "integer"] },
-      "away" => { "type" => ["string", "integer"] },
+      "home_pool_seed" => { "type" => ["string", "integer"] },
+      "away_pool_seed" => { "type" => ["string", "integer"] },
+      "home_prereq" => { "type" => ["string", "integer"] },
+      "away_prereq" => { "type" => ["string", "integer"] },
     },
     "required" => [
       "pool",
-      "home",
-      "away"
+      "home_prereq",
+      "away_prereq"
     ],
     "additionalProperties" => false,
   }
 
   BRACKET_GAME_SCHEMA = {
     "properties" => {
-      "seed"  => { "type" => "integer" },
+      "seed_round"  => { "type" => "integer" },
       "round" => { "type" => "integer" },
-      "uid"   => { "type" => ["string", "integer"] },
-      "home"  => { "type" => ["string", "integer"] },
-      "away"  => { "type" => ["string", "integer"] },
+      "bracket_uid"   => { "type" => ["string", "integer"] },
+      "home_prereq"  => { "type" => ["string", "integer"] },
+      "away_prereq"  => { "type" => ["string", "integer"] },
     },
     "required" => [
       "round",
-      "uid",
-      "home",
-      "away"
+      "bracket_uid",
+      "home_prereq",
+      "away_prereq"
     ],
     "additionalProperties" => false,
   }
@@ -56,11 +56,11 @@ class BracketDb::TemplateValidator
   PLACE_SCHEMA = {
     "properties" => {
       "position" => { "type" => "integer" },
-      "prereq_uid"  => { "type" => ["string", "integer"] },
+      "prereq"  => { "type" => ["string", "integer"] },
     },
     "required" => [
       "position",
-      "prereq_uid"
+      "prereq"
     ],
     "additionalProperties" => false,
   }
@@ -98,14 +98,14 @@ class BracketDb::TemplateValidator
     # aka if I say a game has 'wq1' in the top then 'q1'
     # needs to exist
     def validate_progression(template_json)
-      uids = template_json[:games].map{ |g| g[:uid] }.compact
+      uids = template_json[:games].map{ |g| g[:bracket_uid] }.compact
 
       games = template_json[:games].select do |g|
-        g[:seed].nil? && g[:pool].nil?
+        g[:seed_round].nil? && g[:pool].nil?
       end
 
-      homes = games.map{ |g| g[:home].gsub(/(W|L)/, '') }.uniq
-      aways = games.map{ |g| g[:away].gsub(/(W|L)/, '') }.uniq
+      homes = games.map{ |g| g[:home_prereq].gsub(/(W|L)/, '') }.uniq
+      aways = games.map{ |g| g[:away_prereq].gsub(/(W|L)/, '') }.uniq
 
       reseed_uids = pool_reseed_uids(template_json)
 
@@ -128,13 +128,13 @@ class BracketDb::TemplateValidator
 
     # verifies that the game which have a place (which is used for visualization only)
     # matches the places array. aka if a game has the field place => 1st then the winner
-    # of that game better be the prereq_uid of 1st place or else they don't match
+    # of that game better be the prereq of 1st place or else they don't match
     def validate_nodes_match_places(template_json)
-      place_games = template_json[:games].map{ |g| g if g[:uid].try(:is_i?) }.compact
+      place_games = template_json[:games].map{ |g| g if g[:bracket_uid].try(:is_i?) }.compact
       place_games.each do |game|
-        place_num = game[:uid].to_i
+        place_num = game[:bracket_uid].to_i
         place_obj = template_json[:places].detect{ |p| p[:position] == place_num }
-        raise GamesPlacesMismatch unless place_obj[:prereq_uid] == "W#{game[:uid]}"
+        raise GamesPlacesMismatch unless place_obj[:prereq] == "W#{game[:bracket_uid]}"
       end
     end
 
@@ -142,11 +142,11 @@ class BracketDb::TemplateValidator
 
     def seats_for_games(games)
       seats = games.inject([]) do |seats, game|
-        if is_integer?(game[:home].to_s)
-          seats << game[:home].to_i
+        if is_integer?(game[:home_prereq].to_s)
+          seats << game[:home_prereq].to_i
         end
-        if is_integer?(game[:away].to_s)
-          seats << game[:away].to_i
+        if is_integer?(game[:away_prereq].to_s)
+          seats << game[:away_prereq].to_i
         end
         seats
       end
@@ -169,16 +169,16 @@ class BracketDb::TemplateValidator
     end
 
     def num_teams(template_json)
-      games = template_json[:games].select{ |g| g[:pool] || g[:seed] == 1 }
+      games = template_json[:games].select{ |g| g[:pool] || g[:seed_round] == 1 }
 
       teams = Set.new
       games.each do |game|
-        if is_integer?(game[:home].to_s)
-          teams << game[:home]
+        if is_integer?(game[:home_prereq].to_s)
+          teams << game[:home_prereq]
         end
 
-        if is_integer?(game[:away].to_s)
-          teams << game[:away]
+        if is_integer?(game[:away_prereq].to_s)
+          teams << game[:away_prereq]
         end
       end
 
@@ -189,8 +189,8 @@ class BracketDb::TemplateValidator
       teams = Set.new
       template_json[:games].each do |game|
         next unless game[:pool] == pool_name
-        teams << game[:home]
-        teams << game[:away]
+        teams << game[:home_prereq]
+        teams << game[:away_prereq]
       end
 
       teams.size

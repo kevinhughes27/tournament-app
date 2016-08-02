@@ -75,8 +75,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
       division: @game.division,
       round: 2,
       bracket_uid: 's2',
-      home_prereq_uid: "W#{@game.bracket_uid}",
-      away_prereq_uid: "Wnon",
+      home_prereq: "W#{@game.bracket_uid}",
+      away_prereq: "Wnon",
       home_score: 1,
       away_score: 2
     )
@@ -96,8 +96,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
       division: @game.division,
       round: 2,
       bracket_uid: 's2',
-      home_prereq_uid: "W#{@game.bracket_uid}",
-      away_prereq_uid: "Wnon",
+      home_prereq: "W#{@game.bracket_uid}",
+      away_prereq: "Wnon",
       home_score: 1,
       away_score: 2
     )

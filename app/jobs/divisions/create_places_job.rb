@@ -2,12 +2,11 @@ module Divisions
   class CreatePlacesJob < ApplicationJob
 
     def perform(tournament_id:, division_id:, template:)
-      template[:places].each do |place|
-        Place.create!(
+      template[:places].each do |template_place|
+        Place.create_from_template!(
           tournament_id: tournament_id,
           division_id: division_id,
-          position: place[:position],
-          prereq_uid: place[:prereq_uid]
+          template_place: template_place
         )
       end
     end

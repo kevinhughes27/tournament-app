@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728030529) do
+ActiveRecord::Schema.define(version: 20160802223752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,21 +48,22 @@ ActiveRecord::Schema.define(version: 20160728030529) do
     t.datetime "start_time"
     t.boolean  "score_confirmed"
     t.integer  "field_id"
-    t.integer  "tournament_id",   null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "tournament_id",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "bracket_uid"
-    t.string   "home_prereq_uid"
-    t.string   "away_prereq_uid"
-    t.integer  "division_id",     null: false
+    t.string   "home_prereq"
+    t.string   "away_prereq"
+    t.integer  "division_id",                 null: false
     t.integer  "round"
     t.string   "pool"
     t.string   "home_pool_seed"
     t.string   "away_pool_seed"
+    t.integer  "seed_round",      default: 0
     t.index ["tournament_id", "away_id"], name: "index_games_on_tournament_id_and_away_id", using: :btree
-    t.index ["tournament_id", "division_id", "away_prereq_uid"], name: "tournament_division_away_prereq_uid", using: :btree
+    t.index ["tournament_id", "division_id", "away_prereq"], name: "tournament_division_away_prereq_uid", using: :btree
     t.index ["tournament_id", "division_id", "bracket_uid"], name: "index_games_on_tournament_id_and_division_id_and_bracket_uid", unique: true, using: :btree
-    t.index ["tournament_id", "division_id", "home_prereq_uid"], name: "tournament_division_home_prereq_uid", using: :btree
+    t.index ["tournament_id", "division_id", "home_prereq"], name: "tournament_division_home_prereq_uid", using: :btree
     t.index ["tournament_id", "division_id", "pool"], name: "tournament_division_pool", using: :btree
     t.index ["tournament_id", "division_id", "score_confirmed"], name: "tournament_division_confirmed", using: :btree
     t.index ["tournament_id", "field_id"], name: "index_games_on_tournament_id_and_field_id", using: :btree
@@ -86,10 +87,10 @@ ActiveRecord::Schema.define(version: 20160728030529) do
     t.integer  "division_id",   null: false
     t.integer  "team_id"
     t.integer  "position",      null: false
-    t.string   "prereq_uid",    null: false
+    t.string   "prereq",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["tournament_id", "division_id", "prereq_uid"], name: "index_places_on_tournament_id_and_division_id_and_prereq_uid", using: :btree
+    t.index ["tournament_id", "division_id", "prereq"], name: "index_places_on_tournament_id_and_division_id_and_prereq", using: :btree
   end
 
   create_table "pool_results", force: :cascade do |t|

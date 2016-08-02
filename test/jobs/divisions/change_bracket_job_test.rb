@@ -18,11 +18,11 @@ module Divisions
         new_template: template
       )
 
-      game = Game.find_by(division: @division, bracket_uid: template_game[:uid])
+      game = Game.find_by(division: @division, bracket_uid: template_game[:bracket_uid])
 
       assert game
-      assert_equal template_game[:home].to_s, game.home_prereq_uid
-      assert_equal template_game[:away].to_s, game.away_prereq_uid
+      assert_equal template_game[:home_prereq].to_s, game.home_prereq
+      assert_equal template_game[:away_prereq].to_s, game.away_prereq
     end
 
     test "games that are the same before and after are unaffected" do

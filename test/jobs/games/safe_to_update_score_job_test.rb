@@ -67,8 +67,8 @@ module Games
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away,
         home_score: 15,
@@ -80,8 +80,8 @@ module Games
         division: @division,
         round: 2,
         bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2'
+        home_prereq: 'Wq1',
+        away_prereq: 'Wq2'
       )
 
       assert Games::SafeToUpdateScoreJob.perform_now(
@@ -105,8 +105,8 @@ module Games
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away,
         home_score: 15,
@@ -118,8 +118,8 @@ module Games
         division: @division,
         round: 2,
         bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2'
+        home_prereq: 'Wq1',
+        away_prereq: 'Wq2'
       )
 
       assert Games::SafeToUpdateScoreJob.perform_now(

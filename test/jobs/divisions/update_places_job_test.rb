@@ -15,8 +15,8 @@ module Divisions
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away
       )
@@ -24,7 +24,7 @@ module Divisions
       place = Place.create!(
         tournament: @tournament,
         division: @division,
-        prereq_uid: 'Wq1',
+        prereq: 'Wq1',
         position: 1
       )
 
@@ -40,8 +40,8 @@ module Divisions
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away
       )
@@ -49,7 +49,7 @@ module Divisions
       place = Place.create!(
         tournament: @tournament,
         division: @division,
-        prereq_uid: 'Lq1',
+        prereq: 'Lq1',
         position: 2
       )
 

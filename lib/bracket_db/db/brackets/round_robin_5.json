@@ -1,18 +1,18 @@
 {
   "games": [
-    {"round": 1, "seed": 1, "uid": "rr1", "home":2, "away":5},
-    {"round": 1, "seed": 1, "uid": "rr2", "home":3, "away":4},
+    {"round": 1, "seed_round": 1, "bracket_uid": "rr1", "home_prereq":2, "away_prereq":5},
+    {"round": 1, "seed_round": 1, "bracket_uid": "rr2", "home_prereq":3, "away_prereq":4},
 
-    {"round": 2, "seed": 1, "uid": "rr3", "home":"Wrr1", "away":1},
+    {"round": 2, "seed_round": 1, "bracket_uid": "rr3", "home_prereq":"Wrr1", "away_prereq":1},
 
-    {"round": 3, "uid": "3", "home":"Lrr1", "away":"Lrr2"},
-    {"round": 3, "uid": "1", "home":"Wrr3", "away":"Wrr2"}
+    {"round": 3, "bracket_uid": "3", "home_prereq":"Lrr1", "away_prereq":"Lrr2"},
+    {"round": 3, "bracket_uid": "1", "home_prereq":"Wrr3", "away_prereq":"Wrr2"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "W1"},
-    {"position":2, "prereq_uid": "L1"},
-    {"position":3, "prereq_uid": "W3"},
-    {"position":4, "prereq_uid": "L3"},
-    {"position":5, "prereq_uid": "Lrr3"}
+    {"position":1, "prereq": "W1"},
+    {"position":2, "prereq": "L1"},
+    {"position":3, "prereq": "W3"},
+    {"position":4, "prereq": "L3"},
+    {"position":5, "prereq": "Lrr3"}
   ]
 }

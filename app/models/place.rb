@@ -5,8 +5,17 @@ class Place < ApplicationRecord
 
   validates_presence_of :tournament
   validates_presence_of :division
-  validates_presence_of :prereq_uid
+  validates_presence_of :prereq
   validates_presence_of :position
+
+  def self.create_from_template!(tournament_id:, division_id:, template_place:)
+    Place.create!(
+      template_place.merge(
+        tournament_id: tournament_id,
+        division_id: division_id
+      )
+    )
+  end
 
   def place
     "#{position}#{ordinal(position)}"

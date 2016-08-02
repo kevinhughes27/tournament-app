@@ -21,8 +21,8 @@ module BracketDb
     games = JSON.parse("[#{table}]")
 
     games.each do |game|
-      game['home'] = seeds[ game['home_seed'] - 1 ]
-      game['away'] = seeds[ game['away_seed'] - 1 ]
+      game['home_prereq'] = seeds[ game['home_pool_seed'] - 1 ]
+      game['away_prereq'] = seeds[ game['away_pool_seed'] - 1 ]
     end
 
     games.to_json

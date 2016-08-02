@@ -36,8 +36,8 @@ module Games
         division: @division,
         bracket_uid: 'q1',
         round: 1,
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away
       )

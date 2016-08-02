@@ -13,8 +13,8 @@ class UpdateBracketGamesTaskTest < MaintenanceTaskTextCase
   #     division: division,
   #     round: nil,
   #     pool: 'A',
-  #     home_prereq_uid: '1',
-  #     away_prereq_uid: '6'
+  #     home_prereq: '1',
+  #     away_prereq: '6'
   #   )
   #
   #   subject.invoke

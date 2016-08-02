@@ -15,8 +15,8 @@ module Divisions
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away,
         home_score: 15,
@@ -28,8 +28,8 @@ module Divisions
         division: @division,
         round: 2,
         bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2'
+        home_prereq: 'Wq1',
+        away_prereq: 'Wq2'
       )
 
       perform_enqueued_jobs do
@@ -44,8 +44,8 @@ module Divisions
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away,
         home_score: 15,
@@ -57,8 +57,8 @@ module Divisions
         division: @division,
         round: 2,
         bracket_uid: 'c1',
-        home_prereq_uid: 'Lq2',
-        away_prereq_uid: 'Lq1'
+        home_prereq: 'Lq2',
+        away_prereq: 'Lq1'
       )
 
       perform_enqueued_jobs do
@@ -73,8 +73,8 @@ module Divisions
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away,
         home_score: 11,
@@ -86,8 +86,8 @@ module Divisions
         division: @division,
         round: 2,
         bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2',
+        home_prereq: 'Wq1',
+        away_prereq: 'Wq2',
         home: @home,
         home_score: 11,
         away_score: 15
@@ -106,8 +106,8 @@ module Divisions
         division: @division,
         round: 1,
         bracket_uid: 'q1',
-        home_prereq_uid: '1',
-        away_prereq_uid: '2',
+        home_prereq: '1',
+        away_prereq: '2',
         home: @home,
         away: @away,
         home_score: 15,
@@ -119,8 +119,8 @@ module Divisions
         division: @division,
         round: 2,
         bracket_uid: 's1',
-        home_prereq_uid: 'Wq1',
-        away_prereq_uid: 'Wq2',
+        home_prereq: 'Wq1',
+        away_prereq: 'Wq2',
         home: @home,
         home_score: 15,
         away_score: 11
@@ -131,8 +131,8 @@ module Divisions
         division: @division,
         round: 3,
         bracket_uid: 'f1',
-        home_prereq_uid: 'Ws1',
-        away_prereq_uid: 'Ws2',
+        home_prereq: 'Ws1',
+        away_prereq: 'Ws2',
         home: @home,
         home_score: 15,
         away_score: 11

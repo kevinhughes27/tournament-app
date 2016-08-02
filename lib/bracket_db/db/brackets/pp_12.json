@@ -4,17 +4,17 @@
     <%= BracketDb::table_partial('pp_table_6', pool: 'B', seeds: [2,3,6,7,10,11]) %>,
     <%= BracketDb::partial('bracket_8.1') %>,
 
-    {"round":1, "uid":"aa", "home":"A5", "away":"B6"},
-    {"round":1, "uid":"bb", "home":"A6", "away":"B5"},
+    {"round":1, "bracket_uid":"aa", "home_prereq":"A5", "away_prereq":"B6"},
+    {"round":1, "bracket_uid":"bb", "home_prereq":"A6", "away_prereq":"B5"},
 
-    {"round":2, "uid":"9", "home":"Waa", "away":"Wbb"},
-    {"round":2, "uid":"11", "home":"Laa", "away":"Lbb"}
+    {"round":2, "bracket_uid":"9", "home_prereq":"Waa", "away_prereq":"Wbb"},
+    {"round":2, "bracket_uid":"11", "home_prereq":"Laa", "away_prereq":"Lbb"}
   ],
   "places": [
     <%= BracketDb::partial('places_8.1') %>,
-    {"position":9, "prereq_uid": "W9"},
-    {"position":10, "prereq_uid": "L9"},
-    {"position":11, "prereq_uid": "W11"},
-    {"position":12, "prereq_uid": "L11"}
+    {"position":9, "prereq": "W9"},
+    {"position":10, "prereq": "L9"},
+    {"position":11, "prereq": "W11"},
+    {"position":12, "prereq": "L11"}
   ]
 }

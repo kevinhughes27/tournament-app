@@ -2,19 +2,19 @@
   "games": [
     <%= BracketDb::table_partial('table_6.1.4', pool: 'A', seeds: [1,2,3,4,5,6]) %>,
 
-    {"round":1, "uid":"1", "home":"A1", "away":"A2"},
-    {"round":1, "uid":"b", "home":"A3", "away":"A4"},
-    {"round":1, "uid":"d", "home":"A5", "away":"A6"},
+    {"round":1, "bracket_uid":"1", "home_prereq":"A1", "away_prereq":"A2"},
+    {"round":1, "bracket_uid":"b", "home_prereq":"A3", "away_prereq":"A4"},
+    {"round":1, "bracket_uid":"d", "home_prereq":"A5", "away_prereq":"A6"},
 
-    {"round":2, "uid":"2", "home":"L1", "away":"Wb"},
-    {"round":2, "uid":"4", "home":"Lb", "away":"Wd"}
+    {"round":2, "bracket_uid":"2", "home_prereq":"L1", "away_prereq":"Wb"},
+    {"round":2, "bracket_uid":"4", "home_prereq":"Lb", "away_prereq":"Wd"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "W1"},
-    {"position":2, "prereq_uid": "W2"},
-    {"position":3, "prereq_uid": "L2"},
-    {"position":4, "prereq_uid": "W4"},
-    {"position":5, "prereq_uid": "L4"},
-    {"position":6, "prereq_uid": "Ld"}
+    {"position":1, "prereq": "W1"},
+    {"position":2, "prereq": "W2"},
+    {"position":3, "prereq": "L2"},
+    {"position":4, "prereq": "W4"},
+    {"position":5, "prereq": "L4"},
+    {"position":6, "prereq": "Ld"}
   ]
 }

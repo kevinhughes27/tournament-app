@@ -2,16 +2,16 @@
   "games": [
     <%= BracketDb::table_partial('table_5.1.2', pool: 'A', seeds: [1,2,3,4,5]) %>,
 
-    {"round":1, "uid":"1", "home":"A1", "away":"A2"},
-    {"round":1, "uid":"b", "home":"A3", "away":"A4"},
+    {"round":1, "bracket_uid":"1", "home_prereq":"A1", "away_prereq":"A2"},
+    {"round":1, "bracket_uid":"b", "home_prereq":"A3", "away_prereq":"A4"},
 
-    {"round":2, "uid":"2", "home":"Wb", "away":"L1"}
+    {"round":2, "bracket_uid":"2", "home_prereq":"Wb", "away_prereq":"L1"}
   ],
   "places": [
-    {"position":1, "prereq_uid": "W1"},
-    {"position":2, "prereq_uid": "W2"},
-    {"position":3, "prereq_uid": "L2"},
-    {"position":4, "prereq_uid": "Lb"},
-    {"position":5, "prereq_uid": "A5"}
+    {"position":1, "prereq": "W1"},
+    {"position":2, "prereq": "W2"},
+    {"position":3, "prereq": "L2"},
+    {"position":4, "prereq": "Lb"},
+    {"position":5, "prereq": "A5"}
   ]
 }

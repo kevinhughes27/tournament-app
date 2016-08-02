@@ -48,9 +48,9 @@ module Divisions
       template_games.detect do |template_game|
         template_game[:pool] == game.pool &&
         template_game[:round].to_s == game.round.to_s &&
-        template_game[:uid].to_s == game.bracket_uid.to_s &&
-        template_game[:home].to_s == game.home_prereq_uid.to_s &&
-        template_game[:away].to_s == game.away_prereq_uid.to_s
+        template_game[:bracket_uid].to_s == game.bracket_uid.to_s &&
+        template_game[:home_prereq].to_s == game.home_prereq.to_s &&
+        template_game[:away_prereq].to_s == game.away_prereq.to_s
       end.present?
     end
 
@@ -58,9 +58,9 @@ module Divisions
       games.detect do |game|
         template_game[:pool] == game.pool &&
         template_game[:round].to_s == game.round.to_s &&
-        template_game[:uid].to_s == game.bracket_uid.to_s &&
-        template_game[:home].to_s == game.home_prereq_uid.to_s &&
-        template_game[:away].to_s == game.away_prereq_uid.to_s
+        template_game[:bracket_uid].to_s == game.bracket_uid.to_s &&
+        template_game[:home_prereq].to_s == game.home_prereq.to_s &&
+        template_game[:away_prereq].to_s == game.away_prereq.to_s
       end.present?
     end
 

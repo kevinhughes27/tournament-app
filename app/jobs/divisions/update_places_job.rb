@@ -28,14 +28,14 @@ module Divisions
       end
     end
 
-    def find_place(prereq_uid)
+    def find_place(prereq)
       tournament_id = game.tournament_id
       division_id = game.division_id
 
       Place.find_by(
         tournament_id: tournament_id,
         division_id: division_id,
-        prereq_uid: prereq_uid
+        prereq: prereq
       )
     end
   end

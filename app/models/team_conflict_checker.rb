@@ -25,12 +25,12 @@ class TeamConflictChecker
     if conflicting_game.pool_game?
       conflicting_game.send("#{type}_pool_seed")
     else
-      conflicting_game.send("#{type}_prereq_uid")
+      conflicting_game.send("#{type}_prereq")
     end
   end
 
   def home_team_is_conflicting?
-    prereq_uids.include? conflicting_game.home_prereq_uid
+    prereqs.include? conflicting_game.home_prereq
   end
 
   def conflicting_game
@@ -38,18 +38,18 @@ class TeamConflictChecker
   end
 
   def conflicting_games
-    return unless prereq_uids.present?
+    return unless prereqs.present?
 
     @conflicting_games ||= Game.where(
       tournament: game.tournament,
       division: game.division,
       start_time: game.playing_time_range
     ).where(
-      "home_prereq_uid IN (?) OR away_prereq_uid IN (?)", prereq_uids, prereq_uids
+      "home_prereq IN (?) OR away_prereq IN (?)", prereqs, prereqs
     ).where.not(id: game.id)
   end
 
-  def prereq_uids
-    [game.home_prereq_uid, game.away_prereq_uid].compact
+  def prereqs
+    [game.home_prereq, game.away_prereq].compact
   end
 end
