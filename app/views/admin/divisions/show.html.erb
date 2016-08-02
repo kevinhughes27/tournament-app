@@ -18,5 +18,11 @@
 <% end %>
 
 <%= ui_box do %>
-  <%= react_component('Division', props: { bracket_handle: @division.bracket_type }) %>
+  <%= react_component('Division',
+    props: {
+      bracket_handle: @division.bracket_type,
+      games: @division.games,
+      bracket_tree: @bracket_tree
+    }
+  ) %>
 <% end %>
