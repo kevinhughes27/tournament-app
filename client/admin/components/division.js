@@ -63,9 +63,10 @@ var Division = React.createClass({
   renderBracket() {
     var bracketVis = new Admin.BracketVis('#bracketGraph');
     var bracket = this.state.bracket;
+    var bracketTree = this.props.bracket_tree;
 
     if (bracket) {
-      bracketVis.render(bracket);
+      bracketVis.render(bracket, bracketTree);
     }
   },
 
@@ -81,14 +82,16 @@ var Division = React.createClass({
   },
 
   renderPools(bracket) {
-    var games = _.filter(bracket.template.games, 'pool');
+    var games = this.props.games || bracket.template.games;
+    var poolGames = _.filter(games, 'pool');
+
     var pools;
     var teamsByPool = {};
-    var gamesByPool = _.groupBy(games, 'pool');
+    var gamesByPool = _.groupBy(poolGames, 'pool');
 
-    _.each(gamesByPool, function(games, pool) {
-      var homeTeams = _.map(games, 'home_prereq');
-      var awayTeams = _.map(games, 'away_prereq');
+    _.each(gamesByPool, function(poolGames, pool) {
+      var homeTeams = _.map(poolGames, 'home_prereq');
+      var awayTeams = _.map(poolGames, 'away_prereq');
       var teams = _.union(homeTeams, awayTeams);
       teamsByPool[pool] = _.sortBy(teams, function(t){ return t});
       pools = _.keys(teamsByPool);

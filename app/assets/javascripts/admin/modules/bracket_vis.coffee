@@ -29,10 +29,10 @@ class Admin.BracketVis
 
     @svgGroup = @baseSvg.append('g')
 
-  render: (bracket) ->
+  render: (bracket, bracketTree = null) ->
     treeData = {
       name: 'root',
-      children: bracket.bracket_tree
+      children: bracketTree || bracket.bracket_tree
     }
 
     @update(treeData)

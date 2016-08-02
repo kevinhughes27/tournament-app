@@ -48,7 +48,7 @@ module BracketDb
 
     def home_child(game)
       home_uid = game[:home_prereq].to_s.gsub('W', '')
-      if game[:seed_round]
+      if game[:seed_round] && game[:seed_round] > 0
         add_leaf_node(home_uid)
       else
         add_node(home_uid)
@@ -57,7 +57,7 @@ module BracketDb
 
     def away_child(game)
       away_uid = game[:away_prereq].to_s.gsub('W', '')
-      if game[:seed_round]
+      if game[:seed_round] && game[:seed_round] > 0
         add_leaf_node(away_uid)
       else
         add_node(away_uid)
