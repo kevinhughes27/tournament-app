@@ -86,8 +86,8 @@ class Game < ApplicationRecord
 
   def name
     if teams_present?
-      "#{home.name} vs #{away.name}"
-    elsif bracket_uid.present?
+      "#{home_name} vs #{away_name}"
+    elsif bracket_game?
       "#{bracket_uid} (#{home_name} vs #{away_name})"
     else
       "#{home_name} vs #{away_name}"
@@ -95,14 +95,10 @@ class Game < ApplicationRecord
   end
 
   def teams_present?
-    home.present? && away.present?
+    home.present? || away.present?
   end
 
-  def assigned?
-    !unassigned?
-  end
-
-  def unassigned?
+  def field_unassigned?
     field_id.nil? && start_time.blank?
   end
 

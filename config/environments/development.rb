@@ -1,7 +1,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.active_job.queue_adapter = :async
+  config.active_job.queue_adapter = :inline
 
   config.action_cable.allowed_request_origins = [/http:\/\/.*.lvh.me:3000/]
 

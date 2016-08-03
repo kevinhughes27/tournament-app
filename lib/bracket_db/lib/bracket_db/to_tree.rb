@@ -37,7 +37,10 @@ module BracketDb
       label = ActiveSupport::Inflector.ordinalize(label) if label.is_i?
 
       node = {
-        name: label,
+        label: label,
+        home: game.try(:home_name),
+        away: game.try(:away_name),
+        has_teams: game.try(:teams_present?),
         children: [
           home_child(game),
           away_child(game)
@@ -68,8 +71,9 @@ module BracketDb
       klass = uid.match(/L./) ? 'loser' : 'initial'
 
       node = {
-        name: uid,
-        HTMLclass: klass
+        label: uid,
+        leaf: true,
+        kind: klass
       }
       node
     end

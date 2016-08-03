@@ -11,7 +11,7 @@ class GameUpdateScore < ApplicationOperation
   attr_reader :winner_changed
 
   def execute
-    halt "teams not present" unless game.teams_present?
+    halt "teams not present" unless game.home && game.away
     halt "unsafe score update" unless safe_to_update_score?
 
     game.resolve_disputes! if resolve

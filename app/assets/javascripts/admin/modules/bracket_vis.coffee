@@ -7,7 +7,8 @@ class Admin.BracketVis
     @panSpeed = 200
 
     @heightMultiplier = 60
-    @widthMultiplier = 15
+    @spacingMultiplier = 7
+    @widthMultiplier = 5
 
     # size of the diagram
     @viewerWidth = $container.width()
@@ -31,7 +32,7 @@ class Admin.BracketVis
 
   render: (bracket, bracketTree = null) ->
     treeData = {
-      name: 'root',
+      root: true
       children: bracketTree || bracket.bracket_tree
     }
 
@@ -57,10 +58,15 @@ class Admin.BracketVis
     nodes = @tree.nodes(source).reverse()
     links = @tree.links(nodes)
 
+    # compute maxLabelLength
+    nodes.forEach( (d) =>
+      @maxLabelLength = _.max([d.home?.length, d.away?.length, @maxLabelLength])
+    )
+
     # Set widths between levels based on maxLabelLength.
     @treeWidth = 0
     nodes.forEach( (d) =>
-      d.y = -(d.depth * (@maxLabelLength * @widthMultiplier))
+      d.y = -(d.depth * (@maxLabelLength * @spacingMultiplier))
       # alternatively to keep a fixed scale one can set a fixed depth per level
       # Normalize for fixed-depth by commenting out below line
       # d.y = (d.depth * 500); //500px per level.
@@ -80,16 +86,24 @@ class Admin.BracketVis
       )
       .style('opacity', 0)
 
-    nodeEnter.append('circle')
-      .attr('class', 'nodeCircle')
-      .attr('r', 10)
+    nodeEnter.append('rect')
+      .attr('rx', 6)
+      .attr('ry', 6)
+      .attr('x', -10)
+      .attr('y', -12)
+      .attr('width', @maxLabelLength * @widthMultiplier + 10)
+      .attr('height', 30)
       .style('fill', '#fff')
 
     nodeEnter.append('text')
-      .attr('class', 'nodeText')
-      .attr('dy', '.35em')
-      .text( (d) -> d.name )
-      .attr('text-anchor', 'middle')
+      .attr('dy', '0em')
+      .attr('text-anchor', 'start')
+      .text( (d) -> d.home )
+
+    nodeEnter.append('text')
+      .attr("dy", "1.35em")
+      .text( (d) -> d.away )
+
 
     # Declare the links…
     link = @svgGroup.selectAll('path.link')
@@ -98,6 +112,7 @@ class Admin.BracketVis
     # Enter the links.
     link.enter().insert('path', 'g')
       .attr('class', 'link')
+      .attr('x', (@maxLabelLength * @widthMultiplier + 10) / 2)
       .attr('d', @diagonal)
       .style('opacity', 0)
 
@@ -105,13 +120,13 @@ class Admin.BracketVis
     node.transition()
       .duration(750)
       .style('opacity', (d) ->
-        if d.name == 'root' then 0 else 1
+        if d.root || d.leaf then 0 else 1
       )
 
     link.transition()
       .duration(750)
       .style('opacity', (d) ->
-        if d.source.name == 'root' then 0 else 1
+        if d.source.root || d.target.leaf then 0 else 1
       )
 
   pan: (domNode, direction) =>
