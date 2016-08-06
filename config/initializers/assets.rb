@@ -3,6 +3,9 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
+# Add folder with webpack generated assets to assets.paths
+Rails.application.config.assets.paths << Rails.root.join("app", "assets", "webpack")
+
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += [
@@ -17,6 +20,7 @@ Rails.application.config.assets.precompile += [
   'app.js',
   'app/vendor.js',
   'internal.js',
+  'server-bundle.js'
 ]
 # Add client/assets/ folders to asset pipeline's search path.
 # If you do not want to move existing images and fonts from your Rails app
