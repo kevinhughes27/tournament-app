@@ -13,15 +13,22 @@ Rails.application.config.assets.precompile += [
   'brochure.js',
   'brochure/vendor.js',
   'admin.css',
-  'admin.js',
   'admin/vendor.js',
   'schedule_pdf.css',
   'app.css',
   'app.js',
   'app/vendor.js',
-  'internal.js',
-  'server-bundle.js'
+  'internal.js'
 ]
+
+if Rails.env.development?
+  type = ENV["REACT_ON_RAILS_ENV"] == "HOT" ? "non_webpack" : "static"
+  Rails.application.config.assets.precompile += [
+    "admin_#{type}.js",
+    #"admin_#{type}.css"
+  ]
+end
+
 # Add client/assets/ folders to asset pipeline's search path.
 # If you do not want to move existing images and fonts from your Rails app
 # you could also consider creating symlinks there that point to the original

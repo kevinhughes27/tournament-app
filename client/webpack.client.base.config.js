@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 
 const devBuild = process.env.NODE_ENV !== 'production';
 const nodeEnv = devBuild ? 'development' : 'production';
@@ -14,11 +15,12 @@ module.exports = {
 
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
-      'babel-polyfill'
+      'babel-polyfill',
+      'es5-shim/es5-shim',
+      'es5-shim/es5-sham',
     ],
 
-    // This will contain the app entry points defined by webpack.hot.config and
-    // webpack.rails.config
+    // This will contain the app entry points defined by webpack.hot.config and webpack.rails.config
     admin: [
       './admin/clientRegistration',
     ],
@@ -26,16 +28,17 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      lib: path.join(process.cwd(), 'app', 'lib'),
       react: path.resolve('./node_modules/react'),
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
   },
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
       },
+      TRACE_TURBOLINKS: devBuild,
     }),
 
     // https://webpack.github.io/docs/list-of-plugins.html#2-explicit-vendor-chunk
@@ -54,11 +57,22 @@ module.exports = {
   ],
   module: {
     loaders: [
+      { test: /\.(ttf|eot)$/, loader: 'file' },
 
-      // Not all apps require jQuery. Many Rails apps do, such as those using TurboLinks or
-      // bootstrap js
+      // Example to confirm that subdirectories work
+      { test: /\.(jpe?g|png|gif|svg|ico|woff2?)$/, loader: 'url?limit=10000&name=images/[hash].[ext]' },
       { test: require.resolve('jquery'), loader: 'expose?jQuery' },
       { test: require.resolve('jquery'), loader: 'expose?$' },
     ],
   },
+
+  // Place here all postCSS plugins here, so postcss-loader will apply them
+  postcss: [autoprefixer],
+
+  // Place here all SASS files with variables, mixins etc.
+  // And sass-resources-loader will load them in every CSS Module (SASS file) for you
+  // (so don't need to @import them explicitly)
+  // https://github.com/shakacode/sass-resources-loader
+  sassResources: [],
+
 };

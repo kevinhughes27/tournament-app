@@ -5,13 +5,24 @@
     "node": "5.10.0",
     "npm": "3.5.0"
   },
+  "main": "server.js",
   "scripts": {
     "postinstall": "cd client && npm install",
-    "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
-    "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev -p 3000",
+    "build:clean": "rm app/assets/webpack/*",
+    "build:production": "(cd client && npm run build:production --silent)",
     "build:production:client": "(cd client && npm run build:production:client --silent)",
-    "build:client": "(cd client && npm run build:client --silent",
+    "build:production:server": "(cd client && npm run build:production:server --silent)",
+    "build:client": "(cd client && npm run build:client --silent)",
+    "build:server": "(cd client && npm run build:server --silent)",
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
-    "test": "rspec"
+    "build:dev:server": "(cd client && npm run build:dev:server --silent)",
+    "hot-assets": "(cd client && npm run hot-assets)",
+    "start": "(cd client && npm run start --silent)"
+  },
+  "devDependencies": {
+    "babel-eslint": "^5.0.0-beta6",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.1.0",
+    "eslint-config-shakacode": "0.0.1"
   }
 }

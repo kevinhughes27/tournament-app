@@ -6,5 +6,4 @@
 //= require_tree ./admin/initializers
 //= require_tree ./admin/modules
 
-//= require vendor-bundle
-//= require admin-bundle
+// All webpack assets in development will be loaded via webpack dev server
