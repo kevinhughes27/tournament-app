@@ -33,6 +33,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
 # asset gems
+gem 'react_on_rails', '~> 5'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'uglifier', '>= 1.3.0'
