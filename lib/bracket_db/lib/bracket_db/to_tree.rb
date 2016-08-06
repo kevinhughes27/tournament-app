@@ -41,10 +41,11 @@ module BracketDb
         home: game.try(:home_name),
         away: game.try(:away_name),
         has_teams: game.try(:teams_present?),
+        round: game[:round],
         children: [
           home_child(game),
           away_child(game)
-        ]
+        ].compact
       }
       node
     end
@@ -69,9 +70,11 @@ module BracketDb
 
     def add_leaf_node(uid)
       klass = uid.match(/L./) ? 'loser' : 'initial'
+      return if klass = 'initial'
 
       node = {
         label: uid,
+        round: game[:round],
         leaf: true,
         kind: klass
       }

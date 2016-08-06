@@ -1,6 +1,7 @@
 var _ = require('lodash'),
     React = require('react'),
-    ReactDOM = require('react-dom');
+    ReactDOM = require('react-dom'),
+    BracketVis = require('../modules/bracket_vis');
 
 var Pool = React.createClass({
   render() {
@@ -61,7 +62,7 @@ var Division = React.createClass({
   },
 
   renderBracket() {
-    var bracketVis = new Admin.BracketVis('#bracketGraph');
+    var bracketVis = new BracketVis('#bracketGraph');
     var bracket = this.state.bracket;
     var bracketTree = this.props.bracket_tree;
 
