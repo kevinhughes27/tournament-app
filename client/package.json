@@ -36,7 +36,7 @@
     "react-on-rails": "5.2.0",
     "webpack": "^1.12.14",
     "events": "^1.1.1",
-    "griddle-react": "^0.4.0",
+    "griddle-react": "^0.6.1",
     "object-squish": "^1.0.0",
     "query-string": "^3.0.0",
     "set-query-string": "^2.1.0"
