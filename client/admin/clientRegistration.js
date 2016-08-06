@@ -7,9 +7,11 @@ import ReportsIndex from './components/reports_index';
 
 import ReactOnRails from 'react-on-rails';
 
-ReactOnRails.register({ FieldsIndex });
-ReactOnRails.register({ DivisionsIndex });
-ReactOnRails.register({ Division });
-ReactOnRails.register({ TeamsIndex });
-ReactOnRails.register({ GamesIndex });
-ReactOnRails.register({ ReportsIndex });
+ReactOnRails.register({
+  FieldsIndex,
+  DivisionsIndex,
+  Division,
+  TeamsIndex,
+  GamesIndex,
+  ReportsIndex
+});

@@ -5,7 +5,7 @@
 
 <% if @reports.present? %>
   <%= ui_box do %>
-    <%= react_component('Admin.ReportsIndex', {
+    <%= react_component('ReportsIndex', props: {
       reports: @reports_by_team.to_json,
       searchColumns: [
         "team",
