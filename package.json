@@ -2,37 +2,15 @@
   "name": "ultimate-tournament",
   "private": true,
   "engines": {
-    "node": "4.2.6"
+    "node": "5.10.0",
+    "npm": "3.5.0"
   },
-  "dependencies": {
-    "babel-core": "^6.10.4",
-    "babel-generator": "^6.11.0",
-    "babel-helpers": "^6.8.0",
-    "babel-plugin-transform-object-rest-spread": "^6.8.0",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-types": "^6.8.1",
-    "classnames": "^2.2.3",
-    "events": "^1.1.1",
-    "griddle-react": "^0.4.0",
-    "object-squish": "^1.0.0",
-    "query-string": "^3.0.0",
-    "react": "^0.14.3",
-    "react-bootstrap": "^0.29.5",
-    "react-confirm": "^0.1.13",
-    "react-dom": "^0.14.0",
-    "react-overlays": "^0.6.0",
-    "set-query-string": "^2.1.0",
-    "underscore": "^1.8.3"
-  },
-  "babel": {
-    "presets": [
-      "react",
-      "es2015"
-    ],
-    "plugins": [
-      "transform-object-rest-spread"
-    ]
+  "scripts": {
+    "postinstall": "cd client && npm install",
+    "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
+    "build:production:client": "(cd client && npm run build:production:client --silent)",
+    "build:client": "(cd client && npm run build:client --silent",
+    "build:dev:client": "(cd client && npm run build:dev:client --silent)",
+    "test": "rspec"
   }
 }

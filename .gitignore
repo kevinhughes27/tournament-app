@@ -29,3 +29,6 @@ server.crt
 server.csr
 server.key
 server.pass.key
+
+# Generated js bundles
+/app/assets/webpack/*
