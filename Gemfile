@@ -43,7 +43,6 @@ gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'twine-rails'
-gem 'sprockets-commoner', '~> 0.4.0'
 gem 'turbolinks', '~> 5.0.0'
 
 source 'https://rails-assets.org' do
