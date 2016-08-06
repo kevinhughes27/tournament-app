@@ -5,27 +5,31 @@ Ultimate Tournament
 
 A web application for running ultimate tournaments
 
-[http://ultimate-tournament.io](https://www.ultimate-tournament.io)
-
+[https://ultimate-tournament.io](https://www.ultimate-tournament.io)
+</br>
 [Internal Dashboard](https://www.ultimate-tournament.io/internal)
 
 ### Auth Providers
 
 [Google Developer Console](https://console.developers.google.com/home/dashboard?project=ultimate-tournament)
-
+</br>
 [Facebook Developer Dashboard](https://developers.facebook.com/apps/754008491396080/dashboard/)
-
-
-Docs
-----
-
-[USAU Tournament Formats](http://www.usaultimate.org/assets/1/AssetManager/Format%20Manual%20Version%204.3%20_7.1.08__updated%208.25.10_.pdf)
-
 
 Development
 -----------
 
-postgres from [here](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-14-04):
+Running the server:
+
+```
+./script/server
+```
+
+which runs `foreman start -f Procfile.hot -p 3000` there is also a `.static` and `.dev` Procfile for different webpack configurations.
+
+
+Setup
+-----
+[install postgres](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-14-04):
 
 ```
 sudo apt-get install postgresql postgresql-contrib libpq-dev
@@ -36,13 +40,18 @@ ut
 ut
 ```
 
-setup:
+then
 
 ```
 bundle install
 bundle exec rake db:migrate
 npm install
 ```
+
+BracketDb
+=========
+
+[USAU Tournament Formats](http://www.usaultimate.org/assets/1/AssetManager/Format%20Manual%20Version%204.3%20_7.1.08__updated%208.25.10_.pdf)
 
 
 Updating Bracket Templates
@@ -53,7 +62,7 @@ Updating Bracket Templates
 A bracket_db_diff can be used to update brackets with changed UIDs (but not to change the structure. Changing the structure is not solved yet if the bracket has been used.)
 
 ```
-bundle exec rake dev:bracket_db:diff
+bundle exec rake bracket_db:diff
 ```
 
 inspect the diff and the run it on production:
