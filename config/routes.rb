@@ -1,41 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users,
-    path: '',
-    path_names: { sign_in: 'log_in' },
-    controllers: { sessions: 'login', omniauth_callbacks: 'omniauth_callbacks', passwords: 'passwords' },
-    skip: [:registration]
+  draw :signup
+  draw :login
 
-  devise_scope :user do
-    post '/sign_up' => 'signup#create', as: :new_user_signup
-    get '/choose_tournament' => 'login#choose_tournament'
-    post '/choose_tournament' => 'login#choose_tournament'
-  end
-
-  get '/setup' => 'tournaments#new'
-  post '/setup' => 'tournaments#create'
-
-  resources :tournaments, path: 'setup', only: [] do
-    resources :build, path: '', controller: 'tournaments_build', only: [:show, :update]
-  end
-
-  namespace :internal do
-    get "/" => "dashboard#show"
-
-    devise_for :users,
-      path: '',
-      path_names: { sign_in: 'log_in' },
-      controllers: { sessions: 'internal/login' },
-      skip: [:registration, :omniauth_callbacks, :passwords]
-
-    resources :tournaments, only: [:index]
-  end
+  draw :internal
 
   constraints(Subdomain) do
     draw :admin
-    get '/' => 'app#show', as: 'app'
-    post '/submit_score' => 'score_reports#submit', as: 'app_score_submit'
-    get '/confirm/:id' => 'score_reports#confirm', as: 'app_confirm'
-    post '/confirm/:id' => 'score_reports#confirm'
+    draw :player_app
   end
 
   mount ActionCable.server => '/cable'
