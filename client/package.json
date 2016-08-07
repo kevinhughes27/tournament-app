@@ -30,7 +30,6 @@
     "react-overlays": "^0.6.0",
     "resolve-url-loader": "^1.4.3",
     "set-query-string": "^2.1.0",
-    "url-loader": "^0.5.7",
     "webpack": "^1.13.1"
   },
   "devDependencies": {
