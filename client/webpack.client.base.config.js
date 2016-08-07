@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 
 const devBuild = process.env.NODE_ENV !== 'production';
 const nodeEnv = devBuild ? 'development' : 'production';
@@ -57,22 +56,8 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.(ttf|eot)$/, loader: 'file' },
-
-      // Example to confirm that subdirectories work
-      { test: /\.(jpe?g|png|gif|svg|ico|woff2?)$/, loader: 'url?limit=10000&name=images/[hash].[ext]' },
       { test: require.resolve('jquery'), loader: 'expose?jQuery' },
       { test: require.resolve('jquery'), loader: 'expose?$' },
     ],
   },
-
-  // Place here all postCSS plugins here, so postcss-loader will apply them
-  postcss: [autoprefixer],
-
-  // Place here all SASS files with variables, mixins etc.
-  // And sass-resources-loader will load them in every CSS Module (SASS file) for you
-  // (so don't need to @import them explicitly)
-  // https://github.com/shakacode/sass-resources-loader
-  sassResources: [],
-
 };

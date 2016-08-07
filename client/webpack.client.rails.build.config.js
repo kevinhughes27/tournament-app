@@ -23,24 +23,6 @@ config.module.loaders.push(
     exclude: /node_modules/,
   },
   {
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract(
-      'style',
-      'css?minimize&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]' +
-      '!postcss'
-    ),
-  },
-  {
-    test: /\.scss$/,
-    loader: ExtractTextPlugin.extract(
-      'style',
-      'css?minimize&modules&importLoaders=3&localIdentName=[name]__[local]__[hash:base64:5]' +
-      '!postcss' +
-      '!sass' +
-      '!sass-resources'
-    ),
-  },
-  {
     test: require.resolve('react'),
     loader: 'imports?shim=es5-shim/es5-shim&sham=es5-shim/es5-sham',
   },
@@ -48,11 +30,6 @@ config.module.loaders.push(
     test: require.resolve('jquery-ujs'),
     loader: 'imports?jQuery=jquery',
   }
-);
-
-config.plugins.push(
-  new ExtractTextPlugin('[name]-bundle.css', { allChunks: true }),
-  new webpack.optimize.DedupePlugin()
 );
 
 if (devBuild) {

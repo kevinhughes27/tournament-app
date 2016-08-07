@@ -44,24 +44,6 @@ config.module.loaders.push(
     },
   },
   {
-    test: /\.css$/,
-    loaders: [
-      'style',
-      'css?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
-      'postcss',
-    ],
-  },
-  {
-    test: /\.scss$/,
-    loaders: [
-      'style',
-      'css?modules&importLoaders=3&localIdentName=[name]__[local]__[hash:base64:5]',
-      'postcss',
-      'sass',
-      'sass-resources',
-    ],
-  },
-  {
     test: require.resolve('jquery-ujs'),
     loader: 'imports?jQuery=jquery',
   }
