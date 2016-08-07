@@ -1,4 +1,4 @@
-var _ = require('underscore'),
+var _ = require('lodash'),
     React = require('react'),
     squish = require('object-squish'),
     queryString = require('query-string'),
@@ -137,7 +137,7 @@ var FilterBar = {
     var searchValue = this.props.query.search;
     var currentFilters = _.omit(this.props.query, 'search');
     var filterNames = {};
-    _.mapObject(currentFilters, (value, key) => {
+    _.forOwn(currentFilters, (value, key) => {
       var f = _.find(this.filters, function(f) { return f.key == key && f.value == value });
       filterNames[key] = f.text;
     });
