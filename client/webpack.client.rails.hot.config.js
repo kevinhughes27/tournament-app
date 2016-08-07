@@ -42,10 +42,6 @@ config.module.loaders.push(
         ],
       ],
     },
-  },
-  {
-    test: require.resolve('jquery-ujs'),
-    loader: 'imports?jQuery=jquery',
   }
 );
 
