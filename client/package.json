@@ -24,7 +24,7 @@
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-on-rails": "^6.0.4",
-    "react-bootstrap": "^0.29.5",
+    "react-bootstrap": "^0.30.2",
     "react-confirm": "^0.1.13",
     "react-overlays": "^0.6.0",
     "resolve-url-loader": "^1.4.3",
