@@ -5,19 +5,7 @@
 // Those helpers are used here: app/views/layouts/application.html.erb
 
 // These assets are located in app/assets/webpack directory
-// CRITICAL that webpack/vendor-bundle must be BEFORE turbolinks
-// since it is exposing jQuery and jQuery-ujs
-
-//= require bracket_db
-
-//= require admin/admin
-//= require_tree ./admin/lib
-//= require_tree ./shared
-//= require_tree ./admin/initializers
-//= require_tree ./admin/modules
-
 //= require vendor-bundle
 //= require admin-bundle
 
-// Non-webpack assets incl turbolinks
 //= require admin_non_webpack
