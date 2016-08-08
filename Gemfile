@@ -92,7 +92,7 @@ group :test do
   gem 'mocha', :require => false
   gem 'timecop'
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'simplecov', :require => false
 end

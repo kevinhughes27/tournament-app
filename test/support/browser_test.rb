@@ -1,16 +1,11 @@
 require 'capybara/rails'
-require 'capybara/poltergeist'
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-    extensions: ["#{Rails.root}/test/support/phantomjs/disable_animations.js"],
-    js_errors: false,
-    debug: false
-  })
+Capybara::Webkit.configure do |config|
+  config.allow_unknown_urls
 end
 
 Capybara.configure do |config|
-  config.current_driver = :poltergeist
+  config.current_driver = :webkit
   config.ignore_hidden_elements = false
   config.app_host = "http://#{Settings.domain}"
   config.server_port = 3000
