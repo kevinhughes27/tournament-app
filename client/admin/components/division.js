@@ -87,8 +87,8 @@ var Division = React.createClass({
     var gamesByPool = _.groupBy(games, 'pool');
 
     _.each(gamesByPool, function(games, pool) {
-      var homeTeams = _.pluck(games, 'home_prereq');
-      var awayTeams = _.pluck(games, 'away_prereq');
+      var homeTeams = _.map(games, 'home_prereq');
+      var awayTeams = _.map(games, 'away_prereq');
       var teams = _.union(homeTeams, awayTeams);
       teamsByPool[pool] = _.sortBy(teams, function(t){ return t});
       pools = _.keys(teamsByPool);
