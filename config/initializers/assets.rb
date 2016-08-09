@@ -18,13 +18,10 @@ Rails.application.config.assets.precompile += [
   'app.css',
   'app.js',
   'app/vendor.js',
-  'internal.js'
+  'internal.js',
 ]
 
 type = ENV["REACT_ON_RAILS_ENV"] == "HOT" ? "non_webpack" : "static"
 Rails.application.config.assets.precompile += [
   "admin_#{type}.js",
 ]
-
-# Add folder with webpack generated assets to assets.paths
-Rails.application.config.assets.paths << Rails.root.join("app", "assets", "webpack")

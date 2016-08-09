@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   draw :signup
   draw :login
+
   draw :internal
 
   constraints(Subdomain) do

@@ -27,6 +27,11 @@ Running the server:
 which runs `foreman start -f Procfile.hot -p 3000` there is also a `.static` and `.dev` Procfile for different webpack configurations.
 
 
+### Adding a react component
+
+Any new react component needs to be added to clientRegistration.js and registered for use with React On Rails.
+
+
 Setup
 -----
 [install postgres](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-14-04):
