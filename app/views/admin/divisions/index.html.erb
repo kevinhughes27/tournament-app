@@ -9,11 +9,13 @@
 
 <% if @divisions.present? %>
   <%= ui_box do %>
-    <%= react_component('Admin.DivisionsIndex', {
-      divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
-      searchColumns: ["name"],
-      filters: []
-    }) %>
+    <%= react_component('DivisionsIndex',
+                         props: {
+                           divisions: render(template: 'admin/divisions/divisions.json.jbuilder'),
+                           searchColumns: ["name"],
+                           filters: []
+                         }
+    ) %>
   <% end %>
 <% else %>
   <div class="blank-slate">

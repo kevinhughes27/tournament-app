@@ -33,6 +33,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
 # asset gems
+gem 'react_on_rails', '~> 6.0.5'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -42,7 +43,6 @@ gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'twine-rails'
-gem 'sprockets-commoner', '~> 0.4.0'
 gem 'turbolinks', '~> 5.0.0'
 
 source 'https://rails-assets.org' do
@@ -92,7 +92,7 @@ group :test do
   gem 'mocha', :require => false
   gem 'timecop'
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'simplecov', :require => false
 end

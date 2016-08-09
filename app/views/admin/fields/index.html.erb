@@ -16,7 +16,7 @@
 
 <% if @fields.present? %>
   <%= ui_box do %>
-    <%= react_component('Admin.FieldsIndex', {
+    <%= react_component('FieldsIndex', props: {
       fields: render(template: 'admin/fields/fields.json.jbuilder'),
       searchColumns: ["name"],
       filters: []
