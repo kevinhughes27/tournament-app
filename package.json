@@ -2,7 +2,7 @@
   "name": "ultimate-tournament",
   "private": true,
   "engines": {
-    "node": "5.10.0",
+    "node": "6.3.1",
     "npm": "3.10.5"
   },
   "scripts": {
