@@ -85,7 +85,5 @@ class AppBrowserTest < BrowserTest
   #   assert_equal 15, report.team_score
   #   assert_equal 11, report.opponent_score
   #   assert report.submitter_fingerprint
-  #
-  #   report.destroy!
   # end
 end
