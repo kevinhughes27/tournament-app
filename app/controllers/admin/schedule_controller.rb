@@ -21,7 +21,7 @@ class Admin::ScheduleController < AdminController
 
       games_params.each do |p|
         game = Game.find_by(tournament_id: @tournament.id, id: p[:id])
-        game.update_attributes!(p)
+        game.update!(p)
       end
     end
 
