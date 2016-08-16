@@ -15,3 +15,8 @@ ReactOnRails.register({
   GamesIndex,
   ReportsIndex
 });
+
+// non-component modules
+window.Admin = {}
+import FieldEditor from './modules/field_editor';
+window.Admin.FieldEditor = FieldEditor;

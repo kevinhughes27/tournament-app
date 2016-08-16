@@ -17,6 +17,8 @@
     "events": "^1.1.1",
     "griddle-react": "^0.6.1",
     "imports-loader": "^0.6.5",
+    "leaflet": "1.0.0rc.3",
+    "leaflet-editable": "1.0.0-rc.1",
     "loader-utils": "^0.2.15",
     "lodash": "^4.13.1",
     "object-squish": "^1.0.0",

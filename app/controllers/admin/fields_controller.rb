@@ -17,7 +17,7 @@ class Admin::FieldsController < AdminController
   def create
     @field = @tournament.fields.create(field_params)
     if @field.persisted?
-      flash[:notice] = 'Field was successfully create.'
+      flash[:notice] = 'Field was successfully created.'
       redirect_to admin_field_path(@field)
     else
       flash[:error] = 'Field could not be created.'
