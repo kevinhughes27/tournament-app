@@ -1,6 +1,8 @@
-json.id field.id
+json.extract! field,
+  :id,
+  :name,
+  :lat,
+  :long
+
 json.path "fields/#{field.id}"
-json.name field.name
-json.lat field.lat
-json.long field.long
 json.geoJson field.geo_json
