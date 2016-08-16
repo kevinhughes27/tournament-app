@@ -171,7 +171,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "import csv (update matches)" do
-    @team.update_attributes(name: 'SE7EN')
+    @team.update(name: 'SE7EN')
 
     assert_difference "Team.count", +6 do
       post :import_csv, params: {

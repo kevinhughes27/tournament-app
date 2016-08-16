@@ -20,8 +20,8 @@ module Divisions
       assert division.seeded?
       refute DirtySeedJob.perform_now(division: division)
 
-      division.teams[0].update_attributes(seed: 2)
-      division.teams[1].update_attributes(seed: 1)
+      division.teams[0].update(seed: 2)
+      division.teams[1].update(seed: 1)
 
       assert DirtySeedJob.perform_now(division: division)
     end
@@ -38,8 +38,8 @@ module Divisions
       assert division.seeded?
       refute DirtySeedJob.perform_now(division: division)
 
-      division.teams[0].update_attributes(seed: 2)
-      division.teams[1].update_attributes(seed: 1)
+      division.teams[0].update(seed: 2)
+      division.teams[1].update(seed: 1)
 
       assert DirtySeedJob.perform_now(division: division)
     end

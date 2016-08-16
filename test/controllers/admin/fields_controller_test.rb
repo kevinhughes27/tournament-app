@@ -129,7 +129,7 @@ class Admin::FieldsControllerTest < ActionController::TestCase
   end
 
   test "import csv (update matches)" do
-    @field.update_attributes(name: 'UPI5')
+    @field.update(name: 'UPI5')
 
     assert_difference "Field.count", +14 do
       post :import_csv, params: {

@@ -29,7 +29,7 @@ class Admin::FieldsController < AdminController
   end
 
   def update
-    @field.update_attributes(field_params)
+    @field.update(field_params)
     if @field.errors.present?
       flash[:error] = 'Field could not be updated.'
       render :show

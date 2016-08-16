@@ -101,7 +101,7 @@ class ScoreReport < ApplicationRecord
       )
     end
 
-    game.update_attributes(updated_at: Time.now)
+    game.update(updated_at: Time.now)
   end
 
   def matches_other_reports?

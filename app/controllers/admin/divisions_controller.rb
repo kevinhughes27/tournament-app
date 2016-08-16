@@ -31,7 +31,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    @division.update_attributes(division_params)
+    @division.update(division_params)
     if @division.errors.present?
       flash[:error] = 'Division could not be updated.'
       render :edit

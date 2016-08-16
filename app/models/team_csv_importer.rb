@@ -27,7 +27,7 @@ class TeamCsvImporter
 
         if team = teams.detect{ |t| t.name == attributes[:name] }
           next if ignore
-          team.update_attributes!(attributes)
+          team.update!(attributes)
         else
           @tournament.teams.create!(attributes)
         end

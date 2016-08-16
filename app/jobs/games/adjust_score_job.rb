@@ -13,7 +13,7 @@ module Games
       away_delta = away_score - game.away_score
 
       ActiveRecord::Base.transaction do
-        game.update_attributes!(
+        game.update!(
           home_score: home_score,
           away_score: away_score
         )

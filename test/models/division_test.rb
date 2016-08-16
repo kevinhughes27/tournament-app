@@ -68,8 +68,8 @@ class DivisionTest < ActiveSupport::TestCase
     assert division.seeded?
     refute division.dirty_seed?
 
-    division.teams[0].update_attributes(seed: 2)
-    division.teams[1].update_attributes(seed: 1)
+    division.teams[0].update(seed: 2)
+    division.teams[1].update(seed: 1)
 
     assert division.dirty_seed?
   end
@@ -78,7 +78,7 @@ class DivisionTest < ActiveSupport::TestCase
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
 
-    division.update_attributes(bracket_type: 'single_elimination_4')
+    division.update(bracket_type: 'single_elimination_4')
 
     assert_equal 4, division.games.count
   end
@@ -91,7 +91,7 @@ class DivisionTest < ActiveSupport::TestCase
 
     assert division.seeded?
 
-    division.update_attributes(bracket_type: 'single_elimination_4')
+    division.update(bracket_type: 'single_elimination_4')
 
     refute division.seeded?
   end
@@ -100,7 +100,7 @@ class DivisionTest < ActiveSupport::TestCase
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
 
-    division.update_attributes(bracket_type: 'single_elimination_4')
+    division.update(bracket_type: 'single_elimination_4')
 
     assert_equal 4, division.games.count
   end

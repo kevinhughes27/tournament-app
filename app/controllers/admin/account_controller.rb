@@ -7,7 +7,7 @@ class Admin::AccountController < AdminController
   def update
     @user = current_user
 
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       flash.now[:notice] = 'Account updated.'
     else
       flash.now[:alert] = 'Error updating Account.'

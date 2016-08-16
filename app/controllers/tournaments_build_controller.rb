@@ -14,7 +14,7 @@ class TournamentsBuildController < ApplicationController
   end
 
   def update
-    @tournament.update_attributes(tournament_params)
+    @tournament.update(tournament_params)
     flash[:animate] = "fadeIn" if step == steps.last
     render_wizard @tournament
   end

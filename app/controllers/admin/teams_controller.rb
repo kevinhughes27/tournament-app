@@ -28,7 +28,7 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    @team.update_attributes(team_params)
+    @team.update(team_params)
     if @team.errors.present?
       flash[:error] = 'Team could not be updated.'
       render :show

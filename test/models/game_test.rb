@@ -25,7 +25,7 @@ class GameTest < ActiveSupport::TestCase
 
   test "teams_present? is true if home and away are set" do
     assert @game.teams_present?
-    @game.update_attributes(home_id: nil)
+    @game.update(home_id: nil)
     refute @game.teams_present?
   end
 
@@ -36,22 +36,22 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "game must have field if it has a start_time" do
-    @game.update_attributes(field: nil)
+    @game.update(field: nil)
     assert_equal ["can't be blank"], @game.errors[:field]
   end
 
   test "game must have start_time if it has a field" do
-    @game.update_attributes(start_time: nil)
+    @game.update(start_time: nil)
     assert_equal ["can't be blank"], @game.errors[:start_time]
   end
 
   test "can unassign a game from field and start_time" do
-    @game.update_attributes(field: nil, start_time: nil)
+    @game.update(field: nil, start_time: nil)
     assert @game.errors.empty?
   end
 
   test "game must have a valid field" do
-    @game.update_attributes(field_id: 999, start_time: nil)
+    @game.update(field_id: 999, start_time: nil)
     assert_equal ["is invalid"], @game.errors[:field]
   end
 

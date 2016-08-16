@@ -19,7 +19,7 @@ class FieldCsvImporter
 
         if field = fields.detect{ |f| f.name == attributes[:name] }
           next if ignore
-          field.update_attributes!(attributes)
+          field.update!(attributes)
         else
           tournament.fields.create!(attributes)
         end

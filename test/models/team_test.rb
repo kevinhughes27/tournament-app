@@ -36,7 +36,7 @@ class TeamTest < ActiveSupport::TestCase
   test "updating a team's division unassigns if from all games (home)" do
     assert_equal @team, @game.home
 
-    @team.update_attributes(division: divisions(:women))
+    @team.update(division: divisions(:women))
 
     assert_nil @game.reload.home
   end
@@ -45,7 +45,7 @@ class TeamTest < ActiveSupport::TestCase
     team = teams(:goose)
     assert_equal team, @game.away
 
-    team.update_attributes(division: divisions(:women))
+    team.update(division: divisions(:women))
 
     assert_nil @game.reload.away
   end
