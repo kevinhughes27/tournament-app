@@ -34,7 +34,7 @@
 
   <div class="col-md-7">
     <%= ui_box do %>
-      <%= react_component('Admin.Division', {bracket_handle: @division.bracket_type}) %>
+      <%= react_component('Division', props: { bracket_handle: @division.bracket_type }) %>
     <% end %>
   </div>
 </div>
