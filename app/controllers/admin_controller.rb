@@ -1,6 +1,8 @@
 class AdminController < ApplicationController
   include LoadTournament
 
+  abstract!
+
   layout 'admin'
 
   helper UiHelper
