@@ -26,7 +26,5 @@ class SignupBrowserTest < BrowserTest
     assert_equal 'New Tournament', tournament.name
     assert_equal 80, tournament.time_cap
     assert_equal 'Ottawa', tournament.location
-
-    assert tournament.destroy()
   end
 end
