@@ -17,6 +17,9 @@ ReactOnRails.register({
 });
 
 // non-component modules
-window.Admin = {}
 import FieldEditor from './modules/field_editor';
+import MapForm from './modules/map_form';
+
+window.Admin = {};
 window.Admin.FieldEditor = FieldEditor;
+window.Admin.MapForm = MapForm;
