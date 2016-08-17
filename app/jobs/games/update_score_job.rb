@@ -45,7 +45,7 @@ module Games
     end
 
     def set_score
-      Games::SetScoreJob.perform_now(
+      SetGameScore.perform(
         game: game,
         home_score: home_score,
         away_score: away_score

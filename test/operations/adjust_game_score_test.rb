@@ -47,7 +47,7 @@ class AdjustGameScoreTest < ActiveSupport::TestCase
     away_pts_for = @away.points_for
 
     game.stubs(:update_bracket)
-    Games::SetScoreJob.perform_now(game: game, home_score: 15, away_score: 11)
+    SetGameScore.perform(game: game, home_score: 15, away_score: 11)
     AdjustGameScore.perform(game: game, home_score: 10, away_score: 13)
 
     @home.reload
