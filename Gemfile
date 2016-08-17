@@ -14,6 +14,7 @@ gem 'jbuilder'
 gem 'wicked_pdf'
 gem 'browser-timezone-rails'
 gem 'config'
+gem 'composable_operations'
 
 # model gems
 gem 'bracket_db', path: 'lib/bracket_db'

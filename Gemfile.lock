@@ -122,6 +122,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    composable_operations (0.10.1)
+      smart_properties (~> 1.10)
     concurrent-ruby (1.0.2)
     config (1.2.1)
       activesupport (>= 3.0)
@@ -301,6 +303,7 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    smart_properties (1.10.1)
     spring (1.7.1)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
@@ -360,6 +363,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   coffee-rails (~> 4.1.0)
+  composable_operations
   config
   date_validator
   devise!
