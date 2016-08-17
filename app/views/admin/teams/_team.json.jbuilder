@@ -1,7 +1,9 @@
-json.id team.id
+json.extract! team,
+  :id,
+  :name,
+  :email,
+  :phone,
+  :seed
+
 json.path "teams/#{team.id}"
-json.name team.name
-json.email team.email
-json.phone team.phone
 json.division team.division.try(:name)
-json.seed team.seed
