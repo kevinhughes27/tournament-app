@@ -53,7 +53,7 @@ module Games
     end
 
     def adjust_score
-      Games::AdjustScoreJob.perform_now(
+      AdjustGameScore.perform(
         game: game,
         home_score: home_score,
         away_score: away_score
