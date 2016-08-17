@@ -1,5 +1,5 @@
 class Admin::ErrorsController < AdminController
   def not_found
-    render '404', status: :not_found
+    render_admin_404
   end
 end

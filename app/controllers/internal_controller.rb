@@ -1,15 +1,12 @@
 class InternalController < ApplicationController
+  abstract!
+
   layout 'internal'
 
   before_action :authenticate_user!
   before_action :authenticate_staff!
 
   alias_method :current_user, :current_internal_user
-
-  def destroy
-    sign_out(current_user)
-    redirect_to root_url(subdomain: 'www')
-  end
 
   protected
 

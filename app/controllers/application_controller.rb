@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  abstract!
+
   layout :layout_by_resource
   protect_from_forgery with: :exception, prepend: true
 
