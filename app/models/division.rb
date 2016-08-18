@@ -61,7 +61,7 @@ class Division < ApplicationRecord
   end
 
   def create_places
-    Divisions::CreatePlacesJob.perform_later(
+    CreatePlacesJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       template: bracket.template
