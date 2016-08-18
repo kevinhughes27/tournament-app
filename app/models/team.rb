@@ -39,7 +39,7 @@ class Team < ApplicationRecord
   private
 
   def unassign_games
-    Teams::UnassignGamesJob.perform_later(
+    UnassignGamesJob.perform_later(
       tournament_id: tournament_id,
       team_id: id
     )
