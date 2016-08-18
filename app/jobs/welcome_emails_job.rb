@@ -1,4 +1,4 @@
-class SendWelcomeEmailsJob < ApplicationJob
+class WelcomeEmailsJob < ApplicationJob
 
   def perform
     tournaments.each do |tournament|
