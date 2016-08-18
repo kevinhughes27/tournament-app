@@ -3,13 +3,13 @@ class AdvanceBracket < ComposableOperations::Operation
   property :game, accepts: Game, required: true
 
   def execute
-    advanceWinner(game)
-    advanceLoser(game)
+    advanceWinner
+    advanceLoser
   end
 
   private
 
-  def advanceWinner(game)
+  def advanceWinner
     tournament_id = game.tournament_id
     division_id = game.division_id
     bracket_uid = game.bracket_uid
@@ -30,7 +30,7 @@ class AdvanceBracket < ComposableOperations::Operation
     next_game.save!
   end
 
-  def advanceLoser(game)
+  def advanceLoser
     tournament_id = game.tournament_id
     division_id = game.division_id
     bracket_uid = game.bracket_uid
