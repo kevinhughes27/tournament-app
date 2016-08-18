@@ -1,5 +1,24 @@
 class Admin::GamesController < AdminController
+  before_action :load_games, only: :index
+  before_action :load_game, only: :update
+
   def index
+  end
+
+  def update
+    update = UpdateGameScore.new(game: @game, **update_params)
+    update.perform
+
+    if update.succeeded?
+      head :ok
+    else
+      head :unprocessable_entity
+    end
+  end
+
+  private
+
+  def load_games
     @games = @tournament.games.includes(
       :home,
       :away,
@@ -9,44 +28,15 @@ class Admin::GamesController < AdminController
     )
   end
 
-  def update
+  def load_game
     @game = Game.find(params[:id])
-
-    home_score = params[:home_score].to_i
-    away_score = params[:away_score].to_i
-    force = params[:force] == 'true'
-    resolve = params[:resolve] == 'true'
-
-    @game.resolve_disputes! if resolve
-
-    if update_score(@game, home_score, away_score, force)
-      create_score_entry(@game, home_score, away_score)
-      head :ok
-    else
-      head :unprocessable_entity
-    end
   end
 
-  private
-
-  def update_score(game, home_score, away_score, force)
-    Games::UpdateScoreJob.perform_now(
-      game: game,
-      home_score: home_score,
-      away_score: away_score,
-      force: force
-    )
-  end
-
-  def create_score_entry(game, home_score, away_score)
-    ScoreEntry.create!(
-      tournament: @tournament,
-      user: current_user,
-      game: game,
-      home: game.home,
-      away: game.away,
-      home_score: home_score,
-      away_score: away_score
-    )
+  def update_params
+    update_params = params.permit(:home_score, :away_score)
+    update_params[:force] = params[:force] == 'true'
+    update_params[:resolve] = params[:resolve] == 'true'
+    update_params[:user] = current_user
+    update_params
   end
 end
