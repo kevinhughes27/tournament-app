@@ -33,7 +33,7 @@ class Division < ApplicationRecord
   end
 
   def dirty_seed?
-    Divisions::DirtySeedJob.perform_now(division: self)
+    DirtySeedCheck.perform(self)
   end
 
   def safe_to_change?
