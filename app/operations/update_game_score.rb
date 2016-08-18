@@ -87,7 +87,7 @@ class UpdateGameScore < ComposableOperations::Operation
   end
 
   def advance_bracket
-    Divisions::AdvanceBracketJob.perform_later(game_id: game.id)
+    AdvanceBracketJob.perform_later(game_id: game.id)
   end
 
   def update_places
