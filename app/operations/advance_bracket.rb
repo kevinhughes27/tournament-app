@@ -24,7 +24,7 @@ class AdvanceBracket < ComposableOperations::Operation
 
     if next_game.confirmed?
       next_game.reset_score!
-      Divisions::ResetBracketJob.perform_later(game_id: next_game.id)
+      ResetBracketJob.perform_later(game_id: next_game.id)
     end
 
     next_game.save!
@@ -45,7 +45,7 @@ class AdvanceBracket < ComposableOperations::Operation
 
     if next_game.confirmed?
       next_game.reset_score!
-      Divisions::ResetBracketJob.perform_later(game_id: next_game.id)
+      ResetBracketJob.perform_later(game_id: next_game.id)
     end
 
     next_game.save!

@@ -33,7 +33,7 @@ class FinishPool < ComposableOperations::Operation
 
       if game.confirmed?
         game.reset_score!
-        Divisions::ResetBracketJob.perform_later(game_id: game.id)
+        ResetBracketJob.perform_later(game_id: game.id)
       end
 
       game.save!
