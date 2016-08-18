@@ -12,8 +12,6 @@ if ENV['CIRCLECI']
   Minitest::Retry.use!(retry_count: 1)
 end
 
-OmniAuth.config.test_mode = true
-
 ActiveRecord::Migration.maintain_test_schema!
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}

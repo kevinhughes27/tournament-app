@@ -2,7 +2,6 @@ require 'csv'
 
 class Admin::TeamsController < AdminController
   before_action :load_team, only: [:show, :update, :destroy]
-  before_action :check_update_safety, only: [:update]
   before_action :check_delete_safety, only: [:destroy]
 
   def index
@@ -28,13 +27,19 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    @team.update(team_params)
-    if @team.errors.present?
-      flash[:error] = 'Team could not be updated.'
-      render :show
-    else
+    update = TeamUpdate.new(@team, team_params, params[:confirm])
+    update.perform
+
+    if update.succeeded?
       flash[:notice] = 'Team was successfully updated.'
       redirect_to admin_team_path(@team)
+    elsif update.confirmation_required?
+      render partial: 'confirm_update', status: :unprocessable_entity
+    elsif update.halted?
+      render partial: 'unable_to_update', status: :not_allowed
+    else
+      flash[:error] = 'Team could not be updated.'
+      render :show
     end
   end
 
@@ -71,19 +76,6 @@ class Admin::TeamsController < AdminController
   end
 
   private
-
-  def check_update_safety
-    @team.assign_attributes(team_params)
-    return if @team.update_safe?
-
-    # this is correct since as long as we don't render we continue
-    # with the controller action
-    if !@team.allow_change?
-      render partial: 'unable_to_update', status: :not_allowed
-    elsif !(params[:confirm] == 'true' || @team.safe_to_change?)
-      render partial: 'confirm_update', status: :unprocessable_entity
-    end
-  end
 
   def check_delete_safety
     if !@team.allow_delete?
