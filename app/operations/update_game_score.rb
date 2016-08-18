@@ -33,7 +33,7 @@ class UpdateGameScore < ComposableOperations::Operation
   def safe_to_update_score?
     return true if force
 
-    Games::SafeToUpdateScoreJob.perform_now(
+    SafeToUpdateScoreCheck.perform(
       game: game,
       home_score: home_score,
       away_score: away_score

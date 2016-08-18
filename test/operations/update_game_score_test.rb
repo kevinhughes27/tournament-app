@@ -22,7 +22,7 @@ class UpdateGameScoreTest < ActiveSupport::TestCase
   end
 
   test "can't update score if not safe" do
-    Games::SafeToUpdateScoreJob.expects(:perform_now).returns(false)
+    SafeToUpdateScoreCheck.expects(:perform).returns(false)
     SetGameScore.expects(:perform).never
     AdjustGameScore.expects(:perform).never
 
@@ -81,7 +81,7 @@ class UpdateGameScoreTest < ActiveSupport::TestCase
       home_pool_seed: 1,
       away_pool_seed: 2
     )
-    Games::SafeToUpdateScoreJob.expects(:perform_now).returns(true)
+    SafeToUpdateScoreCheck.expects(:perform).returns(true)
     Divisions::FinishPoolJob.expects(:perform_later)
     UpdateGameScore.perform(game: @game, user: @user, home_score: 15, away_score: 11)
   end
