@@ -46,7 +46,7 @@ class Team < ApplicationRecord
   end
 
   def delete_score_reports
-    Teams::DeleteScoreReportsJob.perform_later(
+    DeleteScoreReportsJob.perform_later(
       tournament_id: tournament_id,
       team_id: id
     )
