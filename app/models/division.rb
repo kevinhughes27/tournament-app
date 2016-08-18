@@ -53,7 +53,7 @@ class Division < ApplicationRecord
   private
 
   def create_games
-    Divisions::CreateGamesJob.perform_later(
+    CreateGamesJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       template: bracket.template
