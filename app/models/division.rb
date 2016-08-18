@@ -24,10 +24,6 @@ class Division < ApplicationRecord
 
   scope :un_seeded, -> { where(seeded: false) }
 
-  class InvalidNumberOfTeams < StandardError; end
-  class InvalidSeedRound < StandardError; end
-  class AmbiguousSeedList < StandardError; end
-
   def bracket
     @bracket ||= Bracket.find_by(handle: self.bracket_type)
   end
@@ -38,10 +34,6 @@ class Division < ApplicationRecord
 
   def dirty_seed?
     Divisions::DirtySeedJob.perform_now(division: self)
-  end
-
-  def seed(seed_round = 1)
-    Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
   end
 
   def safe_to_change?

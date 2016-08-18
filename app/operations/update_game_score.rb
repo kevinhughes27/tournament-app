@@ -91,6 +91,6 @@ class UpdateGameScore < ComposableOperations::Operation
   end
 
   def update_places
-    Divisions::UpdatePlacesJob.perform_later(game_id: game.id)
+    UpdatePlacesJob.perform_later(game_id: game.id)
   end
 end

@@ -49,12 +49,14 @@ class Admin::DivisionsController < AdminController
 
   def seed
     if request.post?
-      begin
-        @division.seed
+      seed = SeedDivision.new(@division)
+      seed.perform
+
+      if seed.succeeded?
         flash[:notice] = 'Division seeded'
         redirect_to admin_division_path(@division)
-      rescue => error
-        flash[:error] = error.message
+      else
+        flash[:error] = seed.message
         render :seed
       end
     end
