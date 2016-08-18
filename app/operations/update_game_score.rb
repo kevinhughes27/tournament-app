@@ -83,10 +83,7 @@ class UpdateGameScore < ComposableOperations::Operation
   end
 
   def update_pool
-    Divisions::FinishPoolJob.perform_later(
-      division: game.division,
-      pool_uid: game.pool
-    )
+    FinishPoolJob.perform_later(division: division, pool_uid: pool_uid)
   end
 
   def advance_bracket

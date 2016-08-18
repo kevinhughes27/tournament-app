@@ -82,7 +82,7 @@ class UpdateGameScoreTest < ActiveSupport::TestCase
       away_pool_seed: 2
     )
     SafeToUpdateScoreCheck.expects(:perform).returns(true)
-    Divisions::FinishPoolJob.expects(:perform_later)
+    FinishPoolJob.expects(:perform_later)
     UpdateGameScore.perform(game: @game, user: @user, home_score: 15, away_score: 11)
   end
 
