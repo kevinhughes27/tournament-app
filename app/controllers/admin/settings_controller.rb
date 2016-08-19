@@ -1,13 +1,17 @@
 class Admin::SettingsController < AdminController
-  before_action :check_update_safety, only: [:update]
 
   def show
   end
 
   def update
-    if @tournament.update(tournament_params)
+    update = UpdateSettings.new(@tournament, tournament_params, params[:confirm])
+    update.perform
+
+    if update.succeeded?
       flash[:notice] = 'Settings saved.'
       redirect_to admin_settings_url(subdomain: @tournament.handle)
+    elsif update.confirmation_required?
+      render partial: 'confirm_update', status: :unprocessable_entity
     else
       flash[:error] = 'Error saving Settings.'
       render :show
@@ -21,14 +25,6 @@ class Admin::SettingsController < AdminController
   end
 
   private
-
-  def check_update_safety
-    return if params[:confirm] == 'true'
-    return if @tournament.handle == tournament_params[:handle]
-
-    @tournament.assign_attributes(tournament_params)
-    render partial: 'confirm_update', status: :unprocessable_entity
-  end
 
   def tournament_params
     tournament_params = params.require(:tournament).permit(
