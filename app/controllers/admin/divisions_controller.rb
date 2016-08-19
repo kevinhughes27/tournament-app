@@ -1,7 +1,6 @@
 class Admin::DivisionsController < AdminController
   before_action :load_division, only: [:show, :edit, :update, :destroy, :update_teams, :seed]
   before_action :check_update_safety, only: [:update]
-  before_action :check_delete_safety, only: [:destroy]
 
   def index
     @divisions = @tournament.divisions.includes(:teams, games: [:home, :away])
@@ -41,9 +40,18 @@ class Admin::DivisionsController < AdminController
   end
 
   def destroy
-    @division.destroy()
-    flash[:notice] = 'Division was successfully destroyed.'
-    redirect_to admin_divisions_path
+    delete = DivisionDelete.new(@division, params[:confirm])
+    delete.perform
+
+    if delete.succeeded?
+      flash[:notice] = 'Division was successfully destroyed.'
+      redirect_to admin_divisions_path
+    elsif delete.confirmation_required?
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    else
+      flash[:error] = 'Division could not be deleted.'
+      render :show
+    end
   end
 
   def seed
@@ -91,12 +99,6 @@ class Admin::DivisionsController < AdminController
     # with the controller action
     if !(params[:confirm] == 'true' || @division.safe_to_change?)
       render partial: 'confirm_update', status: :unprocessable_entity
-    end
-  end
-
-  def check_delete_safety
-    unless params[:confirm] == 'true' || @division.safe_to_delete?
-      render partial: 'confirm_delete', status: :unprocessable_entity
     end
   end
 
