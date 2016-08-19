@@ -2,7 +2,6 @@ require 'csv'
 
 class Admin::TeamsController < AdminController
   before_action :load_team, only: [:show, :update, :destroy]
-  before_action :check_delete_safety, only: [:destroy]
 
   def index
     @teams = @tournament.teams.includes(:division)
@@ -44,9 +43,20 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    @team.destroy()
-    flash[:notice] = 'Team was successfully destroyed.'
-    redirect_to admin_teams_path
+    delete = TeamDelete.new(@team, params[:confirm])
+    delete.perform
+
+    if delete.succeeded?
+      flash[:notice] = 'Team was successfully destroyed.'
+      redirect_to admin_teams_path
+    elsif delete.confirmation_required?
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    elsif delete.halted?
+      render partial: 'unable_to_delete', status: :not_allowed
+    else
+      flash[:error] = 'Team could not be deleted.'
+      render :show
+    end
   end
 
   def sample_csv
@@ -76,14 +86,6 @@ class Admin::TeamsController < AdminController
   end
 
   private
-
-  def check_delete_safety
-    if !@team.allow_delete?
-      render partial: 'unable_to_delete', status: :not_allowed
-    elsif !(params[:confirm] == 'true' || @team.safe_to_delete?)
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    end
-  end
 
   def load_team
     @team = @tournament.teams.find(params[:id])
