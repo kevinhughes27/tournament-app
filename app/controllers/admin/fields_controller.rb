@@ -60,13 +60,8 @@ class Admin::FieldsController < AdminController
   end
 
   def sample_csv
-    csv = CSV.generate do |csv|
-      csv << ['Name', 'Latitude', 'Longitude', 'Geo JSON']
-      csv << ['UPI1', 45.2456681689589, -75.6163644790649, example_geo_json]
-    end
-
     respond_to do |format|
-      format.csv { send_data csv, filename: 'sample_fields.csv' }
+      format.csv { send_data FieldCsv.sample, filename: 'sample_fields.csv' }
     end
   end
 
@@ -122,9 +117,5 @@ class Admin::FieldsController < AdminController
         :long,
         :geo_json
       )
-  end
-
-  def example_geo_json
-    "{\"type\":\"Feature\",\"properties\":{},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[-75.61704058530103,45.24560112337739],[-75.61682149825708,45.24531101502135],[-75.61568837209097,45.24573520582302],[-75.61590746188978,45.2460253137602],[-75.61704058530103,45.24560112337739]]]}}"
   end
 end

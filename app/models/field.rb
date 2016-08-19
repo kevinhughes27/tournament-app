@@ -15,6 +15,25 @@ class Field < ApplicationRecord
 
   serialize :geo_json, JSON
 
+  def self.example_geo_json
+    {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          [
+            [-75.61704058530103, 45.24560112337739],
+            [-75.61682149825708, 45.24531101502135],
+            [-75.61568837209097, 45.24573520582302],
+            [-75.61590746188978, 45.2460253137602],
+            [-75.61704058530103, 45.24560112337739]
+          ]
+        ]
+      }
+    }.to_json
+  end
+
   def safe_to_delete?
     !Game.where(tournament_id: tournament_id, field_id: id).exists?
   end
