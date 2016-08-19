@@ -38,7 +38,9 @@ class Division < ApplicationRecord
 
   def safe_to_change?
     return true unless self.bracket_type_changed?
-    safe, @change_message = Divisions::SafeToUpdateBracketJob.perform_now(division: self)
+    check = SafeToUpdateBracketCheck.new(self)
+    @change_message = check.message
+    safe = check.succeeded?
     safe
   end
 
