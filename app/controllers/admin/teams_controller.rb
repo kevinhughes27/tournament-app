@@ -1,5 +1,3 @@
-require 'csv'
-
 class Admin::TeamsController < AdminController
   before_action :load_team, only: [:show, :update, :destroy]
 
@@ -60,13 +58,8 @@ class Admin::TeamsController < AdminController
   end
 
   def sample_csv
-    csv = CSV.generate do |csv|
-      csv << ['Name', 'Email', 'Phone', 'Division', 'Seed']
-      csv << ['Swift', 'swift@gmail.com', '613-979-4997', 'Open', '1']
-    end
-
     respond_to do |format|
-      format.csv { send_data csv, filename: 'sample_teams.csv' }
+      format.csv { send_data TeamCsv.sample, filename: 'sample_teams.csv' }
     end
   end
 
