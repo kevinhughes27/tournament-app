@@ -150,6 +150,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_teams_path
+      assert_equal 'Teams imported successfully', flash[:notice]
     end
 
     assert_equal @division, Team.last.division
@@ -161,6 +163,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_teams_path
+      assert_equal 'Teams imported successfully', flash[:notice]
     end
 
     assert_no_difference "Team.count" do
@@ -168,6 +172,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_teams_path
+      assert_equal 'Teams imported successfully', flash[:notice]
     end
   end
 
@@ -179,6 +185,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'update'
       }
+      assert_redirected_to admin_teams_path
+      assert_equal 'Teams imported successfully', flash[:notice]
     end
   end
 
@@ -188,6 +196,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams-extra.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_teams_path
+      assert_equal 'Teams imported successfully', flash[:notice]
     end
   end
 
@@ -197,7 +207,9 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/teams-bad-row.csv','text/csv'),
         match_behaviour: 'ignore'
       }
-      # assert that some sort of error is shown or flashed
+      assert_redirected_to admin_teams_path
+      assert_equal 'Error importing teams', flash[:alert]
+      assert_equal "Row: 5 Validation failed: Name can't be blank", flash[:import_error]
     end
   end
 

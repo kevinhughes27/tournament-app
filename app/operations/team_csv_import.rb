@@ -1,19 +1,19 @@
-class TeamCsvImporter
-  attr_reader :tournament, :file, :ignore
+require 'csv'
 
-  def initialize(tournament, file, ignore)
-    @tournament = tournament
-    @file = file
-    @ignore = ignore
-  end
+class TeamCsvImport < ComposableOperations::Operation
+  processes :tournament, :file, :ignore
 
-  def run!
-    teams = @tournament.teams
+  property :tournament, accepts: Tournament, required: true
+  property :file, required: true
+  property :ignore, accepts: [true, false], default: false
 
-    rowNum = 1
+  attr_reader :row_num
+
+  def execute
+    @row_num = 1
     Team.transaction do
       CSV.foreach(file, headers: true, :header_converters => lambda { |h| h.try(:downcase).strip }) do |row|
-        rowNum += 1
+        @row_num += 1
         attributes = row.to_hash.with_indifferent_access
         attributes = csv_params(attributes)
 
@@ -33,9 +33,15 @@ class TeamCsvImporter
         end
       end
     end
+  rescue StandardError => e
+    fail e.message
   end
 
   private
+
+  def teams
+    @teams ||= tournament.teams
+  end
 
   def csv_params(attributes)
     attributes.slice(

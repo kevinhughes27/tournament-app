@@ -67,15 +67,17 @@ class Admin::TeamsController < AdminController
     file = params[:csv_file].path
     ignore = params[:match_behaviour] == 'ignore'
 
-    importer = TeamCsvImporter.new(@tournament, file, ignore)
-    importer.run!
+    import = TeamCsvImport.new(@tournament, file, ignore)
+    import.perform
 
-    flash[:notice] = 'Teams imported successfully'
-    redirect_to action: :index
-  rescue => e
-    flash[:alert] = "Error importing teams"
-    flash[:import_error] = "Row: #{rowNum} #{e}"
-    redirect_to action: :index
+    if import.succeeded?
+      flash[:notice] = 'Teams imported successfully'
+      redirect_to action: :index
+    else
+      flash[:alert] = "Error importing teams"
+      flash[:import_error] = "Row: #{import.row_num} #{import.message}"
+      redirect_to action: :index
+    end
   end
 
   private
