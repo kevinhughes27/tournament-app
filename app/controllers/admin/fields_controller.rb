@@ -1,10 +1,8 @@
-require 'csv'
-
 class Admin::FieldsController < AdminController
   include LoadTournamentWithMap
 
   before_action :load_field, only: [:show, :update, :destroy]
-  before_action :load_fields, only: [:index, :new, :create, :show, :update]
+  before_action :load_fields, only: [:index, :new, :create, :show, :update, :export_csv]
 
   def index
   end
@@ -83,14 +81,7 @@ class Admin::FieldsController < AdminController
   end
 
   def export_csv
-    @fields = @tournament.fields
-
-    csv = CSV.generate do |csv|
-      csv << ['Name', 'Latitude', 'Longitude', 'Geo JSON']
-      @fields.each do |field|
-        csv << [field.name, field.lat, field.long, field.geo_json]
-      end
-    end
+    csv = FieldCsvExport.perform(@fields)
 
     respond_to do |format|
       format.csv { send_data csv, filename: 'fields.csv' }
