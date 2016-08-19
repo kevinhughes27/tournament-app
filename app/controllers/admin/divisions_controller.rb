@@ -1,6 +1,5 @@
 class Admin::DivisionsController < AdminController
   before_action :load_division, only: [:show, :edit, :update, :destroy, :update_teams, :seed]
-  before_action :check_update_safety, only: [:update]
 
   def index
     @divisions = @tournament.divisions.includes(:teams, games: [:home, :away])
@@ -29,13 +28,17 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    @division.update(division_params)
-    if @division.errors.present?
-      flash[:error] = 'Division could not be updated.'
-      render :edit
-    else
+    update = DivisionUpdate.new(@division, division_params, params[:confirm])
+    update.perform
+
+    if update.succeeded?
       flash[:notice] = 'Division was successfully updated.'
       redirect_to admin_division_path(@division)
+    elsif update.confirmation_required?
+      render partial: 'confirm_update', status: :unprocessable_entity
+    else
+      flash[:error] = 'Division could not be updated.'
+      render :edit
     end
   end
 
@@ -91,16 +94,6 @@ class Admin::DivisionsController < AdminController
   end
 
   private
-
-  def check_update_safety
-    @division.assign_attributes(division_params)
-
-    # this is correct since as long as we don't render we continue
-    # with the controller action
-    if !(params[:confirm] == 'true' || @division.safe_to_change?)
-      render partial: 'confirm_update', status: :unprocessable_entity
-    end
-  end
 
   def load_division
     @division = @tournament.divisions.includes(:teams, games: [:home, :away]).find(params[:id])
