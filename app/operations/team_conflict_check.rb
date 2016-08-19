@@ -1,11 +1,8 @@
-class TeamConflictChecker
-  attr_reader :game
+class TeamConflictCheck < ComposableOperations::Operation
+  proccesses :game
+  property :game, accepts: Game, required: true
 
-  def initialize(game)
-    @game = game
-  end
-
-  def conflict?
+  def execute
     conflicting_games.present?
   end
 
