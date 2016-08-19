@@ -1,9 +1,14 @@
 class SeedDivision < ComposableOperations::Operation
-  processes :division
+  processes :division, :confirm
+
   property :division, accepts: Division, required: true
+  property :confirm, default: false
+
   property :seed_round, accepts: Integer, default: 1
 
   def execute
+    halt 'confirm_seed' if !(confirm == 'true' || division.safe_to_seed?)
+
     seeds.each_with_index do |seed, idx|
       halt 'Ambiguous seed list' unless seed == (idx+1)
     end
@@ -22,6 +27,10 @@ class SeedDivision < ComposableOperations::Operation
 
     reset_games(division: division, seed_round: seed_round)
     division.update_attribute(:seeded, true)
+  end
+
+  def confirmation_required?
+    halted? && message == 'confirm_seed'
   end
 
   private

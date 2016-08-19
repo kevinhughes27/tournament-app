@@ -74,7 +74,7 @@ class Division < ApplicationRecord
 
     bracket = Bracket.find_by(handle: self.bracket_type)
 
-    Divisions::ChangeBracketJob.perform_later(
+    ChangeBracketJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       new_template: bracket.template

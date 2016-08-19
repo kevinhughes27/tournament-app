@@ -1,7 +1,6 @@
 class Admin::DivisionsController < AdminController
   before_action :load_division, only: [:show, :edit, :update, :destroy, :update_teams, :seed]
   before_action :check_update_safety, only: [:update]
-  before_action :check_seed_safety, only: [:seed]
   before_action :check_delete_safety, only: [:destroy]
 
   def index
@@ -55,6 +54,8 @@ class Admin::DivisionsController < AdminController
       if seed.succeeded?
         flash[:notice] = 'Division seeded'
         redirect_to admin_division_path(@division)
+      elsif seed.confirmation_required?
+        render partial: 'confirm_seed', status: :unprocessable_entity
       else
         flash[:error] = seed.message
         render :seed
@@ -90,12 +91,6 @@ class Admin::DivisionsController < AdminController
     # with the controller action
     if !(params[:confirm] == 'true' || @division.safe_to_change?)
       render partial: 'confirm_update', status: :unprocessable_entity
-    end
-  end
-
-  def check_seed_safety
-    unless params[:confirm] == 'true' || @division.safe_to_seed?
-      render partial: 'confirm_seed', status: :unprocessable_entity
     end
   end
 
