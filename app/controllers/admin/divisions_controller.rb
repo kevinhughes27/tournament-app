@@ -75,22 +75,15 @@ class Admin::DivisionsController < AdminController
   end
 
   def update_teams
-    team_ids = params[:team_ids]
-    @teams = @division.teams
+    update = UpdateTeamSeeds.new(@division, params[:team_ids], params[:seeds])
+    update.perform
 
-    Team.transaction do
-      team_ids.each_with_index do |team_id, idx|
-        team = @teams.detect { |t| t.id == team_id.to_i}
-        team.assign_attributes(seed: params[:seeds][idx])
-        raise if team.seed_changed? && !team.allow_change?
-        team.save!
-      end
+    if update.succeeded?
+      flash.now[:notice] = 'Seeds updated'
+      render :seed
+    else
+      render partial: 'unable_to_update_teams', status: :not_allowed
     end
-
-    flash.now[:notice] = 'Seeds updated'
-    render :seed
-  rescue => e
-    render partial: 'unable_to_update_teams', status: :not_allowed
   end
 
   private
