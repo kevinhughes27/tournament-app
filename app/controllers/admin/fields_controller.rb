@@ -69,15 +69,17 @@ class Admin::FieldsController < AdminController
     file = params[:csv_file].path
     ignore = params[:match_behaviour] == 'ignore'
 
-    importer = FieldCsvImporter.new(@tournament, file, ignore)
-    importer.run!
+    import = FieldCsvImport.new(@tournament, file, ignore)
+    import.perform
 
-    flash[:notice] = 'Fields imported successfully'
-    redirect_to action: :index
-  rescue => e
-    flash[:alert] = "Error importing fields"
-    flash[:import_error] = "Row: #{rowNum} #{e}"
-    redirect_to action: :index
+    if import.succeeded?
+      flash[:notice] = 'Fields imported successfully'
+      redirect_to action: :index
+    else
+      flash[:alert] = "Error importing fields"
+      flash[:import_error] = "Row: #{import.row_num} #{import.message}"
+      redirect_to action: :index
+    end
   end
 
   def export_csv
