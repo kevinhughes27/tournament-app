@@ -6,7 +6,14 @@ class Admin::GamesController < AdminController
   end
 
   def update
-    update = UpdateGameScore.new(game: @game, **update_params)
+    update = GameUpdateScore.new(
+      game: @game,
+      user: current_user,
+      home_score: params[:home_score],
+      away_score: params[:away_score],
+      force: params[:force] == 'true',
+      resolve: params[:resolve] == 'true'
+    )
     update.perform
 
     if update.succeeded?
@@ -30,13 +37,5 @@ class Admin::GamesController < AdminController
 
   def load_game
     @game = Game.find(params[:id])
-  end
-
-  def update_params
-    update_params = params.permit(:home_score, :away_score)
-    update_params[:force] = params[:force] == 'true'
-    update_params[:resolve] = params[:resolve] == 'true'
-    update_params[:user] = current_user
-    update_params
   end
 end

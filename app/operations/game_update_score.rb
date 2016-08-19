@@ -1,4 +1,4 @@
-class UpdateGameScore < ComposableOperations::Operation
+class GameUpdateScore < ComposableOperations::Operation
   property :game, accepts: Game, required: true
   property :user, accepts: User, required: true
 
@@ -83,7 +83,7 @@ class UpdateGameScore < ComposableOperations::Operation
   end
 
   def update_pool
-    FinishPoolJob.perform_later(division: division, pool_uid: pool_uid)
+    FinishPoolJob.perform_later(division: game.division, pool_uid: game.pool)
   end
 
   def advance_bracket

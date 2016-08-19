@@ -9,7 +9,7 @@ class Admin::BulkActionsController < AdminController
   private
 
   def action
-    action_class.new(**args)
+    @action ||= action_class.new(**args)
   end
 
   def action_class

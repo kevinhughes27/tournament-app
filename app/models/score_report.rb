@@ -88,7 +88,7 @@ class ScoreReport < ApplicationRecord
     return if tournament.game_confirm_setting == 'multiple' && game.score_reports.size < 2
 
     if matches_other_reports?
-      Games::UpdateScoreJob.perform_later(
+      GameUpdateScore.perform(
         game: game,
         home_score: home_score,
         away_score: away_score,

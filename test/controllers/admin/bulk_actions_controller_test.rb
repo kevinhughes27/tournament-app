@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::BulkActionsControllerTest < ActionController::TestCase
   class BulkActions::TestAction
-    def perform(params)
+    def initialize(args)
     end
   end
 
@@ -12,9 +12,11 @@ class Admin::BulkActionsControllerTest < ActionController::TestCase
     sign_in users(:kevin)
   end
 
-  test "performs the bulk action" do
+  test "performs the action" do
     params = {tournament_id: @tournament.id, ids: ['1','2','3'], arg: 'beans'}
-    BulkActions::TestAction.expects(:perform_now).with(params)
+    mock_action = stub(perform: true, status: 200, response: '')
+    BulkActions::TestAction.expects(:new).with(params).returns(mock_action)
+
     put :perform, params: params.merge(action_class: 'test_action')
   end
 

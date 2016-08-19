@@ -6,6 +6,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
 
   setup do
     @tournament = tournaments(:blank_slate_tournament)
+    @user = users(:bob)
   end
 
   Bracket.all.each do |bracket|
@@ -14,7 +15,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
       assert division
 
       create_teams
-      division.seed
+      SeedDivision.perform(@division)
 
       play_games
 
@@ -69,13 +70,14 @@ class BracketSimulationTest < ActiveSupport::TestCase
       end
     end
   rescue Timeout::Error
-    puts "Simulation took too long"
+    raise "Simulation took too long"
   end
 
   def play_game(game)
     score = ScoreGenerator.generate
-    Games::UpdateScoreJob.perform_now(
+    GameUpdateScore.perform(
       game: game,
+      user: @user,
       home_score: score[0],
       away_score: score[1]
     )

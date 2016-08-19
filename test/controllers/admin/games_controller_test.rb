@@ -80,15 +80,15 @@ class Admin::GamesControllerTest < ActionController::TestCase
     assert_equal 2, @game.away_score
   end
 
-  # TODO make this test work
-  # test "updating scores broadcasts changes" do
-  #   put :update, params: {
-  #     id: @game.id,
-  #     home_score: 15,
-  #     away_score: 13
-  #   }, format: :json
-  #
-  #   assert_response :ok
-  #   ActionCable.server.expects(:broadcast)
-  # end
+  test "updating scores broadcasts changes" do
+    ActionCable.server.expects(:broadcast)
+
+    put :update, params: {
+      id: @game.id,
+      home_score: 15,
+      away_score: 13
+    }, format: :json
+
+    assert_response :ok
+  end
 end

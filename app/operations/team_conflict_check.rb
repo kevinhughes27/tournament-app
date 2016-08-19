@@ -1,5 +1,5 @@
 class TeamConflictCheck < ComposableOperations::Operation
-  proccesses :game
+  processes :game
   property :game, accepts: Game, required: true
 
   def execute

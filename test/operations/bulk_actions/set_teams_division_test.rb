@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module BulkActions
-  class TeamsSetDivisionJobTest < ActiveJob::TestCase
+  class SetTeamsDivisionTest < ActiveSupport::TestCase
     setup do
       @tournament = tournaments(:noborders)
       @division = divisions(:women)
@@ -10,14 +10,15 @@ module BulkActions
     test "assigns teams to divisions" do
       team = teams(:the_forgotten)
 
-      response, status = TeamsSetDivisionJob.perform_now(
+      action = SetTeamsDivision.new(
         tournament_id: @tournament.id,
         ids: [team.id],
         arg: @division.name
       )
+      action.perform
 
-      assert_equal 200, status
-      json = JSON.parse(response)
+      assert_equal 200, action.status
+      json = JSON.parse(action.response)
       assert_equal team.name, json.first["name"]
       assert_equal @division.name, json.first["division"]
       assert_equal @division, team.reload.division
@@ -26,14 +27,15 @@ module BulkActions
     test "fails if it is not safe to change divisions" do
       team = teams(:swift)
 
-      response, status = TeamsSetDivisionJob.perform_now(
+      action = SetTeamsDivision.new(
         tournament_id: @tournament.id,
         ids: [team.id],
         arg: @division.name
       )
+      action.perform
 
-      assert_equal 422, status
-      assert_equal 'Cancelled: not all teams could be updated safely', response[:message]
+      assert_equal 422, action.status
+      assert_equal 'Cancelled: not all teams could be updated safely', action.response[:message]
       refute_equal @division, team.reload.division
     end
   end

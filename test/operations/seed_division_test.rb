@@ -54,7 +54,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
 
     perform_enqueued_jobs do
       round1_games.each do |game|
-        UpdateGameScore.perform(
+        GameUpdateScore.perform(
           game: game,
           user: @user,
           home_score: 15,
@@ -66,7 +66,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
     round2_games.reload
     assert round2_games.all?{ |g| g.teams_present? }
 
-    SeedDivision.perform(division)
+    SeedDivision.perform(division, 'true')
 
     round2_games.reload
     assert round2_games.all?{ |g| not g.teams_present? }

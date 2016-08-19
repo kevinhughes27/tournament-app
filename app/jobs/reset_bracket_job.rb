@@ -7,7 +7,7 @@ class ResetBracketJob < ApplicationJob
 
       if g.confirmed?
         g.reset_score!
-        Divisions::ResetBracketJob.perform_later(game_id: g.id)
+        ResetBracketJob.perform_later(game_id: g.id)
       end
 
       g.save!
