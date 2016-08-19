@@ -5,7 +5,6 @@ class Admin::FieldsController < AdminController
 
   before_action :load_field, only: [:show, :update, :destroy]
   before_action :load_fields, only: [:index, :new, :create, :show, :update]
-  before_action :check_delete_safety, only: [:destroy]
 
   def index
   end
@@ -43,6 +42,21 @@ class Admin::FieldsController < AdminController
     @field.destroy()
     flash[:notice] = 'Field was successfully destroyed.'
     redirect_to admin_fields_path
+  end
+
+  def destroy
+    delete = FieldDelete.new(@field, params[:confirm])
+    delete.perform
+
+    if delete.succeeded?
+      flash[:notice] = 'Field was successfully destroyed.'
+      redirect_to admin_fields_path
+    elsif delete.confirmation_required?
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    else
+      flash[:error] = 'Field could not be deleted.'
+      render :show
+    end
   end
 
   def sample_csv
@@ -87,12 +101,6 @@ class Admin::FieldsController < AdminController
   end
 
   private
-
-  def check_delete_safety
-    unless params[:confirm] == 'true' || @field.safe_to_delete?
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    end
-  end
 
   def load_fields
     @fields = @tournament.fields
