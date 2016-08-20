@@ -68,7 +68,7 @@ var FilterBar = {
       type: 'PUT',
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: {
-        job: action.job,
+        action_class: action.action_class,
         ids: ids,
         arg: action.arg
       },

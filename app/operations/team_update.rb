@@ -6,9 +6,7 @@ class TeamUpdate < ComposableOperations::Operation
   property :confirm, default: false
 
   def execute
-    team.assign_attributes(params)
-
-    unless team.update_safe?
+    if update_unsafe?
       halt 'unable_to_update' if !team.allow_change?
       halt 'confirm_update' if !(confirm == 'true' || team.safe_to_change?)
     end
@@ -19,5 +17,12 @@ class TeamUpdate < ComposableOperations::Operation
 
   def confirmation_required?
     halted? && message == 'confirm_update'
+  end
+
+  private
+
+  def update_unsafe?
+    (params[:division_id] && team.division_id != params[:division_id].to_i) ||
+    (params[:seed] && team.seed != params[:seed].to_i)
   end
 end

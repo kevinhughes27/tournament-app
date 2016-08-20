@@ -19,11 +19,6 @@ class Team < ApplicationRecord
   after_destroy :unassign_games
   after_destroy :delete_score_reports
 
-  # must to be called after assign_attributes
-  def update_safe?
-    !(self.division_id_changed? || self.seed_changed?)
-  end
-
   def safe_to_change?
     !Game.where(tournament_id: tournament_id, home_id: id).exists? &&
     !Game.where(tournament_id: tournament_id, away_id: id).exists?
