@@ -1,6 +1,6 @@
 class GameUpdateScore < ComposableOperations::Operation
   property :game, accepts: Game, required: true
-  property :user, accepts: User, required: true
+  property :user, accepts: User, default: nil
 
   property :home_score, accepts: Integer, required: true, converts: :to_i
   property :away_score, accepts: Integer, required: true, converts: :to_i
@@ -17,7 +17,7 @@ class GameUpdateScore < ComposableOperations::Operation
     game.resolve_disputes! if resolve
 
     update_score
-    create_score_entry
+    create_score_entry if user
 
     # resets all pool games even if the results haven't changed
     update_pool if game.pool_game?

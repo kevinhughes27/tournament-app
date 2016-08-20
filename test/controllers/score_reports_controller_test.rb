@@ -55,25 +55,32 @@ class ScoreReportsControllerTest < ActionController::TestCase
   end
 
   test "get confirm page" do
-    get :confirm, params: { id: @token.id, token: @token.token }
+    get :confirm_get, params: { id: @token.id, token: @token.token }
     assert_response :ok
     assert_template :confirm
   end
 
   test "get confirm page without token param 404s" do
-    get :confirm, params: { id: @token.id }
+    get :confirm_get, params: { id: @token.id }
     assert_response :not_found
     assert_template 'token_not_found'
   end
 
   test "confirm a score report" do
     assert_difference "ScoreReport.count", +1 do
-      post :confirm, params: confirm_params
+      post :confirm_post, params: confirm_params
       assert_response :ok
       assert_template 'confirm_score_success'
     end
 
     assert @game.reload.score_confirmed
+  end
+
+  test "confirm a score report error" do
+    ScoreReportConfirm.any_instance.stubs(:succeeded?).returns(false)
+    post :confirm_post, params: confirm_params
+    assert_response :unprocessable_entity
+    assert_template 'confirm_score_error'
   end
 
   test "confirm a score report requires token" do
@@ -83,7 +90,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     )
 
     assert_no_difference "ScoreReport.count" do
-      post :confirm, params: params
+      post :confirm_post, params: params
       assert_response :not_found
       assert_template 'token_not_found'
     end
@@ -98,7 +105,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
 
     assert_difference "ScoreReport.count", +1 do
       assert_difference "ScoreDispute.count", +1 do
-        post :confirm, params: params
+        post :confirm_post, params: params
         assert_response :ok
         assert_template 'submit_score_success'
       end
@@ -120,7 +127,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
 
     assert_difference "ScoreReport.count", +1 do
       assert_no_difference "ScoreDispute.count" do
-        post :confirm, params: params
+        post :confirm_post, params: params
         assert_response :ok
         assert_template 'submit_score_success'
       end
