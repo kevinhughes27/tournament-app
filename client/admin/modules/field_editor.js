@@ -14,7 +14,7 @@ class FieldEditor {
     this.field = field;
     this.lat = this.field.lat || mapLat;
     this.long = this.field.long || mapLong;
-    this.geoJson = this.field.geo_json ? JSON.parse(this.field.geo_json) : null;
+    this.geoJson = this.field.geoJson ? JSON.parse(this.field.geoJson) : null;
     this.center = new LatLng(this.lat, this.long);
     this.map = Map(this.center, zoom, {}, true);
     this.historyBuffer = [];
@@ -63,9 +63,9 @@ class FieldEditor {
 
   _drawOtherField(field) {
     if(field.id == this.field.id) return;
-    if(!field.geo_json) return;
+    if(!field.geoJson) return;
 
-    let json = JSON.parse(field.geo_json);
+    let json = JSON.parse(field.geoJson);
 
     geoJson(json, {
       style: OtherFieldStyle

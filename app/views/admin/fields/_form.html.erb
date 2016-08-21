@@ -34,8 +34,8 @@
           <%= @map.zoom %>,
           <%= @map.lat %>,
           <%= @map.long %>,
-          <%= @field.to_json %>,
-          <%= @fields.to_json || [] %>
+          <%= render(template: 'admin/fields/field.json.jbuilder', locals: {field: @field}) %>,
+          <%= render(template: 'admin/fields/fields.json.jbuilder', locals: {fields: @fields}) %>
         )}">
         <div class="col-md-12">
           <div id="_map" style="width: 100%; height: 640px;"></div>
