@@ -1,7 +1,9 @@
-var _ = require('lodash'),
-    squish = require('object-squish');
+import _filter from 'lodash/filter';
+import _has from 'lodash/has';
+import _indexOf from 'lodash/indexOf';
+import squish from 'object-squish';
 
-var FilterFunction = {
+let FilterFunction = {
   componentDidMount() {
     if(!this.searchColumns) {
       this.searchColumns = []
@@ -10,12 +12,12 @@ var FilterFunction = {
   },
 
   filterFunction(results, filter) {
-    return _.filter(results, (item) => {
+    return _filter(results, (item) => {
       // filter
-      for(key in filter) {
+      for(let key in filter) {
         if(key == 'search') continue;
 
-        if(_.has(filter, key)) {
+        if(_has(filter, key)) {
           if(item[key] != filter[key]) {
             return false;
           }
@@ -23,11 +25,11 @@ var FilterFunction = {
       };
 
       // search
-      var flat = squish(item);
-      var search = filter.search;
+      let flat = squish(item);
+      let search = filter.search;
       if(search) {
         search = search.trim().toLowerCase();
-        for (var key in flat) {
+        for (let key in flat) {
           if (this._keyNotSearchable(key)) continue;
 
           if (String(flat[key]).toLowerCase().indexOf(search) >= 0) {
@@ -42,7 +44,7 @@ var FilterFunction = {
   },
 
   _keyNotSearchable(key) {
-    return _.indexOf(this.searchColumns, key) == -1
+    return _indexOf(this.searchColumns, key) == -1;
   }
 };
 

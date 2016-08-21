@@ -1,16 +1,18 @@
-var Store = require('./store');
+import Store from './store';
+import _extend from 'lodash/extend';
+import _findIndex from 'lodash/findIndex';
 
-var _games;
-var _cable;
+let _games;
+let _cable;
 
-var GamesStore = _.extend({}, Store, {
+let GamesStore = _extend({}, Store, {
   init(games){
     _games = games;
 
     _cable = UT.cable.subscriptions.create("GamesChannel", {
       received: function(data) {
-        var game = JSON.parse(data);
-        var scroll = window.scrollY;
+        let game = JSON.parse(data);
+        let scroll = window.scrollY;
         GamesStore.updateGame(game);
         window.scrollTo(0, scroll);
       }
@@ -22,12 +24,12 @@ var GamesStore = _.extend({}, Store, {
   },
 
   saveReportsState(game, state) {
-    var idx = findGameIdx(game);
+    let idx = findGameIdx(game);
     _games[idx].reportsOpen = state;
   },
 
   updateGame(game) {
-    var idx = findGameIdx(game);
+    let idx = findGameIdx(game);
     if(idx == -1) { return; }
 
     if(_games[idx].has_dispute && !game.has_dispute) {
@@ -38,22 +40,22 @@ var GamesStore = _.extend({}, Store, {
       updateSidebarBadge();
     }
 
-    _.extend(_games[idx], game);
+    _extend(_games[idx], game);
     this.emitChange();
   }
 });
 
-var findGameIdx = function(game) {
-  var idx = _.findIndex(_games, function(g) {
+let findGameIdx = function(game) {
+  let idx = _findIndex(_games, function(g) {
     return g.id == game.id;
   });
 
   return idx;
 };
 
-var updateSidebarBadge = function() {
-  var $node = $('#games-badge');
-  var count = parseInt($node.text());
+let updateSidebarBadge = function() {
+  let $node = $('#games-badge');
+  let count = parseInt($node.text());
   count = count - 1;
   if(count == 0) {
     $node.hide();

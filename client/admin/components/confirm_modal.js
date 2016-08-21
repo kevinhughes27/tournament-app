@@ -1,8 +1,7 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Modal = require('react-bootstrap').Modal,
-    confirmable = require('react-confirm').confirmable,
-    createConfirmation = require('react-confirm').createConfirmation;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Modal} from 'react-bootstrap';
+import {confirmable, createConfirmation} from 'react-confirm';
 
 const ConfirmModal = React.createClass({
   render() {

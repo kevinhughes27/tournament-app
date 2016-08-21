@@ -1,17 +1,27 @@
-var _ = require('lodash'),
-    React = require('react'),
-    squish = require('object-squish'),
-    queryString = require('query-string'),
-    setQuery = require('set-query-string'),
-    FormGroup = require('react-bootstrap').FormGroup,
-    InputGroup = require('react-bootstrap').InputGroup,
-    FormControl = require('react-bootstrap').FormControl,
-    Dropdown = require('react-bootstrap').Dropdown,
-    MenuItem = require('react-bootstrap').MenuItem,
-    TeamsStore = require('../stores/teams_store'),
-    LoadingMixin = require('../mixins/loading_mixin');
+import _map from 'lodash/map';
+import _each from 'lodash/each';
+import _omit from 'lodash/omit';
+import _forOwn from 'lodash/forOwn';
+import _find from 'lodash/find';
+import _keys from 'lodash/keys';
 
-var FilterBar = {
+import React from 'react';
+import squish from 'object-squish';
+import queryString from 'query-string';
+import setQuery from 'set-query-string';
+
+import {
+  FormGroup,
+  InputGroup,
+  FormControl,
+  Dropdown,
+  MenuItem
+} from 'react-bootstrap';
+
+import TeamsStore from '../stores/teams_store';
+import LoadingMixin from '../mixins/loading_mixin';
+
+let FilterBar = {
   mixins: [LoadingMixin],
 
   getDefaultProps() {
@@ -38,7 +48,7 @@ var FilterBar = {
   },
 
   searchChange(event) {
-    var value = event.target.value;
+    let value = event.target.value;
 
     if(value == '') {
       delete this.props.query['search']
@@ -61,7 +71,7 @@ var FilterBar = {
 
   performAction(action) {
     this._startLoading();
-    var ids = _.map(TeamsStore.selected(), function(t) { return t.id });
+    let ids = _map(TeamsStore.selected(), function(t) { return t.id });
 
     $.ajax({
       url: 'bulk_action',
@@ -74,12 +84,12 @@ var FilterBar = {
       },
       success: (response) => {
         this._finishLoading();
-        _.each(response, function(team) { TeamsStore.updateTeam(team) });
+        _each(response, function(team) { TeamsStore.updateTeam(team) });
         Admin.Flash.notice(action.success_msg);
       },
       error: (response) => {
         this._finishLoading();
-        var message = response.responseJSON.message || action.failure_msg;
+        let message = response.responseJSON.message || action.failure_msg;
         Admin.Flash.error(message);
       }
     });
@@ -134,11 +144,11 @@ var FilterBar = {
   },
 
   renderBar() {
-    var searchValue = this.props.query.search;
-    var currentFilters = _.omit(this.props.query, 'search');
-    var filterNames = {};
-    _.forOwn(currentFilters, (value, key) => {
-      var f = _.find(this.filters, function(f) { return f.key == key && f.value == value });
+    let searchValue = this.props.query.search;
+    let currentFilters = _omit(this.props.query, 'search');
+    let filterNames = {};
+    _forOwn(currentFilters, (value, key) => {
+      let f = _find(this.filters, function(f) { return f.key == key && f.value == value });
       filterNames[key] = f.text;
     });
 
@@ -158,7 +168,7 @@ var FilterBar = {
           </InputGroup>
         </FormGroup>
         <div className="btn-toolbar">
-          { _.keys(currentFilters).map((key, idx) => {
+          { _keys(currentFilters).map((key, idx) => {
             return <Filter
               key={idx}
               filterKey={key}
@@ -172,9 +182,9 @@ var FilterBar = {
   }
 };
 
-var Filter = React.createClass({
+let Filter = React.createClass({
   clickHandler() {
-    var filterKey = this.props.filterKey;
+    let filterKey = this.props.filterKey;
     this.props.deleteFilter(filterKey);
   },
 

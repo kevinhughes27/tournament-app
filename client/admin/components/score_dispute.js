@@ -1,10 +1,10 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    UpdateScoreModal = require('./update_score_modal');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import UpdateScoreModal from './update_score_modal';
 
-var ScoreDispute = React.createClass({
+let ScoreDispute = React.createClass({
   render() {
-    var game = this.props.game;
+    let game = this.props.game;
 
     return (
       <div className="alert alert-warning" style={{paddingBottom: '47px'}}>

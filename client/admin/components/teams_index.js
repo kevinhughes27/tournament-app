@@ -1,12 +1,12 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Griddle = require('griddle-react'),
-    FilterBar = require('../mixins/filter_bar'),
-    FilterFunction = require('../mixins/filter_function'),
-    LinkCell = require('./link_cell'),
-    TeamsStore = require('../stores/teams_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Griddle from 'griddle-react';
+import FilterBar from '../mixins/filter_bar';
+import FilterFunction from '../mixins/filter_function';
+import LinkCell from './link_cell';
+import TeamsStore from '../stores/teams_store';
 
-var columns = [
+const columns = [
   "id",
   "name",
   "email",
@@ -15,16 +15,16 @@ var columns = [
   "seed"
 ];
 
-var SelectCell = React.createClass({
+let SelectCell = React.createClass({
   handleChange(ev) {
-    var team = this.props.rowData;
-    var selected = ev.target.checked;
+    let team = this.props.rowData;
+    let selected = ev.target.checked;
     TeamsStore.saveSelectedState(team, selected);
   },
 
   render() {
-    var teamId = this.props.data;
-    var selected = this.props.rowData.selected;
+    let teamId = this.props.data;
+    let selected = this.props.rowData.selected;
 
     return (
       <input
@@ -37,7 +37,7 @@ var SelectCell = React.createClass({
   }
 });
 
-var SelectCellHeader = React.createClass({
+let SelectCellHeader = React.createClass({
   getInitialState() {
     return {
       allChecked: false
@@ -45,7 +45,7 @@ var SelectCellHeader = React.createClass({
   },
 
   _selectAll() {
-    var allChecked = !this.state.allChecked;
+    let allChecked = !this.state.allChecked;
     this.setState({ allChecked: allChecked });
     TeamsStore.setSelected(allChecked);
   },
@@ -55,7 +55,7 @@ var SelectCellHeader = React.createClass({
   }
 });
 
-var columnsMeta = [
+const columnsMeta = [
   {
     columnName: "id",
     order: 1,
@@ -99,14 +99,15 @@ var columnsMeta = [
   },
 ];
 
-var TeamsIndex = React.createClass({
+let TeamsIndex = React.createClass({
   mixins: [FilterFunction],
 
   getInitialState() {
-    var teams = JSON.parse(this.props.teams);
+    let teams = JSON.parse(this.props.teams);
     TeamsStore.init(teams);
 
     this.searchColumns = this.props.searchColumns;
+
     this.teamsFilter = React.createClass({
       mixins: [FilterBar],
       filters: this.props.filters,
@@ -134,7 +135,7 @@ var TeamsIndex = React.createClass({
   },
 
   render() {
-    var teams = this.state.teams;
+    let teams = this.state.teams;
 
     return (
       <Griddle

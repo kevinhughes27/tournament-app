@@ -1,24 +1,24 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Griddle = require('griddle-react'),
-    FilterBar = require('../mixins/filter_bar'),
-    FilterFunction = require('../mixins/filter_function'),
-    LinkCell = require('./link_cell'),
-    DivisionsStore = require('../stores/divisions_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Griddle from 'griddle-react';
+import FilterBar from '../mixins/filter_bar';
+import FilterFunction from '../mixins/filter_function';
+import LinkCell from './link_cell';
+import DivisionsStore from '../stores/divisions_store';
 
-var columns = [
+const columns = [
   "name",
   "bracket",
   "teams_count",
   "seeded"
 ];
 
-var TeamsCell = React.createClass({
+let TeamsCell = React.createClass({
   render() {
-    var division = this.props.rowData;
-    var teamCount = division.teams_count;
-    var numTeams = division.num_teams;
-    var color;
+    let division = this.props.rowData;
+    let teamCount = division.teams_count;
+    let numTeams = division.num_teams;
+    let color;
 
     if(teamCount == numTeams) {
       color = "green";
@@ -36,14 +36,14 @@ var TeamsCell = React.createClass({
   }
 });
 
-var SeededCell = React.createClass({
+let SeededCell = React.createClass({
   render() {
-    var division = this.props.rowData;
-    var seeded = division.seeded;
-    var dirtySeed = division.dirty_seed;
+    let division = this.props.rowData;
+    let seeded = division.seeded;
+    let dirtySeed = division.dirty_seed;
 
-    var iconClass;
-    var iconColor;
+    let iconClass;
+    let iconColor;
 
     if(seeded && !dirtySeed) {
       iconClass = "fa fa-check";
@@ -63,7 +63,7 @@ var SeededCell = React.createClass({
 });
 
 
-var columnsMeta = [
+const columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
@@ -90,11 +90,11 @@ var columnsMeta = [
   }
 ];
 
-var DivisionsIndex = React.createClass({
+let DivisionsIndex = React.createClass({
   mixins: [FilterFunction],
 
   getInitialState() {
-    var divisions = JSON.parse(this.props.divisions);
+    let divisions = JSON.parse(this.props.divisions);
     DivisionsStore.init(divisions);
 
     this.searchColumns = this.props.searchColumns;
@@ -112,7 +112,7 @@ var DivisionsIndex = React.createClass({
   },
 
   render() {
-    var divisions = this.state.divisions;
+    let divisions = this.state.divisions;
 
     return (
       <Griddle

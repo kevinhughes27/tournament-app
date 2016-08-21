@@ -1,8 +1,12 @@
-var Store = require('./store');
+import Store from './store';
+import _extend from 'lodash/extend';
+import _each from 'lodash/each';
+import _filter from 'lodash/filter';
+import _findIndex from 'lodash/findIndex';
 
-var _teams;
+let _teams;
 
-var TeamsStore = _.extend({}, Store, {
+let TeamsStore = _extend({}, Store, {
   init(teams) {
     _teams = teams;
   },
@@ -12,30 +16,30 @@ var TeamsStore = _.extend({}, Store, {
   },
 
   selected() {
-    return _.filter(_teams, function(t) { return t.selected });
+    return _filter(_teams, function(t) { return t.selected });
   },
 
   saveSelectedState(team, state) {
-    var idx = this._findTeamIdx(team);
+    let idx = this._findTeamIdx(team);
     _teams[idx].selected = state;
     this.emitChange();
   },
 
   setSelected(state) {
-    _.each(_teams, function(t) {
+    _each(_teams, function(t) {
       t.selected = state;
     });
     this.emitChange();
   },
 
   updateTeam(team) {
-    var idx = this._findTeamIdx(team);
+    let idx = this._findTeamIdx(team);
     _teams[idx] = team;
     this.emitChange();
   },
 
   _findTeamIdx(team) {
-    var idx = _.findIndex(_teams, function(t) {
+    let idx = _findIndex(_teams, function(t) {
       return t.id == team.id;
     });
 

@@ -1,12 +1,11 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Collapse = require('react-bootstrap').Collapse,
-    Modal = require('react-bootstrap').Modal,
-    classNames = require('classnames'),
-    confirm = require('./confirm'),
-    LoadingMixin = require('../mixins/loading_mixin');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Collapse, Modal} from 'react-bootstrap';
+import classNames from 'classnames';
+import confirm from './confirm';
+import LoadingMixin from '../mixins/loading_mixin'
 
-var UpdateScoreModal = React.createClass({
+let UpdateScoreModal = React.createClass({
   mixins: [LoadingMixin],
 
   getDefaultProps() {
@@ -17,7 +16,7 @@ var UpdateScoreModal = React.createClass({
   },
 
   getInitialState() {
-    var game = this.props.game;
+    let game = this.props.game;
 
     return {
       show: false,
@@ -38,7 +37,7 @@ var UpdateScoreModal = React.createClass({
   },
 
   opened() {
-    var game = this.props.game;
+    let game = this.props.game;
 
     this.setState({
       homeScore: game.home_score,
@@ -56,7 +55,7 @@ var UpdateScoreModal = React.createClass({
   },
 
   updateScore(force = false) {
-    var gameId = this.props.game.id;
+    let gameId = this.props.game.id;
     this._startLoading();
 
     $.ajax({
@@ -104,10 +103,8 @@ var UpdateScoreModal = React.createClass({
   },
 
   render() {
-    var game = this.props.game;
-    var btnClasses = classNames('btn', 'btn-primary', {'is-loading': this.state.isLoading});
-    var linkText = this.props.linkText;
-    var linkClass = this.props.linkClass;
+    let {game, linkText, linkClass} = this.props;
+    let btnClasses = classNames('btn', 'btn-primary', {'is-loading': this.state.isLoading});
 
     return (
       <div>

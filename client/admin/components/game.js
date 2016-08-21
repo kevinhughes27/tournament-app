@@ -1,15 +1,15 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Collapse = require('react-bootstrap').Collapse,
-    classNames = require('classnames'),
-    ScoreReports = require('./score_reports'),
-    ScoreDispute = require('./score_dispute'),
-    UpdateScoreModal = require('./update_score_modal'),
-    GamesStore = require('../stores/games_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Collapse} from 'react-bootstrap';
+import classNames from 'classnames';
+import ScoreReports from './score_reports';
+import ScoreDispute from './score_dispute';
+import UpdateScoreModal from './update_score_modal';
+import GamesStore from '../stores/games_store';
 
 exports.NameCell = React.createClass({
   getInitialState() {
-    var game = this.props.rowData;
+    let game = this.props.rowData;
 
     return {
       reportsOpen: game.reportsOpen || false
@@ -18,16 +18,16 @@ exports.NameCell = React.createClass({
 
   _toggleCollapse(e) {
     e.nativeEvent.preventDefault();
-    var game = this.props.rowData;
-    var state = !this.state.reportsOpen;
+    let game = this.props.rowData;
+    let state = !this.state.reportsOpen;
 
     GamesStore.saveReportsState(game, state);
     this.setState({ reportsOpen: state });
   },
 
   renderReportsBadge(game) {
-    var badgeText;
-    var reportCount = game.score_reports.length;
+    let badgeText;
+    let reportCount = game.score_reports.length;
 
     // if the game is not confirmed but there is a report
     // then we know we need 2 reports
@@ -72,11 +72,11 @@ exports.NameCell = React.createClass({
   },
 
   render() {
-    var game = this.props.rowData;
-    var reports = game.score_reports;
+    let game = this.props.rowData;
+    let reports = game.score_reports;
 
     if (reports.length == 0) {
-      var nameClasses = classNames({'subdued': !game.has_teams});
+      let nameClasses = classNames({'subdued': !game.has_teams});
       return( <span className={nameClasses}>{game.name}</span> );
     };
 
@@ -98,13 +98,13 @@ exports.NameCell = React.createClass({
 
 exports.ScoreCell = React.createClass({
   render() {
-    var game = this.props.rowData;
+    let game = this.props.rowData;
 
     if (!game.has_teams) {
       return(<div></div>);
     };
 
-    var text;
+    let text;
     if(game.confirmed) {
       text = `${game.home_score} - ${game.away_score}`;
     } else {

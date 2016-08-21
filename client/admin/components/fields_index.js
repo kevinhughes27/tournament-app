@@ -1,18 +1,18 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Griddle = require('griddle-react'),
-    FilterBar = require('../mixins/filter_bar'),
-    FilterFunction = require('../mixins/filter_function'),
-    LinkCell = require('./link_cell'),
-    FieldsStore = require('../stores/fields_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Griddle from 'griddle-react';
+import FilterBar from '../mixins/filter_bar';
+import FilterFunction from '../mixins/filter_function';
+import LinkCell from './link_cell';
+import FieldsStore from '../stores/fields_store';
 
-var columns = [
+const columns = [
   "name",
   "lat",
   "long"
 ];
 
-var columnsMeta = [
+const columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
@@ -34,11 +34,11 @@ var columnsMeta = [
   }
 ];
 
-var FieldsIndex = React.createClass({
+let FieldsIndex = React.createClass({
   mixins: [FilterFunction],
 
   getInitialState() {
-    var fields = JSON.parse(this.props.fields);
+    let fields = JSON.parse(this.props.fields);
     FieldsStore.init(fields);
 
     this.searchColumns = this.props.searchColumns;
@@ -56,7 +56,7 @@ var FieldsIndex = React.createClass({
   },
 
   render() {
-    var fields = this.state.fields;
+    let fields = this.state.fields;
 
     return (
       <Griddle

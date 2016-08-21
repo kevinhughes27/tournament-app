@@ -1,8 +1,9 @@
-var Store = require('./store');
+import Store from './store';
+import _extend from 'lodash/extend';
 
-var _divisions;
+let _divisions;
 
-var DivisionsStore = _.extend({}, Store, {
+let DivisionsStore = _extend({}, Store, {
   init(divisions){
     _divisions = divisions;
   },

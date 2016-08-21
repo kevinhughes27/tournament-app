@@ -1,4 +1,4 @@
-var LoadingMixin = {
+let LoadingMixin = {
   getInitialState() {
     return {
       isLoading: false

@@ -1,20 +1,20 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Griddle = require('griddle-react'),
-    FilterBar = require('../mixins/filter_bar'),
-    FilterFunction = require('../mixins/filter_function'),
-    NameCell = require('./game').NameCell,
-    ScoreCell = require('./game').ScoreCell,
-    GamesStore = require('../stores/games_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Griddle from 'griddle-react';
+import FilterBar from '../mixins/filter_bar';
+import FilterFunction from '../mixins/filter_function';
+import _some from 'lodash/some';
+import {NameCell, ScoreCell} from './game';
+import GamesStore from '../stores/games_store';
 
-var columns = [
+const columns = [
   "name",
   "division",
   "pool",
   "confirmed",
 ];
 
-var columnsMeta = [
+const columnsMeta = [
   {
     columnName: "name",
     displayName: "Game",
@@ -44,10 +44,10 @@ var columnsMeta = [
   }
 ];
 
-var rowMetadata = {
+let rowMetadata = {
   bodyCssClassName: function(rowData) {
-    var game = rowData;
-    var sotgWarning = _.some(game.score_reports, function(report){ return report.sotg_warning });
+    let game = rowData;
+    let sotgWarning = _some(game.score_reports, function(report){ return report.sotg_warning });
 
     if(sotgWarning) {
       return 'warning';
@@ -57,11 +57,11 @@ var rowMetadata = {
   }
 };
 
-var GamesIndex = React.createClass({
+let GamesIndex = React.createClass({
   mixins: [FilterFunction],
 
   getInitialState() {
-    var games = JSON.parse(this.props.games);
+    let games = JSON.parse(this.props.games);
     GamesStore.init(games);
 
     this.searchColumns = this.props.searchColumns;
@@ -93,7 +93,7 @@ var GamesIndex = React.createClass({
   },
 
   render() {
-    var games = this.state.games;
+    let games = this.state.games;
 
     return (
       <Griddle
