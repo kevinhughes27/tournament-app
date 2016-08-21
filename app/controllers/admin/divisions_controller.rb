@@ -1,8 +1,5 @@
 class Admin::DivisionsController < AdminController
   before_action :load_division, only: [:show, :edit, :update, :destroy, :update_teams, :seed]
-  before_action :check_update_safety, only: [:update]
-  before_action :check_seed_safety, only: [:seed]
-  before_action :check_delete_safety, only: [:destroy]
 
   def index
     @divisions = @tournament.divisions.includes(:teams, games: [:home, :away])
@@ -31,77 +28,65 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    @division.update(division_params)
-    if @division.errors.present?
-      flash[:error] = 'Division could not be updated.'
-      render :edit
-    else
+    update = DivisionUpdate.new(@division, division_params, params[:confirm])
+    update.perform
+
+    if update.succeeded?
       flash[:notice] = 'Division was successfully updated.'
       redirect_to admin_division_path(@division)
+    elsif update.confirmation_required?
+      render partial: 'confirm_update', status: :unprocessable_entity
+    else
+      flash[:error] = 'Division could not be updated.'
+      render :edit
     end
   end
 
   def destroy
-    @division.destroy()
-    flash[:notice] = 'Division was successfully destroyed.'
-    redirect_to admin_divisions_path
+    delete = DivisionDelete.new(@division, params[:confirm])
+    delete.perform
+
+    if delete.succeeded?
+      flash[:notice] = 'Division was successfully destroyed.'
+      redirect_to admin_divisions_path
+    elsif delete.confirmation_required?
+      render partial: 'confirm_delete', status: :unprocessable_entity
+    else
+      flash[:error] = 'Division could not be deleted.'
+      render :show
+    end
   end
 
   def seed
     if request.post?
-      begin
-        @division.seed
+      seed = SeedDivision.new(@division)
+      seed.perform
+
+      if seed.succeeded?
         flash[:notice] = 'Division seeded'
         redirect_to admin_division_path(@division)
-      rescue => error
-        flash[:error] = error.message
+      elsif seed.confirmation_required?
+        render partial: 'confirm_seed', status: :unprocessable_entity
+      else
+        flash[:error] = seed.message
         render :seed
       end
     end
   end
 
   def update_teams
-    team_ids = params[:team_ids]
-    @teams = @division.teams
+    update = UpdateTeamSeeds.new(@division, params[:team_ids], params[:seeds])
+    update.perform
 
-    Team.transaction do
-      team_ids.each_with_index do |team_id, idx|
-        team = @teams.detect { |t| t.id == team_id.to_i}
-        team.assign_attributes(seed: params[:seeds][idx])
-        raise if team.seed_changed? && !team.allow_change?
-        team.save!
-      end
+    if update.succeeded?
+      flash.now[:notice] = 'Seeds updated'
+      render :seed
+    else
+      render partial: 'unable_to_update_teams', status: :not_allowed
     end
-
-    flash.now[:notice] = 'Seeds updated'
-    render :seed
-  rescue => e
-    render partial: 'unable_to_update_teams', status: :not_allowed
   end
 
   private
-
-  def check_update_safety
-    @division.assign_attributes(division_params)
-
-    # this is correct since as long as we don't render we continue
-    # with the controller action
-    if !(params[:confirm] == 'true' || @division.safe_to_change?)
-      render partial: 'confirm_update', status: :unprocessable_entity
-    end
-  end
-
-  def check_seed_safety
-    unless params[:confirm] == 'true' || @division.safe_to_seed?
-      render partial: 'confirm_seed', status: :unprocessable_entity
-    end
-  end
-
-  def check_delete_safety
-    unless params[:confirm] == 'true' || @division.safe_to_delete?
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    end
-  end
 
   def load_division
     @division = @tournament.divisions.includes(:teams, games: [:home, :away]).find(params[:id])

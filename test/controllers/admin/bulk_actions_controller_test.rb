@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class Admin::BulkActionsControllerTest < ActionController::TestCase
-  class BulkActions::TestJob
-    def perform_now(params)
+  class BulkActions::TestAction
+    def initialize(args)
     end
   end
 
@@ -12,17 +12,19 @@ class Admin::BulkActionsControllerTest < ActionController::TestCase
     sign_in users(:kevin)
   end
 
-  test "queues the bulk action job" do
+  test "performs the action" do
     params = {tournament_id: @tournament.id, ids: ['1','2','3'], arg: 'beans'}
-    BulkActions::TestJob.expects(:perform_now).with(params)
-    put :perform, params: params.merge(job: 'test')
+    mock_action = stub(perform: true, status: 200, response: '')
+    BulkActions::TestAction.expects(:new).with(params).returns(mock_action)
+
+    put :perform, params: params.merge(action_class: 'test_action')
   end
 
-  test "with missing job" do
+  test "with missing action" do
     Rollbar.expects(:error) do |error|
       assert error.is_a?(Admin::BulkActionsController::MissingActionError)
     end
 
-    put :perform, params: {job: 'missing'}
+    put :perform, params: {action_class: 'missing'}
   end
 end

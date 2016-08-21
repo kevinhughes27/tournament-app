@@ -24,10 +24,6 @@ class Division < ApplicationRecord
 
   scope :un_seeded, -> { where(seeded: false) }
 
-  class InvalidNumberOfTeams < StandardError; end
-  class InvalidSeedRound < StandardError; end
-  class AmbiguousSeedList < StandardError; end
-
   def bracket
     @bracket ||= Bracket.find_by(handle: self.bracket_type)
   end
@@ -37,16 +33,14 @@ class Division < ApplicationRecord
   end
 
   def dirty_seed?
-    Divisions::DirtySeedJob.perform_now(division: self)
-  end
-
-  def seed(seed_round = 1)
-    Divisions::SeedJob.perform_now(division: self, seed_round: seed_round)
+    DirtySeedCheck.perform(self)
   end
 
   def safe_to_change?
     return true unless self.bracket_type_changed?
-    safe, @change_message = Divisions::SafeToUpdateBracketJob.perform_now(division: self)
+    check = SafeToUpdateBracketCheck.new(self)
+    @change_message = check.message
+    safe = check.succeeded?
     safe
   end
 
@@ -61,7 +55,7 @@ class Division < ApplicationRecord
   private
 
   def create_games
-    Divisions::CreateGamesJob.perform_later(
+    CreateGamesJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       template: bracket.template
@@ -69,7 +63,7 @@ class Division < ApplicationRecord
   end
 
   def create_places
-    Divisions::CreatePlacesJob.perform_later(
+    CreatePlacesJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       template: bracket.template
@@ -82,7 +76,7 @@ class Division < ApplicationRecord
 
     bracket = Bracket.find_by(handle: self.bracket_type)
 
-    Divisions::ChangeBracketJob.perform_later(
+    ChangeBracketJob.perform_later(
       tournament_id: tournament_id,
       division_id: id,
       new_template: bracket.template

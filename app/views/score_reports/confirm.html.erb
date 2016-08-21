@@ -4,24 +4,24 @@
 
 <div id="score-form" class="content">
   <%= form_tag app_confirm_path, method: :post do |form| %>
-    <%= hidden_field_tag 'token', @confirm_token.token %>
-    <%= hidden_field_tag 'game_id', @report.game_id %>
-    <%= hidden_field_tag 'team_id', @report.other_team.id %>
+    <%= hidden_field_tag 'token', confirm_token.token %>
+    <%= hidden_field_tag 'game_id', report.game_id %>
+    <%= hidden_field_tag 'team_id', report.other_team.id %>
     <%= hidden_field_tag 'submitter_fingerprint' %>
 
     <div class="score-labels">
       <div class="form-grid">
-        <%= label_tag 'team_score', @report.other_team.name, class: "score-label" %>
+        <%= label_tag 'team_score', report.other_team.name, class: "score-label" %>
       </div>
       <div class="form-grid form-grid-spacer"></div>
       <div class="form-grid">
-        <%= label_tag 'opponent_score', @report.team.name, class: "score-label" %>
+        <%= label_tag 'opponent_score', report.team.name, class: "score-label" %>
       </div>
     </div>
 
     <div class="score-inputs">
       <div class="form-grid">
-        <%= number_field_tag 'team_score', @report.opponent_score, class: "score-input" %>
+        <%= number_field_tag 'team_score', report.opponent_score, class: "score-input" %>
       </div>
 
       <div class="form-grid form-grid-spacer">
@@ -29,13 +29,13 @@
       </div>
 
       <div class="form-grid">
-        <%= number_field_tag 'opponent_score', @report.team_score, class: "score-input" %>
+        <%= number_field_tag 'opponent_score', report.team_score, class: "score-input" %>
       </div>
     </div>
 
     <header class="content-padded center">
       <h3>Spirit of the game score</h3>
-      <p>Your whole team should be involved in rating team <%= @report.team.name %></p>
+      <p>Your whole team should be involved in rating team <%= report.team.name %></p>
     </header>
     <br>
     <div class="content-padded">

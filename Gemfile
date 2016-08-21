@@ -14,6 +14,7 @@ gem 'jbuilder'
 gem 'wicked_pdf'
 gem 'browser-timezone-rails'
 gem 'config'
+gem 'composable_operations'
 
 # model gems
 gem 'bracket_db', path: 'lib/bracket_db'
@@ -64,14 +65,17 @@ group :production do
 end
 
 group :development, :test do
-  gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
-  gem 'byebug'
+  gem 'pry'
+  gem 'pry-byebug', '1.3.3' #https://github.com/deivid-rodriguez/pry-byebug/issues/33
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'teaspoon'
   gem 'teaspoon-jasmine'
   gem 'teaspoon-bundle', '~> 0.1.3'
+  gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
 
 group :circleci do

@@ -19,11 +19,6 @@ class Team < ApplicationRecord
   after_destroy :unassign_games
   after_destroy :delete_score_reports
 
-  # intended to be called after assign_attributes
-  def update_safe?
-    !(self.division_id_changed? || self.seed_changed?)
-  end
-
   def safe_to_change?
     !Game.where(tournament_id: tournament_id, home_id: id).exists? &&
     !Game.where(tournament_id: tournament_id, away_id: id).exists?
@@ -39,14 +34,14 @@ class Team < ApplicationRecord
   private
 
   def unassign_games
-    Teams::UnassignGamesJob.perform_later(
+    UnassignGamesJob.perform_later(
       tournament_id: tournament_id,
       team_id: id
     )
   end
 
   def delete_score_reports
-    Teams::DeleteScoreReportsJob.perform_later(
+    DeleteScoreReportsJob.perform_later(
       tournament_id: tournament_id,
       team_id: id
     )

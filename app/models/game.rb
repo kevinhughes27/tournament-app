@@ -204,8 +204,8 @@ class Game < ApplicationRecord
   def validate_team_conflict
     return if start_time.blank?
     return unless start_time_changed?
-    checker = TeamConflictChecker.new(self)
-    errors.add(:base, checker.message) if checker.conflict?
+    check = TeamConflictCheck.new(self)
+    errors.add(:base, check.message) if check.perform
   end
 
   def validate_schedule_conflicts

@@ -1,50 +1,55 @@
 class ScoreReportsController < ApplicationController
   include LoadTournament
 
-  before_action :load_confirm_token, only: [:confirm]
+  before_action :load_token, only: [:confirm_get, :confirm_post]
 
   layout 'app'
 
   def submit
-    report = ScoreReport.new(score_report_params)
-    if report.save
+    create = ScoreReportCreate.new(
+      report_params,
+      @tournament.game_confirm_setting
+    )
+    create.perform
+
+    if create.succeeded?
       render json: true
     else
-      render json: report.errors.full_messages, status: :unprocessable_entity
+      render json: create.errors, status: :unprocessable_entity
     end
   end
 
-  def confirm
-    if request.post?
-      ScoreReport.create!(
-        score_report_params.merge(is_confirmation: is_confirmation)
-      )
-      render is_confirmation ? 'confirm_score_success' : 'submit_score_success'
+  def confirm_get
+    @report = @token.score_report
+    render 'confirm', locals: {confirm_token: @token, report: @report}
+  end
+
+  def confirm_post
+    confirm = ScoreReportConfirm.new(
+      @token,
+      report_params,
+      @tournament.game_confirm_setting
+    )
+    confirm.perform
+
+    if confirm.succeeded?
+      render confirm.agrees? ? 'confirm_score_success' : 'submit_score_success'
     else
-      @report = @confirm_token.score_report
+      render 'confirm_score_error', status: :unprocessable_entity
     end
   end
 
   private
 
-  def load_confirm_token
-    @confirm_token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])
-    if @confirm_token.blank?
+  def load_token
+    @token = ScoreReportConfirmToken.find_by(id: params[:id], token: params[:token])
+    if @token.blank?
       render 'token_not_found', status: :not_found
     end
   end
 
-  def is_confirmation
-    @is_confirmation ||= begin
-      first_report = @confirm_token.score_report
-
-      first_report.opponent_score.to_s == score_report_params[:team_score] &&
-      first_report.team_score.to_s == score_report_params[:opponent_score]
-    end
-  end
-
-  def score_report_params
-    @score_report_params ||= params.permit(
+  def report_params
+    @report_params ||= params.permit(
       :game_id,
       :team_id,
       :submitter_fingerprint,
@@ -58,7 +63,7 @@ class ScoreReportsController < ApplicationController
       :comments,
     )
 
-    @score_report_params[:tournament_id] = @tournament.id
-    @score_report_params
+    @report_params[:tournament_id] = @tournament.id
+    @report_params
   end
 end

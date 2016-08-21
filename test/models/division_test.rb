@@ -50,11 +50,6 @@ class DivisionTest < ActiveSupport::TestCase
     assert teams.reload.all? { |team| team.division.nil? }
   end
 
-  test "seed enqueues job" do
-    Divisions::SeedJob.expects(:perform_now)
-    @division.seed(1)
-  end
-
   test "dirty_seed?" do
     type = 'single_elimination_8'
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
@@ -63,7 +58,7 @@ class DivisionTest < ActiveSupport::TestCase
     refute division.seeded?
     assert division.dirty_seed?
 
-    division.seed
+    SeedDivision.perform(division)
 
     assert division.seeded?
     refute division.dirty_seed?
@@ -87,7 +82,7 @@ class DivisionTest < ActiveSupport::TestCase
     division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
     @teams.update_all(division_id: division.id)
 
-    division.seed
+    SeedDivision.perform(division)
 
     assert division.seeded?
 

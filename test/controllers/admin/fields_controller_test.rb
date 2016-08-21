@@ -109,6 +109,8 @@ class Admin::FieldsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/fields.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_fields_path
+      assert_equal 'Fields imported successfully', flash[:notice]
     end
   end
 
@@ -118,6 +120,8 @@ class Admin::FieldsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/fields.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_fields_path
+      assert_equal 'Fields imported successfully', flash[:notice]
     end
 
     assert_no_difference "Field.count" do
@@ -125,6 +129,8 @@ class Admin::FieldsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/fields.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_fields_path
+      assert_equal 'Fields imported successfully', flash[:notice]
     end
   end
 
@@ -136,6 +142,8 @@ class Admin::FieldsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/fields.csv','text/csv'),
         match_behaviour: 'update'
       }
+      assert_redirected_to admin_fields_path
+      assert_equal 'Fields imported successfully', flash[:notice]
     end
   end
 
@@ -145,6 +153,8 @@ class Admin::FieldsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/fields-extra.csv','text/csv'),
         match_behaviour: 'ignore'
       }
+      assert_redirected_to admin_fields_path
+      assert_equal 'Fields imported successfully', flash[:notice]
     end
   end
 
@@ -154,7 +164,9 @@ class Admin::FieldsControllerTest < ActionController::TestCase
         csv_file: fixture_file_upload('files/fields-bad-row.csv','text/csv'),
         match_behaviour: 'ignore'
       }
-      # assert that some sort of error is shown or flashed
+      assert_redirected_to admin_fields_path
+      assert_equal 'Error importing fields', flash[:alert]
+      assert_equal "Row: 7 Validation failed: Name can't be blank", flash[:import_error]
     end
   end
 
