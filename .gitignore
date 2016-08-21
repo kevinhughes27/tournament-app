@@ -9,7 +9,7 @@
 
 # ignore local node modules
 *node_modules*
-npm-debug.log
+*npm-debug.log*
 
 # Ignore all logfiles and tempfiles.
 /log/*

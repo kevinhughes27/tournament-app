@@ -10,8 +10,6 @@
 
 //= require moment
 //= require underscore
-//= require leaflet
-//= require vendor/Leaflet.Editable
 //= require d3
 //= require tether
 //= require tether-drop

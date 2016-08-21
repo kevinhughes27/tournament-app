@@ -15,3 +15,11 @@ ReactOnRails.register({
   GamesIndex,
   ReportsIndex
 });
+
+// non-component modules
+import FieldEditor from './modules/field_editor';
+import MapForm from './modules/map_form';
+
+window.Admin = {};
+window.Admin.FieldEditor = FieldEditor;
+window.Admin.MapForm = MapForm;
