@@ -19,7 +19,7 @@ class Admin::DivisionsController < AdminController
   def create
     @division = @tournament.divisions.create(division_params)
     if @division.persisted?
-      flash[:notice] = 'Division was successfully create.'
+      flash[:notice] = 'Division was successfully created.'
       redirect_to admin_division_path(@division)
     else
       flash[:error] = 'Division could not be created.'

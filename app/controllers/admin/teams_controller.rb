@@ -15,7 +15,7 @@ class Admin::TeamsController < AdminController
   def create
     @team = @tournament.teams.create(team_params)
     if @team.persisted?
-      flash[:notice] = 'Team was successfully create.'
+      flash[:notice] = 'Team was successfully created.'
       redirect_to admin_team_path(@team)
     else
       flash[:error] = 'Team could not be created.'
