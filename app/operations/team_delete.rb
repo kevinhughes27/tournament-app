@@ -1,4 +1,4 @@
-class TeamDelete < ComposableOperations::Operation
+class TeamDelete < ApplicationOperation
   processes :team, :confirm
 
   property :team, accepts: Team, required: true

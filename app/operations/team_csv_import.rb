@@ -1,6 +1,6 @@
 require 'csv'
 
-class TeamCsvImport < ComposableOperations::Operation
+class TeamCsvImport < ApplicationOperation
   processes :tournament, :file, :ignore
 
   property :tournament, accepts: Tournament, required: true

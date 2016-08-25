@@ -1,4 +1,4 @@
-class GameUpdateScore < ComposableOperations::Operation
+class GameUpdateScore < ApplicationOperation
   property :game, accepts: Game, required: true
   property :user, accepts: User, default: nil
 

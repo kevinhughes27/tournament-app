@@ -1,4 +1,4 @@
-class ScoreReportConfirm < ComposableOperations::Operation
+class ScoreReportConfirm < ApplicationOperation
   processes :token, :params, :confirm_setting
 
   property :token, accepts: ScoreReportConfirmToken, required: true

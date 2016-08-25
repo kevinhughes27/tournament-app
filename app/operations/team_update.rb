@@ -1,4 +1,4 @@
-class TeamUpdate < ComposableOperations::Operation
+class TeamUpdate < ApplicationOperation
   processes :team, :params, :confirm
 
   property :team, accepts: Team, required: true

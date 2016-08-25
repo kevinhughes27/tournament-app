@@ -1,4 +1,4 @@
-class SafeToUpdateBracketCheck < ComposableOperations::Operation
+class SafeToUpdateBracketCheck < ApplicationOperation
   processes :division
   property :division, accepts: Division, required: true
 

@@ -1,4 +1,4 @@
-class FieldDelete < ComposableOperations::Operation
+class FieldDelete < ApplicationOperation
   processes :field, :confirm
 
   property :field, accepts: Field, required: true

@@ -1,4 +1,4 @@
-class DirtySeedCheck < ComposableOperations::Operation
+class DirtySeedCheck < ApplicationOperation
   processes :division
   property :division, accepts: Division, required: true
 

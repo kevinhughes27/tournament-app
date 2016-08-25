@@ -1,4 +1,4 @@
-class BulkActions::SetTeamsDivision < ComposableOperations::Operation
+class BulkActions::SetTeamsDivision < ApplicationOperation
   property :tournament_id
   property :ids
   property :arg

@@ -1,4 +1,4 @@
-class ChangeBracket < ComposableOperations::Operation
+class ChangeBracket < ApplicationOperation
   property :tournament_id, accepts: Integer, required: true
   property :division_id, accepts: Integer, required: true
   property :new_template, accepts: Hash, required: true

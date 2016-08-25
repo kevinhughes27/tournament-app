@@ -1,4 +1,4 @@
-class FinishPool < ComposableOperations::Operation
+class FinishPool < ApplicationOperation
   processes :pool
   property :pool, accepts: Pool, required: true
 

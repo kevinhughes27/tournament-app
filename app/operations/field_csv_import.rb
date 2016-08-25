@@ -1,6 +1,6 @@
 require 'csv'
 
-class FieldCsvImport < ComposableOperations::Operation
+class FieldCsvImport < ApplicationOperation
   processes :tournament, :file, :ignore
 
   property :tournament, accepts: Tournament, required: true

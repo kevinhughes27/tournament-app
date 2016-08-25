@@ -1,4 +1,4 @@
-class ScoreReportCreate < ComposableOperations::Operation
+class ScoreReportCreate < ApplicationOperation
   processes :params, :confirm_setting
 
   property :agrees, accepts: [true, false], default: false
