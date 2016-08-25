@@ -1,4 +1,4 @@
-class UpdateTeamSeeds < ComposableOperations::Operation
+class UpdateTeamSeeds < ApplicationOperation
   processes :division, :team_ids, :seeds
   property :division, accepts: Division, required: true
   property :team_ids, accepts: Array, required: true

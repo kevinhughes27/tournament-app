@@ -1,4 +1,4 @@
-class SeedDivision < ComposableOperations::Operation
+class SeedDivision < ApplicationOperation
   processes :division, :confirm
 
   property :division, accepts: Division, required: true

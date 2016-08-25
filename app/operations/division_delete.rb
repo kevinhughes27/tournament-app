@@ -1,4 +1,4 @@
-class DivisionDelete < ComposableOperations::Operation
+class DivisionDelete < ApplicationOperation
   processes :division, :confirm
 
   property :division, accepts: Division, required: true

@@ -1,4 +1,4 @@
-class UpdateSettings < ComposableOperations::Operation
+class UpdateSettings < ApplicationOperation
   processes :tournament, :params, :confirm
 
   property :tournament, accepts: Tournament, required: true

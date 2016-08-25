@@ -1,4 +1,4 @@
-class AdvanceBracket < ComposableOperations::Operation
+class AdvanceBracket < ApplicationOperation
   processes :game
   property :game, accepts: Game, required: true
 

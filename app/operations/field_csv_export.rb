@@ -1,6 +1,6 @@
 require 'csv'
 
-class FieldCsvExport < ComposableOperations::Operation
+class FieldCsvExport < ApplicationOperation
   processes :fields
   property :fields, accepts: lambda { |fields| fields.all?{ |field| field.is_a?(Field) } }
 

@@ -1,4 +1,4 @@
-class UpdatePlaces < ComposableOperations::Operation
+class UpdatePlaces < ApplicationOperation
   processes :game
   property :game, accepts: Game, required: true
 

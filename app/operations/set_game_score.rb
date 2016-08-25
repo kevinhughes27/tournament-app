@@ -1,4 +1,4 @@
-class SetGameScore < ComposableOperations::Operation
+class SetGameScore < ApplicationOperation
   property :game, accepts: Game, required: true
   property :home_score, accepts: Integer, required: true
   property :away_score, accepts: Integer, required: true

@@ -1,4 +1,4 @@
-class DivisionUpdate < ComposableOperations::Operation
+class DivisionUpdate < ApplicationOperation
   processes :division, :params, :confirm
 
   property :division, accepts: Division, required: true

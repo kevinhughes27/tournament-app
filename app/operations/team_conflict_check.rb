@@ -1,4 +1,4 @@
-class TeamConflictCheck < ComposableOperations::Operation
+class TeamConflictCheck < ApplicationOperation
   processes :game
   property :game, accepts: Game, required: true
 
