@@ -14,28 +14,17 @@ machine:
     version: 4.2.6
 
 dependencies:
-  post:
-    - bundle exec bundle-audit update && bundle exec bundle-audit check
-    - npm install
-    - npm install -g nsp && nsp check
-    - bundle exec rake assets:precompile assets:clean:
-        environment:
-          RAILS_GROUPS: assets
   override:
-    - bundle install --path .bundle --with circleci --without production --without development
+    - bundle exec rake ci:setup
   cache_directories:
-    - ".bundle"
-    - "node_modules"
-    - "public/assets"
+    - .bundle
+    - node_modules
+    - client/node_modules
 
 database:
   override:
     - bundle exec rake db:setup --trace
 
 test:
-  pre:
-    - cd lib/bracket_db && bundle install && bundle exec rake test
   override:
-    - bundle exec rails test
-  post:
-    - bundle exec teaspoon
+    - bundle exec rake ci:all

@@ -77,6 +77,7 @@ group :development, :test do
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
+  gem 'rainbow'
   gem 'teaspoon'
   gem 'teaspoon-jasmine'
   gem 'teaspoon-bundle', '~> 0.1.3'
