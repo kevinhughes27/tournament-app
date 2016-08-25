@@ -68,7 +68,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
     put :update, params: { id: @team.id, team: params }
 
     assert_template :show
-    assert_html "Name can't be blank", @response.body
+    assert_match "Name can&#39;t be blank", @response.body
     refute_equal safe_update_params[:name], @team.reload.name
   end
 

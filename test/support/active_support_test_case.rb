@@ -19,8 +19,4 @@ class ActiveSupport::TestCase
   def response_json
     JSON.parse(@response.body)
   end
-
-  def assert_html(string, html)
-    assert_match string.gsub("'", "&#39;"), html
-  end
 end
