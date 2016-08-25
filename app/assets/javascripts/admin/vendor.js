@@ -10,7 +10,6 @@
 
 //= require moment
 //= require underscore
-//= require d3
 //= require tether
 //= require tether-drop
 //= require vendor/redips-drag

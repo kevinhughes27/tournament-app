@@ -38,9 +38,8 @@ module BracketDb
 
       node = {
         label: label,
-        home: game.try(:home_name),
-        away: game.try(:away_name),
-        has_teams: game.try(:teams_present?),
+        home: game[:home_name] || game[:home_prereq],
+        away: game[:away_name] || game[:away_prereq],
         round: game[:round],
         children: [
           home_child(game),
