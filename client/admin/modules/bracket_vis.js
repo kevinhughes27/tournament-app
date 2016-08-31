@@ -6,7 +6,7 @@ class BracketVis {
     $container.empty();
 
     this.maxLabelLength = 8;
-    this.heightMultiplier = 100;
+    this.heightMultiplier = 120;
     this.spacingMultiplier = 8;
     this.widthMultiplier = 5;
 
@@ -32,9 +32,11 @@ class BracketVis {
   }
 
   render(bracket, bracketTree = null) {
+    this.rounds = bracket.rounds
+
     let treeData = {
       root: true,
-      round: bracket.rounds,
+      round: this.rounds,
       children: bracketTree || bracket.bracket_tree
     };
 
@@ -95,6 +97,7 @@ class BracketVis {
       })
       .style('opacity', 0);
 
+    // game rect
     nodeEnter.append('rect')
       .attr('rx', 6)
       .attr('ry', 6)
@@ -102,17 +105,36 @@ class BracketVis {
       .attr('height', 30)
       .style('fill', '#fff');
 
+    // home text
     nodeEnter.append('text')
       .attr('dy', 12)
       .attr('dx', 10)
       .attr('text-anchor', 'start')
       .text( (d) => { return d.home });
 
+    // away text
     nodeEnter.append('text')
-      .attr("dy", 24)
+      .attr('dy', 24)
       .attr('dx', 10)
       .text( (d) => { return d.away });
 
+    // place text
+    nodeEnter.append('text')
+      .attr('dy', 18)
+      .attr('dx', nodeWidth + 10)
+      .attr('font-weight', 'bold')
+      .text( (d) => {
+        if (d.round == this.rounds) return d.label
+      });
+
+    // uid text
+    nodeEnter.append('text')
+      .attr('dy', -6)
+      .attr('dx', nodeWidth / 2 - 4)
+      .attr('font-weight', 'bold')
+      .text( (d) => {
+        if (d.round != this.rounds) return d.label
+      });
 
     // Declare the links…
     let link = this.svgGroup.selectAll('path.link')
