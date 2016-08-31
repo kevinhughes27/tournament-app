@@ -23,9 +23,21 @@ class GameTest < ActiveSupport::TestCase
     assert_equal "a (1 vs 8)", game.name
   end
 
-  test "teams_present? is true if home and away are set" do
+  test "teams_present? is true if away is set" do
     assert @game.teams_present?
     @game.update(home_id: nil)
+    assert @game.teams_present?
+  end
+
+  test "teams_present? is true if home is set" do
+    assert @game.teams_present?
+    @game.update(away_id: nil)
+    assert @game.teams_present?
+  end
+
+  test "teams_present? is false if no teams" do
+    assert @game.teams_present?
+    @game.update(home_id: nil, away_id: nil)
     refute @game.teams_present?
   end
 
