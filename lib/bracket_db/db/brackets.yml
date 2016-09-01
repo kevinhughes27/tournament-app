@@ -479,7 +479,7 @@
   name: One team advances (USAU 13.1)
   num_teams: 13
   days: 2
-  rounds: 4
+  rounds: 5
   pool: true
   template: <%= BracketDb::load('usau_13.1') %>
 
