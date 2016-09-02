@@ -60,10 +60,6 @@ a:focus, a:active {
   font-weight: 400;
 }
 
-.landing-page .section-description h5 {
-  margin-top: 40px;
-}
-
 .landing-page .img-container {
   border-radius: 10px;
   overflow: hidden;
@@ -73,24 +69,12 @@ a:focus, a:active {
   width: 100%;
 }
 
-.landing-page .section-clients {
-  padding: 80px 0;
-}
-
-.landing-page .section-clients .info .icon {
-  background: transparent;
-}
-
-.landing-page .section-clients .icon i {
-  color: #AAAAAA;
-}
-
-.landing-page .section-clients h3 {
-  margin-top: 10px;
-}
-
-.landing-page .container, .landing-page-2 .container, .landing-page-3 .container{
+.landing-page .container {
   max-width: 970px;
+}
+
+.landing-page .section-description {
+  padding: 80px 0;
 }
 
 .header-text {
@@ -242,7 +226,8 @@ a:focus, a:active {
 
 .landing-page .full-background .info .btn-lg{
   margin-top: 40px;
-  padding: 14px 80px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .landing-page .section-testimonial{
