@@ -1,7 +1,7 @@
 class TournamentMailer < ApplicationMailer
-  default from: 'kevin@ultimate-tournament.io'
+  default from: 'Kevin from Ultimate Tournament <kevin@ultimate-tournament.io>'
 
   def welcome_email(owner, tournament)
-    mail(to: owner.email, subject: "Kevin from Ultimate Tournament")
+    mail(to: owner.email, subject: "Welcome to Ultimate Tournament")
   end
 end
