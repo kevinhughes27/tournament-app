@@ -1,7 +1,7 @@
 $(document).on 'ready turbolinks:load', (event) ->
   return unless $('#flash').hasClass('hide')
 
-  _.delay ->
+  delay 2, ->
     $node = $('#flash-message')
     message = $node.text()
     isError = $node.hasClass('error')
