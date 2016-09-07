@@ -9,4 +9,3 @@
 
 //= require jquery.scrollTo
 //= require vendor/animatedModal
-//= require underscore
