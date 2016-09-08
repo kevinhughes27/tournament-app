@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 import classNames from 'classnames';
 
-let ScoreReports = React.createClass({
+class ScoreReports extends React.Component {
   render() {
     let reports = this.props.reports;
 
@@ -31,16 +31,16 @@ let ScoreReports = React.createClass({
       </div>
     );
   }
-});
+}
 
-let ScoreReport = React.createClass({
+class ScoreReport extends React.Component {
   tooltip(report) {
     return(
       <Tooltip id={"report#{report.id}submitter"}
                placement="top">{report.submitter_fingerprint}
       </Tooltip>
     );
-  },
+  }
 
   render() {
     let report = this.props.report;
@@ -67,6 +67,6 @@ let ScoreReport = React.createClass({
       </tr>
     );
   }
-});
+}
 
 module.exports = ScoreReports;

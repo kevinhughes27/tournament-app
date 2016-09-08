@@ -9,7 +9,7 @@ import _keys from 'lodash/keys';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-let Pool = React.createClass({
+class Pool extends React.Component {
   render() {
     let {pool, teams} = this.props;
 
@@ -35,18 +35,20 @@ let Pool = React.createClass({
       </div>
     );
   }
-});
+}
 
-let Division = React.createClass({
-  getInitialState() {
+class Division extends React.Component {
+  constructor(props) {
+    super(props);
+
     let bracketHandle = this.props.bracket_handle;
     let bracket = BracketDb.find(bracketHandle);
 
-    return {
+    this.state = {
       bracketHandle: bracketHandle,
       bracket: bracket
     };
-  },
+  }
 
   componentDidMount() {
     this.renderBracket();
@@ -60,11 +62,11 @@ let Division = React.createClass({
         bracket: bracket
       });
     });
-  },
+  }
 
   componentDidUpdate() {
     this.renderBracket();
-  },
+  }
 
   renderBracket() {
     let bracketVis = new Admin.BracketVis('#bracketGraph');
@@ -73,7 +75,7 @@ let Division = React.createClass({
     if (bracket) {
       bracketVis.render(bracket);
     }
-  },
+  }
 
   renderDescription(bracket) {
     return (
@@ -84,7 +86,7 @@ let Division = React.createClass({
         <p>{bracket.description}</p>
       </div>
     );
-  },
+  }
 
   renderPools(bracket) {
     let games = _filter(bracket.template.games, 'pool');
@@ -107,7 +109,7 @@ let Division = React.createClass({
         })}
       </div>
     );
-  },
+  }
 
   render() {
     let bracket = this.state.bracket;
@@ -132,6 +134,6 @@ let Division = React.createClass({
       )
     }
   }
-});
+}
 
 module.exports = Division;

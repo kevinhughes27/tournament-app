@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import UpdateScoreModal from './update_score_modal';
 
-let ScoreDispute = React.createClass({
+class ScoreDispute extends React.Component {
   render() {
     let game = this.props.game;
 
@@ -20,6 +20,6 @@ let ScoreDispute = React.createClass({
       </div>
     );
   }
-});
+}
 
 module.exports = ScoreDispute;

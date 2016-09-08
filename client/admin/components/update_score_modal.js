@@ -4,40 +4,43 @@ import {Collapse, Modal} from 'react-bootstrap';
 import classNames from 'classnames';
 import confirm from './confirm';
 
-let UpdateScoreModal = React.createClass({
-  getInitialState() {
-    return {
-      isLoading: false
+class UpdateScoreModal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+    this.opened = this.opened.bind(this);
+    this.setFocus = this.setFocus.bind(this);
+    this.submit = this.submit.bind(this);
+
+    let game = this.props.game;
+
+    this.state = {
+      show: false,
+      isLoading: false,
+      resolve: this.props.resolve,
+      homeScore: game.home_score,
+      awayScore: game.away_score
     };
-  },
+  }
 
   getDefaultProps() {
     return {
       resolve: false,
       linkClass: ''
     }
-  },
-
-  getInitialState() {
-    let game = this.props.game;
-
-    return {
-      show: false,
-      resolve: this.props.resolve,
-      homeScore: game.home_score,
-      awayScore: game.away_score
-    };
-  },
+  }
 
   open(ev) {
     ev.preventDefault();
     this.setState({show: true});
-  },
+  }
 
   close(ev) {
     if(ev){ ev.preventDefault(); }
     this.setState({ show: false });
-  },
+  }
 
   opened() {
     let game = this.props.game;
@@ -46,16 +49,16 @@ let UpdateScoreModal = React.createClass({
       homeScore: game.home_score,
       awayScore: game.away_score
     });
-  },
+  }
 
   setFocus() {
     this.refs.input.focus();
-  },
+  }
 
   submit(ev) {
     ev.preventDefault();
     this.updateScore()
-  },
+  }
 
   updateScore(force = false) {
     let gameId = this.props.game.id;
@@ -87,7 +90,7 @@ let UpdateScoreModal = React.createClass({
         }
       }
     })
-  },
+  }
 
   confirmUpdateScore() {
     confirm({
@@ -103,7 +106,7 @@ let UpdateScoreModal = React.createClass({
         console.log('cancelled');
       }
     );
-  },
+  }
 
   render() {
     let {game, linkText, linkClass} = this.props;
@@ -163,6 +166,6 @@ let UpdateScoreModal = React.createClass({
       </div>
     );
   }
-});
+}
 
 module.exports = UpdateScoreModal;

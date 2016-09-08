@@ -164,11 +164,16 @@ let FilterBar = {
   }
 };
 
-let Filter = React.createClass({
+class Filter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+
   clickHandler() {
     let filterKey = this.props.filterKey;
     this.props.deleteFilter(filterKey);
-  },
+  }
 
   render() {
     return (
@@ -178,6 +183,6 @@ let Filter = React.createClass({
       </button>
     );
   }
-});
+}
 
 module.exports = FilterBar;

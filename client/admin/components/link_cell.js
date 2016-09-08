@@ -1,12 +1,12 @@
-var React = require('react'),
-    ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var LinkCell = React.createClass({
+class LinkCell extends React.Component {
   render() {
-    var obj = this.props.rowData;
-    var path = obj.path;
+    let obj = this.props.rowData;
+    let path = obj.path;
     return <a href={path}>{this.props.data}</a>;
   }
-});
+}
 
 module.exports = LinkCell;

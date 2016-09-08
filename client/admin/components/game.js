@@ -7,23 +7,24 @@ import ScoreDispute from './score_dispute';
 import UpdateScoreModal from './update_score_modal';
 import GamesStore from '../stores/games_store';
 
-exports.NameCell = React.createClass({
-  getInitialState() {
+export class NameCell extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleCollapse = this.toggleCollapse.bind(this);
+
     let game = this.props.rowData;
+    this.state = { reportsOpen: game.reportsOpen || false };
+  }
 
-    return {
-      reportsOpen: game.reportsOpen || false
-    };
-  },
-
-  _toggleCollapse(e) {
+  toggleCollapse(e) {
     e.nativeEvent.preventDefault();
     let game = this.props.rowData;
     let state = !this.state.reportsOpen;
 
     GamesStore.saveReportsState(game, state);
     this.setState({ reportsOpen: state });
-  },
+  }
 
   renderReportsBadge(game) {
     let badgeText;
@@ -42,7 +43,7 @@ exports.NameCell = React.createClass({
         {badgeText}
       </span>
     );
-  },
+  }
 
   renderDisputeBadge(game) {
     if (!game.has_dispute) {
@@ -52,14 +53,14 @@ exports.NameCell = React.createClass({
     return (
       <i className="fa fa-lg fa-exclamation-triangle" style={{color: 'orange'}}></i>
     );
-  },
+  }
 
   renderBadges(game) {
     return (
       <span>{this.renderReportsBadge(game)} {this.renderDisputeBadge(game)}
       </span>
     );
-  },
+  }
 
   renderDispute(game) {
     if (!game.has_dispute) {
@@ -69,7 +70,7 @@ exports.NameCell = React.createClass({
     return (
       <ScoreDispute game={game}/>
     );
-  },
+  }
 
   render() {
     let game = this.props.rowData;
@@ -82,7 +83,7 @@ exports.NameCell = React.createClass({
 
     return (
       <div>
-        <a href="#" onClick={this._toggleCollapse}>
+        <a href="#" onClick={this.toggleCollapse}>
           <span>{game.name} {this.renderBadges(game)}</span>
         </a>
         <Collapse in={this.state.reportsOpen}>
@@ -94,9 +95,9 @@ exports.NameCell = React.createClass({
       </div>
     );
   }
-});
+}
 
-exports.ScoreCell = React.createClass({
+export class ScoreCell extends React.Component {
   render() {
     let game = this.props.rowData;
 
@@ -117,4 +118,4 @@ exports.ScoreCell = React.createClass({
                         linkClass="btn-inline"/>
     );
   }
-});
+}
