@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Griddle from 'griddle-react';
 import FilterBar from '../mixins/filter_bar';
-import FilterFunction from '../mixins/filter_function';
+import filterFunction from '../modules/filter_function';
 import LinkCell from './link_cell';
 import DivisionsStore from '../stores/divisions_store';
 
@@ -91,13 +91,13 @@ const columnsMeta = [
 ];
 
 let DivisionsIndex = React.createClass({
-  mixins: [FilterFunction],
 
   getInitialState() {
     let divisions = JSON.parse(this.props.divisions);
     DivisionsStore.init(divisions);
 
     this.searchColumns = this.props.searchColumns;
+    this.filterFunction = filterFunction.bind(this);
 
     this.divisionsFilter = React.createClass({
       mixins: [FilterBar],

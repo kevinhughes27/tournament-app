@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Griddle from 'griddle-react';
 import FilterBar from '../mixins/filter_bar';
-import FilterFunction from '../mixins/filter_function';
+import filterFunction from '../modules/filter_function';
 import _some from 'lodash/some';
 import {NameCell, ScoreCell} from './game';
 import GamesStore from '../stores/games_store';
@@ -58,13 +58,13 @@ let rowMetadata = {
 };
 
 let GamesIndex = React.createClass({
-  mixins: [FilterFunction],
 
   getInitialState() {
     let games = JSON.parse(this.props.games);
     GamesStore.init(games);
 
     this.searchColumns = this.props.searchColumns;
+    this.filterFunction = filterFunction.bind(this);
 
     this.gamesFilter = React.createClass({
       mixins: [FilterBar],

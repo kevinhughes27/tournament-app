@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Griddle from 'griddle-react';
 import FilterBar from '../mixins/filter_bar';
-import FilterFunction from '../mixins/filter_function';
+import filterFunction from '../modules/filter_function';
 import LinkCell from './link_cell';
 import TeamsStore from '../stores/teams_store';
 
@@ -100,13 +100,13 @@ const columnsMeta = [
 ];
 
 let TeamsIndex = React.createClass({
-  mixins: [FilterFunction],
 
   getInitialState() {
     let teams = JSON.parse(this.props.teams);
     TeamsStore.init(teams);
 
     this.searchColumns = this.props.searchColumns;
+    this.filterFunction = filterFunction.bind(this);
 
     this.teamsFilter = React.createClass({
       mixins: [FilterBar],

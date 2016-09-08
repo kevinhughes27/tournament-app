@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Griddle from 'griddle-react';
 import FilterBar from '../mixins/filter_bar';
-import FilterFunction from '../mixins/filter_function';
+import filterFunction from '../modules/filter_function';
 import LinkCell from './link_cell';
 import FieldsStore from '../stores/fields_store';
 
@@ -35,13 +35,13 @@ const columnsMeta = [
 ];
 
 let FieldsIndex = React.createClass({
-  mixins: [FilterFunction],
 
   getInitialState() {
     let fields = JSON.parse(this.props.fields);
     FieldsStore.init(fields);
 
     this.searchColumns = this.props.searchColumns;
+    this.filterFunction = filterFunction.bind(this);
 
     this.fieldsFilter = React.createClass({
       mixins: [FilterBar],
