@@ -13,7 +13,7 @@ const columns = [
   "seeded"
 ];
 
-let TeamsCell = React.createClass({
+class TeamsCell extends React.Component {
   render() {
     let division = this.props.rowData;
     let teamCount = division.teams_count;
@@ -34,9 +34,9 @@ let TeamsCell = React.createClass({
       </span>
     );
   }
-});
+}
 
-let SeededCell = React.createClass({
+class SeededCell extends React.Component {
   render() {
     let division = this.props.rowData;
     let seeded = division.seeded;
@@ -60,7 +60,7 @@ let SeededCell = React.createClass({
       <i className={iconClass} style={{color: iconColor}}></i>
     );
   }
-});
+}
 
 
 const columnsMeta = [
@@ -90,13 +90,13 @@ const columnsMeta = [
   }
 ];
 
-let DivisionsIndex = React.createClass({
+class DivisionsIndex extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
     let divisions = JSON.parse(this.props.divisions);
     DivisionsStore.init(divisions);
 
-    this.searchColumns = this.props.searchColumns;
     this.filterFunction = filterFunction.bind(this);
 
     this.divisionsFilter = React.createClass({
@@ -106,10 +106,8 @@ let DivisionsIndex = React.createClass({
       render() { return this.renderBar() }
     });
 
-    return {
-      divisions: DivisionsStore.all(),
-    };
-  },
+    this.state = { divisions: DivisionsStore.all() };
+  }
 
   render() {
     let divisions = this.state.divisions;
@@ -135,6 +133,6 @@ let DivisionsIndex = React.createClass({
       />
     );
   }
-});
+}
 
 module.exports = DivisionsIndex;

@@ -57,14 +57,15 @@ let rowMetadata = {
   }
 };
 
-let GamesIndex = React.createClass({
+class GamesIndex extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
     let games = JSON.parse(this.props.games);
     GamesStore.init(games);
 
-    this.searchColumns = this.props.searchColumns;
     this.filterFunction = filterFunction.bind(this);
+    this.onChange = this.onChange.bind(this);
 
     this.gamesFilter = React.createClass({
       mixins: [FilterBar],
@@ -75,22 +76,20 @@ let GamesIndex = React.createClass({
       render() { return this.renderBar() }
     });
 
-    return {
-      games: GamesStore.all(),
-    };
-  },
+    this.state = { games: GamesStore.all() };
+  }
 
   componentDidMount() {
-    GamesStore.addChangeListener(this._onChange);
-  },
+    GamesStore.addChangeListener(this.onChange);
+  }
 
   componentWillUnmount() {
-    GamesStore.removeChangeListener(this._onChange);
-  },
+    GamesStore.removeChangeListener(this.onChange);
+  }
 
-  _onChange() {
+  onChange() {
     this.setState({ games: GamesStore.all() });
-  },
+  }
 
   render() {
     let games = this.state.games;
@@ -117,6 +116,6 @@ let GamesIndex = React.createClass({
       />
     );
   }
-});
+}
 
 module.exports = GamesIndex;

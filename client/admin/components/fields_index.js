@@ -34,13 +34,13 @@ const columnsMeta = [
   }
 ];
 
-let FieldsIndex = React.createClass({
+class FieldsIndex extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
     let fields = JSON.parse(this.props.fields);
     FieldsStore.init(fields);
 
-    this.searchColumns = this.props.searchColumns;
     this.filterFunction = filterFunction.bind(this);
 
     this.fieldsFilter = React.createClass({
@@ -50,10 +50,8 @@ let FieldsIndex = React.createClass({
       render() { return this.renderBar() }
     });
 
-    return {
-      fields: FieldsStore.all(),
-    };
-  },
+    this.state = { fields: FieldsStore.all() };
+  }
 
   render() {
     let fields = this.state.fields;
@@ -79,6 +77,6 @@ let FieldsIndex = React.createClass({
       />
     );
   }
-});
+}
 
 module.exports = FieldsIndex;

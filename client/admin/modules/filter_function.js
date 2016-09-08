@@ -20,10 +20,12 @@ let filterFunction = function(results, filter) {
     // search
     let flat = squish(item);
     let search = filter.search;
+    let searchColumns = this.props.searchColumns;
+
     if(search) {
       search = search.trim().toLowerCase();
       for (let key in flat) {
-        let keyNotSearchable = _indexOf(this.searchColumns, key) == -1;
+        let keyNotSearchable = _indexOf(searchColumns, key) == -1;
         if (keyNotSearchable) continue;
 
         if (String(flat[key]).toLowerCase().indexOf(search) >= 0) {

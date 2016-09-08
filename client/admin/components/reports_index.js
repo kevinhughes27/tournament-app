@@ -39,14 +39,15 @@ const columnsMeta = [
   }
 ];
 
-let ReportsIndex = React.createClass({
+class ReportsIndex extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
     let reports = JSON.parse(this.props.reports);
     ReportsStore.init(reports);
 
-    this.searchColumns = this.props.searchColumns;
     this.filterFunction = filterFunction.bind(this);
+    this.onChange = this.onChange.bind(this);
 
     this.reportsFilter = React.createClass({
       mixins: [FilterBar],
@@ -57,22 +58,20 @@ let ReportsIndex = React.createClass({
       render() { return this.renderBar() }
     });
 
-    return {
-      reports: ReportsStore.all(),
-    };
-  },
+    this.state = { reports: ReportsStore.all() };
+  }
 
   componentDidMount() {
-    ReportsStore.addChangeListener(this._onChange);
-  },
+    ReportsStore.addChangeListener(this.onChange);
+  }
 
   componentWillUnmount() {
-    ReportsStore.removeChangeListener(this._onChange);
-  },
+    ReportsStore.removeChangeListener(this.onChange);
+  }
 
-  _onChange() {
+  onChange() {
     this.setState({ reports: ReportsStore.all() });
-  },
+  }
 
   render() {
     let reports = this.state.reports;
@@ -98,6 +97,6 @@ let ReportsIndex = React.createClass({
       />
     );
   }
-});
+}
 
 module.exports = ReportsIndex;

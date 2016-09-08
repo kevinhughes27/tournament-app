@@ -15,12 +15,17 @@ const columns = [
   "seed"
 ];
 
-let SelectCell = React.createClass({
+class SelectCell extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   handleChange(ev) {
     let team = this.props.rowData;
     let selected = ev.target.checked;
     TeamsStore.saveSelectedState(team, selected);
-  },
+  }
 
   render() {
     let teamId = this.props.data;
@@ -35,25 +40,25 @@ let SelectCell = React.createClass({
         onChange={this.handleChange} />
     );
   }
-});
+}
 
-let SelectCellHeader = React.createClass({
-  getInitialState() {
-    return {
-      allChecked: false
-    }
-  },
+class SelectCellHeader extends React.Component {
+  constructor(props) {
+    super(props);
+    this.selectAll = this.selectAll.bind(this);
+    this.state = { allChecked: false };
+  }
 
-  _selectAll() {
+  selectAll() {
     let allChecked = !this.state.allChecked;
     this.setState({ allChecked: allChecked });
     TeamsStore.setSelected(allChecked);
-  },
+  }
 
   render() {
-    return <input type='checkbox' onClick={this._selectAll} />;
+    return <input type='checkbox' onClick={this.selectAll} />;
   }
-});
+}
 
 const columnsMeta = [
   {
@@ -99,14 +104,15 @@ const columnsMeta = [
   },
 ];
 
-let TeamsIndex = React.createClass({
+class TeamsIndex extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
     let teams = JSON.parse(this.props.teams);
     TeamsStore.init(teams);
 
-    this.searchColumns = this.props.searchColumns;
     this.filterFunction = filterFunction.bind(this);
+    this.onChange = this.onChange.bind(this);
 
     this.teamsFilter = React.createClass({
       mixins: [TeamsFilterBar],
@@ -117,22 +123,20 @@ let TeamsIndex = React.createClass({
       render() { return this.renderBar() }
     });
 
-    return {
-      teams: TeamsStore.all(),
-    };
-  },
+    this.state = { teams: TeamsStore.all() };
+  }
 
   componentDidMount() {
-    TeamsStore.addChangeListener(this._onChange);
-  },
+    TeamsStore.addChangeListener(this.onChange);
+  }
 
   componentWillUnmount() {
-    TeamsStore.removeChangeListener(this._onChange);
-  },
+    TeamsStore.removeChangeListener(this.onChange);
+  }
 
-  _onChange() {
+  onChange() {
     this.setState({ teams: TeamsStore.all() });
-  },
+  }
 
   render() {
     let teams = this.state.teams;
@@ -158,6 +162,6 @@ let TeamsIndex = React.createClass({
       />
     );
   }
-});
+}
 
 module.exports = TeamsIndex;
