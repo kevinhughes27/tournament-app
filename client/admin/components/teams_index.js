@@ -1,19 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Griddle from 'griddle-react';
+import IndexBase from './index_base';
+import LinkCell from './link_cell';
 import TeamsFilterBar from './teams_filter_bar';
 import filterFunction from '../modules/filter_function';
-import LinkCell from './link_cell';
 import TeamsStore from '../stores/teams_store';
 
-const columns = [
-  "id",
-  "name",
-  "email",
-  "phone",
-  "division",
-  "seed"
-];
+class TeamsIndex extends IndexBase {
+  constructor(props) {
+    super(props);
+
+    let teams = JSON.parse(this.props.teams);
+    TeamsStore.init(teams);
+
+    this.onChange = this.onChange.bind(this);
+    this.filterFunction = filterFunction.bind(this);
+    this.buildFilterComponent(TeamsFilterBar, TeamsStore);
+
+    this.state = { items: TeamsStore.all() };
+  }
+
+  componentDidMount() {
+    TeamsStore.addChangeListener(this.onChange);
+  }
+
+  componentWillUnmount() {
+    TeamsStore.removeChangeListener(this.onChange);
+  }
+
+  onChange() {
+    this.setState({ teams: TeamsStore.all() });
+  }
+}
 
 class SelectCell extends React.Component {
   constructor(props) {
@@ -60,7 +78,16 @@ class SelectCellHeader extends React.Component {
   }
 }
 
-const columnsMeta = [
+TeamsIndex.columns = [
+  "id",
+  "name",
+  "email",
+  "phone",
+  "division",
+  "seed"
+];
+
+TeamsIndex.columnsMeta = [
   {
     columnName: "id",
     order: 1,
@@ -103,65 +130,5 @@ const columnsMeta = [
     order: 6
   },
 ];
-
-class TeamsIndex extends React.Component {
-  constructor(props) {
-    super(props);
-
-    let teams = JSON.parse(this.props.teams);
-    TeamsStore.init(teams);
-
-    this.filterFunction = filterFunction.bind(this);
-    this.onChange = this.onChange.bind(this);
-
-    this.teamsFilter = React.createClass({
-      mixins: [TeamsFilterBar],
-      filters: this.props.filters,
-      bulkActions: this.props.bulkActions,
-      componentDidMount() { TeamsStore.addChangeListener(this._onChange) },
-      componentWillUnmount() { TeamsStore.removeChangeListener(this._onChange) },
-      render() { return this.renderBar() }
-    });
-
-    this.state = { teams: TeamsStore.all() };
-  }
-
-  componentDidMount() {
-    TeamsStore.addChangeListener(this.onChange);
-  }
-
-  componentWillUnmount() {
-    TeamsStore.removeChangeListener(this.onChange);
-  }
-
-  onChange() {
-    this.setState({ teams: TeamsStore.all() });
-  }
-
-  render() {
-    let teams = this.state.teams;
-
-    return (
-      <Griddle
-        results={teams}
-        tableClassName="table table-striped table-hover"
-        columns={columns}
-        columnMetadata={columnsMeta}
-        resultsPerPage={teams.length}
-        showPager={false}
-        useGriddleStyles={false}
-        sortAscendingClassName="sort asc"
-        sortAscendingComponent=""
-        sortDescendingClassName="sort desc"
-        sortDescendingComponent=""
-        showFilter={true}
-        useCustomFilterer={true}
-        customFilterer={this.filterFunction}
-        useCustomFilterComponent={true}
-        customFilterComponent={this.teamsFilter}
-      />
-    );
-  }
-}
 
 module.exports = TeamsIndex;

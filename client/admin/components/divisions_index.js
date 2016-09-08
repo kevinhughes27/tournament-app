@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Griddle from 'griddle-react';
+import IndexBase from './index_base';
 import FilterBar from './filter_bar';
 import filterFunction from '../modules/filter_function';
 import LinkCell from './link_cell';
 import DivisionsStore from '../stores/divisions_store';
 
-const columns = [
-  "name",
-  "bracket",
-  "teams_count",
-  "seeded"
-];
+class DivisionsIndex extends IndexBase {
+  constructor(props) {
+    super(props);
+
+    let divisions = JSON.parse(this.props.divisions);
+    DivisionsStore.init(divisions);
+
+    this.filterFunction = filterFunction.bind(this);
+    this.buildFilterComponent(FilterBar, DivisionsStore);
+
+    this.state = { items: DivisionsStore.all() };
+  }
+}
 
 class TeamsCell extends React.Component {
   render() {
@@ -62,8 +69,14 @@ class SeededCell extends React.Component {
   }
 }
 
+DivisionsIndex.columns = [
+  "name",
+  "bracket",
+  "teams_count",
+  "seeded"
+];
 
-const columnsMeta = [
+DivisionsIndex.columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
@@ -89,50 +102,5 @@ const columnsMeta = [
     customComponent: SeededCell
   }
 ];
-
-class DivisionsIndex extends React.Component {
-  constructor(props) {
-    super(props);
-
-    let divisions = JSON.parse(this.props.divisions);
-    DivisionsStore.init(divisions);
-
-    this.filterFunction = filterFunction.bind(this);
-
-    this.divisionsFilter = React.createClass({
-      mixins: [FilterBar],
-      filters: this.props.filters,
-      bulkActions: [],
-      render() { return this.renderBar() }
-    });
-
-    this.state = { divisions: DivisionsStore.all() };
-  }
-
-  render() {
-    let divisions = this.state.divisions;
-
-    return (
-      <Griddle
-        results={divisions}
-        tableClassName="table table-striped table-hover"
-        columns={columns}
-        columnMetadata={columnsMeta}
-        resultsPerPage={divisions.length}
-        showPager={false}
-        useGriddleStyles={false}
-        sortAscendingClassName="sort asc"
-        sortAscendingComponent=""
-        sortDescendingClassName="sort desc"
-        sortDescendingComponent=""
-        showFilter={true}
-        useCustomFilterer={true}
-        customFilterer={this.filterFunction}
-        useCustomFilterComponent={true}
-        customFilterComponent={this.divisionsFilter}
-      />
-    );
-  }
-}
 
 module.exports = DivisionsIndex;

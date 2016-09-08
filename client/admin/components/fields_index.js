@@ -1,18 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Griddle from 'griddle-react';
+import IndexBase from './index_base';
 import FilterBar from './filter_bar';
 import filterFunction from '../modules/filter_function';
 import LinkCell from './link_cell';
 import FieldsStore from '../stores/fields_store';
 
-const columns = [
+class FieldsIndex extends IndexBase {
+  constructor(props) {
+    super(props);
+
+    let fields = JSON.parse(this.props.fields);
+    FieldsStore.init(fields);
+
+    this.filterFunction = filterFunction.bind(this);
+    this.buildFilterComponent(FilterBar, FieldsStore);
+
+    this.state = { items: FieldsStore.all() };
+  }
+}
+
+FieldsIndex.columns = [
   "name",
   "lat",
   "long"
 ];
 
-const columnsMeta = [
+FieldsIndex.columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
@@ -33,50 +47,5 @@ const columnsMeta = [
     sortable: false
   }
 ];
-
-class FieldsIndex extends React.Component {
-  constructor(props) {
-    super(props);
-
-    let fields = JSON.parse(this.props.fields);
-    FieldsStore.init(fields);
-
-    this.filterFunction = filterFunction.bind(this);
-
-    this.fieldsFilter = React.createClass({
-      mixins: [FilterBar],
-      filters: this.props.filters,
-      bulkActions: [],
-      render() { return this.renderBar() }
-    });
-
-    this.state = { fields: FieldsStore.all() };
-  }
-
-  render() {
-    let fields = this.state.fields;
-
-    return (
-      <Griddle
-        results={fields}
-        tableClassName="table table-striped table-hover"
-        columns={columns}
-        columnMetadata={columnsMeta}
-        resultsPerPage={fields.length}
-        showPager={false}
-        useGriddleStyles={false}
-        sortAscendingClassName="sort asc"
-        sortAscendingComponent=""
-        sortDescendingClassName="sort desc"
-        sortDescendingComponent=""
-        showFilter={true}
-        useCustomFilterer={true}
-        customFilterer={this.filterFunction}
-        useCustomFilterComponent={true}
-        customFilterComponent={this.fieldsFilter}
-      />
-    );
-  }
-}
 
 module.exports = FieldsIndex;

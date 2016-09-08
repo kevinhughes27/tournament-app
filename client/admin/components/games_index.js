@@ -1,20 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Griddle from 'griddle-react';
+import IndexBase from './index_base';
 import FilterBar from './filter_bar';
 import filterFunction from '../modules/filter_function';
 import _some from 'lodash/some';
 import {NameCell, ScoreCell} from './game';
 import GamesStore from '../stores/games_store';
 
-const columns = [
+class GamesIndex extends IndexBase {
+  constructor(props) {
+    super(props);
+
+    let games = JSON.parse(this.props.games);
+    GamesStore.init(games);
+
+    this.onChange = this.onChange.bind(this);
+    this.filterFunction = filterFunction.bind(this);
+    this.buildFilterComponent(FilterBar, GamesStore);
+
+    this.state = { items: GamesStore.all() };
+  }
+
+  componentDidMount() {
+    GamesStore.addChangeListener(this.onChange);
+  }
+
+  componentWillUnmount() {
+    GamesStore.removeChangeListener(this.onChange);
+  }
+
+  onChange() {
+    this.setState({ games: GamesStore.all() });
+  }
+}
+
+GamesIndex.columns = [
   "name",
   "division",
   "pool",
   "confirmed",
 ];
 
-const columnsMeta = [
+GamesIndex.columnsMeta = [
   {
     columnName: "name",
     displayName: "Game",
@@ -44,7 +71,7 @@ const columnsMeta = [
   }
 ];
 
-let rowMetadata = {
+GamesIndex.rowMetadata = {
   bodyCssClassName: function(rowData) {
     let game = rowData;
     let sotgWarning = _some(game.score_reports, function(report){ return report.sotg_warning });
@@ -56,66 +83,5 @@ let rowMetadata = {
     return 'default-row';
   }
 };
-
-class GamesIndex extends React.Component {
-  constructor(props) {
-    super(props);
-
-    let games = JSON.parse(this.props.games);
-    GamesStore.init(games);
-
-    this.filterFunction = filterFunction.bind(this);
-    this.onChange = this.onChange.bind(this);
-
-    this.gamesFilter = React.createClass({
-      mixins: [FilterBar],
-      filters: this.props.filters,
-      bulkActions: [],
-      componentDidMount() { GamesStore.addChangeListener(this._onChange) },
-      componentWillUnmount() { GamesStore.removeChangeListener(this._onChange) },
-      render() { return this.renderBar() }
-    });
-
-    this.state = { games: GamesStore.all() };
-  }
-
-  componentDidMount() {
-    GamesStore.addChangeListener(this.onChange);
-  }
-
-  componentWillUnmount() {
-    GamesStore.removeChangeListener(this.onChange);
-  }
-
-  onChange() {
-    this.setState({ games: GamesStore.all() });
-  }
-
-  render() {
-    let games = this.state.games;
-
-    return (
-      <Griddle
-        results={games}
-        tableClassName="table table-striped table-hover"
-        columns={columns}
-        columnMetadata={columnsMeta}
-        rowMetadata={rowMetadata}
-        resultsPerPage={games.length}
-        showPager={false}
-        useGriddleStyles={false}
-        sortAscendingClassName="sort asc"
-        sortAscendingComponent=""
-        sortDescendingClassName="sort desc"
-        sortDescendingComponent=""
-        showFilter={true}
-        useCustomFilterer={true}
-        customFilterer={this.filterFunction}
-        useCustomFilterComponent={true}
-        customFilterComponent={this.gamesFilter}
-      />
-    );
-  }
-}
 
 module.exports = GamesIndex;
