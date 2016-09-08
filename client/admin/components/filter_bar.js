@@ -19,10 +19,13 @@ import {
 } from 'react-bootstrap';
 
 import TeamsStore from '../stores/teams_store';
-import LoadingMixin from '../mixins/loading_mixin';
 
 let FilterBar = {
-  mixins: [LoadingMixin],
+  getInitialState() {
+    return {
+      isLoading: false
+    };
+  },
 
   getDefaultProps() {
     return {
@@ -70,7 +73,7 @@ let FilterBar = {
   },
 
   performAction(action) {
-    this._startLoading();
+    this.setState({isLoading: true});
     let ids = _map(TeamsStore.selected(), function(t) { return t.id });
 
     $.ajax({
@@ -83,12 +86,12 @@ let FilterBar = {
         arg: action.arg
       },
       success: (response) => {
-        this._finishLoading();
+        this.setState({isLoading: false});
         _each(response, function(team) { TeamsStore.updateTeam(team) });
         Admin.Flash.notice(action.success_msg);
       },
       error: (response) => {
-        this._finishLoading();
+        this.setState({isLoading: false});
         let message = response.responseJSON.message || action.failure_msg;
         Admin.Flash.error(message);
       }

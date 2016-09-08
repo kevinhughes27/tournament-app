@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import {Collapse, Modal} from 'react-bootstrap';
 import classNames from 'classnames';
 import confirm from './confirm';
-import LoadingMixin from '../mixins/loading_mixin'
 
 let UpdateScoreModal = React.createClass({
-  mixins: [LoadingMixin],
+  getInitialState() {
+    return {
+      isLoading: false
+    };
+  },
 
   getDefaultProps() {
     return {
@@ -56,7 +59,7 @@ let UpdateScoreModal = React.createClass({
 
   updateScore(force = false) {
     let gameId = this.props.game.id;
-    this._startLoading();
+    this.setState({isLoading: true});
 
     $.ajax({
       url: 'games/' + gameId,
@@ -69,12 +72,12 @@ let UpdateScoreModal = React.createClass({
         force: force
       },
       success: (response) => {
-        this._finishLoading();
+        this.setState({isLoading: false});
         this.close();
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {
-        this._finishLoading();
+        this.setState({isLoading: false});
 
         if(response.status == 422) {
           this.close();
