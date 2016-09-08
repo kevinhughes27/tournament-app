@@ -1,5 +1,3 @@
-import _map from 'lodash/map';
-import _each from 'lodash/each';
 import _omit from 'lodash/omit';
 import _forOwn from 'lodash/forOwn';
 import _find from 'lodash/find';
@@ -18,14 +16,7 @@ import {
   MenuItem
 } from 'react-bootstrap';
 
-import TeamsStore from '../stores/teams_store';
-
 let FilterBar = {
-  getInitialState() {
-    return {
-      isLoading: false
-    };
-  },
 
   getDefaultProps() {
     return {
@@ -62,6 +53,10 @@ let FilterBar = {
     this.props.changeFilter(this.props.query);
   },
 
+  showFilters() {
+    return this.filters.length > 0
+  },
+
   addFilter(filter) {
     this.props.query[filter.key] = filter.value;
     this.props.changeFilter(this.props.query);
@@ -72,78 +67,62 @@ let FilterBar = {
     this.props.changeFilter(this.props.query);
   },
 
-  performAction(action) {
-    this.setState({isLoading: true});
-    let ids = _map(TeamsStore.selected(), function(t) { return t.id });
+  showBulkActions() {
+    return false;
+  },
 
-    $.ajax({
-      url: 'bulk_action',
-      type: 'PUT',
-      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-      data: {
-        action_class: action.action_class,
-        ids: ids,
-        arg: action.arg
-      },
-      success: (response) => {
-        this.setState({isLoading: false});
-        _each(response, function(team) { TeamsStore.updateTeam(team) });
-        Admin.Flash.notice(action.success_msg);
-      },
-      error: (response) => {
-        this.setState({isLoading: false});
-        let message = response.responseJSON.message || action.failure_msg;
-        Admin.Flash.error(message);
-      }
-    });
+  performAction(action) {
+    throw "performAction called but is has not been implemented.\
+          If your FilterBar has bulk actions it should\
+          extend FilterBar and implement performAction"
   },
 
   renderFiltersDropdown() {
-    if (this.filters.length > 0) {
-      return (
-        <div className="input-group-btn">
-          <Dropdown id="filter-dropdown">
-            <Dropdown.Toggle style={{lineHeight: '1.42858'}}>
-              Filter
-            </Dropdown.Toggle>
-            <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-              {this.filters.map((f, i) => {
-                return (
-                  <MenuItem key={i} onClick={() => this.addFilter(f)}>
-                    <i className="fa fa-circle"></i>
-                    {f.text}
-                 </MenuItem>
-               );
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-      );
-    }
+    if ( !this.showFilters() ) return;
+
+    return (
+      <div className="input-group-btn">
+        <Dropdown id="filter-dropdown">
+          <Dropdown.Toggle style={{lineHeight: '1.42858'}}>
+            Filter
+          </Dropdown.Toggle>
+          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+            {this.filters.map((f, i) => {
+              return (
+                <MenuItem key={i} onClick={() => this.addFilter(f)}>
+                  <i className="fa fa-circle"></i>
+                  {f.text}
+               </MenuItem>
+             );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+    );
   },
 
   renderBulkActionsDropdown() {
-    if (this.bulkActions.length > 0 && TeamsStore.selected().length > 0) {
-      return (
-        <div className="input-group-btn">
-          <Dropdown id="actions-dropdown">
-            <Dropdown.Toggle style={{lineHeight: '1.42858'}}>
-              Bulk Actions
-            </Dropdown.Toggle>
-            <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-              {this.bulkActions.map((a, i) => {
-                return (
-                  <MenuItem key={i} onClick={() => this.performAction(a)}>
-                    <i className="fa fa-circle"></i>
-                    {a.text}
-                 </MenuItem>
-               );
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-      );
-    }
+    if ( !this.showBulkActions() ) return;
+
+    return (
+      <div className="input-group-btn">
+        <Dropdown id="actions-dropdown">
+          <Dropdown.Toggle style={{lineHeight: '1.42858'}}>
+            Bulk Actions
+          </Dropdown.Toggle>
+          <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
+            {this.bulkActions.map((a, i) => {
+              return (
+                <MenuItem key={i} onClick={() => this.performAction(a)}>
+                  <i className="fa fa-circle"></i>
+                  {a.text}
+               </MenuItem>
+             );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+    );
   },
 
   renderBar() {

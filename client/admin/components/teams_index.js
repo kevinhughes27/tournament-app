@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Griddle from 'griddle-react';
-import FilterBar from './filter_bar';
+import TeamsFilterBar from './teams_filter_bar';
 import filterFunction from '../modules/filter_function';
 import LinkCell from './link_cell';
 import TeamsStore from '../stores/teams_store';
@@ -109,7 +109,7 @@ let TeamsIndex = React.createClass({
     this.filterFunction = filterFunction.bind(this);
 
     this.teamsFilter = React.createClass({
-      mixins: [FilterBar],
+      mixins: [TeamsFilterBar],
       filters: this.props.filters,
       bulkActions: this.props.bulkActions,
       componentDidMount() { TeamsStore.addChangeListener(this._onChange) },
