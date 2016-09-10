@@ -13,18 +13,18 @@
     {"round":2, "bracket_uid":"d", "home_prereq":"C1", "away_prereq":"A2"},
     {"round":2, "bracket_uid":"e", "home_prereq":"B1", "away_prereq":"A3"},
 
-    {"round": 2, "bracket_uid":"f", "home_prereq":"Wb", "away_prereq":"Wc"},
-    {"round": 2, "bracket_uid":"g", "home_prereq":"Wd", "away_prereq":"We"},
-    {"round": 2, "bracket_uid":"i", "home_prereq":"Lb", "away_prereq":"Ld"},
-    {"round": 2, "bracket_uid":"j", "home_prereq":"Lc", "away_prereq":"Le"},
+    {"round":3, "bracket_uid":"f", "home_prereq":"Wb", "away_prereq":"Wc"},
+    {"round":3, "bracket_uid":"g", "home_prereq":"Wd", "away_prereq":"We"},
+    {"round":3, "bracket_uid":"i", "home_prereq":"Lb", "away_prereq":"Ld"},
+    {"round":3, "bracket_uid":"j", "home_prereq":"Lc", "away_prereq":"Le"},
 
-    {"round": 3, "bracket_uid": "1", "home_prereq":"Wf", "away_prereq":"Wg"},
-    {"round": 3, "bracket_uid": "k", "home_prereq":"Wi", "away_prereq":"Lf"},
-    {"round": 3, "bracket_uid": "l", "home_prereq":"Wj", "away_prereq":"Lg"},
-    {"round": 3, "bracket_uid": "7", "home_prereq":"Li", "away_prereq":"Lj"},
+    {"round":4, "bracket_uid":"1", "home_prereq":"Wf", "away_prereq":"Wg"},
+    {"round":4, "bracket_uid":"k", "home_prereq":"Wi", "away_prereq":"Lf"},
+    {"round":4, "bracket_uid":"l", "home_prereq":"Wj", "away_prereq":"Lg"},
+    {"round":4, "bracket_uid":"7", "home_prereq":"Li", "away_prereq":"Lj"},
 
-    {"round": 4, "bracket_uid": "3", "home_prereq":"Wk", "away_prereq":"Wl"},
-    {"round": 4, "bracket_uid": "5", "home_prereq":"Lk", "away_prereq":"Ll"}
+    {"round":5, "bracket_uid":"3", "home_prereq":"Wk", "away_prereq":"Wl"},
+    {"round":5, "bracket_uid":"5", "home_prereq":"Lk", "away_prereq":"Ll"}
   ],
   "places": [
     {"position":1, "prereq": "W1"},
