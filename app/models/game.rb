@@ -98,12 +98,8 @@ class Game < ApplicationRecord
     home.present? && away.present?
   end
 
-  def assigned?
-    !unassigned?
-  end
-
-  def unassigned?
-    field_id.nil? && start_time.blank?
+  def scheduled?
+    field_id && start_time
   end
 
   def played?

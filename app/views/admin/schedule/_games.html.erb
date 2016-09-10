@@ -10,7 +10,7 @@
               </h3>
               <table id="division-<%= division.id %>">
                 <tbody>
-                  <% games.select{ |g| g.unassigned? }.each_slice(2) do |_games| %>
+                  <% games.select{ |g| !g.scheduled? }.each_slice(2) do |_games| %>
                     <tr>
                       <% _games.each do |game| %>
                         <td class="redips-mark">
