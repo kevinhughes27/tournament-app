@@ -2,7 +2,7 @@ class Field < ApplicationRecord
   include Limits
   LIMIT = 64
 
-  has_many :games, dependent: :nullify
+  has_many :games
   belongs_to :tournament
 
   auto_strip_attributes :name

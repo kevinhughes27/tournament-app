@@ -5,16 +5,6 @@ class FieldTest < ActiveSupport::TestCase
     @tournament = tournaments(:noborders)
   end
 
-  test "deleting a field unassigns any games from that field" do
-    field = fields(:upi1)
-    game = games(:swift_goose)
-    assert_equal field, game.field
-
-    field.destroy
-
-    assert_nil game.reload.field
-  end
-
   test "safe_to_delete? is true for field with no games" do
     field = fields(:upi5)
     assert field.safe_to_delete?
