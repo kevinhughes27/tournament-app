@@ -1,33 +1,34 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Collapse = require('react-bootstrap').Collapse,
-    classNames = require('classnames'),
-    ScoreReports = require('./score_reports'),
-    ScoreDispute = require('./score_dispute'),
-    UpdateScoreModal = require('./update_score_modal'),
-    GamesStore = require('../stores/games_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Collapse} from 'react-bootstrap';
+import classNames from 'classnames';
+import ScoreReports from './score_reports';
+import ScoreDispute from './score_dispute';
+import UpdateScoreModal from './update_score_modal';
+import GamesStore from '../stores/games_store';
 
-exports.NameCell = React.createClass({
-  getInitialState() {
-    var game = this.props.rowData;
+export class NameCell extends React.Component {
+  constructor(props) {
+    super(props);
 
-    return {
-      reportsOpen: game.reportsOpen || false
-    };
-  },
+    this.toggleCollapse = this.toggleCollapse.bind(this);
 
-  _toggleCollapse(e) {
+    let game = this.props.rowData;
+    this.state = { reportsOpen: game.reportsOpen || false };
+  }
+
+  toggleCollapse(e) {
     e.nativeEvent.preventDefault();
-    var game = this.props.rowData;
-    var state = !this.state.reportsOpen;
+    let game = this.props.rowData;
+    let state = !this.state.reportsOpen;
 
     GamesStore.saveReportsState(game, state);
     this.setState({ reportsOpen: state });
-  },
+  }
 
   renderReportsBadge(game) {
-    var badgeText;
-    var reportCount = game.score_reports.length;
+    let badgeText;
+    let reportCount = game.score_reports.length;
 
     // if the game is not confirmed but there is a report
     // then we know we need 2 reports
@@ -42,7 +43,7 @@ exports.NameCell = React.createClass({
         {badgeText}
       </span>
     );
-  },
+  }
 
   renderDisputeBadge(game) {
     if (!game.has_dispute) {
@@ -52,14 +53,14 @@ exports.NameCell = React.createClass({
     return (
       <i className="fa fa-lg fa-exclamation-triangle" style={{color: 'orange'}}></i>
     );
-  },
+  }
 
   renderBadges(game) {
     return (
       <span>{this.renderReportsBadge(game)} {this.renderDisputeBadge(game)}
       </span>
     );
-  },
+  }
 
   renderDispute(game) {
     if (!game.has_dispute) {
@@ -69,20 +70,20 @@ exports.NameCell = React.createClass({
     return (
       <ScoreDispute game={game}/>
     );
-  },
+  }
 
   render() {
-    var game = this.props.rowData;
-    var reports = game.score_reports;
+    let game = this.props.rowData;
+    let reports = game.score_reports;
 
     if (reports.length == 0) {
-      var nameClasses = classNames({'subdued': !game.has_teams});
+      let nameClasses = classNames({'subdued': !game.has_teams});
       return( <span className={nameClasses}>{game.name}</span> );
     };
 
     return (
       <div>
-        <a href="#" onClick={this._toggleCollapse}>
+        <a href="#" onClick={this.toggleCollapse}>
           <span>{game.name} {this.renderBadges(game)}</span>
         </a>
         <Collapse in={this.state.reportsOpen}>
@@ -94,17 +95,17 @@ exports.NameCell = React.createClass({
       </div>
     );
   }
-});
+}
 
-exports.ScoreCell = React.createClass({
+export class ScoreCell extends React.Component {
   render() {
-    var game = this.props.rowData;
+    let game = this.props.rowData;
 
     if (!game.has_teams) {
       return(<div></div>);
     };
 
-    var text;
+    let text;
     if(game.confirmed) {
       text = `${game.home_score} - ${game.away_score}`;
     } else {
@@ -117,4 +118,4 @@ exports.ScoreCell = React.createClass({
                         linkClass="btn-inline"/>
     );
   }
-});
+}

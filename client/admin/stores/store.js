@@ -1,6 +1,7 @@
-var EventEmitter = require('events').EventEmitter;
+import {EventEmitter} from 'events';
+import _extend from 'lodash/extend';
 
-var Store = _.extend({}, EventEmitter.prototype, {
+let Store = _extend({}, EventEmitter.prototype, {
   emitChange() {
     this.emit('change');
   },

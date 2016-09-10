@@ -9,7 +9,6 @@
 //= require browser_timezone_rails/set_time_zone
 
 //= require moment
-//= require underscore
 //= require d3
 //= require tether
 //= require tether-drop

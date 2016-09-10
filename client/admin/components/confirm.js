@@ -1,5 +1,5 @@
-var ConfirmModal = require ('./confirm_modal'),
-    createConfirmation = require('react-confirm').createConfirmation;
+import ConfirmModal from './confirm_modal';
+import {createConfirmation} from 'react-confirm';
 
 // create confirm function
 const confirm = createConfirmation(ConfirmModal);

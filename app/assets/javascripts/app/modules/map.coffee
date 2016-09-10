@@ -1,12 +1,29 @@
 class App.Map
 
-  constructor: (@app, lat, long, zoom) ->
+  constructor: (@app, lat, long, @zoom) ->
     @center = new L.LatLng(lat, long)
-    @map = UT.Map(@center, zoom, {zoomControl: false})
+
+    @_initLeaflet()
     @_drawFields()
 
     @map.on 'load', ->
       $('.loading-gif').fadeOut(1000)
+
+  _initLeaflet: ->
+    @map = L.map('_map', {
+      center: @center,
+      zoom: @zoom,
+      doubleClickZoom: false,
+      zoomControl: false,
+      attributionControl: false
+    })
+
+    googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+      maxZoom: 20,
+      subdomains:['mt0','mt1','mt2','mt3']
+    })
+
+    @map.addLayer(googleSat)
 
   _drawFields: ->
     @_drawField(field) for field in @app.fields

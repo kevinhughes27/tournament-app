@@ -1,16 +1,16 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Modal = require('react-bootstrap').Modal,
-    confirmable = require('react-confirm').confirmable,
-    createConfirmation = require('react-confirm').createConfirmation;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Modal} from 'react-bootstrap';
+import {confirmable, createConfirmation} from 'react-confirm';
 
-const ConfirmModal = React.createClass({
+class ConfirmModal extends React.Component {
   render() {
-    var show = this.props.show;
-    var proceed = this.props.proceed;
-    var dismiss = this.props.dismiss;
-    var title = this.props.title;
-    var message = this.props.message;
+    let title = this.props.title;
+    let message = this.props.message;
+    let show = this.props.show;
+
+    let proceed = this.props.proceed.bind(this);
+    let dismiss = this.props.dismiss.bind(this);
 
     return (
       <Modal onHide={dismiss} show={show}>
@@ -23,12 +23,12 @@ const ConfirmModal = React.createClass({
         </Modal.Body>
 
         <Modal.Footer>
-          <button className="btn btn-default" onClick={() => dismiss()}>Cancel</button>
-          <button className="btn btn-danger" onClick={() => proceed()}>Confirm</button>
+          <button className="btn btn-default" onClick={dismiss}>Cancel</button>
+          <button className="btn btn-danger" onClick={proceed}>Confirm</button>
         </Modal.Footer>
       </Modal>
     );
   }
-});
+}
 
 module.exports = confirmable(ConfirmModal);

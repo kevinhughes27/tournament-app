@@ -37,13 +37,17 @@ class Admin.ScheduleEditor
     $(form).find(':submit').addClass('is-loading')
 
   _collectGames: ->
-    games = _.filter $('.game'), (g) -> $(g).data('changed') == true
-    games = _.map games, (g) ->
+    games = $('.game').toArray().filter( (g) ->
+      $(g).data('changed') == true
+    )
+
+    games = games.map((g) ->
       {
         id: $(g).attr('data-game-id')
         field_id: $(g).attr('data-field-id')
         start_time: $(g).attr('data-start-time')
       }
+    )
     games
 
   _save: (form, games) ->

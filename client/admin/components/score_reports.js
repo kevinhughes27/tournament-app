@@ -1,12 +1,11 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Tooltip = require('react-bootstrap').Tooltip,
-    OverlayTrigger = require('react-bootstrap').OverlayTrigger,
-    classNames = require('classnames');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import classNames from 'classnames';
 
-var ScoreReports = React.createClass({
+class ScoreReports extends React.Component {
   render() {
-    var reports = this.props.reports;
+    let reports = this.props.reports;
 
     return (
       <div style={{paddingTop: 25}}>
@@ -32,12 +31,19 @@ var ScoreReports = React.createClass({
       </div>
     );
   }
-});
+}
 
-var ScoreReport = React.createClass({
+class ScoreReport extends React.Component {
+  tooltip(report) {
+    return(
+      <Tooltip id={"report#{report.id}submitter"}
+               placement="top">{report.submitter_fingerprint}
+      </Tooltip>
+    );
+  }
+
   render() {
-    var report = this.props.report;
-    var tooltip = <Tooltip id={"report#{report.id}submitter"} placement="top">{report.submitter_fingerprint}</Tooltip>;
+    let report = this.props.report;
 
     return (
       <tr className={ classNames({warning: report.sotg_warning}) }>
@@ -45,7 +51,7 @@ var ScoreReport = React.createClass({
           {report.score}
         </td>
         <td className="submitted-by">
-          <OverlayTrigger overlay={tooltip} delayShow={300} delayHide={150}>
+          <OverlayTrigger overlay={this.tooltip(report)} delayShow={300} delayHide={150}>
             <span>{report.submitted_by}</span>
           </OverlayTrigger>
         </td>
@@ -61,6 +67,6 @@ var ScoreReport = React.createClass({
       </tr>
     );
   }
-});
+}
 
 module.exports = ScoreReports;

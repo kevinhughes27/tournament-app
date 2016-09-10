@@ -6,9 +6,9 @@
 <% if @reports.present? %>
   <%= ui_box do %>
     <%= react_component('ReportsIndex', props: {
-      reports: render(template: 'admin/score_reports/score_reports.json.jbuilder', locals: {reports: @reports}),
+      reports: @reports_by_team.to_json,
       searchColumns: [
-        "team",
+        "name",
       ],
       filters: division_filters(@tournament)
     }) %>

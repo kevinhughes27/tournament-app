@@ -8,6 +8,6 @@ class Admin.Seeding
 
   rowDropped: (row) =>
     table = $(row).closest('table')
-    _.each(table.find('tr'), (tr, idx) ->
+    table.find('tr').toArray().forEach( (tr, idx) ->
       $(tr).find('#seeds_').val(idx)
     )

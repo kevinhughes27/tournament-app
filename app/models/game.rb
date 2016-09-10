@@ -21,8 +21,8 @@ class Game < ApplicationRecord
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
-
   validates_presence_of :field, if: Proc.new{ |g| g.start_time.present? }
+
   validate :validate_field
   validate :validate_field_conflict
   validate :validate_team_conflict

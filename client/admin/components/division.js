@@ -1,11 +1,17 @@
-var _ = require('lodash'),
-    React = require('react'),
-    ReactDOM = require('react-dom');
+import _filter from 'lodash/filter';
+import _groupBy from 'lodash/groupBy';
+import _each from 'lodash/each';
+import _map from 'lodash/map';
+import _union from 'lodash/union';
+import _sortBy from 'lodash/sortBy';
+import _keys from 'lodash/keys';
 
-var Pool = React.createClass({
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Pool extends React.Component {
   render() {
-    var pool = this.props.pool;
-    var teams = this.props.teams;
+    let {pool, teams} = this.props;
 
     return (
       <div style={{minWidth: '140px'}}>
@@ -29,45 +35,47 @@ var Pool = React.createClass({
       </div>
     );
   }
-});
+}
 
-var Division = React.createClass({
-  getInitialState() {
-    var bracketHandle = this.props.bracket_handle;
-    var bracket = BracketDb.find(bracketHandle);
+class Division extends React.Component {
+  constructor(props) {
+    super(props);
 
-    return {
+    let bracketHandle = this.props.bracket_handle;
+    let bracket = BracketDb.find(bracketHandle);
+
+    this.state = {
       bracketHandle: bracketHandle,
       bracket: bracket
     };
-  },
+  }
 
   componentDidMount() {
     this.renderBracket();
 
     $('#division_bracket_type').on('change', (event) => {
-      var bracketHandle = $(event.target).val();
-      var bracket = BracketDb.find(bracketHandle);
+      let bracketHandle = $(event.target).val();
+      let bracket = BracketDb.find(bracketHandle);
 
       this.setState({
         bracketHandle: bracketHandle,
         bracket: bracket
       });
     });
-  },
+  }
 
   componentDidUpdate() {
     this.renderBracket();
-  },
+  }
 
   renderBracket() {
-    var bracketVis = new Admin.BracketVis('#bracketGraph');
-    var bracket = this.state.bracket;
+    let bracketVis = new Admin.BracketVis('#bracketGraph');
+    let bracket = this.state.bracket;
 
     if (bracket) {
       bracketVis.render(bracket);
     }
-  },
+  }
 
   renderDescription(bracket) {
     return (
@@ -78,20 +86,20 @@ var Division = React.createClass({
         <p>{bracket.description}</p>
       </div>
     );
-  },
+  }
 
   renderPools(bracket) {
-    var games = _.filter(bracket.template.games, 'pool');
-    var pools;
-    var teamsByPool = {};
-    var gamesByPool = _.groupBy(games, 'pool');
+    let games = _filter(bracket.template.games, 'pool');
+    let pools;
+    let teamsByPool = {};
+    let gamesByPool = _groupBy(games, 'pool');
 
-    _.each(gamesByPool, function(games, pool) {
-      var homeTeams = _.map(games, 'home_prereq');
-      var awayTeams = _.map(games, 'away_prereq');
-      var teams = _.union(homeTeams, awayTeams);
-      teamsByPool[pool] = _.sortBy(teams, function(t){ return t});
-      pools = _.keys(teamsByPool);
+    _each(gamesByPool, function(games, pool) {
+      let homeTeams = _map(games, 'home_prereq');
+      let awayTeams = _map(games, 'away_prereq');
+      let teams = _union(homeTeams, awayTeams);
+      teamsByPool[pool] = _sortBy(teams, function(t){ return t});
+      pools = _keys(teamsByPool);
     });
 
     return (
@@ -101,11 +109,11 @@ var Division = React.createClass({
         })}
       </div>
     );
-  },
+  }
 
   render() {
-    var bracket = this.state.bracket;
-    var hasPools = bracket.pool;
+    let bracket = this.state.bracket;
+    let hasPools = bracket.pool;
 
     if (bracket) {
       return (
@@ -126,6 +134,6 @@ var Division = React.createClass({
       )
     }
   }
-});
+}
 
 module.exports = Division;

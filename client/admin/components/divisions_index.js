@@ -1,24 +1,31 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Griddle = require('griddle-react'),
-    FilterBar = require('../mixins/filter_bar'),
-    FilterFunction = require('../mixins/filter_function'),
-    LinkCell = require('./link_cell'),
-    DivisionsStore = require('../stores/divisions_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import IndexBase from './index_base';
+import FilterBar from './filter_bar';
+import filterFunction from '../modules/filter_function';
+import LinkCell from './link_cell';
+import DivisionsStore from '../stores/divisions_store';
 
-var columns = [
-  "name",
-  "bracket",
-  "teams_count",
-  "seeded"
-];
+class DivisionsIndex extends IndexBase {
+  constructor(props) {
+    super(props);
 
-var TeamsCell = React.createClass({
+    let divisions = JSON.parse(this.props.divisions);
+    DivisionsStore.init(divisions);
+
+    this.filterFunction = filterFunction.bind(this);
+    this.buildFilterComponent(FilterBar, DivisionsStore);
+
+    this.state = { items: DivisionsStore.all() };
+  }
+}
+
+class TeamsCell extends React.Component {
   render() {
-    var division = this.props.rowData;
-    var teamCount = division.teams_count;
-    var numTeams = division.num_teams;
-    var color;
+    let division = this.props.rowData;
+    let teamCount = division.teams_count;
+    let numTeams = division.num_teams;
+    let color;
 
     if(teamCount == numTeams) {
       color = "green";
@@ -34,16 +41,16 @@ var TeamsCell = React.createClass({
       </span>
     );
   }
-});
+}
 
-var SeededCell = React.createClass({
+class SeededCell extends React.Component {
   render() {
-    var division = this.props.rowData;
-    var seeded = division.seeded;
-    var dirtySeed = division.dirty_seed;
+    let division = this.props.rowData;
+    let seeded = division.seeded;
+    let dirtySeed = division.dirty_seed;
 
-    var iconClass;
-    var iconColor;
+    let iconClass;
+    let iconColor;
 
     if(seeded && !dirtySeed) {
       iconClass = "fa fa-check";
@@ -60,10 +67,16 @@ var SeededCell = React.createClass({
       <i className={iconClass} style={{color: iconColor}}></i>
     );
   }
-});
+}
 
+DivisionsIndex.columns = [
+  "name",
+  "bracket",
+  "teams_count",
+  "seeded"
+];
 
-var columnsMeta = [
+DivisionsIndex.columnsMeta = [
   {
     columnName: "name",
     displayName: "Name",
@@ -89,52 +102,5 @@ var columnsMeta = [
     customComponent: SeededCell
   }
 ];
-
-var DivisionsIndex = React.createClass({
-  mixins: [FilterFunction],
-
-  getInitialState() {
-    var divisions = JSON.parse(this.props.divisions);
-    DivisionsStore.init(divisions);
-
-    this.searchColumns = this.props.searchColumns;
-
-    this.divisionsFilter = React.createClass({
-      mixins: [FilterBar],
-      filters: this.props.filters,
-      bulkActions: [],
-      render() { return this.renderBar() }
-    });
-
-    return {
-      divisions: DivisionsStore.all(),
-    };
-  },
-
-  render() {
-    var divisions = this.state.divisions;
-
-    return (
-      <Griddle
-        results={divisions}
-        tableClassName="table table-striped table-hover"
-        columns={columns}
-        columnMetadata={columnsMeta}
-        resultsPerPage={divisions.length}
-        showPager={false}
-        useGriddleStyles={false}
-        sortAscendingClassName="sort asc"
-        sortAscendingComponent=""
-        sortDescendingClassName="sort desc"
-        sortDescendingComponent=""
-        showFilter={true}
-        useCustomFilterer={true}
-        customFilterer={this.filterFunction}
-        useCustomFilterComponent={true}
-        customFilterComponent={this.divisionsFilter}
-      />
-    );
-  }
-});
 
 module.exports = DivisionsIndex;

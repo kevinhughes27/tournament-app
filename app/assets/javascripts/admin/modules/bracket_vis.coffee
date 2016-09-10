@@ -64,7 +64,7 @@ class Admin.BracketVis
       # alternatively to keep a fixed scale one can set a fixed depth per level
       # Normalize for fixed-depth by commenting out below line
       # d.y = (d.depth * 500); //500px per level.
-      @treeWidth = _.max([@treeWidth, -1*d.y])
+      @treeWidth = Math.max(@treeWidth, -1*d.y)
     )
 
     # Declare the nodes…

@@ -1,63 +1,61 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Collapse = require('react-bootstrap').Collapse,
-    Modal = require('react-bootstrap').Modal,
-    classNames = require('classnames'),
-    confirm = require('./confirm'),
-    LoadingMixin = require('../mixins/loading_mixin');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Collapse, Modal} from 'react-bootstrap';
+import classNames from 'classnames';
+import confirm from './confirm';
 
-var UpdateScoreModal = React.createClass({
-  mixins: [LoadingMixin],
+class UpdateScoreModal extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getDefaultProps() {
-    return {
-      resolve: false,
-      linkClass: ''
-    }
-  },
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+    this.opened = this.opened.bind(this);
+    this.setFocus = this.setFocus.bind(this);
+    this.submit = this.submit.bind(this);
 
-  getInitialState() {
-    var game = this.props.game;
+    let game = this.props.game;
 
-    return {
+    this.state = {
       show: false,
+      isLoading: false,
       resolve: this.props.resolve,
       homeScore: game.home_score,
       awayScore: game.away_score
     };
-  },
+  }
 
   open(ev) {
     ev.preventDefault();
     this.setState({show: true});
-  },
+  }
 
   close(ev) {
     if(ev){ ev.preventDefault(); }
     this.setState({ show: false });
-  },
+  }
 
   opened() {
-    var game = this.props.game;
+    let game = this.props.game;
 
     this.setState({
       homeScore: game.home_score,
       awayScore: game.away_score
     });
-  },
+  }
 
   setFocus() {
     this.refs.input.focus();
-  },
+  }
 
   submit(ev) {
     ev.preventDefault();
     this.updateScore()
-  },
+  }
 
   updateScore(force = false) {
-    var gameId = this.props.game.id;
-    this._startLoading();
+    let gameId = this.props.game.id;
+    this.setState({isLoading: true});
 
     $.ajax({
       url: 'games/' + gameId,
@@ -70,12 +68,12 @@ var UpdateScoreModal = React.createClass({
         force: force
       },
       success: (response) => {
-        this._finishLoading();
+        this.setState({isLoading: false});
         this.close();
         Admin.Flash.notice('Score updated')
       },
       error: (response) => {
-        this._finishLoading();
+        this.setState({isLoading: false});
 
         if(response.status == 422) {
           this.close();
@@ -85,7 +83,7 @@ var UpdateScoreModal = React.createClass({
         }
       }
     })
-  },
+  }
 
   confirmUpdateScore() {
     confirm({
@@ -101,13 +99,11 @@ var UpdateScoreModal = React.createClass({
         console.log('cancelled');
       }
     );
-  },
+  }
 
   render() {
-    var game = this.props.game;
-    var btnClasses = classNames('btn', 'btn-primary', {'is-loading': this.state.isLoading});
-    var linkText = this.props.linkText;
-    var linkClass = this.props.linkClass;
+    let {game, linkText, linkClass} = this.props;
+    let btnClasses = classNames('btn', 'btn-primary', {'is-loading': this.state.isLoading});
 
     return (
       <div>
@@ -163,6 +159,11 @@ var UpdateScoreModal = React.createClass({
       </div>
     );
   }
-});
+}
+
+UpdateScoreModal.defaultProps = {
+  resolve: false,
+  linkClass: ''
+}
 
 module.exports = UpdateScoreModal;

@@ -1,30 +1,53 @@
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Griddle = require('griddle-react'),
-    FilterBar = require('../mixins/filter_bar'),
-    FilterFunction = require('../mixins/filter_function'),
-    LinkCell = require('./link_cell'),
-    TeamsStore = require('../stores/teams_store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import IndexBase from './index_base';
+import LinkCell from './link_cell';
+import TeamsFilterBar from './teams_filter_bar';
+import filterFunction from '../modules/filter_function';
+import TeamsStore from '../stores/teams_store';
 
-var columns = [
-  "id",
-  "name",
-  "email",
-  "phone",
-  "division",
-  "seed"
-];
+class TeamsIndex extends IndexBase {
+  constructor(props) {
+    super(props);
 
-var SelectCell = React.createClass({
+    let teams = JSON.parse(this.props.teams);
+    TeamsStore.init(teams);
+
+    this.onChange = this.onChange.bind(this);
+    this.filterFunction = filterFunction.bind(this);
+    this.buildFilterComponent(TeamsFilterBar, TeamsStore);
+
+    this.state = { items: TeamsStore.all() };
+  }
+
+  componentDidMount() {
+    TeamsStore.addChangeListener(this.onChange);
+  }
+
+  componentWillUnmount() {
+    TeamsStore.removeChangeListener(this.onChange);
+  }
+
+  onChange() {
+    this.setState({ teams: TeamsStore.all() });
+  }
+}
+
+class SelectCell extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   handleChange(ev) {
-    var team = this.props.rowData;
-    var selected = ev.target.checked;
+    let team = this.props.rowData;
+    let selected = ev.target.checked;
     TeamsStore.saveSelectedState(team, selected);
-  },
+  }
 
   render() {
-    var teamId = this.props.data;
-    var selected = this.props.rowData.selected;
+    let teamId = this.props.data;
+    let selected = this.props.rowData.selected;
 
     return (
       <input
@@ -35,27 +58,36 @@ var SelectCell = React.createClass({
         onChange={this.handleChange} />
     );
   }
-});
+}
 
-var SelectCellHeader = React.createClass({
-  getInitialState() {
-    return {
-      allChecked: false
-    }
-  },
+class SelectCellHeader extends React.Component {
+  constructor(props) {
+    super(props);
+    this.selectAll = this.selectAll.bind(this);
+    this.state = { allChecked: false };
+  }
 
-  _selectAll() {
-    var allChecked = !this.state.allChecked;
+  selectAll() {
+    let allChecked = !this.state.allChecked;
     this.setState({ allChecked: allChecked });
     TeamsStore.setSelected(allChecked);
-  },
+  }
 
   render() {
-    return <input type='checkbox' onClick={this._selectAll} />;
+    return <input type='checkbox' onClick={this.selectAll} />;
   }
-});
+}
 
-var columnsMeta = [
+TeamsIndex.columns = [
+  "id",
+  "name",
+  "email",
+  "phone",
+  "division",
+  "seed"
+];
+
+TeamsIndex.columnsMeta = [
   {
     columnName: "id",
     order: 1,
@@ -98,65 +130,5 @@ var columnsMeta = [
     order: 6
   },
 ];
-
-var TeamsIndex = React.createClass({
-  mixins: [FilterFunction],
-
-  getInitialState() {
-    var teams = JSON.parse(this.props.teams);
-    TeamsStore.init(teams);
-
-    this.searchColumns = this.props.searchColumns;
-    this.teamsFilter = React.createClass({
-      mixins: [FilterBar],
-      filters: this.props.filters,
-      bulkActions: this.props.bulkActions,
-      componentDidMount() { TeamsStore.addChangeListener(this._onChange) },
-      componentWillUnmount() { TeamsStore.removeChangeListener(this._onChange) },
-      render() { return this.renderBar() }
-    });
-
-    return {
-      teams: TeamsStore.all(),
-    };
-  },
-
-  componentDidMount() {
-    TeamsStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount() {
-    TeamsStore.removeChangeListener(this._onChange);
-  },
-
-  _onChange() {
-    this.setState({ teams: TeamsStore.all() });
-  },
-
-  render() {
-    var teams = this.state.teams;
-
-    return (
-      <Griddle
-        results={teams}
-        tableClassName="table table-striped table-hover"
-        columns={columns}
-        columnMetadata={columnsMeta}
-        resultsPerPage={teams.length}
-        showPager={false}
-        useGriddleStyles={false}
-        sortAscendingClassName="sort asc"
-        sortAscendingComponent=""
-        sortDescendingClassName="sort desc"
-        sortDescendingComponent=""
-        showFilter={true}
-        useCustomFilterer={true}
-        customFilterer={this.filterFunction}
-        useCustomFilterComponent={true}
-        customFilterComponent={this.teamsFilter}
-      />
-    );
-  }
-});
 
 module.exports = TeamsIndex;
