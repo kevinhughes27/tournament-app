@@ -18,7 +18,7 @@
       <%= button_tag 'Seed', class: 'btn btn-warning js-btn-loadable',
           'bind-event-click' => "Admin.ActionWithCheck(
             '#{seed_admin_division_path(@division)}',
-            'PUT',
+            'POST',
             true
           )" %>
     </div>

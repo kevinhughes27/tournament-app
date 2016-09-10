@@ -25,13 +25,6 @@ class UpdateScoreModal extends React.Component {
     };
   }
 
-  getDefaultProps() {
-    return {
-      resolve: false,
-      linkClass: ''
-    }
-  }
-
   open(ev) {
     ev.preventDefault();
     this.setState({show: true});
@@ -166,6 +159,11 @@ class UpdateScoreModal extends React.Component {
       </div>
     );
   }
+}
+
+UpdateScoreModal.defaultProps = {
+  resolve: false,
+  linkClass: ''
 }
 
 module.exports = UpdateScoreModal;

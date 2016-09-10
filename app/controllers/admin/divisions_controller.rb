@@ -59,7 +59,7 @@ class Admin::DivisionsController < AdminController
 
   def seed
     if request.post?
-      seed = SeedDivision.new(@division)
+      seed = SeedDivision.new(@division, params[:confirm])
       seed.perform
 
       if seed.succeeded?

@@ -11,9 +11,9 @@ class Admin.BracketChoice
     numDays = parseInt(@$daysInput.val())
     numTeams = parseInt(@$numberInput.val())
 
-    validBrackets = BracketDb.BRACKETS.filter(b) ->
+    validBrackets = BracketDb.BRACKETS.filter((b) ->
       b.num_teams == numTeams && b.days == numDays
-
+    )
     @$selectInput.empty()
 
     if validBrackets.length == 0

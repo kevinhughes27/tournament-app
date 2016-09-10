@@ -5,11 +5,12 @@ import {confirmable, createConfirmation} from 'react-confirm';
 
 class ConfirmModal extends React.Component {
   render() {
-    let show = this.props.show;
-    let proceed = this.props.proceed.bind(this);
-    let dismiss = this.props.dismiss.bind(this);
     let title = this.props.title;
     let message = this.props.message;
+    let show = this.props.show;
+
+    let proceed = this.props.proceed.bind(this);
+    let dismiss = this.props.dismiss.bind(this);
 
     return (
       <Modal onHide={dismiss} show={show}>
@@ -22,8 +23,8 @@ class ConfirmModal extends React.Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <button className="btn btn-default" onClick={this.dismiss()}>Cancel</button>
-          <button className="btn btn-danger" onClick={this.proceed()}>Confirm</button>
+          <button className="btn btn-default" onClick={dismiss}>Cancel</button>
+          <button className="btn btn-danger" onClick={proceed}>Confirm</button>
         </Modal.Footer>
       </Modal>
     );
