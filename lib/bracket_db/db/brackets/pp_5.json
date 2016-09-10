@@ -5,9 +5,9 @@
     {"round":1, "bracket_uid":"a", "home_prereq":"A1", "away_prereq":"A4"},
     {"round":1, "bracket_uid":"b", "home_prereq":"A2", "away_prereq":"A3"},
 
-    {"round":2, "bracket_uid":"c", "home_prereq":"La", "away_prereq":"A5"},
+    {"round":2, "bracket_uid":"3", "home_prereq":"La", "away_prereq":"A5"},
 
-    {"round":3, "bracket_uid":"d", "home_prereq":"Lb", "away_prereq":"A5"},
+    {"round":3, "bracket_uid":"4", "home_prereq":"Lb", "away_prereq":"A5"},
     {"round":3, "bracket_uid":"1", "home_prereq":"Wa", "away_prereq":"Wb"}
   ],
   "places": [

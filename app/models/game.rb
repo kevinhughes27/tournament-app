@@ -49,6 +49,12 @@ class Game < ApplicationRecord
     )
   end
 
+  def [](key)
+    return home_name if key == :home_name
+    return away_name if key == :away_name
+    super
+  end
+
   def pool_game?
     pool.present?
   end

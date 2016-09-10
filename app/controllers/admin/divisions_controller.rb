@@ -6,6 +6,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def show
+    @bracket_tree = BracketDb::to_tree(@division.games)
   end
 
   def edit

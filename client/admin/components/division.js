@@ -8,13 +8,14 @@ import _keys from 'lodash/keys';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import BracketVis from '../modules/bracket_vis';
 
 class Pool extends React.Component {
   render() {
     let {pool, teams} = this.props;
 
     return (
-      <div style={{minWidth: '140px'}}>
+      <div style={{minWidth: '140px', marginLeft: '40px'}}>
         <table className="table table-bordered table-striped table-hover table-condensed">
           <thead>
             <tr>
@@ -69,11 +70,14 @@ class Division extends React.Component {
   }
 
   renderBracket() {
-    let bracketVis = new Admin.BracketVis('#bracketGraph');
+    let node = $('#bracketGraph');
+    let bracketVis = new BracketVis(node);
+
     let bracket = this.state.bracket;
+    let bracketTree = this.props.bracket_tree;
 
     if (bracket) {
-      bracketVis.render(bracket);
+      bracketVis.render(bracket, bracketTree);
     }
   }
 
@@ -89,21 +93,23 @@ class Division extends React.Component {
   }
 
   renderPools(bracket) {
-    let games = _filter(bracket.template.games, 'pool');
+    let games = this.props.games || bracket.template.games;
+    let poolGames = _filter(games, 'pool');
+
     let pools;
     let teamsByPool = {};
-    let gamesByPool = _groupBy(games, 'pool');
+    let gamesByPool = _groupBy(poolGames, 'pool');
 
-    _each(gamesByPool, function(games, pool) {
-      let homeTeams = _map(games, 'home_prereq');
-      let awayTeams = _map(games, 'away_prereq');
+    _each(gamesByPool, function(poolGames, pool) {
+      let homeTeams = _map(poolGames, 'home_prereq');
+      let awayTeams = _map(poolGames, 'away_prereq');
       let teams = _union(homeTeams, awayTeams);
       teamsByPool[pool] = _sortBy(teams, function(t){ return t});
       pools = _keys(teamsByPool);
     });
 
     return (
-      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
         { pools.map((pool) => {
           return <Pool key={pool} pool={pool} teams={teamsByPool[pool]}/>
         })}
@@ -113,9 +119,10 @@ class Division extends React.Component {
 
   render() {
     let bracket = this.state.bracket;
-    let hasPools = bracket.pool;
 
     if (bracket) {
+      let hasPools = bracket.pool;
+
       return (
         <div>
           {this.renderDescription(bracket)}
