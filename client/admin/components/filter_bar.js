@@ -37,7 +37,7 @@ let FilterBar = {
     setQuery(this.props.query, {clear: true});
   },
 
-  _onChange() {
+  filterChange() {
     this.props.changeFilter(this.props.query);
   },
 

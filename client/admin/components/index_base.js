@@ -8,8 +8,8 @@ class IndexBase extends React.Component {
       mixins: [baseComponent],
       filters: this.props.filters,
       bulkActions: this.props.bulkActions || [],
-      componentDidMount() { store.addChangeListener(this._onChange) },
-      componentWillUnmount() { store.removeChangeListener(this._onChange) },
+      componentDidMount() { store.addChangeListener(this.filterChange) },
+      componentWillUnmount() { store.removeChangeListener(this.filterChange) },
       render() { return this.renderBar() }
     });
   }
