@@ -159,6 +159,9 @@ GEM
       thor (~> 0.19.1)
     frozen_record (0.7.1)
       activemodel
+    gibbon (2.2.4)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashie (3.4.4)
@@ -389,6 +392,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   font-awesome-rails
+  gibbon
   jbuilder
   jquery-rails
   kaminari!
