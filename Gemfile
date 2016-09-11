@@ -23,6 +23,9 @@ gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
 
+# APIs
+gem 'gibbon'
+
 # exception tracking
 gem 'rollbar'
 
