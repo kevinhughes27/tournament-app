@@ -25,11 +25,8 @@ module BracketDb
       game = games.detect { |g| g[:bracket_uid] == game_uid }
       return unless game
 
-      label = game[:bracket_uid]
-      label = ActiveSupport::Inflector.ordinalize(label) if label.is_i?
-
       node = {
-        label: label,
+        uid: game[:bracket_uid],
         home: game[:home_name] || game[:home_prereq],
         away: game[:away_name] || game[:away_prereq],
         round: game[:round],

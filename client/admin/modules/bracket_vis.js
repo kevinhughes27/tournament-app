@@ -1,5 +1,7 @@
 import d3 from 'd3'
 import _max from 'lodash/max';
+import inflection from 'inflection';
+let ordinalize = inflection.ordinalize;
 
 const HeightMultiplier = 120;
 const NodeSpacing = 20;
@@ -127,7 +129,7 @@ class BracketVis {
       .attr('dx', nodeWidth + 10)
       .attr('font-weight', 'bold')
       .text( (d) => {
-        if (d.parent && d.parent.root) return d.label;
+        if (d.parent && d.parent.root) return ordinalize(d.uid);
       });
 
     // uid text
@@ -136,7 +138,7 @@ class BracketVis {
       .attr('dx', nodeWidth/2 - 4)
       .attr('font-weight', 'bold')
       .text( (d) => {
-        if (!(d.parent && d.parent.root)) return d.label;
+        if (!(d.parent && d.parent.root)) return d.uid;
       });
 
     // Declare the links…
