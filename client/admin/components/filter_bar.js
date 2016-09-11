@@ -1,5 +1,5 @@
 import _omit from 'lodash/omit';
-import _forOwn from 'lodash/forOwn';
+import _toPairs from 'lodash/toPairs';
 import _find from 'lodash/find';
 import _keys from 'lodash/keys';
 
@@ -87,17 +87,21 @@ let FilterBar = {
             Filter
           </Dropdown.Toggle>
           <Dropdown.Menu style={{boxShadow: '0 6px 12px rgba(0, 0, 0, 0.175)'}}>
-            {this.filters.map((f, i) => {
-              return (
-                <MenuItem key={i} onClick={() => this.addFilter(f)}>
-                  <i className="fa fa-circle"></i>
-                  {f.text}
-               </MenuItem>
-             );
-            })}
+            {this.filters.map(this.renderFilterMenuItem)}
           </Dropdown.Menu>
         </Dropdown>
       </div>
+    );
+  },
+
+  renderFilterMenuItem(filter, idx) {
+    if (filter.hidden) return;
+
+    return (
+      <MenuItem key={idx} onClick={() => this.addFilter(filter)}>
+        <i className="fa fa-circle"></i>
+        {filter.text}
+     </MenuItem>
     );
   },
 
@@ -128,11 +132,6 @@ let FilterBar = {
   renderBar() {
     let searchValue = this.props.query.search;
     let currentFilters = _omit(this.props.query, 'search');
-    let filterNames = {};
-    _forOwn(currentFilters, (value, key) => {
-      let f = _find(this.filters, function(f) { return f.key == key && f.value == value });
-      filterNames[key] = f.text;
-    });
 
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
@@ -150,16 +149,23 @@ let FilterBar = {
           </InputGroup>
         </FormGroup>
         <div className="btn-toolbar">
-          { _keys(currentFilters).map((key, idx) => {
-            return <Filter
-              key={idx}
-              filterKey={key}
-              filterText={filterNames[key]}
-              filterValue={currentFilters[key]}
-              deleteFilter={this.deleteFilter} />;
-          })}
+          { _toPairs(currentFilters).map(this.renderFilter)}
         </div>
       </div>
+    );
+  },
+
+  renderFilter(pair, idx) {
+    let [key, value] = pair;
+    let filter = _find(this.filters, function(f) { return f.key == key && f.value == value });
+
+    return (
+      <Filter
+        key={idx}
+        filterKey={key}
+        filterText={filter.text}
+        filterValue={filter.value}
+        deleteFilter={this.deleteFilter} />
     );
   }
 };
