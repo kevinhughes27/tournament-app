@@ -94,19 +94,8 @@ class Division extends React.Component {
 
   renderPools(bracket) {
     let games = this.props.games || bracket.template.games;
-    let poolGames = _filter(games, 'pool');
-
-    let pools;
-    let teamsByPool = {};
-    let gamesByPool = _groupBy(poolGames, 'pool');
-
-    _each(gamesByPool, function(poolGames, pool) {
-      let homeTeams = _map(poolGames, 'home_prereq');
-      let awayTeams = _map(poolGames, 'away_prereq');
-      let teams = _union(homeTeams, awayTeams);
-      teamsByPool[pool] = _sortBy(teams, function(t){ return t});
-      pools = _keys(teamsByPool);
-    });
+    let teamsByPool = this._teamsByPool(games);
+    let pools = _keys(teamsByPool);
 
     return (
       <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
@@ -115,6 +104,22 @@ class Division extends React.Component {
         })}
       </div>
     );
+  }
+
+  _teamsByPool(games) {
+    let teamsByPool = {};
+
+    let poolGames = _filter(games, 'pool');
+    let gamesByPool = _groupBy(poolGames, 'pool');
+
+    _each(gamesByPool, function(poolGames, pool) {
+      let homeTeams = _map(poolGames, 'home_prereq');
+      let awayTeams = _map(poolGames, 'away_prereq');
+      let teams = _union(homeTeams, awayTeams);
+      teamsByPool[pool] = _sortBy(teams, function(t){ return t});
+    });
+
+    return teamsByPool;
   }
 
   render() {
