@@ -20,8 +20,8 @@
 <%= ui_box do %>
   <%= react_component('Division',
     props: {
+      games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @division.games}),
       bracket_handle: @division.bracket_type,
-      games: @division.games,
       bracket_tree: @bracket_tree
     }
   ) %>

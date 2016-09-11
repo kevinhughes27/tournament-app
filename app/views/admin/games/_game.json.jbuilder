@@ -1,7 +1,11 @@
 json.extract! game,
   :id,
-  :pool,
   :name,
+  :pool,
+  :home_prereq,
+  :home_name,
+  :away_prereq,
+  :away_name,
   :home_score,
   :away_score
 
