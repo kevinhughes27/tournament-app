@@ -31,6 +31,21 @@ class ScoreReportCreateTest < ActiveSupport::TestCase
     create.perform
   end
 
+  test "if saving fails notify of the error" do
+    params = score_report_params
+    params[:opponent_score] = -1
+
+    Rollbar.expects(:error).once
+
+    create = ScoreReportCreate.new(
+      params,
+      @tournament.game_confirm_setting
+    )
+    create.perform
+
+    assert create.failed?
+  end
+
   private
 
   def score_report_params

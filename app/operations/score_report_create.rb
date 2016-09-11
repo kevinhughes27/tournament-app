@@ -12,7 +12,11 @@ class ScoreReportCreate < ApplicationOperation
 
     unless report.save
       @errors = report.errors.full_messages
-      halt 'Save failed'
+
+      e = Exception.new(@errors.to_json)
+      Rollbar.error(e)
+
+      fail @errors
     end
 
     notify_other_team
