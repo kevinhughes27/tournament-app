@@ -2,7 +2,8 @@ import _filter from 'lodash/filter';
 import _groupBy from 'lodash/groupBy';
 import _each from 'lodash/each';
 import _map from 'lodash/map';
-import _union from 'lodash/union';
+import _unionWith from 'lodash/unionWith';
+import _isEqual from 'lodash/isEqual';
 import _sortBy from 'lodash/sortBy';
 import _keys from 'lodash/keys';
 
@@ -11,6 +12,19 @@ import ReactDOM from 'react-dom';
 import BracketVis from '../modules/bracket_vis';
 
 class Pool extends React.Component {
+  renderRow(team) {
+    let text = team.seed
+    if (team.name && team.name != team.seed) {
+      text = `${team.seed} - ${team.name}`;
+    }
+
+    return (
+      <tr key={team.seed}>
+        <td>{text}</td>
+      </tr>
+    )
+  }
+
   render() {
     let {pool, teams} = this.props;
 
@@ -24,13 +38,7 @@ class Pool extends React.Component {
           </thead>
 
           <tbody>
-            { teams.map(function(team) {
-              return (
-                <tr key={team}>
-                  <td>{team}</td>
-                </tr>
-              )
-            })}
+            { teams.map(this.renderRow)}
           </tbody>
         </table>
       </div>
@@ -93,7 +101,7 @@ class Division extends React.Component {
   }
 
   renderPools(bracket) {
-    let games = this.props.games || bracket.template.games;
+    let games = this.props.games ? JSON.parse(this.props.games) : bracket.template.games;
     let teamsByPool = this._teamsByPool(games);
     let pools = _keys(teamsByPool);
 
@@ -113,10 +121,16 @@ class Division extends React.Component {
     let gamesByPool = _groupBy(poolGames, 'pool');
 
     _each(gamesByPool, function(poolGames, pool) {
-      let homeTeams = _map(poolGames, 'home_prereq');
-      let awayTeams = _map(poolGames, 'away_prereq');
-      let teams = _union(homeTeams, awayTeams);
-      teamsByPool[pool] = _sortBy(teams, function(t){ return t});
+      let homeTeams = _map(poolGames, (g) => {
+        return {seed: g.home_prereq, name: g.home_name}
+      });
+
+      let awayTeams = _map(poolGames, (g) => {
+        return {seed: g.away_prereq, name: g.away_name}
+      });
+
+      let teams = _unionWith(homeTeams, awayTeams, _isEqual);
+      teamsByPool[pool] = _sortBy(teams, function(t){ return t.seed });
     });
 
     return teamsByPool;
