@@ -177,7 +177,7 @@ class BracketVis {
 
   position(nodeWidth) {
     let x = -(nodeWidth+10);
-    let y = -36;
+    let y = -30;
   //let scale = this.viewerHeight / this.treeHeight;
 
     this.svgGroup.transition()

@@ -52,7 +52,7 @@ class Pool extends React.Component {
     let {pool, teams, divisionName} = this.props;
 
     return (
-      <div style={{minWidth: '140px', marginLeft: '40px'}}>
+      <div style={{minWidth: '140px', marginLeft: '20px', marginRight: '20px'}}>
         <table className="table table-bordered table-striped table-hover table-condensed">
           {this.renderHeader(divisionName, pool)}
           <tbody>
@@ -105,6 +105,18 @@ class Division extends React.Component {
     if (bracket) {
       bracketVis.render(bracket, bracketTree);
     }
+  }
+
+  renderGamesLink(divisionName) {
+    if (!divisionName) return;
+
+    return (
+      <div className='pull-right subdued' style={{fontSize: '10px'}}>
+        <a href={`/admin/games?division=${divisionName}&bracket=1`}>
+          Games <i className="fa fa-external-link"></i>
+        </a>
+      </div>
+    );
   }
 
   renderDescription(bracket) {
@@ -160,6 +172,26 @@ class Division extends React.Component {
     return teamsByPool;
   }
 
+  renderBracketContainer() {
+    let divisionName = this.props.division_name;
+
+    return (
+      <div style={{paddingLeft: '20px', paddingRight: '20px'}}>
+        <div className='panel panel-default'>
+          <div className='panel-heading' style={{backgroundColor: 'white'}}>
+            <strong>Bracket</strong>
+            {this.renderGamesLink(divisionName)}
+          </div>
+          <div className='panel-body'>
+            <div style={{height: '440px'}}>
+              <div id="bracketGraph" style={{height: '100%'}}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let bracket = this.state.bracket;
 
@@ -171,9 +203,7 @@ class Division extends React.Component {
           {this.renderDescription(bracket)}
           <hr/>
           { hasPools ? this.renderPools(bracket) : null }
-          <div style={{paddingLeft: '30px', paddingRight: '30px', height: '440px'}}>
-            <div id="bracketGraph" style={{height: '100%'}}></div>
-          </div>
+          { this.renderBracketContainer() }
         </div>
       );
     } else {

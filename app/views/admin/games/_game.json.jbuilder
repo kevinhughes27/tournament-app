@@ -11,6 +11,7 @@ json.extract! game,
 
 json.division game.division.name
 
+json.bracket game.bracket_game?
 json.has_teams game.teams_present?
 json.played game.played?
 json.confirmed game.confirmed?
