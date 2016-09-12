@@ -9,42 +9,9 @@ import _keys from 'lodash/keys';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import Pool from './pool'
 import BracketVis from '../modules/bracket_vis';
-
-class Pool extends React.Component {
-  renderRow(team) {
-    let text = team.seed
-    if (team.name && team.name != team.seed) {
-      text = `${team.seed} - ${team.name}`;
-    }
-
-    return (
-      <tr key={team.seed}>
-        <td>{text}</td>
-      </tr>
-    )
-  }
-
-  render() {
-    let {pool, teams} = this.props;
-
-    return (
-      <div style={{minWidth: '140px', marginLeft: '40px'}}>
-        <table className="table table-bordered table-striped table-hover table-condensed">
-          <thead>
-            <tr>
-              <th>Pool {pool}</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            { teams.map(this.renderRow)}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
 
 class Division extends React.Component {
   constructor(props) {
@@ -102,13 +69,20 @@ class Division extends React.Component {
 
   renderPools(bracket) {
     let games = this.props.games ? JSON.parse(this.props.games) : bracket.template.games;
+    let divisionName = games[0].division;
+
     let teamsByPool = this._teamsByPool(games);
     let pools = _keys(teamsByPool);
 
     return (
       <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
         { pools.map((pool) => {
-          return <Pool key={pool} pool={pool} teams={teamsByPool[pool]}/>
+          return <Pool
+            key={pool}
+            pool={pool}
+            teams={teamsByPool[pool]}
+            divisionName={divisionName}
+          />
         })}
       </div>
     );
@@ -136,6 +110,38 @@ class Division extends React.Component {
     return teamsByPool;
   }
 
+  renderBracketContainer() {
+    let divisionName = this.props.division_name;
+
+    return (
+      <div style={{paddingLeft: '20px', paddingRight: '20px'}}>
+        <div className='panel panel-default'>
+          <div className='panel-heading' style={{backgroundColor: 'white'}}>
+            <strong>Bracket</strong>
+            {this.renderGamesLink(divisionName)}
+          </div>
+          <div className='panel-body'>
+            <div style={{height: '440px'}}>
+              <div id="bracketGraph" style={{height: '100%'}}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderGamesLink(divisionName) {
+    if (!divisionName) return;
+
+    return (
+      <div className='pull-right subdued' style={{fontSize: '10px'}}>
+        <a href={`/admin/games?division=${divisionName}&bracket=1`}>
+          Games <i className="fa fa-external-link"></i>
+        </a>
+      </div>
+    );
+  }
+
   render() {
     let bracket = this.state.bracket;
 
@@ -147,9 +153,7 @@ class Division extends React.Component {
           {this.renderDescription(bracket)}
           <hr/>
           { hasPools ? this.renderPools(bracket) : null }
-          <div style={{paddingLeft: '30px', paddingRight: '30px', height: '440px'}}>
-            <div id="bracketGraph" style={{height: '100%'}}></div>
-          </div>
+          { this.renderBracketContainer() }
         </div>
       );
     } else {
