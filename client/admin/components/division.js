@@ -9,60 +9,9 @@ import _keys from 'lodash/keys';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import Pool from './pool'
 import BracketVis from '../modules/bracket_vis';
-
-class Pool extends React.Component {
-  renderGamesLink(divisionName, pool) {
-    return (
-      <div className='pull-right subdued' style={{fontSize: '10px'}}>
-        <a href={`/admin/games?division=${divisionName}&pool=${pool}`}>
-          Games <i className="fa fa-external-link"></i>
-        </a>
-      </div>
-    );
-  }
-
-  renderHeader(divisionName, pool) {
-    return (
-      <thead>
-        <tr>
-          <th>
-            Pool {pool}
-            {divisionName ? this.renderGamesLink(divisionName, pool) : null}
-          </th>
-        </tr>
-      </thead>
-    );
-  }
-
-  renderRow(team) {
-    let text = team.seed
-    if (team.name && team.name != team.seed) {
-      text = `${team.seed} - ${team.name}`;
-    }
-
-    return (
-      <tr key={team.seed}>
-        <td>{text}</td>
-      </tr>
-    )
-  }
-
-  render() {
-    let {pool, teams, divisionName} = this.props;
-
-    return (
-      <div style={{minWidth: '140px', marginLeft: '20px', marginRight: '20px'}}>
-        <table className="table table-bordered table-striped table-hover table-condensed">
-          {this.renderHeader(divisionName, pool)}
-          <tbody>
-            { teams.map(this.renderRow)}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
 
 class Division extends React.Component {
   constructor(props) {
@@ -107,18 +56,6 @@ class Division extends React.Component {
     }
   }
 
-  renderGamesLink(divisionName) {
-    if (!divisionName) return;
-
-    return (
-      <div className='pull-right subdued' style={{fontSize: '10px'}}>
-        <a href={`/admin/games?division=${divisionName}&bracket=1`}>
-          Games <i className="fa fa-external-link"></i>
-        </a>
-      </div>
-    );
-  }
-
   renderDescription(bracket) {
     return (
       <div>
@@ -132,9 +69,10 @@ class Division extends React.Component {
 
   renderPools(bracket) {
     let games = this.props.games ? JSON.parse(this.props.games) : bracket.template.games;
+    let divisionName = games[0].division;
+
     let teamsByPool = this._teamsByPool(games);
     let pools = _keys(teamsByPool);
-    let divisionName = games[0].division;
 
     return (
       <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
@@ -188,6 +126,18 @@ class Division extends React.Component {
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  renderGamesLink(divisionName) {
+    if (!divisionName) return;
+
+    return (
+      <div className='pull-right subdued' style={{fontSize: '10px'}}>
+        <a href={`/admin/games?division=${divisionName}&bracket=1`}>
+          Games <i className="fa fa-external-link"></i>
+        </a>
       </div>
     );
   }
