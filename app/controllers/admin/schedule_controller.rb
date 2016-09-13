@@ -1,5 +1,8 @@
 class Admin::ScheduleController < AdminController
-  before_action :load_index_data, only: [:index]
+  before_action :load_index_data, only: [:index, :edit]
+
+  def edit
+  end
 
   def index
     respond_to do |format|
@@ -37,7 +40,14 @@ class Admin::ScheduleController < AdminController
   private
 
   def load_index_data
-    @games = @tournament.games.includes(:division).order(division_id: :asc)
+    @games = @tournament.games.includes(
+      :division,
+      :home,
+      :away,
+      :score_reports,
+      :score_disputes
+    ).order(division_id: :asc)
+
     @fields = @tournament.fields.sort_by{ |f| f.name.gsub(/\D/, '').to_i }
     @times = time_slots
   end

@@ -27,6 +27,7 @@ namespace :admin do
   end
 
   get '/schedule', to: 'schedule#index'
+  get '/schedule/edit', to: 'schedule#edit'
   post '/schedule', to: 'schedule#update'
 
   resources :games, only: [:index, :update]

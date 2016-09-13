@@ -90,7 +90,7 @@ class Game < ApplicationRecord
   end
 
   def scheduled?
-    field_id && start_time
+    !!(field_id && start_time)
   end
 
   def played?

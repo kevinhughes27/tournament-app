@@ -30,6 +30,7 @@
     "react-confirm": "^0.1.13",
     "react-dom": "^15.2.1",
     "react-on-rails": "6.1.2",
+    "react-grid-layout": "^0.13.5",
     "react-overlays": "^0.6.0",
     "resolve-url-loader": "^1.4.3",
     "set-query-string": "^2.1.0",
