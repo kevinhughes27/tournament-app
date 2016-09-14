@@ -61,7 +61,7 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     put :update, params: params
 
     assert_response :unprocessable_entity
-    assert_equal "Validation failed: Field can't be blank", response_json['error']
+    assert_equal "Field can't be blank", response_json['error']
   end
 
   test "can swap 2 games without triggering conflict errors" do

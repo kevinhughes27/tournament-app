@@ -20,15 +20,16 @@ class Admin::ScheduleController < AdminController
       games.update_all(field_id: nil, start_time: nil)
 
       games_params.each do |p|
-        game = Game.find_by(tournament_id: @tournament.id, id: p[:id])
-        game.update!(p)
+        @game = Game.find_by(tournament_id: @tournament.id, id: p[:id])
+        ScheduleGame.perform(@game, p[:field_id], p[:start_time])
       end
     end
 
     load_index_data
     render :index
-  rescue ActiveRecord::RecordInvalid => error
-    render json: {game_id: error.record.id, error: error.message}, status: :unprocessable_entity
+
+  rescue => e
+    render json: {game_id: @game.id, error: e.message}, status: :unprocessable_entity
   end
 
   private

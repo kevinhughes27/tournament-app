@@ -23,11 +23,7 @@ class Game < ApplicationRecord
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
   validates_presence_of :field, if: Proc.new{ |g| g.start_time.present? }
-
   validate :validate_field
-  validate :validate_field_conflict
-  validate :validate_team_conflict
-  validate :validate_schedule_conflicts
 
   validates_numericality_of :home_score, :away_score, allow_blank: true, greater_than_or_equal_to: 0
 
@@ -107,7 +103,9 @@ class Game < ApplicationRecord
   end
 
   def playing_time_range_string
-    "#{start_time.to_formatted_s(:timeonly)} - #{end_time.to_formatted_s(:timeonly)}"
+    formatted_start = start_time.to_formatted_s(:timeonly)
+    formatted_end = end_time.to_formatted_s(:timeonly)
+    "#{formatted_start} - #{formatted_end}"
   end
 
   def confirmed?
@@ -174,42 +172,5 @@ class Game < ApplicationRecord
   def validate_field
     return if field_id.blank? || errors[:field].present?
     errors.add(:field, 'is invalid') unless tournament.fields.where(id: field_id).exists?
-  end
-
-  def validate_field_conflict
-    return if field_id.blank? || start_time.blank?
-    return unless field_id_changed? || start_time_changed?
-
-    games = tournament.games.where(field_id: field_id, start_time: playing_time_range)
-    games = games.where.not(id: id)
-
-    if games.present?
-      errors.add(:base, "Field #{field.name} is in use at #{playing_time_range_string}")
-    end
-  end
-
-  def validate_team_conflict
-    return if start_time.blank?
-    return unless start_time_changed?
-    check = TeamConflictCheck.new(self)
-    errors.add(:base, check.message) if check.perform
-  end
-
-  def validate_schedule_conflicts
-    return if pool_game?
-    return if start_time.blank?
-    return unless start_time_changed?
-
-    games = dependent_games.select { |dg| dg.start_time < end_time if dg.start_time }
-
-    if games.present?
-      errors.add(:base, "Game '#{bracket_uid}' must be played before game '#{games.first.bracket_uid}'")
-    end
-
-    games = prerequisite_games.select { |pg| pg.start_time >= start_time if pg.start_time }
-
-    if games.present?
-      errors.add(:base, "Game '#{bracket_uid}' must be played after game '#{games.first.bracket_uid}'")
-    end
   end
 end
