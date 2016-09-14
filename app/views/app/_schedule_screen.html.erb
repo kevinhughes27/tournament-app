@@ -24,7 +24,7 @@
 
           <% @games.group_by{ |g| g.start_time }.sort.each do |time, games| %>
 
-            <li class="table-view-divider"  bind-show="filter(<%= games.map{|g| [g.name]}.flatten.to_json %>)">
+            <li class="table-view-divider"  bind-show='filter(<%= games.map{|g| ["#{g.home_name} vs #{g.away_name}"]}.flatten.to_json %>)'>
               <div class='divider-container'>
                 <div class="divider-time" data-time="<%= time%>">
                   <strong><%= time.strftime("%l:%M %P") %></strong>
@@ -37,12 +37,8 @@
 
             <% games.each do |game| %>
 
-              <li id="game-<%= game.id %>" class="table-view-cell" bind-show="filter(<%= game.name.to_json %>)">
-                <% if game.home && game.away %>
-                  <%= game.home.name %> <span class="subdued">vs</span> <%= game.away.name %>
-                <% else %>
-                  <%= game.name %>
-                <% end %>
+              <li id="game-<%= game.id %>" class="table-view-cell" bind-show='filter(<%= "#{game.home_name} vs #{game.away_name}".to_json %>)'>
+                  <%= game.home_name %> <span class="subdued">vs</span> <%= game.away_name %>
 
                 <% if game.confirmed? %>
                   <%= "(#{game.home_score}/#{game.away_score})" %>

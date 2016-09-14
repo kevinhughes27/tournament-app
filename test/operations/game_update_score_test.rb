@@ -18,7 +18,8 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
     update.perform
 
     assert update.halted?
-    assert_nil game.score
+    assert_nil game.home_score
+    assert_nil game.away_score
   end
 
   test "can't update score if not safe" do

@@ -10,14 +10,15 @@ class Game < ApplicationRecord
   has_many :score_entries, dependent: :destroy
   has_many :score_disputes, dependent: :destroy
 
-  validates_presence_of :tournament
-  validates_presence_of :division, :home_prereq, :away_prereq
-  validates_presence_of :round
+  validates_presence_of :tournament,
+                        :division,
+                        :home_prereq,
+                        :away_prereq,
+                        :round
   validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }
   validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
   validates_uniqueness_of :bracket_uid, scope: :division, if: :bracket_game?
-  validates_presence_of :home_pool_seed, if: :pool_game?
-  validates_presence_of :away_pool_seed, if: :pool_game?
+  validates_presence_of :home_pool_seed, :away_pool_seed, if: :pool_game?
 
   validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
   validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
@@ -77,27 +78,12 @@ class Game < ApplicationRecord
     home_score < away_score ? home : away
   end
 
-  def score
-    return unless confirmed?
-    "#{home_score} - #{away_score}"
-  end
-
   def home_name
     home.present? ? home.name : home_prereq
   end
 
   def away_name
     away.present? ? away.name : away_prereq
-  end
-
-  def name
-    if teams_present?
-      "#{home_name} vs #{away_name}"
-    elsif bracket_game?
-      "#{bracket_uid} (#{home_name} vs #{away_name})"
-    else
-      "#{home_name} vs #{away_name}"
-    end
   end
 
   def teams_present?

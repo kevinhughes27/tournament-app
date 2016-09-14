@@ -9,20 +9,6 @@ class GameTest < ActiveSupport::TestCase
     @game = games(:swift_goose)
   end
 
-  test "name returns home vs away if teams_present" do
-    assert_equal "#{@home.name} vs #{@away.name}", @game.name
-  end
-
-  test "name returns seed vs name if teams aren't assigned yet" do
-    game = Game.new(division: @division, home_prereq: 1, away_prereq: 8)
-    assert_equal "1 vs 8", game.name
-  end
-
-  test "name returns bracket pos name if teams aren't assigned yet" do
-    game = Game.new(division: @division, bracket_uid: 'a', home_prereq: 1, away_prereq: 8)
-    assert_equal "a (1 vs 8)", game.name
-  end
-
   test "teams_present? is true if home or away is present" do
     assert @game.teams_present?
 
