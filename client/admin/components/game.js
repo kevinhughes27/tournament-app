@@ -76,15 +76,17 @@ export class NameCell extends React.Component {
     let game = this.props.rowData;
     let reports = game.score_reports;
 
+    let nameClasses = classNames({'subdued': !game.has_teams});
+    let text = `${game.home_name} vs ${game.away_name}`;
+
     if (reports.length == 0) {
-      let nameClasses = classNames({'subdued': !game.has_teams});
-      return( <span className={nameClasses}>{game.name}</span> );
+      return( <span className={nameClasses}>{text}</span> );
     };
 
     return (
       <div>
         <a href="#" onClick={this.toggleCollapse}>
-          <span>{game.name} {this.renderBadges(game)}</span>
+          <span>{text} {this.renderBadges(game)}</span>
         </a>
         <Collapse in={this.state.reportsOpen}>
           <div>

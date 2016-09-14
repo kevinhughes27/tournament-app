@@ -1,6 +1,5 @@
 json.extract! game,
   :id,
-  :name,
   :pool,
   :home_prereq,
   :home_name,

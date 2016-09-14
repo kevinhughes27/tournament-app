@@ -35,7 +35,7 @@ class GamesIndex extends IndexBase {
 }
 
 GamesIndex.columns = [
-  "name",
+  "home_name",
   "division",
   "pool",
   "confirmed",
@@ -43,7 +43,7 @@ GamesIndex.columns = [
 
 GamesIndex.columnsMeta = [
   {
-    columnName: "name",
+    columnName: "home_name",
     displayName: "Game",
     cssClassName: "col-md-6 table-link",
     order: 1,
