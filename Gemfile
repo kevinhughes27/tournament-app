@@ -17,11 +17,12 @@ gem 'config'
 gem 'composable_operations'
 
 # model gems
-gem 'bracket_db', path: 'lib/bracket_db'
 gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
 gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
+
+gem 'bracket_db', '0.0.2', path: 'lib/bracket_db'
 
 # APIs
 gem 'gibbon'
