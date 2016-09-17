@@ -6,8 +6,8 @@ namespace :m do
     template_games = division.template[:games].select{ |game| game[:bracket_uid] }
     template_games.each do |template_game|
       Game::create_from_template!(
-        tournament_id: tournament_id,
-        division_id: division_id,
+        tournament_id: division.tournament_id,
+        division_id: division.id,
         template_game: template_game
       )
     end
