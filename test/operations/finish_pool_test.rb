@@ -11,7 +11,7 @@ class FinishPoolTest < ActiveSupport::TestCase
   end
 
   test "pool not finished" do
-    division = new_division('USAU 8.1')
+    division = create_division(bracket_type: 'USAU 8.1')
     @teams.update_all(division_id: division.id)
 
     Game.any_instance.expects(:save!).never
@@ -21,7 +21,7 @@ class FinishPoolTest < ActiveSupport::TestCase
   end
 
   test "records pool results" do
-    division = new_division('USAU 8.1')
+    division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
     SeedDivision.perform(division)
@@ -35,7 +35,7 @@ class FinishPoolTest < ActiveSupport::TestCase
   end
 
   test "clears previous pool results" do
-    division = new_division('USAU 8.1')
+    division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
     SeedDivision.perform(division)
@@ -63,7 +63,7 @@ class FinishPoolTest < ActiveSupport::TestCase
   end
 
   test "update pool" do
-    division = new_division('USAU 8.1')
+    division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
     SeedDivision.perform(division)
@@ -193,7 +193,7 @@ class FinishPoolTest < ActiveSupport::TestCase
   end
 
   test "update pool resets dependent bracket games" do
-    division = new_division('USAU 8.1')
+    division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
     SeedDivision.perform(division)
@@ -234,7 +234,7 @@ class FinishPoolTest < ActiveSupport::TestCase
   end
 
   test "update pool doesn't reset dependent bracket games if no change" do
-    division = new_division('USAU 8.1')
+    division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
     SeedDivision.perform(division)
@@ -274,16 +274,6 @@ class FinishPoolTest < ActiveSupport::TestCase
         home_score: home_score,
         away_score: away_score,
         score_confirmed: true
-      )
-    end
-  end
-
-  def new_division(type)
-    perform_enqueued_jobs do
-      division = Division.create!(
-        tournament: @tournament,
-        name: 'New Division',
-        bracket_type: type
       )
     end
   end

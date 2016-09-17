@@ -10,7 +10,7 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
   end
 
   test "perform" do
-    division = new_division('single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
     @teams.update_all(division_id: division.id)
 
     refute division.seeded?
@@ -28,7 +28,7 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
   end
 
   test "perform with pool" do
-    division = new_division('USAU 8.1')
+    division = create_division(bracket_type: 'USAU 8.1')
     @teams.update_all(division_id: division.id)
 
     refute division.seeded?
@@ -43,13 +43,5 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
     division.teams[1].update(seed: 1)
 
     assert DirtySeedCheck.perform(division)
-  end
-
-  private
-
-  def new_division(type)
-    perform_enqueued_jobs do
-      division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-    end
   end
 end

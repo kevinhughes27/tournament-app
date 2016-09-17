@@ -7,26 +7,12 @@ class DivisionTest < ActiveSupport::TestCase
     @teams = @division.teams
   end
 
-  test "division creates all required games" do
-    type = 'single_elimination_4'
-    assert_difference "Game.count", +4 do
-      create_division(bracket_type: type)
-    end
-  end
-
   test "division deletes games when it is deleted" do
     type = 'single_elimination_4'
     division = create_division(bracket_type: type)
 
     assert_difference "Game.count", -4 do
       division.destroy
-    end
-  end
-
-  test "division creates all required places" do
-    type = 'single_elimination_4'
-    assert_difference "Place.count", +4 do
-      create_division(bracket_type: type)
     end
   end
 
@@ -69,37 +55,6 @@ class DivisionTest < ActiveSupport::TestCase
     assert division.dirty_seed?
   end
 
-  test "updating the bracket_type clears the previous games" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    assert_equal 12, division.games.count
-
-    division.update(bracket_type: 'single_elimination_4')
-
-    assert_equal 4, division.games.count
-  end
-
-  test "updating the bracket_type resets seeded status" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
-
-    SeedDivision.perform(division)
-
-    assert division.seeded?
-
-    division.update(bracket_type: 'single_elimination_4')
-
-    refute division.seeded?
-  end
-
-  test "updating the bracket_type clears the previous places" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    assert_equal 12, division.games.count
-
-    division.update(bracket_type: 'single_elimination_4')
-
-    assert_equal 4, division.games.count
-  end
-
   test "safe_to_delete? is true for division with no games started" do
     division = divisions(:women)
     assert division.safe_to_delete?
@@ -136,13 +91,5 @@ class DivisionTest < ActiveSupport::TestCase
 
     pool_games = division.pool_games('A')
     assert_equal 'A', pool_games.first.pool
-  end
-
-  private
-
-  def create_division(params)
-    Division.create!(
-      params.merge(tournament: @tournament, name: 'New Division')
-    )
   end
 end
