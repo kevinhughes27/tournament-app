@@ -16,8 +16,9 @@ class DivisionUpdateTest < ActiveSupport::TestCase
   end
 
   test "updating the bracket_type resets seeded status" do
+    teams = @division.teams.order(:seed)
     division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
+    teams.update_all(division_id: division.id)
 
     SeedDivision.perform(division)
 
