@@ -92,15 +92,4 @@ class DivisionTest < ActiveSupport::TestCase
     pool_games = division.pool_games('A')
     assert_equal 'A', pool_games.first.pool
   end
-
-  private
-
-  def create_division(params)
-    create = DivisionCreate.new(
-      @tournament,
-      params.merge(name: 'New Division')
-    )
-    create.perform
-    create.division
-  end
 end
