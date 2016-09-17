@@ -55,37 +55,6 @@ class DivisionTest < ActiveSupport::TestCase
     assert division.dirty_seed?
   end
 
-  test "updating the bracket_type clears the previous games" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    assert_equal 12, division.games.count
-
-    division.update(bracket_type: 'single_elimination_4')
-
-    assert_equal 4, division.games.count
-  end
-
-  test "updating the bracket_type resets seeded status" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
-
-    SeedDivision.perform(division)
-
-    assert division.seeded?
-
-    division.update(bracket_type: 'single_elimination_4')
-
-    refute division.seeded?
-  end
-
-  test "updating the bracket_type clears the previous places" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    assert_equal 12, division.games.count
-
-    division.update(bracket_type: 'single_elimination_4')
-
-    assert_equal 4, division.games.count
-  end
-
   test "safe_to_delete? is true for division with no games started" do
     division = divisions(:women)
     assert division.safe_to_delete?

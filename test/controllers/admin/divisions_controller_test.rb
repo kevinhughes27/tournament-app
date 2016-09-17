@@ -134,10 +134,13 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update teams in a division" do
-    reset_division(@division)
+    @teams = @division.teams.order(:seed)
+    division = create_division(bracket_type: 'single_elimination_8')
+    teams = @teams.to_a
+    @teams.update_all(division_id: division.id)
 
-    team1 = @division.teams.first
-    team2 = @division.teams.last
+    team1 = teams.first
+    team2 = teams.last
 
     new_seed = 5
     refute_equal new_seed, team1.seed
@@ -145,7 +148,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     current_seed = team2.seed
 
     params = {
-      id: @division.id,
+      id: division.id,
       team_ids: [team1.id, team2.id],
       seeds: [new_seed, current_seed]
     }
@@ -158,10 +161,13 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update teams in a division (ids not in order)" do
-    reset_division(@division)
+    @teams = @division.teams.order(:seed)
+    division = create_division(bracket_type: 'single_elimination_8')
+    teams = @teams.to_a
+    @teams.update_all(division_id: division.id)
 
-    team1 = @division.teams.first
-    team2 = @division.teams.last
+    team1 = teams.first
+    team2 = teams.last
 
     new_seed = 5
     refute_equal new_seed, team1.seed
@@ -169,7 +175,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     current_seed = team2.seed
 
     params = {
-      id: @division.id,
+      id: division.id,
       team_ids: [team2.id, team1.id],
       seeds: [current_seed, new_seed]
     }
@@ -182,28 +188,28 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "seed a division" do
-    reset_division(@division)
+    @teams = @division.teams.order(:seed)
+    division = create_division(bracket_type: 'single_elimination_8')
+    @teams.update_all(division_id: division.id)
 
-    post :seed, params: { id: @division.id }
-    assert_redirected_to admin_division_path(@division)
+    post :seed, params: { id: division.id }
+    assert_redirected_to admin_division_path(division)
     assert_equal 'Division seeded', flash[:notice]
   end
 
   test "seed a division with an error" do
-    @division.update_attribute(:bracket_type, 'single_elimination_4')
+    @teams = @division.teams.order(:seed)
+    division = create_division(bracket_type: 'single_elimination_8')
+    @teams.update_all(division_id: division.id)
 
-    post :seed, params: { id: @division.id }
+    DivisionUpdate.perform(division, { bracket_type: 'single_elimination_4' }, 'true')
+
+    post :seed, params: { id: division.id }
     assert_response :success
     assert_equal '4 seats but 8 teams present', flash[:error]
   end
 
   private
-
-  # hack to get all the games created
-  def reset_division(division)
-    division.update_attribute(:bracket_type, 'single_elimination_4')
-    division.update_attribute(:bracket_type, 'single_elimination_8')
-  end
 
   def division_params
     {

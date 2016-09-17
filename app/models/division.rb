@@ -24,8 +24,6 @@ class Division < ApplicationRecord
   validates :num_days, presence: true, numericality: {greater_than_or_equal_to: 0}
   validate :validate_bracket_type
 
-  after_update :update_bracket
-
   scope :un_seeded, -> { where(seeded: false) }
 
   def bracket
@@ -57,21 +55,6 @@ class Division < ApplicationRecord
 
   def safe_to_delete?
     !games.where(score_confirmed: true).exists?
-  end
-
-  private
-
-  def update_bracket
-    return unless self.bracket_type_changed?
-    self.update_column(:seeded, false)
-
-    bracket = Bracket.find_by(handle: self.bracket_type)
-
-    ChangeBracketJob.perform_later(
-      tournament_id: tournament_id,
-      division_id: id,
-      new_template: bracket.template
-    )
   end
 
   def validate_bracket_type
