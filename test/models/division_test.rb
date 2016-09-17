@@ -8,33 +8,33 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "division creates all required games" do
-    type = 'single_elimination_8'
-    assert_difference "Game.count", +12 do
-      create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
+    type = 'single_elimination_4'
+    assert_difference "Game.count", +4 do
+      create_division(bracket_type: type)
     end
   end
 
   test "division deletes games when it is deleted" do
-    type = 'single_elimination_8'
-    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
+    type = 'single_elimination_4'
+    division = create_division(bracket_type: type)
 
-    assert_difference "Game.count", -12 do
+    assert_difference "Game.count", -4 do
       division.destroy
     end
   end
 
   test "division creates all required places" do
-    type = 'single_elimination_8'
-    assert_difference "Place.count", +8 do
-      create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
+    type = 'single_elimination_4'
+    assert_difference "Place.count", +4 do
+      create_division(bracket_type: type)
     end
   end
 
   test "division deletes places when it is deleted" do
-    type = 'single_elimination_8'
-    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
+    type = 'single_elimination_4'
+    division = create_division(bracket_type: type)
 
-    assert_difference "Place.count", -8 do
+    assert_difference "Place.count", -4 do
       division.destroy
     end
   end
@@ -52,7 +52,7 @@ class DivisionTest < ActiveSupport::TestCase
 
   test "dirty_seed?" do
     type = 'single_elimination_8'
-    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: type)
+    division = create_division(bracket_type: type)
     @teams.update_all(division_id: division.id)
 
     refute division.seeded?
@@ -70,7 +70,7 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "updating the bracket_type clears the previous games" do
-    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
 
     division.update(bracket_type: 'single_elimination_4')
@@ -79,7 +79,7 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "updating the bracket_type resets seeded status" do
-    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
     @teams.update_all(division_id: division.id)
 
     SeedDivision.perform(division)
@@ -92,7 +92,7 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "updating the bracket_type clears the previous places" do
-    division = create_division(tournament: @tournament, name: 'New Division', bracket_type: 'single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
     assert_equal 12, division.games.count
 
     division.update(bracket_type: 'single_elimination_4')
@@ -122,9 +122,27 @@ class DivisionTest < ActiveSupport::TestCase
     assert_equal 12, Division::LIMIT
   end
 
+  test "bracket_games scope" do
+    type = 'USAU 4.2.1'
+    division = create_division(bracket_type: type)
+
+    bracket_games = division.bracket_games
+    assert bracket_games.first.bracket_uid
+  end
+
+  test "pool_games scope" do
+    type = 'USAU 4.2.1'
+    division = create_division(bracket_type: type)
+
+    pool_games = division.pool_games('A')
+    assert_equal 'A', pool_games.first.pool
+  end
+
   private
 
   def create_division(params)
-    Division.create!(params)
+    Division.create!(
+      params.merge(tournament: @tournament, name: 'New Division')
+    )
   end
 end

@@ -10,6 +10,12 @@ class Division < ApplicationRecord
   has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy
 
+  has_many :bracket_games, -> { bracket_game }, class_name: 'Game'
+
+  def pool_games(pool_uid)
+    games.where(pool: pool_uid)
+  end
+
   auto_strip_attributes :name
 
   validates_presence_of :tournament, :name
