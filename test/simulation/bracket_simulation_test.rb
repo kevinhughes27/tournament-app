@@ -11,7 +11,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
 
   Bracket.all.each do |bracket|
     test "play a division with bracket_type: #{bracket.handle}" do
-      @division = new_division(bracket.handle)
+      @division = create_division(bracket_type: bracket.handle)
       assert division
 
       create_teams
@@ -25,10 +25,6 @@ class BracketSimulationTest < ActiveSupport::TestCase
   end
 
   private
-
-  def new_division(type)
-    Division.create!(tournament: tournament, name: 'New Division', bracket_type: type)
-  end
 
   def create_teams
     n = division.bracket.num_teams
