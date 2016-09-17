@@ -53,6 +53,9 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
     assert_no_difference "Division.count" do
       post :create, params: { division: params }
+
+      division = assigns(:division)
+      assert division.errors.present?
       assert_template :new
     end
   end

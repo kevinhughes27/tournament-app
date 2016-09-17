@@ -24,8 +24,6 @@ class Division < ApplicationRecord
   validates :num_days, presence: true, numericality: {greater_than_or_equal_to: 0}
   validate :validate_bracket_type
 
-  after_commit :create_games, on: :create
-  after_commit :create_places, on: :create
   after_update :update_bracket
 
   scope :un_seeded, -> { where(seeded: false) }
@@ -33,6 +31,8 @@ class Division < ApplicationRecord
   def bracket
     @bracket ||= Bracket.find_by(handle: self.bracket_type)
   end
+
+  delegate :template, to: :bracket
 
   def pools
     bracket.pools.map{ |p| Pool.new(self, p) }
@@ -60,22 +60,6 @@ class Division < ApplicationRecord
   end
 
   private
-
-  def create_games
-    CreateGamesJob.perform_later(
-      tournament_id: tournament_id,
-      division_id: id,
-      template: bracket.template
-    )
-  end
-
-  def create_places
-    CreatePlacesJob.perform_later(
-      tournament_id: tournament_id,
-      division_id: id,
-      template: bracket.template
-    )
-  end
 
   def update_bracket
     return unless self.bracket_type_changed?

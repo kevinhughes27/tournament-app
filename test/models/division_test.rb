@@ -7,26 +7,12 @@ class DivisionTest < ActiveSupport::TestCase
     @teams = @division.teams
   end
 
-  test "division creates all required games" do
-    type = 'single_elimination_4'
-    assert_difference "Game.count", +4 do
-      create_division(bracket_type: type)
-    end
-  end
-
   test "division deletes games when it is deleted" do
     type = 'single_elimination_4'
     division = create_division(bracket_type: type)
 
     assert_difference "Game.count", -4 do
       division.destroy
-    end
-  end
-
-  test "division creates all required places" do
-    type = 'single_elimination_4'
-    assert_difference "Place.count", +4 do
-      create_division(bracket_type: type)
     end
   end
 
@@ -141,8 +127,11 @@ class DivisionTest < ActiveSupport::TestCase
   private
 
   def create_division(params)
-    Division.create!(
-      params.merge(tournament: @tournament, name: 'New Division')
+    create = DivisionCreate.new(
+      @tournament,
+      params.merge(name: 'New Division')
     )
+    create.perform
+    create.division
   end
 end

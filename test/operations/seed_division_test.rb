@@ -11,7 +11,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   test "initializes the first round" do
-    division = new_division('single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
 
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
@@ -28,7 +28,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   test "halts if any games are invalid for a seed round" do
-    division = new_division('single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
     @teams.update_all(division_id: division.id)
 
     division.games.first.update_columns(
@@ -44,7 +44,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   test "resets any games past the seed round" do
-    division = new_division('single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
     @teams.update_all(division_id: division.id)
 
     SeedDivision.perform(division)
@@ -74,7 +74,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   test "round robin 5" do
-    division = new_division('round_robin_5')
+    division = create_division(bracket_type: 'round_robin_5')
     @teams[5..-1].map(&:destroy)
     teams = @teams.reload
     @teams.update_all(division_id: division.id)
@@ -87,7 +87,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   test "sets division seeded to true" do
-    division = new_division('single_elimination_8')
+    division = create_division(bracket_type: 'single_elimination_8')
 
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
@@ -97,13 +97,5 @@ class SeedDivisionTest < ActiveSupport::TestCase
     SeedDivision.perform(division)
 
     assert division.reload.seeded?
-  end
-
-  private
-
-  def new_division(type)
-    perform_enqueued_jobs do
-      division = Division.create!(tournament: @tournament, name: 'New Division', bracket_type: type)
-    end
   end
 end
