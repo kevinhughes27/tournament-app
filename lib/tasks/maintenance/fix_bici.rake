@@ -1,6 +1,6 @@
 namespace :m do
   task :fix_bici => :environment do
-    division = division.find(67)
+    division = Division.find(67)
     division.bracket_games.destroy_all
 
     template_games = division.template[:games].select{ |game| game[:bracket_uid] }
