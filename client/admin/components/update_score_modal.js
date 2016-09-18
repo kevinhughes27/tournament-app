@@ -117,7 +117,7 @@ class UpdateScoreModal extends React.Component {
           onEnter={this.opened}
           onEntered={this.setFocus}>
           <Modal.Header closeButton>
-            <Modal.Title>{game.name}</Modal.Title>
+            <Modal.Title>{game.home_name} vs {game.away_name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
