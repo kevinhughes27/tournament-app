@@ -11,8 +11,9 @@ class GameUpdateScore < ApplicationOperation
   attr_reader :winner_changed
 
   def execute
-    halt "teams not present" unless game.home && game.away
-    halt "unsafe score update" unless safe_to_update_score?
+    fail "teams not present" unless game.home && game.away
+    fail "ties not allowed for this game" if !ties_allowed? && tie?
+    fail "unsafe score update" unless safe_to_update_score?
 
     game.resolve_disputes! if resolve
 
@@ -29,6 +30,14 @@ class GameUpdateScore < ApplicationOperation
   end
 
   private
+
+  def tie?
+    home_score == away_score
+  end
+
+  def ties_allowed?
+    game.pool_game?
+  end
 
   def safe_to_update_score?
     return true if force

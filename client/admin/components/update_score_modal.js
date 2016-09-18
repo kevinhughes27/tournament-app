@@ -74,15 +74,23 @@ class UpdateScoreModal extends React.Component {
       },
       error: (response) => {
         this.setState({isLoading: false});
-
-        if(response.status == 422) {
-          this.close();
-          this.confirmUpdateScore();
-        } else {
-          Admin.Flash.error('Error updating score');
-        }
+        this._updateScoreError(response);
       }
     })
+  }
+
+  _updateScoreError(response) {
+    let status = response.status;
+    let message = response.responseJSON.error;
+
+    if(message == 'unsafe score update') {
+      this.close();
+      this.confirmUpdateScore();
+    } else if (status = 422) {
+      Admin.Flash.error(message);
+    } else {
+      Admin.Flash.error('Error updating score');
+    }
   }
 
   confirmUpdateScore() {

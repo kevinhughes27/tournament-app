@@ -17,9 +17,28 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
     update = GameUpdateScore.new(game: game, user: @user, home_score: 10, away_score: 5)
     update.perform
 
-    assert update.halted?
+    assert update.failed?
     assert_nil game.home_score
     assert_nil game.away_score
+  end
+
+  test "can't submit a tie for a bracket game" do
+    update = GameUpdateScore.new(game: @game, user: @user, home_score: 5, away_score: 5)
+    update.perform
+
+    assert update.failed?
+  end
+
+  test "can submit a tie for a pool game" do
+    # convert to pool game. Its the only one which is why its unsafe to change
+    @game.update_columns(bracket_uid: nil, pool: 'A', home_pool_seed: 1, away_pool_seed: 2)
+
+    update = GameUpdateScore.new(game: @game, user: @user, home_score: 5, away_score: 5, force: true)
+    update.perform
+
+    assert update.succeeded?
+    assert_equal 5, @game.home_score
+    assert_equal 5, @game.away_score
   end
 
   test "can't update score if not safe" do
@@ -30,7 +49,7 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
     update = GameUpdateScore.new(game: @game, user: @user, home_score: 14, away_score: 12)
     update.perform
 
-    assert update.halted?
+    assert update.failed?
   end
 
   test "force unsafe update" do
