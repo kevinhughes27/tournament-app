@@ -81,8 +81,12 @@ class Game < ApplicationRecord
     away.present? ? away.name : away_prereq
   end
 
-  def teams_present?
+  def one_team_present?
     home.present? || away.present?
+  end
+
+  def teams_present?
+    home.present? && away.present?
   end
 
   def scheduled?

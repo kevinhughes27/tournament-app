@@ -12,7 +12,9 @@ json.division game.division.name
 
 json.bracket game.bracket_game?
 
-json.has_teams game.teams_present?
+json.teams_present game.teams_present?
+json.one_team_present game.one_team_present?
+
 json.played game.played?
 json.confirmed game.confirmed?
 

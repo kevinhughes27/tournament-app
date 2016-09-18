@@ -76,7 +76,7 @@ export class NameCell extends React.Component {
     let game = this.props.rowData;
     let reports = game.score_reports;
 
-    let nameClasses = classNames({'subdued': !game.has_teams});
+    let nameClasses = classNames({'subdued': !game.one_team_present});
     let text = `${game.home_name} vs ${game.away_name}`;
 
     if (reports.length == 0) {
@@ -103,7 +103,7 @@ export class ScoreCell extends React.Component {
   render() {
     let game = this.props.rowData;
 
-    if (!game.has_teams) {
+    if (!game.teams_present) {
       return(<div></div>);
     };
 

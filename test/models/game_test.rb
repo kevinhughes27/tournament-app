@@ -9,11 +9,21 @@ class GameTest < ActiveSupport::TestCase
     @game = games(:swift_goose)
   end
 
-  test "teams_present? is true if home or away is present" do
+  test "one_team_present? is true if home or away is present" do
+    assert @game.one_team_present?
+
+    @game.update(home_id: nil)
+    assert @game.one_team_present?
+
+    @game.update(away_id: nil)
+    refute @game.one_team_present?
+  end
+
+  test "teams_present? is true if both teams are present" do
     assert @game.teams_present?
 
     @game.update(home_id: nil)
-    assert @game.teams_present?
+    refute @game.teams_present?
 
     @game.update(away_id: nil)
     refute @game.teams_present?
