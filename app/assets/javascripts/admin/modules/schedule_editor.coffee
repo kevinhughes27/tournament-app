@@ -60,7 +60,6 @@ class Admin.ScheduleEditor
         if response.status == 422
           @_addGameErrors(response.responseJSON.game_id)
           message = response.responseJSON.error
-          message = message.replace('Validation failed: ', '')
           message = message.split(', ')[0]
           Admin.Flash.error(message, 6000)
         else
