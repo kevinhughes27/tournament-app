@@ -28,7 +28,7 @@ class DivisionUpdate < ApplicationOperation
 
     bracket = Bracket.find_by(handle: division.bracket_type)
 
-    ChangeBracketJob.perform_later(
+    ChangeBracketJob.perform_now(
       tournament_id: division.tournament_id,
       division_id: division.id,
       new_template: bracket.template
