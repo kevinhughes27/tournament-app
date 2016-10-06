@@ -51,7 +51,7 @@ gem 'twine-rails'
 gem 'turbolinks', '~> 5.0.0'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-leaflet', '~> 1.0.0.beta.2'
+  gem 'rails-assets-leaflet', '~> 1.0.1'
   gem 'rails-assets-underscore', '~> 1.8.3'
   gem 'rails-assets-moment', '~> 2.10.6'
   gem 'rails-assets-fingerprintjs2' , '~> 0.7.4'
