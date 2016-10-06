@@ -24,6 +24,8 @@ $(document).ready ->
     $('.modal-content').addClass('animated pulse').one 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', ->
       $(this).removeClass('animated pulse')
 
+    $(':submit').removeAttr('disabled')
+
     $('.help-block').remove()
 
     if errors.email
