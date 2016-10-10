@@ -104,7 +104,7 @@ class Division extends React.Component {
       });
 
       let teams = _unionWith(homeTeams, awayTeams, _isEqual);
-      teamsByPool[pool] = _sortBy(teams, function(t){ return t.seed });
+      teamsByPool[pool] = _sortBy(teams, function(t){ return parseInt(t.seed) });
     });
 
     return teamsByPool;
