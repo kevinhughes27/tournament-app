@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 namespace :internal do
   get "/" => "dashboard#show"
 
@@ -8,4 +10,8 @@ namespace :internal do
     skip: [:registration, :omniauth_callbacks, :passwords]
 
   resources :tournaments, only: [:index]
+
+  authenticate :user, lambda { |u| u.staff? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
