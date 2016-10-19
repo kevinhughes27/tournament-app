@@ -7,7 +7,7 @@ gem 'pg'
 gem 'puma'
 gem 'actioncable'
 gem 'sidekiq'
-gem 'sinatra', github: 'sinatra', require: false # sidekiq web
+gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # sidekiq web
 gem 'redis'
 gem 'wicked'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'

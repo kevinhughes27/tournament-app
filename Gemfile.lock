@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/sinatra/sinatra.git
-  revision: af6dad2a6c31e31617712b15f455b2a3d3eb1c06
-  specs:
-    sinatra (2.0.0.beta2)
-      mustermann (= 1.0.0.beta2)
-      rack (~> 2.0)
-      rack-protection (= 2.0.0.beta2)
-      tilt (~> 2.0)
-
-GIT
   remote: git@github.com:circleci/minitest-ci.git
   revision: 464ad789a37f6a402779a9b4d878066b5b5b73bd
   specs:
@@ -42,6 +32,18 @@ GIT
   specs:
     paranoia (3.0.0)
       activerecord (>= 4.0, < 5.1)
+
+GIT
+  remote: https://github.com/sinatra/sinatra
+  revision: af6dad2a6c31e31617712b15f455b2a3d3eb1c06
+  specs:
+    rack-protection (2.0.0.beta2)
+      rack
+    sinatra (2.0.0.beta2)
+      mustermann (= 1.0.0.beta2)
+      rack (~> 2.0)
+      rack-protection (= 2.0.0.beta2)
+      tilt (~> 2.0)
 
 PATH
   remote: lib/bracket_db
@@ -255,8 +257,6 @@ GEM
       pry (>= 0.9.11)
     puma (3.4.0)
     rack (2.0.1)
-    rack-protection (2.0.0.beta2)
-      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.4.2)
