@@ -542,6 +542,17 @@
   template: <%= BracketDb::load('pp_16') %>
 
 -
+  handle: Goosebowl 16
+  description: >
+    Power Pools setup with only a single crossover
+  name: Goosebowl
+  num_teams: 16
+  days: 2
+  rounds: 5
+  pool: true
+  template: <%= BracketDb::load('goosebowl') %>
+
+-
   handle: USAU 17.1
   name: One team advances (USAU 17.1)
   num_teams: 17
