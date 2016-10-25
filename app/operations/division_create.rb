@@ -14,7 +14,7 @@ class DivisionCreate < ApplicationOperation
   private
 
   def create_games
-    CreateGamesJob.perform_later(
+    CreateGamesJob.perform_now(
       tournament_id: tournament.id,
       division_id: division.id,
       template: division.template
