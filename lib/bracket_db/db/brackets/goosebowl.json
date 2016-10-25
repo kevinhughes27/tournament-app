@@ -10,8 +10,8 @@
 
     {"round": 2, "bracket_uid": "k", "home_prereq":"Lxo1", "away_prereq":"D4"},
     {"round": 2, "bracket_uid": "l", "home_prereq":"Lxo2", "away_prereq":"C4"},
-    {"round": 2, "bracket_uid": "i", "home_prereq":"C2", "away_prereq":"C3"},
-    {"round": 2, "bracket_uid": "j", "home_prereq":"D2", "away_prereq":"D3"},
+    {"round": 2, "bracket_uid": "i", "home_prereq":"C2", "away_prereq":"D3"},
+    {"round": 2, "bracket_uid": "j", "home_prereq":"D2", "away_prereq":"C3"},
     {"round": 2, "bracket_uid": "a", "home_prereq":"A1", "away_prereq":"Wxo2"},
     {"round": 2, "bracket_uid": "b", "home_prereq":"B1", "away_prereq":"Wxo1"},
 
