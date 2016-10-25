@@ -94,7 +94,7 @@ class Admin::DivisionsController < AdminController
   private
 
   def load_division
-    @division = @tournament.divisions.includes(:teams, games: [:home, :away]).find(params[:id])
+    @division = @tournament.divisions.includes(:teams, games: [:home, :away, :score_reports, :score_disputes]).find(params[:id])
   end
 
   def division_params
