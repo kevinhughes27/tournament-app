@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BracketSimulationTest < ActiveSupport::TestCase
   attr_reader :division, :tournament
-  MAX_SIMULATION_TIME = 5
+  MAX_SIMULATION_TIME = 10
 
   setup do
     @tournament = tournaments(:blank_slate_tournament)
