@@ -20,7 +20,7 @@
     {"round": 3, "bracket_uid": "n", "home_prereq":"Wk", "away_prereq":"Wl"},
     {"round": 3, "bracket_uid": "13", "home_prereq":"Lk", "away_prereq":"Ll"},
     {"round": 3, "bracket_uid": "c", "home_prereq":"A2", "away_prereq":"B3"},
-    {"round": 3, "bracket_uid": "d", "home_prereq":"B2", "away_prereq":"D3"},
+    {"round": 3, "bracket_uid": "d", "home_prereq":"B2", "away_prereq":"A3"},
 
     {"round": 4, "bracket_uid": "9", "home_prereq":"Wm", "away_prereq":"Wn"},
     {"round": 4, "bracket_uid": "11", "home_prereq":"Lm", "away_prereq":"Ln"},
