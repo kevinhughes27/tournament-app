@@ -91,7 +91,7 @@ class Admin::FieldsController < AdminController
   private
 
   def load_fields
-    @fields = @tournament.fields
+    @fields = @tournament.fields.order(:name)
   end
 
   def load_field
