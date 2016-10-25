@@ -18,5 +18,5 @@ module BracketDb
 end
 
 require 'frozen_record'
-require 'bracket_db/models/bracket'
-require 'bracket_db/version'
+require_relative 'bracket_db/models/bracket'
+require_relative 'bracket_db/version'

@@ -23,7 +23,8 @@ gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
 
-gem 'bracket_db', '0.0.2', path: 'lib/bracket_db'
+#gem 'bracket_db', '0.0.2', path: 'lib/bracket_db'
+gem 'frozen_record'
 
 # APIs
 gem 'gibbon'

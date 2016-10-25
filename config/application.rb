@@ -5,6 +5,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 require_relative '../lib/subdomain'
+require_relative '../lib/bracket_db/lib/bracket_db'
 
 module UltimateTournament
   class Application < Rails::Application

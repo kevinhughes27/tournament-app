@@ -45,14 +45,6 @@ GIT
       rack-protection (= 2.0.0.beta2)
       tilt (~> 2.0)
 
-PATH
-  remote: lib/bracket_db
-  specs:
-    bracket_db (0.0.2)
-      activesupport
-      frozen_record (~> 0.7.1)
-      tilt
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -391,7 +383,6 @@ DEPENDENCIES
   actioncable
   auto_strip_attributes
   bootstrap-sass
-  bracket_db (= 0.0.2)!
   browser-timezone-rails
   bullet
   bundler-audit
@@ -405,6 +396,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   font-awesome-rails
+  frozen_record
   gibbon
   jbuilder
   jquery-rails
@@ -462,4 +454,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.5
+   1.13.2
