@@ -22,7 +22,8 @@
     <%= react_component('GamesIndex', props: {
       games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games}),
       searchColumns: [
-        "name",
+        "home_name",
+        "away_name",
         "division",
         "pool"
       ],
