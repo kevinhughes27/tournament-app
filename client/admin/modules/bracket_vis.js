@@ -129,7 +129,7 @@ class BracketVis {
       .attr('dx', nodeWidth + 10)
       .attr('font-weight', 'bold')
       .text( (d) => {
-        if (d.parent && d.parent.root) ordinalize(d.uid);
+        if (d.parent && d.parent.root) return ordinalize(d.uid);
       });
 
     // uid text
