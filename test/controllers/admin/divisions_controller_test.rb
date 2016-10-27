@@ -206,7 +206,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
     post :seed, params: { id: division.id }
     assert_response :success
-    assert_equal '4 seats but 8 teams present', flash[:error]
+    assert_equal '4 seats but 8 teams present', flash[:seed_error]
   end
 
   private

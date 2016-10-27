@@ -71,8 +71,7 @@ class Admin::DivisionsController < AdminController
       elsif seed.confirmation_required?
         render partial: 'confirm_seed', status: :unprocessable_entity
       else
-        # this should be a perm error
-        flash[:error] = seed.message
+        flash[:seed_error] = seed.message
         render :seed
       end
     end
