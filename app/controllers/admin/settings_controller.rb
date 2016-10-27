@@ -13,7 +13,6 @@ class Admin::SettingsController < AdminController
     elsif update.confirmation_required?
       render partial: 'confirm_update', status: :unprocessable_entity
     else
-      flash[:error] = 'Error saving Settings.'
       render :show
     end
   end

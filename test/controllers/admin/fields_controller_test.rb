@@ -165,7 +165,6 @@ class Admin::FieldsControllerTest < ActionController::TestCase
         match_behaviour: 'ignore'
       }
       assert_redirected_to admin_fields_path
-      assert_equal 'Error importing fields', flash[:alert]
       assert_equal "Row: 7 Validation failed: Name can't be blank", flash[:import_error]
     end
   end

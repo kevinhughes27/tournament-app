@@ -18,7 +18,6 @@ class Admin::TeamsController < AdminController
       flash[:notice] = 'Team was successfully created.'
       redirect_to admin_team_path(@team)
     else
-      flash[:error] = 'Team could not be created.'
       render :new
     end
   end
@@ -35,7 +34,6 @@ class Admin::TeamsController < AdminController
     elsif update.halted?
       render partial: 'unable_to_update', status: :not_allowed
     else
-      flash[:error] = 'Team could not be updated.'
       render :show
     end
   end
@@ -74,7 +72,6 @@ class Admin::TeamsController < AdminController
       flash[:notice] = 'Teams imported successfully'
       redirect_to action: :index
     else
-      flash[:alert] = "Error importing teams"
       flash[:import_error] = "Row: #{import.row_num} #{import.message}"
       redirect_to action: :index
     end

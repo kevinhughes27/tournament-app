@@ -20,7 +20,6 @@ class Admin::FieldsController < AdminController
       flash[:notice] = 'Field was successfully created.'
       redirect_to admin_field_path(@field)
     else
-      flash[:error] = 'Field could not be created.'
       render :new
     end
   end
@@ -28,7 +27,6 @@ class Admin::FieldsController < AdminController
   def update
     @field.update(field_params)
     if @field.errors.present?
-      flash[:error] = 'Field could not be updated.'
       render :show
     else
       flash[:notice] = 'Field was successfully updated.'
@@ -74,7 +72,6 @@ class Admin::FieldsController < AdminController
       flash[:notice] = 'Fields imported successfully'
       redirect_to action: :index
     else
-      flash[:alert] = "Error importing fields"
       flash[:import_error] = "Row: #{import.row_num} #{import.message}"
       redirect_to action: :index
     end

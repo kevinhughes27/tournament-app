@@ -27,7 +27,6 @@ class Admin::DivisionsController < AdminController
       flash[:notice] = 'Division was successfully created.'
       redirect_to admin_division_path(@division)
     else
-      flash[:error] = 'Division could not be created.'
       render :new
     end
   end
@@ -42,7 +41,6 @@ class Admin::DivisionsController < AdminController
     elsif update.confirmation_required?
       render partial: 'confirm_update', status: :unprocessable_entity
     else
-      flash[:error] = 'Division could not be updated.'
       render :edit
     end
   end
@@ -73,6 +71,7 @@ class Admin::DivisionsController < AdminController
       elsif seed.confirmation_required?
         render partial: 'confirm_seed', status: :unprocessable_entity
       else
+        # this should be a perm error
         flash[:error] = seed.message
         render :seed
       end
