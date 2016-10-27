@@ -11,8 +11,6 @@ class DirtySeedCheck < ApplicationOperation
       return true unless seed == (idx+1)
     end
 
-    return true unless games.all?{ |g| g.valid_for_seed_round? }
-
     num_seats = seats.size
     return true unless num_seats == teams.size
 

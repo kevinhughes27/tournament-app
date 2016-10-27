@@ -18,15 +18,14 @@
       <%= ui_box do %>
         <h4>Seeding</h4>
         <p>
-          You can update the seeds for the teams in this division conviently here.
-          Remeber if you change the teams you'll have to re-seed the division.
+          Seed your division. This will assign teams to the initial rounds.
         </p>
 
         <div id="redips-drag" define="{seeding: new Admin.Seeding()}">
-          <%= form_tag update_teams_admin_division_path(@division),
+          <%= form_tag seed_admin_division_path(@division),
             'bind-event-submit' => "Admin.ActionWithCheck(
-              '#{update_teams_admin_division_path(@division)}',
-              'PUT',
+              '#{seed_admin_division_path(@division)}',
+              'POST',
               false,
               this
             )" do %>
@@ -59,23 +58,9 @@
             </table>
 
             <div class="pull-right">
-              <%= button_tag 'Update teams', class: "btn btn-primary js-btn-loadable" %>
+              <%= button_tag 'Seed division', class: "btn btn-primary js-btn-loadable" %>
             </div>
           <% end %>
-        </div>
-      <% end %>
-
-      <%= ui_box do %>
-        <p>
-          Seed your division. This will assign teams to the initial rounds.
-        </p>
-
-        <div class="pull-right">
-          <%= button_tag 'Seed', class: "btn btn-primary js-btn-loadable",
-            'bind-event-click' => "Admin.ActionWithCheck(
-              '#{seed_admin_division_path(@division)}',
-              'POST'
-            )" %>
         </div>
       <% end %>
     <% else %>

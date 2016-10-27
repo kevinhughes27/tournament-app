@@ -15,7 +15,7 @@ class Team < ApplicationRecord
   validates :seed, numericality: { allow_blank: true }
   validate :validate_division
 
-  after_update :unassign_games, if: Proc.new { |t| t.division_id_changed? }
+  after_update :unassign_games, if: :division_id_changed?
   after_destroy :unassign_games
   after_destroy :delete_score_reports
 

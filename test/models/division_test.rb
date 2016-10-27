@@ -36,23 +36,9 @@ class DivisionTest < ActiveSupport::TestCase
     assert teams.reload.all? { |team| team.division.nil? }
   end
 
-  test "dirty_seed?" do
-    type = 'single_elimination_8'
-    division = create_division(bracket_type: type)
-    @teams.update_all(division_id: division.id)
-
-    refute division.seeded?
-    assert division.dirty_seed?
-
-    SeedDivision.perform(division)
-
-    assert division.seeded?
-    refute division.dirty_seed?
-
-    division.teams[0].update(seed: 2)
-    division.teams[1].update(seed: 1)
-
-    assert division.dirty_seed?
+  test "dirty_seed? calls operation" do
+    DirtySeedCheck.expects(:perform)
+    @division.dirty_seed?
   end
 
   test "safe_to_delete? is true for division with no games started" do

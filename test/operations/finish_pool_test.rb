@@ -24,7 +24,7 @@ class FinishPoolTest < ActiveSupport::TestCase
     division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
-    SeedDivision.perform(division)
+    seed_division(division)
 
     play_pool(@teams, division, 'A')
 
@@ -38,7 +38,7 @@ class FinishPoolTest < ActiveSupport::TestCase
     division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
-    SeedDivision.perform(division)
+    seed_division(division)
 
     play_pool(@teams, division, 'A')
 
@@ -66,7 +66,7 @@ class FinishPoolTest < ActiveSupport::TestCase
     division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
-    SeedDivision.perform(division)
+    seed_division(division)
 
     play_pool(@teams, division, 'A')
 
@@ -196,7 +196,7 @@ class FinishPoolTest < ActiveSupport::TestCase
     division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
-    SeedDivision.perform(division)
+    seed_division(division)
 
     play_pool(@teams, division, 'A')
 
@@ -237,7 +237,7 @@ class FinishPoolTest < ActiveSupport::TestCase
     division = create_division(bracket_type: 'USAU 8.1')
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
-    SeedDivision.perform(division)
+    seed_division(division)
 
     play_pool(@teams, division, 'A')
 
@@ -265,6 +265,10 @@ class FinishPoolTest < ActiveSupport::TestCase
   end
 
   private
+
+  def seed_division(division)
+    SeedDivision.perform(division: division)
+  end
 
   def play_pool(teams, division, pool)
     division.games.where(pool: 'A').each do |game|

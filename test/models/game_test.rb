@@ -55,21 +55,6 @@ class GameTest < ActiveSupport::TestCase
     assert_equal ["is invalid"], @game.errors[:field]
   end
 
-  test "valid_for_seed_round? returns true if either top and bottom are integers" do
-    game = Game.new(home_prereq: 1, away_prereq: 8)
-    assert game.valid_for_seed_round?
-  end
-
-  test "valid_for_seed_round? returns true if both top and bottom are integer string" do
-    game = Game.new(home_prereq: 1, away_prereq: "8")
-    assert game.valid_for_seed_round?
-  end
-
-  test "valid_for_seed_round? returns false if both top or bottom are not integers" do
-    game = Game.new(home_prereq: 'B1', away_prereq: 'A1')
-    refute game.valid_for_seed_round?
-  end
-
   test "winner returns the team with more points" do
     game = Game.new(home: @home, away: @away, home_score: 15, away_score: 11)
     assert_equal @home, game.winner
