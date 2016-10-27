@@ -208,7 +208,6 @@ class Admin::TeamsControllerTest < ActionController::TestCase
         match_behaviour: 'ignore'
       }
       assert_redirected_to admin_teams_path
-      assert_equal 'Error importing teams', flash[:alert]
       assert_equal "Row: 5 Validation failed: Name can't be blank", flash[:import_error]
     end
   end
