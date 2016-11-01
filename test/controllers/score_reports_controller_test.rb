@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class ScoreReportsControllerTest < ActionController::TestCase
+class ScoreReportsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @tournament = tournaments(:noborders)
-    set_tournament(@tournament)
+    host! "#{@tournament.handle}.lvh.me"
 
     @report = score_reports(:swift_goose)
     @token = score_report_confirm_tokens(:goose_confirm_token)
@@ -16,7 +16,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     @tournament.update_columns(game_confirm_setting: 'automatic')
 
     assert_difference "ScoreReport.count", +1 do
-      post :submit, params: report_params, format: :json
+      post '/submit_score', params: report_params
     end
 
     assert @game.reload.score_confirmed
@@ -26,7 +26,7 @@ class ScoreReportsControllerTest < ActionController::TestCase
     @tournament.update_columns(game_confirm_setting: 'validated')
 
     assert_difference "ScoreReport.count", +1 do
-      post :submit, params: report_params, format: :json
+      post '/submit_score', params: report_params
     end
 
     refute @game.reload.score_confirmed
@@ -37,38 +37,34 @@ class ScoreReportsControllerTest < ActionController::TestCase
     assert_equal 2, @game.score_reports.count
 
     assert_difference "ScoreReport.count", +1 do
-      post :submit, params: report_params, format: :json
+      post '/submit_score', params: report_params
     end
 
     assert @game.reload.score_confirmed
   end
 
   test "create score report with error" do
-    params = @report.attributes.merge(
-      team_score: -1,
-      submitter_fingerprint: 'some_fingerprint'
-    )
-
-    post :submit, params: params, format: :json
+    params = report_params.merge(team_score: -1)
+    post '/submit_score', params: params
     assert_response :unprocessable_entity
     assert_match 'must be greater than or equal to 0', @response.body
   end
 
   test "get confirm page" do
-    get :confirm_get, params: { id: @token.id, token: @token.token }
+    get "/confirm/#{@token.id}", params: { token: @token.token }
     assert_response :ok
     assert_template :confirm
   end
 
   test "get confirm page without token param 404s" do
-    get :confirm_get, params: { id: @token.id }
+    get "/confirm/#{@token.id}"
     assert_response :not_found
     assert_template 'token_not_found'
   end
 
   test "confirm a score report" do
     assert_difference "ScoreReport.count", +1 do
-      post :confirm_post, params: confirm_params
+      post "/confirm/#{@token.id}", params: confirm_params
       assert_response :ok
       assert_template 'confirm_score_success'
     end
@@ -78,19 +74,14 @@ class ScoreReportsControllerTest < ActionController::TestCase
 
   test "confirm a score report error" do
     ScoreReportConfirm.any_instance.stubs(:succeeded?).returns(false)
-    post :confirm_post, params: confirm_params
+    post "/confirm/#{@token.id}", params: confirm_params
     assert_response :unprocessable_entity
     assert_template 'confirm_score_error'
   end
 
   test "confirm a score report requires token" do
-    params = @report.attributes.merge(
-      id: @token.id,
-      submitter_fingerprint: 'fingerprint'
-    )
-
     assert_no_difference "ScoreReport.count" do
-      post :confirm_post, params: params
+      post "/confirm/#{@token.id}", params: report_params
       assert_response :not_found
       assert_template 'token_not_found'
     end
@@ -98,14 +89,11 @@ class ScoreReportsControllerTest < ActionController::TestCase
 
   test "reporting a different score creates a dispute" do
     @game.update_columns(score_confirmed: true)
-
-    params = confirm_params.merge(
-      team_score: @report.opponent_score + 1
-    )
+    params = confirm_params.merge(team_score: @report.opponent_score + 1)
 
     assert_difference "ScoreReport.count", +1 do
       assert_difference "ScoreDispute.count", +1 do
-        post :confirm_post, params: params
+        post "/confirm/#{@token.id}", params: params
         assert_response :ok
         assert_template 'submit_score_success'
       end
@@ -121,13 +109,11 @@ class ScoreReportsControllerTest < ActionController::TestCase
       game: @game
     )
 
-    params = confirm_params.merge(
-      team_score: @report.opponent_score + 1
-    )
+    params = confirm_params.merge(team_score: @report.opponent_score + 1)
 
     assert_difference "ScoreReport.count", +1 do
       assert_no_difference "ScoreDispute.count" do
-        post :confirm_post, params: params
+        post "/confirm/#{@token.id}", params: params
         assert_response :ok
         assert_template 'submit_score_success'
       end
@@ -146,7 +132,6 @@ class ScoreReportsControllerTest < ActionController::TestCase
 
   def confirm_params
     {
-      id: @token.id,
       token: @token.token,
       game_id: @game.id,
       team_id: @report.other_team.id,
