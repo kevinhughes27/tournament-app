@@ -8,10 +8,8 @@
   "scripts": {
     "postinstall": "cd client && npm install",
     "build:clean": "rm app/assets/webpack/* 2> /dev/null",
-    "build:production": "(cd client && npm run build:production --silent)",
-    "build:production:client": "(cd client && npm run build:production:client --silent)",
-    "build:client": "(cd client && npm run build:client --silent)",
-    "build:dev:client": "(cd client && npm run build:dev:client --silent)",
-    "hot-assets": "(cd client && npm run hot-assets)"
+    "build:production": "(cd client && npm run build:production)",
+    "build:dev": "(cd client && npm run build:dev)",
+    "build:hot": "(cd client && npm run build:hot)"
   }
 }
