@@ -35,36 +35,6 @@ ReactOnRails.configure do |config|
   config.trace = Rails.env.development?
 
   ################################################################################
-  # SERVER RENDERING OPTIONS
-  # Applicable options can be overriden by passing options to the react_on_rails
-  # `render_component` view helper method.
-  ################################################################################
-
-  # If set to true, this forces Rails to reload the server bundle if it is modified
-  config.development_mode = Rails.env.development?
-
-  # For server rendering. This can be set to false so that server side messages are discarded.
-  # Default is true. Be cautious about turning this off.
-  config.replay_console = true
-
-  # Default is true. Logs server rendering messages to Rails.logger.info
-  config.logging_on_server = true
-
-  # Change to true to raise exception on server if the JS code throws. Let's do this only if not
-  # in production, as the JS code might still work on the client and we don't want to blow up the
-  # whole Rails page.
-  config.raise_on_prerender_error = !Rails.env.production?
-
-  # Server rendering only (not for render_component helper)
-  # You can configure your pool of JS virtual machines and specify where it should load code:
-  # On MRI, use `therubyracer` for the best performance
-  # (see [discussion](https://github.com/reactjs/react-rails/pull/290))
-  # On MRI, you'll get a deadlock with `pool_size` > 1
-  # If you're using JRuby, you can increase `pool_size` to have real multi-threaded rendering.
-  config.server_renderer_pool_size = 1 # increase if you're on JRuby
-  config.server_renderer_timeout = 20 # seconds
-
-  ################################################################################
   # MISCELLANEOUS OPTIONS
   ################################################################################
   # Default is false, enable if your content security policy doesn't include `style-src: 'unsafe-inline'`
@@ -73,9 +43,6 @@ ReactOnRails.configure do |config|
   # This allows you to add additional values to the Rails Context. Implement one static method
   # called `custom_context(view_context)` and return a Hash.
   config.rendering_extension = nil
-
-  # The server render method - either ExecJS or NodeJS
-  config.server_render_method = "ExecJS"
 
   # Client js uses assets not digested by rails.
   # For any asset matching this regex, non-digested symlink will be created
