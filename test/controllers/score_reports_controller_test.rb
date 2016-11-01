@@ -43,11 +43,19 @@ class ScoreReportsControllerTest < ActionDispatch::IntegrationTest
     assert @game.reload.score_confirmed
   end
 
-  test "create score report with error" do
+  test "create score report with one error" do
     params = report_params.merge(team_score: -1)
     post '/submit_score', params: params
     assert_response :unprocessable_entity
-    assert_match 'must be greater than or equal to 0', @response.body
+    assert_equal ['Team score must be greater than or equal to 0'], response_json
+  end
+
+  test "create score report with multiple errors" do
+    params = report_params.merge(team_score: -1, opponent_score: -1)
+    post '/submit_score', params: params
+    assert_response :unprocessable_entity
+    assert_equal ['Team score must be greater than or equal to 0',
+      'Opponent score must be greater than or equal to 0'], response_json
   end
 
   test "get confirm page" do
