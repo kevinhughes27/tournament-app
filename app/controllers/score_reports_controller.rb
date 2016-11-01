@@ -2,6 +2,7 @@ class ScoreReportsController < ApplicationController
   include LoadTournament
 
   before_action :load_token, only: [:confirm_get, :confirm_post]
+  skip_before_action :verify_authenticity_token, :only => [:submit]
 
   layout 'app'
 
