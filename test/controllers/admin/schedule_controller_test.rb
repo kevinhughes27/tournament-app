@@ -49,6 +49,9 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
     put :update, params: params
     assert_response :ok
     assert_template :index
+
+    assert @game.reload.field_id
+    assert @game.start_time
   end
 
   test "update schedule 422" do
@@ -83,5 +86,25 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
 
     assert_equal game1_original_field, game2.reload.field
     assert_equal game2_original_field, game1.reload.field
+  end
+
+  test "can unschedule a game" do
+    @game.update_attributes(field_id: @field.id, start_time: @start_time)
+    assert @game.field_id
+    assert @game.start_time
+
+    params = {
+      games: {
+        "0" => {id: @game.id, field_id: nil, start_time: nil}
+      }
+    }
+
+    put :update, params: params
+
+    assert_response :ok
+    assert_template :index
+
+    refute @game.reload.field_id
+    refute @game.start_time
   end
 end

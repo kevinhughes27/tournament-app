@@ -10,7 +10,7 @@ class SignupBrowserTest < BrowserTest
     find('input[name="commit"]').click
 
     wait_for_ajax
-    fill_in('tournament_name', with: 'New Tournament')
+    fill_in('tournament_name', with: 'Browser Test Tournament')
     click_on('Next')
 
     fill_in('tournament_time_cap', with: '80')
@@ -23,7 +23,7 @@ class SignupBrowserTest < BrowserTest
     assert_match /\/admin/, current_url
 
     tournament = Tournament.last
-    assert_equal 'New Tournament', tournament.name
+    assert_equal 'Browser Test Tournament', tournament.name
     assert_equal 80, tournament.time_cap
     assert_equal 'Ottawa', tournament.location
   end

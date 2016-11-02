@@ -21,7 +21,7 @@ Development
 Running the server:
 
 ```
-./script/server
+npm run dev
 ```
 
 which runs `foreman start -f Procfile.hot -p 3000` there is also a `.static` and `.dev` Procfile for different webpack configurations.
