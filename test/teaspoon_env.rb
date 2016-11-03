@@ -7,7 +7,7 @@ Teaspoon.configure do |config|
   config.suite do |suite|
     suite.use_framework :jasmine, "2.3.4"
     suite.matcher = "{test/javascripts, app/assets}/**/*spec.{js,coffee}"
-    suite.helper = 'spec_helper'
+    suite.helper = "spec_helper"
     suite.boot_partial = "bundle_boot"
     suite.body_partial = "body"
   end

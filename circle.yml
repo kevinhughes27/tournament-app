@@ -15,7 +15,9 @@ machine:
 
 dependencies:
   override:
-    - bundle exec rake ci:setup
+    - bundle install --path .bundle --with circleci --without production --without development
+    - npm install && npm install -g nsp
+    - bundle exec rake assets:precompile
   cache_directories:
     - .bundle
     - node_modules

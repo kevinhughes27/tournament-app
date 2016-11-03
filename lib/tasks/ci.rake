@@ -1,14 +1,6 @@
 require 'rainbow'
 
 namespace :ci do
-  desc "Setup CI environment"
-  task :setup do
-    sh "bundle install --path .bundle --with circleci --without production --without development"
-    sh "npm install"
-    sh "npm install -g nsp"
-    sh "bundle exec rake assets:precompile"
-  end
-
   task :rails_tests do
     puts Rainbow("Running Rails tests").green
     sh "bundle exec rails test"
@@ -16,6 +8,7 @@ namespace :ci do
 
   task :bracket_db_tests do
     puts Rainbow("Running BracketDb tests").green
+    sh "cd lib/bracket_db && bundle install"
     sh "cd lib/bracket_db && bundle exec rake test"
   end
 

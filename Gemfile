@@ -87,6 +87,7 @@ end
 group :circleci do
   gem 'minitest-retry'
   gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
+  gem 'json-schema', '~> 2.6.0'
 end
 
 group :development do

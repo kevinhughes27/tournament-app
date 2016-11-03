@@ -12,5 +12,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'frozen_record', '~> 0.7.1'
   spec.add_runtime_dependency 'tilt'
   spec.add_runtime_dependency 'activesupport'
-  spec.add_runtime_dependency 'json-schema', '~> 2.6.0'
+  spec.add_development_dependency 'json-schema', '~> 2.6.0'
 end

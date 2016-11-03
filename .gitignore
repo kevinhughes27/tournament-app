@@ -22,7 +22,7 @@
 # test outputs
 test/coverage
 test/javascripts/coverage
-test/reports
+*test/reports
 
 # ssl
 server.crt
