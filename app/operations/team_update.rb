@@ -22,7 +22,7 @@ class TeamUpdate < ApplicationOperation
   private
 
   def update_unsafe?
-    (params[:division_id] && team.division_id != params[:division_id].to_i) ||
-    (params[:seed] && team.seed != params[:seed].to_i)
+    team.assign_attributes(params)
+    team.division_id_changed? || team.seed_changed?
   end
 end
