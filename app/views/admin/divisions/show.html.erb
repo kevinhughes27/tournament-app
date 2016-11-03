@@ -8,7 +8,15 @@
   <%= link_to 'Edit', edit_admin_division_path(@division), class: "btn btn-primary" %>
 <% end %>
 
-<% if @division.dirty_seed? %>
+<% if @division.teams.blank? %>
+  <div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <i class="icon fa fa-info"></i>
+      This divisions has no teams. You can add teams from the
+      <%= link_to 'Teams page', admin_teams_path %>
+  </div>
+
+<% elsif @division.dirty_seed? %>
   <div class="alert alert-info alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <i class="icon fa fa-info"></i>
