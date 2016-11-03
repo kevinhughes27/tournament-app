@@ -10,13 +10,16 @@ class SeedDivisionTest < ActiveSupport::TestCase
     @teams = @division.teams.order(:seed)
   end
 
+  test "updates teams" do
+  end
+
   test "initializes the first round" do
     division = create_division(bracket_type: 'single_elimination_8')
 
     teams = @teams.to_a
     @teams.update_all(division_id: division.id)
 
-    SeedDivision.perform(division)
+    perform_operation(division, teams)
 
     teams.sort_by{ |t| t.seed }
     games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
@@ -27,27 +30,11 @@ class SeedDivisionTest < ActiveSupport::TestCase
     end
   end
 
-  test "halts if any games are invalid for a seed round" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
-
-    division.games.first.update_columns(
-      home_prereq: 'NaN',
-      away_prereq: 'NaN'
-    )
-
-    seed = SeedDivision.new(division)
-    seed.perform
-
-    assert seed.halted?
-    assert_equal 'Invalid seed round', seed.message
-  end
-
   test "resets any games past the seed round" do
     division = create_division(bracket_type: 'single_elimination_8')
     @teams.update_all(division_id: division.id)
 
-    SeedDivision.perform(division)
+    perform_operation(division, @teams)
 
     round1_games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
     round2_games = division.games.where(bracket_uid: ['s1', 's2', 'c3', 'c4'])
@@ -66,7 +53,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
     round2_games.reload
     assert round2_games.all?{ |g| g.teams_present? }
 
-    SeedDivision.perform(division, 'true')
+    perform_operation(division, @teams, 'true')
 
     round2_games.reload
     assert round2_games.all?{ |g| not g.teams_present? }
@@ -79,7 +66,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
     teams = @teams.reload
     @teams.update_all(division_id: division.id)
 
-    SeedDivision.perform(division)
+    perform_operation(division, @teams)
 
     game = division.games.find_by(bracket_uid: 'rr3')
     assert_nil game.home
@@ -94,8 +81,17 @@ class SeedDivisionTest < ActiveSupport::TestCase
 
     refute division.seeded?
 
-    SeedDivision.perform(division)
+    perform_operation(division, @teams)
 
     assert division.reload.seeded?
+  end
+
+  def perform_operation(division, teams, confirm = 'false')
+    SeedDivision.perform(
+      division: division,
+      team_ids: teams.map(&:id),
+      seeds: teams.map(&:seed),
+      confirm: confirm
+    )
   end
 end

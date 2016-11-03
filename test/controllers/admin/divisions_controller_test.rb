@@ -116,7 +116,72 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "update teams in a division (unsafe)" do
+  test "update teams and seed" do
+    @teams = @division.teams.order(:seed)
+    teams = @teams.to_a
+    division = create_division(bracket_type: 'single_elimination_8')
+    @teams.update_all(division_id: division.id)
+
+    team1 = teams.first
+    team2 = teams.last
+
+    new_seed = 5
+    refute_equal new_seed, team1.seed
+    current_seed = team2.seed
+
+    params = {
+      id: division.id,
+      team_ids: [team1.id, team2.id],
+      seeds: [new_seed, current_seed]
+    }
+
+    post :seed, params: params
+    assert_response :success
+
+    assert_equal new_seed, team1.reload.seed
+    assert_equal current_seed, team2.reload.seed
+    refute division.seeded?
+  end
+
+  test "update teams and seed (ids not in order)" do
+    @teams = @division.teams.order(:seed)
+    teams = @teams.to_a
+    division = create_division(bracket_type: 'single_elimination_8')
+    @teams.update_all(division_id: division.id)
+
+
+    team1 = teams.first
+    team2 = teams.last
+
+    new_seed = 5
+    refute_equal new_seed, team1.seed
+    current_seed = team2.seed
+
+    params = {
+      id: division.id,
+      team_ids: [team2.id, team1.id],
+      seeds: [current_seed, new_seed]
+    }
+
+    post :seed, params: params
+    assert_response :success
+
+    assert_equal new_seed, team1.reload.seed
+    assert_equal current_seed, team2.reload.seed
+    refute division.seeded?
+  end
+
+  test "seed a division" do
+    @teams = @division.teams.order(:seed)
+    division = create_division(bracket_type: 'single_elimination_8')
+    @teams.update_all(division_id: division.id)
+
+    post :seed, params: { id: division.id }
+    assert_redirected_to admin_division_path(division)
+    assert_equal 'Division seeded', flash[:notice]
+  end
+
+  test "seed (unsafe)" do
     assert @division.teams.any?{ |t| !t.allow_change? }
 
     team1 = @division.teams.first
@@ -128,73 +193,9 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
       seeds: [team2.seed, team1.seed]
     }
 
-    put :update_teams, params: params
+    post :seed, params: params
 
-    assert_template 'admin/divisions/_unable_to_update_teams'
-  end
-
-  test "update teams in a division" do
-    @teams = @division.teams.order(:seed)
-    division = create_division(bracket_type: 'single_elimination_8')
-    teams = @teams.to_a
-    @teams.update_all(division_id: division.id)
-
-    team1 = teams.first
-    team2 = teams.last
-
-    new_seed = 5
-    refute_equal new_seed, team1.seed
-
-    current_seed = team2.seed
-
-    params = {
-      id: division.id,
-      team_ids: [team1.id, team2.id],
-      seeds: [new_seed, current_seed]
-    }
-
-    put :update_teams, params: params
-    assert_response :success
-
-    assert_equal new_seed, team1.reload.seed
-    assert_equal current_seed, team2.reload.seed
-  end
-
-  test "update teams in a division (ids not in order)" do
-    @teams = @division.teams.order(:seed)
-    division = create_division(bracket_type: 'single_elimination_8')
-    teams = @teams.to_a
-    @teams.update_all(division_id: division.id)
-
-    team1 = teams.first
-    team2 = teams.last
-
-    new_seed = 5
-    refute_equal new_seed, team1.seed
-
-    current_seed = team2.seed
-
-    params = {
-      id: division.id,
-      team_ids: [team2.id, team1.id],
-      seeds: [current_seed, new_seed]
-    }
-
-    put :update_teams, params: params
-    assert_response :success
-
-    assert_equal new_seed, team1.reload.seed
-    assert_equal current_seed, team2.reload.seed
-  end
-
-  test "seed a division" do
-    @teams = @division.teams.order(:seed)
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
-
-    post :seed, params: { id: division.id }
-    assert_redirected_to admin_division_path(division)
-    assert_equal 'Division seeded', flash[:notice]
+    assert_template 'admin/divisions/_confirm_seed'
   end
 
   test "seed a division with an error" do

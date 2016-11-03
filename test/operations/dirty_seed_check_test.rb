@@ -16,7 +16,7 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
     refute division.seeded?
     assert DirtySeedCheck.perform(division)
 
-    SeedDivision.perform(division)
+    seed_division(division)
 
     assert division.seeded?
     refute DirtySeedCheck.perform(division)
@@ -34,7 +34,7 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
     refute division.seeded?
     assert DirtySeedCheck.perform(division)
 
-    SeedDivision.perform(division)
+    seed_division(division)
 
     assert division.seeded?
     refute DirtySeedCheck.perform(division)
@@ -43,5 +43,11 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
     division.teams[1].update(seed: 1)
 
     assert DirtySeedCheck.perform(division)
+  end
+
+  private
+
+  def seed_division(division)
+    SeedDivision.perform(division: division)
   end
 end

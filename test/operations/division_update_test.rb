@@ -20,7 +20,7 @@ class DivisionUpdateTest < ActiveSupport::TestCase
     division = create_division(bracket_type: 'single_elimination_8')
     teams.update_all(division_id: division.id)
 
-    SeedDivision.perform(division)
+    SeedDivision.perform(division: division)
 
     assert division.seeded?
 

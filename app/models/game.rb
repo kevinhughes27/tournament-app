@@ -120,10 +120,6 @@ class Game < ApplicationRecord
     !score_confirmed
   end
 
-  def valid_for_seed_round?
-    home_prereq.match(/\A\d+\z/) || away_prereq.match(/\A\d+\z/)
-  end
-
   def scores_present?
     home_score.present? && away_score.present?
   end

@@ -15,7 +15,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
       assert division
 
       create_teams
-      SeedDivision.perform(@division)
+      seed_division(@division)
 
       play_games
 
@@ -50,6 +50,10 @@ class BracketSimulationTest < ActiveSupport::TestCase
       division_id: division.id,
       seed: seed
     )
+  end
+
+  def seed_division(division)
+    SeedDivision.perform(division: division)
   end
 
   # loop until games are done

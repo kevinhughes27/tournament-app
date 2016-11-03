@@ -14,83 +14,53 @@
 
     <%= render 'seed_errors' %>
 
-    <% if @division.teams.present? %>
-      <%= ui_box do %>
-        <h4>Seeding</h4>
-        <p>
-          You can update the seeds for the teams in this division conviently here.
-          Remeber if you change the teams you'll have to re-seed the division.
-        </p>
+    <%= ui_box do %>
+      <h4>Seeding</h4>
+      <p>
+        Seed your division. This will assign teams to the initial rounds.
+      </p>
 
-        <div id="redips-drag" define="{seeding: new Admin.Seeding()}">
-          <%= form_tag update_teams_admin_division_path(@division),
-            'bind-event-submit' => "Admin.ActionWithCheck(
-              '#{update_teams_admin_division_path(@division)}',
-              'PUT',
-              false,
-              this
-            )" do %>
-            <table class="table table-bordered table-striped table-hover table-condensed">
-              <thead>
+      <div id="redips-drag" define="{seeding: new Admin.Seeding()}">
+        <%= form_tag seed_admin_division_path(@division),
+          'bind-event-submit' => "Admin.ActionWithCheck(
+            '#{seed_admin_division_path(@division)}',
+            'POST',
+            false,
+            this
+          )" do %>
+          <table class="table table-bordered table-striped table-hover table-condensed">
+            <thead>
+              <tr>
+                <th class="redips-mark">Team</th>
+                <th class="redips-mark">seed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @division.teams.sort_by{ |t| t.seed || 1000 }.each do |team| %>
                 <tr>
-                  <th class="redips-mark">Team</th>
-                  <th class="redips-mark">seed</th>
+                  <%= hidden_field_tag 'team_ids[]', team.id %>
+                  <td class="redips-rowhandler">
+                    <div class="redips-drag redips-row">
+                      <%= team.name %>
+                    </div>
+                  </td>
+                  <td class="td-input">
+                    <%= number_field_tag 'seeds[]',
+                      team.seed,
+                      class: 'td-input form-control',
+                      min: '1',
+                      max: @division.teams.count %>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                <% @division.teams.sort_by{ |t| t.seed || 1000 }.each do |team| %>
-                  <tr>
-                    <%= hidden_field_tag 'team_ids[]', team.id %>
-                    <td class="redips-rowhandler">
-                      <div class="redips-drag redips-row">
-                        <%= team.name %>
-                      </div>
-                    </td>
-                    <td class="td-input">
-                      <%= number_field_tag 'seeds[]',
-                        team.seed,
-                        class: 'td-input form-control',
-                        min: '1',
-                        max: @division.teams.count %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+              <% end %>
+            </tbody>
+          </table>
 
-            <div class="pull-right">
-              <%= button_tag 'Update teams', class: "btn btn-primary js-btn-loadable" %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-
-      <%= ui_box do %>
-        <p>
-          Seed your division. This will assign teams to the initial rounds.
-        </p>
-
-        <div class="pull-right">
-          <%= button_tag 'Seed', class: "btn btn-primary js-btn-loadable",
-            'bind-event-click' => "Admin.ActionWithCheck(
-              '#{seed_admin_division_path(@division)}',
-              'POST'
-            )" %>
-        </div>
-      <% end %>
-    <% else %>
-      <%= ui_box do %>
-        <h4>
-          <i class="fa fa-exclamation-triangle"></i>
-          Seeding
-        </h4>
-        <p>
-          This divisions has no teams and can't be seeded.
-        </p>
-        <p>
-          Add teams from the <%= link_to 'Teams page', admin_teams_path %>
-        </p>
-      <% end %>
+          <div class="pull-right">
+            <%= button_tag 'Seed division', class: "btn btn-primary js-btn-loadable" %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
