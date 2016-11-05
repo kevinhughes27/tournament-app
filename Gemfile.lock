@@ -300,7 +300,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (11.3.0)
-    react_on_rails (6.0.5)
+    react_on_rails (6.1.2)
       addressable
       connection_pool
       execjs (~> 2.5)
@@ -437,7 +437,7 @@ DEPENDENCIES
   rails-assets-underscore (~> 1.8.3)!
   rails-controller-testing
   rails_12factor
-  react_on_rails (~> 6.0.5)
+  react_on_rails (~> 6.1.2)
   redis
   rollbar
   rugged
