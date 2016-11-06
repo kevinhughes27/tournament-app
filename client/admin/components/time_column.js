@@ -6,14 +6,15 @@ import TimeSlotGroup from './time_slot_group'
 export default class TimeColumn extends Component {
   static propTypes = {
     title: PropTypes.string,
+    field: PropTypes.number,
     step: PropTypes.number.isRequired,
     timeslots: PropTypes.number.isRequired,
+    rowHeight: PropTypes.number.isRequired,
     now: PropTypes.instanceOf(Date).isRequired,
     min: PropTypes.instanceOf(Date).isRequired,
     max: PropTypes.instanceOf(Date).isRequired,
     showLabels: PropTypes.bool,
     timeGutterFormat: PropTypes.string,
-    rowHeight: PropTypes.number,
   }
 
   static defaultProps = {
@@ -27,6 +28,7 @@ export default class TimeColumn extends Component {
     return (
       <TimeSlotGroup
         key={key}
+        field={this.props.field}
         isNow={isNow}
         timeslots={this.props.timeslots}
         step={this.props.step}

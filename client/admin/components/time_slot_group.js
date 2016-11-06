@@ -5,13 +5,15 @@ import TimeSlot from './time_slot'
 
 export default class TimeSlotGroup extends Component {
   static propTypes = {
-    timeslots: PropTypes.number.isRequired,
-    step: PropTypes.number.isRequired,
     value: PropTypes.instanceOf(Date).isRequired,
-    showLabels: PropTypes.bool,
-    isNow: PropTypes.bool,
-    timeGutterFormat: PropTypes.string,
+    field: PropTypes.number,
+    step: PropTypes.number.isRequired,
+    timeslots: PropTypes.number.isRequired,
     rowHeight: PropTypes.number,
+    isNow: PropTypes.bool,
+    showLabels: PropTypes.bool,
+    timeGutterFormat: PropTypes.string,
+
   }
 
   renderSlice(slotNumber, content, value) {
@@ -20,6 +22,7 @@ export default class TimeSlotGroup extends Component {
                      content={content}
                      rowHeight={this.props.rowHeight}
                      isNow={this.props.isNow}
+                     field={this.props.field}
                      value={value} />
   }
 

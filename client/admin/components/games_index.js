@@ -2,7 +2,7 @@ import IndexBase from './index_base'
 import FilterBar from './filter_bar'
 import filterFunction from '../modules/filter_function'
 import _some from 'lodash/some'
-import {NameCell, ScoreCell} from './game'
+import {NameCell, ScoreCell} from './game_row'
 import GamesStore from '../stores/games_store'
 
 class GamesIndex extends IndexBase {
