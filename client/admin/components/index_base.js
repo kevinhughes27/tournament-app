@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Griddle from 'griddle-react';
+import React from 'react'
+import Griddle from 'griddle-react'
 
 class IndexBase extends React.Component {
   buildFilterComponent(baseComponent, store) {
@@ -8,19 +7,19 @@ class IndexBase extends React.Component {
       mixins: [baseComponent],
       filters: this.props.filters,
       bulkActions: this.props.bulkActions || [],
-      componentDidMount() { store.addChangeListener(this.filterChange) },
-      componentWillUnmount() { store.removeChangeListener(this.filterChange) },
-      render() { return this.renderBar() }
-    });
+      componentDidMount () { store.addChangeListener(this.filterChange) },
+      componentWillUnmount () { store.removeChangeListener(this.filterChange) },
+      render () { return this.renderBar() }
+    })
   }
 
-  render() {
-    let results = this.state.items;
-    let columns = this.constructor.columns;
-    let columnsMeta = this.constructor.columnsMeta;
-    let rowMetadata = this.constructor.rowMetadata;
-    let filterFunction = this.filterFunction;
-    let filterComponent = this.filterComponent;
+  render () {
+    let results = this.state.items
+    let columns = this.constructor.columns
+    let columnsMeta = this.constructor.columnsMeta
+    let rowMetadata = this.constructor.rowMetadata
+    let filterFunction = this.filterFunction
+    let filterComponent = this.filterComponent
 
     return (
       <Griddle
@@ -42,8 +41,8 @@ class IndexBase extends React.Component {
         useCustomFilterComponent={true}
         customFilterComponent={filterComponent}
       />
-    );
+    )
   }
 }
 
-module.exports = IndexBase;
+module.exports = IndexBase

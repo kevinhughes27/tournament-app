@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Modal} from 'react-bootstrap';
-import {confirmable, createConfirmation} from 'react-confirm';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Modal} from 'react-bootstrap'
+import {confirmable, createConfirmation} from 'react-confirm'
 
 class ConfirmModal extends React.Component {
-  render() {
-    let title = this.props.title;
-    let message = this.props.message;
-    let show = this.props.show;
+  render () {
+    let title = this.props.title
+    let message = this.props.message
+    let show = this.props.show
 
-    let proceed = this.props.proceed.bind(this);
-    let dismiss = this.props.dismiss.bind(this);
+    let proceed = this.props.proceed.bind(this)
+    let dismiss = this.props.dismiss.bind(this)
 
     return (
       <Modal onHide={dismiss} show={show}>
@@ -27,8 +27,8 @@ class ConfirmModal extends React.Component {
           <button className="btn btn-danger" onClick={proceed}>Confirm</button>
         </Modal.Footer>
       </Modal>
-    );
+    )
   }
 }
 
-module.exports = confirmable(ConfirmModal);
+module.exports = confirmable(ConfirmModal)

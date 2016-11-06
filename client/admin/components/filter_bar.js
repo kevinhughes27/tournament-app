@@ -1,12 +1,10 @@
-import _omit from 'lodash/omit';
-import _toPairs from 'lodash/toPairs';
-import _find from 'lodash/find';
-import _keys from 'lodash/keys';
+import _omit from 'lodash/omit'
+import _toPairs from 'lodash/toPairs'
+import _find from 'lodash/find'
 
-import React from 'react';
-import squish from 'object-squish';
-import queryString from 'query-string';
-import setQuery from 'set-query-string';
+import React from 'react'
+import queryString from 'query-string'
+import setQuery from 'set-query-string'
 
 import {
   FormGroup,
@@ -14,71 +12,71 @@ import {
   FormControl,
   Dropdown,
   MenuItem
-} from 'react-bootstrap';
+} from 'react-bootstrap'
 
 let FilterBar = {
 
-  getDefaultProps() {
+  getDefaultProps () {
     return {
-      "query": queryString.parse(location.search)
+      'query': queryString.parse(location.search)
     }
   },
 
-  componentDidMount() {
-    if(!this.filters) {
+  componentDidMount () {
+    if (!this.filters) {
       this.filters = []
-      console.warn("FilterBar component used without filters. You may want to include `filters: [...]` in your component")
-    };
+      console.warn('FilterBar component used without filters. You may want to include `filters: [...]` in your component')
+    }
 
-    this.props.changeFilter(this.props.query);
+    this.props.changeFilter(this.props.query)
   },
 
-  componentWillReceiveProps() {
-    setQuery(this.props.query, {clear: true});
+  componentWillReceiveProps () {
+    setQuery(this.props.query, {clear: true})
   },
 
-  filterChange() {
-    this.props.changeFilter(this.props.query);
+  filterChange () {
+    this.props.changeFilter(this.props.query)
   },
 
-  searchChange(event) {
-    let value = event.target.value;
+  searchChange (event) {
+    let value = event.target.value
 
-    if(value == '') {
+    if (value === '') {
       delete this.props.query['search']
     } else {
-      this.props.query['search'] = value;
+      this.props.query['search'] = value
     }
 
-    this.props.changeFilter(this.props.query);
+    this.props.changeFilter(this.props.query)
   },
 
-  showFilters() {
+  showFilters () {
     return this.filters.length > 0
   },
 
-  addFilter(filter) {
-    this.props.query[filter.key] = filter.value;
-    this.props.changeFilter(this.props.query);
+  addFilter (filter) {
+    this.props.query[filter.key] = filter.value
+    this.props.changeFilter(this.props.query)
   },
 
-  deleteFilter(key) {
-    delete this.props.query[key];
-    this.props.changeFilter(this.props.query);
+  deleteFilter (key) {
+    delete this.props.query[key]
+    this.props.changeFilter(this.props.query)
   },
 
-  showBulkActions() {
-    return false;
+  showBulkActions () {
+    return false
   },
 
-  performAction(action) {
-    throw "performAction called but is has not been implemented.\
+  performAction (action) {
+    throw 'performAction called but is has not been implemented.\
           If your FilterBar has bulk actions it should\
-          extend FilterBar and implement performAction"
+          extend FilterBar and implement performAction'
   },
 
-  renderFiltersDropdown() {
-    if ( !this.showFilters() ) return;
+  renderFiltersDropdown () {
+    if (!this.showFilters()) return
 
     return (
       <div className="input-group-btn">
@@ -91,22 +89,22 @@ let FilterBar = {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-    );
+    )
   },
 
-  renderFilterMenuItem(filter, idx) {
-    if (filter.hidden) return;
+  renderFilterMenuItem (filter, idx) {
+    if (filter.hidden) return
 
     return (
       <MenuItem key={idx} onClick={() => this.addFilter(filter)}>
         <i className="fa fa-circle"></i>
         {filter.text}
      </MenuItem>
-    );
+    )
   },
 
-  renderBulkActionsDropdown() {
-    if ( !this.showBulkActions() ) return;
+  renderBulkActionsDropdown () {
+    if (!this.showBulkActions()) return
 
     return (
       <div className="input-group-btn">
@@ -120,18 +118,18 @@ let FilterBar = {
                 <MenuItem key={i} onClick={() => this.performAction(a)}>
                   <i className="fa fa-circle"></i>
                   {a.text}
-               </MenuItem>
-             );
+                </MenuItem>
+              )
             })}
           </Dropdown.Menu>
         </Dropdown>
       </div>
-    );
+    )
   },
 
-  renderBar() {
-    let searchValue = this.props.query.search;
-    let currentFilters = _omit(this.props.query, 'search');
+  renderBar () {
+    let searchValue = this.props.query.search
+    let currentFilters = _omit(this.props.query, 'search')
 
     return (
       <div className="filter-container" style={{paddingBottom: 10}}>
@@ -152,12 +150,12 @@ let FilterBar = {
           { _toPairs(currentFilters).map(this.renderFilter)}
         </div>
       </div>
-    );
+    )
   },
 
-  renderFilter(pair, idx) {
-    let [key, value] = pair;
-    let filter = _find(this.filters, function(f) { return f.key == key && f.value == value });
+  renderFilter (pair, idx) {
+    let [key, value] = pair
+    let filter = _find(this.filters, function (f) { return f.key === key && f.value === value })
 
     return (
       <Filter
@@ -166,29 +164,29 @@ let FilterBar = {
         filterText={filter.text}
         filterValue={filter.value}
         deleteFilter={this.deleteFilter} />
-    );
+    )
   }
-};
+}
 
 class Filter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.clickHandler = this.clickHandler.bind(this);
+  constructor (props) {
+    super(props)
+    this.clickHandler = this.clickHandler.bind(this)
   }
 
-  clickHandler() {
-    let filterKey = this.props.filterKey;
-    this.props.deleteFilter(filterKey);
+  clickHandler () {
+    let filterKey = this.props.filterKey
+    this.props.deleteFilter(filterKey)
   }
 
-  render() {
+  render () {
     return (
       <button className="btn btn-xs btn-info" onClick={this.clickHandler}>
         <span>{this.props.filterText} </span>
         <i className="fa fa-close"></i>
       </button>
-    );
+    )
   }
 }
 
-module.exports = FilterBar;
+module.exports = FilterBar

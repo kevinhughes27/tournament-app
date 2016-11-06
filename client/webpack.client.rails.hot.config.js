@@ -3,23 +3,23 @@
 // cd client && babel-node server-rails-hot.js
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
 
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
 
-const config = require('./webpack.client.base.config');
+const config = require('./webpack.client.base.config')
 
-const hotRailsPort = process.env.HOT_RAILS_PORT || 3500;
+const hotRailsPort = process.env.HOT_RAILS_PORT || 3500
 
 config.entry.admin.push(
   `webpack-dev-server/client?http://localhost:${hotRailsPort}`,
   'webpack/hot/only-dev-server'
-);
+)
 
 config.output = {
   filename: '[name]-bundle.js',
   path: path.join(__dirname, 'public'),
-  publicPath: `http://localhost:${hotRailsPort}/`,
-};
+  publicPath: `http://localhost:${hotRailsPort}/`
+}
 
 config.module.loaders.push(
   {
@@ -35,23 +35,23 @@ config.module.loaders.push(
               {
                 transform: 'react-transform-hmr',
                 imports: ['react'],
-                locals: ['module'],
-              },
-            ],
-          },
-        ],
-      ],
-    },
+                locals: ['module']
+              }
+            ]
+          }
+        ]
+      ]
+    }
   }
-);
+)
 
 config.plugins.push(
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin()
-);
+)
 
-config.devtool = 'eval-source-map';
+config.devtool = 'eval-source-map'
 
-console.log('Webpack HOT dev build for Rails'); // eslint-disable-line no-console
+console.log('Webpack HOT dev build for Rails') // eslint-disable-line no-console
 
-module.exports = config;
+module.exports = config

@@ -1,4 +1,14 @@
 {
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "BracketDb": true,
+    "$": true,
+    "Turbolinks": true,
+    "Admin": true,
+    "UT": true
+  },
   "extends": [
     "plugin:react/recommended",
     "standard"

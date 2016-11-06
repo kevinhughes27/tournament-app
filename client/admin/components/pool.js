@@ -1,18 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
 
 class Pool extends React.Component {
-  renderGamesLink(divisionName, pool) {
+  renderGamesLink (divisionName, pool) {
     return (
       <div className='pull-right subdued' style={{fontSize: '10px'}}>
         <a href={`/admin/games?division=${divisionName}&pool=${pool}`}>
           Games <i className="fa fa-external-link"></i>
         </a>
       </div>
-    );
+    )
   }
 
-  renderHeader(divisionName, pool) {
+  renderHeader (divisionName, pool) {
     return (
       <thead>
         <tr>
@@ -22,13 +21,13 @@ class Pool extends React.Component {
           </th>
         </tr>
       </thead>
-    );
+    )
   }
 
-  renderRow(team) {
+  renderRow (team) {
     let text = team.seed
-    if (team.name && team.name != team.seed) {
-      text = `${team.seed} - ${team.name}`;
+    if (team.name && team.name !== team.seed) {
+      text = `${team.seed} - ${team.name}`
     }
 
     return (
@@ -38,8 +37,8 @@ class Pool extends React.Component {
     )
   }
 
-  render() {
-    let {pool, teams, divisionName} = this.props;
+  render () {
+    let {pool, teams, divisionName} = this.props
 
     return (
       <div style={{minWidth: '140px', marginLeft: '20px', marginRight: '20px'}}>
@@ -50,7 +49,7 @@ class Pool extends React.Component {
           </tbody>
         </table>
       </div>
-    );
+    )
   }
 }
 
@@ -60,4 +59,4 @@ Pool.propTypes = {
   divisionName: React.PropTypes.string
 }
 
-module.exports = Pool;
+module.exports = Pool

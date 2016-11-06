@@ -22,4 +22,4 @@ const OtherFieldStyle = {
   fillColor: '#C0C0C0'
 }
 
-module.exports = {FieldStyle, FieldHoverStyle, OtherFieldStyle};
+module.exports = {FieldStyle, FieldHoverStyle, OtherFieldStyle}

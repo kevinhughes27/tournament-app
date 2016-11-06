@@ -1,11 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
-import classNames from 'classnames';
+import React from 'react'
+import {Tooltip, OverlayTrigger} from 'react-bootstrap'
+import classNames from 'classnames'
 
 class ScoreReports extends React.Component {
-  render() {
-    let reports = this.props.reports;
+  render () {
+    let reports = this.props.reports
 
     return (
       <div style={{paddingTop: 25}}>
@@ -23,27 +22,27 @@ class ScoreReports extends React.Component {
             </thead>
             <tbody>
               { reports.map((report, idx) => {
-                return <ScoreReport key={idx} report={report} />;
+                return <ScoreReport key={idx} report={report} />
               })}
             </tbody>
           </table>
         </div>
       </div>
-    );
+    )
   }
 }
 
 class ScoreReport extends React.Component {
-  tooltip(report) {
-    return(
-      <Tooltip id={"report#{report.id}submitter"}
-               placement="top">{report.submitter_fingerprint}
+  tooltip (report) {
+    return (
+      <Tooltip id={`report${report.id}submitter`}
+        placement="top">{report.submitter_fingerprint}
       </Tooltip>
-    );
+    )
   }
 
-  render() {
-    let report = this.props.report;
+  render () {
+    let report = this.props.report
 
     return (
       <tr className={ classNames({warning: report.sotg_warning}) }>
@@ -65,8 +64,8 @@ class ScoreReport extends React.Component {
           {report.comments}
         </td>
       </tr>
-    );
+    )
   }
 }
 
-module.exports = ScoreReports;
+module.exports = ScoreReports

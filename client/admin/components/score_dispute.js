@@ -1,10 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import UpdateScoreModal from './update_score_modal';
+import React from 'react'
+import UpdateScoreModal from './update_score_modal'
 
 class ScoreDispute extends React.Component {
-  render() {
-    let game = this.props.game;
+  render () {
+    let game = this.props.game
 
     return (
       <div className="alert alert-warning" style={{paddingBottom: '47px'}}>
@@ -18,8 +17,8 @@ class ScoreDispute extends React.Component {
                           linkText='Resolve'
                           linkClass='btn btn-primary pull-right'/>
       </div>
-    );
+    )
   }
 }
 
-module.exports = ScoreDispute;
+module.exports = ScoreDispute

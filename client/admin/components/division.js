@@ -1,62 +1,61 @@
-import _filter from 'lodash/filter';
-import _groupBy from 'lodash/groupBy';
-import _each from 'lodash/each';
-import _map from 'lodash/map';
-import _unionWith from 'lodash/unionWith';
-import _isEqual from 'lodash/isEqual';
-import _sortBy from 'lodash/sortBy';
-import _keys from 'lodash/keys';
+import _filter from 'lodash/filter'
+import _groupBy from 'lodash/groupBy'
+import _each from 'lodash/each'
+import _map from 'lodash/map'
+import _unionWith from 'lodash/unionWith'
+import _isEqual from 'lodash/isEqual'
+import _sortBy from 'lodash/sortBy'
+import _keys from 'lodash/keys'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
 
 import Pool from './pool'
-import BracketVis from '../modules/bracket_vis';
+import BracketVis from '../modules/bracket_vis'
 
 class Division extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    let bracketHandle = this.props.bracket_handle;
-    let bracket = BracketDb.find(bracketHandle);
+    let bracketHandle = this.props.bracket_handle
+    let bracket = BracketDb.find(bracketHandle)
 
     this.state = {
       bracketHandle: bracketHandle,
       bracket: bracket
-    };
+    }
   }
 
-  componentDidMount() {
-    this.renderBracket();
+  componentDidMount () {
+    this.renderBracket()
 
     $('#division_bracket_type').on('change', (event) => {
-      let bracketHandle = $(event.target).val();
-      let bracket = BracketDb.find(bracketHandle);
+      let bracketHandle = $(event.target).val()
+      let bracket = BracketDb.find(bracketHandle)
 
       this.setState({
         bracketHandle: bracketHandle,
         bracket: bracket
-      });
-    });
+      })
+    })
   }
 
-  componentDidUpdate() {
-    this.renderBracket();
+  componentDidUpdate () {
+    this.renderBracket()
   }
 
-  renderBracket() {
-    let node = $('#bracketGraph');
-    let bracketVis = new BracketVis(node);
+  renderBracket () {
+    let node = $('#bracketGraph')
+    let bracketVis = new BracketVis(node)
 
-    let bracket = this.state.bracket;
-    let bracketTree = this.props.bracket_tree;
+    let bracket = this.state.bracket
+    let bracketTree = this.props.bracket_tree
 
     if (bracket) {
-      bracketVis.render(bracket, bracketTree);
+      bracketVis.render(bracket, bracketTree)
     }
   }
 
-  renderDescription(bracket) {
+  renderDescription (bracket) {
     return (
       <div>
         <p>
@@ -64,15 +63,15 @@ class Division extends React.Component {
         </p>
         <p>{bracket.description}</p>
       </div>
-    );
+    )
   }
 
-  renderPools(bracket) {
-    let games = this.props.games ? JSON.parse(this.props.games) : bracket.template.games;
-    let divisionName = games[0].division;
+  renderPools (bracket) {
+    let games = this.props.games ? JSON.parse(this.props.games) : bracket.template.games
+    let divisionName = games[0].division
 
-    let teamsByPool = this._teamsByPool(games);
-    let pools = _keys(teamsByPool);
+    let teamsByPool = this._teamsByPool(games)
+    let pools = _keys(teamsByPool)
 
     return (
       <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
@@ -85,33 +84,33 @@ class Division extends React.Component {
           />
         })}
       </div>
-    );
+    )
   }
 
-  _teamsByPool(games) {
-    let teamsByPool = {};
+  _teamsByPool (games) {
+    let teamsByPool = {}
 
-    let poolGames = _filter(games, 'pool');
-    let gamesByPool = _groupBy(poolGames, 'pool');
+    let poolGames = _filter(games, 'pool')
+    let gamesByPool = _groupBy(poolGames, 'pool')
 
-    _each(gamesByPool, function(poolGames, pool) {
+    _each(gamesByPool, function (poolGames, pool) {
       let homeTeams = _map(poolGames, (g) => {
         return {seed: g.home_prereq, name: g.home_name}
-      });
+      })
 
       let awayTeams = _map(poolGames, (g) => {
         return {seed: g.away_prereq, name: g.away_name}
-      });
+      })
 
-      let teams = _unionWith(homeTeams, awayTeams, _isEqual);
-      teamsByPool[pool] = _sortBy(teams, function(t){ return parseInt(t.seed) });
-    });
+      let teams = _unionWith(homeTeams, awayTeams, _isEqual)
+      teamsByPool[pool] = _sortBy(teams, function (t) { return parseInt(t.seed) })
+    })
 
-    return teamsByPool;
+    return teamsByPool
   }
 
-  renderBracketContainer() {
-    let divisionName = this.props.division_name;
+  renderBracketContainer () {
+    let divisionName = this.props.division_name
 
     return (
       <div style={{paddingLeft: '20px', paddingRight: '20px'}}>
@@ -127,11 +126,11 @@ class Division extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
-  renderGamesLink(divisionName) {
-    if (!divisionName) return;
+  renderGamesLink (divisionName) {
+    if (!divisionName) return
 
     return (
       <div className='pull-right subdued' style={{fontSize: '10px'}}>
@@ -139,14 +138,14 @@ class Division extends React.Component {
           Games <i className="fa fa-external-link"></i>
         </a>
       </div>
-    );
+    )
   }
 
-  render() {
-    let bracket = this.state.bracket;
+  render () {
+    let bracket = this.state.bracket
 
     if (bracket) {
-      let hasPools = bracket.pool;
+      let hasPools = bracket.pool
 
       return (
         <div>
@@ -155,7 +154,7 @@ class Division extends React.Component {
           { hasPools ? this.renderPools(bracket) : null }
           { this.renderBracketContainer() }
         </div>
-      );
+      )
     } else {
       return (
         <div>
@@ -166,4 +165,4 @@ class Division extends React.Component {
   }
 }
 
-module.exports = Division;
+module.exports = Division

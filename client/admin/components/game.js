@@ -1,34 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Collapse} from 'react-bootstrap';
-import classNames from 'classnames';
-import ScoreReports from './score_reports';
-import ScoreDispute from './score_dispute';
-import UpdateScoreModal from './update_score_modal';
-import GamesStore from '../stores/games_store';
+import React from 'react'
+import {Collapse} from 'react-bootstrap'
+import classNames from 'classnames'
+import ScoreReports from './score_reports'
+import ScoreDispute from './score_dispute'
+import UpdateScoreModal from './update_score_modal'
+import GamesStore from '../stores/games_store'
 
 export class NameCell extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.toggleCollapse = this.toggleCollapse.bind(this)
 
-    let game = this.props.rowData;
-    this.state = { reportsOpen: game.reportsOpen || false };
+    let game = this.props.rowData
+    this.state = { reportsOpen: game.reportsOpen || false }
   }
 
-  toggleCollapse(e) {
-    e.nativeEvent.preventDefault();
-    let game = this.props.rowData;
-    let state = !this.state.reportsOpen;
+  toggleCollapse (e) {
+    e.nativeEvent.preventDefault()
+    let game = this.props.rowData
+    let state = !this.state.reportsOpen
 
-    GamesStore.saveReportsState(game, state);
-    this.setState({ reportsOpen: state });
+    GamesStore.saveReportsState(game, state)
+    this.setState({ reportsOpen: state })
   }
 
-  renderReportsBadge(game) {
-    let badgeText;
-    let reportCount = game.score_reports.length;
+  renderReportsBadge (game) {
+    let badgeText
+    let reportCount = game.score_reports.length
 
     // if the game is not confirmed but there is a report
     // then we know we need 2 reports
@@ -36,52 +35,52 @@ export class NameCell extends React.Component {
       badgeText = reportCount
     } else {
       badgeText = `${reportCount} / 2`
-    };
-
-    return (
-      <span className="badge">
-        {badgeText}
-      </span>
-    );
-  }
-
-  renderDisputeBadge(game) {
-    if (!game.has_dispute) {
-      return;
     }
 
     return (
-      <i className="fa fa-lg fa-exclamation-triangle" style={{color: 'orange'}}></i>
-    );
+      <span className='badge'>
+        {badgeText}
+      </span>
+    )
   }
 
-  renderBadges(game) {
+  renderDisputeBadge (game) {
+    if (!game.has_dispute) {
+      return
+    }
+
+    return (
+      <i className='fa fa-lg fa-exclamation-triangle' style={{color: 'orange'}}></i>
+    )
+  }
+
+  renderBadges (game) {
     return (
       <span>{this.renderReportsBadge(game)} {this.renderDisputeBadge(game)}
       </span>
-    );
+    )
   }
 
-  renderDispute(game) {
+  renderDispute (game) {
     if (!game.has_dispute) {
-      return;
+      return
     }
 
     return (
       <ScoreDispute game={game}/>
-    );
+    )
   }
 
-  render() {
-    let game = this.props.rowData;
-    let reports = game.score_reports;
+  render () {
+    let game = this.props.rowData
+    let reports = game.score_reports
 
-    let nameClasses = classNames({'subdued': !game.one_team_present});
-    let text = `${game.home_name} vs ${game.away_name}`;
+    let nameClasses = classNames({'subdued': !game.one_team_present})
+    let text = `${game.home_name} vs ${game.away_name}`
 
-    if (reports.length == 0) {
-      return( <span className={nameClasses}>{text}</span> );
-    };
+    if (reports.length === 0) {
+      return (<span className={nameClasses}>{text}</span>)
+    }
 
     return (
       <div>
@@ -95,29 +94,29 @@ export class NameCell extends React.Component {
           </div>
         </Collapse>
       </div>
-    );
+    )
   }
 }
 
 export class ScoreCell extends React.Component {
-  render() {
-    let game = this.props.rowData;
+  render () {
+    let game = this.props.rowData
 
     if (!game.teams_present) {
-      return(<div></div>);
-    };
+      return (<div></div>)
+    }
 
-    let text;
-    if(game.confirmed) {
-      text = `${game.home_score} - ${game.away_score}`;
+    let text
+    if (game.confirmed) {
+      text = `${game.home_score} - ${game.away_score}`
     } else {
-      text = <i className="fa fa-plus-square-o"></i>;
+      text = <i className="fa fa-plus-square-o"></i>
     }
 
     return (
       <UpdateScoreModal game={game}
                         linkText={text}
                         linkClass="btn-inline"/>
-    );
+    )
   }
 }
