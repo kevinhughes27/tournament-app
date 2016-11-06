@@ -29,7 +29,7 @@ class TeamsIndex extends IndexBase {
   }
 
   onChange() {
-    this.setState({ teams: TeamsStore.all() });
+    this.setState({ items: TeamsStore.all() });
   }
 }
 

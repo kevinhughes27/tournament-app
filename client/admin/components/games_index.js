@@ -30,7 +30,7 @@ class GamesIndex extends IndexBase {
   }
 
   onChange() {
-    this.setState({ games: GamesStore.all() });
+    this.setState({ items: GamesStore.all() });
   }
 }
 

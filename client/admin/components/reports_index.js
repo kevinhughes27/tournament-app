@@ -28,7 +28,7 @@ class ReportsIndex extends IndexBase {
   }
 
   onChange() {
-    this.setState({ reports: ReportsStore.all() });
+    this.setState({ items: ReportsStore.all() });
   }
 }
 
