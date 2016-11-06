@@ -1,25 +1,24 @@
-import _map from 'lodash/map';
-import _keys from 'lodash/keys';
-import _find from 'lodash/find';
-import _times from 'lodash/times';
-import _groupBy from 'lodash/groupBy';
-import dateMath from 'date-arithmetic';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Tabs, Tab} from 'react-bootstrap';
-import TimeColumn from './time_column';
-import GamesStore from '../stores/games_store';
+import _map from 'lodash/map'
+import _keys from 'lodash/keys'
+import _find from 'lodash/find'
+import _groupBy from 'lodash/groupBy'
+import moment from 'moment'
+import dateMath from 'date-arithmetic'
+import React from 'react'
+import {Tabs, Tab} from 'react-bootstrap'
+import TimeColumn from './time_column'
+import GamesStore from '../stores/games_store'
 
 class ScheduleEditor extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    let games = JSON.parse(this.props.games);
-    GamesStore.init(games);
+    let games = JSON.parse(this.props.games)
+    GamesStore.init(games)
 
-    this.fields = JSON.parse(this.props.fields);
+    this.fields = JSON.parse(this.props.fields)
 
-    this.gameWidth = 70;
+    this.gameWidth = 70
     this.now = new Date(Date.now())
     this.min = new Date(2016, 10, 5, 9)
     this.max = new Date(2016, 10, 5, 17)
@@ -27,40 +26,40 @@ class ScheduleEditor extends React.Component {
     this.timeslots = 6
     this.totalMin = dateMath.diff(this.min, this.max, 'minutes')
 
-    this.renderDivisionTab = this.renderDivisionTab.bind(this);
-    this.renderGamesRow = this.renderGamesRow.bind(this);
-    this.renderUnscheduledGame = this.renderUnscheduledGame.bind(this);
-    this.renderScheduledGame = this.renderScheduledGame.bind(this);
-    this.renderFieldColumn = this.renderFieldColumn.bind(this);
-    this.renderGameText = this.renderGameText.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.renderDivisionTab = this.renderDivisionTab.bind(this)
+    this.renderGamesRow = this.renderGamesRow.bind(this)
+    this.renderUnscheduledGame = this.renderUnscheduledGame.bind(this)
+    this.renderScheduledGame = this.renderScheduledGame.bind(this)
+    this.renderFieldColumn = this.renderFieldColumn.bind(this)
+    this.renderGameText = this.renderGameText.bind(this)
+    this.onChange = this.onChange.bind(this)
 
-    let gamesByGroup = _groupBy(GamesStore.all(), 'scheduled');
+    let gamesByGroup = _groupBy(GamesStore.all(), 'scheduled')
 
     this.state = {
       unscheduledGames: gamesByGroup[false],
       scheduledGames: gamesByGroup[true]
-    };
+    }
   }
 
-  componentDidMount() {
-    GamesStore.addChangeListener(this.onChange);
+  componentDidMount () {
+    GamesStore.addChangeListener(this.onChange)
   }
 
-  componentWillUnmount() {
-    GamesStore.removeChangeListener(this.onChange);
+  componentWillUnmount () {
+    GamesStore.removeChangeListener(this.onChange)
   }
 
-  onChange() {
-    let gamesByGroup = _groupBy(GamesStore.all(), 'scheduled');
+  onChange () {
+    let gamesByGroup = _groupBy(GamesStore.all(), 'scheduled')
 
     this.setState({
       unscheduledGames: gamesByGroup[false],
       scheduledGames: gamesByGroup[true]
-    });
+    })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <div style={{paddingBottom: '10px'}}>
@@ -68,11 +67,11 @@ class ScheduleEditor extends React.Component {
         </div>
         {this.renderSchedule()}
       </div>
-    );
+    )
   }
 
-  renderUnscheduled() {
-    let games = this.state.unscheduledGames;
+  renderUnscheduled () {
+    let games = this.state.unscheduledGames
     let gameByDivision = _groupBy(games, 'division')
 
     return (
@@ -81,12 +80,12 @@ class ScheduleEditor extends React.Component {
           {_map(gameByDivision, this.renderDivisionTab)}
         </Tabs>
       </div>
-    );
+    )
   }
 
-  renderDivisionTab(games, divisionName) {
-    let poolGames = games.filter((g) => { return g.pool });
-    let bracketGames = games.filter((g) => { return g.bracket });
+  renderDivisionTab (games, divisionName) {
+    let poolGames = games.filter((g) => { return g.pool })
+    let bracketGames = games.filter((g) => { return g.bracket })
 
     let poolGamesByRound = _groupBy(poolGames, 'round')
     let poolRounds = _keys(poolGamesByRound).sort()
@@ -106,15 +105,15 @@ class ScheduleEditor extends React.Component {
     )
   }
 
-  renderGamesRow(stage, round, games) {
+  renderGamesRow (stage, round, games) {
     return (
-      <div key={stage+round} style={{display: 'flex'}}>
+      <div key={stage + round} style={{display: 'flex'}}>
         {_map(games, this.renderUnscheduledGame)}
       </div>
     )
   }
 
-  renderUnscheduledGame(game) {
+  renderUnscheduledGame (game) {
     let style = {
       width: '65px',
       height: '60px',
@@ -131,7 +130,7 @@ class ScheduleEditor extends React.Component {
     )
   }
 
-  renderSchedule() {
+  renderSchedule () {
     let fields = this.fields
 
     return (
@@ -139,10 +138,10 @@ class ScheduleEditor extends React.Component {
         { this.renderLabelsColumn() }
         { _map(fields, this.renderFieldColumn) }
       </div>
-    );
+    )
   }
 
-  renderLabelsColumn() {
+  renderLabelsColumn () {
     return (<TimeColumn
       key={'labels'}
       now={this.now}
@@ -156,9 +155,9 @@ class ScheduleEditor extends React.Component {
     />)
   }
 
-  renderFieldColumn(field, idx) {
+  renderFieldColumn (field, idx) {
     let games = this.state.scheduledGames || []
-    games = games.filter((g) => g.field_id == field.id)
+    games = games.filter((g) => g.field_id === field.id)
 
     return (
       <div key={field.id}>
@@ -180,13 +179,13 @@ class ScheduleEditor extends React.Component {
   }
 
   // I need this DayColumn thing so that I overlay at the right level.
-  renderScheduledGame(game) {
+  renderScheduledGame (game) {
     let field = _find(this.fields, (f) => f.id === game.field_id)
     let startSlot = dateMath.diff(this.min, new Date(game.start_time), 'minutes')
     let endSlot = dateMath.diff(this.min, new Date(game.end_time), 'minutes')
 
-    let top = ((startSlot / this.totalMin) * 100);
-    let bottom = ((endSlot / this.totalMin) * 100);
+    let top = ((startSlot / this.totalMin) * 100)
+    let bottom = ((endSlot / this.totalMin) * 100)
 
     let style = {
       position: 'relative',
@@ -198,12 +197,12 @@ class ScheduleEditor extends React.Component {
     return (
       <div key={game.id} style={style}>
         {field.name}
-        {moment(game.start_time).format("hh:mm A")}
+        {moment(game.start_time).format('hh:mm A')}
       </div>
     )
   }
 
-  renderGameText(game) {
+  renderGameText (game) {
     if (game.bracket) {
       return (
         <div>
@@ -222,4 +221,4 @@ class ScheduleEditor extends React.Component {
   }
 }
 
-module.exports = ScheduleEditor;
+module.exports = ScheduleEditor

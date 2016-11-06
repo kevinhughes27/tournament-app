@@ -1,6 +1,6 @@
-import _groupBy from 'lodash/groupBy';
+import _groupBy from 'lodash/groupBy'
 import React, { PropTypes, Component } from 'react'
-import GamesStore from '../stores/games_store';
+import GamesStore from '../stores/games_store'
 
 export default class TimeSlot extends Component {
   static propTypes = {

@@ -1,4 +1,4 @@
-import dateMath from 'date-arithmetic';
+import dateMath from 'date-arithmetic'
 
 import React, { Component, PropTypes } from 'react'
 import TimeSlotGroup from './time_slot_group'

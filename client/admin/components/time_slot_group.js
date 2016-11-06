@@ -1,5 +1,5 @@
 import moment from 'moment'
-import dateMath from 'date-arithmetic';
+import dateMath from 'date-arithmetic'
 import React, { PropTypes, Component } from 'react'
 import TimeSlot from './time_slot'
 
