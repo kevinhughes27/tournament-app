@@ -1,4 +1,4 @@
-#= require app_vendor
+#= require app/vendor
 #= require app
 
 describe 'SubmitScoreScreen', ->

@@ -77,6 +77,7 @@ group :development, :test do
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
+  gem 'rainbow'
   gem 'teaspoon'
   gem 'teaspoon-jasmine'
   gem 'teaspoon-bundle', '~> 0.1.3'
@@ -86,6 +87,7 @@ end
 group :circleci do
   gem 'minitest-retry'
   gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
+  gem 'json-schema', '~> 2.6.0'
 end
 
 group :development do

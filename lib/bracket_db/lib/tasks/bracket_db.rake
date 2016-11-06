@@ -1,4 +1,4 @@
-require 'bracket_db'
+require_relative '../bracket_db'
 
 namespace :bracket_db do
   desc "checks the json of each bracket individualy"
