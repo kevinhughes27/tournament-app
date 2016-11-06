@@ -1,3 +1,4 @@
+import _groupBy from 'lodash/groupBy';
 import React, { PropTypes, Component } from 'react'
 import GamesStore from '../stores/games_store';
 
@@ -30,7 +31,7 @@ export default class TimeSlot extends Component {
   handleClick() {
     let startTime = this.props.value
     let field = this.props.field
-    let gamedId = GamesStore.unscheduledGames()[0].id
+    let gamedId = _groupBy(GamesStore.all(), 'scheduled')[false][0].id
 
     $.ajax({
       type: 'PUT',

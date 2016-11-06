@@ -14,6 +14,19 @@ class Admin::ScheduleController < AdminController
     end
   end
 
+  def new_update
+    @game = Game.includes(
+      :division,
+      :home,
+      :away,
+      :score_reports,
+      :score_disputes
+    ).find_by(tournament_id: @tournament.id, id: params[:game_id])
+
+    ScheduleGame.perform(@game, params[:field_id], params[:start_time])
+    head :ok
+  end
+
   def update
     ActiveRecord::Base.transaction do
       # reset field and start times first so swapping can work.

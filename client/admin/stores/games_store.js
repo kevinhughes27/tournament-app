@@ -1,7 +1,6 @@
 import Store from './store'
 import _extend from 'lodash/extend'
 import _findIndex from 'lodash/findIndex'
-import _groupBy from 'lodash/groupBy'
 
 let _games
 let _cable
@@ -22,14 +21,6 @@ let GamesStore = _extend({}, Store, {
 
   all () {
     return _games
-  },
-
-  scheduledGames () {
-    return _groupBy(_games, 'scheduled')[true]
-  },
-
-  unscheduledGames () {
-    return _groupBy(_games, 'scheduled')[false]
   },
 
   saveReportsState (game, state) {

@@ -99,6 +99,7 @@ class Game < ApplicationRecord
   end
 
   def end_time
+    return unless start_time
     start_time + tournament.time_cap.minutes
   end
 

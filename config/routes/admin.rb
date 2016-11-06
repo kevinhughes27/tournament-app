@@ -26,9 +26,13 @@ namespace :admin do
     end
   end
 
+  # old
   get '/schedule', to: 'schedule#index'
-  get '/schedule/edit', to: 'schedule#edit'
   post '/schedule', to: 'schedule#update'
+
+  # new
+  get '/schedule/edit', to: 'schedule#edit'
+  put '/schedule', to: 'schedule#new_update'
 
   resources :games, only: [:index, :update]
 

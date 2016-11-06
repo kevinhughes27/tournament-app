@@ -18,8 +18,6 @@ export default class TimeColumn extends Component {
   }
 
   static defaultProps = {
-    step: 10,
-    timeslots: 6,
     showLabels: false,
     timeGutterFormat: 'hh:mm A'
   }

@@ -1,9 +1,9 @@
-import _keys from 'lodash/keys';
-import _times from 'lodash/times';
 import _map from 'lodash/map';
-import _findIndex from 'lodash/findIndex';
+import _keys from 'lodash/keys';
+import _find from 'lodash/find';
+import _times from 'lodash/times';
 import _groupBy from 'lodash/groupBy';
-
+import dateMath from 'date-arithmetic';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Tabs, Tab} from 'react-bootstrap';
@@ -20,10 +20,17 @@ class ScheduleEditor extends React.Component {
     this.fields = JSON.parse(this.props.fields);
 
     this.gameWidth = 70;
+    this.now = new Date(Date.now())
+    this.min = new Date(2016, 10, 5, 9)
+    this.max = new Date(2016, 10, 5, 17)
+    this.step = 10
+    this.timeslots = 6
+    this.totalMin = dateMath.diff(this.min, this.max, 'minutes')
 
     this.renderDivisionTab = this.renderDivisionTab.bind(this);
     this.renderGamesRow = this.renderGamesRow.bind(this);
     this.renderUnscheduledGame = this.renderUnscheduledGame.bind(this);
+    this.renderScheduledGame = this.renderScheduledGame.bind(this);
     this.renderFieldColumn = this.renderFieldColumn.bind(this);
     this.renderGameText = this.renderGameText.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -126,10 +133,10 @@ class ScheduleEditor extends React.Component {
 
   renderSchedule() {
     let fields = this.fields
-    //TODO scheduledGames
+
     return (
       <div style={{display: 'flex'}}>
-        {this.renderLabelsColumn()}
+        { this.renderLabelsColumn() }
         { _map(fields, this.renderFieldColumn) }
       </div>
     );
@@ -138,9 +145,11 @@ class ScheduleEditor extends React.Component {
   renderLabelsColumn() {
     return (<TimeColumn
       key={'labels'}
-      now={new Date(Date.now())}
-      min={new Date(2016, 10, 5, 9)}
-      max={new Date(2016, 10, 5, 17)}
+      now={this.now}
+      min={this.min}
+      max={this.max}
+      step={this.step}
+      timeslots={this.timeslots}
       showLabels={true}
       rowHeight={10}
       colWidth={80}
@@ -148,16 +157,50 @@ class ScheduleEditor extends React.Component {
   }
 
   renderFieldColumn(field, idx) {
-    return (<TimeColumn
-      key={field.id}
-      field={field.id}
-      title={field.name}
-      now={new Date(Date.now())}
-      min={new Date(2016, 10, 5, 9)}
-      max={new Date(2016, 10, 5, 17)}
-      rowHeight={10}
-      colWidth={70}
-    />)
+    let games = this.state.scheduledGames || []
+    games = games.filter((g) => g.field_id == field.id)
+
+    return (
+      <div key={field.id}>
+        <TimeColumn
+          field={field.id}
+          title={field.name}
+          now={this.now}
+          min={this.min}
+          max={this.max}
+          step={this.step}
+          timeslots={this.timeslots}
+          rowHeight={10}
+          colWidth={70}
+        >
+          { _map(games, this.renderScheduledGame) }
+        </TimeColumn>
+      </div>
+    )
+  }
+
+  // I need this DayColumn thing so that I overlay at the right level.
+  renderScheduledGame(game) {
+    let field = _find(this.fields, (f) => f.id === game.field_id)
+    let startSlot = dateMath.diff(this.min, new Date(game.start_time), 'minutes')
+    let endSlot = dateMath.diff(this.min, new Date(game.end_time), 'minutes')
+
+    let top = ((startSlot / this.totalMin) * 100);
+    let bottom = ((endSlot / this.totalMin) * 100);
+
+    let style = {
+      position: 'relative',
+      top: top + '%',
+      height: bottom - top + '%',
+      width: '65px'
+    }
+
+    return (
+      <div key={game.id} style={style}>
+        {field.name}
+        {moment(game.start_time).format("hh:mm A")}
+      </div>
+    )
   }
 
   renderGameText(game) {
