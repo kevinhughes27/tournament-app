@@ -20,12 +20,11 @@ class GameUpdateScore < ApplicationOperation
     update_score
     create_score_entry if user
 
-    # resets all pool games even if the results haven't changed
-    update_pool if game.pool_game?
+    reset_and_update_pool if game.pool_game?
 
     advance_bracket if game.bracket_game? && winner_changed
 
-    # pool places are pushed by update_pool
+    # pool places are pushed by reset_and_update_pool
     update_places if game.bracket_game?
   end
 
@@ -91,7 +90,7 @@ class GameUpdateScore < ApplicationOperation
     )
   end
 
-  def update_pool
+  def reset_and_update_pool
     FinishPoolJob.perform_later(division: game.division, pool_uid: game.pool)
   end
 
