@@ -49,7 +49,7 @@ then
 
 ```
 bundle install
-bundle exec rake db:migrate
+bin/rails db:setup
 npm install
 ```
 
