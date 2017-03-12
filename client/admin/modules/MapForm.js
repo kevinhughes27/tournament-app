@@ -1,9 +1,9 @@
 import _last from 'lodash/last'
 import {LatLng, geoJson} from 'leaflet'
 
-import Map from './map'
-import MapUndoControl from './map_undo_control'
-import {FieldStyle, FieldHoverStyle} from './field_styles'
+import Map from './Map'
+import MapUndoControl from './MapUndoControl'
+import {FieldStyle, FieldHoverStyle} from './FieldStyles'
 
 const LAT_FIELD = '#tournament_map_attributes_lat'
 const LONG_FIELD = '#tournament_map_attributes_long'

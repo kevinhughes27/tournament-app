@@ -1,9 +1,9 @@
 import React from 'react'
-import IndexBase from './index_base'
-import FilterBar from './filter_bar'
-import filterFunction from '../modules/filter_function'
-import LinkCell from './link_cell'
-import DivisionsStore from '../stores/divisions_store'
+import IndexBase from './IndexBase'
+import FilterBar from './FilterBar'
+import filterFunction from '../modules/FilterFunction'
+import LinkCell from './LinkCell'
+import DivisionsStore from '../stores/DivisionsStore'
 
 class DivisionsIndex extends IndexBase {
   constructor (props) {

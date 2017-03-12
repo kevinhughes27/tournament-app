@@ -1,9 +1,9 @@
-import IndexBase from './index_base'
-import FilterBar from './filter_bar'
-import filterFunction from '../modules/filter_function'
+import IndexBase from '../IndexBase'
+import FilterBar from '../FilterBar'
+import filterFunction from '../../modules/FilterFunction'
 import _some from 'lodash/some'
-import {NameCell, ScoreCell} from './game_row'
-import GamesStore from '../stores/games_store'
+import {NameCell, ScoreCell} from './Row'
+import GamesStore from '../../stores/GamesStore'
 
 class GamesIndex extends IndexBase {
   constructor (props) {

@@ -1,7 +1,7 @@
 import dateMath from 'date-arithmetic'
 
 import React, { Component, PropTypes } from 'react'
-import TimeSlotGroup from './time_slot_group'
+import TimeSlotGroup from './TimeSlotGroup'
 
 export default class TimeColumn extends Component {
   static propTypes = {

@@ -1,5 +1,5 @@
-import FilterBar from './filter_bar'
-import TeamsStore from '../stores/teams_store'
+import FilterBar from './FilterBar'
+import TeamsStore from '../stores/TeamsStore'
 import _assign from 'lodash/assign'
 import _each from 'lodash/each'
 import _map from 'lodash/map'

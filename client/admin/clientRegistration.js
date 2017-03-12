@@ -1,10 +1,10 @@
-import FieldsIndex from './components/fields_index'
-import DivisionsIndex from './components/divisions_index'
-import Division from './components/division'
-import TeamsIndex from './components/teams_index'
-import GamesIndex from './components/games_index'
-import ReportsIndex from './components/reports_index'
-import ScheduleEditor from './components/schedule_editor'
+import FieldsIndex from './components/FieldsIndex'
+import DivisionsIndex from './components/DivisionsIndex'
+import Division from './components/Division'
+import TeamsIndex from './components/TeamsIndex'
+import GamesIndex from './components/GamesIndex'
+import ReportsIndex from './components/ReportsIndex'
+import ScheduleEditor from './components/ScheduleEditor'
 
 import ReactOnRails from 'react-on-rails'
 
@@ -19,8 +19,8 @@ ReactOnRails.register({
 })
 
 // non-component modules
-import FieldEditor from './modules/field_editor'
-import MapForm from './modules/map_form'
+import FieldEditor from './modules/FieldEditor'
+import MapForm from './modules/MapForm'
 
 window.Admin = {}
 window.Admin.FieldEditor = FieldEditor

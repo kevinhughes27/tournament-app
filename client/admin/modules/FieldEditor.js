@@ -1,9 +1,9 @@
 import _last from 'lodash/last'
 import {LatLng, geoJson} from 'leaflet'
 
-import Map from './map'
-import MapUndoControl from './map_undo_control'
-import {FieldStyle, OtherFieldStyle} from './field_styles'
+import Map from './Map'
+import MapUndoControl from './MapUndoControl'
+import {FieldStyle, OtherFieldStyle} from './FieldStyles'
 
 const LAT_FIELD = '#field_lat'
 const LONG_FIELD = '#field_long'

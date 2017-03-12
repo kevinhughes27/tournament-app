@@ -6,8 +6,8 @@ import moment from 'moment'
 import dateMath from 'date-arithmetic'
 import React from 'react'
 import {Tabs, Tab} from 'react-bootstrap'
-import TimeColumn from './time_column'
-import GamesStore from '../stores/games_store'
+import TimeColumn from './TimeColumn'
+import GamesStore from '../../stores/GamesStore'
 
 class ScheduleEditor extends React.Component {
   constructor (props) {
@@ -219,6 +219,11 @@ class ScheduleEditor extends React.Component {
       )
     }
   }
+}
+
+ScheduleEditor.propTypes = {
+  games: React.PropTypes.array.isRequired,
+  fields: React.PropTypes.array.isRequired
 }
 
 module.exports = ScheduleEditor

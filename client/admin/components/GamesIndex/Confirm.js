@@ -1,4 +1,4 @@
-import ConfirmModal from './confirm_modal'
+import ConfirmModal from './ConfirmModal'
 import {createConfirmation} from 'react-confirm'
 
 // create confirm function
