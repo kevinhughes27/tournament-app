@@ -1,8 +1,9 @@
 import React from 'react'
+import {Tabs, Tab} from 'react-bootstrap'
+
 import _keys from 'lodash/keys'
 import _groupBy from 'lodash/groupBy'
 import _map from 'lodash/map'
-import {Tabs, Tab} from 'react-bootstrap'
 
 class UnscheduledGames extends React.Component {
   constructor (props) {
