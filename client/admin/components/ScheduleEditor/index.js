@@ -37,6 +37,8 @@ class ScheduleEditor extends React.Component {
     let scheduledGames = this.state.scheduledGames
     let fields = JSON.parse(this.props.fields)
 
+    // why do I pass the games in here instead of using the Store further down?
+
     return (
       <div>
         <div style={{paddingBottom: '10px'}}>
