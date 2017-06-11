@@ -22,6 +22,6 @@ ReactOnRails.register({
 import FieldEditor from './modules/FieldEditor'
 import MapForm from './modules/MapForm'
 
-window.Admin = {}
+window.Admin = window.Admin || {}
 window.Admin.FieldEditor = FieldEditor
 window.Admin.MapForm = MapForm

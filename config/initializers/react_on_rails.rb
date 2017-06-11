@@ -1,7 +1,7 @@
 # Shown below are the defaults for configuration
 ReactOnRails.configure do |config|
   # Directory where your generated assets go
-  config.generated_assets_dir = File.join(%w(app assets webpack))
+  config.generated_assets_dir = File.join(%w[public webpack], Rails.env)
 
   # Define the files for we need to check for webpack compilation when running tests
   config.webpack_generated_files = %w( admin-bundle.js vendor-bundle.js )
@@ -37,9 +37,6 @@ ReactOnRails.configure do |config|
   ################################################################################
   # MISCELLANEOUS OPTIONS
   ################################################################################
-  # Default is false, enable if your content security policy doesn't include `style-src: 'unsafe-inline'`
-  config.skip_display_none = false
-
   # This allows you to add additional values to the Rails Context. Implement one static method
   # called `custom_context(view_context)` and return a Hash.
   config.rendering_extension = nil
@@ -47,5 +44,5 @@ ReactOnRails.configure do |config|
   # Client js uses assets not digested by rails.
   # For any asset matching this regex, non-digested symlink will be created
   # To disable symlinks set this parameter to nil.
-  config.symlink_non_digested_assets_regex = /\.(png|jpg|jpeg|gif|tiff|woff|ttf|eot|svg)/
+  config.symlink_non_digested_assets_regex = nil
 end

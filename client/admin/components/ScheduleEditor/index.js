@@ -44,9 +44,7 @@ class ScheduleEditor extends React.Component {
         <div style={{paddingBottom: '10px'}}>
           <UnscheduledGames games={unscheduledGames}/>
         </div>
-        <div style={{minHeight: '400px'}}>
-          <Schedule games={scheduledGames} fields={fields}/>
-        </div>
+        <Schedule games={scheduledGames} fields={fields}/>
       </div>
     )
   }

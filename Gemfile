@@ -43,7 +43,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
 # asset gems
-gem 'react_on_rails', '~> 6.1.2'
+gem 'react_on_rails', '~> 8.0.3'
+gem 'webpacker_lite', '2.0.4'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'uglifier', '>= 1.3.0'
