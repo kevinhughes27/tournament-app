@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _map from 'lodash/map'
 
 class XLabels extends React.Component {
@@ -20,7 +21,7 @@ class XLabels extends React.Component {
 }
 
 XLabels.propTypes = {
-  fields: React.PropTypes.array.isRequired
+  fields: PropTypes.array.isRequired
 }
 
 module.exports = XLabels

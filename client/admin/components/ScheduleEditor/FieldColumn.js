@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import GameCell from './GameCell'
 import GamesStore from '../../stores/GamesStore'
 import moment from 'moment'
@@ -23,7 +25,7 @@ class FieldColumn extends React.Component {
 }
 
 FieldColumn.propTypes = {
-  fieldId: React.PropTypes.number.isRequired
+  fieldId: PropTypes.number.isRequired
 }
 
 module.exports = FieldColumn

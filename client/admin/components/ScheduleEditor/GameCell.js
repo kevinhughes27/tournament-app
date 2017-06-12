@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import GameLayout from './GameLayout'
 
 class GameCell extends React.Component {
@@ -22,7 +23,7 @@ class GameCell extends React.Component {
 }
 
 GameCell.propTypes = {
-  game: React.PropTypes.object.isRequired
+  game: PropTypes.object.isRequired
 }
 
 module.exports = GameCell

@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import XLabels from './XLabels'
 import YLabels from './YLabels'
 import FieldColumn from './FieldColumn'
@@ -27,8 +29,8 @@ class Schedule extends React.Component {
 }
 
 Schedule.propTypes = {
-  games: React.PropTypes.array.isRequired,
-  fields: React.PropTypes.array.isRequired
+  games: PropTypes.array.isRequired,
+  fields: PropTypes.array.isRequired
 }
 
 module.exports = Schedule

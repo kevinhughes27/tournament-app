@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {Tabs, Tab} from 'react-bootstrap'
 
 import _keys from 'lodash/keys'
@@ -94,7 +95,7 @@ class UnscheduledGames extends React.Component {
 }
 
 UnscheduledGames.propTypes = {
-  games: React.PropTypes.array.isRequired
+  games: PropTypes.array.isRequired
 }
 
 module.exports = UnscheduledGames

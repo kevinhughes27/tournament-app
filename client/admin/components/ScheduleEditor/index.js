@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import UnscheduledGames from './UnscheduledGames'
 import Schedule from './Schedule'
 import GamesStore from '../../stores/GamesStore'
@@ -51,8 +53,8 @@ class ScheduleEditor extends React.Component {
 }
 
 ScheduleEditor.propTypes = {
-  games: React.PropTypes.string.isRequired,
-  fields: React.PropTypes.string.isRequired
+  games: PropTypes.string.isRequired,
+  fields: PropTypes.string.isRequired
 }
 
 module.exports = ScheduleEditor

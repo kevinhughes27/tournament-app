@@ -26,6 +26,7 @@
     "moment": "^2.15.2",
     "moment-range": "^2.2.0",
     "object-squish": "^1.0.0",
+    "prop-types": "^15.5.10",
     "query-string": "^3.0.0",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.8",
