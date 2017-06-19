@@ -6,7 +6,7 @@ class XLabels extends React.Component {
   render () {
     let labels = _map(this.props.fields, (field) => {
       return (
-        <div key={field.name} className='day-label' style={{minWidth: '60px'}}>
+        <div key={field.name} className='x-label'>
           {field.name}
         </div>
       )

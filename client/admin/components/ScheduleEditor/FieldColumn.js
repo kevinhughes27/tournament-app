@@ -13,8 +13,8 @@ class FieldColumn extends React.Component {
     const games = _sortBy(GamesStore.forField(fieldId), (g) => moment(g.start_time))
 
     return (
-      <div className='day' style={{minWidth: '60px'}}>
-        <div key="events" ref="events" className="events">
+      <div className='field-column'>
+        <div className='games'>
           {_map(games, (g) => {
             return <GameCell key={g.id} game={g}/>
           })}

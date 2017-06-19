@@ -10,14 +10,12 @@ class Schedule extends React.Component {
   render () {
     let fields = this.props.fields
 
-    // needs a min height for some reason.
-    // pull any layout based css directly into the component
     return (
-      <div className={'dayz week'} style={{minHeight: '400px'}}>
+      <div className='schedule-editor'>
         <XLabels fields={fields} />
         <div className='body'>
           <YLabels />
-          <div className='days'>
+          <div className='grid'>
             {_map(fields, (f) => {
               return <FieldColumn key={f.name} fieldId={f.id}/>
             })}

@@ -29,11 +29,6 @@ class GameLayout {
 
     return { top, bottom }
   }
-
-  classNames () {
-    const classes = ['event', 'span-1', 'stack-0', 'color-1']
-    return classes.join(' ')
-  }
 }
 
 module.exports = GameLayout

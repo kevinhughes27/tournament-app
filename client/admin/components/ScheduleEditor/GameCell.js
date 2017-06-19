@@ -8,13 +8,8 @@ class GameCell extends React.Component {
     const content = this.props.game.home_name + ' vs ' + this.props.game.away_name
 
     return (
-      <div
-        ref="element"
-        onMouseDown={this.onDragStart}
-        style={layout.inlineStyles()}
-        className={layout.classNames()}
-      >
-        <div className="evbody">
+      <div className='game' style={layout.inlineStyles()}>
+        <div className='body'>
           {content}
         </div>
       </div>

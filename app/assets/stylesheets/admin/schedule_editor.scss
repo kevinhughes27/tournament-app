@@ -1,117 +1,92 @@
-$game-width: 80px;
-$game-height: 40px;
-$game-col-width: 220px;
-$slot-width: 90px;
-$slot-height: 50px;
-$time-input-width: 170px;
-$header-height: 32px;
+$event-color: #6F8376;
+$event-text-color: #F5F5F5;
+$schedule-border-color:         lightgrey !default;
+$schedule-grid-line-color:      lightBlue !default;
 
-.legend {
-  display: inline-block;
-  min-width: 20px;
-  min-height: 20px;
-}
+.schedule-editor {
+    width:      100%;
+    height:     100%;
+    min-height: 400px;
+    display:    flex;
+    flex-wrap:  nowrap;
+    flex-direction: column;
+    align-items:    stretch;
 
-.game {
-  width: $game-width;
-  height: $game-height;
-  text-align: center;
-  color: white;
-  border: solid 2px white;
-  p {
-    margin: 0;
-  }
-}
-
-#games-card {
-  .drop-hover {
-    background-color: #f5f5f5;
-  }
-  .table {
-    width: auto;
-  }
-  td.game-col {
-    h3 {
-      margin-top: 0px;
+    .x-labels {
+        height: 20px;
+        padding-left: 60px;
+        display: flex;
+        flex-direction: row;
+        .x-label {
+            flex-grow: 1;
+            padding-left: 8px;
+            min-width: 60px;
+        }
     }
-    border: none;
-    max-width: $game-col-width;
-    min-width: $game-col-width;
-  }
-}
 
-.game-error {
-  border-color: rgb(189, 79, 79) !important;
-}
+    .body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        position: relative;
 
-.dropzone {
-  transition: background-color 0.3s;
-}
+        .y-labels {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            min-width: 60px;
+            display: flex;
+            flex-direction: column;
+            .y-label {
+                width: 100%;
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                text-indent: 8px;
+                text-align: left;
+                border-bottom: 1px solid $schedule-border-color;
+            }
+        }
 
-.drop-target {
-  background-color: #29e;
-  border-color: #fff;
-  border-style: solid;
-}
-
-.schedule-table {
-  table {
-    width: auto;
-  }
-  thead {
-    background-color: white;
-  }
-  tbody > tr {
-    line-height: $slot-height;
-    min-height: $slot-height;
-    height: $slot-height;
-  }
-  th.time, td.time {
-    min-width: $time-input-width;
-    max-width: $time-input-width;
-  }
-  th {
-    text-align: center;
-    min-height: $header-height;
-  }
-  th, td {
-    min-width: $slot-width;
-  }
-}
-
-.schedule_editor {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  height: calc(100vh - 80px);
-
-  @media (max-width: $screen-xs-max) {
-    height: calc(100vh - 120px);
-  }
-
-  #games-card {
-    flex-basis: 30%;
-    flex-grow: 2;
-    overflow-x: scroll;
-    overflow-y: scroll;
-  }
-
-  #schedule-card {
-    flex-basis: 30%;
-    flex-grow: 3;
-    overflow-x: scroll;
-    overflow-y: scroll;
-    .box-body {
-      padding: 0px;
+        .grid {
+            position: relative;
+            margin-left: 60px;
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            box-sizing: border-box;
+            border-top: 1px solid $schedule-border-color;
+            border-left: 1px solid $schedule-border-color;
+        }
     }
-  }
-}
 
-.dropzone-label {
-  background-color: #29e;
-  min-height: $header-height;
-  line-height: $header-height;
-  width: $slot-width;
-  text-align: center;
-  font-weight: bold;
+    .field-column {
+        width: 100%;
+        min-width: 60px;
+        display: flex;
+        flex-direction: column;
+        border-right:  1px solid $schedule-border-color;
+        border-bottom: 1px solid $schedule-border-color;
+        .games {
+            flex: 1;
+            position: relative;
+        }
+    }
+
+    .game {
+        background: $event-color;
+        color: $event-text-color;
+        box-sizing: border-box;
+        position: relative;
+        border: 1px solid $schedule-grid-line-color;
+        border-radius: 4px;
+        width: 100%;
+        position: absolute;
+        .body {
+            padding-left: 0.4rem;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
 }

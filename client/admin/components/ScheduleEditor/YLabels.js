@@ -11,7 +11,7 @@ class YLabels extends React.Component {
 
     _each(hours, (hour) => {
       day.hour(hour)
-      labels.push(<div key={hour} className='hour'>{day.format('ha')}</div>)
+      labels.push(<div key={hour} className='y-label'>{day.format('ha')}</div>)
     })
 
     return (
