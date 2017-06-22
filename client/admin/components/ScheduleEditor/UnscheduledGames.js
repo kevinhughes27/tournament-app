@@ -6,6 +6,8 @@ import _keys from 'lodash/keys'
 import _groupBy from 'lodash/groupBy'
 import _map from 'lodash/map'
 
+import Game from './Game'
+
 class UnscheduledGames extends React.Component {
   constructor (props) {
     super(props)
@@ -13,7 +15,6 @@ class UnscheduledGames extends React.Component {
     this.renderDivisionTab = this.renderDivisionTab.bind(this)
     this.renderStage = this.renderStage.bind(this)
     this.renderGamesRow = this.renderGamesRow.bind(this)
-    this.renderUnscheduledGame = this.renderUnscheduledGame.bind(this)
   }
 
   render () {
@@ -60,44 +61,11 @@ class UnscheduledGames extends React.Component {
   renderGamesRow (stage, round, games) {
     return (
       <div key={stage + round} style={{display: 'flex'}}>
-        {_map(games, this.renderUnscheduledGame)}
+        {_map(games, (g) => {
+          return <Game key={g.id} game={g}/>
+        })}
       </div>
     )
-  }
-
-  renderUnscheduledGame (game) {
-    let style = {
-      width: '65px',
-      height: '60px',
-      margin: '5px',
-      border: '1px solid',
-      backgroundColor: '#a6cee3',
-      textAlign: 'center'
-    }
-
-    return (
-      <div key={game.id} style={style} draggable>
-        {this.renderGameText(game)}
-      </div>
-    )
-  }
-
-  renderGameText (game) {
-    if (game.bracket) {
-      return (
-        <div>
-          <h4>{game.bracket_uid}</h4>
-          {game.home_prereq} v {game.away_prereq}
-        </div>
-      )
-    } else {
-      return (
-        <div>
-        <h4>{game.pool}</h4>
-        {game.home_pool_seed} v {game.away_pool_seed}
-        </div>
-      )
-    }
   }
 }
 
