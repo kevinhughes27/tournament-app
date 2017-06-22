@@ -11,6 +11,7 @@ class UnscheduledGames extends React.Component {
     super(props)
 
     this.renderDivisionTab = this.renderDivisionTab.bind(this)
+    this.renderStage = this.renderStage.bind(this)
     this.renderGamesRow = this.renderGamesRow.bind(this)
     this.renderUnscheduledGame = this.renderUnscheduledGame.bind(this)
   }
@@ -40,13 +41,19 @@ class UnscheduledGames extends React.Component {
 
     return (
       <Tab key={divisionName} eventKey={divisionName} title={divisionName}>
-        {_map(poolRounds, (round) => {
-          return this.renderGamesRow('pool', round, poolGamesByRound[round])
-        })}
-        {_map(bracketRounds, (round) => {
-          return this.renderGamesRow('bracket', round, bracketGamesByRound[round])
-        })}
+        {this.renderStage('pool', poolRounds, poolGamesByRound)}
+        {this.renderStage('bracket', bracketRounds, bracketGamesByRound)}
       </Tab>
+    )
+  }
+
+  renderStage (type, rounds, games) {
+    return (
+      <div>
+        {_map(rounds, (round) => {
+          return this.renderGamesRow(type, round, games[round])
+        })}
+      </div>
     )
   }
 
