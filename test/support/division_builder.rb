@@ -1,5 +1,5 @@
 class ActiveSupport::TestCase
-  def create_division(params)
+  def build_division(tournament, params)
     create = DivisionCreate.new(
       @tournament,
       params.merge(name: 'New Division')

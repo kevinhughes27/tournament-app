@@ -4,6 +4,7 @@ class Team < ApplicationRecord
 
   belongs_to :tournament
   belongs_to :division
+  has_many :score_reports, dependent: :nullify
 
   auto_strip_attributes :name, :email, :phone
 
@@ -17,7 +18,6 @@ class Team < ApplicationRecord
 
   after_update :unassign_games, if: :division_id_changed?
   after_destroy :unassign_games
-  after_destroy :delete_score_reports
 
   def safe_to_change?
     !Game.where(tournament_id: tournament_id, home_id: id).exists? &&
@@ -35,13 +35,6 @@ class Team < ApplicationRecord
 
   def unassign_games
     UnassignGamesJob.perform_later(
-      tournament_id: tournament_id,
-      team_id: id
-    )
-  end
-
-  def delete_score_reports
-    DeleteScoreReportsJob.perform_later(
       tournament_id: tournament_id,
       team_id: id
     )
