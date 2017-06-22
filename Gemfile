@@ -75,6 +75,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 9.0.6'
+  gem 'factory_girl_rails'
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
