@@ -91,6 +91,11 @@ $schedule-grid-line-color: lightgrey !default;
     }
 }
 
+.unscheduled {
+  height: 400px;
+  overflow-y: scroll;
+}
+
 .unscheduled-game {
     width: $schedule-grid-min-width;
     height: 60px;

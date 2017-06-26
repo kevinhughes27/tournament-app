@@ -22,8 +22,8 @@ class UnscheduledGames extends React.Component {
     let gameByDivision = _groupBy(games, 'division')
 
     return (
-      <div style={{paddingLeft: '5px'}}>
-        <Tabs id="divisions">
+      <div>
+        <Tabs id='divisions'>
           {_map(gameByDivision, this.renderDivisionTab)}
         </Tabs>
       </div>
@@ -42,8 +42,10 @@ class UnscheduledGames extends React.Component {
 
     return (
       <Tab key={divisionName} eventKey={divisionName} title={divisionName}>
-        {this.renderStage('pool', poolRounds, poolGamesByRound)}
-        {this.renderStage('bracket', bracketRounds, bracketGamesByRound)}
+        <div className='unscheduled'>
+          {this.renderStage('pool', poolRounds, poolGamesByRound)}
+          {this.renderStage('bracket', bracketRounds, bracketGamesByRound)}
+        </div>
       </Tab>
     )
   }
