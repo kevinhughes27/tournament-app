@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import GameLayout from './GameLayout'
+import GameText from './GameText'
 
 class GameCell extends React.Component {
   render () {
-    const layout = new GameLayout(this.props.game)
-    const content = this.props.game.home_name + ' vs ' + this.props.game.away_name
+    const game = this.props.game
+    const layout = new GameLayout(game)
 
     return (
       <div className='game' style={layout.inlineStyles()}>
         <div className='body'>
-          {content}
+          {GameText(game)}
         </div>
       </div>
     )

@@ -1,7 +1,8 @@
 $event-color: #6F8376;
 $event-text-color: #F5F5F5;
-$schedule-border-color:         lightgrey !default;
-$schedule-grid-line-color:      lightBlue !default;
+$schedule-border-color: lightgrey !default;
+$schedule-grid-min-width: 70px;
+$schedule-grid-line-color: lightgrey !default;
 
 .schedule-editor {
     width:      100%;
@@ -14,13 +15,13 @@ $schedule-grid-line-color:      lightBlue !default;
 
     .x-labels {
         height: 20px;
-        padding-left: 60px;
+        padding-left: $schedule-grid-min-width;
         display: flex;
         flex-direction: row;
         .x-label {
             flex-grow: 1;
             padding-left: 8px;
-            min-width: 60px;
+            min-width: $schedule-grid-min-width;
         }
     }
 
@@ -34,7 +35,7 @@ $schedule-grid-line-color:      lightBlue !default;
             position: absolute;
             width: 100%;
             height: 100%;
-            min-width: 60px;
+            min-width: $schedule-grid-min-width;
             display: flex;
             flex-direction: column;
             .y-label {
@@ -51,7 +52,7 @@ $schedule-grid-line-color:      lightBlue !default;
 
         .grid {
             position: relative;
-            margin-left: 60px;
+            margin-left: $schedule-grid-min-width;
             flex: 1;
             display: flex;
             flex-direction: row;
@@ -63,7 +64,7 @@ $schedule-grid-line-color:      lightBlue !default;
 
     .field-column {
         width: 100%;
-        min-width: 60px;
+        min-width: $schedule-grid-min-width;
         display: flex;
         flex-direction: column;
         border-right:  1px solid $schedule-border-color;
@@ -75,18 +76,33 @@ $schedule-grid-line-color:      lightBlue !default;
     }
 
     .game {
+        width: 100%;
+        min-width: $schedule-grid-min-width;
         background: $event-color;
         color: $event-text-color;
         box-sizing: border-box;
-        position: relative;
         border: 1px solid $schedule-grid-line-color;
         border-radius: 4px;
-        width: 100%;
-        position: absolute;
         .body {
-            padding-left: 0.4rem;
+            text-align: center;
             height: 100%;
             overflow: hidden;
         }
+    }
+}
+
+.unscheduled-game {
+    width: $schedule-grid-min-width;
+    height: 60px;
+    margin: 5px;
+    background: $event-color;
+    color: $event-text-color;
+    box-sizing: border-box;
+    border: 1px solid $schedule-grid-line-color;
+    border-radius: 4px;
+    .body {
+        text-align: center;
+        height: 100%;
+        overflow: hidden;
     }
 }

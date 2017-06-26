@@ -26,8 +26,9 @@ class GameLayout {
 
     const top = ((start / inday) * 100).toFixed(2) + '%'
     const bottom = (100 - ((end / inday) * 100)).toFixed(2) + '%'
+    const position = 'absolute'
 
-    return { top, bottom }
+    return { top, bottom, position }
   }
 }
 
