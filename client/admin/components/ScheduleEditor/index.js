@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+
 import UnscheduledGames from './UnscheduledGames'
 import Schedule from './Schedule'
 import GamesStore from '../../stores/GamesStore'
@@ -57,4 +60,4 @@ ScheduleEditor.propTypes = {
   fields: PropTypes.string.isRequired
 }
 
-module.exports = ScheduleEditor
+export default DragDropContext(HTML5Backend)(ScheduleEditor)

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import GameCell from './GameCell'
+import ScheduledGame from './ScheduledGame'
 import GamesStore from '../../stores/GamesStore'
 import moment from 'moment'
 import _sortBy from 'lodash/sortBy'
@@ -16,7 +16,7 @@ class FieldColumn extends React.Component {
       <div className='field-column' onClick={(ev) => this.handleClick(ev)}>
         <div className='games'>
           {_map(games, (g) => {
-            return <GameCell key={g.id} game={g}/>
+            return <ScheduledGame key={g.id} game={g}/>
           })}
         </div>
       </div>

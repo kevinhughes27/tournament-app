@@ -6,7 +6,7 @@ import _keys from 'lodash/keys'
 import _groupBy from 'lodash/groupBy'
 import _map from 'lodash/map'
 
-import Game from './Game'
+import UnscheduledGame from './UnscheduledGame'
 
 class UnscheduledGames extends React.Component {
   constructor (props) {
@@ -64,7 +64,7 @@ class UnscheduledGames extends React.Component {
     return (
       <div key={stage + round} style={{display: 'flex'}}>
         {_map(games, (g) => {
-          return <Game key={g.id} game={g}/>
+          return <UnscheduledGame key={g.id} game={g}/>
         })}
       </div>
     )
