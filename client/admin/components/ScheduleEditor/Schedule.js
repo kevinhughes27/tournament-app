@@ -17,12 +17,17 @@ class Schedule extends React.Component {
           <YLabels />
           <div className='grid'>
             {_map(fields, (f) => {
-              return <FieldColumn key={f.name} fieldId={f.id}/>
+              return <FieldColumn key={f.name} fieldId={f.id} onClick={(time) => this.handleClick(f.id, time)}/>
             })}
           </div>
         </div>
       </div>
     )
+  }
+
+  handleClick (fieldId, time) {
+    // time is null but why isn't it passed through when i call it manully in FieldColumn?
+    debugger
   }
 }
 

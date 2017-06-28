@@ -13,7 +13,7 @@ class FieldColumn extends React.Component {
     const games = _sortBy(GamesStore.forField(fieldId), (g) => moment(g.start_time))
 
     return (
-      <div className='field-column'>
+      <div className='field-column' onClick={(ev) => this.handleClick(ev)}>
         <div className='games'>
           {_map(games, (g) => {
             return <GameCell key={g.id} game={g}/>
@@ -22,10 +22,16 @@ class FieldColumn extends React.Component {
       </div>
     )
   }
+
+  handleClick (ev) {
+    let startTime = '9:00' // convert ev.clientY to startTime
+    this.props.onClick.call(startTime)
+  }
 }
 
 FieldColumn.propTypes = {
-  fieldId: PropTypes.number.isRequired
+  fieldId: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 module.exports = FieldColumn
