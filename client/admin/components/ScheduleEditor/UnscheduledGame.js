@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
+import { ItemTypes } from './Constants'
 import GameText from './GameText'
 
 const gameSource = {
   beginDrag (props) {
-    return {}
+    return props.game
   }
 }
 
@@ -40,4 +41,4 @@ Game.propTypes = {
   isDragging: PropTypes.bool.isRequired
 }
 
-export default DragSource('Game', gameSource, collect)(Game)
+export default DragSource(ItemTypes.GAME, gameSource, collect)(Game)
