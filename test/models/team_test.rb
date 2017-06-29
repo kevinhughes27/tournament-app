@@ -18,20 +18,18 @@ class TeamTest < ActiveSupport::TestCase
   end
 
   test "updating a team's division unassigns if from all games (home)" do
-    tournament = FactoryGirl.create(:tournament)
-    division = FactoryGirl.create(:division, tournament: tournament)
-    team = FactoryGirl.create(:team, division: division, tournament: tournament)
-    game = FactoryGirl.create(:game, division: division, tournament: tournament, home: team)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    game = FactoryGirl.create(:game, division: division, home: team)
 
     team.update(division: FactoryGirl.build(:division))
     assert_nil game.reload.home
   end
 
   test "updating a team's division unassigns if from all games (away)" do
-    tournament = FactoryGirl.create(:tournament)
-    division = FactoryGirl.create(:division, tournament: tournament)
-    team = FactoryGirl.create(:team, division: division, tournament: tournament)
-    game = FactoryGirl.create(:game, division: division, tournament: tournament, away: team)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    game = FactoryGirl.create(:game, division: division, away: team)
 
     team.update(division: FactoryGirl.build(:division))
     assert_nil game.reload.away
@@ -46,40 +44,36 @@ class TeamTest < ActiveSupport::TestCase
   end
 
   test "safe_to_change? is true for a team with no games" do
-    tournament = FactoryGirl.create(:tournament)
-    team = FactoryGirl.create(:team, tournament: tournament)
+    team = FactoryGirl.create(:team)
     assert team.safe_to_change?
   end
 
   test "safe_to_change? is false if team is assigned to games" do
-    tournament = FactoryGirl.create(:tournament)
-    team = FactoryGirl.create(:team, tournament: tournament)
-    game = FactoryGirl.create(:game, tournament: tournament, home: team)
+    team = FactoryGirl.create(:team)
+    game = FactoryGirl.create(:game, home: team)
 
     refute team.safe_to_change?
   end
 
   test "allow_change? is true for a team where the division hasn't started" do
-    tournament = FactoryGirl.create(:tournament)
-    division = FactoryGirl.create(:division, tournament: tournament)
-    team = FactoryGirl.create(:team, division: division, tournament: tournament)
-    game = FactoryGirl.create(:game, division: division, tournament: tournament, score_confirmed: false)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    game = FactoryGirl.create(:game, division: division, score_confirmed: false)
 
     assert team.allow_change?
   end
 
   test "allow_change? is false for a team with games" do
-    tournament = FactoryGirl.create(:tournament)
-    division = FactoryGirl.create(:division, tournament: tournament)
-    team = FactoryGirl.create(:team, division: division, tournament: tournament)
-    game = FactoryGirl.create(:finished_game, division: division, tournament: tournament, score_confirmed: true)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    game = FactoryGirl.create(:finished_game, division: division, score_confirmed: true)
 
     refute team.allow_change?
   end
 
   test "limited number of teams per tournament" do
     tournament = FactoryGirl.create(:tournament)
-    team = FactoryGirl.create(:team, tournament: tournament)
+    FactoryGirl.create(:team, tournament: tournament)
 
     stub_constant(Team, :LIMIT, 1) do
       team = FactoryGirl.build(:team, tournament: tournament)

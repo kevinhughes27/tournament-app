@@ -2,16 +2,14 @@ require 'test_helper'
 
 class FieldTest < ActiveSupport::TestCase
   test "safe_to_delete? is true for field with no games" do
-    tournament = FactoryGirl.create(:tournament)
-    field = FactoryGirl.create(:field, tournament: tournament)
+    field = FactoryGirl.create(:field)
 
     assert field.safe_to_delete?
   end
 
   test "safe_to_delete? is false for field games" do
-    tournament = FactoryGirl.create(:tournament)
-    field = FactoryGirl.create(:field, tournament: tournament)
-    game = FactoryGirl.create(:game, tournament: tournament, start_time: Time.now, field: field)
+    field = FactoryGirl.create(:field)
+    game = FactoryGirl.create(:game, start_time: Time.now, field: field)
 
     refute field.safe_to_delete?
   end

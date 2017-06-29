@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :game do
     tournament { Tournament.first || FactoryGirl.build(:tournament) }
-    division { Division.first || FactoryGirl.build(:division, tournament: tournament) }
+    division { FactoryGirl.build(:division, tournament: tournament) }
     round 1
     bracket_uid { Faker::Number.hexadecimal(3) }
     home_prereq '1'

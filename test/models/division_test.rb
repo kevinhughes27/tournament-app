@@ -22,9 +22,8 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "division nullifies teams when it is deleted" do
-    tournament = FactoryGirl.create(:tournament)
-    division = FactoryGirl.create(:division, tournament: tournament)
-    team = FactoryGirl.create(:team, tournament: tournament, division: division)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
 
     teams = division.teams
     assert teams.present?
@@ -59,7 +58,7 @@ class DivisionTest < ActiveSupport::TestCase
 
   test "limited number of divisions per tournament" do
     tournament = FactoryGirl.create(:tournament)
-    division = FactoryGirl.create(:division, tournament: tournament)
+    FactoryGirl.create(:division, tournament: tournament)
 
     stub_constant(Division, :LIMIT, 1) do
       division = tournament.divisions.build
