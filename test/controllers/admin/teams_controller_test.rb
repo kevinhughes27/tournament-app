@@ -2,12 +2,11 @@ require 'test_helper'
 
 class Admin::TeamsControllerTest < ActionController::TestCase
   setup do
-    @tournament = tournaments(:noborders)
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
     set_tournament(@tournament)
-
-    @team = teams(:swift)
-    @division = divisions(:open)
-    sign_in users(:kevin)
+    sign_in @user
   end
 
   test "get new" do
@@ -17,19 +16,20 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "get show" do
-    get :show, params: { id: @team.id }
+    team = FactoryGirl.create(:team)
+    get :show, params: { id: team.id }
     assert_response :success
     assert_not_nil assigns(:team)
   end
 
   test "get index" do
+    FactoryGirl.create(:team)
     get :index
     assert_response :success
     assert_not_nil assigns(:teams)
   end
 
   test "blank slate" do
-    @tournament.teams.destroy_all
     get :index
     assert_response :success
     assert_match 'blank-slate', response.body
@@ -55,58 +55,68 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "update a team" do
-    put :update, params: { id: @team.id, team: safe_update_params }
+    team = FactoryGirl.create(:team)
+    put :update, params: { id: team.id, team: safe_update_params }
 
-    assert_redirected_to admin_team_path(@team)
-    assert_equal safe_update_params[:name], @team.reload.name
+    assert_redirected_to admin_team_path(team)
+    assert_equal safe_update_params[:name], team.reload.name
   end
 
   test "update a team with errors" do
+    team = FactoryGirl.create(:team)
     params = safe_update_params
     params[:name] = ''
 
-    put :update, params: { id: @team.id, team: params }
+    put :update, params: { id: team.id, team: params }
 
     assert_template :show
     assert_match "Name can&#39;t be blank", @response.body
-    refute_equal safe_update_params[:name], @team.reload.name
+    refute_equal safe_update_params[:name], team.reload.name
   end
 
   test "update a team with unsafe params" do
-    @division.games.update_all(score_confirmed: false)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    FactoryGirl.create(:game, division: division, home: team)
 
     params = safe_update_params
     params[:seed] = 3
 
-    put :update, params: { id: @team.id, team: params }
+    put :update, params: { id: team.id, team: params }
 
     assert_response :unprocessable_entity
     assert_template 'admin/teams/_confirm_update'
   end
 
   test "confirm update a team with unsafe params" do
-    @division.games.update_all(score_confirmed: false)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    FactoryGirl.create(:game, division: division, home: team)
 
     params = safe_update_params
     params[:seed] = 3
 
-    put :update, params: { id: @team.id, team: params, confirm: 'true' }
+    put :update, params: { id: team.id, team: params, confirm: 'true' }
 
-    assert_redirected_to admin_team_path(@team)
-    assert_equal 3, @team.reload.seed
+    assert_redirected_to admin_team_path(team)
+    assert_equal 3, team.reload.seed
   end
 
   test "not allowed to update team with unsafe params" do
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    FactoryGirl.create(:finished_game, division: division, home: team)
+
     params = safe_update_params
     params[:seed] = 3
 
-    put :update, params: { id: @team.id, team: params }
+    put :update, params: { id: team.id, team: params }
 
     assert_template 'admin/teams/_unable_to_update'
   end
 
   test "delete a team" do
-    team = teams(:stella)
+    team = FactoryGirl.create(:team)
     assert_difference "Team.count", -1 do
       delete :destroy, params: { id: team.id }
       assert_redirected_to admin_teams_path
@@ -114,27 +124,35 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "delete a team needs confirm if seeded but not scored" do
-    @division.games.update_all(score_confirmed: false)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    FactoryGirl.create(:game, division: division, home: team)
 
     assert_no_difference "Team.count" do
-      delete :destroy, params: { id: @team.id }
+      delete :destroy, params: { id: team.id }
       assert_response :unprocessable_entity
       assert_template 'admin/teams/_confirm_delete'
     end
   end
 
   test "confirm delete a team" do
-    @division.games.update_all(score_confirmed: false)
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    FactoryGirl.create(:game, division: division, home: team)
 
     assert_difference "Team.count", -1 do
-      delete :destroy, params: { id: @team.id, confirm: 'true' }
+      delete :destroy, params: { id: team.id, confirm: 'true' }
       assert_redirected_to admin_teams_path
     end
   end
 
   test "delete a team not allowed if division has any scores" do
+    division = FactoryGirl.create(:division)
+    team = FactoryGirl.create(:team, division: division)
+    FactoryGirl.create(:finished_game, division: division, home: team)
+
     assert_no_difference "Team.count" do
-      delete :destroy, params: { id: @team.id }
+      delete :destroy, params: { id: team.id }
       assert_template 'admin/teams/_unable_to_delete'
     end
   end
@@ -145,6 +163,8 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "import csv" do
+    division = FactoryGirl.create(:division, name: 'Open')
+
     assert_difference "Team.count", +7 do
       post :import_csv, params: {
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
@@ -154,7 +174,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
       assert_equal 'Teams imported successfully', flash[:notice]
     end
 
-    assert_equal @division, Team.last.division
+    assert_equal division, Team.last.division
   end
 
   test "import csv (ignore matches)" do
@@ -178,7 +198,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "import csv (update matches)" do
-    @team.update(name: 'SE7EN')
+    team = FactoryGirl.create(:team, name: 'SE7EN')
 
     assert_difference "Team.count", +6 do
       post :import_csv, params: {
@@ -217,7 +237,6 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   def new_team_params
     {
       name: 'Goat',
-      division_id: @division.id,
       seed: 1
     }
   end

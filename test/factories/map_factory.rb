@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :map do
-    association :tournament
+    tournament { Tournament.first || FactoryGirl.build(tournament) }
     lat 45.2466442
     long -75.6149635
     zoom 17

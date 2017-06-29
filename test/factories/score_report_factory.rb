@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :score_report do
     tournament { Tournament.first || FactoryGirl.build(:tournament) }
-    association :game
-    association :team
+    game { FactoryGirl.build(:game, tournament: tournament) }
+    team { FactoryGirl.build(:team, tournament: tournament) }
     submitter_fingerprint { Faker::Crypto.sha1 }
     team_score 15
     opponent_score 13

@@ -2,10 +2,13 @@ require 'test_helper'
 
 class OmniauthCallbacksControllerTest < ActionController::TestCase
   setup do
-    @user = users(:kevin)
-    @tournament = tournaments(:noborders)
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+
     set_tournament(@tournament)
-    @request.env["omniauth.origin"] = "http://no-borders.ultimate-tournament.io"
+
+    @request.env["omniauth.origin"] = "http://#{@tournament.handle}.ultimate-tournament.io"
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
@@ -40,8 +43,9 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
   end
 
   test "auth callback for existing user with multiple tournaments redirects to tournament choose page" do
-    tournament = Tournament.create({name: 'Second Tournament', handle: 'second-tournament'})
-    TournamentUser.create!(tournament_id: tournament.id, user_id: @user.id)
+    tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: tournament)
+
     assert_equal 2, @user.tournaments.count
 
     @request.env["omniauth.origin"] = "http://www.ultimate-tournament.io"

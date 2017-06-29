@@ -2,44 +2,46 @@ require 'test_helper'
 
 class Admin::ScheduleControllerTest < ActionController::TestCase
   setup do
-    @tournament = tournaments(:noborders)
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
     set_tournament(@tournament)
-    sign_in users(:kevin)
-
-    @game = games(:swift_goose)
-    @field = fields(:upi2)
-    @start_time = '2016-03-10 19:13:00 -0500'
+    sign_in @user
   end
 
   test "should get index" do
+    FactoryGirl.create(:scheduled_game)
     get :index
     assert_response :success
   end
 
   test "should get index pdf" do
+    FactoryGirl.create(:scheduled_game)
     get :index, format: 'pdf'
     assert_response :success
   end
 
   test "blank slate" do
-    @tournament.games.destroy_all
     get :index
     assert_response :success
     assert_match 'blank-slate', response.body
   end
 
   test "update schedule" do
-    params = {game_id: @game.id, field_id: @field.id, start_time: @start_time}
+    game = FactoryGirl.create(:scheduled_game)
+    field = FactoryGirl.create(:field)
+
+    params = {game_id:@game.id, field_id: field.id, start_time: Time.now}
 
     put :update, params: params
     assert_response :ok
 
-    assert @game.reload.field_id
-    assert @game.start_time
+    assert game.reload.field_id
+    assert game.start_time
   end
 
   test "update schedule 422" do
-    params = {game_id: @game.id, field_id: 'wat', start_time: @start_time}
+    params = {game_id: game.id, field_id: 'wat', start_time: Time.now}s
 
     put :update, params: params
 
@@ -48,10 +50,12 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
   end
 
   test "unschedule a game" do
-    delete :destroy, params: {game_id: @game.id}
+    game = FactoryGirl.create(:scheduled_game)
+    delete :destroy, params: {game_id: game.id}
+
     assert_response :ok
 
-    refute @game.reload.field_id
-    refute @game.start_time
+    refute game.reload.field_id
+    refute game.start_time
   end
 end

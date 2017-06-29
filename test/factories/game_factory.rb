@@ -9,6 +9,11 @@ FactoryGirl.define do
     home { FactoryGirl.build(:team, tournament: tournament) }
     away { FactoryGirl.build(:team, tournament: tournament) }
 
+    factory :scheduled_game do
+      field { FactoryGirl.build(:field, tournament: tournament) }
+      start_time { Time.now }
+    end
+
     factory :finished_game do
       home_score { Faker::Number.between(0,15) }
       away_score { Faker::Number.between(0,15) }
