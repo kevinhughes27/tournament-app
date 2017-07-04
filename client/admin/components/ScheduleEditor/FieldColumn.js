@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import ScheduledGame from './ScheduledGame'
+import TimeSlot from './TimeSlot'
+
 import GamesStore from '../../stores/GamesStore'
 import moment from 'moment'
 import _sortBy from 'lodash/sortBy'
@@ -18,6 +20,7 @@ class FieldColumn extends React.Component {
           {_map(games, (g) => {
             return <ScheduledGame key={g.id} game={g}/>
           })}
+          <TimeSlot fieldId={fieldId} startTime={9}/>
         </div>
       </div>
     )
