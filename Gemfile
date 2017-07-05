@@ -74,10 +74,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'pry'
-  gem 'pry-byebug', '1.3.3' #https://github.com/deivid-rodriguez/pry-byebug/issues/33
-  gem 'pry-remote'
-  gem 'pry-stack_explorer'
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false

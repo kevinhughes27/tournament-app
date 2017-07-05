@@ -93,8 +93,6 @@ GEM
       execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -129,7 +127,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    columnize (0.9.0)
     composable_operations (0.10.1)
       smart_properties (~> 1.10)
     concurrent-ruby (1.0.5)
@@ -140,8 +137,6 @@ GEM
     date_validator (0.9.0)
       activemodel
       activesupport
-    debug_inspector (0.0.3)
-    debugger-linecache (1.2.0)
     deep_merge (1.1.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -236,19 +231,6 @@ GEM
     orm_adapter (0.5.0)
     pg (0.21.0)
     phonelib (0.6.12)
-    pry (0.10.4)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    pry-byebug (1.3.3)
-      byebug (~> 2.7)
-      pry (~> 0.10)
-    pry-remote (0.1.8)
-      pry (~> 0.9)
-      slop (~> 3.0)
-    pry-stack_explorer (0.4.9.2)
-      binding_of_caller (>= 0.7)
-      pry (>= 0.9.11)
     puma (3.9.1)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -345,7 +327,6 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.1)
-    slop (3.6.0)
     smart_properties (1.13.0)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -437,10 +418,6 @@ DEPENDENCIES
   paranoia!
   pg
   phonelib
-  pry
-  pry-byebug (= 1.3.3)
-  pry-remote
-  pry-stack_explorer
   puma
   rack-timeout
   rails (= 5.0.4)

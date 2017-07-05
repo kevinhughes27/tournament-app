@@ -10,13 +10,12 @@ const target = {
 
     $.ajax({
       type: 'POST',
-      url: '/schedule',
+      url: '/admin/schedule',
       data: {
-        games: [
-          { id: game.id, field_id: fieldId, start_time: startTime }
-        ]
+        game_id: game.id, field_id: fieldId, start_time: startTime
       },
-      success: () => { debugger }
+      success: (response) => { debugger },
+      error: (response) => { debugger }
     })
   }
 }
@@ -30,13 +29,12 @@ function collect (connect, monitor) {
 
 class TimeSlot extends React.Component {
   render () {
-    const { connectDropTarget, isOver } = this.props
+    const { connectDropTarget, isOver, height } = this.props
 
     const style = {
       opacity: isOver ? 0.5 : 0,
       backgroundColor: 'black',
-      minHeight: '10px',
-      cursor: 'move'
+      height: height
     }
 
     return connectDropTarget(
@@ -47,7 +45,8 @@ class TimeSlot extends React.Component {
 
 TimeSlot.propTypes = {
   fieldId: PropTypes.number.isRequired,
-  startTime: PropTypes.number.isRequired,
+  startTime: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired
 }

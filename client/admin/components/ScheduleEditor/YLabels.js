@@ -1,4 +1,5 @@
 import React from 'react'
+import { SCHEDULE_START, SCHEDULE_END } from './Constants'
 import moment from 'moment'
 import _each from 'lodash/each'
 import _range from 'lodash/range'
@@ -7,7 +8,7 @@ class YLabels extends React.Component {
   render () {
     let day = moment()
     let labels = []
-    let hours = _range(9, 17)
+    let hours = _range(SCHEDULE_START, SCHEDULE_END)
 
     _each(hours, (hour) => {
       day.hour(hour)
