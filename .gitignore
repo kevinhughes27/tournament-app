@@ -32,3 +32,4 @@ server.pass.key
 
 # Generated js bundles
 /app/assets/webpack/*
+/public/webpack/*

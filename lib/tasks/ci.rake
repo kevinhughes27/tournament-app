@@ -8,7 +8,6 @@ namespace :ci do
 
   task :bracket_db_tests do
     puts Rainbow("Running BracketDb tests").green
-    sh "cd lib/bracket_db && bundle install"
     sh "cd lib/bracket_db && bundle exec rake test"
   end
 

@@ -1,8 +1,6 @@
-require 'rails'
-
 module BracketDb
   def self.root_dir
-    File.expand_path('../..', __FILE__)
+    File.expand_path('../bracket_db', __FILE__)
   end
 
   def self.db_path
@@ -18,5 +16,4 @@ module BracketDb
 end
 
 require 'frozen_record'
-require_relative 'bracket_db/models/bracket'
-require_relative 'bracket_db/version'
+require 'bracket_db/lib/bracket'
