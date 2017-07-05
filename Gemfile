@@ -74,13 +74,14 @@ group :production do
 end
 
 group :development, :test do
+  gem 'byebug', '~> 9.0.6'
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'rainbow'
   gem 'teaspoon'
   gem 'teaspoon-jasmine'
-  gem 'teaspoon-bundle', '~> 0.1.3'
+  gem 'teaspoon-bundle', '~> 0.1.6'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
 
