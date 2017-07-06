@@ -230,6 +230,15 @@
   template: <%= BracketDb::load('usau_6.6.1') %>
 
 -
+  handle: OUC JR Women
+  name: Ontario Junior Women 2017
+  num_teams: 6
+  days: 2
+  rounds: 2
+  pool: true
+  template: <%= BracketDb::load('ouc_jr_women') %>
+
+-
   handle: Power Pools 6
   name: Power Pools
   num_teams: 6
@@ -433,6 +442,15 @@
   rounds: 3
   pool: true
   template: <%= BracketDb::load('usau_10.1') %>
+
+-
+  handle: OUC JR Open
+  name: Ontario Junior Open 2017
+  num_teams: 10
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= BracketDb::load('ouc_jr_open') %>
 
 -
   handle: USAU 10.2
