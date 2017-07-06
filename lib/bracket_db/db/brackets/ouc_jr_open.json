@@ -4,8 +4,8 @@
     <%= BracketDb::table_partial('table_5.1.1', pool: 'B', seeds: [2,4,6,8,10]) %>,
 
     {"round":1, "bracket_uid":"G1", "home_prereq":"A3", "away_prereq":"B2"},
-    {"round":1, "bracket_uid":"G2", "home_prereq":"A4", "away_prereq":"B5"},
-    {"round":1, "bracket_uid":"G7", "home_prereq":"A3", "away_prereq":"B2"},
+    {"round":1, "bracket_uid":"G2", "home_prereq":"A2", "away_prereq":"B3"},
+    {"round":1, "bracket_uid":"G7", "home_prereq":"A4", "away_prereq":"B5"},
     {"round":1, "bracket_uid":"G8", "home_prereq":"A5", "away_prereq":"B4"},
 
     {"round":2, "bracket_uid":"G3", "home_prereq":"A1", "away_prereq":"WG1"},
