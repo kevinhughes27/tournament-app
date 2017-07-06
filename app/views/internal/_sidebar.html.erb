@@ -41,7 +41,7 @@
         </ul>
 
         <div class="pull-left image">
-          <%= image_tag current_user.gravatar_url, class: 'img-circle' %>
+          <%= image_tag gravatar(current_user.email), class: 'img-circle' %>
         </div>
 
         <a href='#' class="dropdown-toggle" data-toggle="dropdown" id="userDropdown">

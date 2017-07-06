@@ -38,19 +38,11 @@ class User < ApplicationRecord
     email.split('@').first
   end
 
-  def gravatar_url
-    "https://www.gravatar.com/avatar/#{gravatar_hash}?s=200&d=mm"
-  end
-
   def is_tournament_user?(tournament_id)
     tournaments.exists?(id: tournament_id)
   end
 
   private
-
-  def gravatar_hash
-    email.present? ? Digest::MD5.hexdigest(email) : ''
-  end
 
   def subscribe_to_mailchimp
     return unless Rails.env.production?

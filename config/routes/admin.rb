@@ -37,6 +37,8 @@ namespace :admin do
   put '/settings', to: 'settings#update'
   post '/reset', to: 'settings#reset_data'
 
+  resources :users, only: [:index, :new, :create]
+
   get '/account', to: 'account#show'
   put '/account', to: 'account#update'
 
