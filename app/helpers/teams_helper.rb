@@ -5,7 +5,7 @@ module TeamsHelper
     }
 
     unless team.division_id
-      options.unshift(['Select a bracket', nil])
+      options.unshift(['Select a division', nil])
     end
 
     options_for_select(options, team.division_id)
