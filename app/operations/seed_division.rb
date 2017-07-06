@@ -23,7 +23,7 @@ class SeedDivision < ApplicationOperation
   def ambiguous_seeds?
     return unless seeds.present?
 
-    seeds.sort.each_with_index do |seed, idx|
+    seeds.sort_by(&:to_i).each_with_index do |seed, idx|
       return true unless seed.to_i == (idx+1)
     end
     return false
