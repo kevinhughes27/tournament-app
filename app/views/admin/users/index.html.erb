@@ -1,0 +1,31 @@
+<% content_for :top_bar_left do %>
+  <i class="fa fa-users"></i>
+  Settings / Users
+<% end %>
+
+<%= content_for :top_bar_right do %>
+  <%= link_to 'New', new_admin_user_path, class: "btn btn-primary" %>
+<% end %>
+
+<% if @users.present? %>
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-md-4">
+        <div class="info-box">
+          <span class="info-box-icon bg-aqua">
+            <%= image_tag gravatar(current_user.email), style: 'height: 80px', class: 'img-circle' %>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text"><%= user.email %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="blank-slate">
+    <h3>Manage Your Teams</h3>
+    <p>You can add teams manually or import from a CSV file.</p>
+    <%= link_to 'Add Team', new_admin_team_path, class: "btn btn-primary" %>
+  </div>
+<% end %>
