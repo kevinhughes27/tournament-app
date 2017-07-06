@@ -13,6 +13,8 @@
     {"round":2, "bracket_uid":"G9", "home_prereq":"WG7", "away_prereq":"LG1"},
     {"round":2, "bracket_uid":"G10", "home_prereq":"WG8", "away_prereq":"LG2"},
 
+    {"round":3, "bracket_uid":"9", "home_prereq":"LG7", "away_prereq":"LG8"},
+
     {"round":3, "bracket_uid":"1", "home_prereq":"WG3", "away_prereq":"WG4"},
     {"round":3, "bracket_uid":"3", "home_prereq":"LG3", "away_prereq":"LG4"},
     {"round":3, "bracket_uid":"5", "home_prereq":"WG9", "away_prereq":"WG10"},
@@ -26,6 +28,8 @@
     {"position":5, "prereq": "W5"},
     {"position":6, "prereq": "L5"},
     {"position":7, "prereq": "W7"},
-    {"position":8, "prereq": "L7"}
+    {"position":8, "prereq": "L7"},
+    {"position":9, "prereq": "W9"},
+    {"position":10, "prereq": "L9"}
   ]
 }
