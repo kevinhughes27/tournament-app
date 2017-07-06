@@ -145,17 +145,6 @@
   template: <%= BracketDb::load('usau_5.5') %>
 
 -
-  handle: Power Pools 5
-  name: Power Pools
-  description: >
-    The losers in the bracket play the bottom seed for extra games.
-  num_teams: 5
-  days: 2
-  rounds: 3
-  pool: true
-  template: <%= BracketDb::load('pp_5') %>
-
--
   handle: USAU 6.1
   name: One team advances (USAU 6.1)
   description: >
