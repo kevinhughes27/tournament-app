@@ -6,12 +6,6 @@ namespace :ci do
     sh "bundle exec rails test"
   end
 
-  task :bracket_db_tests do
-    puts Rainbow("Running BracketDb tests").green
-    sh "cd lib/bracket_db && bundle install"
-    sh "cd lib/bracket_db && bundle exec rake test"
-  end
-
   task :js_tests do
     puts Rainbow("Running JavaScript tests").green
     sh "bundle exec teaspoon"
@@ -31,7 +25,6 @@ namespace :ci do
   task all: [
     :environment,
     :rails_tests,
-    :bracket_db_tests,
     :js_tests,
     :bundle_audit,
     :nsp_check

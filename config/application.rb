@@ -8,7 +8,6 @@ require_relative '../lib/subdomain'
 
 module UltimateTournament
   class Application < Rails::Application
-    config.autoload_paths += Dir["#{config.root}/lib/validators"]
 
     config.active_record.default_timezone = :local
 

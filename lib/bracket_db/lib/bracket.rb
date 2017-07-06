@@ -1,5 +1,5 @@
-require_relative '../utils'
-require_relative '../to_tree'
+require_relative 'utils'
+require_relative 'to_tree'
 
 class Bracket < FrozenRecord::Base
   self.base_path = BracketDb::db_path
