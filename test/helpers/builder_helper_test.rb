@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class BuilderHelperTest < ActionView::TestCase
-
   test "builder card default animation is bounceInRight" do
     card = builder_card{ "test" }
     assert_match /bounceInRight/, card
@@ -16,5 +15,4 @@ class BuilderHelperTest < ActionView::TestCase
     card = builder_card(error: false, back: true){ "test" }
     assert_match /bounceInLeft/, card
   end
-
 end
