@@ -4,24 +4,19 @@ class SeedDivisionTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   setup do
-    @tournament = tournaments(:noborders)
-    @user = users(:bob)
-    @division = divisions(:open)
-    @teams = @division.teams.order(:seed)
-  end
-
-  test "updates teams" do
+    @tournament = FactoryGirl.create(:tournament)
   end
 
   test "initializes the first round" do
-    division = create_division(bracket_type: 'single_elimination_8')
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    division = build_division(@tournament, params)
 
-    teams = @teams.to_a
-    @teams.update_all(division_id: division.id)
+    teams = (1..8).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     perform_operation(division, teams)
 
-    teams.sort_by{ |t| t.seed }
     games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
 
     games.each do |game|
@@ -31,10 +26,15 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   test "resets any games past the seed round" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
+    user = FactoryGirl.create(:user)
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    division = build_division(@tournament, params)
 
-    perform_operation(division, @teams)
+    teams = (1..8).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
+
+    perform_operation(division, teams)
 
     round1_games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
     round2_games = division.games.where(bracket_uid: ['s1', 's2', 'c3', 'c4'])
@@ -43,7 +43,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
       round1_games.each do |game|
         GameUpdateScore.perform(
           game: game,
-          user: @user,
+          user: user,
           home_score: 15,
           away_score: 13,
         )
@@ -53,20 +53,22 @@ class SeedDivisionTest < ActiveSupport::TestCase
     round2_games.reload
     assert round2_games.all?{ |g| g.teams_present? }
 
-    perform_operation(division, @teams, 'true')
+    perform_operation(division, teams, 'true')
 
     round2_games.reload
     assert round2_games.all?{ |g| not g.teams_present? }
     assert round2_games.all?{ |g| not g.confirmed? }
   end
 
-  test "round robin 5" do
-    division = create_division(bracket_type: 'round_robin_5')
-    @teams[5..-1].map(&:destroy)
-    teams = @teams.reload
-    @teams.update_all(division_id: division.id)
+  test "round robin 5 (seeds into round 2 games)" do
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'round_robin_5')
+    division = build_division(@tournament, params)
 
-    perform_operation(division, @teams)
+    teams = (1..5).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
+
+    perform_operation(division, teams)
 
     game = division.games.find_by(bracket_uid: 'rr3')
     assert_nil game.home
@@ -74,14 +76,16 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   test "sets division seeded to true" do
-    division = create_division(bracket_type: 'single_elimination_8')
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    division = build_division(@tournament, params)
 
-    teams = @teams.to_a
-    @teams.update_all(division_id: division.id)
+    teams = (1..8).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     refute division.seeded?
 
-    perform_operation(division, @teams)
+    perform_operation(division, teams)
 
     assert division.reload.seeded?
   end
