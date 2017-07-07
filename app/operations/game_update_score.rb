@@ -51,32 +51,11 @@ class GameUpdateScore < ApplicationOperation
 
   def update_score
     @winner_changed = winner_changed?
-
-    if game.confirmed?
-      adjust_score
-    else
-      set_score
-    end
+    game.update!(home_score: home_score, away_score: away_score)
   end
 
   def winner_changed?
     !game.confirmed? || (game.home_score > game.away_score) ^ (home_score > away_score)
-  end
-
-  def set_score
-    SetGameScore.perform(
-      game: game,
-      home_score: home_score,
-      away_score: away_score
-    )
-  end
-
-  def adjust_score
-    AdjustGameScore.perform(
-      game: game,
-      home_score: home_score,
-      away_score: away_score
-    )
   end
 
   def create_score_entry
