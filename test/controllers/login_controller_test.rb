@@ -14,8 +14,9 @@ class LoginControllerTest < ActionController::TestCase
   end
 
   test "subdomain login page" do
+    @tournament.update(name: 'No Borders')
     get :new
-    assert_match /#{@tournament.name}/, response.body
+    assert_match /No Borders/, response.body
   end
 
   test "generic login page" do
@@ -69,14 +70,8 @@ class LoginControllerTest < ActionController::TestCase
   end
 
   test "login staff bypass" do
-    tournament = FactoryGirl.create(:tournament)
-    user = FactoryGirl.create(:user, email: 'kevinhughes27@gmail.com')
-    set_tournament(tournament)
-
-    assert user.staff?
-
+    user = FactoryGirl.create(:staff)
     post :create, params: { user: {email: user.email, password: 'password'} }
-
     assert_redirected_to admin_path
   end
 

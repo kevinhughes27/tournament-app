@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Internal::DashboardControllerTest < ActionController::TestCase
   setup do
-    user = FactoryGirl.create(:user, email: 'kevinhughes27@gmail.com')
+    user = FactoryGirl.create(:staff)
     sign_in user, scope: :internal_user
   end
 

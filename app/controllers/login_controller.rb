@@ -20,7 +20,7 @@ class LoginController < Devise::SessionsController
 
   def create
     user = warden.authenticate!(auth_options)
-    return redirect_to setup_path unless user.tournaments.exists?
+    return redirect_to setup_path if (!user.staff? && user.tournaments.blank?)
 
     if @tournament.nil?
       login_no_tournament_id(user)

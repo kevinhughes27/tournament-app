@@ -19,14 +19,14 @@ class Internal::TestCaseControllerTest < ActionController::TestCase
   end
 
   test "admin requires staff login" do
-    user = FactoryGirl.create(:user, email: 'kevinhughes27@gmail.com')
+    user = FactoryGirl.create(:staff)
     sign_out user
     get :index
     assert_redirected_to new_internal_user_session_path
   end
 
   test "admin with staff login" do
-    user = FactoryGirl.create(:user, email: 'kevinhughes27@gmail.com')
+    user = FactoryGirl.create(:staff)
     sign_in user, scope: :internal_user
     get :index
     assert_response :success

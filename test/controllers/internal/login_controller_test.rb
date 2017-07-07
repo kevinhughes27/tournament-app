@@ -12,7 +12,7 @@ class Internal::LoginControllerTest < ActionController::TestCase
 
   test "login for internal area" do
     set_subdomain('www')
-    user = FactoryGirl.create(:user, email: 'kevinhughes27@gmail.com')
+    user = FactoryGirl.create(:staff)
     assert user.staff?
 
     post :create, params: { user: {email: user.email, password: 'password'} }

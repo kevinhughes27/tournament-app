@@ -2,9 +2,11 @@ require 'test_helper'
 
 class Admin::UsersControllerTest < ActionController::TestCase
   setup do
-    @tournament = tournaments(:noborders)
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
     set_tournament(@tournament)
-    sign_in users(:kevin)
+    sign_in @user
   end
 
   test "get new" do
@@ -20,9 +22,12 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test "create a user" do
+    user = FactoryGirl.build(:user)
+    params = { user: { email: user.email, password: user.password }}
+
     assert_difference "User.count" do
       assert_difference "TournamentUser.count" do
-        post :create, params: { user: { email: Faker::Internet.email, password: 'password' }}
+        post :create, params: params
         assert_redirected_to admin_users_path
       end
     end
