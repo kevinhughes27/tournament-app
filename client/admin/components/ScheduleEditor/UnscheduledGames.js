@@ -72,7 +72,7 @@ class UnscheduledGames extends React.Component {
 }
 
 UnscheduledGames.propTypes = {
-  games: PropTypes.array.isRequired
+  games: PropTypes.array
 }
 
 module.exports = UnscheduledGames

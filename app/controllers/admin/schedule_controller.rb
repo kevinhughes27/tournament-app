@@ -27,6 +27,12 @@ class Admin::ScheduleController < AdminController
     render json: {game_id: game.id, error: e.message}, status: :unprocessable_entity
   end
 
+  def destroy
+    game = Game.find_by(tournament_id: @tournament.id, id: params[:game_id])
+    game.update(field_id: nil, start_time: nil)
+    head :ok
+  end
+
   def bulk_update
     ActiveRecord::Base.transaction do
       # reset field and start times first so swapping can work.

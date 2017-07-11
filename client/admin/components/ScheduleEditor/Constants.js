@@ -4,4 +4,4 @@ export const ItemTypes = {
 
 export const SCHEDULE_START = 9
 export const SCHEDULE_END = 17
-export const SCHEDULE_INC = 10 // minutes
+export const SCHEDULE_INC = 15 // minutes

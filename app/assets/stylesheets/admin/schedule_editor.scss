@@ -89,6 +89,10 @@ $schedule-grid-line-color: lightgrey !default;
             overflow: hidden;
         }
     }
+
+    .error {
+      border-color: red
+    }
 }
 
 .unscheduled {

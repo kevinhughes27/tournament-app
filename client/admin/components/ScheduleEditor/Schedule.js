@@ -7,6 +7,7 @@ import FieldColumn from './FieldColumn'
 
 import moment from 'moment'
 import _map from 'lodash/map'
+import _filter from 'lodash/filter'
 
 class Schedule extends React.Component {
   render () {
@@ -23,17 +24,26 @@ class Schedule extends React.Component {
           <YLabels />
           <div className='grid'>
             {_map(fields, (f) => {
-              return <FieldColumn key={f.name} fieldId={f.id} date={date}/>
+              return <FieldColumn
+                key={f.name}
+                fieldId={f.id}
+                games={this.gamesForField(f.id)}
+                date={date}/>
             })}
           </div>
         </div>
       </div>
     )
   }
+
+  gamesForField (fieldId) {
+    const games = this.props.games
+    return _filter(games, (g) => g.field_id === fieldId)
+  }
 }
 
 Schedule.propTypes = {
-  games: PropTypes.array.isRequired, // this is not used in this component..? Games are fetched from the store in FieldColumn
+  games: PropTypes.array,
   fields: PropTypes.array.isRequired
 }
 

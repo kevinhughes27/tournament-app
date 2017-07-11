@@ -2,7 +2,6 @@ import Store from './store'
 import _extend from 'lodash/extend'
 import _findIndex from 'lodash/findIndex'
 import _groupBy from 'lodash/groupBy'
-import _filter from 'lodash/filter'
 
 let _games
 let _cable
@@ -31,10 +30,6 @@ let GamesStore = _extend({}, Store, {
 
   unscheduled () {
     return _groupBy(_games, 'scheduled')[false]
-  },
-
-  forField (fieldId) {
-    return _filter(_games, (g) => g.field_id === fieldId)
   },
 
   saveReportsState (game, state) {
