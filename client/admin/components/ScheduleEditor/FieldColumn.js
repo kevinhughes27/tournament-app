@@ -14,6 +14,7 @@ import {
 
 import moment from 'moment'
 import _sortBy from 'lodash/sortBy'
+import _fitler from 'lodash/filter'
 import _map from 'lodash/map'
 
 const target = {
@@ -22,7 +23,7 @@ const target = {
     const percentY = (monitor.getClientOffset().y - rect.top) / rect.height
     const hours = percentY * (SCHEDULE_END - SCHEDULE_START) + SCHEDULE_START
     const slot = SCHEDULE_INC * Math.round(hours * 60 / SCHEDULE_INC)
-    const hoverTime = moment(props.date).minutes(slot)
+    const hoverTime = moment(props.date, 'LL').minutes(slot)
 
     component.setState({
       hoverTime: hoverTime
@@ -84,13 +85,14 @@ function collect (connect, monitor) {
 
 class FieldColumn extends React.Component {
   render () {
-    const connectDropTarget = this.props.connectDropTarget
-    const games = _sortBy(this.props.games, (g) => moment(g.start_time))
+    const { connectDropTarget, date, games } = this.props
+    const filteredGames = _fitler(games, (g) => moment(date).diff(g.start_time, 'days') === 0)
+    const sortedGames = _sortBy(filteredGames, (g) => moment(g.start_time))
 
     return connectDropTarget(
       <div className='field-column'>
         <div className='games' ref='column'>
-          {_map(games, (g) => {
+          {_map(sortedGames, (g) => {
             return <ScheduledGame key={g.id} game={g}/>
           })}
           { this.overlay() }

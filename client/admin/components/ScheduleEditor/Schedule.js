@@ -10,15 +10,27 @@ import _map from 'lodash/map'
 import _filter from 'lodash/filter'
 
 class Schedule extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {date: moment()}
+
+    this.handleDateChange = this.handleDateChange.bind(this)
+  }
+
+  handleDateChange (event) {
+    this.setState({date: moment(event.target.value, 'LL')})
+  }
+
   render () {
     const fields = this.props.fields
-    const date = moment().format('LL') // init to the earliest start date of any game
-    // dropdown will need to indicate other dates with games scheduled easily
-    // otherwise you could lose games
+    const date = this.state.date
+    const dateString = date.format('LL')
 
     return (
       <div className='schedule-editor'>
-        { date }
+        <div className='form-group' style={{width: '160px'}}>
+          <input type='text' className='form-control' value={dateString} onChange={this.handleDateChange}/>
+        </div>
         <XLabels fields={fields} />
         <div className='body'>
           <YLabels />
@@ -28,7 +40,7 @@ class Schedule extends React.Component {
                 key={f.name}
                 fieldId={f.id}
                 games={this.gamesForField(f.id)}
-                date={date}/>
+                date={dateString}/>
             })}
           </div>
         </div>
