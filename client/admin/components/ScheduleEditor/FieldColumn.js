@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import ScheduledGame from './ScheduledGame'
 import DropOverlay from './DropOverlay'
-import TimeSlot from './TimeSlot'
 import GamesStore from '../../stores/GamesStore'
 
 import {
@@ -16,13 +15,24 @@ import {
 import moment from 'moment'
 import _sortBy from 'lodash/sortBy'
 import _map from 'lodash/map'
-import _times from 'lodash/times'
 
 const target = {
+  hover (props, monitor, component) {
+    const rect = component.refs.column.getBoundingClientRect()
+    const percentY = (monitor.getClientOffset().y - rect.top) / rect.height
+    const hours = percentY * (SCHEDULE_END - SCHEDULE_START) + SCHEDULE_START
+    const slot = SCHEDULE_INC * Math.round(hours * 60 / SCHEDULE_INC)
+    const hoverTime = moment(props.date).minutes(slot)
+
+    component.setState({
+      hoverTime: hoverTime
+    })
+  },
+
   drop (props, monitor, component) {
     const game = monitor.getItem()
     const fieldId = props.fieldId
-    const startTime = component.state.hoverTime
+    const startTime = component.state.hoverTime.format()
 
     GamesStore.updateGame({
       id: game.id,
@@ -62,28 +72,17 @@ function collect (connect, monitor) {
 }
 
 class FieldColumn extends React.Component {
-  constructor (props) {
-    super(props)
-    this.hover = this.hover.bind(this)
-    this.state = { hoverTime: null }
-  }
-
-  hover (startTime) {
-    this.setState({hoverTime: startTime})
-  }
-
   render () {
     const connectDropTarget = this.props.connectDropTarget
     const games = _sortBy(this.props.games, (g) => moment(g.start_time))
 
     return connectDropTarget(
       <div className='field-column'>
-        <div className='games'>
+        <div className='games' ref='column'>
           {_map(games, (g) => {
             return <ScheduledGame key={g.id} game={g}/>
           })}
           { this.overlay() }
-          { this.slots() }
         </div>
       </div>
     )
@@ -94,32 +93,10 @@ class FieldColumn extends React.Component {
       return
     }
 
-    const start = this.state.hoverTime
+    const start = this.state.hoverTime.format()
     const end = moment(start).add(90, 'minutes').format()
-    return (
-      <DropOverlay startTime={start} endTime={end}/>
-    )
-  }
 
-  slots () {
-    const { fieldId, date } = this.props
-
-    const numSlots = (SCHEDULE_END - SCHEDULE_START) * 60 / SCHEDULE_INC
-    const slotHeight = `${1.0 / numSlots * 100}%`
-
-    return _times(numSlots, (n) => {
-      const startTime = moment(date)
-        .hours(SCHEDULE_START)
-        .add(n * SCHEDULE_INC, 'minutes')
-        .format()
-
-      return <TimeSlot
-        key={`${fieldId}:${n}`}
-        hover={this.hover}
-        fieldId={fieldId}
-        startTime={startTime}
-        height={slotHeight} />
-    })
+    return (<DropOverlay startTime={start} endTime={end}/>)
   }
 }
 
