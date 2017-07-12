@@ -11,4 +11,3 @@
 //= require moment
 //= require tether
 //= require tether-drop
-//= require vendor/redips-drag
