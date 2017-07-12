@@ -36,7 +36,7 @@
     "react-dom": "^15.4.1",
     "react-on-rails": "6.1.2",
     "react-grid-layout": "^0.13.5",
-    "react-on-rails": "8.0.3",
+    "react-on-rails": "8.0.5",
     "react-overlays": "^0.6.0",
     "resolve-url-loader": "^1.4.3",
     "set-query-string": "^2.1.0",
