@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
-import { ItemTypes } from './Constants'
+import { ItemTypes, DIVISION_COLORS } from './Constants'
 import GameLayout from './GameLayout'
 import GameText from './GameText'
 import classNames from 'classnames'
@@ -46,8 +46,10 @@ class Game extends React.Component {
     const { connectDragSource, isDragging, game } = this.props
     const layout = new GameLayout(game)
     const classes = classNames('game', {error: game.error})
+    const color = DIVISION_COLORS[game.division_id % 12]
     const style = {
       opacity: isDragging ? 0.75 : 1,
+      backgroundColor: color,
       cursor: 'move',
       ...layout.inlineStyles()
     }

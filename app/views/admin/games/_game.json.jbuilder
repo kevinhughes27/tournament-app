@@ -16,6 +16,7 @@ json.extract! game,
   :end_time
 
 json.division game.division.name
+json.division_id game.division.id
 
 json.scheduled game.scheduled?
 json.bracket game.bracket_game?

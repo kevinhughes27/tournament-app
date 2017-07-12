@@ -7,6 +7,7 @@ import _groupBy from 'lodash/groupBy'
 import _map from 'lodash/map'
 
 import UnscheduledGame from './UnscheduledGame'
+import { DIVISION_COLORS } from './Constants'
 
 class UnscheduledGames extends React.Component {
   constructor (props) {
@@ -31,6 +32,9 @@ class UnscheduledGames extends React.Component {
   }
 
   renderDivisionTab (games, divisionName) {
+    let divisionId = games[0].division_id
+    let color = DIVISION_COLORS[divisionId % 12]
+
     let poolGames = games.filter((g) => { return g.pool })
     let bracketGames = games.filter((g) => { return g.bracket })
 
@@ -40,8 +44,12 @@ class UnscheduledGames extends React.Component {
     let bracketGamesByRound = _groupBy(bracketGames, 'round')
     let bracketRounds = _keys(bracketGamesByRound).sort()
 
+    let title = <span>
+      <i className='fa fa-stop' style={{color: color}}></i> {divisionName}
+    </span>
+
     return (
-      <Tab key={divisionName} eventKey={divisionName} title={divisionName}>
+      <Tab key={divisionName} eventKey={divisionName} title={title}>
         <div className='unscheduled'>
           {this.renderStage('pool', poolRounds, poolGamesByRound)}
           {this.renderStage('bracket', bracketRounds, bracketGamesByRound)}

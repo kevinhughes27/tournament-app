@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
-import { ItemTypes } from './Constants'
+import { ItemTypes, DIVISION_COLORS } from './Constants'
 import GameText from './GameText'
 
 const gameSource = {
@@ -20,8 +20,10 @@ function collect (connect, monitor) {
 class Game extends Component {
   render () {
     const { connectDragSource, isDragging, game } = this.props
+    const color = DIVISION_COLORS[game.division_id % 12]
     const style = {
       opacity: isDragging ? 0.5 : 1,
+      backgroundColor: color,
       cursor: 'move'
     }
 
