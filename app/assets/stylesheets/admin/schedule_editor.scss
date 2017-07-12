@@ -1,5 +1,3 @@
-$event-color: #6F8376;
-$event-text-color: #F5F5F5;
 $schedule-border-color: lightgrey !default;
 $schedule-grid-min-width: 70px;
 $schedule-grid-line-color: lightgrey !default;
@@ -78,8 +76,6 @@ $schedule-grid-line-color: lightgrey !default;
     .game {
         width: 100%;
         min-width: $schedule-grid-min-width;
-        background: $event-color;
-        color: $event-text-color;
         box-sizing: border-box;
         border: 1px solid $schedule-grid-line-color;
         border-radius: 4px;
@@ -104,8 +100,6 @@ $schedule-grid-line-color: lightgrey !default;
     width: $schedule-grid-min-width;
     height: 60px;
     margin: 5px;
-    background: $event-color;
-    color: $event-text-color;
     box-sizing: border-box;
     border: 1px solid $schedule-grid-line-color;
     border-radius: 4px;
