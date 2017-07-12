@@ -13,8 +13,10 @@ import {
 } from './Constants'
 
 import moment from 'moment'
+import 'moment-range'
 import _sortBy from 'lodash/sortBy'
 import _fitler from 'lodash/filter'
+import _some from 'lodash/some'
 import _map from 'lodash/map'
 
 const target = {
@@ -86,7 +88,7 @@ function collect (connect, monitor) {
 class FieldColumn extends React.Component {
   render () {
     const { connectDropTarget, date, games } = this.props
-    const filteredGames = _fitler(games, (g) => moment(date).diff(g.start_time, 'days') === 0)
+    const filteredGames = _fitler(games, (g) => moment(date, 'LL').diff(g.start_time, 'days') === 0)
     const sortedGames = _sortBy(filteredGames, (g) => moment(g.start_time))
 
     return connectDropTarget(
@@ -103,6 +105,19 @@ class FieldColumn extends React.Component {
 
   overlay () {
     if (!this.props.isOver) {
+      return
+    }
+
+    const overlaps = _some(this.props.games, (g) => {
+      const startTime = moment(g.start_time).add(1, 'minute')
+      const endTime = moment(g.end_time).subtract(1, 'minute')
+      const range = moment().range(startTime, endTime)
+
+      return range.contains(this.state.hoverTime) ||
+        range.contains(moment(this.state.hoverTime).add(90, 'minutes'))
+    })
+
+    if (overlaps) {
       return
     }
 
