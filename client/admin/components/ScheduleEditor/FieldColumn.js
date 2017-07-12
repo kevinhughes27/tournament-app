@@ -48,11 +48,22 @@ const target = {
         game_id: game.id, field_id: fieldId, start_time: startTime
       },
       success: (response) => {
-        GamesStore.updateGame({id: game.id, error: false})
+        GamesStore.updateGame({
+          id: game.id,
+          start_time: response.start_time,
+          end_time: response.end_time,
+          error: false
+        })
+
         console.log(`game_id: ${game.id} successfully scheduled.`)
       },
       error: (response) => {
-        GamesStore.updateGame({id: game.id, error: true})
+        GamesStore.updateGame({
+          id: game.id,
+          start_time: response.responseJSON.start_time,
+          end_time: response.responseJSON.end_time,
+          error: true
+        })
 
         if (response.status === 422) {
           Admin.Flash.error(response.responseJSON.error)

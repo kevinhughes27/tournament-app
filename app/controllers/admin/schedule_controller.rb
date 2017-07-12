@@ -21,10 +21,18 @@ class Admin::ScheduleController < AdminController
     ).find_by(tournament_id: @tournament.id, id: params[:game_id])
 
     ScheduleGame.perform(game, params[:field_id], params[:start_time])
-    head :ok
-
+    render json: {
+      game_id: game.id,
+      start_time: game.start_time,
+      end_time: game.end_time
+    }
   rescue => e
-    render json: {game_id: game.id, error: e.message}, status: :unprocessable_entity
+    render json: {
+      game_id: game.id,
+      start_time: game.start_time,
+      end_time: game.end_time,
+      error: e.message
+    }, status: :unprocessable_entity
   end
 
   def destroy
