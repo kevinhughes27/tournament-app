@@ -23,7 +23,7 @@ class UnscheduledGames extends React.Component {
     let gameByDivision = _groupBy(games, 'division')
 
     return (
-      <div>
+      <div className='nav-tabs-custom'>
         <Tabs id='divisions'>
           {_map(gameByDivision, this.renderDivisionTab)}
         </Tabs>
