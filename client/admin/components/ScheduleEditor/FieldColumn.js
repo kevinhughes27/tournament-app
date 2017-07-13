@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import ScheduledGame from './ScheduledGame'
 import DropOverlay from './DropOverlay'
-import GamesStore from '../../stores/GamesStore'
 
 import {
   ItemTypes,
@@ -11,6 +10,8 @@ import {
   SCHEDULE_END,
   SCHEDULE_INC
 } from './Constants'
+
+import { schedule } from './Actions'
 
 import moment from 'moment'
 import 'moment-range'
@@ -37,44 +38,7 @@ const target = {
     const fieldId = props.fieldId
     const startTime = component.state.hoverTime.format()
 
-    GamesStore.updateGame({
-      id: game.id,
-      field_id: fieldId,
-      start_time: startTime,
-      scheduled: true
-    })
-
-    $.ajax({
-      type: 'POST',
-      url: '/admin/schedule',
-      data: {
-        game_id: game.id, field_id: fieldId, start_time: startTime
-      },
-      success: (response) => {
-        GamesStore.updateGame({
-          id: game.id,
-          start_time: response.start_time,
-          end_time: response.end_time,
-          error: false
-        })
-
-        console.log(`game_id: ${game.id} successfully scheduled.`)
-      },
-      error: (response) => {
-        GamesStore.updateGame({
-          id: game.id,
-          start_time: response.responseJSON.start_time,
-          end_time: response.responseJSON.end_time,
-          error: true
-        })
-
-        if (response.status === 422) {
-          Admin.Flash.error(response.responseJSON.error)
-        } else {
-          Admin.Flash.error('Sorry, something went wrong.')
-        }
-      }
-    })
+    schedule(game.id, fieldId, startTime)
   }
 }
 

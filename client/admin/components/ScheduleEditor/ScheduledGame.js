@@ -5,7 +5,7 @@ import { ItemTypes, DIVISION_COLORS } from './Constants'
 import GameLayout from './GameLayout'
 import GameText from './GameText'
 import classNames from 'classnames'
-import GamesStore from '../../stores/GamesStore'
+import { unschedule } from './Actions'
 
 const gameSource = {
   beginDrag (props) {
@@ -13,23 +13,8 @@ const gameSource = {
   },
 
   endDrag (props, monitor) {
-    const game = props.game
-
     if (!monitor.didDrop()) {
-      GamesStore.updateGame({id: game.id, scheduled: false})
-
-      $.ajax({
-        type: 'DELETE',
-        url: '/admin/schedule',
-        data: { game_id: game.id },
-        success: (response) => {
-          console.log(`game_id: ${game.id} successfully unscheduled.`)
-        },
-        error: (response) => {
-          GamesStore.updateGame({id: game.id, scheduled: true})
-          Admin.Flash.error('Sorry, something went wrong.')
-        }
-      })
+      unschedule(props.game.id)
     }
   }
 }
