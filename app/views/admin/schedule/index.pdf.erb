@@ -9,8 +9,10 @@
   </head>
 
   <body onload='number_pages'>
-    <% @times.group_by{ |t| t.day }.each do |_, times| %>
-      <%= render 'day_page', times: times %>
+    <% @games.group_by{ |g| g.start_time&.day }.each do |date, games| %>
+      <% unless date.nil? %>
+        <%= render 'day_page', fields: @fields, games: games %>
+      <% end %>
     <% end %>
 
     <% @divisions.each do |division| %>

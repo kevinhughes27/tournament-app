@@ -3,21 +3,26 @@
     <thead>
       <tr>
         <th>Time</th>
-        <% @fields.each do |field| %>
+        <% fields.each do |field| %>
           <th><%= field.name %></th>
         <% end %>
       </tr>
     </thead>
 
     <tbody>
-      <% times.each_with_index do |time, index| %>
+      <% start_time = games.map(&:start_time).min %>
+      <% end_time = games.map(&:end_time).max %>
+
+      <% games.group_by{ |g| g.start_time}.each do |time, games| %>
+        <% next if time.nil? %>
+
         <tr>
           <td>
             <%= time.strftime("%l:%M %P") %>
           </td>
 
           <% @fields.each do |field| %>
-            <% game = @games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
+            <% game = games.detect{ |g| g.field_id == field.id && g.start_time == time } %>
             <td>
               <% if game %>
                 <div class="game" style="<%= color_for_game(game) %>">
