@@ -7,7 +7,25 @@
   <%= link_to 'View Pdf', admin_schedule_path(format: :pdf), class: 'btn btn-default', target: '_blank' %>
 <% end %>
 
-<%= react_component('ScheduleEditor', props: {
-  fields: render(template: 'admin/fields/fields.json.jbuilder', locals: {fields: @fields}),
-  games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games})
-})%>
+<% if @games.present? && @fields.present? %>
+  <%= react_component('ScheduleEditor', props: {
+    fields: render(template: 'admin/fields/fields.json.jbuilder', locals: {fields: @fields}),
+    games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games})
+  })%>
+<% elsif @games.blank? %>
+  <div class="blank-slate">
+    <h3>Create the Schedule for Your Tournament</h3>
+    <p>
+      After you create Divisions you'll be able to make your schedule on this page.
+    </p>
+    <%= link_to 'Go to Divisions', admin_divisions_path, class: "btn btn-primary" %>
+  </div>
+<% else %>
+  <div class="blank-slate">
+    <h3>Create the Schedule for Your Tournament</h3>
+    <p>
+      You need to create Fields before you can build your schedule.
+    </p>
+    <%= link_to 'Add a Field', new_admin_field_path, class: "btn btn-primary" %>
+  </div>
+<% end %>
