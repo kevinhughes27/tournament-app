@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import XLabels from './XLabels'
 import YLabels from './YLabels'
 import FieldColumn from './FieldColumn'
+import DatePicker from 'react-datepicker'
 
 import moment from 'moment'
 import _map from 'lodash/map'
@@ -17,19 +18,26 @@ class Schedule extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this)
   }
 
-  handleDateChange (event) {
-    this.setState({date: moment(event.target.value, 'LL')})
+  handleDateChange (date) {
+    this.setState({date: date})
   }
 
   render () {
-    const fields = this.props.fields
+    const { games, fields } = this.props
+    const dates = _map(games, (g) => moment(g.start_time))
+
     const date = this.state.date
     const dateString = date.format('LL')
 
     return (
       <div className='schedule-editor'>
         <div className='form-group' style={{width: '160px'}}>
-          <input type='text' className='form-control' value={dateString} onChange={this.handleDateChange}/>
+          <DatePicker
+            className='form-control'
+            selected={date}
+            onChange={this.handleDateChange}
+            highlightDates={dates}
+          />
         </div>
         <XLabels fields={fields} />
         <div className='body'>
