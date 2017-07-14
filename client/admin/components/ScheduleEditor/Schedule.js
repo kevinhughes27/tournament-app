@@ -13,7 +13,8 @@ import _filter from 'lodash/filter'
 class Schedule extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {date: moment()}
+
+    this.state = {date: moment(this.props.games[0].start_time)}
 
     this.handleDateChange = this.handleDateChange.bind(this)
   }
@@ -23,7 +24,7 @@ class Schedule extends React.Component {
   }
 
   render () {
-    const { games, fields } = this.props
+    const { games, fields, gameLength } = this.props
     const dates = _map(games, (g) => moment(g.start_time))
 
     const date = this.state.date
@@ -48,7 +49,8 @@ class Schedule extends React.Component {
                 key={f.name}
                 fieldId={f.id}
                 games={this.gamesForField(f.id)}
-                date={dateString}/>
+                date={dateString}
+                gameLength={gameLength}/>
             })}
           </div>
         </div>
@@ -64,7 +66,8 @@ class Schedule extends React.Component {
 
 Schedule.propTypes = {
   games: PropTypes.array,
-  fields: PropTypes.array.isRequired
+  fields: PropTypes.array.isRequired,
+  gameLength: PropTypes.number.isRequired
 }
 
 export default Schedule

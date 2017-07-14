@@ -10,7 +10,8 @@
 <% if @games.present? && @fields.present? %>
   <%= react_component('ScheduleEditor', props: {
     fields: render(template: 'admin/fields/fields.json.jbuilder', locals: {fields: @fields}),
-    games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games})
+    games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games}),
+    gameLength: @tournament.time_cap
   })%>
 <% elsif @games.blank? %>
   <div class="blank-slate">

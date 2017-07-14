@@ -52,7 +52,7 @@ function collect (connect, monitor) {
 class FieldColumn extends React.Component {
   render () {
     const { connectDropTarget, date, games } = this.props
-    const filteredGames = _fitler(games, (g) => moment(date).isSame(g.start_time, 'day'))
+    const filteredGames = _fitler(games, (g) => moment(date, 'LL').isSame(g.start_time, 'day'))
     const sortedGames = _sortBy(filteredGames, (g) => moment(g.start_time))
 
     return connectDropTarget(
@@ -76,9 +76,10 @@ class FieldColumn extends React.Component {
       const startTime = moment(g.start_time).add(1, 'minute')
       const endTime = moment(g.end_time).subtract(1, 'minute')
       const range = moment().range(startTime, endTime)
+      const length = this.props.gameLength
 
       return range.contains(this.state.hoverTime) ||
-        range.contains(moment(this.state.hoverTime).add(90, 'minutes'))
+        range.contains(moment(this.state.hoverTime).add(length, 'minutes'))
     })
 
     if (overlaps) {
@@ -86,7 +87,8 @@ class FieldColumn extends React.Component {
     }
 
     const start = this.state.hoverTime.format()
-    const end = moment(start).add(90, 'minutes').format()
+    const length = this.props.gameLength
+    const end = moment(start).add(length, 'minutes').format()
 
     return (<DropOverlay startTime={start} endTime={end}/>)
   }
@@ -97,7 +99,8 @@ FieldColumn.propTypes = {
   isOver: PropTypes.bool.isRequired,
   fieldId: PropTypes.number.isRequired,
   games: PropTypes.array.isRequired,
-  date: PropTypes.string.isRequired
+  date: PropTypes.string.isRequired,
+  gameLength: PropTypes.number.isRequired
 }
 
 module.exports = DropTarget(ItemTypes.GAME, target, collect)(FieldColumn)

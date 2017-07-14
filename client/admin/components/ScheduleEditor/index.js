@@ -45,7 +45,7 @@ class ScheduleEditor extends React.Component {
     return (
       <div>
         <UnscheduledGames games={unscheduledGames}/>
-        <Schedule games={scheduledGames} fields={fields}/>
+        <Schedule games={scheduledGames} fields={fields} gameLength={this.props.gameLength}/>
       </div>
     )
   }
@@ -53,7 +53,8 @@ class ScheduleEditor extends React.Component {
 
 ScheduleEditor.propTypes = {
   games: PropTypes.string.isRequired,
-  fields: PropTypes.string.isRequired
+  fields: PropTypes.string.isRequired,
+  gameLength: PropTypes.number.isRequired
 }
 
 export default DragDropContext(HTML5Backend)(ScheduleEditor)
