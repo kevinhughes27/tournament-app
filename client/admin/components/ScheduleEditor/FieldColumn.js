@@ -52,7 +52,7 @@ function collect (connect, monitor) {
 class FieldColumn extends React.Component {
   render () {
     const { connectDropTarget, date, games } = this.props
-    const filteredGames = _fitler(games, (g) => moment(date, 'LL').diff(g.start_time, 'days') === 0)
+    const filteredGames = _fitler(games, (g) => moment(date).isSame(g.start_time, 'day'))
     const sortedGames = _sortBy(filteredGames, (g) => moment(g.start_time))
 
     return connectDropTarget(
