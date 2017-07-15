@@ -93,7 +93,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.3.8)
     arel (7.1.4)
     auto_strip_attributes (2.1.0)
       activerecord (>= 3.0)
@@ -187,7 +187,7 @@ GEM
       railties (>= 3.1)
     json (2.0.2)
     json-schema (2.6.2)
-      addressable (~> 2.4.0)
+      addressable (~> 2.3.8)
     jstz-rails3-plus (1.0.5)
       railties (>= 3.1)
     jwt (1.5.6)
@@ -465,7 +465,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.3.4p301
 
 BUNDLED WITH
    1.15.1
