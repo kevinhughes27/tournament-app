@@ -1,11 +1,37 @@
 require 'capybara/rails'
+require 'selenium-webdriver'
 
-Capybara::Webkit.configure do |config|
-  config.allow_unknown_urls
+DEFAULT_CHROME_OPTIONS = [
+  'disable-gpu'
+].freeze
+
+Capybara.register_driver :chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: DEFAULT_CHROME_OPTIONS }
+  )
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
 end
 
+Capybara.register_driver :headless_chrome do |app|
+  client = Selenium::WebDriver::Remote::Http::Default.new
+
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: DEFAULT_CHROME_OPTIONS + ['headless'] }
+  )
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    http_client: client,
+    desired_capabilities: capabilities
+  )
+end
+
+Capybara.default_driver = Capybara.javascript_driver = :chrome
+Capybara.current_driver = ENV['CI'] ? :headless_chrome : :chrome
+
 Capybara.configure do |config|
-  config.current_driver = :webkit
   config.ignore_hidden_elements = false
   config.app_host = "http://#{Settings.domain}"
   config.server_port = 3000

@@ -105,7 +105,7 @@ group :test do
   gem 'mocha', :require => false
   gem 'timecop'
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'nokogiri'
   gem 'launchy'
   gem 'simplecov', :require => false

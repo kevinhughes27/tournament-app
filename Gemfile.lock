@@ -119,16 +119,15 @@ GEM
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
-    capybara (2.7.1)
+    capybara (2.13.0)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
+    childprocess (0.7.1)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -185,7 +184,7 @@ GEM
       thor (>= 0.14, < 2.0)
     js_cookie_rails (2.1.3)
       railties (>= 3.1)
-    json (2.0.2)
+    json (2.1.0)
     json-schema (2.6.2)
       addressable (~> 2.3.8)
     jstz-rails3-plus (1.0.5)
@@ -254,7 +253,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     puma (3.6.0)
-    rack (2.0.1)
+    rack (2.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.4.2)
@@ -314,6 +313,7 @@ GEM
       railties (>= 4.2.0, < 5.1)
     rollbar (2.13.3)
       multi_json
+    rubyzip (1.2.1)
     rugged (0.24.0)
     sass (3.4.22)
     sassc (1.10.1)
@@ -327,6 +327,9 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
+    selenium-webdriver (3.4.4)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
     sidekiq (4.2.3)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -384,7 +387,7 @@ GEM
     wicked_pdf (1.1.0)
     wkhtmltopdf-binary-edge (0.12.3.0)
     wkhtmltopdf-heroku (2.12.3.0)
-    xpath (2.0.0)
+    xpath (2.1.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
@@ -398,7 +401,6 @@ DEPENDENCIES
   bullet
   bundler-audit
   capybara
-  capybara-webkit
   coffee-rails (~> 4.1.0)
   composable_operations
   config
@@ -447,6 +449,7 @@ DEPENDENCIES
   rollbar
   rugged
   sassc-rails
+  selenium-webdriver
   sidekiq
   simplecov
   sinatra!
