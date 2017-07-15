@@ -21,11 +21,11 @@ class ChangeBracket < ApplicationOperation
     games_to_delete.map(&:destroy!)
 
     games_to_create.each do |template_game|
-      Game::create_from_template!(
+      Game.from_template(
         tournament_id: tournament_id,
         division_id: division_id,
         template_game: template_game
-      )
+      ).save!
     end
 
     recreate_places
@@ -66,10 +66,20 @@ class ChangeBracket < ApplicationOperation
       division_id: division_id
     ).destroy_all
 
-    CreatePlacesJob.perform_now(
-      tournament_id: tournament_id,
-      division_id: division_id,
-      template: new_template
-    )
+    create_places
+  end
+
+  def create_places
+    places = []
+
+    new_template[:places].each do |t|
+      places << Place.from_template(
+        tournament_id: tournament_id,
+        division_id: division_id,
+        template_place: t
+      )
+    end
+
+    Place.import places
   end
 end

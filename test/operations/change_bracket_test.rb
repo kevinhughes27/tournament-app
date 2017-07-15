@@ -31,11 +31,12 @@ class ChangeBracketTest < ActiveSupport::TestCase
 
     field = fields(:upi1)
 
-    game = Game::create_from_template!(
+    game = Game.from_template(
       tournament_id: @tournament.id,
       division_id: @division.id,
       template_game: template_game
     )
+    game.save!
 
     game.update_columns(field_id: field.id)
 
