@@ -36,8 +36,8 @@ class Game < ApplicationRecord
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
   scope :reported_unconfirmed, -> { includes(:score_reports).where(score_confirmed: false).where.not(score_reports: {id: nil})}
 
-  def self.create_from_template!(tournament_id:, division_id:, template_game:)
-    Game.create!(
+  def self.from_template(tournament_id:, division_id:, template_game:)
+    new(
       template_game.merge(
         tournament_id: tournament_id,
         division_id: division_id

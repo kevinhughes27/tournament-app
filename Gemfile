@@ -13,6 +13,7 @@ gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 gem 'jbuilder'
 gem 'wicked_pdf'
 gem 'browser-timezone-rails'
+gem 'activerecord-import'
 gem 'composable_operations'
 
 # jobs

@@ -14,18 +14,30 @@ class DivisionCreate < ApplicationOperation
   private
 
   def create_games
-    CreateGamesJob.perform_now(
-      tournament_id: tournament.id,
-      division_id: division.id,
-      template: division.template
-    )
+    games = []
+
+    division.template[:games].each do |t|
+      games << Game.from_template(
+        tournament_id: tournament.id,
+        division_id: division.id,
+        template_game: t
+      )
+    end
+
+    Game.import games
   end
 
   def create_places
-    CreatePlacesJob.perform_later(
-      tournament_id: tournament.id,
-      division_id: division.id,
-      template: division.template
-    )
+    places = []
+
+    division.template[:places].each do |t|
+      places << Place.from_template(
+        tournament_id: tournament.id,
+        division_id: division.id,
+        template_place: t
+      )
+    end
+
+    Place.import places
   end
 end

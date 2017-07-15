@@ -8,8 +8,8 @@ class Place < ApplicationRecord
   validates_presence_of :prereq
   validates_presence_of :position
 
-  def self.create_from_template!(tournament_id:, division_id:, template_place:)
-    Place.create!(
+  def self.from_template(tournament_id:, division_id:, template_place:)
+    new(
       template_place.merge(
         tournament_id: tournament_id,
         division_id: division_id
