@@ -22,7 +22,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   test "create a user" do
     assert_difference "User.count" do
       assert_difference "TournamentUser.count" do
-        post :create, params: { user: { email: 'bob@bob.com', password: 'password' }}
+        post :create, params: { user: { email: Faker::Internet.email, password: 'password' }}
         assert_redirected_to admin_users_path
       end
     end
