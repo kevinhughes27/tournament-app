@@ -12,5 +12,8 @@
     "build:dev": "(cd client && npm run build:dev)",
     "build:hot": "(cd client && npm run build:hot)",
     "dev": "foreman start -f Procfile.hot -p 3000"
+  },
+  "dependencies": {
+    "nsp": "^2.6.3"
   }
 }

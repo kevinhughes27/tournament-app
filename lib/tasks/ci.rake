@@ -18,16 +18,16 @@ namespace :ci do
 
   task :nsp_check do
     puts Rainbow("Running security audit on packages (nsp)").green
-    sh "nsp check"
+    sh "./node_modules/nsp/bin/nsp check"
   end
 
   desc "Run all audits and tests"
   task all: [
     :environment,
+    :bundle_audit,
+    :nsp_check,
     :rails_tests,
     :js_tests,
-    :bundle_audit,
-    :nsp_check
   ] do
     begin
       puts "All CI tasks"
