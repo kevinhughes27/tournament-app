@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.4'
 
 # server
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.0.4'
 gem 'config'
 gem 'pg'
 gem 'puma'
