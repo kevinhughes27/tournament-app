@@ -21,7 +21,7 @@ class App.SubmitScoreScreen
 
   filter: (teamNames) ->
     if @lastSearch
-      teamNames.match("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
+      teamNames.startsWith("#{@lastSearch} vs") || teamNames.endsWith("vs #{@lastSearch}")
 
   vsTeam: (home, away) ->
     return unless @lastSearch == home || @lastSearch == away
