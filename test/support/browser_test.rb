@@ -53,11 +53,7 @@ class BrowserTest < ActiveSupport::TestCase
   end
 
   def screenshot_path(name)
-    if ENV['CIRCLECI']
-      File.join(ENV['CIRCLE_ARTIFACTS'], "#{name}.png")
-    else
-      "tmp/#{name}.png"
-    end
+    "tmp/#{name}.png"
   end
 
   def wait_for_ajax
