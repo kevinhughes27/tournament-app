@@ -35,7 +35,7 @@ gem 'gibbon'
 gem 'rollbar'
 
 # engines
-gem 'devise', git: 'https://github.com/plataformatec/devise', ref: 'a20cca68733c422116dabb66f28fe769e0bf303b'
+gem 'devise', '~> 4.3.0'
 
 # auth
 gem 'omniauth-google-oauth2'

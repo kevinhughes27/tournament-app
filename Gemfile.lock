@@ -21,18 +21,6 @@ GIT
     kaminari-core (0.1.0)
 
 GIT
-  remote: https://github.com/plataformatec/devise
-  revision: a20cca68733c422116dabb66f28fe769e0bf303b
-  ref: a20cca68733c422116dabb66f28fe769e0bf303b
-  specs:
-    devise (4.1.0)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.1)
-      responders
-      warden (~> 1.2.3)
-
-GIT
   remote: https://github.com/rubysherpas/paranoia
   revision: 3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a
   ref: 3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a
@@ -150,6 +138,12 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     deep_merge (1.1.1)
+    devise (4.3.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.2)
+      responders
+      warden (~> 1.2.3)
     docile (1.1.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
@@ -309,8 +303,9 @@ GEM
       rails (>= 3.2)
       rainbow (~> 2.1)
     redis (3.3.1)
-    responders (2.3.0)
-      railties (>= 4.2.0, < 5.1)
+    responders (2.4.0)
+      actionpack (>= 4.2.0, < 5.3)
+      railties (>= 4.2.0, < 5.3)
     rollbar (2.13.3)
       multi_json
     rubyzip (1.2.1)
@@ -372,7 +367,7 @@ GEM
     uglifier (3.0.3)
       execjs (>= 0.3.0, < 3)
     uniform_notifier (1.10.0)
-    warden (1.2.6)
+    warden (1.2.7)
       rack (>= 1.0)
     web-console (3.4.0)
       actionview (>= 5.0)
@@ -405,7 +400,7 @@ DEPENDENCIES
   composable_operations
   config
   date_validator
-  devise!
+  devise (~> 4.3.0)
   dotenv-rails
   faker
   font-awesome-rails
