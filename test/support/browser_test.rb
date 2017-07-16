@@ -1,11 +1,30 @@
 require 'capybara/rails'
+require 'selenium-webdriver'
 
-Capybara::Webkit.configure do |config|
-  config.allow_unknown_urls
+DEFAULT_CHROME_OPTIONS = [
+  'disable-gpu'
+].freeze
+
+Capybara.register_driver :chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: DEFAULT_CHROME_OPTIONS }
+  )
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
 end
 
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: DEFAULT_CHROME_OPTIONS + ['headless'] }
+  )
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+end
+
+Capybara.default_driver = Capybara.javascript_driver = :chrome
+Capybara.current_driver = ENV['CI'] ? :headless_chrome : :chrome
+
 Capybara.configure do |config|
-  config.current_driver = :webkit
   config.ignore_hidden_elements = false
   config.app_host = "http://#{Settings.domain}"
   config.server_port = 3000
@@ -27,11 +46,7 @@ class BrowserTest < ActiveSupport::TestCase
   end
 
   def screenshot_path(name)
-    if ENV['CIRCLECI']
-      File.join(ENV['CIRCLE_ARTIFACTS'], "#{name}.png")
-    else
-      "tmp/#{name}.png"
-    end
+    "tmp/#{name}.png"
   end
 
   def wait_for_ajax

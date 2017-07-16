@@ -6,11 +6,14 @@
     "npm": "3.10.5"
   },
   "scripts": {
-    "postinstall": "cd client && npm install",
+    "postinstall": "cd client && yarn install",
     "build:clean": "rm app/assets/webpack/* 2> /dev/null",
     "build:production": "(cd client && npm run build:production)",
     "build:dev": "(cd client && npm run build:dev)",
     "build:hot": "(cd client && npm run build:hot)",
     "dev": "foreman start -f Procfile.hot -p 3000"
+  },
+  "dependencies": {
+    "nsp": "^2.6.3"
   }
 }

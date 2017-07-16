@@ -37,13 +37,11 @@ Setup
 [install postgres](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-ubuntu-14-04):
 
 ```
-sudo apt-get install postgresql postgresql-contrib libpq-dev
-sudo -u postgres createuser -s ut
-sudo -u postgres psql
-postgres# \password ut
-ut
-ut
+sudo apt-get install postgresql libpq-dev
 ```
+
+Make sure its configured to allow passwordless access.
+[gist](https://gist.github.com/p1nox/4953113)
 
 then
 

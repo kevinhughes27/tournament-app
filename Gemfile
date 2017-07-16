@@ -1,21 +1,23 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.3.4'
 
-# rails gems
-gem 'rails', '5.0.0.1'
+# server
+gem 'rails', '5.0.4'
+gem 'config'
 gem 'pg'
 gem 'puma'
 gem 'actioncable'
-gem 'sidekiq'
-gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # sidekiq web
 gem 'redis'
-gem 'wicked'
+gem 'wicked' # signup wizard
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 gem 'jbuilder'
 gem 'wicked_pdf'
 gem 'browser-timezone-rails'
-gem 'config'
 gem 'composable_operations'
+
+# jobs
+gem 'sidekiq'
+gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # sidekiq web
 
 # model gems
 gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
@@ -33,7 +35,7 @@ gem 'gibbon'
 gem 'rollbar'
 
 # engines
-gem 'devise', git: 'https://github.com/plataformatec/devise', ref: 'a20cca68733c422116dabb66f28fe769e0bf303b'
+gem 'devise', '~> 4.3.0'
 
 # auth
 gem 'omniauth-google-oauth2'
@@ -103,7 +105,7 @@ group :test do
   gem 'mocha', :require => false
   gem 'timecop'
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'nokogiri'
   gem 'launchy'
   gem 'simplecov', :require => false
