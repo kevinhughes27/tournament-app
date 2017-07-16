@@ -9,12 +9,18 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import _map from 'lodash/map'
 import _filter from 'lodash/filter'
+import _isEmpty from 'lodash/isEmpty'
 
 class Schedule extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {date: moment(this.props.games[0].start_time)}
+    let date = moment()
+    if (!_isEmpty(this.props.games)) {
+      date = moment(this.props.games[0].start_time)
+    }
+
+    this.state = {date: date}
 
     this.handleDateChange = this.handleDateChange.bind(this)
   }
