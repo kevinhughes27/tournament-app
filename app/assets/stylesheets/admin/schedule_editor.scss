@@ -9,6 +9,8 @@ $schedule-grid-line-color: lightgrey !default;
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: stretch;
+    overflow-x: scroll;
+    overflow: auto;
 
     .x-labels {
         height: 20px;
