@@ -19,4 +19,29 @@ class DivisionCreateTest < ActiveSupport::TestCase
       create_division(bracket_type: type)
     end
   end
+
+  test "creates games as spec'd by the bracket template" do
+    type = 'single_elimination_8'
+
+    create_division(bracket_type: type)
+
+    template = Bracket.find_by(handle: type).template
+    template_game = template[:games].first
+    game = Game.find_by(bracket_uid: template_game[:bracket_uid])
+
+    assert game
+    assert_equal template_game[:home_prereq].to_s, game.home_prereq
+    assert_equal template_game[:away_prereq].to_s, game.away_prereq
+  end
+
+  test "creates places as spec'd by the bracket template" do
+    type = 'single_elimination_8'
+
+    create_division(bracket_type: type)
+
+    template = Bracket.find_by(handle: type).template
+    template_place = template[:places].first
+
+    assert Place.find_by(prereq: template_place[:prereq])
+  end
 end
