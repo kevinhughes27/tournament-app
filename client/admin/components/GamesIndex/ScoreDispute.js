@@ -1,5 +1,5 @@
 import React from 'react'
-import UpdateScoreModal from './update_score_modal'
+import UpdateScoreModal from './UpdateScoreModal'
 
 class ScoreDispute extends React.Component {
   render () {

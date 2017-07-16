@@ -1,7 +1,7 @@
 import React from 'react'
 import {Modal} from 'react-bootstrap'
 import classNames from 'classnames'
-import confirm from './confirm'
+import confirm from './Confirm'
 
 class UpdateScoreModal extends React.Component {
   constructor (props) {

@@ -1,15 +1,24 @@
 json.extract! game,
   :id,
   :pool,
+  :bracket_uid,
+  :round,
+  :home_pool_seed,
   :home_prereq,
   :home_name,
+  :away_pool_seed,
   :away_prereq,
   :away_name,
   :home_score,
-  :away_score
+  :away_score,
+  :field_id,
+  :start_time,
+  :end_time
 
 json.division game.division.name
+json.division_id game.division.id
 
+json.scheduled game.scheduled?
 json.bracket game.bracket_game?
 
 json.teams_present game.teams_present?

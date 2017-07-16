@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class Pool extends React.Component {
   renderGamesLink (divisionName, pool) {
@@ -54,9 +55,9 @@ class Pool extends React.Component {
 }
 
 Pool.propTypes = {
-  pool: React.PropTypes.string,
-  teams: React.PropTypes.array,
-  divisionName: React.PropTypes.string
+  pool: PropTypes.string,
+  teams: PropTypes.array,
+  divisionName: PropTypes.string
 }
 
 module.exports = Pool

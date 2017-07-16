@@ -4,32 +4,15 @@
 <% end %>
 
 <%= content_for :top_bar_right do %>
-<%= link_to 'View Pdf', admin_schedule_path(format: :pdf), class: 'btn btn-default', target: '_blank' %>
-  <%= ui_save_button_tag(form_id:'.edit_schedule') %>
+  <%= link_to 'View Pdf', admin_schedule_path(format: :pdf), class: 'btn btn-default', target: '_blank' %>
 <% end %>
 
 <% if @games.present? && @fields.present? %>
-  <% if @games.all? { |game| !game.scheduled? } %>
-    <div class="alert alert-info alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <i class="icon fa fa-info"></i>
-        To build your schedule drag and drop games into the field time slots below.
-        To add in more time slots click the "Add Row" button.
-    </div>
-  <% end %>
-
-  <section define='{scheduleEditor: new Admin.ScheduleEditor(<%= @tournament.time_cap %>)}' context='scheduleEditor'>
-    <%= form_tag admin_schedule_path, class: 'edit_schedule', 'bind-event-submit' => 'save(this)' do %>
-      <div class="schedule_editor" id="redips-drag">
-        <%= render 'games' %>
-        <%= render 'schedule_table' %>
-        <div>
-          <a href="#" class="btn btn-primary" bind-event-click="addRow()">Add row</a>
-          <%= submit_tag 'Save', class: "btn btn-primary pull-right" %>
-        </div>
-      </div>
-    <% end %>
-  </section>
+  <%= react_component('ScheduleEditor', props: {
+    fields: render(template: 'admin/fields/fields.json.jbuilder', locals: {fields: @fields}),
+    games: render(template: 'admin/games/games.json.jbuilder', locals: {games: @games}),
+    gameLength: @tournament.time_cap
+  })%>
 <% elsif @games.blank? %>
   <div class="blank-slate">
     <h3>Create the Schedule for Your Tournament</h3>
@@ -42,7 +25,7 @@
   <div class="blank-slate">
     <h3>Create the Schedule for Your Tournament</h3>
     <p>
-      You need to create fields before you can build your schedule.
+      You need to create Fields before you can build your schedule.
     </p>
     <%= link_to 'Add a Field', new_admin_field_path, class: "btn btn-primary" %>
   </div>

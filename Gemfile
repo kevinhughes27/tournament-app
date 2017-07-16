@@ -43,7 +43,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
 # asset gems
-gem 'react_on_rails', '~> 6.1.2'
+gem 'react_on_rails', '~> 8.0.3'
+gem 'webpacker_lite', '2.0.4'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -73,17 +74,14 @@ group :production do
 end
 
 group :development, :test do
-  gem 'pry'
-  gem 'pry-byebug', '1.3.3' #https://github.com/deivid-rodriguez/pry-byebug/issues/33
-  gem 'pry-remote'
-  gem 'pry-stack_explorer'
+  gem 'byebug', '~> 9.0.6'
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'rainbow'
   gem 'teaspoon'
   gem 'teaspoon-jasmine'
-  gem 'teaspoon-bundle', '~> 0.1.3'
+  gem 'teaspoon-bundle', '~> 0.1.6'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
 

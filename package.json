@@ -2,18 +2,22 @@
   "name": "ultimate-tournament",
   "private": true,
   "engines": {
-    "node": "6.5.0",
-    "npm": "3.10.5"
+    "node": "7.10.0",
+    "yarn": "0.24.5"
   },
   "scripts": {
     "postinstall": "cd client && yarn install",
     "build:clean": "rm app/assets/webpack/* 2> /dev/null",
     "build:production": "(cd client && npm run build:production)",
     "build:dev": "(cd client && npm run build:dev)",
-    "build:hot": "(cd client && npm run build:hot)",
+    "hot-assets": "(cd client && npm run hot-assets)",
     "dev": "foreman start -f Procfile.hot -p 3000"
   },
   "dependencies": {
     "nsp": "^2.6.3"
-  }
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ]
 }

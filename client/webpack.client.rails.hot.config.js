@@ -3,55 +3,62 @@
 // cd client && babel-node server-rails-hot.js
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
 
-const path = require('path')
 const webpack = require('webpack')
-
+const merge = require('webpack-merge')
+const { resolve } = require('path')
 const config = require('./webpack.client.base.config')
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader')
 
-const hotRailsPort = process.env.HOT_RAILS_PORT || 3500
+const configPath = resolve('..', 'config')
+const { hotReloadingUrl, webpackOutputPath } = webpackConfigLoader(configPath)
 
-config.entry.admin.push(
-  `webpack-dev-server/client?http://localhost:${hotRailsPort}`,
-  'webpack/hot/only-dev-server'
-)
+module.exports = merge(config, {
+  devtool: 'eval-source-map',
 
-config.output = {
-  filename: '[name]-bundle.js',
-  path: path.join(__dirname, 'public'),
-  publicPath: `http://localhost:${hotRailsPort}/`
-}
+  entry: {
+    'admin-bundle': [
+      `webpack-dev-server/client?${hotReloadingUrl}`,
+      'webpack/hot/only-dev-server'
+    ]
+  },
 
-config.module.loaders.push(
-  {
-    test: /\.jsx?$/,
-    loader: 'babel',
-    exclude: /node_modules/,
-    query: {
-      plugins: [
-        [
-          'react-transform',
-          {
-            transforms: [
+  output: {
+    filename: '[name].js',
+    path: webpackOutputPath,
+    publicPath: `${hotReloadingUrl}/`
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          plugins: [
+            [
+              'react-transform',
               {
-                transform: 'react-transform-hmr',
-                imports: ['react'],
-                locals: ['module']
+                superClasses: ['React.Component', 'BaseComponent', 'Component'],
+                transforms: [
+                  {
+                    transform: 'react-transform-hmr',
+                    imports: ['react'],
+                    locals: ['module']
+                  }
+                ]
               }
             ]
-          }
-        ]
-      ]
-    }
-  }
-)
+          ]
+        }
+      }
+    ]
+  },
 
-config.plugins.push(
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin()
-)
-
-config.devtool = 'eval-source-map'
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ]
+})
 
 console.log('Webpack HOT dev build for Rails') // eslint-disable-line no-console
-
-module.exports = config

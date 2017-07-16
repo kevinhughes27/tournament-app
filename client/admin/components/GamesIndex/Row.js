@@ -1,10 +1,10 @@
 import React from 'react'
 import {Collapse} from 'react-bootstrap'
 import classNames from 'classnames'
-import ScoreReports from './score_reports'
-import ScoreDispute from './score_dispute'
-import UpdateScoreModal from './update_score_modal'
-import GamesStore from '../stores/games_store'
+import ScoreReports from './ScoreReports'
+import ScoreDispute from './ScoreDispute'
+import UpdateScoreModal from './UpdateScoreModal'
+import GamesStore from '../../stores/GamesStore'
 
 export class NameCell extends React.Component {
   constructor (props) {

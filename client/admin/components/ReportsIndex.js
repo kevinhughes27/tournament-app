@@ -1,7 +1,7 @@
-import IndexBase from './index_base'
-import FilterBar from './filter_bar'
-import filterFunction from '../modules/filter_function'
-import ReportsStore from '../stores/reports_store'
+import IndexBase from './IndexBase'
+import FilterBar from './FilterBar'
+import filterFunction from '../modules/FilterFunction'
+import ReportsStore from '../stores/ReportsStore'
 
 class ReportsIndex extends IndexBase {
   constructor (props) {

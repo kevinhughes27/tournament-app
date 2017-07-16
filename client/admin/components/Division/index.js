@@ -9,8 +9,8 @@ import _keys from 'lodash/keys'
 
 import React from 'react'
 
-import Pool from './pool'
-import BracketVis from '../modules/bracket_vis'
+import Pool from './Pool'
+import BracketVis from './BracketVis'
 
 class Division extends React.Component {
   constructor (props) {

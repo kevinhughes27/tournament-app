@@ -1,9 +1,9 @@
 import React from 'react'
-import IndexBase from './index_base'
-import LinkCell from './link_cell'
-import TeamsFilterBar from './teams_filter_bar'
-import filterFunction from '../modules/filter_function'
-import TeamsStore from '../stores/teams_store'
+import IndexBase from './IndexBase'
+import LinkCell from './LinkCell'
+import TeamsFilterBar from './TeamsFilterBar'
+import filterFunction from '../modules/FilterFunction'
+import TeamsStore from '../stores/TeamsStore'
 
 class TeamsIndex extends IndexBase {
   constructor (props) {

@@ -28,6 +28,7 @@ namespace :admin do
 
   get '/schedule', to: 'schedule#index'
   post '/schedule', to: 'schedule#update'
+  delete '/schedule', to: 'schedule#destroy'
 
   resources :games, only: [:index, :update]
 
