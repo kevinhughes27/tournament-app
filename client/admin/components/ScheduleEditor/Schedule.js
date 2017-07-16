@@ -37,7 +37,7 @@ class Schedule extends React.Component {
     const dateString = date.format('LL')
 
     return (
-      <div className='schedule-editor'>
+      <div className='schedule'>
         <div className='form-group' style={{width: '160px'}}>
           <DatePicker
             className='form-control'

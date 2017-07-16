@@ -2,8 +2,8 @@ export const ItemTypes = {
   GAME: 'game'
 }
 
-export const SCHEDULE_START = 9
-export const SCHEDULE_END = 17
+export const SCHEDULE_START = 8
+export const SCHEDULE_END = 18
 export const SCHEDULE_INC = 15 // minutes
 
 export const DIVISION_COLORS = [
