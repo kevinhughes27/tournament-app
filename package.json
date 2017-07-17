@@ -8,9 +8,9 @@
   "scripts": {
     "postinstall": "cd client && yarn install",
     "build:clean": "rm app/assets/webpack/* 2> /dev/null",
-    "build:production": "(cd client && npm run build:production)",
-    "build:dev": "(cd client && npm run build:dev)",
-    "hot-assets": "(cd client && npm run hot-assets)",
+    "build:production": "(cd client && yarn run build:production)",
+    "build:dev": "(cd client && yarn run build:dev)",
+    "hot-assets": "(cd client && yarn run hot-assets)",
     "dev": "foreman start -f Procfile.hot -p 3000"
   },
   "dependencies": {
