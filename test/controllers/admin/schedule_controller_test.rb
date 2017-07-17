@@ -41,7 +41,7 @@ class Admin::ScheduleControllerTest < ActionController::TestCase
   end
 
   test "update schedule 422" do
-    params = {game_id: game.id, field_id: 'wat', start_time: Time.now}s
+    params = {game_id: game.id, field_id: 'wat', start_time: Time.now}
 
     put :update, params: params
 
