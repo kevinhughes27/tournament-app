@@ -3,12 +3,12 @@ require 'test_helper'
 module BulkActions
   class SetTeamsDivisionTest < ActiveSupport::TestCase
     setup do
-      @tournament = tournaments(:noborders)
-      @division = divisions(:women)
+      @tournament = FactoryGirl.create(:tournament)
+      @division = FactoryGirl.create(:division)
     end
 
     test "assigns teams to divisions" do
-      team = teams(:the_forgotten)
+      team = FactoryGirl.create(:team)
 
       action = SetTeamsDivision.new(
         tournament_id: @tournament.id,
@@ -25,7 +25,8 @@ module BulkActions
     end
 
     test "fails if it is not safe to change divisions" do
-      team = teams(:swift)
+      team = FactoryGirl.create(:team)
+      FactoryGirl.create(:game, :finished, home: team)
 
       action = SetTeamsDivision.new(
         tournament_id: @tournament.id,

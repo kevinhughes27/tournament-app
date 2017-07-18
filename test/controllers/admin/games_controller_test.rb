@@ -37,9 +37,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update a games score (unsafe)" do
-    division = FactoryGirl.create(:division)
-    game1 = FactoryGirl.create(:finished_game, division: division)
-    game2 = FactoryGirl.create(:finished_game, division: division, home_prereq: "W#{game1.bracket_uid}")
+    game1 = FactoryGirl.create(:game, :finished)
+    game2 = FactoryGirl.create(:game, :finished, home_prereq: "W#{game1.bracket_uid}")
 
     put :update, params: {
       id: game1.id,
@@ -51,9 +50,8 @@ class Admin::GamesControllerTest < ActionController::TestCase
   end
 
   test "update a games score (unsafe) + force" do
-    division = FactoryGirl.create(:division)
-    game1 = FactoryGirl.create(:finished_game, division: division)
-    game2 = FactoryGirl.create(:finished_game, division: division, home_prereq: "W#{game1.bracket_uid}")
+    game1 = FactoryGirl.create(:game, :finished)
+    game2 = FactoryGirl.create(:game, :finished, home_prereq: "W#{game1.bracket_uid}")
 
     new_home_score = game1.away_score
     new_away_score = game1.home_score

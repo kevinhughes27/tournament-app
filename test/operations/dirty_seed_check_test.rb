@@ -1,17 +1,18 @@
 require 'test_helper'
 
 class DirtySeedCheckTest < ActiveSupport::TestCase
-  include ActiveJob::TestHelper
-
   setup do
-    @tournament = tournaments(:noborders)
-    @division = divisions(:open)
-    @teams = @division.teams.order(:seed)
+    @tournament = FactoryGirl.create(:tournament)
   end
 
   test "perform" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
+    division = DivisionCreate.perform(@tournament,
+      FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    )
+
+    teams = (1..8).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     refute division.seeded?
     assert DirtySeedCheck.perform(division)
@@ -28,8 +29,13 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
   end
 
   test "perform with pool" do
-    division = create_division(bracket_type: 'USAU 8.1')
-    @teams.update_all(division_id: division.id)
+    division = DivisionCreate.perform(@tournament,
+      FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
+    )
+
+    teams = (1..8).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     refute division.seeded?
     assert DirtySeedCheck.perform(division)

@@ -105,7 +105,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   test "not allowed to update team with unsafe params" do
     division = FactoryGirl.create(:division)
     team = FactoryGirl.create(:team, division: division)
-    FactoryGirl.create(:finished_game, division: division, home: team)
+    FactoryGirl.create(:z, division: division, home: team)
 
     params = safe_update_params
     params[:seed] = 3
@@ -149,7 +149,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   test "delete a team not allowed if division has any scores" do
     division = FactoryGirl.create(:division)
     team = FactoryGirl.create(:team, division: division)
-    FactoryGirl.create(:finished_game, division: division, home: team)
+    FactoryGirl.create(:game, :finished, division: division, home: team)
 
     assert_no_difference "Team.count" do
       delete :destroy, params: { id: team.id }

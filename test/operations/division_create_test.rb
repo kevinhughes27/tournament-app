@@ -2,28 +2,38 @@ require 'test_helper'
 
 class DivisionCreateTest < ActiveSupport::TestCase
   setup do
-    @tournament = tournaments(:noborders)
-    @division = divisions(:open)
+    @tournament = FactoryGirl.create(:tournament)
   end
 
   test "division creates all required games" do
     type = 'single_elimination_4'
+
     assert_difference "Game.count", +4 do
-      create_division(bracket_type: type)
+      DivisionCreate.perform(
+        @tournament,
+        FactoryGirl.attributes_for(:division, bracket_type: type)
+      )
     end
   end
 
   test "division creates all required places" do
     type = 'single_elimination_4'
+
     assert_difference "Place.count", +4 do
-      create_division(bracket_type: type)
+      DivisionCreate.perform(
+        @tournament,
+        FactoryGirl.attributes_for(:division, bracket_type: type)
+      )
     end
   end
 
   test "creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
 
-    create_division(bracket_type: type)
+    DivisionCreate.perform(
+      @tournament,
+      FactoryGirl.attributes_for(:division, bracket_type: type)
+    )
 
     template = Bracket.find_by(handle: type).template
     template_game = template[:games].first
@@ -37,7 +47,10 @@ class DivisionCreateTest < ActiveSupport::TestCase
   test "creates places as spec'd by the bracket template" do
     type = 'single_elimination_8'
 
-    create_division(bracket_type: type)
+    DivisionCreate.perform(
+      @tournament,
+      FactoryGirl.attributes_for(:division, bracket_type: type)
+    )
 
     template = Bracket.find_by(handle: type).template
     template_place = template[:places].first

@@ -2,11 +2,8 @@ require 'test_helper'
 
 class FieldDeleteTest < ActiveSupport::TestCase
   test "deleting a field unschedules any games from that field" do
-    field = fields(:upi1)
-    game = games(:swift_goose)
-
-    assert_equal field, game.field
-    assert game.start_time
+    field = FactoryGirl.create(:field)
+    game = FactoryGirl.create(:scheduled_game, field: field)
 
     FieldDelete.perform(field, 'true')
 

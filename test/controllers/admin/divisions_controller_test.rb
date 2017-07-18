@@ -73,7 +73,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
   test "update a division (unsafe)" do
     division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:finished_game, division: division)
+    game = FactoryGirl.create(:game, :finished, division: division)
 
     params = division_params.merge(bracket_type: 'single_elimination_4')
     put :update, params: { id: division.id, division: params }
@@ -112,7 +112,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
   test "unsafe delete a division needs confirm" do
     division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:finished_game, division: division)
+    game = FactoryGirl.create(:game, :finished, division: division)
 
     assert_no_difference "Division.count" do
       delete :destroy, params: { id: division.id }
@@ -123,7 +123,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
 
   test "confirm delete a division" do
     division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:finished_game, division: division)
+    game = FactoryGirl.create(:game, :finished, division: division)
 
     assert_difference "Division.count", -1 do
       delete :destroy, params: { id: division.id, confirm: 'true' }
@@ -210,7 +210,7 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
       FactoryGirl.create(:team, division: division, seed: seed)
     end
 
-    FactoryGirl.create(:finished_game, division: division, home: teams.first)
+    FactoryGirl.create(:game, :finished, division: division, home: teams.first)
 
     assert division.teams.any?{ |t| !t.allow_change? }
 

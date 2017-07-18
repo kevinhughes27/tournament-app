@@ -66,7 +66,7 @@ class TeamTest < ActiveSupport::TestCase
   test "allow_change? is false for a team with games" do
     division = FactoryGirl.create(:division)
     team = FactoryGirl.create(:team, division: division)
-    game = FactoryGirl.create(:finished_game, division: division, score_confirmed: true)
+    game = FactoryGirl.create(:game, :finished, division: division)
 
     refute team.allow_change?
   end

@@ -9,6 +9,7 @@ class DivisionCreate < ApplicationOperation
     fail unless division.persisted?
     create_games
     create_places
+    division
   end
 
   private

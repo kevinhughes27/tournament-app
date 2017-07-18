@@ -1,86 +1,65 @@
 require 'test_helper'
 
 class SafeToUpdateScoreCheckTest < ActiveJob::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-    @division = divisions(:open)
-    @home = teams(:swift)
-    @away = teams(:goose)
-    @game = games(:swift_goose)
-  end
-
   test "safe if pool is not finished" do
-    @game.update_columns(pool: 'A', score_confirmed: false)
+    game1 = FactoryGirl.create(:pool_game, pool: 'A')
+    game2 = FactoryGirl.create(:game, home_prereq: 'A1')
 
     assert SafeToUpdateScoreCheck.perform(
-      game: @game,
-      home_score: @game.away_score,
-      away_score: @game.home_score
-    ), 'expected update to be safe'
-  end
-
-  test "unsafe if pool is finished and results change" do
-    @game.update_columns(pool: 'A', score_confirmed: true)
-    create_pool_place(@game.home, 1)
-    create_pool_place(@game.away, 2)
-
-    assert @game.division.games.where(pool: 'A').all? { |g| g.confirmed? },
-           'all pool games need to be confirmed for this test to be correct'
-
-    refute SafeToUpdateScoreCheck.perform(
-      game: @game,
-      home_score: @game.away_score,
-      away_score: @game.home_score
-    ), 'expected update to be unsafe'
-  end
-
-  test "safe if pool is finished but results are not changed" do
-    @game.update_columns(pool: 'A', score_confirmed: true)
-    create_pool_place(@game.home, 1)
-    create_pool_place(@game.away, 2)
-
-    assert @game.division.games.where(pool: 'A').all? { |g| g.confirmed? },
-           'all pool games need to be confirmed for this test to be correct'
-
-    assert SafeToUpdateScoreCheck.perform(
-      game: @game,
-      home_score: @game.home_score + 1,
-      away_score: @game.away_score
+      game: game1,
+      home_score: 2,
+      away_score: 1
     ), 'expected update to be safe'
   end
 
   test "safe if pool results change but bracket hasn't started" do
-    @game.update_columns(pool: 'A', round: nil)
-    games(:pheonix_mavericks).update_column(:score_confirmed, false)
+    game1 = FactoryGirl.create(:pool_game, :finished, pool: 'A')
+    game2 = FactoryGirl.create(:game, home_prereq: 'A1')
 
     assert SafeToUpdateScoreCheck.perform(
-      game: @game,
-      home_score: @game.away_score,
-      away_score: @game.home_score
+      game: game1,
+      home_score: game1.away_score,
+      away_score: game1.home_score
     ), 'expected update to be safe'
   end
 
+  test "safe if pool is finished but results are not changed zzz" do
+    game1 = FactoryGirl.create(:pool_game, :finished, pool: 'A')
+    game2 = FactoryGirl.create(:game, :finished, home_prereq: 'A1')
+    FactoryGirl.create(:pool_result, team: game1.home, position: 1)
+    FactoryGirl.create(:pool_result, team: game1.away, position: 2)
+
+    assert SafeToUpdateScoreCheck.perform(
+      game: game1,
+      home_score: game1.home_score + 1,
+      away_score: game1.away_score + 1
+    ), 'expected update to be safe'
+  end
+
+  test "unsafe if pool is finished and results change" do
+    game1 = FactoryGirl.create(:pool_game, :finished, pool: 'A')
+    game2 = FactoryGirl.create(:game, :finished, home_prereq: 'A1')
+    FactoryGirl.create(:pool_result, team: game1.home, position: 1)
+    FactoryGirl.create(:pool_result, team: game1.away, position: 2)
+
+    refute SafeToUpdateScoreCheck.perform(
+      game: game1,
+      home_score: 1,
+      away_score: 2
+    ), 'expected update to be unsafe'
+  end
+
   test "unsafe if dependent games are scored" do
-    game1 = Game.create!(
-      tournament: @tournament,
-      division: @division,
+    game1 = FactoryGirl.create(:game,
       round: 1,
       bracket_uid: 'q1',
-      home_prereq: '1',
-      away_prereq: '2',
-      home: @home,
-      away: @away,
       home_score: 15,
       away_score: 11
     )
 
-    game2 = Game.create!(
-      tournament: @tournament,
-      division: @division,
+    game2 = FactoryGirl.create(:game,
       round: 2,
-      bracket_uid: 's1',
       home_prereq: 'Wq1',
-      away_prereq: 'Wq2'
     )
 
     assert SafeToUpdateScoreCheck.perform(
@@ -99,26 +78,16 @@ class SafeToUpdateScoreCheckTest < ActiveJob::TestCase
   end
 
   test "safe if winner doesn't change but dependent games are scored" do
-    game1 = Game.create!(
-      tournament: @tournament,
-      division: @division,
+    game1 = FactoryGirl.create(:game,
       round: 1,
       bracket_uid: 'q1',
-      home_prereq: '1',
-      away_prereq: '2',
-      home: @home,
-      away: @away,
       home_score: 15,
-      away_score: 11,
+      away_score: 11
     )
 
-    game2 = Game.create!(
-      tournament: @tournament,
-      division: @division,
+    game2 = FactoryGirl.create(:game,
       round: 2,
-      bracket_uid: 's1',
       home_prereq: 'Wq1',
-      away_prereq: 'Wq2'
     )
 
     assert SafeToUpdateScoreCheck.perform(
@@ -134,19 +103,5 @@ class SafeToUpdateScoreCheckTest < ActiveJob::TestCase
       home_score: game1.home_score,
       away_score: game1.away_score
     ), 'expected update to be safe'
-  end
-
-  private
-
-  def create_pool_place(team, position)
-    PoolResult.create!(
-      tournament_id: @tournament.id,
-      division_id: @division.id,
-      pool: 'A',
-      position: position,
-      team: team,
-      wins: 2,
-      points: 15
-    )
   end
 end
