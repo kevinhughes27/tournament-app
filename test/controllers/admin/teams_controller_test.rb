@@ -105,7 +105,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   test "not allowed to update team with unsafe params" do
     division = FactoryGirl.create(:division)
     team = FactoryGirl.create(:team, division: division)
-    FactoryGirl.create(:z, division: division, home: team)
+    FactoryGirl.create(:game, division: division, home: team)
 
     params = safe_update_params
     params[:seed] = 3
