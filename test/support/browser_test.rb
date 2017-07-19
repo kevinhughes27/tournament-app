@@ -50,7 +50,8 @@ class BrowserTest < ActiveSupport::TestCase
   end
 
   def screenshot_path(name)
-    "tmp/#{name}.png"
+    screenshot_file = "#{name}.png"
+    File.join(Rails.root, 'tmp', 'capybara', screenshot_file)
   end
 
   def wait_for_ajax
