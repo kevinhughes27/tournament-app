@@ -106,6 +106,7 @@ group :test do
   gem 'timecop'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
   gem 'nokogiri'
   gem 'launchy'
   gem 'simplecov', :require => false

@@ -1,6 +1,14 @@
 require "test_helper"
 
 class AppBrowserTest < BrowserTest
+  setup do
+    @tournament = FactoryGirl.create(:tournament, handle: 'no-borders')
+    @map = FactoryGirl.create(:map, tournament: @tournament)
+    @team = FactoryGirl.create(:team, name: 'Swift')
+    @game1 = FactoryGirl.create(:scheduled_game, home: @team)
+    @game2 = FactoryGirl.create(:scheduled_game)
+  end
+
   test "drawer is closed" do
     visit("http://no-borders.#{Settings.domain}/")
     refute page.find("#drawer")[:class].include?("active"), 'Drawer is open'
@@ -22,16 +30,16 @@ class AppBrowserTest < BrowserTest
 
     within("#schedule-screen") do
       # all games shown prior to search
-      refute page.find("#game-#{games(:swift_goose).id}")[:class].include?("hide")
-      refute page.find("#game-#{games(:pheonix_mavericks).id}")[:class].include?("hide")
+      refute page.find("#game-#{@game1.id}")[:class].include?("hide")
+      refute page.find("#game-#{@game2.id}")[:class].include?("hide")
 
       # perform the search
       find(".team-search input").native.send_keys('S', 'w', 'i')
       find(".team-search li").click
 
       # only matched games shown after search
-      refute page.find("#game-#{games(:swift_goose).id}")[:class].include?("hide")
-      assert page.find("#game-#{games(:pheonix_mavericks).id}")[:class].include?("hide")
+      refute page.find("#game-#{@game1.id}")[:class].include?("hide")
+      assert page.find("#game-#{@game2.id}")[:class].include?("hide")
     end
   end
 
@@ -49,11 +57,11 @@ class AppBrowserTest < BrowserTest
       find(".team-search li").click
 
       # only matched games are visible
-      refute page.find("#game-#{games(:swift_goose).id}")[:class].include?("hide")
-      assert page.find("#game-#{games(:pheonix_mavericks).id}")[:class].include?("hide")
+      refute page.find("#game-#{@game1.id}")[:class].include?("hide")
+      assert page.find("#game-#{@game2.id}")[:class].include?("hide")
 
       # pick game
-      find("#game-#{games(:swift_goose).id} a").click
+      find("#game-#{@game1.id} a").click
     end
 
     assert page.find("#submit-score-form")[:class].include?("active")
@@ -75,7 +83,7 @@ class AppBrowserTest < BrowserTest
 
     report = ScoreReport.last
     assert_equal 'Swift', report.team.name
-    assert_equal games(:swift_goose), report.game
+    assert_equal @game1, report.game
     assert_equal 15, report.team_score
     assert_equal 11, report.opponent_score
     assert report.submitter_fingerprint

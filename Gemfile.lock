@@ -131,6 +131,7 @@ GEM
       activesupport (>= 3.0)
       deep_merge (~> 1.1.1)
     connection_pool (2.2.1)
+    database_cleaner (1.5.3)
     date_validator (0.9.0)
       activemodel
       activesupport
@@ -398,6 +399,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   composable_operations
   config
+  database_cleaner
   date_validator
   devise (~> 4.3.0)
   dotenv-rails
