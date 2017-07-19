@@ -5,8 +5,9 @@ class BracketSimulationTest < ActiveSupport::TestCase
   MAX_SIMULATION_TIME = 10
 
   setup do
-    @tournament = tournaments(:blank_slate_tournament)
-    @user = users(:bob)
+    @tournament = FactoryGirl.create(:tournament)
+    @user = FactoryGirl.create(:user)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
   Bracket.all.each do |bracket|
@@ -26,30 +27,16 @@ class BracketSimulationTest < ActiveSupport::TestCase
 
   private
 
+  def create_division(bracket_type:)
+    DivisionCreate.perform(@tournament, FactoryGirl.attributes_for(:division, bracket_type: bracket_type))
+  end
+
   def create_teams
     n = division.bracket.num_teams
-    n.times do |idx|
-      create_team_with_retry(idx+1)
-    end
-  end
 
-  def create_team_with_retry(seed)
-    3.times do
-      begin
-        create_team(seed)
-        break
-      rescue ActiveRecord::RecordInvalid
-      end
+    (1..n).map do |seed|
+      FactoryGirl.create(:team, division: division, name: "Team #{seed}", seed: seed)
     end
-  end
-
-  def create_team(seed)
-    Team.create!(
-      name: Faker::Team.name,
-      tournament_id: tournament.id,
-      division_id: division.id,
-      seed: seed
-    )
   end
 
   def seed_division(division)
