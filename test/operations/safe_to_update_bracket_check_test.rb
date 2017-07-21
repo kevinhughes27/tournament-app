@@ -9,7 +9,7 @@ class SafeToUpdateBracketCheckTest < ActiveJob::TestCase
   end
 
   test "unsafe if games are scheduled" do
-    division = FactoryGirl.create(:scheduled_game).division
+    division = FactoryGirl.create(:game, :scheduled).division
     check = SafeToUpdateBracketCheck.new(division)
     check.perform
     refute check.succeeded?

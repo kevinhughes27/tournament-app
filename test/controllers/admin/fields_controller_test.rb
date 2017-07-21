@@ -85,7 +85,7 @@ class Admin::FieldsControllerTest < AdminControllerTestCase
 
   test "delete a field needs confirm" do
     field = FactoryGirl.create(:field)
-    FactoryGirl.create(:scheduled_game, field: field)
+    FactoryGirl.create(:game, :scheduled, field: field)
 
     assert_no_difference "Field.count" do
       delete :destroy, params: { id: field.id }
@@ -96,7 +96,7 @@ class Admin::FieldsControllerTest < AdminControllerTestCase
 
   test "confirm delete a field" do
     field = FactoryGirl.create(:field)
-    FactoryGirl.create(:scheduled_game, field: field)
+    FactoryGirl.create(:game, :scheduled, field: field)
 
     assert_difference "Field.count", -1 do
       delete :destroy, params: { id: field.id, confirm: 'true' }

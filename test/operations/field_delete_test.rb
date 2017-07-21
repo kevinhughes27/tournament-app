@@ -3,7 +3,7 @@ require 'test_helper'
 class FieldDeleteTest < ActiveSupport::TestCase
   test "deleting a field unschedules any games from that field" do
     field = FactoryGirl.create(:field)
-    game = FactoryGirl.create(:scheduled_game, field: field)
+    game = FactoryGirl.create(:game, :scheduled, field: field)
 
     FieldDelete.perform(field, 'true')
 

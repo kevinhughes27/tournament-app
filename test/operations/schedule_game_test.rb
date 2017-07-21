@@ -8,7 +8,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "checks for home team time conflicts" do
-    game = FactoryGirl.create(:scheduled_game, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled)
     new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
 
     schedule = ScheduleGame.new(new_game, @free_field.id, game.start_time)
@@ -19,7 +19,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "finds home team time conflicts in games when the team is the away team in another game" do
-    game = FactoryGirl.create(:scheduled_game, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled)
     new_game = FactoryGirl.create(:game, away_prereq: game.home_prereq)
 
     schedule = ScheduleGame.new(new_game, @free_field.id, game.start_time)
@@ -30,7 +30,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "checks for home team time conflicts (uses uid if required)" do
-    game = FactoryGirl.create(:scheduled_game, home: nil, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled, home: nil)
     new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
 
     schedule = ScheduleGame.new(new_game, @free_field.id, game.start_time)
@@ -41,7 +41,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "checks for away team time conflicts" do
-    game = FactoryGirl.create(:scheduled_game, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled)
     new_game = FactoryGirl.create(:game, away_prereq: game.away_prereq)
 
     schedule = ScheduleGame.new(new_game, @free_field.id, game.start_time)
@@ -52,7 +52,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "finds away team time conflicts when the team is the home team in another game" do
-    game = FactoryGirl.create(:scheduled_game, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled)
     new_game = FactoryGirl.create(:game, home_prereq: game.away_prereq)
 
     schedule = ScheduleGame.new(new_game, @free_field.id, game.start_time)
@@ -63,7 +63,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "checks for away team time conflicts (uses uid if required)" do
-    game = FactoryGirl.create(:scheduled_game, away: nil, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled, away: nil)
     new_game = FactoryGirl.create(:game, away_prereq: game.away_prereq)
 
     schedule = ScheduleGame.new(new_game, @free_field.id, game.start_time)
@@ -74,7 +74,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "team time conflicts must be same division" do
-    game = FactoryGirl.create(:scheduled_game, away: nil, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled, away: nil)
     new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq, division: FactoryGirl.create(:division))
 
     schedule = ScheduleGame.new(new_game, @free_field.id, game.start_time)
@@ -84,7 +84,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "checks for field conflicts" do
-    game = FactoryGirl.create(:scheduled_game, away: nil, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled, away: nil)
     new_game = FactoryGirl.create(:game, field: game.field, start_time: game.start_time)
 
     schedule = ScheduleGame.new(new_game, game.field_id, game.start_time)
@@ -95,7 +95,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "field conflict check works with timecap increments" do
-    game = FactoryGirl.create(:scheduled_game, away: nil, start_time: '2015-06-06 12:06:53')
+    game = FactoryGirl.create(:game, :scheduled, away: nil)
     new_game = FactoryGirl.create(:game)
     start_time = game.start_time + @tournament.time_cap.minutes
 
@@ -107,7 +107,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
 
   test "games checks for schedule order conflicts (dependent game)" do
     game1 = FactoryGirl.create(:game, bracket_uid: 'a')
-    game2 = FactoryGirl.create(:scheduled_game, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
+    game2 = FactoryGirl.create(:game, :scheduled, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
 
     schedule = ScheduleGame.new(game1, @free_field.id, game2.start_time)
     schedule.perform
@@ -117,7 +117,7 @@ class ScheduleGameTest < ActiveSupport::TestCase
   end
 
   test "games checks for schedule order conflicts (prerequisite game)" do
-    game1 = FactoryGirl.create(:scheduled_game, bracket_uid: 'a')
+    game1 = FactoryGirl.create(:game, :scheduled, bracket_uid: 'a')
     game2 = FactoryGirl.create(:game, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
 
     schedule = ScheduleGame.new(game2, @free_field.id, game1.start_time)

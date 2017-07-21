@@ -5,8 +5,8 @@ class AppBrowserTest < BrowserTestCase
     @tournament = FactoryGirl.create(:tournament, handle: 'no-borders')
     @map = FactoryGirl.create(:map, tournament: @tournament)
     @team = FactoryGirl.create(:team, name: 'Swift')
-    @game1 = FactoryGirl.create(:scheduled_game, home: @team)
-    @game2 = FactoryGirl.create(:scheduled_game)
+    @game1 = FactoryGirl.create(:game, :scheduled, home: @team)
+    @game2 = FactoryGirl.create(:game, :scheduled)
   end
 
   test "drawer is closed" do
