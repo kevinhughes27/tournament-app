@@ -1,17 +1,9 @@
 require 'test_helper'
 
-class Admin::BulkActionsControllerTest < ActionController::TestCase
+class Admin::BulkActionsControllerTest < AdminControllerTestCase
   class BulkActions::TestAction
     def initialize(args)
     end
-  end
-
-  setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
-    set_tournament(@tournament)
-    sign_in @user
   end
 
   test "performs the action" do

@@ -1,14 +1,6 @@
 require 'test_helper'
 
-class Admin::ScheduleControllerTest < ActionController::TestCase
-  setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
-    set_tournament(@tournament)
-    sign_in @user
-  end
-
+class Admin::ScheduleControllerTest < AdminControllerTestCase
   test "should get index" do
     FactoryGirl.create(:scheduled_game)
     get :index

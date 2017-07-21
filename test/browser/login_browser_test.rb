@@ -1,6 +1,6 @@
 require "test_helper"
 
-class LoginBrowserTest < BrowserTest
+class LoginBrowserTest < BrowserTestCase
   setup do
     @user = FactoryGirl.create(:user)
     @tournament = FactoryGirl.create(:tournament, handle: 'no-borders')

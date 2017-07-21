@@ -31,11 +31,12 @@ Capybara.configure do |config|
   config.always_include_port = true
 end
 
-class BrowserTest < ActiveSupport::TestCase
+class BrowserTestCase < ActiveSupport::TestCase
   include Capybara::DSL
   self.use_transactional_tests = false
 
   setup do
+    ReactOnRails::TestHelper.ensure_assets_compiled
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
   end
