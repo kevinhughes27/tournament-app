@@ -5,6 +5,7 @@ class LoginTest < ActionDispatch::IntegrationTest
     @user = FactoryGirl.create(:user)
     @tournament = FactoryGirl.create(:tournament)
     FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    ReactOnRails::TestHelper.ensure_assets_compiled
   end
 
   test "tournament login" do
