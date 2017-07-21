@@ -1,10 +1,4 @@
 class ActiveSupport::TestCase
-  fixtures :all
-
-  setup do
-    ReactOnRails::TestHelper.ensure_assets_compiled
-  end
-
   def stub_constant(mod, const, value)
     original = mod.const_get(const)
 

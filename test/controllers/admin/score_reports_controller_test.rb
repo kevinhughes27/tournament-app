@@ -1,13 +1,8 @@
 require 'test_helper'
 
-class Admin::ScoreReportsControllerTest < ActionController::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-    set_tournament(@tournament)
-    sign_in users(:kevin)
-  end
-
+class Admin::ScoreReportsControllerTest < AdminControllerTestCase
   test "get index" do
+    FactoryGirl.create(:score_report)
     get :index
     assert_response :success
   end

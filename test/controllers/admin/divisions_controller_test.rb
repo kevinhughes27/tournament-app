@@ -1,13 +1,6 @@
 require 'test_helper'
 
-class Admin::DivisionsControllerTest < ActionController::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-    set_tournament(@tournament)
-    @division = divisions(:open)
-    sign_in users(:kevin)
-  end
-
+class Admin::DivisionsControllerTest < AdminControllerTestCase
   test "get new" do
     get :new
     assert_response :success
@@ -15,24 +8,26 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "get show" do
-    get :show, params: { id: @division.id }
+    division = FactoryGirl.create(:division)
+    get :show, params: { id: division.id }
     assert_response :success
     assert_not_nil assigns(:division)
   end
 
   test "get edit" do
-    get :edit, params: { id: @division.id }
+    division = FactoryGirl.create(:division)
+    get :edit, params: { id: division.id }
     assert_response :success
     assert_not_nil assigns(:division)
   end
 
   test "get index" do
+    division = FactoryGirl.create(:division)
     get :index
     assert_response :success
   end
 
   test "blank slate" do
-    @tournament.divisions.destroy_all
     get :index
     assert_response :success
     assert_match 'blank-slate', response.body
@@ -61,66 +56,80 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update a division" do
-    put :update, params: { id: @division.id, division: division_params }
+    division = FactoryGirl.create(:division)
+    put :update, params: { id: division.id, division: division_params }
 
-    assert_redirected_to admin_division_path(@division)
-    assert_equal division_params[:name], @division.reload.name
+    assert_redirected_to admin_division_path(division)
+    assert_equal division_params[:name], division.reload.name
   end
 
   test "update a division (unsafe)" do
+    division = FactoryGirl.create(:division)
+    game = FactoryGirl.create(:game, :finished, division: division)
+
     params = division_params.merge(bracket_type: 'single_elimination_4')
-    put :update, params: { id: @division.id, division: params }
+    put :update, params: { id: division.id, division: params }
 
     assert_response :unprocessable_entity
     assert_template 'admin/divisions/_confirm_update'
   end
 
   test "update a division (unsafe) + confirm" do
+    division = FactoryGirl.create(:division)
     params = division_params.merge(bracket_type: 'single_elimination_4')
-    put :update, params: { id: @division.id, division: params, confirm: 'true' }
+    put :update, params: { id: division.id, division: params, confirm: 'true' }
 
-    assert_redirected_to admin_division_path(@division)
-    assert_equal params[:bracket_type], @division.reload.bracket_type
+    assert_redirected_to admin_division_path(division)
+    assert_equal params[:bracket_type], division.reload.bracket_type
   end
 
   test "update a division with errors" do
+    division = FactoryGirl.create(:division)
     params = division_params
     params.delete(:name)
 
-    put :update, params: { id: @division.id, division: params }
+    put :update, params: { id: division.id, division: params }
 
-    assert_redirected_to admin_division_path(@division)
-    refute_equal division_params[:name], @division.reload.name
+    assert_redirected_to admin_division_path(division)
+    refute_equal division_params[:name], division.reload.name
   end
 
   test "delete a division" do
-    division = divisions(:women)
+    division = FactoryGirl.create(:division)
     assert_difference "Division.count", -1 do
       delete :destroy, params: { id: division.id }
       assert_redirected_to admin_divisions_path
     end
   end
 
-  test "delete a division needs confirm" do
+  test "unsafe delete a division needs confirm" do
+    division = FactoryGirl.create(:division)
+    game = FactoryGirl.create(:game, :finished, division: division)
+
     assert_no_difference "Division.count" do
-      delete :destroy, params: { id: @division.id }
+      delete :destroy, params: { id: division.id }
       assert_response :unprocessable_entity
       assert_template 'admin/divisions/_confirm_delete'
     end
   end
 
   test "confirm delete a division" do
+    division = FactoryGirl.create(:division)
+    game = FactoryGirl.create(:game, :finished, division: division)
+
     assert_difference "Division.count", -1 do
-      delete :destroy, params: { id: @division.id, confirm: 'true' }
+      delete :destroy, params: { id: division.id, confirm: 'true' }
       assert_redirected_to admin_divisions_path
     end
   end
 
   test "update teams and seed" do
-    @teams = @division.teams.order(:seed)
-    teams = @teams.to_a
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    division = DivisionCreate.perform(@tournament, params)
+
+    teams = (1..4).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     team1 = teams.first
     team2 = teams.last
@@ -144,11 +153,12 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "update teams and seed (ids not in order)" do
-    @teams = @division.teams.order(:seed)
-    teams = @teams.to_a
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    division = DivisionCreate.perform(@tournament, params)
 
+    teams = (1..4).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     team1 = teams.first
     team2 = teams.last
@@ -172,9 +182,12 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "seed a division" do
-    @teams = @division.teams.order(:seed)
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    division = DivisionCreate.perform(@tournament, params)
+
+    teams = (1..4).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     post :seed, params: { id: division.id }
     assert_redirected_to admin_division_path(division)
@@ -182,13 +195,22 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "seed (unsafe)" do
-    assert @division.teams.any?{ |t| !t.allow_change? }
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    division = DivisionCreate.perform(@tournament, params)
 
-    team1 = @division.teams.first
-    team2 = @division.teams.last
+    teams = (1..4).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
+
+    FactoryGirl.create(:game, :finished, division: division, home: teams.first)
+
+    assert division.teams.any?{ |t| !t.allow_change? }
+
+    team1 = division.teams.first
+    team2 = division.teams.last
 
     params = {
-      id: @division.id,
+      id: division.id,
       team_ids: [team1.id, team2.id],
       seeds: [team2.seed, team1.seed]
     }
@@ -199,11 +221,12 @@ class Admin::DivisionsControllerTest < ActionController::TestCase
   end
 
   test "seed a division with an error" do
-    @teams = @division.teams.order(:seed)
-    division = create_division(bracket_type: 'single_elimination_8')
-    @teams.update_all(division_id: division.id)
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    division = DivisionCreate.perform(@tournament, params)
 
-    DivisionUpdate.perform(division, { bracket_type: 'single_elimination_4' }, 'true')
+    teams = (1..8).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     post :seed, params: { id: division.id }
     assert_response :success

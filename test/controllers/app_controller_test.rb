@@ -2,7 +2,8 @@ require 'test_helper'
 
 class AppControllerTest < ActionController::TestCase
   setup do
-    @tournament = tournaments(:noborders)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:map, tournament: @tournament)
     set_tournament(@tournament)
   end
 

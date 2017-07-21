@@ -10,6 +10,8 @@ class ScoreReportCreate < ApplicationOperation
     @report = ScoreReport.new(params)
     @game = @report.game
 
+    raise unless valid_submitter?
+
     unless report.save
       @errors = report.errors.full_messages
 
@@ -24,6 +26,10 @@ class ScoreReportCreate < ApplicationOperation
   end
 
   private
+
+  def valid_submitter?
+    game.home == report.team || game.away == report.team
+  end
 
   def notify_other_team
     return if agrees

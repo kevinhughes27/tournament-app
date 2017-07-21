@@ -54,3 +54,12 @@ jobs:
 
       # Run tests
       - run: bundle exec rake ci:all
+
+      # Store Artifacts
+      - store_artifacts:
+          path: ~/ut/tmp/coverage
+          destination: coverage
+
+      - store_artifacts:
+          path: ~/ut/tmp/capybara
+          destination: capybara

@@ -1,19 +1,13 @@
 require 'test_helper'
 
-class Admin::SettingsControllerTest < ActionController::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-    set_tournament(@tournament)
-    @user = users(:kevin)
-    sign_in @user
-  end
-
+class Admin::SettingsControllerTest < AdminControllerTestCase
   test "get settings page" do
     get :show
   end
 
   test "update settings" do
-    params = @tournament.attributes.merge(name: 'Updated Name')
+    params = @tournament.attributes
+    params[:name] = 'Updated Name'
 
     put :update, params: { tournament: params }
     assert_redirected_to admin_settings_url(subdomain: @tournament.handle)
@@ -41,6 +35,12 @@ class Admin::SettingsControllerTest < ActionController::TestCase
   end
 
   test "reset clears data" do
+    FactoryGirl.create(:field)
+    FactoryGirl.create(:team)
+    FactoryGirl.create(:division)
+    FactoryGirl.create(:game)
+    FactoryGirl.create(:score_report)
+
     post :reset_data
     assert_redirected_to admin_settings_path
     assert_equal 'Data reset.', flash[:notice]

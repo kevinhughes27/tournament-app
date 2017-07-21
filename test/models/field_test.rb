@@ -1,32 +1,32 @@
 require 'test_helper'
 
 class FieldTest < ActiveSupport::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-  end
-
   test "safe_to_delete? is true for field with no games" do
-    field = fields(:upi5)
+    field = FactoryGirl.create(:field)
+
     assert field.safe_to_delete?
   end
 
   test "safe_to_delete? is false for field games" do
-    field = fields(:upi1)
+    field = FactoryGirl.create(:field)
+    game = FactoryGirl.create(:game, start_time: Time.now, field: field)
+
     refute field.safe_to_delete?
   end
 
   test "limited number of fields per tournament" do
-    stub_constant(Field, :LIMIT, 2) do
-      field = @tournament.fields.build(name: 'new field')
+    tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:field, tournament: tournament)
+
+    stub_constant(Field, :LIMIT, 1) do
+      field = tournament.fields.build(name: 'new field')
       refute field.valid?
-      assert_equal ['Maximum of 2 fields exceeded'], field.errors[:base]
+      assert_equal ['Maximum of 1 fields exceeded'], field.errors[:base]
     end
   end
 
   test "geo json must be valid json" do
-    params = field_attributes
-    params[:geo_json] = 'not json }'
-
+    params = FactoryGirl.attributes_for(:field, geo_json: 'not json }')
     field = Field.new(params)
 
     refute field.valid?
@@ -34,9 +34,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "lat must be number" do
-    params = field_attributes
-    params[:lat] = 'not number'
-
+    params = FactoryGirl.attributes_for(:field, lat: 'not number')
     field = Field.new(params)
 
     refute field.valid?
@@ -44,9 +42,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "lat must be smaller than 90" do
-    params = field_attributes
-    params[:lat] = 100
-
+    params = FactoryGirl.attributes_for(:field, lat: 100)
     field = Field.new(params)
 
     refute field.valid?
@@ -54,9 +50,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "lat must be greater than -90" do
-    params = field_attributes
-    params[:lat] = -100
-
+    params = FactoryGirl.attributes_for(:field, lat: -100)
     field = Field.new(params)
 
     refute field.valid?
@@ -64,9 +58,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "long must be number" do
-    params = field_attributes
-    params[:long] = 'not number'
-
+    params = FactoryGirl.attributes_for(:field, long: 'not number')
     field = Field.new(params)
 
     refute field.valid?
@@ -74,9 +66,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "long must be smaller than 180" do
-    params = field_attributes
-    params[:long] = 190
-
+    params = FactoryGirl.attributes_for(:field, long: 190)
     field = Field.new(params)
 
     refute field.valid?
@@ -84,9 +74,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "long must be greater than -180" do
-    params = field_attributes
-    params[:long] = -190
-
+    params = FactoryGirl.attributes_for(:field, long: -190)
     field = Field.new(params)
 
     refute field.valid?
@@ -95,36 +83,5 @@ class FieldTest < ActiveSupport::TestCase
 
   test "limit is defined" do
     assert_equal 64, Field::LIMIT
-  end
-
-  private
-
-  def field_attributes
-    {
-      name: 'UPI7',
-      tournament_id: @tournament.id,
-      lat: 45.2442971314328,
-      long: -75.6138271093369,
-      geo_json: geo_json
-    }
-  end
-
-  def geo_json
-    '{
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [-75.61601042747499, 45.24671814226571],
-            [-75.61532378196718, 45.2459627677447],
-            [-75.61486244201662, 45.246189381155695],
-            [-75.61551690101625, 45.24692209166425],
-            [-75.61601042747499, 45.24671814226571]
-          ]
-        ]
-      }
-    }'
   end
 end

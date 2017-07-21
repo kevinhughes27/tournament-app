@@ -2,13 +2,9 @@ require 'test_helper'
 
 class WelcomeEmailsJobTest < ActiveJob::TestCase
   setup do
-    @tournament = tournaments(:blank_slate_tournament)
-    @tournament.update_column(:created_at, 3.days.ago)
-
-    tournaments(:jazz_fest).destroy
-
-    @user = @tournament.owner
-    assert_equal 1, @user.tournaments.count
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament, welcome_email_sent: false, created_at: 3.days.ago)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
   test "sends welcome email to new tournament 2 days after signup" do
@@ -29,7 +25,8 @@ class WelcomeEmailsJobTest < ActiveJob::TestCase
   end
 
   test "doesn't send email if owner has other tournaments that have been welcomed" do
-    TournamentUser.create!(user: @user, tournament: tournaments(:noborders))
+    tournament = FactoryGirl.create(:tournament, welcome_email_sent: true)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: tournament)
     TournamentMailer.expects(:welcome_email).never
     WelcomeEmailsJob.perform_now
   end

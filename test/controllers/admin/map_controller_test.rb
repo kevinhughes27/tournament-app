@@ -1,18 +1,13 @@
 require 'test_helper'
 
-class Admin::MapControllerTest < ActionController::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-    set_tournament(@tournament)
-    @user = users(:kevin)
-    sign_in @user
-  end
-
+class Admin::MapControllerTest < AdminControllerTestCase
   test "get map page" do
+    FactoryGirl.create(:map)
     get :show
   end
 
   test "update map" do
+    FactoryGirl.create(:map)
     put :update, params: { tournament: map_params }
     assert_response :ok
     assert_equal 45, @tournament.map.reload.lat

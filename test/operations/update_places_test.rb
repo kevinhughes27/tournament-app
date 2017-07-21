@@ -2,22 +2,23 @@ require 'test_helper'
 
 class UpdatePlacesTest < ActiveSupport::TestCase
   setup do
-    @tournament = tournaments(:noborders)
-    @division = divisions(:open)
-    @home = teams(:swift)
-    @away = teams(:goose)
+    @tournament = FactoryGirl.create(:tournament)
+    @division = FactoryGirl.create(:division)
+    @home = FactoryGirl.create(:team, division: @division)
+    @away = FactoryGirl.create(:team, division: @division)
   end
 
   test "pushes winner to a place" do
-    game = Game.create!(
-      tournament: @tournament,
+    game = FactoryGirl.create(:game,
       division: @division,
       round: 1,
       bracket_uid: 'q1',
       home_prereq: '1',
       away_prereq: '2',
       home: @home,
-      away: @away
+      away: @away,
+      home_score: 15,
+      away_score: 11
     )
 
     place = Place.create!(
@@ -27,22 +28,22 @@ class UpdatePlacesTest < ActiveSupport::TestCase
       position: 1
     )
 
-    game.update_columns(home_score: 15, away_score: 11)
     UpdatePlaces.perform(game)
 
     assert_equal @home, place.reload.team
   end
 
   test "pushes loser to a place" do
-    game = Game.create!(
-      tournament: @tournament,
+    game = FactoryGirl.create(:game,
       division: @division,
       round: 1,
       bracket_uid: 'q1',
       home_prereq: '1',
       away_prereq: '2',
       home: @home,
-      away: @away
+      away: @away,
+      home_score: 15,
+      away_score: 11
     )
 
     place = Place.create!(
@@ -52,7 +53,6 @@ class UpdatePlacesTest < ActiveSupport::TestCase
       position: 2
     )
 
-    game.update_columns(home_score: 15, away_score: 11)
     UpdatePlaces.perform(game)
 
     assert_equal @away, place.reload.team

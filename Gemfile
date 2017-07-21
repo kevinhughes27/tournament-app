@@ -75,6 +75,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 9.0.6'
+  gem 'factory_girl_rails'
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
@@ -105,6 +106,7 @@ group :test do
   gem 'timecop'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
   gem 'nokogiri'
   gem 'launchy'
   gem 'simplecov', :require => false

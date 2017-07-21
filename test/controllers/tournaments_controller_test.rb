@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TournamentsControllerTest < ActionController::TestCase
   setup do
-    @user = users(:kevin)
+    @user = FactoryGirl.create(:user)
     sign_in @user
   end
 
@@ -19,18 +19,18 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "create a new tournament" do
     assert_difference "Tournament.count" do
-      post :create, params: { tournament: tournament_params }
+      post :create, params: { tournament: FactoryGirl.attributes_for(:tournament) }
     end
   end
 
   test "create a new tournament creates a new TournamentUser" do
     assert_difference "TournamentUser.count" do
-      post :create, params: { tournament: tournament_params }
+      post :create, params: { tournament: FactoryGirl.attributes_for(:tournament) }
     end
   end
 
   test "create a new tournament redirects to builder" do
-    post :create, params: { tournament: tournament_params }
+    post :create, params: { tournament: FactoryGirl.attributes_for(:tournament) }
     tournament = assigns(:tournament)
     assert_redirected_to tournament_build_path(tournament.id, :step1)
   end
@@ -45,17 +45,8 @@ class TournamentsControllerTest < ActionController::TestCase
     TournamentUser.expects(:create!).raises(error)
 
     assert_no_difference "Tournament.count" do
-      post :create, params: { tournament: tournament_params }
+      post :create, params: { tournament: FactoryGirl.attributes_for(:tournament) }
       assert_template :new
     end
-  end
-
-  private
-
-  def tournament_params
-    {
-      name: 'New Tournament',
-      handle: 'new-tournament'
-    }
   end
 end

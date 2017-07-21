@@ -1,14 +1,8 @@
 require 'test_helper'
 
-class Admin::PlayerAppControllerTest < ActionController::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-    set_tournament(@tournament)
-    @user = users(:kevin)
-    sign_in @user
-  end
-
+class Admin::PlayerAppControllerTest < AdminControllerTestCase
   test "get show page" do
+    FactoryGirl.create(:map)
     get :show
     assert_response :ok
   end

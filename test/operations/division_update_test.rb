@@ -2,12 +2,13 @@ require 'test_helper'
 
 class DivisionUpdateTest < ActiveSupport::TestCase
   setup do
-    @tournament = tournaments(:noborders)
-    @division = divisions(:open)
+    @tournament = FactoryGirl.create(:tournament)
   end
 
   test "updating the bracket_type clears the previous games" do
-    division = create_division(bracket_type: 'single_elimination_8')
+    division = DivisionCreate.perform(@tournament,
+      FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    )
     assert_equal 12, division.games.count
 
     DivisionUpdate.perform(division, bracket_type: 'single_elimination_4')
@@ -16,9 +17,13 @@ class DivisionUpdateTest < ActiveSupport::TestCase
   end
 
   test "updating the bracket_type resets seeded status" do
-    teams = @division.teams.order(:seed)
-    division = create_division(bracket_type: 'single_elimination_8')
-    teams.update_all(division_id: division.id)
+    division = DivisionCreate.perform(@tournament,
+      FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    )
+
+    teams = (1..8).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
 
     SeedDivision.perform(division: division)
 
@@ -30,11 +35,13 @@ class DivisionUpdateTest < ActiveSupport::TestCase
   end
 
   test "updating the bracket_type clears the previous places" do
-    division = create_division(bracket_type: 'single_elimination_8')
-    assert_equal 12, division.games.count
+    division = DivisionCreate.perform(@tournament,
+      FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    )
+    assert_equal 8, division.places.count
 
     DivisionUpdate.perform(division, bracket_type: 'single_elimination_4')
 
-    assert_equal 4, division.games.count
+    assert_equal 4, division.places.count
   end
 end

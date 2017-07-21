@@ -1,13 +1,6 @@
 require 'test_helper'
 
-class Admin::AccountControllerTest < ActionController::TestCase
-  setup do
-    @tournament = tournaments(:noborders)
-    set_tournament(@tournament)
-    @user = users(:kevin)
-    sign_in @user
-  end
-
+class Admin::AccountControllerTest < AdminControllerTestCase
   test "get account page" do
     get :show
     assert_response :success

@@ -2,8 +2,10 @@ require 'test_helper'
 
 class LoginTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:bob)
-    @tournament = tournaments(:noborders)
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    ReactOnRails::TestHelper.ensure_assets_compiled
   end
 
   test "tournament login" do
@@ -18,7 +20,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   end
 
   test "admin requires login" do
-    get 'http://no-borders.lvh.me/admin'
+    get "http://#{@tournament.handle}.lvh.me/admin"
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
@@ -30,10 +32,10 @@ class LoginTest < ActionDispatch::IntegrationTest
   end
 
   test "admin requires login and a tournament user" do
-    tournament = tournaments(:jazz_fest)
+    tournament = FactoryGirl.create(:tournament)
     refute tournament.users.find_by(id: @user.id)
 
-    get 'http://jazz-fest.lvh.me/admin'
+    get "http://#{tournament.handle}.lvh.me/admin"
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
@@ -44,7 +46,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   end
 
   test "admin login remembers original request" do
-    get 'http://no-borders.lvh.me/admin/fields'
+    get "http://#{@tournament.handle}.lvh.me/admin/fields"
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path

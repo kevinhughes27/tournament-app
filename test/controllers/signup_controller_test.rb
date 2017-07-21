@@ -13,8 +13,9 @@ class SignupControllerTest < ActionController::TestCase
   end
 
   test "signup create with errors" do
-    user = users(:kevin)
-    post :create, params: { user: {email: user.email, password: 'password'} }, format: :json
+    user = FactoryGirl.create(:user)
+    params = { user: { email: user.email, password: user.password }}
+    post :create, params: params, format: :json
     assert_response :unprocessable_entity
     assert_equal ['has already been taken'], response_json['errors']['email']
   end

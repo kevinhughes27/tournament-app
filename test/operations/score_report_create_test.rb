@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ScoreReportCreateTest < ActiveSupport::TestCase
   setup do
-    @tournament = tournaments(:noborders)
-    @game = games(:pheonix_mavericks)
+    @tournament = FactoryGirl.create(:tournament)
+    @game = FactoryGirl.create(:game, :finished)
   end
 
   test "creating a score report mails the other team" do

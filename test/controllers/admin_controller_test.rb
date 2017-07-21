@@ -19,9 +19,10 @@ end
 class Admin::TestCaseControllerTest < ActionController::TestCase
 
   setup do
-    @tournament = tournaments(:noborders)
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
     set_tournament(@tournament)
-    @user = users(:kevin)
   end
 
   test "admin requires login" do

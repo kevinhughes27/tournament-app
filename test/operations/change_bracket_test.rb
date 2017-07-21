@@ -2,8 +2,9 @@ require 'test_helper'
 
 class ChangeBracketTest < ActiveSupport::TestCase
   setup do
-    @tournament = tournaments(:noborders)
-    @division = divisions(:open)
+    @tournament = FactoryGirl.create(:tournament)
+    @division = FactoryGirl.create(:division)
+    @field = FactoryGirl.create(:field)
   end
 
   test "re-creates games as spec'd by the bracket template" do
@@ -29,8 +30,6 @@ class ChangeBracketTest < ActiveSupport::TestCase
     template = Bracket.find_by(handle: type).template
     template_game = template[:games].first
 
-    field = fields(:upi1)
-
     game = Game.from_template(
       tournament_id: @tournament.id,
       division_id: @division.id,
@@ -38,7 +37,7 @@ class ChangeBracketTest < ActiveSupport::TestCase
     )
     game.save!
 
-    game.update_columns(field_id: field.id)
+    game.update_columns(field_id: @field.id)
 
     ChangeBracket.perform(
       tournament_id: @tournament.id,
@@ -47,6 +46,6 @@ class ChangeBracketTest < ActiveSupport::TestCase
     )
 
     game.reload
-    assert_equal field, game.field
+    assert_equal @field, game.field
   end
 end

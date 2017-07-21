@@ -31,22 +31,28 @@ Capybara.configure do |config|
   config.always_include_port = true
 end
 
-class BrowserTest < ActiveSupport::TestCase
+class BrowserTestCase < ActiveSupport::TestCase
   include Capybara::DSL
+  self.use_transactional_tests = false
 
   setup do
-    @user = users(:kevin)
-    @tournament = tournaments(:noborders)
+    ReactOnRails::TestHelper.ensure_assets_compiled
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.start
   end
 
   teardown do
+    DatabaseCleaner.clean
+
     path = screenshot_path(method_name)
     page.save_screenshot(path) unless passed?
+
     Capybara.reset_sessions!
   end
 
   def screenshot_path(name)
-    "tmp/#{name}.png"
+    screenshot_file = "#{name}.png"
+    File.join(Rails.root, 'tmp', 'capybara', screenshot_file)
   end
 
   def wait_for_ajax

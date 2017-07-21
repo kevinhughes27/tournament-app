@@ -2,9 +2,12 @@ require 'test_helper'
 
 class PasswordsControllerTest < ActionController::TestCase
   setup do
-    @user = users(:kevin)
-    @tournament = tournaments(:noborders)
+    @user = FactoryGirl.create(:user)
+    @tournament = FactoryGirl.create(:tournament)
+    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+
     set_tournament(@tournament)
+
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
@@ -25,13 +28,15 @@ class PasswordsControllerTest < ActionController::TestCase
 
   test "put update (aka change password)" do
     token = @user.send_reset_password_instructions
-    put :update, params: { user: { password: 'password', password_confirmation: 'password', reset_password_token: token } }
+    params = { user: { password: 'password', password_confirmation: 'password', reset_password_token: token } }
+    put :update, params: params
     assert_redirected_to new_user_session_path
   end
 
   test "update error" do
     token = @user.send_reset_password_instructions
-    put :update, params: { user: {password: '', password_confirmation: '', reset_password_token: token } }
+    params = { user: {password: '', password_confirmation: '', reset_password_token: token } }
+    put :update, params: params
     assert_response :ok
     assert_template 'passwords/edit'
   end

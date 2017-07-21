@@ -19,19 +19,22 @@ class Internal::TestCaseControllerTest < ActionController::TestCase
   end
 
   test "admin requires staff login" do
-    sign_out users(:kevin)
+    user = FactoryGirl.create(:staff)
+    sign_out user
     get :index
     assert_redirected_to new_internal_user_session_path
   end
 
   test "admin with staff login" do
-    sign_in users(:kevin), scope: :internal_user
+    user = FactoryGirl.create(:staff)
+    sign_in user, scope: :internal_user
     get :index
     assert_response :success
   end
 
   test "admin 404s for non staff login" do
-    sign_in users(:bob), scope: :internal_user
+    user = FactoryGirl.create(:user)
+    sign_in user, scope: :internal_user
     get :index
     assert_redirected_to new_internal_user_session_path
   end
