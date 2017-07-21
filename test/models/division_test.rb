@@ -4,7 +4,7 @@ class DivisionTest < ActiveSupport::TestCase
   test "division deletes games when it is deleted" do
     tournament = FactoryGirl.create(:tournament)
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(tournament, params)
+    division = DivisionCreate.perform(tournament, params)
 
     assert_difference "Game.count", -4 do
       division.destroy
@@ -14,7 +14,7 @@ class DivisionTest < ActiveSupport::TestCase
   test "division deletes places when it is deleted" do
     tournament = FactoryGirl.create(:tournament)
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(tournament, params)
+    division = DivisionCreate.perform(tournament, params)
 
     assert_difference "Place.count", -4 do
       division.destroy
@@ -42,7 +42,7 @@ class DivisionTest < ActiveSupport::TestCase
   test "safe_to_delete? is true for division with no games played" do
     tournament = FactoryGirl.create(:tournament)
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(tournament, params)
+    division = DivisionCreate.perform(tournament, params)
 
     assert division.safe_to_delete?
   end
@@ -50,7 +50,7 @@ class DivisionTest < ActiveSupport::TestCase
   test "safe_to_delete? is false for division with games played" do
     tournament = FactoryGirl.create(:tournament)
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(tournament, params)
+    division = DivisionCreate.perform(tournament, params)
     division.games.first.update_columns(score_confirmed: true)
 
     refute division.safe_to_delete?
@@ -74,7 +74,7 @@ class DivisionTest < ActiveSupport::TestCase
   test "bracket_games scope" do
     tournament = FactoryGirl.create(:tournament)
     params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 4.2.1')
-    division = build_division(tournament, params)
+    division = DivisionCreate.perform(tournament, params)
 
     bracket_games = division.bracket_games
     assert bracket_games.first.bracket_uid
@@ -83,7 +83,7 @@ class DivisionTest < ActiveSupport::TestCase
   test "pool_games scope" do
     tournament = FactoryGirl.create(:tournament)
     params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 4.2.1')
-    division = build_division(tournament, params)
+    division = DivisionCreate.perform(tournament, params)
 
     pool_games = division.pool_games('A')
     assert_equal 'A', pool_games.first.pool

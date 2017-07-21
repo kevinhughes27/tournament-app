@@ -125,7 +125,7 @@ class Admin::DivisionsControllerTest < AdminControllerTestCase
 
   test "update teams and seed" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(@tournament, params)
+    division = DivisionCreate.perform(@tournament, params)
 
     teams = (1..4).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -154,7 +154,7 @@ class Admin::DivisionsControllerTest < AdminControllerTestCase
 
   test "update teams and seed (ids not in order)" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(@tournament, params)
+    division = DivisionCreate.perform(@tournament, params)
 
     teams = (1..4).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -183,7 +183,7 @@ class Admin::DivisionsControllerTest < AdminControllerTestCase
 
   test "seed a division" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(@tournament, params)
+    division = DivisionCreate.perform(@tournament, params)
 
     teams = (1..4).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -196,7 +196,7 @@ class Admin::DivisionsControllerTest < AdminControllerTestCase
 
   test "seed (unsafe)" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(@tournament, params)
+    division = DivisionCreate.perform(@tournament, params)
 
     teams = (1..4).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -222,7 +222,7 @@ class Admin::DivisionsControllerTest < AdminControllerTestCase
 
   test "seed a division with an error" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = build_division(@tournament, params)
+    division = DivisionCreate.perform(@tournament, params)
 
     teams = (1..8).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)

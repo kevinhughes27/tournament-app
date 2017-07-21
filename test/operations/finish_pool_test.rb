@@ -5,7 +5,7 @@ class FinishPoolTest < ActiveSupport::TestCase
 
   setup do
     @tournament = FactoryGirl.create(:tournament)
-    @division = build_division(@tournament, FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1'))
+    @division = DivisionCreate.perform(@tournament, FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1'))
 
     @teams = (1..8).map do |seed|
       FactoryGirl.create(:team, division: @division, name: "Team #{seed}", seed: seed)
