@@ -23,16 +23,16 @@ class SafeToUpdateScoreCheckTest < ActiveJob::TestCase
     ), 'expected update to be safe'
   end
 
-  test "safe if pool is finished but results are not changed zzz" do
+  test "safe if pool is finished but results are not changed" do
     game1 = FactoryGirl.create(:pool_game, :finished, pool: 'A')
     game2 = FactoryGirl.create(:game, :finished, home_prereq: 'A1')
-    FactoryGirl.create(:pool_result, team: game1.home, position: 1)
-    FactoryGirl.create(:pool_result, team: game1.away, position: 2)
+    FactoryGirl.create(:pool_result, team: game1.winner, position: 1)
+    FactoryGirl.create(:pool_result, team: game1.loser, position: 2)
 
     assert SafeToUpdateScoreCheck.perform(
       game: game1,
-      home_score: game1.home_score + 1,
-      away_score: game1.away_score + 1
+      home_score: game1.home_score,
+      away_score: game1.away_score
     ), 'expected update to be safe'
   end
 

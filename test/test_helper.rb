@@ -4,7 +4,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/mini_test'
 
-if ENV['CIRCLECI']
+if ENV['CI']
   require 'minitest/ci'
   Minitest::Ci.new.start
 

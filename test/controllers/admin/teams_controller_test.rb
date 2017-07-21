@@ -37,7 +37,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "create a team" do
     assert_difference "Team.count" do
-      post :create, params: { team: new_team_params }
+      post :create, params: { team: FactoryGirl.attributes_for(:team) }
 
       team = assigns(:team)
       assert_redirected_to admin_team_path(team)
@@ -45,8 +45,7 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "create a team error re-renders form" do
-    params = new_team_params
-    params.delete(:name)
+    params = FactoryGirl.attributes_for(:team, name: nil)
 
     assert_no_difference "Team.count" do
       post :create, params: { team: params }
@@ -56,32 +55,28 @@ class Admin::TeamsControllerTest < ActionController::TestCase
 
   test "update a team" do
     team = FactoryGirl.create(:team)
-    put :update, params: { id: team.id, team: safe_update_params }
+    attributes = FactoryGirl.attributes_for(:team)
+    put :update, params: { id: team.id, team: attributes }
 
     assert_redirected_to admin_team_path(team)
-    assert_equal safe_update_params[:name], team.reload.name
+    assert_equal attributes[:name], team.reload.name
   end
 
   test "update a team with errors" do
     team = FactoryGirl.create(:team)
-    params = safe_update_params
-    params[:name] = ''
 
+    params = { name: '' }
     put :update, params: { id: team.id, team: params }
 
     assert_template :show
     assert_match "Name can&#39;t be blank", @response.body
-    refute_equal safe_update_params[:name], team.reload.name
   end
 
   test "update a team with unsafe params" do
-    division = FactoryGirl.create(:division)
-    team = FactoryGirl.create(:team, division: division)
-    FactoryGirl.create(:game, division: division, home: team)
+    team = FactoryGirl.create(:team, seed: 2)
+    FactoryGirl.create(:game, home: team)
 
-    params = safe_update_params
-    params[:seed] = 3
-
+    params = { seed: 3 }
     put :update, params: { id: team.id, team: params }
 
     assert_response :unprocessable_entity
@@ -89,13 +84,10 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "confirm update a team with unsafe params" do
-    division = FactoryGirl.create(:division)
-    team = FactoryGirl.create(:team, division: division)
-    FactoryGirl.create(:game, division: division, home: team)
+    team = FactoryGirl.create(:team, seed: 2)
+    FactoryGirl.create(:game, home: team)
 
-    params = safe_update_params
-    params[:seed] = 3
-
+    params = { seed: 3 }
     put :update, params: { id: team.id, team: params, confirm: 'true' }
 
     assert_redirected_to admin_team_path(team)
@@ -103,13 +95,10 @@ class Admin::TeamsControllerTest < ActionController::TestCase
   end
 
   test "not allowed to update team with unsafe params" do
-    division = FactoryGirl.create(:division)
-    team = FactoryGirl.create(:team, division: division)
-    FactoryGirl.create(:game, division: division, home: team)
+    team = FactoryGirl.create(:team, seed: 2)
+    FactoryGirl.create(:game, :finished, home: team)
 
-    params = safe_update_params
-    params[:seed] = 3
-
+    params = { seed: 3 }
     put :update, params: { id: team.id, team: params }
 
     assert_template 'admin/teams/_unable_to_update'
@@ -230,20 +219,5 @@ class Admin::TeamsControllerTest < ActionController::TestCase
       assert_redirected_to admin_teams_path
       assert_equal "Row: 5 Validation failed: Name can't be blank", flash[:import_error]
     end
-  end
-
-  private
-
-  def new_team_params
-    {
-      name: 'Goat',
-      seed: 1
-    }
-  end
-
-  def safe_update_params
-    {
-      name: 'Goat'
-    }
   end
 end

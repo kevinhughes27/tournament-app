@@ -1,6 +1,4 @@
 class ActiveSupport::TestCase
-  fixtures :all
-
   setup do
     ReactOnRails::TestHelper.ensure_assets_compiled
   end

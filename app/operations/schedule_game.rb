@@ -48,7 +48,7 @@ class ScheduleGame < ApplicationOperation
     games = dependent_games.select { |dg| dg.start_time < end_time if dg.start_time }
     fail ordering_error_message(bracket_uid, 'before', games.first.bracket_uid) if games.present?
 
-    games = prerequisite_games.select { |pg| pg.start_time >= start_time if pg.start_time }
+    games = prerequisite_games.select { |pg| pg.end_time > start_time if pg.start_time }
     fail ordering_error_message(bracket_uid, 'after', games.first.bracket_uid) if games.present?
   end
 
