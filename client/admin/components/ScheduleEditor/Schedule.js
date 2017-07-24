@@ -37,27 +37,31 @@ class Schedule extends React.Component {
     const dateString = date.format('LL')
 
     return (
-      <div className='schedule'>
-        <div className='form-group' style={{width: '160px'}}>
-          <DatePicker
-            className='form-control'
-            selected={date}
-            onChange={this.handleDateChange}
-            highlightDates={dates}
-          />
-        </div>
-        <XLabels fields={fields} />
-        <div className='body'>
-          <YLabels />
-          <div className='grid'>
-            {_map(fields, (f) => {
-              return <FieldColumn
-                key={f.name}
-                fieldId={f.id}
-                games={this.gamesForField(f.id)}
-                date={dateString}
-                gameLength={gameLength}/>
-            })}
+      <div className='box box-solid'>
+        <div className='box-body'>
+          <div className='schedule'>
+            <div className='form-group' style={{width: '160px'}}>
+              <DatePicker
+                className='form-control'
+                selected={date}
+                onChange={this.handleDateChange}
+                highlightDates={dates}
+              />
+            </div>
+            <XLabels fields={fields} />
+            <div className='body'>
+              <YLabels />
+              <div className='grid'>
+                {_map(fields, (f) => {
+                  return <FieldColumn
+                    key={f.name}
+                    fieldId={f.id}
+                    games={this.gamesForField(f.id)}
+                    date={dateString}
+                    gameLength={gameLength}/>
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>

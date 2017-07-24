@@ -4,7 +4,10 @@ import PropTypes from 'prop-types'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
+import _isEmpty from 'lodash/isEmpty'
+
 import UnscheduledGames from './UnscheduledGames'
+import Legend from './Legend'
 import Schedule from './Schedule'
 import GamesStore from '../../stores/GamesStore'
 
@@ -42,9 +45,17 @@ class ScheduleEditor extends React.Component {
     let scheduledGames = this.state.scheduledGames
     let fields = JSON.parse(this.props.fields)
 
+    let top = null
+
+    if (_isEmpty(unscheduledGames)) {
+      top = (<Legend games={scheduledGames}/>)
+    } else {
+      top = (<UnscheduledGames games={unscheduledGames}/>)
+    }
+
     return (
       <div>
-        <UnscheduledGames games={unscheduledGames}/>
+        { top }
         <Schedule games={scheduledGames} fields={fields} gameLength={this.props.gameLength}/>
       </div>
     )
