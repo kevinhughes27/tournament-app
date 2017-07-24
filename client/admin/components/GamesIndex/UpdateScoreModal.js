@@ -1,5 +1,6 @@
 import React from 'react'
-import {Modal} from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import { Modal } from 'react-bootstrap'
 import classNames from 'classnames'
 import confirm from './Confirm'
 
@@ -13,12 +14,12 @@ class UpdateScoreModal extends React.Component {
     this.setFocus = this.setFocus.bind(this)
     this.submit = this.submit.bind(this)
 
-    let game = this.props.game
+    const { game, resolve } = this.props
 
     this.state = {
       show: false,
       isLoading: false,
-      resolve: this.props.resolve,
+      resolve: resolve,
       homeScore: game.home_score,
       awayScore: game.away_score
     }
@@ -109,8 +110,8 @@ class UpdateScoreModal extends React.Component {
   }
 
   render () {
-    let {game, linkText, linkClass} = this.props
-    let btnClasses = classNames('btn', 'btn-primary', {'is-loading': this.state.isLoading})
+    const { game, linkText, linkClass } = this.props
+    const btnClasses = classNames('btn', 'btn-primary', {'is-loading': this.state.isLoading})
 
     return (
       <div>
@@ -141,7 +142,7 @@ class UpdateScoreModal extends React.Component {
                          ref="input"/>
                 </div>
                 <div className='col-md-1 col-sm-1 col-xs-1 text-center'>
-                  <span> &mdash </span>
+                  <span><i className="fa fa-window-minimize" style={{paddingTop: '4px'}}></i></span>
                 </div>
                 <div className="col-md-6 col-sm-6 col-xs-5">
                   <input type="number"
@@ -166,6 +167,13 @@ class UpdateScoreModal extends React.Component {
       </div>
     )
   }
+}
+
+UpdateScoreModal.propTypes = {
+  game: PropTypes.object.isRequired,
+  resolve: PropTypes.bool,
+  linkText: PropTypes.element.isRequired,
+  linkClass: PropTypes.string
 }
 
 UpdateScoreModal.defaultProps = {

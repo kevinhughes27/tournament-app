@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {Modal} from 'react-bootstrap'
-import {confirmable, createConfirmation} from 'react-confirm'
+import PropTypes from 'prop-types'
+import { Modal } from 'react-bootstrap'
+import { confirmable } from 'react-confirm'
 
 class ConfirmModal extends React.Component {
   render () {
@@ -14,7 +14,7 @@ class ConfirmModal extends React.Component {
 
     return (
       <Modal onHide={dismiss} show={show}>
-        <Modal.Header closeButton onClick={() => cancel()}>
+        <Modal.Header closeButton onClick={dismiss}>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
 
@@ -29,6 +29,14 @@ class ConfirmModal extends React.Component {
       </Modal>
     )
   }
+}
+
+ConfirmModal.propTypes = {
+  title: PropTypes.element.isRequired,
+  message: PropTypes.element.isRequired,
+  show: PropTypes.bool.isRequired,
+  proceed: PropTypes.func.isRequired,
+  dismiss: PropTypes.func.isRequired
 }
 
 module.exports = confirmable(ConfirmModal)
