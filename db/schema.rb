@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707203321) do
+ActiveRecord::Schema.define(version: 20170725225852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170707203321) do
     t.string   "home_pool_seed"
     t.string   "away_pool_seed"
     t.integer  "seed_round",      default: 0
+    t.datetime "end_time"
     t.index ["tournament_id", "away_id"], name: "index_games_on_tournament_id_and_away_id", using: :btree
     t.index ["tournament_id", "division_id", "away_prereq"], name: "tournament_division_away_prereq_uid", using: :btree
     t.index ["tournament_id", "division_id", "bracket_uid"], name: "index_games_on_tournament_id_and_division_id_and_bracket_uid", unique: true, using: :btree
