@@ -131,9 +131,10 @@ class UpdateScoreModal extends React.Component {
             <form>
               <div className='row'>
                 <div className="col-md-5 col-sm-5 col-xs-5">
+                  <label>{game.home_name}</label>
                   <input type="number"
-                         value={this.state.homeScore}
-                         placeholder={game.home}
+                         value={this.state.homeScore || ''}
+                         placeholder='0'
                          min='0'
                          className="form-control score-input"
                          onChange={ (e) => {
@@ -142,12 +143,13 @@ class UpdateScoreModal extends React.Component {
                          ref="input"/>
                 </div>
                 <div className='col-md-1 col-sm-1 col-xs-1 text-center'>
-                  <span><i className="fa fa-window-minimize" style={{paddingTop: '4px'}}></i></span>
+                  <span><i className="fa fa-window-minimize" style={{paddingTop: '28px'}}></i></span>
                 </div>
                 <div className="col-md-6 col-sm-6 col-xs-5">
+                  <label>{game.away_name}</label>
                   <input type="number"
-                         value={this.state.awayScore}
-                         placeholder={game.away}
+                         value={this.state.awayScore || ''}
+                         placeholder='0'
                          min='0'
                          className="form-control score-input"
                          onChange={ (e) => {

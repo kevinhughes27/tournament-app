@@ -110,7 +110,7 @@ export class ScoreCell extends React.Component {
     if (game.confirmed) {
       text = `${game.home_score} - ${game.away_score}`
     } else {
-      text = <i className="fa fa-plus-square-o"></i>
+      text = <i className="fa fa-pencil"></i>
     }
 
     return (
