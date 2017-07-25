@@ -5,14 +5,14 @@ export default function GameText (game) {
     return (
       <div style={{width: '100%'}}>
         <h4>{game.bracket_uid}</h4>
-        {game.home_prereq} v {game.away_prereq}
+        <span>{game.home_prereq} v {game.away_prereq}</span>
       </div>
     )
   } else {
     return (
       <div style={{width: '100%'}}>
         <h4>{game.pool}</h4>
-        {game.home_pool_seed} v {game.away_pool_seed}
+        <span>{game.home_pool_seed} v {game.away_pool_seed}</span>
       </div>
     )
   }
