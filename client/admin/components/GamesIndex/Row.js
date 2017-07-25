@@ -71,6 +71,26 @@ export class NameCell extends React.Component {
     )
   }
 
+  renderConfirm (report, game) {
+    if (game.has_dispute || game.confirmed) {
+      return
+    }
+
+    if (report === undefined) {
+      return
+    }
+
+    game.home_score = report.home_score
+    game.away_score = report.away_score
+
+    return (
+      <UpdateScoreModal game={game}
+        resolve={true}
+        linkText='Confirm'
+        linkClass='btn btn-primary pull-right'/>
+    )
+  }
+
   render () {
     let game = this.props.rowData
     let reports = game.score_reports
@@ -90,6 +110,7 @@ export class NameCell extends React.Component {
         <Collapse in={this.state.reportsOpen}>
           <div>
             <ScoreReports reports={reports}/>
+            {this.renderConfirm(reports[0], game)}
             {this.renderDispute(game)}
           </div>
         </Collapse>
@@ -108,7 +129,7 @@ export class ScoreCell extends React.Component {
 
     let text
     if (game.confirmed) {
-      text = `${game.home_score} - ${game.away_score}`
+      text = <span>{game.home_score} - {game.away_score}</span>
     } else {
       text = <i className="fa fa-pencil"></i>
     }

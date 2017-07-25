@@ -174,7 +174,7 @@ class UpdateScoreModal extends React.Component {
 UpdateScoreModal.propTypes = {
   game: PropTypes.object.isRequired,
   resolve: PropTypes.bool,
-  linkText: PropTypes.element.isRequired,
+  linkText: PropTypes.node.isRequired,
   linkClass: PropTypes.string
 }
 
