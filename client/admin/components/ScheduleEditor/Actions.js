@@ -1,10 +1,11 @@
 import GamesStore from '../../stores/GamesStore'
 
-export function schedule (gameId, fieldId, startTime) {
+export function schedule (gameId, fieldId, startTime, endTime) {
   GamesStore.updateGame({
     id: gameId,
     field_id: fieldId,
     start_time: startTime,
+    end_time: endTime,
     scheduled: true
   })
 
@@ -12,11 +13,15 @@ export function schedule (gameId, fieldId, startTime) {
     type: 'POST',
     url: '/admin/schedule',
     data: {
-      game_id: gameId, field_id: fieldId, start_time: startTime
+      game_id: gameId,
+      field_id: fieldId,
+      start_time: startTime,
+      end_time: endTime
     },
     success: (response) => {
       GamesStore.updateGame({
-        id: gameId,
+        id: response.game_id,
+        field_id: response.field_id,
         start_time: response.start_time,
         end_time: response.end_time,
         error: false
@@ -26,7 +31,8 @@ export function schedule (gameId, fieldId, startTime) {
     },
     error: (response) => {
       GamesStore.updateGame({
-        id: gameId,
+        id: response.responseJSON.game_id,
+        field_id: response.responseJSON.field_id,
         start_time: response.responseJSON.start_time,
         end_time: response.responseJSON.end_time,
         error: true

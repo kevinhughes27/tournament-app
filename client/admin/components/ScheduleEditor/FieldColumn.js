@@ -37,8 +37,9 @@ const target = {
     const game = monitor.getItem()
     const fieldId = props.fieldId
     const startTime = component.state.hoverTime.format()
+    const endTime = component.state.hoverTime.add(props.gameLength, 'minutes').format()
 
-    schedule(game.id, fieldId, startTime)
+    schedule(game.id, fieldId, startTime, endTime)
   }
 }
 
