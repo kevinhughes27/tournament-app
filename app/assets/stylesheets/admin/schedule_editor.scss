@@ -79,6 +79,7 @@ $schedule-grid-line-color: lightgrey !default;
         box-sizing: border-box;
         border: 1px solid $schedule-grid-line-color;
         border-radius: 4px;
+        cursor: move;
         .body {
             text-align: center;
             height: 100%;
@@ -103,6 +104,7 @@ $schedule-grid-line-color: lightgrey !default;
     box-sizing: border-box;
     border: 1px solid $schedule-grid-line-color;
     border-radius: 4px;
+    cursor: move;
     .body {
         text-align: center;
         height: 100%;

@@ -25,13 +25,15 @@ class Admin::ScheduleController < AdminController
       game_id: @game.id,
       field_id: @game.field_id,
       start_time: @game.start_time,
-      end_time: @game.end_time
+      end_time: @game.end_time,
+      updated_at: @game.updated_at
     }
   rescue => e
     render json: {
       game_id: @game.id,
       start_time: @game.start_time,
       end_time: @game.end_time,
+      updated_at: @game.updated_at,
       error: e.message
     }, status: :unprocessable_entity
   end

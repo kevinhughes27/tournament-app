@@ -4,8 +4,12 @@ import PropTypes from 'prop-types'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
+import moment from 'moment'
 import _isEmpty from 'lodash/isEmpty'
+import _sortBy from 'lodash/sortBy'
+import _last from 'lodash/last'
 
+import { DEFAULT_LENGTH } from './Constants'
 import UnscheduledGames from './UnscheduledGames'
 import Legend from './Legend'
 import Schedule from './Schedule'
@@ -53,10 +57,18 @@ class ScheduleEditor extends React.Component {
       top = (<UnscheduledGames games={unscheduledGames}/>)
     }
 
+    let gameLength = DEFAULT_LENGTH
+
+    if (!_isEmpty(scheduledGames)) {
+      let lastUpdatedGame = _last(_sortBy(scheduledGames, (g) => moment(g.updated_at)))
+      let endTime = moment(lastUpdatedGame.end_time)
+      gameLength = moment.duration(endTime.diff(lastUpdatedGame.start_time)).asMinutes()
+    }
+
     return (
       <div>
         { top }
-        <Schedule games={scheduledGames} fields={fields} gameLength={this.props.gameLength}/>
+        <Schedule games={scheduledGames} fields={fields} gameLength={gameLength}/>
       </div>
     )
   }
@@ -64,8 +76,7 @@ class ScheduleEditor extends React.Component {
 
 ScheduleEditor.propTypes = {
   games: PropTypes.string.isRequired,
-  fields: PropTypes.string.isRequired,
-  gameLength: PropTypes.number.isRequired
+  fields: PropTypes.string.isRequired
 }
 
 export default DragDropContext(HTML5Backend)(ScheduleEditor)

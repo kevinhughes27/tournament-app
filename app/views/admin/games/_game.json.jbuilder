@@ -13,7 +13,8 @@ json.extract! game,
   :away_score,
   :field_id,
   :start_time,
-  :end_time
+  :end_time,
+  :updated_at
 
 json.division game.division.name
 json.division_id game.division.id

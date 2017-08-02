@@ -24,6 +24,7 @@ export function schedule (gameId, fieldId, startTime, endTime) {
         field_id: response.field_id,
         start_time: response.start_time,
         end_time: response.end_time,
+        updated_at: response.updated_at,
         error: false
       })
 
@@ -64,5 +65,12 @@ export function unschedule (gameId) {
       GamesStore.updateGame({id: gameId, scheduled: true})
       Admin.Flash.error('Sorry, something went wrong.')
     }
+  })
+}
+
+export function resize (gameId, endTime) {
+  GamesStore.updateGame({
+    id: gameId,
+    end_time: endTime
   })
 }
