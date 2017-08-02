@@ -7,8 +7,7 @@ namespace :dev do
 
       tournament = Tournament.create!(
         name: name,
-        handle: handle,
-        time_cap: 90
+        handle: handle
       )
 
       tournament.create_map!(

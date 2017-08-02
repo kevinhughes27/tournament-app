@@ -29,7 +29,6 @@ class Admin::SettingsController < AdminController
     tournament_params = params.require(:tournament).permit(
       :name,
       :handle,
-      :time_cap,
       :game_confirm_setting
     )
 

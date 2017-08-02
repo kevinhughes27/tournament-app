@@ -23,7 +23,6 @@ class Tournament < ApplicationRecord
                      format: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/,
                      exclusion: { in: %w(www us ca jp) }
 
-  validates :time_cap, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates_presence_of :tournament_users, on: :update
 
   GAME_CONFIRM_SETTINGS = %w(automatic multiple validated)
