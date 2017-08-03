@@ -9,7 +9,7 @@ class FieldTest < ActiveSupport::TestCase
 
   test "safe_to_delete? is false for field games" do
     field = FactoryGirl.create(:field)
-    game = FactoryGirl.create(:game, start_time: Time.now, field: field)
+    game = FactoryGirl.create(:game, :scheduled, field: field)
 
     refute field.safe_to_delete?
   end

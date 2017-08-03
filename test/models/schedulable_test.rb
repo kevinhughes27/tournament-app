@@ -8,23 +8,28 @@ class SchedulableTest < ActiveSupport::TestCase
   end
 
   test "game must have start_time if it has a field" do
-    field = FactoryGirl.build(:field)
+    field = FactoryGirl.create(:field)
     game = FactoryGirl.build(:game, field: field)
     refute game.valid?
-    assert_equal ["can't be blank"], game.errors[:start_time]
+    assert_equal ["can't be blank", "is not a date"], game.errors[:start_time]
   end
 
-  test "can unassign a game from field and start_time" do
+  test "game must have end_time if it has a field" do
     field = FactoryGirl.create(:field)
-    game = FactoryGirl.create(:game, field: field, start_time: Time.now)
-    game.update(field: nil, start_time: nil)
+    game = FactoryGirl.build(:game, field: field)
+    refute game.valid?
+    assert_equal ["can't be blank", "is not a date"], game.errors[:end_time]
+  end
+
+  test "can unassign a game from field and time" do
+    game = FactoryGirl.create(:game, :scheduled)
+    game.update(field: nil, start_time: nil, end_time: nil)
     assert game.errors.empty?
   end
 
   test "game must have a valid field" do
-    field = FactoryGirl.create(:field)
-    game = FactoryGirl.create(:game, field: field, start_time: Time.now)
-    game.update(field_id: 999, start_time: nil)
-    assert_equal ["is invalid"], game.errors[:field]
+    game = FactoryGirl.create(:game, :scheduled)
+    game.update(field_id: 999)
+    assert_equal ["can't be blank"], game.errors[:field]
   end
 end
