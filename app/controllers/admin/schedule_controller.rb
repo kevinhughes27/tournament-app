@@ -31,6 +31,7 @@ class Admin::ScheduleController < AdminController
   rescue => e
     render json: {
       game_id: @game.id,
+      field_id: @game.field_id,
       start_time: @game.start_time,
       end_time: @game.end_time,
       updated_at: @game.updated_at,
