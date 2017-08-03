@@ -62,13 +62,12 @@ class BracketSimulationTest < ActiveSupport::TestCase
 
   def play_game(game)
     score = ScoreGenerator.generate
-    update = GameUpdateScore.new(
+    GameUpdateScore.perform(
       game: game,
       user: @user,
       home_score: score[0],
       away_score: score[1]
     )
-    update.perform
   end
 
   def games_to_be_played

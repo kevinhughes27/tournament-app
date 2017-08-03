@@ -1,12 +1,21 @@
 class DivisionCreate < ApplicationOperation
-  processes :tournament, :division_params
-  property :tournament, accepts: Tournament
+  input :tournament, accepts: Tournament
+  input :division_params
+
+  class Failed < StandardError
+    attr_reader :division
+
+    def initialize(division, *args)
+      @division = division
+      super('DivisionCreate failed.', *args)
+    end
+  end
 
   attr_reader :division
 
   def execute
     @division = tournament.divisions.create(division_params)
-    fail unless division.persisted?
+    raise Failed(division) unless division.persisted?
     create_games
     create_places
     division

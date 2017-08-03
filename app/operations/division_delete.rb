@@ -1,15 +1,18 @@
 class DivisionDelete < ApplicationOperation
-  processes :division, :confirm
+  input :division, accepts: Division, required: true
+  input :confirm, default: false
 
-  property :division, accepts: Division, required: true
-  property :confirm, default: false
+  class Failed < StandardError
+    attr_reader :division
 
-  def execute
-    halt 'confirm_delete' if !(confirm == 'true' || division.safe_to_delete?)
-    fail unless division.destroy
+    def initialize(division, *args)
+      @division = division
+      super('DivisionCreate failed.', *args)
+    end
   end
 
-  def confirmation_required?
-    halted? && message == 'confirm_delete'
+  def execute
+    raise ConfirmationRequired if !(confirm == 'true' || division.safe_to_delete?)
+    raise Failed(division) unless division.destroy
   end
 end

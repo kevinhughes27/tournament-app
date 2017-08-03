@@ -14,8 +14,8 @@ namespace :admin do
 
   resources :divisions do
     member do
-      get :seed
-      post :seed
+      get '/seed', to: 'divisions#seed_form'
+      post '/seed', to: 'divisions#seed'
     end
   end
 

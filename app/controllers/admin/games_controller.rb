@@ -6,7 +6,7 @@ class Admin::GamesController < AdminController
   end
 
   def update
-    update = GameUpdateScore.new(
+    GameUpdateScore.perform(
       game: @game,
       user: current_user,
       home_score: params[:home_score],
@@ -14,13 +14,9 @@ class Admin::GamesController < AdminController
       force: params[:force] == 'true',
       resolve: params[:resolve] == 'true'
     )
-    update.perform
-
-    if update.succeeded?
-      head :ok
-    else
-      render json: { error: update.message }, status: :unprocessable_entity
-    end
+    head :ok
+  rescue => e
+    render json: { error: update.message }, status: :unprocessable_entity
   end
 
   private

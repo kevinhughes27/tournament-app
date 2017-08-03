@@ -1,10 +1,18 @@
 class ScoreReportCreate < ApplicationOperation
-  processes :params, :confirm_setting
-
+  input :params
+  input :confirm_setting, accepts: String, required: true
   property :agrees, accepts: [true, false], default: false
-  property :confirm_setting, accepts: String, required: true
 
-  attr_reader :game, :report, :errors
+  attr_reader :game, :report
+
+  class Failed < StandardError
+    attr_reader :errors
+
+    def initialize(report, *args)
+      @errors = report.errors.full_messages
+      super('ScoreReportCreate failed.', *args)
+    end
+  end
 
   def execute
     @report = ScoreReport.new(params)
@@ -13,12 +21,12 @@ class ScoreReportCreate < ApplicationOperation
     raise unless valid_submitter?
 
     unless report.save
-      @errors = report.errors.full_messages
+      errors = report.errors.full_messages
 
-      e = Exception.new(@errors.to_json)
+      e = Exception.new(errors.to_json)
       Rollbar.error(e)
 
-      fail @errors
+      raise Failed(errors)
     end
 
     notify_other_team

@@ -1,24 +1,27 @@
 class DivisionUpdate < ApplicationOperation
-  processes :division, :params, :confirm
-
-  property :division, accepts: Division, required: true
-  property :params, required: true
+  input :division, accepts: Division, required: true
+  input :params, required: true
   property :confirm, default: false
+
+  class Failed < StandardError
+    attr_reader :division
+
+    def initialize(division, *args)
+      @division = division
+      super('DivisionCreate failed.', *args)
+    end
+  end
 
   def execute
     division.assign_attributes(params)
     bracket_type_changed = division.bracket_type_changed?
 
-    halt 'confirm_update' if !(confirm == 'true' || division.safe_to_change?)
+    raise ConfirmationRequired if !(confirm == 'true' || division.safe_to_change?)
 
     division.update(params)
-    fail if division.errors.present?
+    raise Failed(division) if division.errors.present?
 
     update_bracket if bracket_type_changed
-  end
-
-  def confirmation_required?
-    halted? && message == 'confirm_update'
   end
 
   private

@@ -1,10 +1,8 @@
 class ScheduleGame < ApplicationOperation
-  processes :game, :field_id, :start_time, :end_time
-
-  property :game, accepts: Game, required: true
-  property :field_id, converts: :to_i, required: true
-  property :start_time, converts: :to_datetime, required: true
-  property :end_time, converts: :to_datetime, required: true
+  input :game, accepts: Game, required: true
+  input :field_id, converts: :to_i, required: true
+  input :start_time, converts: :to_datetime, required: true
+  input :end_time, converts: :to_datetime, required: true
 
   delegate :tournament,
            :dependent_games,
@@ -38,8 +36,8 @@ class ScheduleGame < ApplicationOperation
   end
 
   def check_team_conflict
-    check = TeamConflictCheck.new(game)
-    fail check.message if check.perform
+    check = TeamConflictCheck.perform(game)
+    fail check if check
   end
 
   def check_schedule_conflicts

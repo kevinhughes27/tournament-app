@@ -1,8 +1,7 @@
 require 'csv'
 
 class FieldCsvExport < ApplicationOperation
-  processes :fields
-  property :fields, accepts: lambda { |fields| fields.all?{ |field| field.is_a?(Field) } }
+  input :fields, accepts: lambda { |fields| fields.all?{ |field| field.is_a?(Field) } }
 
   def execute
     csv = CSV.generate do |csv|

@@ -1,0 +1,2 @@
+class ConfirmationRequired < StandardError
+end

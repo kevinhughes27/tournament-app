@@ -23,36 +23,28 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    update = TeamUpdate.new(@team, team_params, params[:confirm])
-    update.perform
-
-    if update.succeeded?
-      flash[:notice] = 'Team was successfully updated.'
-      redirect_to admin_team_path(@team)
-    elsif update.confirmation_required?
-      render partial: 'confirm_update', status: :unprocessable_entity
-    elsif update.halted?
-      render partial: 'unable_to_update', status: :not_allowed
-    else
-      render :show
-    end
+    TeamUpdate.perform(@team, team_params, params[:confirm])
+    flash[:notice] = 'Team was successfully updated.'
+    redirect_to admin_team_path(@team)
+  rescue ConfirmationRequired
+    render partial: 'confirm_update', status: :unprocessable_entity
+  rescue TeamUpdate::UnableToUpdate
+    render partial: 'unable_to_update', status: :not_allowed
+  rescue StandardError
+    render :show
   end
 
   def destroy
-    delete = TeamDelete.new(@team, params[:confirm])
-    delete.perform
-
-    if delete.succeeded?
-      flash[:notice] = 'Team was successfully destroyed.'
-      redirect_to admin_teams_path
-    elsif delete.confirmation_required?
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    elsif delete.halted?
-      render partial: 'unable_to_delete', status: :not_allowed
-    else
-      flash[:error] = 'Team could not be deleted.'
-      render :show
-    end
+    TeamDelete.perform(@team, params[:confirm])
+    flash[:notice] = 'Team was successfully destroyed.'
+    redirect_to admin_teams_path
+  rescue ConfirmationRequired
+    render partial: 'confirm_delete', status: :unprocessable_entity
+  rescue UnableToDelete
+    render partial: 'unable_to_delete', status: :not_allowed
+  rescue StandardError
+    flash[:error] = 'Team could not be deleted.'
+    render :show
   end
 
   def sample_csv
@@ -65,16 +57,13 @@ class Admin::TeamsController < AdminController
     file = params[:csv_file].path
     ignore = params[:match_behaviour] == 'ignore'
 
-    import = TeamCsvImport.new(@tournament, file, ignore)
-    import.perform
+    TeamCsvImport.perform(@tournament, file, ignore)
 
-    if import.succeeded?
-      flash[:notice] = 'Teams imported successfully'
-      redirect_to action: :index
-    else
-      flash[:import_error] = "Row: #{import.row_num} #{import.message}"
-      redirect_to action: :index
-    end
+    flash[:notice] = 'Teams imported successfully'
+    redirect_to action: :index
+  rescue TeamCsvImport::Failed => e
+    flash[:import_error] = "Row: #{e.row_num} #{e.message}"
+    redirect_to action: :index
   end
 
   private
