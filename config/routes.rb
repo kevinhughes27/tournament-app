@@ -9,8 +9,7 @@ Rails.application.routes.draw do
     draw :player_app
   end
 
-  mount ActionCable.server => '/cable'
+  draw :brochure
 
-  get '/tos' => 'brochure#tos'
-  root 'brochure#index'
+  mount ActionCable.server => '/cable'
 end

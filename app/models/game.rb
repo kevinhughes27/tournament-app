@@ -1,8 +1,10 @@
 class Game < ApplicationRecord
+  include Schedulable
+
   belongs_to :tournament
   belongs_to :division
-  belongs_to :field
 
+  belongs_to :field
   belongs_to :home, class_name: 'Team', foreign_key: :home_id
   belongs_to :away, class_name: 'Team', foreign_key: :away_id
 
@@ -19,11 +21,6 @@ class Game < ApplicationRecord
   validates_presence_of :bracket_uid, if: Proc.new{ |g| g.pool.nil? }
   validates_uniqueness_of :bracket_uid, scope: :division, if: :bracket_game?
   validates_presence_of :home_pool_seed, :away_pool_seed, if: :pool_game?
-
-  validates :start_time, date: true, if: Proc.new{ |g| g.start_time.present? }
-  validates_presence_of :start_time, if: Proc.new{ |g| g.field.present? }
-  validates_presence_of :field, if: Proc.new{ |g| g.start_time.present? }
-  validate :validate_field
 
   validates_numericality_of :home_score, :away_score, allow_blank: true, greater_than_or_equal_to: 0
 
@@ -89,30 +86,6 @@ class Game < ApplicationRecord
     home.present? && away.present?
   end
 
-  def scheduled?
-    !!(field_id && start_time)
-  end
-
-  def played?
-    return unless start_time
-    Time.now > end_time
-  end
-
-  def end_time
-    return unless start_time
-    start_time + tournament.time_cap.minutes
-  end
-
-  def playing_time_range
-    (start_time)..(end_time - 1.minutes)
-  end
-
-  def playing_time_range_string
-    formatted_start = start_time.to_formatted_s(:timeonly)
-    formatted_end = end_time.to_formatted_s(:timeonly)
-    "#{formatted_start} - #{formatted_end}"
-  end
-
   def confirmed?
     score_confirmed
   end
@@ -168,10 +141,5 @@ class Game < ApplicationRecord
   def set_confirmed
     self.score_confirmed = self.home_score.present? && self.away_score.present?
     true
-  end
-
-  def validate_field
-    return if field_id.blank? || errors[:field].present?
-    errors.add(:field, 'is invalid') unless tournament.fields.where(id: field_id).exists?
   end
 end

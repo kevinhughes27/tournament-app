@@ -27,6 +27,21 @@ function collect (connect, monitor) {
 }
 
 class Game extends React.Component {
+  constructor (props) {
+    super(props)
+    this.onMouseDown = this.onMouseDown.bind(this)
+  }
+
+  onMouseDown (ev) {
+    let game = this.props.game
+    const bounds = this.refs.game.getBoundingClientRect()
+
+    if (bounds.bottom - ev.clientY < 10) {
+      this.props.startResize(game)
+      ev.preventDefault()
+    }
+  }
+
   render () {
     const { connectDragSource, isDragging, game } = this.props
     const layout = new GameLayout(game)
@@ -35,13 +50,13 @@ class Game extends React.Component {
     const style = {
       opacity: isDragging ? 0.75 : 1,
       backgroundColor: color,
-      cursor: 'move',
       ...layout.inlineStyles()
     }
 
     return connectDragSource(
-      <div className={classes} style={style}>
-        <div className='body'>
+      <div className={classes} style={style}
+        onMouseDown={this.onMouseDown}>
+        <div ref='game' className='body'>
           {GameText(game)}
         </div>
       </div>
@@ -52,7 +67,8 @@ class Game extends React.Component {
 Game.propTypes = {
   game: PropTypes.object.isRequired,
   connectDragSource: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired
+  isDragging: PropTypes.bool.isRequired,
+  startResize: PropTypes.func.isRequired
 }
 
 export default DragSource(ItemTypes.GAME, gameSource, collect)(Game)

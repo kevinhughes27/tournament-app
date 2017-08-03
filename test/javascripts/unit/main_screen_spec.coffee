@@ -6,9 +6,9 @@ describe 'MainScreen', ->
   fields = [{name: 'UPI1', id: 1}, {name: 'UPI2', id: 2}, {name: 'UPI3', id: 3}]
   teams = [{name: 'Swift', id: 1}, {name: 'Goose', id: 2}]
   games = [
-    { home_id: 1, away_id: 2, field_id: 1, start_time: moment.utc() },
-    { home_id: 1, away_id: 2, field_id: 2, start_time: moment.utc().subtract(3, 'hours') },
-    { home_id: 1, away_id: 2, field_id: 3, start_time: moment.utc().add(3, 'hours') },
+    { home_id: 1, away_id: 2, field_id: 1, start_time: moment.utc(), end_time: moment.utc().add(90, 'minutes') },
+    { home_id: 1, away_id: 2, field_id: 2, start_time: moment.utc().subtract(3, 'hours'), end_time: moment.utc().subtract(2, 'hours') },
+    { home_id: 1, away_id: 2, field_id: 3, start_time: moment.utc().add(3, 'hours'), end_time: moment.utc().add(4, 'hours') },
   ]
 
   beforeEach ->
@@ -18,8 +18,7 @@ describe 'MainScreen', ->
       17,
       fields,
       teams,
-      games,
-      80
+      games
     )
     spyOn(Twine, 'refresh')
 

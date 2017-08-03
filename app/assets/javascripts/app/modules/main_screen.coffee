@@ -1,6 +1,6 @@
 class App.MainScreen
 
-  constructor: (@lat, @long, @zoom, @fields, @teams, @games, @timeCap) ->
+  constructor: (@lat, @long, @zoom, @fields, @teams, @games) ->
     location.hash = ""
     @drawerOpen = false
     @findingField = false
@@ -75,7 +75,7 @@ class App.MainScreen
     games = _.filter(@games, (game) -> game.away_id == team.id || game.home_id == team.id)
 
     # filter games that aren't over
-    games = _.filter(games, (game) => @_currentTime() < moment.utc(game.start_time).add(@timeCap, 'minutes'))
+    games = _.filter(games, (game) => @_currentTime() < moment.utc(game.end_time))
     games = _.sortBy(games, (game) -> game.start_time)
 
     nextOrCurrentGame = games[0]

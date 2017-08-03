@@ -11,7 +11,7 @@ import {
   SCHEDULE_INC
 } from './Constants'
 
-import { schedule } from './Actions'
+import { schedule, resize } from './Actions'
 
 import moment from 'moment'
 import 'moment-range'
@@ -37,8 +37,9 @@ const target = {
     const game = monitor.getItem()
     const fieldId = props.fieldId
     const startTime = component.state.hoverTime.format()
+    const endTime = component.state.hoverTime.add(props.gameLength, 'minutes').format()
 
-    schedule(game.id, fieldId, startTime)
+    schedule(game.id, fieldId, startTime, endTime)
   }
 }
 
@@ -50,6 +51,53 @@ function collect (connect, monitor) {
 }
 
 class FieldColumn extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.startResize = this.startResize.bind(this)
+    this.endResize = this.endResize.bind(this)
+    this.onMouseMove = this.onMouseMove.bind(this)
+
+    this.state = {
+      hoverTime: null,
+      resizing: false,
+      resizingGame: null
+    }
+  }
+
+  startResize (game) {
+    this.setState({resizing: true, resizingGame: game})
+  }
+
+  endResize () {
+    if (this.state.resizing) {
+      let game = this.state.resizingGame
+      schedule(game.id, game.field_id, game.start_time, game.end_time)
+    }
+
+    this.setState({resizing: false, resizingGame: null})
+  }
+
+  onMouseMove (ev) {
+    if (!this.state.resizing) {
+      return
+    }
+
+    let game = this.state.resizingGame
+
+    const rect = this.refs.column.getBoundingClientRect()
+    const percentY = (ev.clientY - rect.top) / rect.height
+    const hours = percentY * (SCHEDULE_END - SCHEDULE_START) + SCHEDULE_START
+    const slot = SCHEDULE_INC * Math.round(hours * 60 / SCHEDULE_INC)
+    const endTime = moment(this.props.date, 'LL').minutes(slot)
+
+    if (moment.duration(endTime.diff(game.start_time)).asMinutes() < SCHEDULE_INC) {
+      return
+    }
+
+    resize(game.id, endTime.format())
+  }
+
   render () {
     const { connectDropTarget, date, games } = this.props
     const filteredGames = _fitler(games, (g) => moment(date, 'LL').isSame(g.start_time, 'day'))
@@ -57,9 +105,16 @@ class FieldColumn extends React.Component {
 
     return connectDropTarget(
       <div className='field-column'>
-        <div className='games' ref='column'>
+        <div className='games'
+          ref='column'
+          onMouseMove={this.onMouseMove}
+          onMouseLeave={this.endResize}
+          onMouseUp={this.endResize}>
           {_map(sortedGames, (g) => {
-            return <ScheduledGame key={g.id} game={g}/>
+            return <ScheduledGame
+              key={g.id}
+              game={g}
+              startResize={this.startResize}/>
           })}
           { this.overlay() }
         </div>

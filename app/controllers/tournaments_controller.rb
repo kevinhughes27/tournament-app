@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   before_action :authenticate_user!
-  layout 'builder'
+  layout 'signup'
 
   def new
     @tournament = Tournament.new
@@ -15,8 +15,7 @@ class TournamentsController < ApplicationController
       create_map
     end
 
-    redirect_to tournament_build_path(@tournament.id, :step1)
-
+    redirect_to admin_url(subdomain: @tournament.handle)
   rescue ActiveRecord::RecordInvalid => e
     render :new
   end

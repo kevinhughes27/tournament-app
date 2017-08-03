@@ -1,6 +1,4 @@
-window.UT ||= {}
-
-class UT.PlacesSearch
+class Admin.PlacesSearch
 
   constructor: (@searchCallback)->
     @_injectGoogleAPI()

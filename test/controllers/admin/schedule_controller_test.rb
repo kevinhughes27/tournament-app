@@ -23,7 +23,7 @@ class Admin::ScheduleControllerTest < AdminControllerTestCase
     game = FactoryGirl.create(:game, :scheduled)
     field = FactoryGirl.create(:field)
 
-    params = {game_id: game.id, field_id: field.id, start_time: Time.now}
+    params = {game_id: game.id, field_id: field.id, start_time: Time.now, end_time: Time.now + 90.minutes}
 
     put :update, params: params
     assert_response :ok
@@ -34,7 +34,7 @@ class Admin::ScheduleControllerTest < AdminControllerTestCase
 
   test "update schedule 422" do
     game = FactoryGirl.create(:game, :scheduled)
-    params = {game_id: game.id, field_id: 'wat', start_time: Time.now}
+    params = {game_id: game.id, field_id: 'wat', start_time: Time.now, end_time: Time.now + 90.minutes}
 
     put :update, params: params
 

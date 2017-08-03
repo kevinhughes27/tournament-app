@@ -1,4 +1,4 @@
-<%= builder_card error: @tournament.errors.present? do %>
+<%= signup_card error: @tournament.errors.present? do %>
   <%= form_for @tournament, url: setup_path do |form| %>
 
     <div class="form-group">

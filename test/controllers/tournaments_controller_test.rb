@@ -29,10 +29,10 @@ class TournamentsControllerTest < ActionController::TestCase
     end
   end
 
-  test "create a new tournament redirects to builder" do
+  test "create a new tournament redirects to admin" do
     post :create, params: { tournament: FactoryGirl.attributes_for(:tournament) }
     tournament = assigns(:tournament)
-    assert_redirected_to tournament_build_path(tournament.id, :step1)
+    assert_redirected_to admin_url(subdomain: tournament.handle)
   end
 
   test "create with errors renders form again" do

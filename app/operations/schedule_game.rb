@@ -1,22 +1,22 @@
 class ScheduleGame < ApplicationOperation
-  processes :game, :field_id, :start_time
+  processes :game, :field_id, :start_time, :end_time
 
   property :game, accepts: Game, required: true
-  property :field_id, accepts: Integer, converts: :to_i, required: true
-  property :start_time, accepts: Date, converts: :to_datetime, required: true
+  property :field_id, converts: :to_i, required: true
+  property :start_time, converts: :to_datetime, required: true
+  property :end_time, converts: :to_datetime, required: true
 
   delegate :tournament,
            :dependent_games,
            :prerequisite_games,
            :pool_game?,
            :bracket_uid,
-           :end_time,
            :playing_time_range,
            :playing_time_range_string,
            to: :game
 
   def execute
-    game.assign_attributes(field_id: field_id, start_time: start_time)
+    game.schedule(field_id, start_time, end_time)
     fail game.errors.full_messages.to_sentence if game.invalid?
 
     check_field_conflict
