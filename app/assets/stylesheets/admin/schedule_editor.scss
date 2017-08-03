@@ -3,93 +3,111 @@ $schedule-border-color: lightgrey !default;
 $schedule-grid-line-color: lightgrey !default;
 
 .schedule {
-    width: 100%;
-    height: 480px;
+  width: 100%;
+  height: 480px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
+  overflow-x: scroll;
+  overflow: auto;
+
+  .x-labels {
+    height: 20px;
+    padding-left: $schedule-grid-min-width;
     display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: stretch;
-    overflow-x: scroll;
-    overflow: auto;
-
-    .x-labels {
-        height: 20px;
-        padding-left: $schedule-grid-min-width;
-        display: flex;
-        flex-direction: row;
-        .x-label {
-            flex-grow: 1;
-            padding-left: 8px;
-            min-width: $schedule-grid-min-width;
-        }
+    flex-direction: row;
+    .x-label {
+      flex-grow: 1;
+      padding-left: 8px;
+      min-width: $schedule-grid-min-width;
     }
+  }
 
-    .body {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        .y-labels {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            min-width: $schedule-grid-min-width;
-            display: flex;
-            flex-direction: column;
-            .y-label {
-                width: 100%;
-                flex: 1;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                text-indent: 8px;
-                text-align: left;
-                border-bottom: 1px solid $schedule-border-color;
-            }
-        }
-
-        .grid {
-            position: relative;
-            margin-left: $schedule-grid-min-width;
-            flex: 1;
-            display: flex;
-            flex-direction: row;
-            box-sizing: border-box;
-            border-top: 1px solid $schedule-border-color;
-            border-left: 1px solid $schedule-border-color;
-        }
-    }
-
-    .field-column {
+  .body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    .y-labels {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      min-width: $schedule-grid-min-width;
+      display: flex;
+      flex-direction: column;
+      .y-label {
         width: 100%;
-        min-width: $schedule-grid-min-width;
+        flex: 1;
         display: flex;
+        justify-content: center;
         flex-direction: column;
-        border-right:  1px solid $schedule-border-color;
+        text-indent: 8px;
+        text-align: left;
         border-bottom: 1px solid $schedule-border-color;
-        .games {
-            flex: 1;
-            position: relative;
-        }
+      }
     }
 
-    .game {
-        width: 100%;
-        min-width: $schedule-grid-min-width;
-        box-sizing: border-box;
-        border: 1px solid $schedule-grid-line-color;
-        border-radius: 4px;
-        cursor: move;
-        .body {
-            text-align: center;
-            height: 100%;
-            overflow: hidden;
-        }
+    .grid {
+      position: relative;
+      margin-left: $schedule-grid-min-width;
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      box-sizing: border-box;
+      border-top: 1px solid $schedule-border-color;
+      border-left: 1px solid $schedule-border-color;
     }
+  }
 
-    .error {
-      border-color: red
+  .field-column {
+    width: 100%;
+    min-width: $schedule-grid-min-width;
+    display: flex;
+    flex-direction: column;
+    border-right:  1px solid $schedule-border-color;
+    border-bottom: 1px solid $schedule-border-color;
+    .games {
+      flex: 1;
+      position: relative;
     }
+  }
+
+  .game {
+    width: 100%;
+    min-width: $schedule-grid-min-width;
+    box-sizing: border-box;
+    border: 1px solid $schedule-grid-line-color;
+    border-radius: 4px;
+    cursor: move;
+    &:after {
+      content: " ";
+      bottom: -2px;
+      height: 3px;
+      border: 1px solid black;
+      right: 15%;
+      left: 15%;
+      display: block;
+      position: absolute;
+      border-radius: 5px;
+      visibility: hidden;
+      cursor: ns-resize;
+    }
+    &:hover {
+      &:after {
+        visibility: visible;
+      }
+    }
+    .body {
+      text-align: center;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .error {
+    border-color: red
+  }
 }
 
 .unscheduled {
@@ -98,16 +116,16 @@ $schedule-grid-line-color: lightgrey !default;
 }
 
 .unscheduled-game {
-    min-width: $schedule-grid-min-width;
-    height: 60px;
-    margin: 5px;
-    box-sizing: border-box;
-    border: 1px solid $schedule-grid-line-color;
-    border-radius: 4px;
-    cursor: move;
-    .body {
-        text-align: center;
-        height: 100%;
-        overflow: hidden;
-    }
+  min-width: $schedule-grid-min-width;
+  height: 60px;
+  margin: 5px;
+  box-sizing: border-box;
+  border: 1px solid $schedule-grid-line-color;
+  border-radius: 4px;
+  cursor: move;
+  .body {
+    text-align: center;
+    height: 100%;
+    overflow: hidden;
+  }
 }
