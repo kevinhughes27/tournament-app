@@ -28,6 +28,7 @@ FactoryGirl.define do
       away_prereq '4'
       field { FactoryGirl.build(:field, tournament: tournament) }
       start_time { '2015-06-06 12:06:53 UTC' }
+      end_time { '2015-06-06 13:36:53 UTC' }
     end
   end
 end
