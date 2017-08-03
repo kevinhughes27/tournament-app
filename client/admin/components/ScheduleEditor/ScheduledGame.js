@@ -43,7 +43,7 @@ class Game extends React.Component {
   }
 
   render () {
-    const { connectDragSource, isDragging, endResize, game } = this.props
+    const { connectDragSource, isDragging, game } = this.props
     const layout = new GameLayout(game)
     const classes = classNames('game', {error: game.error})
     const color = DIVISION_COLORS[game.division_id % 12]
@@ -55,8 +55,7 @@ class Game extends React.Component {
 
     return connectDragSource(
       <div className={classes} style={style}
-        onMouseDown={this.onMouseDown}
-        onMouseUp={endResize}>
+        onMouseDown={this.onMouseDown}>
         <div ref='game' className='body'>
           {GameText(game)}
         </div>
@@ -69,8 +68,7 @@ Game.propTypes = {
   game: PropTypes.object.isRequired,
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
-  startResize: PropTypes.func.isRequired,
-  endResize: PropTypes.func.isRequired
+  startResize: PropTypes.func.isRequired
 }
 
 export default DragSource(ItemTypes.GAME, gameSource, collect)(Game)

@@ -108,13 +108,13 @@ class FieldColumn extends React.Component {
         <div className='games'
           ref='column'
           onMouseMove={this.onMouseMove}
-          onMouseLeave={this.endResize}>
+          onMouseLeave={this.endResize}
+          onMouseUp={this.endResize}>
           {_map(sortedGames, (g) => {
             return <ScheduledGame
               key={g.id}
               game={g}
-              startResize={this.startResize}
-              endResize={this.endResize}/>
+              startResize={this.startResize}/>
           })}
           { this.overlay() }
         </div>
