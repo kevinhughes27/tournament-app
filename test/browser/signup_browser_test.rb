@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class SignupBrowserTest < BrowserTestCase
-  test "signup" do
+  test 'signup' do
     visit("http://www.#{Settings.domain}/")
     click_on('Get Started')
 
@@ -13,20 +13,9 @@ class SignupBrowserTest < BrowserTestCase
     fill_in('tournament_name', with: 'Browser Test Tournament')
     click_on('Next')
 
-    assert_text "What's the time cap for games?"
-    fill_in('tournament_time_cap', with: '80')
-    click_on('Next')
-
-    assert_text 'Where is your tournament?'
-    fill_in('placesSearch', with: 'Ottawa')
-    wait_for_ajax
-    click_on('Next')
-
     assert_match /\/admin/, current_url
 
     tournament = Tournament.last
     assert_equal 'Browser Test Tournament', tournament.name
-    assert_equal 80, tournament.time_cap
-    assert_equal 'Ottawa', tournament.location
   end
 end

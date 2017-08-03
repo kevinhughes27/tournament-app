@@ -46,7 +46,7 @@ class MapForm {
   }
 
   _initializeSearch () {
-    new UT.PlacesSearch(this.placesSearchChange.bind(this))
+    new Admin.PlacesSearch(this.placesSearchChange.bind(this))
   }
 
   _drawFields (fields) {
