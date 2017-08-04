@@ -1,22 +1,19 @@
 class TeamUpdate < ApplicationOperation
-  processes :team, :params, :confirm
+  input :team, accepts: Team, required: true
+  input :params, required: true
+  input :confirm, default: false
 
-  property :team, accepts: Team, required: true
-  property :params, required: true
-  property :confirm, default: false
+  class UnableToUpdate < StandardError
+  end
 
   def execute
     if update_unsafe?
-      halt 'unable_to_update' if !team.allow_change?
-      halt 'confirm_update' if !(confirm == 'true' || team.safe_to_change?)
+      raise UnableToUpdate if !team.allow_change?
+      raise ConfirmationRequired if !(confirm == 'true' || team.safe_to_change?)
     end
 
     team.update(params)
     fail if team.errors.present?
-  end
-
-  def confirmation_required?
-    halted? && message == 'confirm_update'
   end
 
   private

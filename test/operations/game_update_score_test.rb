@@ -8,10 +8,10 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
   test "can't update score unless teams" do
     game = FactoryGirl.create(:game, home: nil, away: nil)
 
-    update = GameUpdateScore.new(game: game, user: @user, home_score: 10, away_score: 5)
-    update.perform
+    error = assert_raises do
+      GameUpdateScore.perform(game: game, user: @user, home_score: 10, away_score: 5)
+    end
 
-    assert update.failed?
     assert_nil game.home_score
     assert_nil game.away_score
   end
@@ -19,19 +19,16 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
   test "can't submit a tie for a bracket game" do
     game = FactoryGirl.create(:game)
 
-    update = GameUpdateScore.new(game: game, user: @user, home_score: 5, away_score: 5)
-    update.perform
-
-    assert update.failed?
+    error = assert_raises do
+      GameUpdateScore.perform(game: game, user: @user, home_score: 5, away_score: 5)
+    end
   end
 
   test "can submit a tie for a pool game" do
     game = FactoryGirl.create(:pool_game)
 
-    update = GameUpdateScore.new(game: game, user: @user, home_score: 5, away_score: 5)
-    update.perform
+    GameUpdateScore.perform(game: game, user: @user, home_score: 5, away_score: 5)
 
-    assert update.succeeded?
     assert_equal 5, game.home_score
     assert_equal 5, game.away_score
   end
@@ -40,20 +37,17 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
     game = FactoryGirl.create(:game)
     SafeToUpdateScoreCheck.expects(:perform).returns(false)
 
-    update = GameUpdateScore.new(game: game, user: @user, home_score: 14, away_score: 12)
-    update.perform
-
-    assert update.failed?
+    error = assert_raises do
+      GameUpdateScore.perform(game: game, user: @user, home_score: 14, away_score: 12)
+    end
   end
 
   test "force unsafe update" do
     game = FactoryGirl.create(:game)
     SafeToUpdateScoreCheck.expects(:perform).never
 
-    update = GameUpdateScore.new(game: game, user: @user, home_score: 14, away_score: 12, force: true)
-    update.perform
+    GameUpdateScore.perform(game: game, user: @user, home_score: 14, away_score: 12, force: true)
 
-    assert update.succeeded?
     assert_equal 14, game.home_score
     assert_equal 12, game.away_score
   end

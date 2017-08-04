@@ -37,13 +37,9 @@ class ScoreReportCreateTest < ActiveSupport::TestCase
 
     Rollbar.expects(:error).once
 
-    create = ScoreReportCreate.new(
-      params,
-      @tournament.game_confirm_setting
-    )
-    create.perform
-
-    assert create.failed?
+    assert_raises do
+      ScoreReportCreate.perform(params, @tournament.game_confirm_setting)
+    end
   end
 
   private

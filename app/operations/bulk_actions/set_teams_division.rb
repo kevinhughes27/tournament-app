@@ -1,7 +1,7 @@
 class BulkActions::SetTeamsDivision < ApplicationOperation
-  property :tournament_id
-  property :ids
-  property :arg
+  property! :tournament_id
+  property! :ids
+  property! :arg
 
   attr_reader :status, :response
 

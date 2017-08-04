@@ -1,7 +1,7 @@
 class ChangeBracket < ApplicationOperation
-  property :tournament_id, accepts: Integer, required: true
-  property :division_id, accepts: Integer, required: true
-  property :new_template, accepts: Hash, required: true
+  property! :tournament_id, accepts: Integer
+  property! :division_id, accepts: Integer
+  property! :new_template, accepts: Hash
 
   attr_reader :template_games
 

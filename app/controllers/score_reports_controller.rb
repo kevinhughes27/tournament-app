@@ -7,17 +7,10 @@ class ScoreReportsController < ApplicationController
   layout 'app'
 
   def submit
-    create = ScoreReportCreate.new(
-      report_params,
-      @tournament.game_confirm_setting
-    )
-    create.perform
-
-    if create.succeeded?
-      render json: true
-    else
-      render json: create.errors, status: :unprocessable_entity
-    end
+    ScoreReportCreate.perform(report_params, @tournament.game_confirm_setting)
+    render json: true
+  rescue ScoreReportCreate::Failed => e
+    render json: e.errors, status: :unprocessable_entity
   end
 
   def confirm_get

@@ -1,8 +1,7 @@
 class ScoreReportConfirm < ApplicationOperation
-  processes :token, :params, :confirm_setting
-
-  property :token, accepts: ScoreReportConfirmToken, required: true
-  property :confirm_setting, accepts: String, required: true
+  input :token, accepts: ScoreReportConfirmToken, required: true
+  input :params
+  input :confirm_setting, accepts: String, required: true
 
   def execute
     create = ScoreReportCreate.new(params, confirm_setting)

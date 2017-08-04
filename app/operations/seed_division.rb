@@ -6,16 +6,15 @@ class SeedDivision < ApplicationOperation
 
   SEED_ROUND = 1
 
-  def execute
-    halt 'confirm_seed' if !(confirm == 'true' || division.safe_to_seed?)
-    update_teams
-    halt 'Ambiguous seed list' if ambiguous_seeds?
-    halt "#{num_seats} seats but #{num_teams} teams present" unless num_seats == num_teams
-    seed
+  class Failed < StandardError
   end
 
-  def confirmation_required?
-    halted? && message == 'confirm_seed'
+  def execute
+    raise ConfirmationRequired if !(confirm == 'true' || division.safe_to_seed?)
+    update_teams
+    raise Failed('Ambiguous seed list') if ambiguous_seeds?
+    raise Failed("#{num_seats} seats but #{num_teams} teams present") unless num_seats == num_teams
+    seed
   end
 
   private

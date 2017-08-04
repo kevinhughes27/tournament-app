@@ -4,17 +4,13 @@ class Admin::SettingsController < AdminController
   end
 
   def update
-    update = UpdateSettings.new(@tournament, tournament_params, params[:confirm])
-    update.perform
-
-    if update.succeeded?
-      flash[:notice] = 'Settings saved.'
-      redirect_to admin_settings_url(subdomain: @tournament.handle)
-    elsif update.confirmation_required?
-      render partial: 'confirm_update', status: :unprocessable_entity
-    else
-      render :show
-    end
+    UpdateSettings.perform(@tournament, tournament_params, params[:confirm])
+    flash[:notice] = 'Settings saved.'
+    redirect_to admin_settings_url(subdomain: @tournament.handle)
+  rescue ConfirmationRequired
+    render partial: 'confirm_update', status: :unprocessable_entity
+  rescue StandardError
+    render :show
   end
 
   def reset_data

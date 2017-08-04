@@ -18,67 +18,52 @@ class Admin::DivisionsController < AdminController
   end
 
   def create
-    create = DivisionCreate.new(@tournament, division_params)
-    create.perform
-
-    @division = create.division
-
-    if create.succeeded?
-      flash[:notice] = 'Division was successfully created.'
-      redirect_to admin_division_path(@division)
-    else
-      render :new
-    end
+    @division = DivisionCreate.perform(@tournament, division_params)
+    flash[:notice] = 'Division was successfully created.'
+    redirect_to admin_division_path(@division)
+  rescue DivisionCreate::Failed => e
+    @division = e.division
+    render :new
   end
 
   def update
-    update = DivisionUpdate.new(@division, division_params, params[:confirm])
-    update.perform
-
-    if update.succeeded?
-      flash[:notice] = 'Division was successfully updated.'
-      redirect_to admin_division_path(@division)
-    elsif update.confirmation_required?
-      render partial: 'confirm_update', status: :unprocessable_entity
-    else
-      render :edit
-    end
+    DivisionUpdate.perform(@division, division_params, params[:confirm])
+    flash[:notice] = 'Division was successfully updated.'
+    redirect_to admin_division_path(@division)
+  rescue ConfirmationRequired
+    render partial: 'confirm_update', status: :unprocessable_entity
+  rescue DivisionUpdate::Failed => e
+    @division = e.division
+    render :edit
   end
 
   def destroy
-    delete = DivisionDelete.new(@division, params[:confirm])
-    delete.perform
+    DivisionDelete.perform(@division, params[:confirm])
+    flash[:notice] = 'Division was successfully destroyed.'
+    redirect_to admin_divisions_path
+  rescue ConfirmationRequired
+    render partial: 'confirm_delete', status: :unprocessable_entity
+  rescue DivisionDelete::Failed => e
+    flash[:error] = 'Division could not be deleted.'
+    render :show
+  end
 
-    if delete.succeeded?
-      flash[:notice] = 'Division was successfully destroyed.'
-      redirect_to admin_divisions_path
-    elsif delete.confirmation_required?
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    else
-      flash[:error] = 'Division could not be deleted.'
-      render :show
-    end
+  def seed_form
   end
 
   def seed
-    if request.post?
-      seed = SeedDivision.new(
-        division: @division,
-        team_ids: params[:team_ids],
-        seeds: params[:seeds],
-        confirm: params[:confirm]
-      )
-      seed.perform
-
-      if seed.succeeded?
-        flash[:notice] = 'Division seeded'
-        redirect_to admin_division_path(@division)
-      elsif seed.confirmation_required?
-        render partial: 'confirm_seed', status: :unprocessable_entity
-      else
-        flash[:seed_error] = seed.message
-      end
-    end
+    SeedDivision.perform(
+      division: @division,
+      team_ids: params[:team_ids],
+      seeds: params[:seeds],
+      confirm: params[:confirm]
+    )
+    flash[:notice] = 'Division seeded'
+    redirect_to admin_division_path(@division)
+  rescue ConfirmationRequired
+    render partial: 'confirm_seed', status: :unprocessable_entity
+  rescue SeedDivision::Failed => e
+    flash[:seed_error] = e.message
   end
 
   private

@@ -1,13 +1,18 @@
 require 'csv'
 
 class TeamCsvImport < ApplicationOperation
-  processes :tournament, :file, :ignore
+  input :tournament, accepts: Tournament, required: true
+  input :file, required: true
+  input :ignore, accepts: [true, false], default: false
 
-  property :tournament, accepts: Tournament, required: true
-  property :file, required: true
-  property :ignore, accepts: [true, false], default: false
+  class Failed < StandardError
+    attr_reader :row_num
 
-  attr_reader :row_num
+    def initialize(row_num, message, *args)
+      @row_num = row_num
+      super(message, *args)
+    end
+  end
 
   def execute
     @row_num = 1
@@ -34,7 +39,7 @@ class TeamCsvImport < ApplicationOperation
       end
     end
   rescue StandardError => e
-    fail e.message
+    raise Failed(@row_num, e.message)
   end
 
   private

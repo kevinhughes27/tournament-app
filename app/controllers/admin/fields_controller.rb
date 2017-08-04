@@ -41,18 +41,14 @@ class Admin::FieldsController < AdminController
   end
 
   def destroy
-    delete = FieldDelete.new(@field, params[:confirm])
-    delete.perform
-
-    if delete.succeeded?
-      flash[:notice] = 'Field was successfully destroyed.'
-      redirect_to admin_fields_path
-    elsif delete.confirmation_required?
-      render partial: 'confirm_delete', status: :unprocessable_entity
-    else
-      flash[:error] = 'Field could not be deleted.'
-      render :show
-    end
+    FieldDelete.perform(@field, params[:confirm])
+    flash[:notice] = 'Field was successfully destroyed.'
+    redirect_to admin_fields_path
+  rescue ConfirmationRequired
+    render partial: 'confirm_delete', status: :unprocessable_entity
+  rescue => StandardError
+    flash[:error] = 'Field could not be deleted.'
+    render :show
   end
 
   def sample_csv
@@ -65,16 +61,13 @@ class Admin::FieldsController < AdminController
     file = params[:csv_file].path
     ignore = params[:match_behaviour] == 'ignore'
 
-    import = FieldCsvImport.new(@tournament, file, ignore)
-    import.perform
+    FieldCsvImport.perform(@tournament, file, ignore)
+    flash[:notice] = 'Fields imported successfully'
+    redirect_to action: :index
 
-    if import.succeeded?
-      flash[:notice] = 'Fields imported successfully'
-      redirect_to action: :index
-    else
-      flash[:import_error] = "Row: #{import.row_num} #{import.message}"
-      redirect_to action: :index
-    end
+  rescue FieldCsvImport::Failed => e
+    flash[:import_error] = "Row: #{e.row_num} #{e.message}"
+    redirect_to action: :index
   end
 
   def export_csv

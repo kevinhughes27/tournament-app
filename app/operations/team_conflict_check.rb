@@ -1,10 +1,15 @@
 class TeamConflictCheck < ApplicationOperation
-  processes :game
-  property :game, accepts: Game, required: true
+  input :game, accepts: Game, required: true
 
   def execute
-    conflicting_games.present?
+    if conflicting_games.present?
+      message
+    else
+      false
+    end
   end
+
+  private
 
   def message
     name = if home_team_is_conflicting?
@@ -15,8 +20,6 @@ class TeamConflictCheck < ApplicationOperation
 
     "Team #{name} is already playing at #{game.playing_time_range_string}"
   end
-
-  private
 
   def conflicting_team_name(type)
     if conflicting_game.pool_game?
