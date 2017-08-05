@@ -10,7 +10,6 @@ gem 'jbuilder'
 gem 'composable_operations'
 
 # controllers
-gem 'browser-timezone-rails'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 
 # datastores

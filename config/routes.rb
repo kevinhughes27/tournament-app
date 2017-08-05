@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   constraints(Subdomain) do
     draw :admin
+    draw :api
     draw :player_app
   end
 
