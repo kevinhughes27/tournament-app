@@ -3,37 +3,20 @@ ruby '2.3.4'
 
 # server
 gem 'rails', '5.0.4'
-gem 'config'
-gem 'pg'
-gem 'puma'
 gem 'actioncable'
-gem 'redis'
-gem 'wicked' # signup wizard
-gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
+gem 'puma'
+gem 'config'
 gem 'jbuilder'
-gem 'wicked_pdf'
-gem 'browser-timezone-rails'
-gem 'activerecord-import'
 gem 'composable_operations'
 
-# jobs
-gem 'sidekiq'
-gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # sidekiq web
+# controllers
+gem 'browser-timezone-rails'
+gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 
-# model gems
-gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
-gem 'auto_strip_attributes'
-gem 'date_validator'
-gem 'phonelib'
-
-#gem 'bracket_db', '0.0.2', path: 'lib/bracket_db'
+# datastores
+gem 'pg'
+gem 'redis'
 gem 'frozen_record'
-
-# APIs
-gem 'gibbon'
-
-# exception tracking
-gem 'rollbar'
 
 # engines
 gem 'devise', '~> 4.3.0'
@@ -41,6 +24,26 @@ gem 'devise', '~> 4.3.0'
 # auth
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
+
+# model gems
+gem 'activerecord-import'
+gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
+gem 'auto_strip_attributes'
+gem 'date_validator'
+gem 'phonelib'
+
+# jobs
+gem 'sidekiq'
+gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # sidekiq web
+
+# APIs
+gem 'gibbon'
+
+# exception tracking
+gem 'rollbar'
+
+# utils
+gem 'wicked_pdf'
 
 # asset gems
 gem 'react_on_rails', '~> 8.0.3'
@@ -62,8 +65,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-moment', '~> 2.10.6'
   gem 'rails-assets-fingerprintjs2' , '~> 0.7.4'
   gem 'rails-assets-jquery.scrollTo', '~> 2.1.2'
-  gem 'rails-assets-tether', '~> 1.3.1'
-  gem 'rails-assets-tether-drop', '~> 1.4.2'
 end
 
 group :production do
