@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _groupBy from 'lodash/groupBy';
 
 class App extends Component {
   render() {
@@ -9,13 +10,25 @@ class App extends Component {
       return <div>Loading ...</div>;
     }
 
+    const gamesByStartTime = _groupBy(games, game => game.start_time);
+
     return (
       <div>
-        {games.map(game => {
+        {Object.keys(gamesByStartTime).map(startTime => {
+          const games = gamesByStartTime[startTime];
           return (
-            <p key={game.id}>
-              {game.id}
-            </p>
+            <div>
+              <p>
+                {startTime}
+              </p>
+              {games.map(game => {
+                return (
+                  <p key={game.id}>
+                    {game.id}
+                  </p>
+                );
+              })}
+            </div>
           );
         })}
       </div>
