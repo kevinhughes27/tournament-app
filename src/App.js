@@ -1,18 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      games: []
+    };
+  }
+
+  componentDidMount() {
+    (async () => {
+      const response = await fetch('http://no-borders.lvh.me:3000/api/games');
+      const games = await response.json();
+      this.setState({ games });
+    })();
+  }
+
   render() {
+    const { games } = this.state;
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        {games.map(game => {
+          return (
+            <p key={game.id}>
+              {game.id}
+            </p>
+          );
+        })}
       </div>
     );
   }

@@ -2,7 +2,7 @@
   "name": "ut-player-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://no-borders.lvh.me:3000",
+  "proxy": "http://lvh.me:3001",
   "dependencies": {
     "husky": "^0.14.3",
     "lint-staged": "^4.0.2",
