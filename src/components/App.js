@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect } from 'react-redux';
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import _groupBy from 'lodash/groupBy';
+import ScheduleList from './ScheduleList';
 
 class App extends Component {
   render() {
@@ -12,39 +9,14 @@ class App extends Component {
 
     if (loading) {
       return <div>Loading ...</div>;
+    } else {
+      return (
+        <MuiThemeProvider>
+          <ScheduleList games={games} />
+        </MuiThemeProvider>
+      );
     }
-
-    const gamesByStartTime = _groupBy(games, game => game.start_time);
-
-    return (
-      <MuiThemeProvider>
-        <div>
-          {Object.keys(gamesByStartTime).map(startTime => {
-            const games = gamesByStartTime[startTime];
-            return renderGameGroup(startTime, games);
-          })}
-        </div>
-      </MuiThemeProvider>
-    );
   }
-}
-
-function renderGameGroup(startTime, games) {
-  return (
-    <List key={startTime}>
-      <Subheader>
-        {startTime}
-      </Subheader>
-      {games.map(game => {
-        return (
-          <ListItem key={game.id}>
-            {game.id}
-          </ListItem>
-        );
-      })}
-      <Divider />
-    </List>
-  );
 }
 
 export default connect(state => ({
