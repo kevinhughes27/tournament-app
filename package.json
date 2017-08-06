@@ -10,6 +10,7 @@
     "material-ui": "^0.18.7",
     "prettier": "^1.5.3",
     "react": "^15.6.1",
+    "react-center": "^1.1.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-scripts": "1.0.10",
