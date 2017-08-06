@@ -2,6 +2,12 @@ module Schedulable
   extend ActiveSupport::Concern
 
   included do
+    scope :scheduled, -> { where.not(
+      field_id: nil,
+      start_time: nil,
+      end_time: nil
+    )}
+
     with_options if: :scheduled? do |game|
       game.validates :start_time, presence: true, date: true
       game.validates :end_time,  presence: true, date: true
