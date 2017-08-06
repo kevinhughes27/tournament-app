@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CircularProgress from 'material-ui/CircularProgress';
 import Center from 'react-center';
@@ -7,23 +8,28 @@ import ScheduleList from './ScheduleList';
 
 class App extends Component {
   render() {
-    const { loading, games } = this.props;
+    return (
+      <MuiThemeProvider style={{ height: '100%' }}>
+        <div>
+          <AppBar title="Ultimate Tournament" />
+          {renderContent(this.props)}
+        </div>
+      </MuiThemeProvider>
+    );
+  }
+}
 
-    if (loading) {
-      return (
-        <MuiThemeProvider style={{ height: '100%' }}>
-          <Center>
-            <CircularProgress size={80} thickness={5} />
-          </Center>
-        </MuiThemeProvider>
-      );
-    } else {
-      return (
-        <MuiThemeProvider>
-          <ScheduleList games={games} />
-        </MuiThemeProvider>
-      );
-    }
+function renderContent(props) {
+  const { loading, games } = props;
+
+  if (loading) {
+    return (
+      <Center>
+        <CircularProgress size={80} thickness={5} />
+      </Center>
+    );
+  } else {
+    return <ScheduleList games={games} />;
   }
 }
 
