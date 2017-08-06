@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import CircularProgress from 'material-ui/CircularProgress';
 import { connect } from 'react-redux';
 import ScheduleList from './ScheduleList';
 
@@ -8,7 +9,11 @@ class App extends Component {
     const { loading, games } = this.props;
 
     if (loading) {
-      return <div>Loading ...</div>;
+      return (
+        <MuiThemeProvider>
+          <CircularProgress size={80} thickness={5} />
+        </MuiThemeProvider>
+      );
     } else {
       return (
         <MuiThemeProvider>
