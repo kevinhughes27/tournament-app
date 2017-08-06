@@ -1,5 +1,6 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDom from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -15,7 +16,9 @@ let store = createStore(playerApp, applyMiddleware(thunk));
 
 store.dispatch(loadApp());
 
-render(
+injectTapEventPlugin();
+
+ReactDom.render(
   <Provider store={store}>
     <App />
   </Provider>,
