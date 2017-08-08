@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
+import moment from 'moment';
 import _groupBy from 'lodash/groupBy';
 
 class ScheduleList extends Component {
@@ -24,12 +25,12 @@ function renderGameGroup(startTime, games) {
   return (
     <List key={startTime}>
       <Subheader>
-        {startTime}
+        {moment(startTime).format('dddd h:mm A')}
       </Subheader>
       {games.map(game => {
         return (
           <ListItem key={game.id}>
-            {game.id}
+            {game.home_name} vs {game.away_name}
           </ListItem>
         );
       })}
