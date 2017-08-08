@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
+import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import moment from 'moment';
 import _groupBy from 'lodash/groupBy';
 
@@ -30,7 +31,15 @@ function renderGameGroup(startTime, games) {
       {games.map(game => {
         return (
           <ListItem key={game.id}>
-            {game.home_name} vs {game.away_name}
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div>
+                {game.home_name} vs {game.away_name}
+              </div>
+              <div>
+                {game.field_name}
+                <PlaceIcon />
+              </div>
+            </div>
           </ListItem>
         );
       })}
