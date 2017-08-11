@@ -54,7 +54,7 @@ class App extends Component {
 }
 
 function renderContent(props) {
-  const { loading, games } = props;
+  const { loading, games, search } = props;
 
   if (loading) {
     return (
@@ -63,11 +63,12 @@ function renderContent(props) {
       </Center>
     );
   } else {
-    return <ScheduleList games={games} />;
+    return <ScheduleList games={games} search={search} />;
   }
 }
 
 export default connect(state => ({
   loading: state.loading,
-  games: state.games
+  games: state.games,
+  search: state.search
 }))(App);
