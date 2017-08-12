@@ -26,40 +26,29 @@ class App extends Component {
     return (
       <MuiThemeProvider style={{ height: '100%' }}>
         <div>
-          <AppBar
-            title="Ultimate Tournament"
-            style={{ position: 'fixed' }}
-            iconElementLeft={
-              <IconButton>
-                <Search />
-              </IconButton>
-            }
-          />
-          <div style={{ paddingTop: 64 }}>{renderContent(this.props)}</div>}
-          <BottomNavigation
-            style={{ position: 'fixed', bottom: 0, zIndex: 100 }}
-            selectedIndex={this.state.selectedIndex}
-          >
-            <BottomNavigationItem
-              label="Recents"
-              icon={<LocationOn />}
-              onTouchTap={() => this.select(0)}
-            />
-            <BottomNavigationItem
-              label="Favorites"
-              icon={<LocationOn />}
-              onTouchTap={() => this.select(1)}
-            />
-            <BottomNavigationItem
-              label="Nearby"
-              icon={<LocationOn />}
-              onTouchTap={() => this.select(2)}
-            />
-          </BottomNavigation>
+          {renderTopBar()}
+          <div style={{ paddingTop: 64 }}>
+            {renderContent(this.props)}
+          </div>
+          {renderBottomBar(this.state.selectedIndex, this.select)}
         </div>
       </MuiThemeProvider>
     );
   }
+}
+
+function renderTopBar() {
+  return (
+    <AppBar
+      title="Ultimate Tournament"
+      style={{ position: 'fixed' }}
+      iconElementLeft={
+        <IconButton>
+          <Search />
+        </IconButton>
+      }
+    />
+  );
 }
 
 function renderContent(props) {
@@ -76,8 +65,33 @@ function renderContent(props) {
   }
 }
 
+function renderBottomBar(selectedIndex, select) {
+  return (
+    <BottomNavigation
+      style={{ position: 'fixed', bottom: 0, zIndex: 100 }}
+      selectedIndex={selectedIndex}
+    >
+      <BottomNavigationItem
+        label="Recents"
+        icon={<LocationOn />}
+        onTouchTap={() => select(0)}
+      />
+      <BottomNavigationItem
+        label="Favorites"
+        icon={<LocationOn />}
+        onTouchTap={() => select(1)}
+      />
+      <BottomNavigationItem
+        label="Nearby"
+        icon={<LocationOn />}
+        onTouchTap={() => select(2)}
+      />
+    </BottomNavigation>
+  );
+}
+
 export default connect(state => ({
-  loading: state.loading,
-  games: state.games,
-  search: state.search
+  loading: state.app.loading,
+  games: state.app.games,
+  search: state.app.search
 }))(App);
