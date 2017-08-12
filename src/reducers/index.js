@@ -1,4 +1,11 @@
-export default (state = {}, action) => {
+export default (
+  state = {
+    loading: true,
+    search: '',
+    games: []
+  },
+  action
+) => {
   switch (action.type) {
     case 'LOAD':
       return {
@@ -12,10 +19,6 @@ export default (state = {}, action) => {
         search: action.value.toLowerCase()
       };
     default:
-      return {
-        loading: true,
-        search: '',
-        games: []
-      };
+      return state;
   }
 };
