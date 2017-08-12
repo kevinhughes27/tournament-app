@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Center from 'react-center';
 import { connect } from 'react-redux';
-import ScheduleList from './ScheduleList';
+import { push } from 'react-router-redux';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -12,16 +12,12 @@ import {
 } from 'material-ui/BottomNavigation';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import LocationOn from 'material-ui-icons/LocationOn';
-import Search from 'material-ui-icons/Search';
+import SearchIcon from 'material-ui-icons/Search';
+import EventIcon from 'material-ui-icons/Event';
+import LocationIcon from 'material-ui-icons/LocationOn';
+import SendIcon from 'material-ui-icons/Send';
 
 class App extends Component {
-  state = {
-    selectedIndex: 0
-  };
-
-  select = index => this.setState({ selectedIndex: index });
-
   render() {
     return (
       <MuiThemeProvider style={{ height: '100%' }}>
@@ -30,7 +26,7 @@ class App extends Component {
           <div style={{ paddingTop: 64 }}>
             {renderContent(this.props)}
           </div>
-          {renderBottomBar(this.state.selectedIndex, this.select)}
+          {renderBottomBar(this.props, this.props.dispatch)}
         </div>
       </MuiThemeProvider>
     );
@@ -44,7 +40,7 @@ function renderTopBar() {
       style={{ position: 'fixed' }}
       iconElementLeft={
         <IconButton>
-          <Search />
+          <SearchIcon />
         </IconButton>
       }
     />
@@ -52,7 +48,7 @@ function renderTopBar() {
 }
 
 function renderContent(props) {
-  const { loading, games, search } = props;
+  const { loading } = props;
 
   if (loading) {
     return (
@@ -61,30 +57,44 @@ function renderContent(props) {
       </Center>
     );
   } else {
-    return <ScheduleList games={games} search={search} />;
+    return (
+      <div>
+        {props.children}
+      </div>
+    );
   }
 }
 
-function renderBottomBar(selectedIndex, select) {
+function renderBottomBar(props, dispatch) {
+  const { location } = props;
+
+  const pathToIndex = {
+    null: 0,
+    '/': 0,
+    '/map': 1,
+    '/submit': 2
+  };
+  const selectedIndex = pathToIndex[location];
+
   return (
     <BottomNavigation
       style={{ position: 'fixed', bottom: 0, zIndex: 100 }}
       selectedIndex={selectedIndex}
     >
       <BottomNavigationItem
-        label="Recents"
-        icon={<LocationOn />}
-        onTouchTap={() => select(0)}
+        label="Schedule"
+        icon={<EventIcon />}
+        onTouchTap={() => dispatch(push('/'))}
       />
       <BottomNavigationItem
-        label="Favorites"
-        icon={<LocationOn />}
-        onTouchTap={() => select(1)}
+        label="Map"
+        icon={<LocationIcon />}
+        onTouchTap={() => dispatch(push('/map'))}
       />
       <BottomNavigationItem
-        label="Nearby"
-        icon={<LocationOn />}
-        onTouchTap={() => select(2)}
+        label="Submit Scores"
+        icon={<SendIcon />}
+        onTouchTap={() => dispatch(push('/submit'))}
       />
     </BottomNavigation>
   );
@@ -92,6 +102,5 @@ function renderBottomBar(selectedIndex, select) {
 
 export default connect(state => ({
   loading: state.app.loading,
-  games: state.app.games,
-  search: state.app.search
+  location: state.router.location
 }))(App);

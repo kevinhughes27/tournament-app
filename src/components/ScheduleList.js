@@ -81,4 +81,7 @@ function renderGameGroup(startTime, games) {
   );
 }
 
-export default connect()(ScheduleList);
+export default connect(state => ({
+  games: state.app.games,
+  search: state.app.search
+}))(ScheduleList);

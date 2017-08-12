@@ -1,4 +1,4 @@
-const app = (state = {}, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case 'LOAD':
       return {
@@ -19,5 +19,3 @@ const app = (state = {}, action) => {
       };
   }
 };
-
-export default app;
