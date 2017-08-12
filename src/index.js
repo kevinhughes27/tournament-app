@@ -3,7 +3,6 @@ import ReactDom from 'react-dom';
 
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 
 import createHistory from 'history/createBrowserHistory';
 import { Route } from 'react-router';
@@ -13,6 +12,9 @@ import {
   routerReducer,
   routerMiddleware
 } from 'react-router-redux';
+
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 import App from './components/App';
 import { loadApp } from './actions/load';
@@ -35,7 +37,7 @@ const store = createStore(
     app: reducers,
     router: routerReducer
   }),
-  applyMiddleware(thunk, middleware)
+  applyMiddleware(thunk, logger, middleware)
 );
 
 store.dispatch(loadApp());
