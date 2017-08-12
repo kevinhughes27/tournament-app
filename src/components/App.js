@@ -5,17 +5,15 @@ import ScheduleList from './ScheduleList';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
 import {
   BottomNavigation,
   BottomNavigationItem
 } from 'material-ui/BottomNavigation';
 import CircularProgress from 'material-ui/CircularProgress';
-import FontIcon from 'material-ui/FontIcon';
-import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 
-const recentsIcon = <FontIcon className="material-icons">restore</FontIcon>;
-const favoritesIcon = <FontIcon className="material-icons">favorite</FontIcon>;
-const nearbyIcon = <IconLocationOn />;
+import LocationOn from 'material-ui-icons/LocationOn';
+import Search from 'material-ui-icons/Search';
 
 class App extends Component {
   state = {
@@ -28,22 +26,33 @@ class App extends Component {
     return (
       <MuiThemeProvider style={{ height: '100%' }}>
         <div>
-          <AppBar title="Ultimate Tournament" />
-          {renderContent(this.props)}
-          <BottomNavigation selectedIndex={this.state.selectedIndex}>
+          <AppBar
+            title="Ultimate Tournament"
+            style={{ position: 'fixed' }}
+            iconElementLeft={
+              <IconButton>
+                <Search />
+              </IconButton>
+            }
+          />
+          <div style={{ paddingTop: 64 }}>{renderContent(this.props)}</div>}
+          <BottomNavigation
+            style={{ position: 'fixed', bottom: 0, zIndex: 100 }}
+            selectedIndex={this.state.selectedIndex}
+          >
             <BottomNavigationItem
               label="Recents"
-              icon={recentsIcon}
+              icon={<LocationOn />}
               onTouchTap={() => this.select(0)}
             />
             <BottomNavigationItem
               label="Favorites"
-              icon={favoritesIcon}
+              icon={<LocationOn />}
               onTouchTap={() => this.select(1)}
             />
             <BottomNavigationItem
               label="Nearby"
-              icon={nearbyIcon}
+              icon={<LocationOn />}
               onTouchTap={() => this.select(2)}
             />
           </BottomNavigation>
