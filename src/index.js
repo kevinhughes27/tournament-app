@@ -21,7 +21,7 @@ import { loadApp } from './actions/load';
 import reducers from './reducers';
 
 import ScheduleList from './components/ScheduleList';
-import Map from './components/Map';
+import MapView from './components/MapView';
 import Submit from './components/Submit';
 
 import './index.css';
@@ -49,7 +49,7 @@ ReactDom.render(
     <ConnectedRouter history={history}>
       <App>
         <Route exact path="/" component={ScheduleList} />
-        <Route path="/map" component={Map} />
+        <Route path="/map" component={MapView} />
         <Route path="/submit" component={Submit} />
       </App>
     </ConnectedRouter>
