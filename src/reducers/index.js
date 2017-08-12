@@ -16,7 +16,7 @@ export default (
     case 'SET_SEARCH':
       return {
         ...state,
-        search: action.value.toLowerCase()
+        search: action.value
       };
     default:
       return state;

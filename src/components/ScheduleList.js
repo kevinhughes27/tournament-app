@@ -18,8 +18,10 @@ class ScheduleList extends Component {
     if (search !== '') {
       filteredGames = _filter(games, game => {
         return (
-          String(game.home_name).toLowerCase().indexOf(search) >= 0 ||
-          String(game.away_name).toLowerCase().indexOf(search) >= 0
+          String(game.home_name).toLowerCase().indexOf(search.toLowerCase()) >=
+            0 ||
+          String(game.away_name).toLowerCase().indexOf(search.toLowerCase()) >=
+            0
         );
       });
     } else {
@@ -38,9 +40,10 @@ class ScheduleList extends Component {
     return (
       <div>
         <AutoComplete
-          hintText="Search Teams or Divisions"
+          hintText="Search Teams"
           dataSource={searchItems}
           filter={AutoComplete.caseInsensitiveFilter}
+          searchText={search}
           openOnFocus={true}
           onUpdateInput={search => {
             dispatch({ type: 'SET_SEARCH', value: search });
