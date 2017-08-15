@@ -5,10 +5,10 @@ import { Map, TileLayer } from 'react-leaflet';
 
 class MapView extends Component {
   render() {
-    const position = [51.505, -0.09];
+    const { lat, long, zoom } = window.tournament.map;
 
     return (
-      <Map center={position} zoom={13} zoomControl={false}>
+      <Map center={[lat, long]} zoom={zoom} zoomControl={false}>
         <TileLayer
           url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}

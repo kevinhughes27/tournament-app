@@ -32,6 +32,14 @@ const history = createHistory();
 
 const middleware = routerMiddleware(history);
 
+window.tournament = {
+  map: {
+    lat: 45.2450109815466,
+    long: -75.61416506767274,
+    zoom: 16
+  }
+};
+
 const store = createStore(
   combineReducers({
     app: reducers,
