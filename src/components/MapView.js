@@ -8,7 +8,7 @@ class MapView extends Component {
     const position = [51.505, -0.09];
 
     return (
-      <Map center={position} zoom={13}>
+      <Map center={position} zoom={13} zoomControl={false}>
         <TileLayer
           url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
