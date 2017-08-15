@@ -57,11 +57,7 @@ function renderContent(props) {
       </Center>
     );
   } else {
-    return (
-      <div>
-        {props.children}
-      </div>
-    );
+    return props.children;
   }
 }
 
