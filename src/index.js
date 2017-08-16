@@ -23,6 +23,7 @@ import reducers from './reducers';
 import ScheduleList from './components/ScheduleList';
 import MapView from './components/MapView';
 import Submit from './components/Submit';
+import ScoreForm from './components/ScoreForm';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -59,6 +60,7 @@ ReactDom.render(
         <Route exact path="/" component={ScheduleList} />
         <Route path="/map" component={MapView} />
         <Route path="/submit" component={Submit} />
+        <Route path="/submit/:id" component={ScoreForm} />
       </App>
     </ConnectedRouter>
   </Provider>,

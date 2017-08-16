@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Center from 'react-center';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import Center from 'react-center';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
