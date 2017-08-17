@@ -59,8 +59,8 @@ ReactDom.render(
       <App>
         <Route exact path="/" component={ScheduleList} />
         <Route path="/map" component={MapView} />
-        <Route path="/submit" component={Submit} />
-        <Route path="/submit/:id" component={ScoreForm} />
+        <Route exact path="/submit" component={Submit} />
+        <Route path="/submit/:gameId" component={ScoreForm} />
       </App>
     </ConnectedRouter>
   </Provider>,

@@ -62,10 +62,6 @@ function renderGames(games, dispatch) {
               <div>
                 {game.home_name} vs {game.away_name}
               </div>
-              <div>
-                {game.field_name}
-                <PlaceIcon />
-              </div>
             </div>
           </ListItem>
         );
