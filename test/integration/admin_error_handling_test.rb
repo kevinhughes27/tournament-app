@@ -22,15 +22,6 @@ class AdminErrorHandlingTest < ActionDispatch::IntegrationTest
     assert_template 'admin/404', layout: 'admin'
   end
 
-  test "admin 500s" do
-    login_as(@user)
-    Admin::TeamsController.any_instance.expects(:load_team).raises(StandardError)
-    Rollbar.expects(:error)
-    get "http://#{@tournament.handle}.lvh.me/admin/teams/1"
-    assert_equal 500, status
-    assert_template 'admin/500', layout: 'admin'
-  end
-
   private
 
   def login_as(user)
