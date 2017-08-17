@@ -1,5 +1,5 @@
 class AppController < ApplicationController
-  include LoadTournament
+  include TournamentConcern
 
   before_action :set_tournament_timezone
 

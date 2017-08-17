@@ -1,11 +1,13 @@
-module LoadTournament
+module TournamentConcern
   extend ActiveSupport::Concern
 
   included do
     before_action :load_tournament
 
     def load_tournament
-      @tournament = Tournament.find_by!(handle: request.subdomain)
+      @tournament = Tournament
+        .includes(:map)
+        .find_by!(handle: request.subdomain)
     rescue ActiveRecord::RecordNotFound
       render_404
     end

@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  include LoadTournament
+  include TournamentConcern
   include AdminErrorHandling
 
   abstract!

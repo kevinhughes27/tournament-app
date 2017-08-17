@@ -1,6 +1,5 @@
 class Admin::MapController < AdminController
-  include LoadTournamentWithMap
-
+  before_action -> { @map = @tournament.map }
   before_action :load_fields
 
   def show

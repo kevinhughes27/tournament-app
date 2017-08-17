@@ -1,6 +1,5 @@
 class Admin::FieldsController < AdminController
-  include LoadTournamentWithMap
-
+  before_action -> { @map = @tournament.map }
   before_action :load_field, only: [:show, :update, :destroy]
   before_action :load_fields, only: [:index, :new, :create, :show, :update, :export_csv]
 
