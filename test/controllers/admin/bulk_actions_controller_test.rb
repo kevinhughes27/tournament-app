@@ -15,10 +15,10 @@ class Admin::BulkActionsControllerTest < AdminControllerTestCase
   end
 
   test "with missing action" do
-    Rollbar.expects(:error) do |error|
-      assert error.is_a?(Admin::BulkActionsController::MissingActionError)
+    error = assert_raises do
+      put :perform, params: {action_class: 'missing'}
     end
 
-    put :perform, params: {action_class: 'missing'}
+    assert error.is_a?(Admin::BulkActionsController::MissingActionError)
   end
 end
