@@ -10,7 +10,7 @@ class AppController < ApplicationController
     @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
     @teams = @tournament.teams
     @games = @tournament.games
-               .assigned
+               .scheduled
                .with_teams
                .includes(:home, :away, :field, :division)
 

@@ -29,7 +29,6 @@ class Game < ApplicationRecord
 
   scope :bracket_game, -> { where.not(bracket_uid: nil) }
 
-  scope :assigned, -> { where.not(field_id: nil, start_time: nil) }
   scope :with_teams, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
   scope :reported_unconfirmed, -> { includes(:score_reports).where(score_confirmed: false).where.not(score_reports: {id: nil})}
 
