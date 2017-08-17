@@ -8,4 +8,11 @@ QueryType = GraphQL::ObjectType.define do
       ctx[:tournament].games
     }
   end
+
+  field :fields do
+    type types[FieldType]
+    resolve -> (obj, args, ctx) {
+      ctx[:tournament].fields
+    }
+  end
 end
