@@ -5,7 +5,7 @@ QueryType = GraphQL::ObjectType.define do
   field :games do
     type types[GameType]
     resolve -> (obj, args, ctx) {
-      ctx[:tournament].games
+      ctx[:tournament].games.includes(:home, :away, :field)
     }
   end
 
