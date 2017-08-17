@@ -12,6 +12,7 @@ gem 'composable_operations'
 # api
 gem 'graphql'
 gem 'graphiql-rails'
+gem 'rack-cors', require: 'rack/cors'
 
 # controllers
 gem 'browser-timezone-rails'

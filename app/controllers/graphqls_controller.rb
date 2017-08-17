@@ -1,6 +1,8 @@
 class GraphqlsController < ApplicationController
   include TournamentConcern
 
+  skip_before_action :verify_authenticity_token
+
   def create
     query_string = params[:query]
     query_variables = JSON.load(params[:variables]) || {}
