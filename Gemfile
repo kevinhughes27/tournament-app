@@ -9,6 +9,10 @@ gem 'config'
 gem 'jbuilder'
 gem 'composable_operations'
 
+# api
+gem 'graphql'
+gem 'graphiql-rails'
+
 # controllers
 gem 'browser-timezone-rails'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
