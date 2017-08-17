@@ -44,26 +44,11 @@ class Admin::TestCaseControllerTest < ActionController::TestCase
     assert_template 'login/404', layout: 'login'
   end
 
-  # test "404 error (html)" do
-  #   sign_in @user
-  #   @controller.expects(:render_index).raises(ActiveRecord::RecordNotFound)
-  #   get :index
-  #   assert_response :not_found
-  #   assert_template 'admin/404'
-  # end
-
-  test "500 error (html)" do
+  test "404 error (html)" do
     sign_in @user
-    @controller.expects(:render_index).raises
+    @controller.expects(:render_index).raises(ActiveRecord::RecordNotFound)
     get :index
-    assert_response 500
-    assert_template 'admin/500'
-  end
-
-  test "500 error (pdf)" do
-    sign_in @user
-    @controller.expects(:render_index).raises
-    get :index, format: :pdf
-    assert_response 500
+    assert_response :not_found
+    assert_template 'admin/404'
   end
 end
