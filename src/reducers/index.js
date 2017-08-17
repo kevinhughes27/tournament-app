@@ -7,30 +7,18 @@ export default (
   action
 ) => {
   switch (action.type) {
-    case 'LOAD_GAMES':
-      return {
-        ...state,
-        games: action.json
-      };
-    case 'LOAD_GAMES_FAILED':
-      return {
-        ...state,
-        games: action.json
-      };
-    case 'LOAD_FIELDS':
-      return {
-        ...state,
-        fields: action.json
-      };
-    case 'LOAD_FIELDS_FAILED':
-      return {
-        ...state,
-        fields: action.json
-      };
     case 'LOAD_COMPLETED':
       return {
         ...state,
-        loading: false
+        loading: false,
+        games: action.json.data.games,
+        fields: action.json.data.fields
+      };
+    // do something better here
+    case 'LOAD_FAILED':
+      return {
+        ...state,
+        loading: true
       };
     case 'SET_SEARCH':
       return {
