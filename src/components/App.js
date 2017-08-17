@@ -23,7 +23,7 @@ class App extends Component {
       <MuiThemeProvider style={{ height: '100%' }}>
         <div>
           {renderTopBar()}
-          <div style={{ paddingTop: 64 }}>
+          <div style={{ paddingTop: 64, paddingBottom: 64 }}>
             {renderContent(this.props)}
           </div>
           {renderBottomBar(this.props, this.props.dispatch)}
