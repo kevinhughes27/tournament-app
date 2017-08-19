@@ -53,6 +53,7 @@ function renderGames(games, dispatch) {
   return (
     <List>
       {games.map(game => {
+        // I think that these might be better as modals.
         return (
           <ListItem key={game.id}>
             <div
