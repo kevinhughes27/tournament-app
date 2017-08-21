@@ -7,6 +7,7 @@ gem 'actioncable'
 gem 'puma'
 gem 'config'
 gem 'jbuilder'
+gem 'active_operation'
 gem 'composable_operations'
 
 # api

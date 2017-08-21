@@ -69,6 +69,9 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_operation (0.2.0)
+      activesupport (> 4.0)
+      smart_properties (~> 1.0)
     activejob (5.0.4)
       activesupport (= 5.0.4)
       globalid (>= 0.3.6)
@@ -387,6 +390,7 @@ PLATFORMS
 
 DEPENDENCIES
   actioncable
+  active_operation
   activerecord-import
   auto_strip_attributes
   bootstrap-sass

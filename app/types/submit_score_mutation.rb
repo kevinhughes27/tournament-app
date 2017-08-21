@@ -15,11 +15,5 @@ SubmitScoreMutation = GraphQL::Relay::Mutation.define do
 
   return_field :success, !types.Boolean
 
-  resolve ->(object, inputs, ctx) {
-    params = inputs.to_h.merge(tournament_id: ctx[:tournament].id)
-    confirm_setting = ctx[:tournament].game_confirm_setting
-    ScoreReportCreate.perform(params, confirm_setting)
-    response = { success: true }
-    response
-  }
+  resolve SubmitScoreReport
 end
