@@ -95,6 +95,8 @@ class ScoreForm extends Component {
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <TextField
             name="home_score"
+            type="number"
+            autoComplete="off"
             value={this.state.home_score}
             onChange={this.handleChange}
             floatingLabelText={game.home_name}
@@ -102,6 +104,8 @@ class ScoreForm extends Component {
           />
           <TextField
             name="away_score"
+            type="number"
+            autoComplete="off"
             value={this.state.away_score}
             onChange={this.handleChange}
             floatingLabelText={game.away_name}
