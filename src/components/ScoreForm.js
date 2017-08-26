@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../actions/submitScore';
 import _find from 'lodash/find';
+import _omit from 'lodash/omit';
 
 const QUESTIONS = [
   '1. Rules knowledge and Use',
@@ -60,15 +61,29 @@ class ScoreForm extends Component {
   }
 
   handleSubmit(event) {
+    const gameId = this.props.match.params.gameId;
+    const game = _find(this.props.games, g => g.id === gameId);
+    const teamName = this.props.search;
+    const team = _find(this.props.teams, t => t.name === teamName);
+
+    const isHome = game.home_name === teamName;
+    const { home_score, away_score } = this.state;
+    const homeScore = parseInt(home_score, 10);
+    const awayScore = parseInt(away_score, 10);
+
+    const payload = {
+      game_id: game.id,
+      team_id: team.id,
+      submitter_fingerprint: 'wat',
+      team_score: isHome ? homeScore : awayScore,
+      opponent_score: isHome ? awayScore : homeScore,
+      ..._omit(this.state, ['home_score', 'away_score'])
+    };
+
     const { dispatch } = this.props;
-    dispatch(submitScore(this.state));
+    dispatch(submitScore(payload));
     event.preventDefault();
   }
-
-  // Bottom bar needs to be hidden for this view.
-  // a) its confusing since you haven't seen the submit button yet.
-  //    I clicked submit scores by accident when my intention was to submit the form.
-  // b) the user should finish this action or cancel
 
   render() {
     const gameId = this.props.match.params.gameId;
@@ -122,5 +137,6 @@ function renderSpiritQuestion(index, value) {
 
 export default connect(state => ({
   games: state.app.games,
+  teams: state.app.teams,
   search: state.app.search
 }))(ScoreForm);

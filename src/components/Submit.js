@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { List, ListItem } from 'material-ui/List';
 import AutoComplete from 'material-ui/AutoComplete';
-import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import _filter from 'lodash/filter';
 import _uniq from 'lodash/uniq';
 

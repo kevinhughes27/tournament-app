@@ -8,11 +8,13 @@ export default (
 ) => {
   switch (action.type) {
     case 'LOAD_COMPLETED':
+      const { games, fields, teams } = action.json.data;
       return {
         ...state,
         loading: false,
-        games: action.json.data.games,
-        fields: action.json.data.fields
+        games: games,
+        fields: fields,
+        teams: teams
       };
     // do something better here
     case 'LOAD_FAILED':
@@ -25,6 +27,10 @@ export default (
         ...state,
         search: action.value
       };
+    case 'SCORE_REPORT_SUBMITTED':
+      return state;
+    case 'SCORE_REPORT_FAILED':
+      return state;
     default:
       return state;
   }

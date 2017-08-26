@@ -8,9 +8,14 @@ function submitScore(payload) {
       },
       mode: 'cors',
       body: JSON.stringify({
-        query: `{ 
-        submitScore()
-      }`
+        query: `mutation submitScore($input: SubmitScoreInput!) {
+          submitScore(input: $input){
+            success
+          }
+        }`,
+        variables: {
+          input: payload
+        }
       })
     })
       .then(response => response.json())

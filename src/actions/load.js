@@ -22,6 +22,10 @@ function loadApp() {
           name
           geo_json
         }
+        teams {
+          id
+          name
+        }
       }`
       })
     })
