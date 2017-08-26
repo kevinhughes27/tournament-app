@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://lvh.me:3001",
   "dependencies": {
+    "fingerprintjs2sync": "^1.5.5",
     "history": "^4.6.3",
     "husky": "^0.14.3",
     "leaflet": "^1.2.0",

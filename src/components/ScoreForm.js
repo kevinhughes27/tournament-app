@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../actions/submitScore';
+import Fingerprint2 from 'fingerprintjs2sync';
 import _find from 'lodash/find';
 import _omit from 'lodash/omit';
 
@@ -74,7 +75,7 @@ class ScoreForm extends Component {
     const payload = {
       game_id: game.id,
       team_id: team.id,
-      submitter_fingerprint: 'wat',
+      submitter_fingerprint: new Fingerprint2().getSync().fprint,
       team_score: isHome ? homeScore : awayScore,
       opponent_score: isHome ? awayScore : homeScore,
       ..._omit(this.state, ['home_score', 'away_score'])
