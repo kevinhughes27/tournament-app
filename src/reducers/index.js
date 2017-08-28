@@ -16,8 +16,8 @@ export default (
         fields: fields,
         teams: teams
       };
-    // do something better here
     case 'LOAD_FAILED':
+      // do something better here
       return {
         ...state,
         loading: true
