@@ -7,7 +7,7 @@ import {
 } from 'material-ui/BottomNavigation';
 import EventIcon from 'material-ui-icons/Event';
 import LocationIcon from 'material-ui-icons/LocationOn';
-import SendIcon from 'material-ui-icons/Send';
+import InputIcon from 'material-ui-icons/Input';
 
 class BottomNav extends Component {
   render() {
@@ -38,7 +38,7 @@ class BottomNav extends Component {
         />
         <BottomNavigationItem
           label="Submit Scores"
-          icon={<SendIcon />}
+          icon={<InputIcon />}
           onTouchTap={() => dispatch(push('/submit'))}
         />
       </BottomNavigation>
