@@ -1,6 +1,6 @@
 function submitScore(payload) {
   return dispatch =>
-    fetch('http://no-borders.lvh.me:3000/graphql', {
+    fetch('/graphql', {
       method: 'post',
       headers: {
         Accept: 'application/json',
