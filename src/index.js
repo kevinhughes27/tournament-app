@@ -33,14 +33,6 @@ const store = createStore(
   applyMiddleware(thunk, logger, middleware)
 );
 
-window.tournament = {
-  map: {
-    lat: 45.2450109815466,
-    long: -75.61416506767274,
-    zoom: 16
-  }
-};
-
 store.dispatch(loadApp());
 
 injectTapEventPlugin();

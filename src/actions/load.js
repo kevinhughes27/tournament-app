@@ -9,6 +9,11 @@ function loadApp() {
       mode: 'cors',
       body: JSON.stringify({
         query: `{ 
+        map {
+          lat
+          long
+          zoom
+        }
         games {
           id
           home_name

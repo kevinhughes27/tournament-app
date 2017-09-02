@@ -5,8 +5,7 @@ import { Map, TileLayer, GeoJSON } from 'react-leaflet';
 
 class MapView extends Component {
   render() {
-    const { lat, long, zoom } = window.tournament.map;
-    const fields = this.props.fields;
+    const { map: { lat, long, zoom }, fields } = this.props;
 
     return (
       <Map center={[lat, long]} zoom={zoom} zoomControl={false}>
@@ -27,6 +26,7 @@ function renderFields(fields) {
 }
 
 export default connect(state => ({
+  map: state.app.map,
   fields: state.app.fields,
   search: state.app.search
 }))(MapView);
