@@ -1,49 +1,23 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Center from 'react-center';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import CircularProgress from 'material-ui/CircularProgress';
-import TopBar from './TopBar';
-import BottomNav from './BottomNav';
+import { Route } from 'react-router';
 
-// main responsibilty is loading.
-// I need to make a new component for the main page layout
-// and move that logic there.
-//    * Should I rename this to Loader?
-// needs to support optional bottom nav.
-// should do top and bottom with proper flex container.
+import Loader from './Loader';
+import ScheduleList from './ScheduleList';
+import MapView from './MapView';
+import Submit from './Submit';
+import ScoreForm from './ScoreForm';
 
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider style={{ height: '100%' }}>
-        <div>
-          <TopBar />
-          <div style={{ paddingTop: 64, paddingBottom: 64 }}>
-            {renderContent(this.props)}
-          </div>
-          <BottomNav />
-        </div>
-      </MuiThemeProvider>
+      <Loader>
+        <Route exact path="/" component={ScheduleList} />
+        <Route path="/map" component={MapView} />
+        <Route exact path="/submit" component={Submit} />
+        <Route path="/submit/:gameId" component={ScoreForm} />
+      </Loader>
     );
   }
 }
 
-function renderContent(props) {
-  const { loading } = props;
-
-  if (loading) {
-    return (
-      <Center>
-        <CircularProgress size={80} thickness={5} />
-      </Center>
-    );
-  } else {
-    return props.children;
-  }
-}
-
-export default connect(state => ({
-  loading: state.app.loading,
-  location: state.router.location
-}))(App);
+export default App;
