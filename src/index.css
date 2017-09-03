@@ -4,16 +4,22 @@ body {
   font-family: sans-serif;
 }
 
-html,
-body,
-#root {
-  min-height: 100%;
-  height: 100%;
+.topbar {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
 }
 
-#root > div {
-  min-height: 100%;
-  height: 100%;
+.content {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.bottombar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .leaflet-container {
