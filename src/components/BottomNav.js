@@ -22,10 +22,7 @@ class BottomNav extends Component {
     const selectedIndex = pathToIndex[location];
 
     return (
-      <BottomNavigation
-        style={{ position: 'fixed', bottom: 0, zIndex: 100 }}
-        selectedIndex={selectedIndex}
-      >
+      <BottomNavigation selectedIndex={selectedIndex}>
         <BottomNavigationItem
           label="Schedule"
           icon={<EventIcon />}

@@ -8,7 +8,6 @@ class TopBar extends Component {
     return (
       <AppBar
         title="Ultimate Tournament"
-        style={{ position: 'fixed' }}
         iconElementLeft={
           <IconButton>
             <SearchIcon />

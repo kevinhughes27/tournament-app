@@ -4,6 +4,24 @@ body {
   font-family: sans-serif;
 }
 
+.topbar {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+.content {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.bottombar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
 .leaflet-container {
   z-index: 0;
   position: absolute;
