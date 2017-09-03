@@ -6,7 +6,7 @@ import BottomNav from './BottomNav';
 class Layout extends Component {
   render() {
     return (
-      <MuiThemeProvider style={{ height: '100%' }}>
+      <MuiThemeProvider>
         <div>
           <TopBar />
           <div style={{ paddingTop: 64, paddingBottom: 64 }}>
