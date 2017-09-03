@@ -4,7 +4,15 @@ GameType = GraphQL::ObjectType.define do
   field :id, types.ID
   field :home_name, types.String
   field :away_name, types.String
-  field :start_time, types.String
-  field :end_time, types.String
   field :field_name, types.String
+  field :start_time, types.String do
+    resolve ->(obj, args, ctx) {
+      obj.start_time.rfc2822
+    }
+  end
+  field :end_time, types.String do
+    resolve ->(obj, args, ctx) {
+      obj.end_time.rfc2822
+    }
+  end
 end
