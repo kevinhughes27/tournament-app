@@ -14,10 +14,8 @@ class Submit extends Component {
     if (search !== '') {
       filteredGames = _filter(games, game => {
         return (
-          String(game.home_name).toLowerCase().indexOf(search.toLowerCase()) >=
-            0 ||
-          String(game.away_name).toLowerCase().indexOf(search.toLowerCase()) >=
-            0
+          String(game.home_name).toLowerCase() === search.toLowerCase() ||
+          String(game.away_name).toLowerCase() === search.toLowerCase()
         );
       });
     }
