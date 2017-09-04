@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui/List';
-import AutoComplete from 'material-ui/AutoComplete';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
 import SubmitModal from './SubmitModal';
 import _filter from 'lodash/filter';
-import _uniq from 'lodash/uniq';
 
 class Submit extends Component {
   render() {
@@ -22,26 +22,10 @@ class Submit extends Component {
       });
     }
 
-    let searchItems = [];
-    games.forEach(game => {
-      searchItems.push(game.home_name);
-      searchItems.push(game.away_name);
-    });
-    searchItems = _uniq(searchItems);
-
     return (
       <div>
-        <AutoComplete
-          hintText="Search Teams"
-          dataSource={searchItems}
-          filter={AutoComplete.caseInsensitiveFilter}
-          searchText={search}
-          openOnFocus={true}
-          onUpdateInput={search => {
-            dispatch({ type: 'SET_SEARCH', value: search });
-          }}
-        />
-        <p>Submit a score for each game played</p>
+        <Subheader>Submit a score for each game played</Subheader>
+        <Divider />
         {renderGames(filteredGames, dispatch)}
       </div>
     );

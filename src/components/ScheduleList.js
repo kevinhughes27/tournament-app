@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui/List';
-import AutoComplete from 'material-ui/AutoComplete';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import moment from 'moment';
 import _groupBy from 'lodash/groupBy';
 import _filter from 'lodash/filter';
-import _uniq from 'lodash/uniq';
 
 class ScheduleList extends Component {
   render() {
-    const { games, search, dispatch } = this.props;
+    const { games, search } = this.props;
 
     let filteredGames;
     if (search !== '') {
@@ -30,25 +28,8 @@ class ScheduleList extends Component {
 
     const gamesByStartTime = _groupBy(filteredGames, game => game.start_time);
 
-    let searchItems = [];
-    games.forEach(game => {
-      searchItems.push(game.home_name);
-      searchItems.push(game.away_name);
-    });
-    searchItems = _uniq(searchItems);
-
     return (
       <div>
-        <AutoComplete
-          hintText="Search Teams"
-          dataSource={searchItems}
-          filter={AutoComplete.caseInsensitiveFilter}
-          searchText={search}
-          openOnFocus={true}
-          onUpdateInput={search => {
-            dispatch({ type: 'SET_SEARCH', value: search });
-          }}
-        />
         {Object.keys(gamesByStartTime).map(startTime => {
           const games = gamesByStartTime[startTime];
           return renderGameGroup(startTime, games);
