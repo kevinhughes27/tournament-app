@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { List, ListItem } from 'material-ui/List';
 import AutoComplete from 'material-ui/AutoComplete';
+import SubmitModal from './SubmitModal';
 import _filter from 'lodash/filter';
 import _uniq from 'lodash/uniq';
 
@@ -51,22 +51,16 @@ class Submit extends Component {
 function renderGames(games, dispatch) {
   return (
     <List>
-      {games.map(game => {
-        // I think that these might be better as modals.
-        return (
-          <ListItem key={game.id}>
-            <div
-              style={{ display: 'flex', justifyContent: 'space-between' }}
-              onTouchTap={() => dispatch(push(`/submit/${game.id}`))}
-            >
-              <div>
-                {game.home_name} vs {game.away_name}
-              </div>
-            </div>
-          </ListItem>
-        );
-      })}
+      {games.map(renderGame)}
     </List>
+  );
+}
+
+function renderGame(game) {
+  return (
+    <ListItem key={game.id}>
+      <SubmitModal game={game} />
+    </ListItem>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../actions/submitScore';
 import Fingerprint2 from 'fingerprintjs2sync';
@@ -62,8 +62,9 @@ class ScoreForm extends Component {
   }
 
   handleSubmit(event) {
-    const gameId = this.props.match.params.gameId;
-    const game = _find(this.props.games, g => g.id === gameId);
+    event.preventDefault();
+
+    const { game, dispatch, handleClose } = this.props;
     const teamName = this.props.search;
     const team = _find(this.props.teams, t => t.name === teamName);
 
@@ -81,14 +82,22 @@ class ScoreForm extends Component {
       ..._omit(this.state, ['home_score', 'away_score'])
     };
 
-    const { dispatch } = this.props;
     dispatch(submitScore(payload));
-    event.preventDefault();
+    handleClose();
   }
 
   render() {
-    const gameId = this.props.match.params.gameId;
-    const game = _find(this.props.games, g => g.id === gameId);
+    const { game, handleClose } = this.props;
+
+    const actions = [
+      <FlatButton
+        key="cancel"
+        label="Cancel"
+        primary={true}
+        onClick={handleClose}
+      />,
+      <FlatButton key="submit" type="submit" label="Submit" primary={true} />
+    ];
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -117,12 +126,15 @@ class ScoreForm extends Component {
             renderSpiritQuestion(i, this.state[HANDLES[i]])
           )}
         </div>
-        <RaisedButton
-          type="submit"
-          label="Submit Score"
-          primary={true}
-          fullWidth={true}
-        />
+        <div
+          style={{
+            textAlign: 'right',
+            padding: 8,
+            margin: '24px -24px -24px -24px'
+          }}
+        >
+          {actions}
+        </div>
       </form>
     );
   }
@@ -141,7 +153,6 @@ function renderSpiritQuestion(index, value) {
 }
 
 export default connect(state => ({
-  games: state.app.games,
   teams: state.app.teams,
   search: state.app.search
 }))(ScoreForm);
