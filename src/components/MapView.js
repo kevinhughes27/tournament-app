@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Map, TileLayer, GeoJSON } from 'react-leaflet';
+import { Map, TileLayer, GeoJSON, Popup } from 'react-leaflet';
 import gamesSearch from '../helpers/gamesSearch';
 import moment from 'moment';
 import _filter from 'lodash/filter';
 import _sortBy from 'lodash/sortBy';
+import _find from 'lodash/find';
 import _get from 'lodash/get';
 
 class MapView extends Component {
@@ -15,12 +16,13 @@ class MapView extends Component {
     const filteredGames = gamesSearch(search, games);
     const sortedGames = _sortBy(filteredGames, game => moment(game.start_time));
 
-    const currentTime = moment();
     const nextGame = _filter(sortedGames, game => {
+      const currentTime = moment();
       const startTime = moment(game.start_time);
       return currentTime.isBefore(startTime);
     })[0];
-    const currentFieldName = _get(nextGame, 'field_name', -1);
+    const nextFieldName = _get(nextGame, 'field_name', -1);
+    const nextField = _find(fields, f => f.name === nextFieldName);
 
     return (
       <Map center={[lat, long]} zoom={zoom} zoomControl={false}>
@@ -28,16 +30,23 @@ class MapView extends Component {
           url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
-        {renderFields(fields, currentFieldName)}
+        {renderFields(fields, nextFieldName)}
+        <Popup position={[nextField.lat, nextField.long]}>
+          <span>
+            {nextGame.home_name} vs {nextGame.away_name}
+            <br />
+            <strong>@ {moment(nextGame.start_time).format('h:mm')}</strong>
+          </span>
+        </Popup>
       </Map>
     );
   }
 }
 
-function renderFields(fields, currentFieldName) {
+function renderFields(fields, nextFieldName) {
   return fields.map(field => {
     let style = {};
-    if (field.name === currentFieldName) {
+    if (field.name === nextFieldName) {
       style = { color: 'white' };
     }
 
