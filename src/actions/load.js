@@ -25,6 +25,8 @@ function loadApp() {
         fields {
           id
           name
+          lat
+          long
           geo_json
         }
         teams {

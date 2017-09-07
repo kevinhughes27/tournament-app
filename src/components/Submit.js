@@ -4,21 +4,12 @@ import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import SubmitModal from './SubmitModal';
-import _filter from 'lodash/filter';
+import gamesSearch from '../helpers/gamesSearch';
 
 class Submit extends Component {
   render() {
     const { games, search, dispatch } = this.props;
-
-    let filteredGames = [];
-    if (search !== '') {
-      filteredGames = _filter(games, game => {
-        return (
-          String(game.home_name).toLowerCase() === search.toLowerCase() ||
-          String(game.away_name).toLowerCase() === search.toLowerCase()
-        );
-      });
-    }
+    const filteredGames = gamesSearch(search, games);
 
     return (
       <div>
