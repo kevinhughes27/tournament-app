@@ -1,7 +1,10 @@
+import ls from 'local-storage';
+const searchKey = 'search';
+
 export default (
   state = {
     loading: true,
-    search: '',
+    search: ls.get(searchKey) || '',
     games: []
   },
   action
@@ -24,9 +27,11 @@ export default (
         loading: true
       };
     case 'SET_SEARCH':
+      const search = action.value;
+      ls.set(searchKey, search);
       return {
         ...state,
-        search: action.value
+        search: search
       };
     case 'SCORE_REPORT_SUBMITTED':
       return state;
