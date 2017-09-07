@@ -31,13 +31,7 @@ class MapView extends Component {
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
         {renderFields(fields, nextFieldName)}
-        <Popup position={[nextField.lat, nextField.long]}>
-          <span>
-            {nextGame.home_name} vs {nextGame.away_name}
-            <br />
-            <strong>@ {moment(nextGame.start_time).format('h:mm')}</strong>
-          </span>
-        </Popup>
+        {renderPopup(nextGame, nextField)}
       </Map>
     );
   }
@@ -54,6 +48,20 @@ function renderFields(fields, nextFieldName) {
       <GeoJSON key={field.id} data={JSON.parse(field.geo_json)} style={style} />
     );
   });
+}
+
+function renderPopup(nextGame, nextField) {
+  if (nextGame && nextField) {
+    return (
+      <Popup position={[nextField.lat, nextField.long]}>
+        <span>
+          {nextGame.home_name} vs {nextGame.away_name}
+          <br />
+          <strong>@ {moment(nextGame.start_time).format('h:mm')}</strong>
+        </span>
+      </Popup>
+    );
+  }
 }
 
 export default connect(state => ({
