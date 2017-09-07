@@ -1,6 +1,8 @@
 function submitScore(payload) {
-  return dispatch =>
-    fetch('/graphql', {
+  return dispatch => {
+    dispatch({ type: 'SCORE_REPORT_SUBMITTED' });
+
+    return fetch('/graphql', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -20,9 +22,10 @@ function submitScore(payload) {
     })
       .then(response => response.json())
       .then(
-        json => dispatch({ type: 'SCORE_REPORT_SUBMITTED', json }),
+        json => dispatch({ type: 'SCORE_REPORT_RECIEVED', json }),
         err => dispatch({ type: 'SCORE_REPORT_FAILED', err })
       );
+  };
 }
 
 export { submitScore };
