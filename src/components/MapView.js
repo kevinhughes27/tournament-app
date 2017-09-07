@@ -4,6 +4,8 @@ import { Map, TileLayer, GeoJSON } from 'react-leaflet';
 import gamesSearch from '../helpers/gamesSearch';
 import moment from 'moment';
 import _filter from 'lodash/filter';
+import _sortBy from 'lodash/sortBy';
+import _get from 'lodash/get';
 
 class MapView extends Component {
   render() {
@@ -11,13 +13,14 @@ class MapView extends Component {
 
     const { search, games } = this.props;
     const filteredGames = gamesSearch(search, games);
+    const sortedGames = _sortBy(filteredGames, game => moment(game.start_time));
 
     const currentTime = moment();
-    const currentGame = _filter(filteredGames, game => {
+    const nextGame = _filter(sortedGames, game => {
       const startTime = moment(game.start_time);
-      const endTime = moment(game.end_time);
-      return currentTime.isBetween(startTime && endTime);
-    });
+      return currentTime.isBefore(startTime);
+    })[0];
+    const currentFieldName = _get(nextGame, 'field_name', -1);
 
     return (
       <Map center={[lat, long]} zoom={zoom} zoomControl={false}>
@@ -25,15 +28,22 @@ class MapView extends Component {
           url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
-        {renderFields(fields)}
+        {renderFields(fields, currentFieldName)}
       </Map>
     );
   }
 }
 
-function renderFields(fields) {
+function renderFields(fields, currentFieldName) {
   return fields.map(field => {
-    return <GeoJSON key={field.id} data={JSON.parse(field.geo_json)} />;
+    let style = {};
+    if (field.name === currentFieldName) {
+      style = { color: 'white' };
+    }
+
+    return (
+      <GeoJSON key={field.id} data={JSON.parse(field.geo_json)} style={style} />
+    );
   });
 }
 

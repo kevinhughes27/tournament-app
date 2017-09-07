@@ -5,6 +5,7 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import moment from 'moment';
+import _sortBy from 'lodash/sortBy';
 import _groupBy from 'lodash/groupBy';
 import gamesSearch from '../helpers/gamesSearch';
 
@@ -12,7 +13,8 @@ class ScheduleList extends Component {
   render() {
     const { games, search } = this.props;
     const filteredGames = gamesSearch(search, games, { fuzzy: true });
-    const gamesByStartTime = _groupBy(filteredGames, game => game.start_time);
+    const sortedGames = _sortBy(filteredGames, game => moment(game.start_time));
+    const gamesByStartTime = _groupBy(sortedGames, game => game.start_time);
 
     return (
       <div>
