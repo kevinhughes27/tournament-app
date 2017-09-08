@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import List, { ListItem } from 'material-ui/List';
+import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import PlaceIcon from 'material-ui/svg-icons/maps/place';
+import Icon from 'material-ui/Icon';
 import moment from 'moment';
 import _sortBy from 'lodash/sortBy';
 import _groupBy from 'lodash/groupBy';
@@ -30,9 +30,9 @@ class ScheduleList extends Component {
 function renderGameGroup(startTime, games) {
   return (
     <List key={startTime}>
-      <Subheader>
+      <Typography type="subheading">
         {moment(startTime).format('dddd h:mm A')}
-      </Subheader>
+      </Typography>
       {games.map(game => {
         return (
           <ListItem key={game.id}>
@@ -42,7 +42,7 @@ function renderGameGroup(startTime, games) {
               </div>
               <div>
                 {game.field_name}
-                <PlaceIcon />
+                <Icon>place</Icon>
               </div>
             </div>
           </ListItem>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import List, { ListItem } from 'material-ui/List';
+import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import SubmitModal from './SubmitModal';
 import gamesSearch from '../helpers/gamesSearch';
@@ -13,7 +13,9 @@ class Submit extends Component {
 
     return (
       <div>
-        <Subheader>Submit a score for each game played</Subheader>
+        <Typography type="subheading">
+          Submit a score for each game played
+        </Typography>
         <Divider />
         {renderGames(filteredGames, dispatch)}
       </div>

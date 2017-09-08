@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import {
-  BottomNavigation,
-  BottomNavigationItem
+import BottomNavigation, {
+  BottomNavigationButton
 } from 'material-ui/BottomNavigation';
 import EventIcon from 'material-ui-icons/Event';
 import LocationIcon from 'material-ui-icons/LocationOn';
@@ -19,21 +18,21 @@ class BottomNav extends Component {
       '/map': 1,
       '/submit': 2
     };
-    const selectedIndex = pathToIndex[location.pathname];
+    const value = pathToIndex[location.pathname];
 
     return (
-      <BottomNavigation selectedIndex={selectedIndex}>
-        <BottomNavigationItem
+      <BottomNavigation value={value} showLabels>
+        <BottomNavigationButton
           label="Schedule"
           icon={<EventIcon />}
           onTouchTap={() => dispatch(push('/'))}
         />
-        <BottomNavigationItem
+        <BottomNavigationButton
           label="Map"
           icon={<LocationIcon />}
           onTouchTap={() => dispatch(push('/map'))}
         />
-        <BottomNavigationItem
+        <BottomNavigationButton
           label="Submit Scores"
           icon={<InputIcon />}
           onTouchTap={() => dispatch(push('/submit'))}

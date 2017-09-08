@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import TopBar from './TopBar';
 import BottomNav from './BottomNav';
+
+const theme = createMuiTheme();
 
 class Layout extends Component {
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
         <div>
           <div className="topbar">
             <TopBar />

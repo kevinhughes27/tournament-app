@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../actions/submitScore';
 import Fingerprint2 from 'fingerprintjs2sync';
@@ -90,13 +90,13 @@ class ScoreForm extends Component {
     const { game, handleClose } = this.props;
 
     const actions = [
-      <FlatButton
+      <Button
         key="cancel"
         label="Cancel"
         primary={true}
         onClick={handleClose}
       />,
-      <FlatButton key="submit" type="submit" label="Submit" primary={true} />
+      <Button key="submit" type="submit" label="Submit" primary={true} />
     ];
 
     return (

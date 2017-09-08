@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { Radio, RadioGroup } from 'material-ui/Radio';
 
 class SpiritQuestion extends Component {
   render() {
@@ -11,17 +11,17 @@ class SpiritQuestion extends Component {
         <p>
           {this.props.example}
         </p>
-        <RadioButtonGroup
+        <RadioGroup
           name={this.props.handle}
           defaultSelected={this.props.value.toString()}
           onChange={this.props.onChange}
         >
-          <RadioButton value="1" label="Poor" />
-          <RadioButton value="2" label="Not Good" />
-          <RadioButton value="3" label="Good" />
-          <RadioButton value="4" label="Very Good" />
-          <RadioButton value="5" label="Excellent" />
-        </RadioButtonGroup>
+          <Radio value="1" label="Poor" />
+          <Radio value="2" label="Not Good" />
+          <Radio value="3" label="Good" />
+          <Radio value="4" label="Very Good" />
+          <Radio value="5" label="Excellent" />
+        </RadioGroup>
       </div>
     );
   }

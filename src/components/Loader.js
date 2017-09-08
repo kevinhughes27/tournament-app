@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Layout from './Layout';
 import Center from 'react-center';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 
 class Loader extends Component {
   render() {
@@ -12,7 +12,7 @@ class Loader extends Component {
       return (
         <Layout>
           <Center>
-            <CircularProgress size={80} thickness={5} />
+            <CircularProgress size={80} />
           </Center>
         </Layout>
       );
