@@ -122,7 +122,7 @@ function renderSuggestionsContainer(options) {
   const { containerProps, children } = options;
 
   return (
-    <Paper {...containerProps} square>
+    <Paper {...containerProps}>
       {children}
     </Paper>
   );
