@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import ScoreInput from './ScoreInput';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../../actions/submitScore';
 import Fingerprint2 from 'fingerprintjs2sync';
@@ -89,58 +89,38 @@ class ScoreForm extends Component {
   render() {
     const { game, handleClose } = this.props;
 
-    const actions = [
-      <Button
-        key="cancel"
-        label="Cancel"
-        primary={true}
-        onClick={handleClose}
-      />,
-      <Button key="submit" type="submit" label="Submit" primary={true} />
-    ];
-
     return (
       <form onSubmit={this.handleSubmit}>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <TextField
-            name="home_score"
-            type="number"
-            autoComplete="off"
-            value={this.state.home_score}
-            onChange={this.handleChange}
-            floatingLabelText={game.home_name}
-            style={{ flexBasis: '35%' }}
-          />
-          <TextField
-            name="away_score"
-            type="number"
-            autoComplete="off"
-            value={this.state.away_score}
-            onChange={this.handleChange}
-            floatingLabelText={game.away_name}
-            style={{ flexBasis: '35%' }}
-          />
-        </div>
-        <div style={{ padding: 20 }}>
-          {[0, 1, 2, 3, 4].map(i =>
-            renderSpiritQuestion(i, this.state[HANDLES[i]])
-          )}
-        </div>
+        <ScoreInput game={game} onChange={this.handleChange} />
+        {renderSpiritQuestions(this.state, this.handleChange)}
         <div
           style={{
             textAlign: 'right',
-            padding: 8,
-            margin: '24px -24px -24px -24px'
+            paddingBottom: '10px',
+            paddingRight: '10px'
           }}
         >
-          {actions}
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button key="submit" type="submit">
+            Submit
+          </Button>
         </div>
       </form>
     );
   }
 }
 
-function renderSpiritQuestion(index, value) {
+function renderSpiritQuestions(state, onChange) {
+  return (
+    <div style={{ padding: 20 }}>
+      {[0, 1, 2, 3, 4].map(i =>
+        renderSpiritQuestion(i, state[HANDLES[i]], onChange)
+      )}
+    </div>
+  );
+}
+
+function renderSpiritQuestion(index, value, onChange) {
   return (
     <SpiritQuestion
       key={index}
@@ -148,6 +128,7 @@ function renderSpiritQuestion(index, value) {
       question={QUESTIONS[index]}
       handle={HANDLES[index]}
       example={EXAMPLES[index]}
+      onChange={onChange}
     />
   );
 }
