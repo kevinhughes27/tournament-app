@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Map, TileLayer, GeoJSON, Popup } from 'react-leaflet';
-import gamesSearch from '../helpers/gamesSearch';
+import gamesSearch from '../../helpers/gamesSearch';
 import moment from 'moment';
 import _filter from 'lodash/filter';
 import _sortBy from 'lodash/sortBy';

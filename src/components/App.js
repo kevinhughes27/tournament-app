@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 
 import Loader from './Loader';
-import ScheduleList from './ScheduleList';
+import ScheduleView from './ScheduleView';
 import MapView from './MapView';
-import Submit from './Submit';
+import SubmitView from './SubmitView';
 
 class App extends Component {
   render() {
     return (
       <Loader>
-        <Route exact path="/" component={ScheduleList} />
+        <Route exact path="/" component={ScheduleView} />
         <Route path="/map" component={MapView} />
-        <Route exact path="/submit" component={Submit} />
+        <Route exact path="/submit" component={SubmitView} />
       </Loader>
     );
   }

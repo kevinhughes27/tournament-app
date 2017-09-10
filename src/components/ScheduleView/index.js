@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import List, { ListItem } from 'material-ui/List';
+import ListSubheader from 'material-ui/List/ListSubheader';
 import Divider from 'material-ui/Divider';
-import PlaceIcon from 'material-ui/svg-icons/maps/place';
+import LocationIcon from 'material-ui-icons/LocationOn';
 import moment from 'moment';
 import _sortBy from 'lodash/sortBy';
 import _groupBy from 'lodash/groupBy';
-import gamesSearch from '../helpers/gamesSearch';
+import gamesSearch from '../../helpers/gamesSearch';
 
-class ScheduleList extends Component {
+class ScheduleView extends Component {
   render() {
     const { games, search } = this.props;
     const filteredGames = gamesSearch(search, games, { fuzzy: true });
@@ -30,19 +30,25 @@ class ScheduleList extends Component {
 function renderGameGroup(startTime, games) {
   return (
     <List key={startTime}>
-      <Subheader>
+      <ListSubheader>
         {moment(startTime).format('dddd h:mm A')}
-      </Subheader>
+      </ListSubheader>
       {games.map(game => {
         return (
           <ListItem key={game.id}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'space-between'
+              }}
+            >
               <div>
                 {game.home_name} vs {game.away_name}
               </div>
               <div>
                 {game.field_name}
-                <PlaceIcon />
+                <LocationIcon />
               </div>
             </div>
           </ListItem>
@@ -56,4 +62,4 @@ function renderGameGroup(startTime, games) {
 export default connect(state => ({
   games: state.app.games,
   search: state.app.search
-}))(ScheduleList);
+}))(ScheduleView);
