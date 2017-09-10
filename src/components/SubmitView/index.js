@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import List, { ListItem } from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import SubmitModal from './SubmitModal';
-import gamesSearch from '../helpers/gamesSearch';
+import gamesSearch from '../../helpers/gamesSearch';
 
-class Submit extends Component {
+class SubmitView extends Component {
   render() {
     const { games, search } = this.props;
     const filteredGames = gamesSearch(search, games);
@@ -30,4 +30,4 @@ function renderGame(game) {
 export default connect(state => ({
   games: state.app.games,
   search: state.app.search
-}))(Submit);
+}))(SubmitView);

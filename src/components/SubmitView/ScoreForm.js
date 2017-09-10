@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import SpiritQuestion from './SpiritQuestion';
-import { submitScore } from '../actions/submitScore';
+import { submitScore } from '../../actions/submitScore';
 import Fingerprint2 from 'fingerprintjs2sync';
 import _find from 'lodash/find';
 import _omit from 'lodash/omit';
