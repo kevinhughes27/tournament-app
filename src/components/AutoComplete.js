@@ -158,7 +158,6 @@ class AutoComplete extends Component {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: true,
           classes,
           placeholder: placeholder,
           value: this.state.value,
