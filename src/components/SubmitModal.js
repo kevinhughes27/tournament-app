@@ -25,13 +25,8 @@ export default class SubmitModal extends React.Component {
 
     return (
       <div>
-        <div
-          style={{ display: 'flex', justifyContent: 'space-between' }}
-          onTouchTap={this.handleOpen}
-        >
-          <div>
-            {game.home_name} vs {game.away_name}
-          </div>
+        <div onTouchTap={this.handleOpen}>
+          {game.home_name} vs {game.away_name}
         </div>
 
         <Dialog
