@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import List, { ListItem } from 'material-ui/List';
-import Typography from 'material-ui/Typography';
+import ListSubheader from 'material-ui/List/ListSubheader';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
 import moment from 'moment';
@@ -30,9 +30,9 @@ class ScheduleList extends Component {
 function renderGameGroup(startTime, games) {
   return (
     <List key={startTime}>
-      <Typography type="subheading">
+      <ListSubheader>
         {moment(startTime).format('dddd h:mm A')}
-      </Typography>
+      </ListSubheader>
       {games.map(game => {
         return (
           <ListItem key={game.id}>

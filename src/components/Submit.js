@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import List, { ListItem } from 'material-ui/List';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
+import ListSubheader from 'material-ui/List/ListSubheader';
 import SubmitModal from './SubmitModal';
 import gamesSearch from '../helpers/gamesSearch';
 
 class Submit extends Component {
   render() {
-    const { games, search, dispatch } = this.props;
+    const { games, search } = this.props;
     const filteredGames = gamesSearch(search, games);
 
     return (
-      <div>
-        <Typography type="subheading">
-          Submit a score for each game played
-        </Typography>
-        <Divider />
-        {renderGames(filteredGames, dispatch)}
-      </div>
+      <List>
+        <ListSubheader>Submit a score for each game played</ListSubheader>
+        {filteredGames.map(renderGame)}
+      </List>
     );
   }
-}
-
-function renderGames(games, dispatch) {
-  return (
-    <List>
-      {games.map(renderGame)}
-    </List>
-  );
 }
 
 function renderGame(game) {
