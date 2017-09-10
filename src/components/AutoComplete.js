@@ -11,12 +11,99 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { withStyles } from 'material-ui/styles';
 
+const styles = theme => ({
+  container: {
+    flexGrow: 1,
+    position: 'relative'
+  },
+  suggestionsContainerOpen: {
+    position: 'absolute',
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 3,
+    left: 0,
+    right: 0
+  },
+  suggestion: {
+    display: 'block'
+  },
+  suggestionsList: {
+    margin: 0,
+    padding: 0,
+    listStyleType: 'none'
+  },
+  textField: {
+    width: '100%'
+  },
+  input: {
+    color: 'white'
+  }
+});
+
+class AutoComplete extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: this.props.value,
+      suggestions: []
+    };
+  }
+
+  handleSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(this.props.suggestions, value)
+    });
+  };
+
+  handleSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
+  handleChange = (event, { newValue }) => {
+    this.props.onChange(newValue);
+    this.setState({
+      value: newValue
+    });
+  };
+
+  render() {
+    const { classes, placeholder } = this.props;
+    const { value, suggestions } = this.state;
+
+    return (
+      <Autosuggest
+        theme={{
+          container: classes.container,
+          suggestionsContainerOpen: classes.suggestionsContainerOpen,
+          suggestionsList: classes.suggestionsList,
+          suggestion: classes.suggestion
+        }}
+        suggestions={suggestions}
+        getSuggestionValue={getSuggestionValue}
+        onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+        renderInputComponent={renderInput}
+        renderSuggestion={renderSuggestion}
+        renderSuggestionsContainer={renderSuggestionsContainer}
+        shouldRenderSuggestions={shouldRenderSuggestions}
+        inputProps={{
+          classes,
+          placeholder: placeholder,
+          value: value,
+          onChange: this.handleChange
+        }}
+      />
+    );
+  }
+}
+
 function renderInput(inputProps) {
-  const { classes, home, value, ref, ...other } = inputProps;
+  const { classes, value, ref, ...other } = inputProps;
 
   return (
     <TextField
-      autoFocus={home}
       className={classes.textField}
       value={value}
       inputRef={ref}
@@ -27,6 +114,16 @@ function renderInput(inputProps) {
         ...other
       }}
     />
+  );
+}
+
+function renderSuggestionsContainer(options) {
+  const { containerProps, children } = options;
+
+  return (
+    <Paper {...containerProps} square>
+      {children}
+    </Paper>
   );
 }
 
@@ -51,121 +148,23 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
   );
 }
 
-function renderSuggestionsContainer(options) {
-  const { containerProps, children } = options;
-
-  return (
-    <Paper {...containerProps} square>
-      {children}
-    </Paper>
-  );
-}
-
 function getSuggestionValue(suggestion) {
   return suggestion;
 }
 
-function filterSuggestions(suggestions, value) {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-  let count = 0;
-
-  return inputLength === 0
-    ? []
-    : suggestions.filter(suggestion => {
-        const keep =
-          count < 5 &&
-          suggestion.toLowerCase().slice(0, inputLength) === inputValue;
-
-        if (keep) {
-          count += 1;
-        }
-
-        return keep;
-      });
+function escapeRegexCharacters(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-const styles = theme => ({
-  container: {
-    flexGrow: 1,
-    position: 'relative'
-  },
-  suggestionsContainerOpen: {
-    position: 'absolute',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 3,
-    left: 0,
-    right: 0
-  },
-  suggestion: {
-    display: 'block'
-  },
-  suggestionsList: {
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none'
-  },
-  textField: {
-    width: '100%'
-  }
-});
+function getSuggestions(suggestions, value) {
+  const escapedValue = escapeRegexCharacters(value.trim());
+  const regex = new RegExp('^' + escapedValue, 'i');
 
-class AutoComplete extends Component {
-  constructor(props) {
-    super(props);
+  return suggestions.filter(s => regex.test(s));
+}
 
-    this.state = {
-      value: this.props.value,
-      suggestions: []
-    };
-  }
-
-  handleSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: filterSuggestions(this.props.suggestions, value)
-    });
-  };
-
-  handleSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
-
-  handleChange = (event, { newValue }) => {
-    this.props.onChange(newValue);
-    this.setState({
-      value: newValue
-    });
-  };
-
-  render() {
-    const { classes, placeholder } = this.props;
-
-    return (
-      <Autosuggest
-        theme={{
-          container: classes.container,
-          suggestionsContainerOpen: classes.suggestionsContainerOpen,
-          suggestionsList: classes.suggestionsList,
-          suggestion: classes.suggestion
-        }}
-        renderInputComponent={renderInput}
-        suggestions={this.state.suggestions}
-        onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-        renderSuggestionsContainer={renderSuggestionsContainer}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={{
-          classes,
-          placeholder: placeholder,
-          value: this.state.value,
-          onChange: this.handleChange
-        }}
-      />
-    );
-  }
+function shouldRenderSuggestions() {
+  return true;
 }
 
 AutoComplete.propTypes = {
