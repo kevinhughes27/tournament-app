@@ -19,7 +19,7 @@ class BottomNav extends Component {
       '/map': 1,
       '/submit': 2
     };
-    const selectedIndex = pathToIndex[location];
+    const selectedIndex = pathToIndex[location.pathname];
 
     return (
       <BottomNavigation selectedIndex={selectedIndex}>
