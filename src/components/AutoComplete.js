@@ -111,6 +111,7 @@ function renderInput(inputProps) {
         classes: {
           input: classes.input
         },
+        disableUnderline: true,
         ...other
       }}
     />
