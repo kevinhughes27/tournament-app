@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import List, { ListItem } from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import Divider from 'material-ui/Divider';
-import Icon from 'material-ui/Icon';
+import LocationIcon from 'material-ui-icons/LocationOn';
 import moment from 'moment';
 import _sortBy from 'lodash/sortBy';
 import _groupBy from 'lodash/groupBy';
@@ -36,13 +36,19 @@ function renderGameGroup(startTime, games) {
       {games.map(game => {
         return (
           <ListItem key={game.id}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'space-between'
+              }}
+            >
               <div>
                 {game.home_name} vs {game.away_name}
               </div>
               <div>
                 {game.field_name}
-                <Icon>place</Icon>
+                <LocationIcon />
               </div>
             </div>
           </ListItem>
