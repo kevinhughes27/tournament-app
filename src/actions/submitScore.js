@@ -1,6 +1,6 @@
 function submitScore(payload) {
   return dispatch => {
-    dispatch({ type: 'SCORE_REPORT_SUBMITTED' });
+    dispatch({ type: 'SCORE_REPORT_SUBMITTED', report: payload });
 
     return fetch('/graphql', {
       method: 'post',

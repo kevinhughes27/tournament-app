@@ -7,27 +7,38 @@ import gamesSearch from '../../helpers/gamesSearch';
 
 class SubmitView extends Component {
   render() {
-    const { games, search } = this.props;
+    const { search, games, reports } = this.props;
     const filteredGames = gamesSearch(search, games);
 
     return (
       <List>
         <ListSubheader>Submit a score for each game played</ListSubheader>
-        {filteredGames.map(renderGame)}
+        {filteredGames.map(game => renderGame(game, reports))}
       </List>
     );
   }
 }
 
-function renderGame(game) {
+function renderGame(game, reports) {
+  const filteredReports = reports.filter(r => r.game_id === game.id);
+  const report = filteredReports[filteredReports.length - 1];
+
   return (
     <ListItem key={game.id}>
       <SubmitModal game={game} />
+      {renderReport(report)}
     </ListItem>
   );
 }
 
+function renderReport(report) {
+  if (report) {
+    return report.status;
+  }
+}
+
 export default connect(state => ({
   games: state.tournament.games,
+  reports: state.reports,
   search: state.search
 }))(SubmitView);
