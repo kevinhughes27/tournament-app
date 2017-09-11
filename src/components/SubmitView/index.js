@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import List, { ListItem } from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
+import { Done, Cached, ReportProblem } from 'material-ui-icons';
 import SubmitModal from './SubmitModal';
 import gamesSearch from '../../helpers/gamesSearch';
 
@@ -33,7 +34,13 @@ function renderGame(game, reports) {
 
 function renderReport(report) {
   if (report) {
-    return report.status;
+    const statusToIcon = {
+      null: null,
+      pending: <Cached />,
+      success: <Done />,
+      error: <ReportProblem />
+    };
+    return statusToIcon[report.status];
   }
 }
 
