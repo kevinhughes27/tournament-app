@@ -65,8 +65,8 @@ function renderPopup(nextGame, nextField) {
 }
 
 export default connect(state => ({
-  map: state.app.map,
-  fields: state.app.fields,
-  games: state.app.games,
-  search: state.app.search
+  map: state.tournament.map,
+  fields: state.tournament.fields,
+  games: state.tournament.games,
+  search: state.search
 }))(MapView);

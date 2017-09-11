@@ -134,6 +134,6 @@ function renderSpiritQuestion(index, value, onChange) {
 }
 
 export default connect(state => ({
-  teams: state.app.teams,
-  search: state.app.search
+  teams: state.tournament.teams,
+  search: state.search
 }))(ScoreForm);

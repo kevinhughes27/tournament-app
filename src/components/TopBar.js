@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 
 class TopBar extends Component {
   render() {
-    const { teams = [], search, dispatch } = this.props;
+    const { teams, search, dispatch } = this.props;
     const teamNames = teams.map(t => t.name);
 
     return (
@@ -35,6 +35,6 @@ class TopBar extends Component {
 }
 
 export default connect(state => ({
-  teams: state.app.teams,
-  search: state.app.search
+  teams: state.tournament.teams,
+  search: state.search
 }))(TopBar);

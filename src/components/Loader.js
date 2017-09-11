@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import Layout from './Layout';
 import Center from 'react-center';
 import { CircularProgress } from 'material-ui/Progress';
+import { loadApp } from '../actions/load';
 
 class Loader extends Component {
+  componentWillMount() {
+    this.props.dispatch(loadApp());
+  }
+
   render() {
     const { loading, children } = this.props;
 
@@ -27,6 +32,6 @@ class Loader extends Component {
 }
 
 export default connect(state => ({
-  loading: state.app.loading,
+  loading: state.loading,
   location: state.router.location
 }))(Loader);

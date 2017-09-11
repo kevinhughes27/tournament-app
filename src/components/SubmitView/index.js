@@ -28,6 +28,6 @@ function renderGame(game) {
 }
 
 export default connect(state => ({
-  games: state.app.games,
-  search: state.app.search
+  games: state.tournament.games,
+  search: state.search
 }))(SubmitView);
