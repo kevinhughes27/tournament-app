@@ -21,6 +21,9 @@ function loadApp() {
           start_time
           end_time
           field_name
+          home_score
+          away_score
+          score_confirmed
         }
         fields {
           id

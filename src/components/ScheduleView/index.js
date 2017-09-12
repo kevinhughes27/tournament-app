@@ -43,9 +43,7 @@ function renderGameGroup(startTime, games) {
                 justifyContent: 'space-between'
               }}
             >
-              <div>
-                {game.home_name} vs {game.away_name}
-              </div>
+              {gameText(game)}
               <div>
                 {game.field_name}
                 <LocationIcon />
@@ -59,7 +57,41 @@ function renderGameGroup(startTime, games) {
   );
 }
 
+function gameText(game) {
+  if (game.score_confirmed) {
+    let boldWinner;
+    if (game.home_score > game.away_score) {
+      boldWinner = (
+        <span>
+          <strong>{game.home_name}</strong> vs {game.away_name}
+        </span>
+      );
+    } else if (game.away_score > game.home_score) {
+      boldWinner = (
+        <span>
+          {game.home_name} vs <strong>{game.away_name}</strong>
+        </span>
+      );
+    }
+
+    return (
+      <span>
+        {boldWinner}
+        <span>
+          {' '}({game.home_score} - {game.away_score})
+        </span>
+      </span>
+    );
+  } else {
+    return (
+      <span>
+        {game.home_name} vs {game.away_name}
+      </span>
+    );
+  }
+}
+
 export default connect(state => ({
-  games: state.app.games,
-  search: state.app.search
+  games: state.tournament.games,
+  search: state.search
 }))(ScheduleView);

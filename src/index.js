@@ -15,7 +15,6 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 import App from './components/App';
-import { loadApp } from './actions/load';
 import reducers from './reducers';
 
 import './index.css';
@@ -27,13 +26,11 @@ const middleware = routerMiddleware(history);
 
 const store = createStore(
   combineReducers({
-    app: reducers,
+    ...reducers,
     router: routerReducer
   }),
   applyMiddleware(thunk, logger, middleware)
 );
-
-store.dispatch(loadApp());
 
 injectTapEventPlugin();
 
