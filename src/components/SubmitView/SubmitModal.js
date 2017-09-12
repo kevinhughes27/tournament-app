@@ -40,7 +40,9 @@ class SubmitModal extends React.Component {
       <div>
         <Button onClick={this.handleOpen}>
           {game.home_name} vs {game.away_name}
-          <span style={{ paddingLeft: '8px' }}>{renderReport(report)}</span>
+          <span style={{ paddingLeft: '8px' }}>
+            {renderReportStatus(report)}
+          </span>
         </Button>
         {gameScore(game, report, teamName)}
       </div>
@@ -90,7 +92,7 @@ class SubmitModal extends React.Component {
   }
 }
 
-function renderReport(report) {
+function renderReportStatus(report) {
   if (report) {
     const statusToIcon = {
       null: null,
