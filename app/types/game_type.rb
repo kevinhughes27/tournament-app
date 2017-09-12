@@ -17,5 +17,10 @@ GameType = GraphQL::ObjectType.define do
   end
   field :home_score, types.Int
   field :away_score, types.Int
-  field :score_confirmed, types.Boolean
+  field :score_confirmed, types.Boolean do
+    description("True when a score has been submitted and
+     accepted by the tournament as confirmed according to its rules.
+     Some tournament require a submission from both teams or a validated
+     confirmation.")
+  end
 end
