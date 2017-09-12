@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
@@ -33,14 +34,24 @@ class SubmitModal extends React.Component {
     this.setState({ open: false });
   };
 
-  render() {
-    const { classes, game } = this.props;
-
+  renderButton = (game, report, teamName) => {
     return (
       <div>
         <Button onClick={this.handleOpen}>
           {game.home_name} vs {game.away_name}
         </Button>
+        {gameScore(game, report, teamName)}
+      </div>
+    );
+  };
+
+  render() {
+    const { classes, game, report } = this.props;
+    const teamName = this.props.search;
+
+    return (
+      <div>
+        {this.renderButton(game, report, teamName)}
         <Dialog
           fullScreen
           open={this.state.open}
@@ -77,8 +88,47 @@ class SubmitModal extends React.Component {
   }
 }
 
+/*
+  gameScore - if the game is confirmed then the final score is shown.
+  if the game is not confirmed then the user's submitted score is shown.
+*/
+function gameScore(game, report, teamName) {
+  let html;
+
+  if (game.score_confirmed) {
+    html = (
+      <span>
+        {game.home_score} - {game.away_score}
+      </span>
+    );
+  } else if (report) {
+    //TODO I am pretty sure report should have home and away score instead of us and opponent score
+    const isHome = game.home_name === teamName;
+    const homeScore = isHome ? report.team_score : report.opponent_score;
+    const awayScore = isHome ? report.opponent_score : report.team_score;
+    html = (
+      <span>
+        {homeScore} - {awayScore}
+      </span>
+    );
+  }
+
+  if (html) {
+    return (
+      <div style={{ paddingLeft: '16px' }}>
+        {html}
+      </div>
+    );
+  }
+}
+
 SubmitModal.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles({ styles })(SubmitModal);
+const styledSubmitModel = withStyles({ styles })(SubmitModal);
+
+export default connect(state => ({
+  teams: state.tournament.teams,
+  search: state.search
+}))(styledSubmitModel);

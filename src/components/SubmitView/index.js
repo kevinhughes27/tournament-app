@@ -26,7 +26,7 @@ function renderGame(game, reports) {
 
   return (
     <ListItem key={game.id}>
-      <SubmitModal game={game} />
+      <SubmitModal game={game} report={report} />
       {renderReport(report)}
     </ListItem>
   );
