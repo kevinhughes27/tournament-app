@@ -15,4 +15,7 @@ GameType = GraphQL::ObjectType.define do
       obj.end_time.rfc2822
     }
   end
+  field :home_score, types.Int
+  field :away_score, types.Int
+  field :score_confirmed, types.Boolean
 end
