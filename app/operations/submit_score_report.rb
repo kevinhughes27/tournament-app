@@ -85,6 +85,11 @@ class SubmitScoreReport < MutationOperation
   end
 
   def matches_other_reports?
+    # this checks if all the reports say the same thing
+    # it doesn't confirm that each team submitted the score
+    # this is only loosely enforced by how the UI guides the user
+    # but still worth doing to avoid issues caused by one team
+    # submitting multiple scores
     game.score_reports.all? { |r| report.eql?(r) }
   end
 end
