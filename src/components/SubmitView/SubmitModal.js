@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import { Done, Cached, ReportProblem } from 'material-ui-icons';
 import Slide from 'material-ui/transitions/Slide';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -39,6 +40,7 @@ class SubmitModal extends React.Component {
       <div>
         <Button onClick={this.handleOpen}>
           {game.home_name} vs {game.away_name}
+          <span style={{ paddingLeft: '8px' }}>{renderReport(report)}</span>
         </Button>
         {gameScore(game, report, teamName)}
       </div>
@@ -85,6 +87,19 @@ class SubmitModal extends React.Component {
         </Dialog>
       </div>
     );
+  }
+}
+
+function renderReport(report) {
+  if (report) {
+    const statusToIcon = {
+      null: null,
+      pending: <Cached color="lightblue" />,
+      success: <Done color="green" />,
+      error: <ReportProblem color="orange" />
+    };
+
+    return statusToIcon[report.status];
   }
 }
 
