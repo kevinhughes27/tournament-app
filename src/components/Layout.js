@@ -9,7 +9,7 @@ class Layout extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div>
+        <div className="layout">
           <div className="topbar">
             <TopBar />
           </div>

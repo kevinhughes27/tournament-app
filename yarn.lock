@@ -5422,6 +5422,10 @@ react-leaflet@^1.5.0:
     lodash "^4.0.0"
     warning "^3.0.0"
 
+react-pin-input@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-pin-input/-/react-pin-input-0.4.1.tgz#acb6344ff20d55e3e34cdf4ff1ed4f9398b2636d"
+
 react-redux@^5.0.5:
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.5.tgz#f8e8c7b239422576e52d6b7db06439469be9846a"
