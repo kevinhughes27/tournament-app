@@ -8,7 +8,10 @@ function loadApp() {
       },
       mode: 'cors',
       body: JSON.stringify({
-        query: `{ 
+        query: `{
+        settings {
+          protectScoreSubmit
+        } 
         map {
           lat
           long
