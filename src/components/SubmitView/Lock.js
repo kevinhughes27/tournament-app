@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PinInput from 'react-pin-input';
+import { checkPin } from '../../actions/checkPin';
 
 const PIN_LENGTH = 4;
-
-const validate = pin => {
-  return true;
-};
 
 export default class Lock extends Component {
   state = {
@@ -38,7 +35,9 @@ export default class Lock extends Component {
             <PinInput
               length={PIN_LENGTH}
               onComplete={value => {
-                validate(value) ? this.unlock() : this.lock();
+                checkPin(value).then(
+                  valid => (valid ? this.unlock() : this.lock())
+                );
               }}
             />
           </div>
