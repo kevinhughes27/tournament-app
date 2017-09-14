@@ -1,19 +1,23 @@
+import ls from 'local-storage';
 import React, { Component } from 'react';
 import PinInput from 'react-pin-input';
 import { checkPin } from '../../actions/checkPin';
 
+const lockKey = 'locked';
 const PIN_LENGTH = 4;
 
 export default class Lock extends Component {
   state = {
-    locked: true
+    locked: ls.get(lockKey) !== false
   };
 
   unlock = () => {
+    ls.set(lockKey, false);
     this.setState({ locked: false });
   };
 
   lock = () => {
+    ls.set(lockKey, true);
     this.setState({ locked: true });
   };
 
