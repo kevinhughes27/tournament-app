@@ -17,15 +17,6 @@ export default class Lock extends Component {
     this.setState({ locked: true });
   };
 
-  updatePin = (value, index) => {
-    let pin = this.state.pin;
-
-    if (index >= pin.length) {
-      pin[index] = value;
-    } else {
-    }
-  };
-
   render() {
     if (this.state.locked) {
       return (
