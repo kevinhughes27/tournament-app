@@ -1,16 +1,27 @@
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: sans-serif;
 }
 
-.topbar {
-  position: fixed;
-  width: 100%;
-  z-index: 100;
+#root {
+  height: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
 }
 
 .content {
+  flex: 1;
+  height: 100%;
   padding-top: 56px;
   padding-bottom: 56px;
 }
@@ -27,4 +38,12 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+.lock-screen {
+  display: flex;
+  flex: 1;
+  height: 85%;
+  justify-content: center;
+  align-items: center;
 }

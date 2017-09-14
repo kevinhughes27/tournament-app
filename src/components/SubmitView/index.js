@@ -2,21 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import List, { ListItem } from 'material-ui/List';
 import ListSubheader from 'material-ui/List/ListSubheader';
+import Lock from './Lock';
 import SubmitModal from './SubmitModal';
 import gamesSearch from '../../helpers/gamesSearch';
 
 class SubmitView extends Component {
   render() {
     const { search, games, reports } = this.props;
-    const filteredGames = gamesSearch(search, games);
 
-    return (
-      <List>
-        <ListSubheader>Submit a score for each game played</ListSubheader>
-        {filteredGames.map(game => renderGame(game, reports))}
-      </List>
-    );
+    if (this.props.protect) {
+      return (
+        <Lock>
+          {renderContent(search, games, reports)}
+        </Lock>
+      );
+    } else {
+      return renderContent(search, games, reports);
+    }
   }
+}
+
+function renderContent(search, games, reports) {
+  const filteredGames = gamesSearch(search, games);
+
+  return (
+    <List>
+      <ListSubheader>Submit a score for each game played</ListSubheader>
+      {filteredGames.map(game => renderGame(game, reports))}
+    </List>
+  );
 }
 
 function renderGame(game, reports) {
@@ -31,6 +45,7 @@ function renderGame(game, reports) {
 }
 
 export default connect(state => ({
+  protect: state.tournament.settings.protectScoreSubmit,
   games: state.tournament.games,
   reports: state.reports,
   search: state.search

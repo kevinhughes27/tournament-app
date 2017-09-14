@@ -8,8 +8,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'LOAD_COMPLETED':
-      const { map, games, fields, teams } = action.json.data;
+      const { settings, map, games, fields, teams } = action.response.data;
       return {
+        settings: settings,
         map: map,
         games: games,
         fields: fields,
