@@ -69,8 +69,8 @@ class ScoreForm extends Component {
     const team = _find(this.props.teams, t => t.name === teamName);
 
     const payload = {
-      game_id: game.id,
-      team_id: team.id,
+      game_id: parseInt(game.id, 10),
+      team_id: parseInt(team.id, 10),
       submitter_fingerprint: new Fingerprint2().getSync().fprint,
       ...this.state
     };
