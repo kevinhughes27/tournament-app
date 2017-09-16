@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916162815) do
+ActiveRecord::Schema.define(version: 20170916170038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,8 @@ ActiveRecord::Schema.define(version: 20170916162815) do
     t.string   "comments"
     t.datetime "deleted_at"
     t.boolean  "is_confirmation",                 default: false
+    t.integer  "home_score",                                      null: false
+    t.integer  "away_score",                                      null: false
     t.index ["tournament_id", "game_id", "deleted_at"], name: "tournament_game_deleted_at", using: :btree
   end
 

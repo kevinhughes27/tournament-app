@@ -1,34 +1,6 @@
 require 'test_helper'
 
 class ScoreReportTest < ActiveSupport::TestCase
-  test "home/away scores are correct if submitted by home team" do
-    game = FactoryGirl.create(:game)
-
-    report = FactoryGirl.build(:score_report,
-      game: game,
-      team: game.home,
-      team_score: 15,
-      opponent_score: 11
-    )
-
-    assert_equal 15, report.home_score
-    assert_equal 11, report.away_score
-  end
-
-  test "home/away scores are correct if submitted by away team" do
-    game = FactoryGirl.create(:game)
-
-    report = FactoryGirl.build(:score_report,
-      game: game,
-      team: game.away,
-      team_score: 11,
-      opponent_score: 15
-    )
-
-    assert_equal 15, report.home_score
-    assert_equal 11, report.away_score
-  end
-
   test "submitter_won? returns true if the submitter won the game" do
     game = FactoryGirl.create(:game)
 

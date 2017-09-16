@@ -11,19 +11,14 @@ class ScoreReport < ApplicationRecord
                         :game,
                         :team,
                         :submitter_fingerprint,
-                        :team_score,
-                        :opponent_score
+                        :home_score,
+                        :away_score
 
-  validates_numericality_of :team_score, :opponent_score, greater_than_or_equal_to: 0
+  validates_numericality_of :home_score, :away_score, greater_than_or_equal_to: 0
 
   def ==(other)
-    if self.team_id == other.team_id
-      self.team_score == other.team_score &&
-      self.opponent_score == other.opponent_score
-    else
-      self.team_score == other.opponent_score &&
-      self.opponent_score == other.team_score
-    end
+    self.home_score == other.home_score &&
+    self.away_score == other.away_score
   end
   alias_method :eql?, :==
 
@@ -45,22 +40,6 @@ class ScoreReport < ApplicationRecord
 
   def score
     "#{home_score} - #{away_score}"
-  end
-
-  def home_score
-    if team == game.home
-      team_score
-    else
-      opponent_score
-    end
-  end
-
-  def away_score
-    if team == game.home
-      opponent_score
-    else
-      team_score
-    end
   end
 
   def other_team
