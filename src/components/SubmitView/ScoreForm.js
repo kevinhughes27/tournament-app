@@ -6,7 +6,6 @@ import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../../actions/submitScore';
 import Fingerprint2 from 'fingerprintjs2sync';
 import _find from 'lodash/find';
-import _omit from 'lodash/omit';
 
 const QUESTIONS = [
   '1. Rules knowledge and Use',
@@ -53,7 +52,8 @@ class ScoreForm extends Component {
 
   handleChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value =
+      target.type === 'number' ? parseInt(target.value, 10) : target.value;
     const name = target.name;
 
     this.setState({
@@ -68,18 +68,11 @@ class ScoreForm extends Component {
     const teamName = this.props.search;
     const team = _find(this.props.teams, t => t.name === teamName);
 
-    const isHome = game.home_name === teamName;
-    const { home_score, away_score } = this.state;
-    const homeScore = parseInt(home_score, 10);
-    const awayScore = parseInt(away_score, 10);
-
     const payload = {
       game_id: game.id,
       team_id: team.id,
       submitter_fingerprint: new Fingerprint2().getSync().fprint,
-      team_score: isHome ? homeScore : awayScore,
-      opponent_score: isHome ? awayScore : homeScore,
-      ..._omit(this.state, ['home_score', 'away_score'])
+      ...this.state
     };
 
     dispatch(submitScore(payload));
