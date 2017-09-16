@@ -1,0 +1,3 @@
+[submodule "player-app"]
+	path = player-app
+	url = git@github.com:kevinhughes27/ut-player-app.git

@@ -3,6 +3,6 @@ FactoryGirl.define do
     name { Faker::Company.name }
     handle { Faker::Internet.domain_word }
     welcome_email_sent true
-    game_confirm_setting 'automatic'
+    game_confirm_setting 'single'
   end
 end

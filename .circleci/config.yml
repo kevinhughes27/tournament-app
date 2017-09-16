@@ -17,6 +17,7 @@ jobs:
     steps:
       # Checkout the source code
       - checkout
+      - run: git submodule update --init
 
       # Restore bundle cache
       - type: cache-restore
@@ -44,12 +45,14 @@ jobs:
           paths:
             - ./node_modules
             - ./client/node_modules
+            - ./player-app/node_modules
 
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
       # Compile assets
+      - run: yarn run build
       - run: bundle exec rake assets:precompile
 
       # Run tests
