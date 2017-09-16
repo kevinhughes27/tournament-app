@@ -9,18 +9,15 @@
 
 <%= label_tag nil, "Score Confirmation Settings" %>
 <p>
-  This setting is for the automated behaviour when a score report is received.
+  This setting controls when a game's score is updated and made public.
+  You will be notified of conflicting reports regardless of this setting.
   You will always be able to manually enter scores regardless of this setting.
 </p>
 
 <%= form.ui_radio_button :game_confirm_setting,
-    'Automatic: the first submitted score report will be accepted.',
-    'automatic' %>
+    'Single: the score will be published after a score report is submitted',
+    'single' %>
 
 <%= form.ui_radio_button :game_confirm_setting,
-    'Multiple: two matching reports must be submitted.',
+    'Multiple: two matching reports from different devices must be submitted.',
     'multiple' %>
-
-<%= form.ui_radio_button :game_confirm_setting,
-    'Validated: A score report must be confirmed by the opposite captain.',
-    'validated' %>

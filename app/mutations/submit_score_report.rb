@@ -46,21 +46,14 @@ class SubmitScoreReport < MutationOperation
   end
 
   def notify_other_team
-    token = ScoreReportConfirmToken.create!({
-      tournament_id: report.tournament_id,
-      score_report_id: report.id
-    })
-
     ScoreReportMailer.notify_team_email(
       report.other_team,
       report.team,
-      report,
-      report.confirm_token
+      report
     ).deliver_later
   end
 
   def confirm_game
-    return if confirm_setting == 'validated'
     return if confirm_setting == 'multiple' && game.score_reports.size < 2
 
     if matches_other_reports?

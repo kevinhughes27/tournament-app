@@ -17,10 +17,11 @@
       for your team.
     </p>
     <p>
-      To confirm the result <%= link_to 'click this link', "#{@tournament.domain}/confirm/#{@token.path}" %>
+      To confirm the result <%= link_to 'click this link', "#{@tournament.domain}/submit",
+        params: { home_score: @report.home_score, away_score: @away_score } %>
     </p>
     <p>
-      To submit a different score <%= link_to 'click here', "#{@tournament.domain}/#submit-score" %>
+      To submit a different score <%= link_to 'click here', "#{@tournament.domain}/submit" %>
     </p>
   </body>
 </html>

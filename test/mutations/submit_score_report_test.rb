@@ -30,12 +30,6 @@ class SubmitScoreReportTest < ActiveSupport::TestCase
     assert @game.reload.score_confirmed
   end
 
-  test 'when tournament confirm_setting is validated' do
-    @tournament.update_columns(game_confirm_setting: 'validated')
-    SubmitScoreReport.call({}, score_report_params, @context)
-    refute @game.reload.score_confirmed
-  end
-
   test 'when tournament confirm_setting is multiple and both teams submit' do
     @tournament.update_columns(game_confirm_setting: 'multiple')
     SubmitScoreReport.call({}, score_report_params, @context)

@@ -28,7 +28,7 @@ class Tournament < ApplicationRecord
     length: {is: 4}, allow_blank: true,
     format: /\A[0-9]+\Z/
 
-  GAME_CONFIRM_SETTINGS = %w(automatic multiple validated)
+  GAME_CONFIRM_SETTINGS = %w(single multiple)
   validates :game_confirm_setting, inclusion: { in: GAME_CONFIRM_SETTINGS }
 
   def owner

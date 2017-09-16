@@ -3,8 +3,6 @@ class ScoreReport < ApplicationRecord
   belongs_to :game
   belongs_to :team
 
-  has_one :score_report_confirm_token
-
   acts_as_paranoid
 
   validates_presence_of :tournament,
@@ -24,10 +22,6 @@ class ScoreReport < ApplicationRecord
 
   def submitted_by
     team.name
-  end
-
-  def confirm_token
-    score_report_confirm_token
   end
 
   def submitter_won?
