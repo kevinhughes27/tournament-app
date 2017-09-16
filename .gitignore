@@ -3,10 +3,6 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-
 # ignore local node modules
 *node_modules*
 *npm-debug.log*
@@ -21,7 +17,6 @@
 
 # test outputs
 test/coverage
-test/javascripts/coverage
 *test/reports
 
 # ssl
@@ -31,5 +26,4 @@ server.key
 server.pass.key
 
 # Generated js bundles
-/app/assets/webpack/*
 /public/webpack/*

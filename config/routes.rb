@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     post 'graphql' => 'graphqls#create'
     mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
     draw :admin
-    draw :player_app
+    root 'app#index'
   end
 
   draw :brochure
