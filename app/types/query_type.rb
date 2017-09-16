@@ -2,6 +2,13 @@ QueryType = GraphQL::ObjectType.define do
   name "Query"
   description "The root query for this schema"
 
+  field :settings do
+    type SettingsType
+    resolve -> (obj, args, ctx) {
+      ctx[:tournament]
+    }
+  end
+
   field :map do
     type MapType
     resolve -> (obj, args, ctx) {
