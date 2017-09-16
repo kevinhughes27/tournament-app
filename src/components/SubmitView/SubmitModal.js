@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
@@ -27,6 +28,13 @@ class SubmitModal extends React.Component {
     open: false
   };
 
+  componentDidMount() {
+    const { game, params } = this.props;
+    if (params['gameId'] === game.id) {
+      this.setState({ open: true });
+    }
+  }
+
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -52,6 +60,10 @@ class SubmitModal extends React.Component {
   render() {
     const { classes, game, report } = this.props;
     const teamName = this.props.search;
+
+    const params = this.props.params;
+    const homeScore = params['homeScore'];
+    const awayScore = params['awayScore'];
 
     return (
       <div>
@@ -84,7 +96,12 @@ class SubmitModal extends React.Component {
               overflowX: 'hidden'
             }}
           >
-            <ScoreForm game={game} handleClose={this.handleClose} />
+            <ScoreForm
+              game={game}
+              homeScore={homeScore}
+              awayScore={awayScore}
+              handleClose={this.handleClose}
+            />
           </div>
         </Dialog>
       </div>
@@ -119,13 +136,9 @@ function gameScore(game, report, teamName) {
       </span>
     );
   } else if (report) {
-    //TODO I am pretty sure report should have home and away score instead of us and opponent score
-    const isHome = game.home_name === teamName;
-    const homeScore = isHome ? report.team_score : report.opponent_score;
-    const awayScore = isHome ? report.opponent_score : report.team_score;
     html = (
       <span>
-        {homeScore} - {awayScore}
+        {report.home_score} - {report.away_score}
       </span>
     );
   }
@@ -147,5 +160,6 @@ const styledSubmitModel = withStyles({ styles })(SubmitModal);
 
 export default connect(state => ({
   teams: state.tournament.teams,
-  search: state.search
+  search: state.search,
+  params: queryString.parse(state.router.location.search)
 }))(styledSubmitModel);
