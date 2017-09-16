@@ -41,8 +41,8 @@ class ScoreForm extends Component {
     });
 
     this.state = {
-      home_score: '',
-      away_score: '',
+      home_score: props.homeScore,
+      away_score: props.awayScore,
       ...initialState
     };
 
@@ -81,10 +81,16 @@ class ScoreForm extends Component {
 
   render() {
     const { game, handleClose } = this.props;
+    const { home_score, away_score } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <ScoreInput game={game} onChange={this.handleChange} />
+        <ScoreInput
+          game={game}
+          home_score={home_score}
+          away_score={away_score}
+          onChange={this.handleChange}
+        />
         {renderSpiritQuestions(this.state, this.handleChange)}
         <div
           style={{
