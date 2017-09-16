@@ -2,7 +2,8 @@ class MutationOperation < ActiveOperation::Base
   property :context
 
   def self.call(object, inputs, context)
-    super(context: context, **inputs.to_h.map { |k,v| [k.to_sym, v] }.to_h)
+    properties = inputs.to_h.map { |k,v| [k.to_sym, v] }.to_h
+    super(context: context, **properties)
     {success: true}
   end
 

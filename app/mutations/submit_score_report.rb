@@ -2,8 +2,8 @@ class SubmitScoreReport < MutationOperation
   property :game_id
   property :team_id
   property :submitter_fingerprint
-  property :team_score
-  property :opponent_score
+  property :home_score
+  property :away_score
   property :rules_knowledge
   property :fouls
   property :fairness
@@ -26,8 +26,8 @@ class SubmitScoreReport < MutationOperation
       game_id: game_id,
       team_id: team_id,
       submitter_fingerprint: submitter_fingerprint,
-      team_score: team_score,
-      opponent_score: opponent_score,
+      home_score: home_score,
+      away_score: away_score,
       rules_knowledge: rules_knowledge,
       fouls: fouls,
       fairness: fairness,
@@ -85,11 +85,14 @@ class SubmitScoreReport < MutationOperation
   end
 
   def matches_other_reports?
-    # this checks if all the reports say the same thing
-    # it doesn't confirm that each team submitted the score
-    # this is only loosely enforced by how the UI guides the user
-    # but still worth doing to avoid issues caused by one team
-    # submitting multiple scores
+    if confirm_setting == 'multiple'
+      both_teams_submitted = game.score_reports.map(&:team_id).uniq.count == 2
+      return false unless both_teams_submitted
+
+      multiple_devices_submitted = game.score_reports.map(&:submitter_fingerprint).uniq.count > 1
+      return false unless multiple_devices_submitted
+    end
+
     game.score_reports.all? { |r| report.eql?(r) }
   end
 end
