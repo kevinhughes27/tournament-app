@@ -4,6 +4,7 @@ CheckPinMutation = GraphQL::Relay::Mutation.define do
   return_field :valid, !types.Boolean
 
   resolve -> (obj, args, ctx) {
-    return { valid: args[:pin] == '1234' }
+    valid = args[:pin] == ctx[:tournament].score_submit_pin
+    return { valid: valid }
   }
 end

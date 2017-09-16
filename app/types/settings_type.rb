@@ -4,7 +4,7 @@ SettingsType = GraphQL::ObjectType.define do
   field :protectScoreSubmit do
     type types.Boolean
     resolve -> (obj, args, ctx) {
-      true
+      ctx[:tournament].score_submit_pin.present?
     }
   end
 end
