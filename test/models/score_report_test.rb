@@ -7,8 +7,8 @@ class ScoreReportTest < ActiveSupport::TestCase
     report = FactoryGirl.build(:score_report,
       game: game,
       team: game.home,
-      team_score: 15,
-      opponent_score: 11
+      home_score: 15,
+      away_score: 11
     )
 
     assert report.submitter_won?
@@ -20,8 +20,8 @@ class ScoreReportTest < ActiveSupport::TestCase
     report = FactoryGirl.build(:score_report,
       game: game,
       team: game.home,
-      team_score: 11,
-      opponent_score: 15
+      home_score: 11,
+      away_score: 15
     )
 
     refute report.submitter_won?
@@ -33,8 +33,8 @@ class ScoreReportTest < ActiveSupport::TestCase
     report = FactoryGirl.build(:score_report,
       game: game,
       team: game.home,
-      team_score: 15,
-      opponent_score: 11
+      home_score: 15,
+      away_score: 11
     )
 
     assert_equal game.away, report.other_team

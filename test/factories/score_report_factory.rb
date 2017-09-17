@@ -4,8 +4,8 @@ FactoryGirl.define do
     game { FactoryGirl.build(:game, tournament: tournament) }
     team { FactoryGirl.build(:team, tournament: tournament) }
     submitter_fingerprint { Faker::Crypto.sha1 }
-    team_score 15
-    opponent_score 13
+    home_score 15
+    away_score 13
     rules_knowledge 3
     fouls 3
     fairness 3
