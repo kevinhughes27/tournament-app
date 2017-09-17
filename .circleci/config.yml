@@ -52,7 +52,6 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       # Compile assets
-      - run: yarn run build
       - run: bundle exec rake assets:precompile
 
       # Run tests
