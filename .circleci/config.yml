@@ -71,6 +71,19 @@ jobs:
       # Compile assets
       - run: bundle exec rake assets:precompile
 
+      # Store assets cache
+      - save_cache:
+          key: |
+            assets
+            {{ checksum "assets-checksum.txt" }}
+            {{ checksum "player-app-checksum.txt" }}
+            {{ checksum "Gemfile.lock" }}
+            {{ checksum "client/yarn.lock" }}
+          paths:
+            - public/assets
+            - tmp/cache/assets
+            - player-app/build
+
       # Run tests
       - run: bundle exec rake ci:all
 
