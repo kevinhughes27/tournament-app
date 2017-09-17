@@ -54,19 +54,19 @@ jobs:
       # Generate checksum for assets
       - type: shell
         command: |
-          find app/assets/* -type f 2>/dev/null -exec md5sum {} \; >assets-checksum.txt
+          find app/assets/* -type f 2>/dev/null -exec md5sum {} \; > assets-checksum.txt
       - type: shell
         command: |
-          find player-app/* -type f 2>/dev/null -exec md5sum {} \; >player-app-checksum.txt
+          git submodule status > player-app-checksum.txt
 
       # Restore assets cache
       - restore_cache:
           key: |
             assets
-            -{{ checksum "assets-checksum.txt" }}
-            -{{ checksum "player-app-checksum.txt" }}
-            -{{ checksum "Gemfile.lock" }}
-            -{{ checksum "client/yarn.lock" }}
+            {{ checksum "assets-checksum.txt" }}
+            {{ checksum "player-app-checksum.txt" }}
+            {{ checksum "Gemfile.lock" }}
+            {{ checksum "client/yarn.lock" }}
 
       # Compile assets
       - run: bundle exec rake assets:precompile
