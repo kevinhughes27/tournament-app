@@ -11,8 +11,7 @@ class SubmitScoreReportTest < ActiveSupport::TestCase
     ScoreReportMailer.expects(:notify_team_email).with(
       @game.away,
       @game.home,
-      instance_of(ScoreReport),
-      instance_of(ScoreReportConfirmToken)
+      instance_of(ScoreReport)
     ).returns(stub(:deliver_later))
 
     SubmitScoreReport.call({}, score_report_params, @context)

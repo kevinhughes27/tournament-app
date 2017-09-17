@@ -1,4 +1,6 @@
 class AppController < ApplicationController
+  include TournamentConcern
+
   layout false
   protect_from_forgery except: [:static]
 

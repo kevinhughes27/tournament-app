@@ -1,14 +1,16 @@
 require 'test_helper'
 
 class Admin::FieldsControllerTest < AdminControllerTestCase
-  test "get new" do
+  setup do
     FactoryGirl.create(:map)
+  end
+
+  test "get new" do
     get :new
     assert_response :success
   end
 
   test "get show" do
-    FactoryGirl.create(:map)
     field = FactoryGirl.create(:field)
     get :show, params: { id: field.id }
     assert_response :success
