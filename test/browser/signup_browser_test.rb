@@ -13,6 +13,7 @@ class SignupBrowserTest < BrowserTestCase
     fill_in('tournament_name', with: 'Browser Test Tournament')
     click_on('Next')
 
+    assert_text 'Browser Test Tournament'
     assert_match /\/admin/, current_url
 
     tournament = Tournament.last
