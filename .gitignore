@@ -25,5 +25,8 @@ server.csr
 server.key
 server.pass.key
 
+# deploy
+deploy_key.md
+
 # Generated js bundles
 /public/webpack/*
