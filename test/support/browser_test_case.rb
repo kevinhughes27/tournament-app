@@ -54,14 +54,4 @@ class BrowserTestCase < ActiveSupport::TestCase
     screenshot_file = "#{name}.png"
     File.join(Rails.root, 'tmp', 'capybara', screenshot_file)
   end
-
-  def wait_for_ajax
-    Timeout.timeout(Capybara.default_max_wait_time) do
-      loop until finished_all_ajax_requests?
-    end
-  end
-
-  def finished_all_ajax_requests?
-    page.evaluate_script('jQuery.active').zero?
-  end
 end

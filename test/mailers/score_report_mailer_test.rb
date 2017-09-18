@@ -5,9 +5,8 @@ class ScoreReportMailerTest < ActionMailer::TestCase
     report = FactoryGirl.create(:score_report)
     team = report.team
     other_team = report.other_team
-    token = FactoryGirl.create(:score_report_confirm_token, score_report: report)
 
-    email = ScoreReportMailer.notify_team_email(other_team, team, report, token).deliver_now
+    email = ScoreReportMailer.notify_team_email(other_team, team, report).deliver_now
 
     assert_equal ['no-reply@ultimate-tournament.io'], email.from
     assert_equal [other_team.email], email.to

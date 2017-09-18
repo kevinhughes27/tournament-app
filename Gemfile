@@ -7,7 +7,12 @@ gem 'actioncable'
 gem 'puma'
 gem 'config'
 gem 'jbuilder'
+gem 'active_operation'
 gem 'composable_operations'
+
+# api
+gem 'graphql'
+gem 'graphiql-rails'
 
 # controllers
 gem 'browser-timezone-rails'
@@ -59,14 +64,6 @@ gem 'jquery-rails'
 gem 'twine-rails'
 gem 'turbolinks', '~> 5.0.0'
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-leaflet', '~> 1.0.1'
-  gem 'rails-assets-underscore', '~> 1.8.3'
-  gem 'rails-assets-moment', '~> 2.10.6'
-  gem 'rails-assets-fingerprintjs2' , '~> 0.7.4'
-  gem 'rails-assets-jquery.scrollTo', '~> 2.1.2'
-end
-
 group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
@@ -81,9 +78,6 @@ group :development, :test do
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'rainbow'
-  gem 'teaspoon'
-  gem 'teaspoon-jasmine'
-  gem 'teaspoon-bundle', '~> 0.1.6'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
 

@@ -8,7 +8,6 @@ require_relative '../lib/subdomain'
 
 module UltimateTournament
   class Application < Rails::Application
-
     config.active_record.default_timezone = :local
 
     config.generators do |generate|

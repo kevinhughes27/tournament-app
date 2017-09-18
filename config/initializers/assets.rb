@@ -15,8 +15,5 @@ Rails.application.config.assets.precompile += [
   'admin.js',
   'admin/vendor.js',
   'schedule_pdf.css',
-  'app.css',
-  'app.js',
-  'app/vendor.js',
   'internal.js',
 ]

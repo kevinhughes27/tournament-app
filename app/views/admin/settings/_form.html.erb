@@ -3,20 +3,21 @@
 <%= form.ui_text_field :handle,
     help_text: 'This dicates the first part of your website address' %>
 
+<%= form.ui_text_field :score_submit_pin,
+  label_html: 'Score Submit Pin Code',
+  help_text: 'This setting allows protecting your score submit page with a numeric pin code' %>
+
 <%= label_tag nil, "Score Confirmation Settings" %>
 <p>
-  This setting is for the automated behaviour when a score report is received.
+  This setting controls when a game's score is updated and made public.
+  You will be notified of conflicting reports regardless of this setting.
   You will always be able to manually enter scores regardless of this setting.
 </p>
 
 <%= form.ui_radio_button :game_confirm_setting,
-    'Automatic: the first submitted score report will be accepted.',
-    'automatic' %>
+    'Single: the score will be published after a score report is submitted',
+    'single' %>
 
 <%= form.ui_radio_button :game_confirm_setting,
-    'Multiple: two matching reports must be submitted.',
+    'Multiple: two matching reports from different devices must be submitted.',
     'multiple' %>
-
-<%= form.ui_radio_button :game_confirm_setting,
-    'Validated: A score report must be confirmed by the opposite captain.',
-    'validated' %>

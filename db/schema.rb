@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802030148) do
+ActiveRecord::Schema.define(version: 20170916184430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,14 +126,6 @@ ActiveRecord::Schema.define(version: 20170802030148) do
     t.datetime "deleted_at"
   end
 
-  create_table "score_report_confirm_tokens", force: :cascade do |t|
-    t.integer "tournament_id",   null: false
-    t.integer "score_report_id", null: false
-    t.string  "token",           null: false
-    t.index ["score_report_id"], name: "index_score_report_confirm_tokens_on_score_report_id", unique: true, using: :btree
-    t.index ["token"], name: "index_score_report_confirm_tokens_on_token", using: :btree
-  end
-
   create_table "score_reports", force: :cascade do |t|
     t.integer  "tournament_id"
     t.integer  "game_id"
@@ -151,6 +143,8 @@ ActiveRecord::Schema.define(version: 20170802030148) do
     t.string   "comments"
     t.datetime "deleted_at"
     t.boolean  "is_confirmation",                 default: false
+    t.integer  "home_score",                                      null: false
+    t.integer  "away_score",                                      null: false
     t.index ["tournament_id", "game_id", "deleted_at"], name: "tournament_game_deleted_at", using: :btree
   end
 
@@ -180,13 +174,14 @@ ActiveRecord::Schema.define(version: 20170802030148) do
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "handle"
     t.string   "location"
     t.string   "timezone"
     t.boolean  "welcome_email_sent",   default: false
-    t.string   "game_confirm_setting", default: "automatic"
+    t.string   "game_confirm_setting", default: "single"
+    t.string   "score_submit_pin"
     t.index ["handle"], name: "index_tournaments_on_handle", unique: true, using: :btree
     t.index ["name"], name: "index_tournaments_on_name", unique: true, using: :btree
   end

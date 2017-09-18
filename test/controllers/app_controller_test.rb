@@ -7,14 +7,14 @@ class AppControllerTest < ActionController::TestCase
     set_tournament(@tournament)
   end
 
-  test "get show" do
-    get :show
+  test "get index" do
+    get :index
     assert_response :success
   end
 
-  test "get show for non existent tournament 404s" do
+  test "get index for non existent tournament 404s" do
     set_tournament('wat')
-    get :show
+    get :index
     assert_response :not_found
   end
 end

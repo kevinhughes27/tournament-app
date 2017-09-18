@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   draw :internal
 
   constraints(Subdomain) do
+    post 'graphql' => 'graphqls#create'
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
     draw :admin
-    draw :player_app
+    root 'app#index'
+    get '/static/*dir/*file', to: 'app#static'
+    get '/*path', to: 'app#index'
   end
 
   draw :brochure

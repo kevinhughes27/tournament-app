@@ -7,5 +7,5 @@
 //= require jstz
 //= require browser_timezone_rails/set_time_zone
 
-//= require jquery.scrollTo
+//= require vendor/jquery.scrollTo
 //= require vendor/animatedModal

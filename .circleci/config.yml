@@ -17,6 +17,7 @@ jobs:
     steps:
       # Checkout the source code
       - checkout
+      - run: git submodule update --init
 
       # Restore bundle cache
       - type: cache-restore
@@ -44,13 +45,44 @@ jobs:
           paths:
             - ./node_modules
             - ./client/node_modules
+            - ./player-app/node_modules
 
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
+      # Generate checksum for assets
+      - type: shell
+        command: |
+          find app/assets/* -type f 2>/dev/null -exec md5sum {} \; > assets-checksum.txt
+      - type: shell
+        command: |
+          git submodule status > player-app-checksum.txt
+
+      # Restore assets cache
+      - restore_cache:
+          key: |
+            assets
+            {{ checksum "assets-checksum.txt" }}
+            {{ checksum "player-app-checksum.txt" }}
+            {{ checksum "Gemfile.lock" }}
+            {{ checksum "client/yarn.lock" }}
+
       # Compile assets
       - run: bundle exec rake assets:precompile
+
+      # Store assets cache
+      - save_cache:
+          key: |
+            assets
+            {{ checksum "assets-checksum.txt" }}
+            {{ checksum "player-app-checksum.txt" }}
+            {{ checksum "Gemfile.lock" }}
+            {{ checksum "client/yarn.lock" }}
+          paths:
+            - public/assets
+            - tmp/cache/assets
+            - player-app/build
 
       # Run tests
       - run: bundle exec rake ci:all

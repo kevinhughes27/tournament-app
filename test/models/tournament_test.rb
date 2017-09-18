@@ -56,4 +56,28 @@ class TournamentTest < ActiveSupport::TestCase
     assert Game.where(tournament: tournament).empty?
     assert ScoreReport.where(tournament: tournament).empty?
   end
+
+  test "save pin" do
+    tournament = FactoryGirl.build(:tournament, score_submit_pin: '1234')
+    assert tournament.valid?
+  end
+
+  test "pin must be 4 chars" do
+    tournament = FactoryGirl.build(:tournament, score_submit_pin: '12345')
+    refute tournament.valid?
+    assert_equal ["is the wrong length (should be 4 characters)"],
+      tournament.errors[:score_submit_pin]
+  end
+
+  test "pin must be only numbers" do
+    tournament = FactoryGirl.build(:tournament, score_submit_pin: '123a')
+    refute tournament.valid?
+    assert_equal ["is invalid"],
+      tournament.errors[:score_submit_pin]
+  end
+
+  test "pin can be blank" do
+    tournament = FactoryGirl.build(:tournament, score_submit_pin: '')
+    assert tournament.valid?
+  end
 end

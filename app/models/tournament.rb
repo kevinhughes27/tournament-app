@@ -1,6 +1,7 @@
 class Tournament < ApplicationRecord
   has_many :tournament_users
   has_many :users, through: :tournament_users
+  validates_presence_of :tournament_users, on: :update
 
   has_one :map, dependent: :destroy
   accepts_nested_attributes_for :map
@@ -23,9 +24,11 @@ class Tournament < ApplicationRecord
                      format: /\A[a-zA-Z0-9]+([\.\-\_]+[a-zA-Z0-9]+)*\Z/,
                      exclusion: { in: %w(www us ca jp) }
 
-  validates_presence_of :tournament_users, on: :update
+  validates :score_submit_pin,
+    length: {is: 4}, allow_blank: true,
+    format: /\A[0-9]+\Z/
 
-  GAME_CONFIRM_SETTINGS = %w(automatic multiple validated)
+  GAME_CONFIRM_SETTINGS = %w(single multiple)
   validates :game_confirm_setting, inclusion: { in: GAME_CONFIRM_SETTINGS }
 
   def owner

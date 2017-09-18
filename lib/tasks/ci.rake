@@ -6,11 +6,6 @@ namespace :ci do
     sh "bundle exec rails test"
   end
 
-  task :js_tests do
-    puts Rainbow("Running JavaScript tests").green
-    sh "bundle exec teaspoon"
-  end
-
   task :bundle_audit do
     puts Rainbow("Running security audit on gems (bundle_audit)").green
     sh "bundle exec bundle-audit update && bundle exec bundle-audit check"
@@ -26,8 +21,7 @@ namespace :ci do
     :environment,
     :bundle_audit,
     :nsp_check,
-    :rails_tests,
-    :js_tests,
+    :rails_tests
   ] do
     begin
       puts "All CI tasks"

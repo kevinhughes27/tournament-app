@@ -1,26 +1,24 @@
 class AppController < ApplicationController
   include TournamentConcern
 
-  before_action :set_tournament_timezone
+  layout false
+  protect_from_forgery except: [:static]
 
-  layout 'app'
+  def index
+    render file: index_html
+  end
 
-  def show
-    @map = @tournament.map
-    @fields = @tournament.fields.sort_by{|f| f.name.gsub(/\D/, '').to_i }
-    @teams = @tournament.teams
-    @games = @tournament.games
-               .scheduled
-               .with_teams
-               .includes(:home, :away, :field, :division)
-
-    render :show
+  def static
+    render file: static_file(params[:dir], params[:file])
   end
 
   private
 
-  # this can still be overridden by the user's timezone cookie
-  def set_tournament_timezone
-    Time.zone = @tournament.timezone
+  def index_html
+    Rails.root.join('player-app', 'build', 'index.html')
+  end
+
+  def static_file(dir, file)
+    Rails.root.join('player-app', 'build', 'static', dir, file)
   end
 end
