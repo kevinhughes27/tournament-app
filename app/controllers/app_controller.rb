@@ -27,6 +27,6 @@ class AppController < ApplicationController
   end
 
   def index_service_worker_file
-    Rails.root.join('player-app', 'build', 'service_worker.js')
+    Rails.root.join('player-app', 'build', 'service-worker.js')
   end
 end
