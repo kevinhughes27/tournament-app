@@ -2,7 +2,7 @@ class AppController < ApplicationController
   include TournamentConcern
 
   layout false
-  protect_from_forgery except: [:static, :service_worker]
+  protect_from_forgery except: [:index, :static, :service_worker]
 
   def index
     render file: index_html
