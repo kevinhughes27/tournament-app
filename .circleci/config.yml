@@ -81,6 +81,7 @@ jobs:
             {{ checksum "client/yarn.lock" }}
           paths:
             - public/assets
+            - public/webpack
             - tmp/cache/assets
             - player-app/build
 
