@@ -8,9 +8,7 @@ Rails.application.routes.draw do
     post 'graphql' => 'graphqls#create'
     mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
     draw :admin
-    root 'app#index'
-    get '/static/*dir/*file', to: 'app#static'
-    get '/*path', to: 'app#index'
+    draw :player_app
   end
 
   draw :brochure

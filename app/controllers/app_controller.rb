@@ -2,7 +2,7 @@ class AppController < ApplicationController
   include TournamentConcern
 
   layout false
-  protect_from_forgery except: [:static]
+  protect_from_forgery except: [:static, :service_worker]
 
   def index
     render file: index_html
@@ -10,6 +10,10 @@ class AppController < ApplicationController
 
   def static
     render file: static_file(params[:dir], params[:file])
+  end
+
+  def service_worker
+    render file: index_service_worker_file
   end
 
   private
@@ -20,5 +24,9 @@ class AppController < ApplicationController
 
   def static_file(dir, file)
     Rails.root.join('player-app', 'build', 'static', dir, file)
+  end
+
+  def index_service_worker_file
+    Rails.root.join('player-app', 'build', 'service_worker.js')
   end
 end
