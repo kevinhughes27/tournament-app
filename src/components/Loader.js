@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Layout from './Layout';
-import Center from 'react-center';
 import { CircularProgress } from 'material-ui/Progress';
 import { loadApp } from '../actions/load';
 
@@ -16,9 +15,9 @@ class Loader extends Component {
     if (loading) {
       return (
         <Layout>
-          <Center>
+          <div className="center">
             <CircularProgress size={80} />
-          </Center>
+          </div>
         </Layout>
       );
     } else {

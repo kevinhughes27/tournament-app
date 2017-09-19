@@ -26,7 +26,6 @@
     "query-string": "^5.0.0",
     "react": "^15.6.1",
     "react-autosuggest": "^9.3.2",
-    "react-center": "^1.1.1",
     "react-dom": "^15.6.1",
     "react-leaflet": "^1.5.0",
     "react-pin-input": "^0.4.1",

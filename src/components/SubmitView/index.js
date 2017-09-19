@@ -25,12 +25,22 @@ class SubmitView extends Component {
 function renderContent(search, games, reports) {
   const filteredGames = gamesSearch(search, games);
 
-  return (
-    <List>
-      <ListSubheader>Submit a score for each game played</ListSubheader>
-      {filteredGames.map(game => renderGame(game, reports))}
-    </List>
-  );
+  if (search === '') {
+    return <div className="center">Please search for a team.</div>;
+  } else if (filteredGames.length === 0) {
+    return (
+      <div className="center">
+        No games found for team '{search}'
+      </div>
+    );
+  } else {
+    return (
+      <List>
+        <ListSubheader>Submit a score for each game played</ListSubheader>
+        {filteredGames.map(game => renderGame(game, reports))}
+      </List>
+    );
+  }
 }
 
 function renderGame(game, reports) {
