@@ -52,8 +52,9 @@ class ScoreForm extends Component {
 
   handleChange(event) {
     const target = event.target;
-    const value =
-      target.type === 'number' ? parseInt(target.value, 10) : target.value;
+    const value = isNaN(parseInt(target.value, 10))
+      ? target.value
+      : parseInt(target.value, 10);
     const name = target.name;
 
     this.setState({
