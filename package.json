@@ -21,7 +21,6 @@
   },
   "cacheDirectories": [
     "node_modules",
-    "client/node_modules",
-    "player-app/node_modules"
+    "client/node_modules"
   ]
 }
