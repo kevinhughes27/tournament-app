@@ -44,7 +44,9 @@ function renderContent(search, games, reports) {
 }
 
 function renderGame(game, reports) {
-  const filteredReports = reports.filter(r => r.game_id === game.id);
+  const filteredReports = reports.filter(
+    r => parseInt(r.game_id, 10) === parseInt(game.id, 10)
+  );
   const report = filteredReports[filteredReports.length - 1];
 
   return (
