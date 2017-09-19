@@ -39,10 +39,13 @@ class MapView extends Component {
 
 function renderFields(fields, nextFieldName) {
   return fields.map(field => {
-    let style = {};
-    if (field.name === nextFieldName) {
-      style = { color: 'white' };
-    }
+    let style = () => {
+      if (field.name === nextFieldName) {
+        return { color: 'white' };
+      } else {
+        return { color: 'rgb(51, 136, 255)' };
+      }
+    };
 
     return (
       <GeoJSON key={field.id} data={JSON.parse(field.geo_json)} style={style} />
