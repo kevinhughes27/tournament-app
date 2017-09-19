@@ -62,8 +62,13 @@ class SubmitModal extends React.Component {
     const teamName = this.props.search;
 
     const params = this.props.params;
-    const homeScore = parseInt(params['homeScore'], 10);
-    const awayScore = parseInt(params['awayScore'], 10);
+
+    let homeScore = '';
+    let awayScore = '';
+    if (params['gameId'] === game.id) {
+      homeScore = parseInt(params['homeScore'], 10);
+      awayScore = parseInt(params['awayScore'], 10);
+    }
 
     return (
       <div>
