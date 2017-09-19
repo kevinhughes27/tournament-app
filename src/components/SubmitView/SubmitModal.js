@@ -30,11 +30,32 @@ class SubmitModal extends React.Component {
   };
 
   componentDidMount() {
+    this.gameDeepLink();
+  }
+
+  gameDeepLink = () => {
     const { game, params } = this.props;
+
     if (params['gameId'] === game.id) {
       this.setState({ open: true });
     }
-  }
+  };
+
+  deepLinkScores = () => {
+    const { game, params } = this.props;
+
+    let scores = {
+      homeScore: '',
+      awayScore: ''
+    };
+
+    if (params['gameId'] === game.id) {
+      scores.homeScore = parseInt(params['homeScore'], 10);
+      scores.awayScore = parseInt(params['awayScore'], 10);
+    }
+
+    return scores;
+  };
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -62,15 +83,7 @@ class SubmitModal extends React.Component {
   render() {
     const { classes, game, report } = this.props;
     const teamName = this.props.search;
-
-    const params = this.props.params;
-
-    let homeScore = '';
-    let awayScore = '';
-    if (params['gameId'] === game.id) {
-      homeScore = parseInt(params['homeScore'], 10);
-      awayScore = parseInt(params['awayScore'], 10);
-    }
+    const { homeScore, awayScore } = this.deepLinkScores();
 
     return (
       <div>
