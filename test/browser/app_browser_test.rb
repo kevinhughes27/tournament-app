@@ -37,15 +37,6 @@ class AppBrowserTest < BrowserTestCase
   end
 
   def assert_submitted
-    # reports and icons are not showing up inside the browser spec
-    # same thing happens when running the player-app locally through rails.
-    # could the service worker not registering thing
-    fixed = false
-
-    if fixed
-      assert page.find("svg[color='green']")
-    else
-      sleep(1)
-    end
+    assert page.find("svg[color='green']")
   end
 end
