@@ -35,11 +35,10 @@ export default function register() {
     // don't run the service worker for the admin
     if (!isAdmin) {
       // remove the worker and reload the page
-      navigator.serviceWorker.ready.then(registration => {
-        registration.unregister().then(() => {
-          window.location.reload();
-        });
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        registrations.forEach(r => r.unregister());
       });
+      window.location.reload();
       return;
     }
 
