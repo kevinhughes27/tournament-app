@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
+import Input from 'material-ui/Input';
 import ScoreInput from './ScoreInput';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../../actions/submitScore';
@@ -93,6 +94,21 @@ class ScoreForm extends Component {
           onChange={this.handleChange}
         />
         {renderSpiritQuestions(this.state, this.handleChange)}
+        <div
+          style={{
+            paddingLeft: '20px',
+            paddingRight: '20px',
+            paddingBottom: '40px'
+          }}
+        >
+          <Input
+            placeholder="Comments ..."
+            name="comments"
+            onChange={this.handleChange}
+            multiline
+            fullWidth
+          />
+        </div>
         <div
           style={{
             textAlign: 'right',
