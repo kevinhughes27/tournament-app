@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
@@ -40,6 +41,7 @@ class SubmitModal extends React.Component {
   };
 
   handleClose = () => {
+    this.props.dispatch(push('/submit'));
     this.setState({ open: false });
   };
 
