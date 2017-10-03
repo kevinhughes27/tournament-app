@@ -89,6 +89,7 @@ class AutoComplete extends Component {
         renderSuggestionsContainer={renderSuggestionsContainer}
         shouldRenderSuggestions={shouldRenderSuggestions}
         inputProps={{
+          id: 'search',
           classes,
           placeholder: placeholder,
           value: value,

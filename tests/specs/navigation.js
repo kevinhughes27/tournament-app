@@ -1,12 +1,18 @@
-var assert = require('assert');
+// var assert = require('assert');
 
-describe('BrowserStack Local Testing', function() {
-  it('can check tunnel working', function () {
-    browser.url('http://localhost:5000')
-           .pause(2000);
+// describe('Navigation', function() {
+//   before(function() {
+//     browser.url('http://localhost:5000')
+//       .pause(2000);
+//   });
 
-    browser.click('button=Map');
-    
-    assert(browser.getUrl().match('/map'));
-  });
-});
+//   it('can navigate to map view', function () {
+//     browser.click('button=Map');
+//     assert(browser.getUrl().match('/map'));
+//   });
+
+//   it('can navigate to submit view', function () {
+//     browser.click('button=Submit Scores');
+//     assert(browser.getUrl().match('/submit'));
+//   });
+// });
