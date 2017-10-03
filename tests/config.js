@@ -1,22 +1,34 @@
-exports.config = {
-  framework: 'mocha',
-  seleniumAddress: 'http://localhost:4444/wd/hub',
-  baseUrl: 'http://localhost:5000',
-  specs: ['spec/*.js'],
-  onPrepare: () => {
-    browser.ignoreSynchronization = true
-    var width = 375
-    var height = 667
-    browser.driver.manage().window().setSize(width, height)
+var browserstack = require('browserstack-local');
 
-    require('babel-core/register')({presets: ['es2015']})
-    require('./setup')
+exports.config = {
+  user: 'kevinhughes6',
+  key: 'Ve3RnQbrSByPDz7UatGZ',
+
+  specs: [
+    './tests/specs/*.js'
+  ],
+
+  capabilities: [{
+    browser: 'chrome',
+    'browserstack.local': true
+  }],
+
+  // Code to start browserstack local before start of test
+  onPrepare: function (config, capabilities) {
+    console.log("Connecting local");
+    return new Promise(function(resolve, reject){
+      exports.bs_local = new browserstack.Local();
+      exports.bs_local.start({'key': exports.config.key }, function(error) {
+        if (error) return reject(error);
+        console.log('Connected. Now testing...');
+
+        resolve();
+      });
+    });
   },
-  capabilities: {
-    'browserName': 'firefox'
-  },
-  mochaOpts: {
-    enableTimeouts: false,
-  },
-  allScriptsTimeout: 15000,
+
+  // Code to stop browserstack local after end of test
+  onComplete: function (capabilties, specs) {
+    exports.bs_local.stop(function() {});
+  }
 }

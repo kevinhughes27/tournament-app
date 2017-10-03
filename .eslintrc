@@ -1,6 +1,3 @@
 {
-  "extends": "react-app",
-  "plugines": [
-    "protractor"
-  ]
+  "extends": "react-app"
 }
