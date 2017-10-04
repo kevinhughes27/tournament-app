@@ -70,6 +70,11 @@ class ScoreForm extends Component {
     const teamName = this.props.search;
     const team = _find(this.props.teams, t => t.name === teamName);
 
+    if (this.state.home_score === '' || this.state.away_score === '') {
+      alert('Please enter a score');
+      return;
+    }
+
     const payload = {
       game_id: parseInt(game.id, 10),
       team_id: parseInt(team.id, 10),
