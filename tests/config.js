@@ -5,8 +5,12 @@ exports.config = {
   key: 'Ve3RnQbrSByPDz7UatGZ',
 
   specs: [
-    './tests/specs/*.js'
+    './tests/spec.js'
   ],
+
+  mochaOpts: {
+    timeout: 20000
+  },
 
   capabilities: [{
     browser: 'chrome',
