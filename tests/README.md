@@ -10,3 +10,5 @@ In order to run the tests:
 2. Run the webpack development server using `yarn start` in top directory
 
 3. Run `yarn test`. The results can be seen visually on Browserstack
+
+Note - make sure the constants in the test make sense with the current local tournament.
