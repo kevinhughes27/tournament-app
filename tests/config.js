@@ -12,10 +12,43 @@ exports.config = {
     timeout: 20000
   },
 
-  capabilities: [{
-    browser: 'chrome',
-    'browserstack.local': true
-  }],
+  capabilities: [
+    {
+      'project': 'ut-player-app',
+      'browserstack.local': true,
+      'browserName': 'Chrome'
+    },
+    // {
+    //   'project': 'ut-player-app',
+    //   'browserstack.local': true,
+    //   'browserName': 'Firefox'
+    // },
+    // {
+    //   'project': 'ut-player-app',
+    //   'browserstack.local': true,
+    //   'browserName': 'Safari'
+    // },
+    // {
+    //   'project': 'ut-player-app',
+    //   'browserstack.local': true,
+    //   'browserName': 'Edge'
+    // },
+    //
+    // Gets stuck at Pin code. the pin is never checked with the server so the issue is client side.
+    // Probably the onComplete of react-pin-input not firing
+    // {
+    //   'project': 'ut-player-app',
+    //   'browserstack.local': true,
+    //   'browserName': 'IE',
+    //   'browser_version' : '11.0'
+    // }
+    {
+      'project': 'ut-player-app',
+      'browserstack.local': true,
+      'realMobile': true,
+      'device': 'Nexus 5'
+    }
+  ],
 
   // Code to start browserstack local before start of test
   onPrepare: function (config, capabilities) {
