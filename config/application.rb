@@ -14,5 +14,7 @@ module UltimateTournament
       generate.helper false
       generate.assets false
     end
+
+    config.middleware.use Rack::Deflater
   end
 end
