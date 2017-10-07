@@ -9,6 +9,9 @@ class SignupBrowserTest < BrowserTestCase
     fill_in('user_password', with: 'password')
     find('input[name="commit"]').click
 
+    # for animation
+    sleep(1)
+
     assert_text 'Your tournament will be available at:'
     fill_in('tournament_name', with: 'Browser Test Tournament')
     click_on('Next')
