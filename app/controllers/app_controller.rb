@@ -19,14 +19,18 @@ class AppController < ApplicationController
   private
 
   def index_html
-    Rails.root.join('player-app', 'build', 'index.html')
+    Rails.root.join(app_directory, 'build', 'index.html')
   end
 
   def static_file(dir, file)
-    Rails.root.join('player-app', 'build', 'static', dir, file)
+    Rails.root.join(app_directory, 'build', 'static', dir, file)
   end
 
   def index_service_worker_file
-    Rails.root.join('player-app', 'build', 'service-worker.js')
+    Rails.root.join(app_directory, 'build', 'service-worker.js')
+  end
+
+  def app_directory
+    'player-app'
   end
 end
