@@ -14,12 +14,24 @@ module BracketDb
     end
 
     def build
-      roots = games.select { |g| g[:bracket_uid].present? && g[:bracket_uid].is_i? }
+      roots = games.select { |g| is_root?(g[:bracket_uid]) }
+
       roots.sort_by! { |g| g[:bracket_uid].to_i }
+
       roots.map { |r| add_node(r[:bracket_uid]) }
     end
 
     private
+
+    def is_root?(game_uid)
+      return false unless game_uid.present?
+
+      return false if games.detect do |g|
+        g[:home_prereq] == "W#{game_uid}" ||
+        g[:away_prereq] == "W#{game_uid}"
+      end
+      true
+    end
 
     def add_node(game_uid)
       game = games.detect { |g| g[:bracket_uid] == game_uid }
