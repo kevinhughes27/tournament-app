@@ -1,4 +1,13 @@
 -
+  handle: cuuc_women_II
+  name: CUUC Womens Div II
+  num_teams: 13
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= BracketDb::load('cuuc_women_II') %>
+
+-
   handle: round_robin_5
   name: Round Robin
   num_teams: 5
