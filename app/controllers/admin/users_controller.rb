@@ -9,7 +9,9 @@ class Admin::UsersController < AdminController
 
   def create
     Tournament.transaction do
-      user = User.create!(user_params)
+      user = User.find_or_initialize_by(email: user_params[:email])
+      user.password = user_params[:password] if user_params[:password].present?
+      user.save!
       TournamentUser.create!(tournament: @tournament, user: user)
     end
 
