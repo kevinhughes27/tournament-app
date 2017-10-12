@@ -28,7 +28,7 @@ export function schedule (gameId, fieldId, startTime, endTime) {
         error: false
       })
 
-      console.log(`game_id: ${gameId} successfully scheduled.`)
+      console.log(`game_id: ${gameId} successfully scheduled at ${startTime} to ${endTime}`)
     },
     error: (response) => {
       GamesStore.updateGame({
