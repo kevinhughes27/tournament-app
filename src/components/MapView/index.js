@@ -21,8 +21,9 @@ class MapView extends Component {
       const startTime = moment(game.start_time);
       return currentTime.isBefore(startTime);
     })[0];
+    const filteredFields = _filter(fields, field => field.geo_json);
     const nextFieldName = _get(nextGame, 'field_name', -1);
-    const nextField = _find(fields, f => f.name === nextFieldName);
+    const nextField = _find(filteredFields, f => f.name === nextFieldName);
 
     return (
       <Map center={[lat, long]} zoom={zoom} zoomControl={false}>
@@ -30,7 +31,7 @@ class MapView extends Component {
           url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
-        {renderFields(fields, nextFieldName)}
+        {renderFields(filteredFields, nextFieldName)}
         {renderPopup(nextGame, nextField)}
       </Map>
     );
