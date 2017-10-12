@@ -1,0 +1,18 @@
+{
+  "games": [
+    <%= BracketDb::table_partial('table_3.1', pool: 'O', seeds: [1,4,7]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'P', seeds: [2,3,5,6]) %>,
+
+    {"round":1, "bracket_uid":"zz", "home_prereq":"O1", "away_prereq":"P1"},
+    {"round":1, "bracket_uid":"xx", "home_prereq":"O2", "away_prereq":"P4"},
+    {"round":1, "bracket_uid":"yy", "home_prereq":"A3", "away_prereq":"B3"},
+  ],
+  "places": [
+    {"position":1, "prereq": "Wzz"},
+    {"position":2, "prereq": "Lzz"},
+    {"position":3, "prereq": "Wxx"},
+    {"position":4, "prereq": "Wyy"},
+    {"position":5, "prereq": "Lxx"},
+    {"position":6, "prereq": "Lyy"}
+  ]
+}

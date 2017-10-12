@@ -314,6 +314,15 @@
   template: <%= BracketDb::load('usau_7.1') %>
 
 -
+  handle: CUUC 7
+  name: CUUC Women's Qualifier
+  num_teams: 7
+  days: 1
+  rounds: 1
+  pool: true
+  template: <%= BracketDb::load('cuuc_7') %>
+
+-
   handle: USAU 8.1
   name: One team advances (USAU 8.1)
   description: >
@@ -529,6 +538,15 @@
   rounds: 4
   pool: true
   template: <%= BracketDb::load('usau_15.1') %>
+
+-
+  handle: CUUC 15
+  name: CUUC Friday Open Division
+  num_teams: 15
+  days: 1
+  rounds: 5
+  pool: false
+  template: <%= BracketDb::load('cuuc_15') %>
 
 -
   handle: USAU 16.1
