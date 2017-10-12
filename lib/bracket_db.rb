@@ -10,9 +10,6 @@ module BracketDb
   def self.brackets_path
     File.join(db_path, 'brackets')
   end
-
-  class Engine < ::Rails::Engine
-  end
 end
 
 require 'frozen_record'

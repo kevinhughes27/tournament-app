@@ -205,7 +205,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_mime (0.1.4)
     mini_portile2 (2.3.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     minitest-retry (0.1.9)
       minitest (>= 5.0)
     mocha (1.2.1)
