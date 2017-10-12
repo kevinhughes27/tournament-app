@@ -1,7 +1,7 @@
 {
   "games": [
-    <%= BracketDb::table_partial('table_3.1', pool: 'O', seeds: [1,4,7]) %>,
-    <%= BracketDb::table_partial('table_4.1', pool: 'P', seeds: [2,3,5,6]) %>,
+    <%= BracketDb::table_partial('table_3.1', pool: 'O', seeds: [1,4,5]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'P', seeds: [2,3,6,7]) %>,
 
     {"round":1, "bracket_uid":"zz", "home_prereq":"O1", "away_prereq":"P1"},
     {"round":1, "bracket_uid":"xx", "home_prereq":"O2", "away_prereq":"P4"},

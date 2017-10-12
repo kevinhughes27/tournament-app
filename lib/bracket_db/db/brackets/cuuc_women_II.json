@@ -1,9 +1,9 @@
 {
   "games": [
-    <%= BracketDb::table_partial('table_3.1', pool: 'Q', seeds: [1,2,3]) %>,
-    <%= BracketDb::table_partial('table_3.1', pool: 'R', seeds: [4,5,6]) %>,
-    <%= BracketDb::table_partial('table_3.1', pool: 'S', seeds: [7,8,9]) %>,
-    <%= BracketDb::table_partial('table_4.1', pool: 'T', seeds: [10,11,12,13]) %>,
+    <%= BracketDb::table_partial('table_3.1', pool: 'Q', seeds: [1,8,9]) %>,
+    <%= BracketDb::table_partial('table_3.1', pool: 'R', seeds: [2,7,10]) %>,
+    <%= BracketDb::table_partial('table_3.1', pool: 'S', seeds: [3,6,11]) %>,
+    <%= BracketDb::table_partial('table_4.1', pool: 'T', seeds: [4,5,12,13]) %>,
 
     <%= BracketDb::table_partial('table_4.1', pool: 'X', seeds: ['Q1', 'T1', 'T2', 'Q2']) %>,
     <%= BracketDb::table_partial('table_4.1', pool: 'Y', seeds: ['R1', 'S1', 'S2', 'R2']) %>,
