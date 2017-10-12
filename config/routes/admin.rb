@@ -19,6 +19,9 @@ namespace :admin do
     end
   end
 
+  get '/brackets', to: 'bracket_db#index'
+  get '/bracket', to: 'bracket_db#show'
+
   resources :teams do
     collection do
       get :sample_csv

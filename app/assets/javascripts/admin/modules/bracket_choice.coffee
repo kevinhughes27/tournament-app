@@ -11,17 +11,21 @@ class Admin.BracketChoice
     numDays = parseInt(@$daysInput.val())
     numTeams = parseInt(@$numberInput.val())
 
-    validBrackets = BracketDb.BRACKETS.filter((b) ->
-      b.num_teams == numTeams && b.days == numDays
-    )
+    $.get({
+      url: '/admin/brackets',
+      data: {num_teams: numTeams, num_days: numDays},
+      success: @_updateDropdown
+    })
+
+  _updateDropdown: (brackets) =>
     @$selectInput.empty()
 
-    if validBrackets.length == 0
+    if brackets.length == 0
       @$selectInput.attr('disabled', true)
     else
       @$selectInput.attr('disabled', false)
 
-    @$selectInput.append validBrackets.map (b) =>
+    @$selectInput.append brackets.map (b) =>
       $("<option value='#{b.handle}'>#{b.name}</option>")
 
     @$selectInput.change()

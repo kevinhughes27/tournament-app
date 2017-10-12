@@ -13,8 +13,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def new
-    @division = @tournament.divisions.build
-    @division.bracket_type = 'USAU 8.1'
+    @division = @tournament.divisions.build(bracket_type: 'USAU 8.1')
   end
 
   def create

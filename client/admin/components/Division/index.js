@@ -11,18 +11,23 @@ import React from 'react'
 
 import Pool from './Pool'
 import BracketVis from './BracketVis'
+import bracketDb from './helpers/bracketDb'
 
 class Division extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
+    this.state = {}
+  }
 
+  componentWillMount () {
     let bracketHandle = this.props.bracket_handle
-    let bracket = BracketDb.find(bracketHandle)
 
-    this.state = {
-      bracketHandle: bracketHandle,
-      bracket: bracket
-    }
+    bracketDb(bracketHandle, (bracket) => {
+      this.setState({
+        bracketHandle: bracketHandle,
+        bracket: bracket
+      })
+    })
   }
 
   componentDidMount () {
@@ -30,11 +35,12 @@ class Division extends React.Component {
 
     $('#division_bracket_type').on('change', (event) => {
       let bracketHandle = $(event.target).val()
-      let bracket = BracketDb.find(bracketHandle)
 
-      this.setState({
-        bracketHandle: bracketHandle,
-        bracket: bracket
+      bracketDb(bracketHandle, (bracket) => {
+        this.setState({
+          bracketHandle: bracketHandle,
+          bracket: bracket
+        })
       })
     })
   }
