@@ -18,7 +18,7 @@ class Legend extends React.Component {
             let color = DIVISION_COLORS[divisionId % 12]
 
             return (
-              <span>
+              <span key={divisionId}>
                 <h4>
                   <i className='fa fa-stop' style={{color: color}}></i> {divisionName}
                 </h4>
