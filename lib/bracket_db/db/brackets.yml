@@ -634,6 +634,15 @@
   template: <%= BracketDb::load('usau_23.1') %>
 
 -
+  handle: CUUC 23
+  name: CUUC Open Div II
+  num_teams: 23
+  days: 2
+  rounds: 3
+  pool: true
+  template: <%= BracketDb::load('cuuc_23') %>
+
+-
   handle: USAU 24.1
   name: One team advances (USAU 24.1)
   num_teams: 24
