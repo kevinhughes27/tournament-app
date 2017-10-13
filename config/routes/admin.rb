@@ -35,7 +35,7 @@ namespace :admin do
 
   resources :games, only: [:index, :update]
 
-  resources :score_reports, only: [:index]
+  resources :score_reports, only: [:index, :destroy]
 
   get '/settings', to: 'settings#show'
   put '/settings', to: 'settings#update'

@@ -18,6 +18,7 @@ class ScoreReports extends React.Component {
                 <th className="hidden-xs">Submitted at</th>
                 <th className="hidden-xs">SOTG</th>
                 <th className="hidden-xs">Comments</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -33,12 +34,35 @@ class ScoreReports extends React.Component {
 }
 
 class ScoreReport extends React.Component {
+  constructor (props) {
+    super(props)
+    this.deleteReport = this.deleteReport.bind(this)
+  }
+
   tooltip (report) {
     return (
       <Tooltip id={`report${report.id}submitter`}
         placement="top">{report.submitter_fingerprint}
       </Tooltip>
     )
+  }
+
+  deleteReport (e) {
+    e.nativeEvent.preventDefault();
+    const reportId = this.props.report.id;
+
+    $.ajax({
+      url: 'score_reports/' + reportId,
+      type: 'DELETE',
+      beforeSend: function (xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')) },
+      success: (response) => {
+        Admin.Flash.notice('Report deleted')
+        window.location.reload()
+      },
+      error: (response) => {
+        Admin.Flash.notice('Error')
+      }
+    })
   }
 
   render () {
@@ -62,6 +86,11 @@ class ScoreReport extends React.Component {
         </td>
         <td className="comments hidden-xs">
           {report.comments}
+        </td>
+        <td>
+          <a onClick={this.deleteReport}>
+            <i className="fa fa-trash"></i>
+          </a>
         </td>
       </tr>
     )

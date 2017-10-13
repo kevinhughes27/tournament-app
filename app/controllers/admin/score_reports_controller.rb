@@ -4,6 +4,10 @@ class Admin::ScoreReportsController < AdminController
     sum_reports_by_team
   end
 
+  def destroy
+    @tournament.score_reports.find(params[:id]).destroy
+  end
+
   private
 
   def sum_reports_by_team
