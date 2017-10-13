@@ -1,4 +1,5 @@
 import GamesStore from '../../stores/GamesStore'
+import moment from 'moment'
 
 export function schedule (gameId, fieldId, startTime, endTime) {
   GamesStore.updateGame({
@@ -28,7 +29,9 @@ export function schedule (gameId, fieldId, startTime, endTime) {
         error: false
       })
 
-      console.log(`game_id: ${gameId} successfully scheduled at ${startTime} to ${endTime}`)
+      const startTimeStr = moment(startTime).format('h:mm')
+      const endTimeStr = moment(endTime).format('h:mm')
+      Admin.Flash.notice(`scheduled at ${startTimeStr} to ${endTimeStr}`)
     },
     error: (response) => {
       GamesStore.updateGame({
