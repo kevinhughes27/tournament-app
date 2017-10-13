@@ -109,10 +109,10 @@ class Game < ApplicationRecord
 
   def dependent_games
     [
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "W#{bracket_uid}"),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "L#{bracket_uid}"),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "W#{bracket_uid}"),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "L#{bracket_uid}")
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "W#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "L#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "W#{bracket_uid}"),
+      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "L#{bracket_uid}")
     ].compact
   end
 
