@@ -106,7 +106,13 @@ class SeedDivision < ApplicationOperation
   end
 
   def games
-    @games ||= if division.bracket.pool
+    @games ||= if division.bracket_type == "CUUC 23"
+      Game.where(
+        tournament_id: division.tournament_id,
+        division_id: division.id,
+        seed_round: SEED_ROUND
+      )
+    elsif division.bracket.pool
       Game.where(
         tournament_id: division.tournament_id,
         division_id: division.id
