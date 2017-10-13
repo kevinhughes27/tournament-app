@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916184430) do
+ActiveRecord::Schema.define(version: 20171013005529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,15 +46,15 @@ ActiveRecord::Schema.define(version: 20170916184430) do
     t.integer  "home_score"
     t.integer  "away_score"
     t.datetime "start_time"
-    t.boolean  "score_confirmed"
+    t.boolean  "score_confirmed", default: false, null: false
     t.integer  "field_id"
-    t.integer  "tournament_id",               null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "tournament_id",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "bracket_uid"
     t.string   "home_prereq"
     t.string   "away_prereq"
-    t.integer  "division_id",                 null: false
+    t.integer  "division_id",                     null: false
     t.integer  "round"
     t.string   "pool"
     t.string   "home_pool_seed"
