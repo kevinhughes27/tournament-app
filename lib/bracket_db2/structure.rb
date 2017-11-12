@@ -9,7 +9,7 @@ module BracketDb
     end
 
     def self.stage(stage_type, &block)
-      @@stages << stage_type.instance_eval(&block)
+      @@stages << { stage_type.to_s => stage_type.instance_eval(&block) }
     end
   end
 end

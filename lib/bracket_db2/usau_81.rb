@@ -1,3 +1,4 @@
+require 'pp'
 require_relative './structure'
 
 module BracketDb
@@ -9,6 +10,10 @@ module BracketDb
 
     stage BracketStage do
       bracket '8.1'
+    end
+
+    def self.to_s
+      pp stages
     end
   end
 end
