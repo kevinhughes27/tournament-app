@@ -2,14 +2,15 @@ require_relative 'stages'
 
 module BracketDb
   class Structure
-    @@stages = []
+    attr_reader :stages
 
-    def self.stages
-      @@stages
+    def initialize
+      @stages = []
     end
 
-    def self.stage(stage_type, &block)
-      @@stages << { stage_type.to_s => stage_type.instance_eval(&block) }
+    def stage(stage_type, &block)
+      new_stage = { stage_type.to_s => stage_type.instance_eval(&block) }
+      @stages << new_stage
     end
   end
 end
