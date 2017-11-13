@@ -1,11 +1,13 @@
 module BracketDb
-  class PoolStage
+  class Stage
     attr_reader :games
 
     def initialize
       @games = []
     end
+  end
 
+  class PoolStage < Stage
     def pool(identifier, type, input)
       @games += [
         {"pool":identifier, "round":1, "home_pool_seed":1, "away_pool_seed":3},
@@ -19,13 +21,7 @@ module BracketDb
     end
   end
 
-  class BracketStage
-    attr_reader :games
-
-    def initialize
-      @games = []
-    end
-
+  class BracketStage < Stage
     def bracket(type, input)
       @games += [
         {"round": 1, "bracket_uid":"a", "home_prereq":"A1", "away_prereq":"B4"},
