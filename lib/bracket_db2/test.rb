@@ -4,6 +4,10 @@ require 'pp'
 
 
 BracketDb.define 'USAU_8.1' do
+  description 'One team advances (USAU 8.1)'
+  teams 8
+  days 2
+
   stage :pools do
     pool 'A', '4.1', %w(1 3 6 8)
     pool 'B', '4.1', %w(2 4 5 7)
