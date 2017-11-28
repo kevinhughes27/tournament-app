@@ -20,7 +20,6 @@ namespace :ci do
   task all: [
     :environment,
     :bundle_audit,
-    :nsp_check,
     :rails_tests
   ] do
     begin
