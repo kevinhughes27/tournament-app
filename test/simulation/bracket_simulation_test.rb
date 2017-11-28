@@ -28,7 +28,10 @@ class BracketSimulationTest < ActiveSupport::TestCase
   private
 
   def create_division(bracket_type:)
-    DivisionCreate.perform(@tournament, FactoryGirl.attributes_for(:division, bracket_type: bracket_type))
+    DivisionCreate.perform(
+      tournament: @tournament,
+      division_params: FactoryGirl.attributes_for(:division, bracket_type: bracket_type)
+    )
   end
 
   def create_teams

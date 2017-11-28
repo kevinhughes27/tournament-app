@@ -6,9 +6,8 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
   end
 
   test "perform" do
-    division = DivisionCreate.perform(@tournament,
-      FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
-    )
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    division = create_division(@tournament, params)
 
     teams = (1..8).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -29,9 +28,8 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
   end
 
   test "perform with pool" do
-    division = DivisionCreate.perform(@tournament,
-      FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
-    )
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
+    division = create_division(@tournament, params)
 
     teams = (1..8).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -52,6 +50,10 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
   end
 
   private
+
+  def create_division(tournament, params)
+    DivisionCreate.perform(tournament: tournament, division_params: params)
+  end
 
   def seed_division(division)
     SeedDivision.perform(division: division)

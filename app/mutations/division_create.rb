@@ -1,18 +1,22 @@
-class DivisionCreate < ApplicationOperation
-  processes :tournament, :division_params
-  property :tournament, accepts: Tournament
+class DivisionCreate < MutationOperation
+  property! :tournament, accepts: Tournament
+  property! :division_params
 
   attr_reader :division
 
   def execute
-    @division = tournament.divisions.create(division_params)
-    fail unless division.persisted?
+    create_division
+    halt unless division.persisted?
     create_games
     create_places
     division
   end
 
   private
+
+  def create_division
+    @division = tournament.divisions.create(division_params)
+  end
 
   def create_games
     games = []
@@ -25,7 +29,7 @@ class DivisionCreate < ApplicationOperation
       )
     end
 
-    Game.import games
+    Game.import! games
   end
 
   def create_places
@@ -39,6 +43,6 @@ class DivisionCreate < ApplicationOperation
       )
     end
 
-    Place.import places
+    Place.import! places
   end
 end

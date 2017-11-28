@@ -10,8 +10,8 @@ class DivisionCreateTest < ActiveSupport::TestCase
 
     assert_difference "Game.count", +4 do
       DivisionCreate.perform(
-        @tournament,
-        FactoryGirl.attributes_for(:division, bracket_type: type)
+        tournament: @tournament,
+        division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
       )
     end
   end
@@ -21,8 +21,8 @@ class DivisionCreateTest < ActiveSupport::TestCase
 
     assert_difference "Place.count", +4 do
       DivisionCreate.perform(
-        @tournament,
-        FactoryGirl.attributes_for(:division, bracket_type: type)
+        tournament: @tournament,
+        division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
       )
     end
   end
@@ -31,8 +31,8 @@ class DivisionCreateTest < ActiveSupport::TestCase
     type = 'single_elimination_8'
 
     DivisionCreate.perform(
-      @tournament,
-      FactoryGirl.attributes_for(:division, bracket_type: type)
+      tournament: @tournament,
+      division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
     )
 
     template = Bracket.find_by(handle: type).template
@@ -48,8 +48,8 @@ class DivisionCreateTest < ActiveSupport::TestCase
     type = 'single_elimination_8'
 
     DivisionCreate.perform(
-      @tournament,
-      FactoryGirl.attributes_for(:division, bracket_type: type)
+      tournament: @tournament,
+      division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
     )
 
     template = Bracket.find_by(handle: type).template
