@@ -17,7 +17,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def create
-    create = DivisionCreate.new(@tournament, division_params)
+    create = DivisionCreate.new(tournament: @tournament, division_params: division_params)
     create.perform
 
     @division = create.division
@@ -87,7 +87,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def division_params
-    @bracket_params ||= params.require(:division).permit(
+    @division_params ||= params.require(:division).permit(
       :name,
       :num_teams,
       :num_days,

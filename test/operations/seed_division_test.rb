@@ -9,7 +9,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
 
   test "initializes the first round" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
-    division = DivisionCreate.perform(@tournament, params)
+    division = create_division(@tournament, params)
 
     teams = (1..8).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -28,7 +28,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
   test "resets any games past the seed round" do
     user = FactoryGirl.create(:user)
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
-    division = DivisionCreate.perform(@tournament, params)
+    division = create_division(@tournament, params)
 
     teams = (1..8).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -62,7 +62,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
 
   test "round robin 5 (seeds into round 2 games)" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'round_robin_5')
-    division = DivisionCreate.perform(@tournament, params)
+    division = create_division(@tournament, params)
 
     teams = (1..5).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -77,7 +77,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
 
   test "sets division seeded to true" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
-    division = DivisionCreate.perform(@tournament, params)
+    division = create_division(@tournament, params)
 
     teams = (1..8).map do |seed|
       FactoryGirl.create(:team, division: division, seed: seed)
@@ -88,6 +88,12 @@ class SeedDivisionTest < ActiveSupport::TestCase
     perform_operation(division, teams)
 
     assert division.reload.seeded?
+  end
+
+  private
+
+  def create_division(tournament, params)
+    DivisionCreate.perform(tournament: tournament, division_params: params)
   end
 
   def perform_operation(division, teams, confirm = 'false')
