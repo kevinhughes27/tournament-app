@@ -45,7 +45,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def destroy
-    delete = DivisionDelete.new(@division, params[:confirm])
+    delete = DivisionDelete.new(@division, confirm: params[:confirm])
     delete.perform
 
     if delete.succeeded?
