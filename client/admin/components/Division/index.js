@@ -51,12 +51,12 @@ class Division extends React.Component {
 
   renderBracket () {
     let node = $('#bracketGraph')
-    let bracketVis = new BracketVis(node)
 
     let bracket = this.state.bracket
     let bracketTree = this.props.bracket_tree
 
-    if (bracket) {
+    if (bracket && bracketTree) {
+      let bracketVis = new BracketVis(node)
       bracketVis.render(bracket, bracketTree)
     }
   }
