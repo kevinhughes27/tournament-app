@@ -8,9 +8,9 @@ class Admin::GamesController < AdminController
   def update
     update = GameUpdateScore.new(
       game: @game,
-      user: current_user,
       home_score: params[:home_score],
       away_score: params[:away_score],
+      user: current_user,
       force: params[:force] == 'true',
       resolve: params[:resolve] == 'true'
     )

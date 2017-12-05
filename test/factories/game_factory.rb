@@ -26,7 +26,7 @@ FactoryGirl.define do
     trait :scheduled do
       home_prereq '2'
       away_prereq '4'
-      field { FactoryGirl.build(:field, tournament: tournament) }
+      field { FactoryGirl.create(:field, tournament: tournament) }
       start_time { '2015-06-06 12:06:53 UTC' }
       end_time { '2015-06-06 13:36:53 UTC' }
     end
