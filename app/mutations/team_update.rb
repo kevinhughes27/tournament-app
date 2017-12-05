@@ -1,8 +1,6 @@
-class TeamUpdate < ApplicationOperation
-  processes :team, :params, :confirm
-
-  property :team, accepts: Team, required: true
-  property :params, required: true
+class TeamUpdate < MutationOperation
+  input :team, accepts: Team
+  input :params
   property :confirm, default: false
 
   def execute
@@ -12,11 +10,15 @@ class TeamUpdate < ApplicationOperation
     end
 
     team.update(params)
-    fail if team.errors.present?
+    halt 'failed' if team.errors.present?
   end
 
   def confirmation_required?
-    halted? && message == 'confirm_update'
+    halted? && @output == 'confirm_update'
+  end
+
+  def not_allowed?
+    halted? && @output == 'unable_to_update'
   end
 
   private
