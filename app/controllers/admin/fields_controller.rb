@@ -40,7 +40,7 @@ class Admin::FieldsController < AdminController
   end
 
   def destroy
-    delete = FieldDelete.new(@field, params[:confirm])
+    delete = FieldDelete.new(@field, confirm: params[:confirm])
     delete.perform
 
     if delete.succeeded?
