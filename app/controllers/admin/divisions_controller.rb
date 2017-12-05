@@ -31,7 +31,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    update = DivisionUpdate.new(@division, division_params, params[:confirm])
+    update = DivisionUpdate.new(@division, division_params, confirm: params[:confirm])
     update.perform
 
     if update.succeeded?

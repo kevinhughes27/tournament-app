@@ -1,8 +1,6 @@
-class DivisionUpdate < ApplicationOperation
-  processes :division, :params, :confirm
-
-  property :division, accepts: Division, required: true
-  property :params, required: true
+class DivisionUpdate < MutationOperation
+  input :division, accepts: Division
+  input :params
   property :confirm, default: false
 
   def execute
@@ -18,7 +16,7 @@ class DivisionUpdate < ApplicationOperation
   end
 
   def confirmation_required?
-    halted? && message == 'confirm_update'
+    halted? && @output == 'confirm_update'
   end
 
   private
