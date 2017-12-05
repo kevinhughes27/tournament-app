@@ -43,7 +43,7 @@ class BracketSimulationTest < ActiveSupport::TestCase
   end
 
   def seed_division(division)
-    SeedDivision.perform(division: division)
+    DivisionSeed.perform(division: division)
   end
 
   # loop until games are done

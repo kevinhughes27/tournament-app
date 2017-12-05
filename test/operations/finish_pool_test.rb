@@ -260,7 +260,7 @@ class FinishPoolTest < ActiveSupport::TestCase
   private
 
   def seed_division(division)
-    SeedDivision.perform(division: division)
+    DivisionSeed.perform(division: division)
   end
 
   def play_pool(teams, division, pool)

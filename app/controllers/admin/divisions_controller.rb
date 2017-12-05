@@ -61,7 +61,7 @@ class Admin::DivisionsController < AdminController
 
   def seed
     if request.post?
-      seed = SeedDivision.new(
+      seed = DivisionSeed.new(
         division: @division,
         team_ids: params[:team_ids],
         seeds: params[:seeds],
@@ -75,7 +75,7 @@ class Admin::DivisionsController < AdminController
       elsif seed.confirmation_required?
         render partial: 'confirm_seed', status: :unprocessable_entity
       else
-        flash[:seed_error] = seed.message
+        flash[:seed_error] = seed.output
       end
     end
   end

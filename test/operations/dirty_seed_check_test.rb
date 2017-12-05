@@ -56,6 +56,6 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
   end
 
   def seed_division(division)
-    SeedDivision.perform(division: division)
+    DivisionSeed.perform(division: division)
   end
 end
