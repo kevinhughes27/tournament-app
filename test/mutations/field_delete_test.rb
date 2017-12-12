@@ -5,7 +5,7 @@ class FieldDeleteTest < ActiveSupport::TestCase
     field = FactoryGirl.create(:field)
     game = FactoryGirl.create(:game, :scheduled, field: field)
 
-    FieldDelete.perform(field, 'true')
+    FieldDelete.perform(field, confirm: 'true')
 
     assert_nil game.reload.field
     assert_nil game.start_time
