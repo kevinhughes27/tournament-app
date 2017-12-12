@@ -23,7 +23,7 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    update = TeamUpdate.new(@team, team_params, params[:confirm])
+    update = TeamUpdate.new(@team, team_params, confirm: params[:confirm])
     update.perform
 
     if update.succeeded?
@@ -31,7 +31,7 @@ class Admin::TeamsController < AdminController
       redirect_to admin_team_path(@team)
     elsif update.confirmation_required?
       render partial: 'confirm_update', status: :unprocessable_entity
-    elsif update.halted?
+    elsif update.not_allowed?
       render partial: 'unable_to_update', status: :not_allowed
     else
       render :show
@@ -39,7 +39,7 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    delete = TeamDelete.new(@team, params[:confirm])
+    delete = TeamDelete.new(@team, confirm: params[:confirm])
     delete.perform
 
     if delete.succeeded?
