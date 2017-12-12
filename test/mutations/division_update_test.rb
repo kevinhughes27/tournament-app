@@ -23,7 +23,7 @@ class DivisionUpdateTest < ActiveSupport::TestCase
       FactoryGirl.create(:team, division: division, seed: seed)
     end
 
-    SeedDivision.perform(division: division)
+    DivisionSeed.perform(division: division)
 
     assert division.seeded?
 

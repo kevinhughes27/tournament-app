@@ -1,5 +1,5 @@
-class SeedDivision < ApplicationOperation
-  property :division, accepts: Division, required: true
+class DivisionSeed < MutationOperation
+  property! :division, accepts: Division
   property :team_ids, accepts: Array
   property :seeds, accepts: Array
   property :confirm, default: false
@@ -15,7 +15,7 @@ class SeedDivision < ApplicationOperation
   end
 
   def confirmation_required?
-    halted? && message == 'confirm_seed'
+    halted? && @output == 'confirm_seed'
   end
 
   private

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SeedDivisionTest < ActiveSupport::TestCase
+class DivisionSeedTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   setup do
@@ -97,7 +97,7 @@ class SeedDivisionTest < ActiveSupport::TestCase
   end
 
   def perform_operation(division, teams, confirm = 'false')
-    SeedDivision.perform(
+    DivisionSeed.perform(
       division: division,
       team_ids: teams.map(&:id),
       seeds: teams.map(&:seed),
