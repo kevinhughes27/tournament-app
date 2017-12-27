@@ -1,19 +1,18 @@
 class GameUpdateScore < ApplicationOperation
-  property :game, accepts: Game, required: true
+  property! :game, accepts: Game
+  property! :home_score, accepts: Integer, converts: :to_i
+  property! :away_score, accepts: Integer, converts: :to_i
+
   property :user, accepts: User, default: nil
-
-  property :home_score, accepts: Integer, required: true, converts: :to_i
-  property :away_score, accepts: Integer, required: true, converts: :to_i
-
   property :force, accepts: [true, false], default: false
   property :resolve, accepts: [true, false], default: false
 
   attr_reader :winner_changed
 
   def execute
-    fail "teams not present" unless game.home && game.away
-    fail "ties not allowed for this game" if !ties_allowed? && tie?
-    fail "unsafe score update" unless safe_to_update_score?
+    halt "teams not present" unless game.home && game.away
+    halt "ties not allowed for this game" if !ties_allowed? && tie?
+    halt "unsafe score update" unless safe_to_update_score?
 
     game.resolve_disputes! if resolve
 

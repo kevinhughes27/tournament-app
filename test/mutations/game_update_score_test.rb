@@ -11,7 +11,7 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
     update = GameUpdateScore.new(game: game, user: @user, home_score: 10, away_score: 5)
     update.perform
 
-    assert update.failed?
+    assert update.halted?
     assert_nil game.home_score
     assert_nil game.away_score
   end
@@ -22,7 +22,7 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
     update = GameUpdateScore.new(game: game, user: @user, home_score: 5, away_score: 5)
     update.perform
 
-    assert update.failed?
+    assert update.halted?
   end
 
   test "can submit a tie for a pool game" do
@@ -43,7 +43,7 @@ class GameUpdateScoreTest < ActiveSupport::TestCase
     update = GameUpdateScore.new(game: game, user: @user, home_score: 14, away_score: 12)
     update.perform
 
-    assert update.failed?
+    assert update.halted?
   end
 
   test "force unsafe update" do

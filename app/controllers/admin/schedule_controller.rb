@@ -14,7 +14,7 @@ class Admin::ScheduleController < AdminController
   def update
     load_game
 
-    ScheduleGame.perform(
+    GameSchedule.perform(
       @game,
       params[:field_id],
       params[:start_time],
@@ -28,6 +28,7 @@ class Admin::ScheduleController < AdminController
       end_time: @game.end_time,
       updated_at: @game.updated_at
     }
+
   rescue => e
     render json: {
       game_id: @game.id,
@@ -56,7 +57,7 @@ class Admin::ScheduleController < AdminController
   #     games_params.each do |p|
   #       @game = Game.find_by(tournament_id: @tournament.id, id: p[:id])
   #       if p[:field_id].present? && p[:start_time].present?
-  #         ScheduleGame.perform(@game, p[:field_id], p[:start_time])
+  #         GameSchedule.perform(@game, p[:field_id], p[:start_time])
   #       end
   #     end
   #   end
