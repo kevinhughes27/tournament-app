@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.3'
+ruby '2.5.0'
 
 # server
 gem 'rails', '5.0.4'
@@ -24,7 +24,7 @@ gem 'redis'
 gem 'frozen_record'
 
 # engines
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4.4.1'
 
 # auth
 gem 'omniauth-google-oauth2'
