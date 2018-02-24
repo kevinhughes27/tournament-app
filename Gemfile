@@ -24,7 +24,7 @@ gem 'redis'
 gem 'frozen_record'
 
 # engines
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4.4.1'
 
 # auth
 gem 'omniauth-google-oauth2'
