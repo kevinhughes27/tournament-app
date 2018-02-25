@@ -39,7 +39,7 @@ gem 'phonelib'
 
 # jobs
 gem 'sidekiq'
-gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # sidekiq web
+gem 'sinatra', require: false # sidekiq web
 
 # APIs
 gem 'gibbon'

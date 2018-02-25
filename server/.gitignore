@@ -1,0 +1,14 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
+
+# test outputs
+test/coverage
+*test/reports
+
+# Generated js bundles
+/public/webpack/*

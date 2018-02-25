@@ -31,6 +31,6 @@ class AppController < ApplicationController
   end
 
   def app_directory
-    'player-app'
+    '../player-app'
   end
 end

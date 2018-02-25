@@ -1,23 +1,10 @@
 .env
-
-# Ignore bundler config.
-/.bundle
+.~*
+*.dump
 
 # ignore local node modules
 *node_modules*
 *npm-debug.log*
-
-# Ignore all logfiles and tempfiles.
-/log/*
-!/log/.keep
-/tmp
-.~*
-*.mp4
-*.dump
-
-# test outputs
-test/coverage
-*test/reports
 
 # ssl
 server.crt
@@ -27,6 +14,3 @@ server.pass.key
 
 # deploy
 deploy_key.md
-
-# Generated js bundles
-/public/webpack/*
