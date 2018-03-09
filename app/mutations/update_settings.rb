@@ -1,8 +1,6 @@
-class UpdateSettings < ApplicationOperation
-  processes :tournament, :params, :confirm
-
-  property :tournament, accepts: Tournament, required: true
-  property :params, required: true
+class UpdateSettings < MutationOperation
+  property! :tournament, accepts: Tournament
+  property! :params
   property :confirm, default: false
 
   def execute
@@ -12,10 +10,10 @@ class UpdateSettings < ApplicationOperation
     end
 
     tournament.update(params)
-    fail if tournament.errors.present?
+    halt if tournament.errors.present?
   end
 
   def confirmation_required?
-    halted? && message == 'confirm_update'
+    halted? && @output == 'confirm_update'
   end
 end

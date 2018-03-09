@@ -4,7 +4,12 @@ class Admin::SettingsController < AdminController
   end
 
   def update
-    update = UpdateSettings.new(@tournament, tournament_params, params[:confirm])
+    update = UpdateSettings.new(
+      tournament: @tournament,
+      params: tournament_params,
+      confirm: params[:confirm]
+    )
+
     update.perform
 
     if update.succeeded?
