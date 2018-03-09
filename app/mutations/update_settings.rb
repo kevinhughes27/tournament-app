@@ -10,7 +10,7 @@ class UpdateSettings < MutationOperation
     end
 
     tournament.update(params)
-    fail if tournament.errors.present?
+    halt if tournament.errors.present?
   end
 
   def confirmation_required?
