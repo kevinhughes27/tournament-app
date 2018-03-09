@@ -21,72 +21,84 @@ jobs:
 
       # Restore bundle cache
       - type: cache-restore
-        key: gemfile-{{ checksum "Gemfile.lock" }}
+        key: gemfile-{{ checksum "server/Gemfile.lock" }}
 
       # Bundle install dependencies
-      - run: bundle install --with circleci --without production --without development --path vendor/bundle
+      - run: cd server && bundle install --with circleci --without production --without development --path vendor/bundle
 
       # Store bundle cache
       - type: cache-save
-        key: gemfile-{{ checksum "Gemfile.lock" }}
+        key: gemfile-{{ checksum "server/Gemfile.lock" }}
         paths:
-          - vendor/bundle
+          - server/vendor/bundle
 
       # Restore yarn cache
       - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-{{ checksum "yarn.lock" }}-{{ checksum "server/client/yarn.lock" }}
 
       # Yarn install dependencies
       - run: yarn install
 
       # Store yarn cache
       - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-{{ checksum "yarn.lock" }}-{{ checksum "server/client/yarn.lock" }}
           paths:
             - ./node_modules
-            - ./client/node_modules
+            - ./server/client/node_modules
             - ./player-app/node_modules
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: cd server && bundle exec rake db:create
+      - run: cd server && bundle exec rake db:schema:load
 
       # Generate checksum for assets
       - type: shell
         command: |
-          find app/assets/* -type f 2>/dev/null -exec md5sum {} \; > assets-checksum.txt
-      - type: shell
-        command: |
-          git submodule status > player-app-checksum.txt
+          find server/app/assets/* -type f 2>/dev/null -exec md5sum {} \; > assets-checksum.txt
 
       # Restore assets cache
       - restore_cache:
           key: |
             assets
             {{ checksum "assets-checksum.txt" }}
-            {{ checksum "player-app-checksum.txt" }}
-            {{ checksum "Gemfile.lock" }}
-            {{ checksum "client/yarn.lock" }}
+            {{ checksum "server/Gemfile.lock" }}
+            {{ checksum "server/client/yarn.lock" }}
 
       # Compile assets
-      - run: bundle exec rake assets:precompile
+      - run: cd server && bundle exec rake assets:precompile
 
       # Store assets cache
       - save_cache:
           key: |
             assets
             {{ checksum "assets-checksum.txt" }}
-            {{ checksum "player-app-checksum.txt" }}
-            {{ checksum "Gemfile.lock" }}
-            {{ checksum "client/yarn.lock" }}
+            {{ checksum "server/Gemfile.lock" }}
+            {{ checksum "server/client/yarn.lock" }}
           paths:
-            - public/assets
-            - public/webpack
-            - tmp/cache/assets
+            - server/public/assets
+            - server/public/webpack
+            - server/tmp/cache/assets
+
+      # Generate checksum for player app
+      - type: shell
+        command: |
+          git submodule status > player-app-checksum.txt
+
+      # Restore player-app cache
+      - restore_cache:
+          key: player-app-{{ checksum "player-app-checksum.txt" }}
+
+      # Build player-app
+      - run: cd player-app && yarn build
+
+      # Store player-app cache
+      - save_cache:
+          key: player-app-{{ checksum "player-app-checksum.txt" }}
+          paths:
             - player-app/build
 
       # Run tests
-      - run: bundle exec rake ci:all
+      - run: cd server && bundle exec rake ci:all
 
       # Store Artifacts
       - store_artifacts:
