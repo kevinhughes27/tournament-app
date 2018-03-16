@@ -13,7 +13,7 @@ class AppController < ApplicationController
   end
 
   def service_worker
-    render file: index_service_worker_file
+    render file: service_worker_file
   end
 
   private
@@ -27,10 +27,14 @@ class AppController < ApplicationController
   end
 
   def index_service_worker_file
-    Rails.root.join(app_directory, 'build', 'service-worker.js')
+    Rails.root.join(clients_directory, app_directory, 'build', 'service-worker.js')
   end
 
   def app_directory
     'player-app'
+  end
+
+  def app_directory
+    'clients'
   end
 end
