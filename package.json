@@ -7,7 +7,7 @@
   },
   "subPackages": [
     "client",
-    "player-app"
+    "clients/player-app"
   ],
   "scripts": {
     "postinstall": "subpkg install",
