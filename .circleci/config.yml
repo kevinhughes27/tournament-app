@@ -86,14 +86,14 @@ jobs:
 
       # Restore assets cache
       - restore_cache:
-          key: {{ checksum "player-app-checksum.txt" }}
+          key: player-app-{{ checksum "player-app-checksum.txt" }}
 
       # Compile assets
       - run: cd clients/player-app && yarn build
 
       # Store assets cache
       - save_cache:
-          key: {{ checksum "player-app-checksum.txt" }}
+          key: player-app-{{ checksum "player-app-checksum.txt" }}
           paths:
             - clients/player-app/build
 
