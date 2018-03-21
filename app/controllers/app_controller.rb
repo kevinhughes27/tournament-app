@@ -13,21 +13,25 @@ class AppController < ApplicationController
   end
 
   def service_worker
-    render file: index_service_worker_file
+    render file: service_worker_file
   end
 
   private
 
   def index_html
-    Rails.root.join(app_directory, 'build', 'index.html')
+    Rails.root.join(clients_directory, app_directory, 'build', 'index.html')
   end
 
   def static_file(dir, file)
-    Rails.root.join(app_directory, 'build', 'static', dir, file)
+    Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, file)
   end
 
   def index_service_worker_file
-    Rails.root.join(app_directory, 'build', 'service-worker.js')
+    Rails.root.join(clients_directory, app_directory, 'build', 'service-worker.js')
+  end
+
+  def clients_directory
+    'clients'
   end
 
   def app_directory

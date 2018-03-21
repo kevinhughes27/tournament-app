@@ -45,7 +45,7 @@ jobs:
           paths:
             - ./node_modules
             - ./client/node_modules
-            - ./player-app/node_modules
+            - ./clients/player-app/node_modules
 
       # Database setup
       - run: bundle exec rake db:create
@@ -55,16 +55,12 @@ jobs:
       - type: shell
         command: |
           find app/assets/* -type f 2>/dev/null -exec md5sum {} \; > assets-checksum.txt
-      - type: shell
-        command: |
-          git submodule status > player-app-checksum.txt
 
       # Restore assets cache
       - restore_cache:
           key: |
             assets
             {{ checksum "assets-checksum.txt" }}
-            {{ checksum "player-app-checksum.txt" }}
             {{ checksum "Gemfile.lock" }}
             {{ checksum "client/yarn.lock" }}
 
@@ -76,14 +72,30 @@ jobs:
           key: |
             assets
             {{ checksum "assets-checksum.txt" }}
-            {{ checksum "player-app-checksum.txt" }}
             {{ checksum "Gemfile.lock" }}
             {{ checksum "client/yarn.lock" }}
           paths:
             - public/assets
             - public/webpack
             - tmp/cache/assets
-            - player-app/build
+
+      # Generate checksum for player-app
+      - type: shell
+        command: |
+          git submodule status > player-app-checksum.txt
+
+      # Restore player-app cache
+      - restore_cache:
+          key: player-app-{{ checksum "player-app-checksum.txt" }}
+
+      # Build player-app
+      - run: cd clients/player-app && yarn build
+
+      # Store player-app cache
+      - save_cache:
+          key: player-app-{{ checksum "player-app-checksum.txt" }}
+          paths:
+            - clients/player-app/build
 
       # Run tests
       - run: bundle exec rake ci:all
