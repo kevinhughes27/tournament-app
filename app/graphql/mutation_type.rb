@@ -7,7 +7,5 @@ MutationType = GraphQL::ObjectType.define do
   field :checkPin, field: CheckPinMutation.field
 
   # admin
-  field :gameUpdateScore, field: GameUpdateScoreMutation.field do
-    visibility -> (ctx) { Auth.visible(ctx) }
-  end
+  field :gameUpdateScore, field: GameUpdateScoreMutation.field, auth_required: true
 end

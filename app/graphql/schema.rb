@@ -1,4 +1,4 @@
-require_relative 'utils/visibility'
+require_relative 'utils/definitions'
 
 Schema = GraphQL::Schema.define do
   query QueryType
