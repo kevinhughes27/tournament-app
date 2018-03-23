@@ -13,7 +13,8 @@ class GraphqlController < ApplicationController
       context: {
         tournament: @tournament,
         current_user: current_user
-      }
+      },
+      only: OnlyFilter
     )
 
     render json: result
