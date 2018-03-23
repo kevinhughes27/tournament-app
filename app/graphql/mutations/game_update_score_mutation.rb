@@ -10,7 +10,7 @@ GameUpdateScoreMutation = GraphQL::Relay::Mutation.define do
   return_field :success, !types.Boolean
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
-    game = ctx[:tournament].games.find(input[:game_id])
+    game = ctx[:tournament].games.find(inputs[:game_id])
 
     op = GameUpdateScore.new(
       game: game,
