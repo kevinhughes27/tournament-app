@@ -11,7 +11,7 @@ class GraphqlController < ApplicationController
       query_string,
       variables: query_variables,
       context: {
-        tournament: @tournament,
+        tournament: current_tournament,
         current_user: current_user
       },
       only: OnlyFilter

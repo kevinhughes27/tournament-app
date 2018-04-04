@@ -12,4 +12,8 @@ module TournamentConcern
       render_404
     end
   end
+
+  def current_tournament
+    @tournament
+  end
 end
