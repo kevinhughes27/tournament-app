@@ -12,15 +12,15 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
     login_user
     game = FactoryGirl.create(:game, :scheduled)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
-    result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
-    assert result["data"]["gameUpdateScore"]["success"]
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    assert_success
   end
 
   test "mutation without auth" do
     game = FactoryGirl.create(:game, :scheduled)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
-    result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
-    assert_equal "You need to sign in or sign up before continuing", result['errors'].first['message']
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    assert_error "You need to sign in or sign up before continuing"
   end
 
   test "mutation with auth for wrong tournament" do
@@ -28,15 +28,15 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
     @tournament = FactoryGirl.create(:tournament)
     game = FactoryGirl.create(:game, :scheduled, tournament: @tournament)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
-    result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
-    assert_equal "You are not a registered user for this tournament", result['errors'].first['message']
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    assert_error "You are not a registered user for this tournament"
   end
 
   test "mutation without auth with filter" do
     game = FactoryGirl.create(:game, :scheduled)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
-    result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, filter: true)
-    assert_equal "Field 'gameUpdateScore' doesn't exist on type 'Mutation'", result['errors'].first['message']
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, filter: true)
+    assert_error "Field 'gameUpdateScore' doesn't exist on type 'Mutation'"
   end
 
   private
@@ -64,6 +64,14 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
 
     post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
 
-    JSON.parse(response.body)
+    @result = JSON.parse(response.body)
+  end
+
+  def assert_success
+    assert @result['data'].first[1]['success']
+  end
+
+  def assert_error(message)
+    assert_equal message, @result['errors'].first['message']
   end
 end
