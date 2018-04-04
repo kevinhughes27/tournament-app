@@ -4,9 +4,6 @@ class GraphqlController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    query_string = params[:query]
-    query_variables = params[:variables]
-
     result = Schema.execute(
       query_string,
       variables: query_variables,
@@ -14,9 +11,23 @@ class GraphqlController < ApplicationController
         tournament: current_tournament,
         current_user: current_user
       },
-      only: OnlyFilter
+      only: filter
     )
 
     render json: result
+  end
+
+  private
+
+  def query_string
+    params[:query]
+  end
+
+  def query_variables
+    params[:variables]
+  end
+
+  def filter
+    params[:filter] == false ? nil : OnlyFilter
   end
 end

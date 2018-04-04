@@ -20,8 +20,7 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
     game = FactoryGirl.create(:game, :scheduled)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
     result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
-    assert_equal "Field 'gameUpdateScore' doesn't exist on type 'Mutation'", result['errors'].first['message']
-    # assert_equal "You need to sign in or sign up before continuing", result['errors'].first['message']
+    assert_equal "You need to sign in or sign up before continuing", result['errors'].first['message']
   end
 
   test "mutation with auth for wrong tournament" do
@@ -30,8 +29,14 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
     game = FactoryGirl.create(:game, :scheduled, tournament: @tournament)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
     result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    assert_equal "You are not a registered user for this tournament", result['errors'].first['message']
+  end
+
+  test "mutation without auth with filter" do
+    game = FactoryGirl.create(:game, :scheduled)
+    input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
+    result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, filter: true)
     assert_equal "Field 'gameUpdateScore' doesn't exist on type 'Mutation'", result['errors'].first['message']
-    # assert_equal "You are not a registered user for this tournament", result['errors'].first['message']
   end
 
   private
@@ -48,12 +53,13 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
     assert_equal "/admin", path
   end
 
-  def execute_graphql(mutation, input_type, input)
+  def execute_graphql(mutation, input_type, input, filter: false)
     url = "http://#{@tournament.handle}.lvh.me/graphql"
 
     params = {
       "query" => "mutation #{mutation}($input: #{input_type}!) { #{mutation}(input: $input) { success }}",
-      "variables" => {"input" => input}
+      "variables" => {"input" => input},
+      "filter" => filter
     }
 
     post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
