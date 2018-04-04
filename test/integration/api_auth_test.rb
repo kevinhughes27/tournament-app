@@ -8,12 +8,30 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
     ReactOnRails::TestHelper.ensure_assets_compiled
   end
 
-  test "mutation requires auth" do
+  test "mutation with auth" do
     login_user
     game = FactoryGirl.create(:game, :scheduled)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
     result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
     assert result["data"]["gameUpdateScore"]["success"]
+  end
+
+  test "mutation without auth" do
+    game = FactoryGirl.create(:game, :scheduled)
+    input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
+    result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    assert_equal "Field 'gameUpdateScore' doesn't exist on type 'Mutation'", result['errors'].first['message']
+    # assert_equal "You need to sign in or sign up before continuing", result['errors'].first['message']
+  end
+
+  test "mutation with auth for wrong tournament" do
+    login_user
+    @tournament = FactoryGirl.create(:tournament)
+    game = FactoryGirl.create(:game, :scheduled, tournament: @tournament)
+    input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
+    result = execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    assert_equal "Field 'gameUpdateScore' doesn't exist on type 'Mutation'", result['errors'].first['message']
+    # assert_equal "You are not a registered user for this tournament", result['errors'].first['message']
   end
 
   private
@@ -31,12 +49,14 @@ class ApiAuthTest < ActionDispatch::IntegrationTest
   end
 
   def execute_graphql(mutation, input_type, input)
+    url = "http://#{@tournament.handle}.lvh.me/graphql"
+
     params = {
       "query" => "mutation #{mutation}($input: #{input_type}!) { #{mutation}(input: $input) { success }}",
       "variables" => {"input" => input}
     }
 
-    post '/graphql', params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
+    post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
 
     JSON.parse(response.body)
   end
