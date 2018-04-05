@@ -1,4 +1,4 @@
-class DivisionUpdate < MutationOperation
+class DivisionUpdate < ApplicationOperation
   input :division, accepts: Division, required: true
   input :params, required: true
   input :confirm, default: false, type: :keyword

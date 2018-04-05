@@ -1,4 +1,4 @@
-class DivisionSeed < MutationOperation
+class DivisionSeed < ApplicationOperation
   input :division, accepts: Division, type: :keyword, required: true
   input :team_ids, accepts: Array, type: :keyword
   input :seeds, accepts: Array, type: :keyword

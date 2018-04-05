@@ -1,4 +1,4 @@
-class UpdateSettings < MutationOperation
+class UpdateSettings < ApplicationOperation
   input :tournament, accepts: Tournament, required: true, type: :keyword
   input :params, required: true, type: :keyword
   input :confirm, default: false, type: :keyword

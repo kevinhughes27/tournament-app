@@ -1,4 +1,4 @@
-class DivisionCreate < MutationOperation
+class DivisionCreate < ApplicationOperation
   input :tournament, accepts: Tournament, type: :keyword, required: true
   input :division_params, type: :keyword, required: true
 

@@ -1,4 +1,4 @@
-class FieldDelete < MutationOperation
+class FieldDelete < ApplicationOperation
   input :field, accepts: Field, required: true
   input :confirm, default: false, type: :keyword
 

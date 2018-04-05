@@ -1,4 +1,4 @@
-class TeamUpdate < MutationOperation
+class TeamUpdate < ApplicationOperation
   input :team, accepts: Team, required: true
   input :params, required: true
   input :confirm, default: false, type: :keyword

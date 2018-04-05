@@ -1,4 +1,4 @@
-class DivisionDelete < MutationOperation
+class DivisionDelete < ApplicationOperation
   input :division, accepts: Division, required: true
   input :confirm, default: false, type: :keyword
 
