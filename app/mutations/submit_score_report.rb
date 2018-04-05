@@ -1,4 +1,5 @@
-class SubmitScoreReport < MutationOperation
+class SubmitScoreReport < ApplicationOperation
+  input :tournament, type: :keyword
   input :game_id, type: :keyword
   input :team_id, type: :keyword
   input :submitter_fingerprint, type: :keyword

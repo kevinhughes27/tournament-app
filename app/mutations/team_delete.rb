@@ -1,4 +1,4 @@
-class TeamDelete < MutationOperation
+class TeamDelete < ApplicationOperation
   input :team, accepts: Team, required: true
   input :confirm, default: false, type: :keyword
 

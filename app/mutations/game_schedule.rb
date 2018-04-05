@@ -1,4 +1,4 @@
-class GameSchedule < MutationOperation
+class GameSchedule < ApplicationOperation
   input :game, accepts: Game, required: true
   input :field_id, converts: :to_i, required: true
   input :start_time, converts: :to_datetime, required: true

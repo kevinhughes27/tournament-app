@@ -15,5 +15,28 @@ SubmitScoreMutation = GraphQL::Relay::Mutation.define do
 
   return_field :success, !types.Boolean
 
-  resolve SubmitScoreReport
+  resolve -> (obj, inputs, ctx) {
+    op = SubmitScoreReport.new(
+      tournament: ctx[:tournament],
+      game_id: inputs[:game_id],
+      team_id: inputs[:team_id],
+      submitter_fingerprint: inputs[:submitter_fingerprint],
+      home_score: inputs[:home_score],
+      away_score: inputs[:away_score],
+      rules_knowledge: inputs[:rules_knowledge],
+      fouls: inputs[:fouls],
+      fairness: inputs[:fairness],
+      attitude: inputs[:attitude],
+      communication: inputs[:communication],
+      comments: inputs[:comments]
+    )
+
+    op.perform
+
+    if op.succeeded?
+      { success: true }
+    else
+      { success: false }
+    end
+  }
 end
