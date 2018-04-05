@@ -1,6 +1,5 @@
 class AdvanceBracket < ApplicationOperation
-  input :game
-  property! :game, accepts: Game
+  input :game, accepts: Game, required: true
 
   def execute
     advanceWinner

@@ -1,7 +1,7 @@
 class BulkActions::SetTeamsDivision < ApplicationOperation
-  property :tournament_id
-  property :ids
-  property :arg
+  input :tournament_id, type: :keyword, required: true
+  input :ids, type: :keyword, required: true
+  input :arg, type: :keyword, required: true
 
   attr_reader :status, :response
 

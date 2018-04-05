@@ -1,13 +1,9 @@
 require 'csv'
 
 class TeamCsvImport < ApplicationOperation
-  input :tournament
-  input :file
-  input :ignore
-
-  property! :tournament, accepts: Tournament
-  property! :file
-  property :ignore, accepts: [true, false], default: false
+  input :tournament, accepts: Tournament, required: true
+  input :file, required: true
+  input :ignore, accepts: [true, false], default: false, type: :keyword
 
   attr_reader :row_num
 
@@ -36,7 +32,7 @@ class TeamCsvImport < ApplicationOperation
       end
     end
   rescue StandardError => e
-    fail e.message
+    halt e.message
   end
 
   private

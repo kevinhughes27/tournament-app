@@ -1,7 +1,7 @@
 class TeamUpdate < MutationOperation
-  input :team, accepts: Team
-  input :params
-  property :confirm, default: false
+  input :team, accepts: Team, required: true
+  input :params, required: true
+  input :confirm, default: false, type: :keyword
 
   def execute
     if update_unsafe?

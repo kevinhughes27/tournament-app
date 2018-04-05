@@ -1,6 +1,5 @@
 class DirtySeedCheck < ApplicationOperation
-  input :division
-  property! :division, accepts: Division
+  input :division, accepts: Division, required: true
 
   # returns true if seeding would result in changes
   def execute

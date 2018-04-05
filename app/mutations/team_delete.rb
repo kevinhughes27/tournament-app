@@ -1,6 +1,6 @@
 class TeamDelete < MutationOperation
-  input :team, accepts: Team
-  property :confirm, default: false
+  input :team, accepts: Team, required: true
+  input :confirm, default: false, type: :keyword
 
   def execute
     halt 'unable_to_delete' if !team.allow_delete?

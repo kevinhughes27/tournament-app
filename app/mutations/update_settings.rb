@@ -1,7 +1,7 @@
 class UpdateSettings < MutationOperation
-  property! :tournament, accepts: Tournament
-  property! :params
-  property :confirm, default: false
+  input :tournament, accepts: Tournament, required: true, type: :keyword
+  input :params, required: true, type: :keyword
+  input :confirm, default: false, type: :keyword
 
   def execute
     if !(confirm == 'true' || tournament.handle == params[:handle])

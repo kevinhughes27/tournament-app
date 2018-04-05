@@ -1,6 +1,5 @@
 class FinishPool < ApplicationOperation
-  input :pool
-  property! :pool, accepts: Pool
+  input :pool, accepts: Pool, required: true
 
   attr_reader :division
 

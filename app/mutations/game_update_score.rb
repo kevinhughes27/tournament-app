@@ -1,11 +1,11 @@
 class GameUpdateScore < ApplicationOperation
-  property! :game, accepts: Game
-  property! :home_score, accepts: Integer, converts: :to_i
-  property! :away_score, accepts: Integer, converts: :to_i
+  input :game, accepts: Game, type: :keyword, required: true
+  input :home_score, accepts: Integer, converts: :to_i, type: :keyword, required: true
+  input :away_score, accepts: Integer, converts: :to_i, type: :keyword, required: true
 
-  property :user, accepts: User, default: nil
-  property :force, accepts: [true, false], default: false
-  property :resolve, accepts: [true, false], default: false
+  input :user, accepts: User, default: nil, type: :keyword
+  input :force, accepts: [true, false], default: false, type: :keyword
+  input :resolve, accepts: [true, false], default: false, type: :keyword
 
   attr_reader :winner_changed
 

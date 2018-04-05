@@ -1,7 +1,7 @@
 class DivisionUpdate < MutationOperation
-  input :division, accepts: Division
-  input :params
-  property :confirm, default: false
+  input :division, accepts: Division, required: true
+  input :params, required: true
+  input :confirm, default: false, type: :keyword
 
   def execute
     division.assign_attributes(params)

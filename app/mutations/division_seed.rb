@@ -1,8 +1,8 @@
 class DivisionSeed < MutationOperation
-  property! :division, accepts: Division
-  property :team_ids, accepts: Array
-  property :seeds, accepts: Array
-  property :confirm, default: false
+  input :division, accepts: Division, type: :keyword, required: true
+  input :team_ids, accepts: Array, type: :keyword
+  input :seeds, accepts: Array, type: :keyword
+  input :confirm, default: false, type: :keyword
 
   SEED_ROUND = 1
 

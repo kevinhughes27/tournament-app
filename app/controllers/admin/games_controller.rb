@@ -19,7 +19,7 @@ class Admin::GamesController < AdminController
     if update.succeeded?
       head :ok
     else
-      render json: { error: update.message }, status: :unprocessable_entity
+      render json: { error: update.output }, status: :unprocessable_entity
     end
   end
 
