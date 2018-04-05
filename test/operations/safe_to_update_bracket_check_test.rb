@@ -13,7 +13,7 @@ class SafeToUpdateBracketCheckTest < ActiveJob::TestCase
     check = SafeToUpdateBracketCheck.new(division)
     check.perform
     refute check.succeeded?
-    assert_match 'have been scheduled', check.message
+    assert_match 'have been scheduled', check.output
   end
 
   test "unsafe if games are played" do
@@ -21,6 +21,6 @@ class SafeToUpdateBracketCheckTest < ActiveJob::TestCase
     check = SafeToUpdateBracketCheck.new(division)
     check.perform
     refute check.succeeded?
-    assert_match 'have been scored', check.message
+    assert_match 'have been scored', check.output
   end
 end

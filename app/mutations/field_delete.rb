@@ -1,6 +1,6 @@
 class FieldDelete < MutationOperation
-  input :field, accepts: Field
-  property :confirm, default: false
+  input :field, accepts: Field, required: true
+  input :confirm, default: false, type: :keyword
 
   def execute
     halt 'confirm_delete' if !(confirm == 'true' || field.safe_to_delete?)

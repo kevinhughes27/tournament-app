@@ -1,6 +1,5 @@
 class SafeToUpdateBracketCheck < ApplicationOperation
-  processes :division
-  property :division, accepts: Division, required: true
+  input :division, accepts: Division, required: true
 
   GAMES_SCHEDULE_MESSAGE = 'This division has games that have been scheduled. Changing the bracket' \
                            ' might reset some of those games. Are you sure this is what you want to do?'

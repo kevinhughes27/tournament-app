@@ -1,6 +1,5 @@
 class DirtySeedCheck < ApplicationOperation
-  processes :division
-  property :division, accepts: Division, required: true
+  input :division, accepts: Division, required: true
 
   # returns true if seeding would result in changes
   def execute

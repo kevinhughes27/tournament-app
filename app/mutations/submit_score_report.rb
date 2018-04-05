@@ -1,15 +1,15 @@
 class SubmitScoreReport < MutationOperation
-  property :game_id
-  property :team_id
-  property :submitter_fingerprint
-  property :home_score
-  property :away_score
-  property :rules_knowledge
-  property :fouls
-  property :fairness
-  property :attitude
-  property :communication
-  property :comments
+  input :game_id, type: :keyword
+  input :team_id, type: :keyword
+  input :submitter_fingerprint, type: :keyword
+  input :home_score, type: :keyword
+  input :away_score, type: :keyword
+  input :rules_knowledge, type: :keyword
+  input :fouls, type: :keyword
+  input :fairness, type: :keyword
+  input :attitude, type: :keyword
+  input :communication, type: :keyword
+  input :comments, type: :keyword
 
   def execute
     raise unless valid_submitter?

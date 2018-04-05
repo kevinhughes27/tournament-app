@@ -1,11 +1,9 @@
 require 'csv'
 
 class FieldCsvImport < ApplicationOperation
-  processes :tournament, :file, :ignore
-
-  property :tournament, accepts: Tournament, required: true
-  property :file, required: true
-  property :ignore, accepts: [true, false], default: false
+  input :tournament, accepts: Tournament, required: true
+  input :file, required: true
+  input :ignore, accepts: [true, false], default: false, type: :keyword
 
   attr_reader :row_num
 
@@ -26,7 +24,7 @@ class FieldCsvImport < ApplicationOperation
       end
     end
   rescue StandardError => e
-    fail e.message
+    halt e.message
   end
 
   private

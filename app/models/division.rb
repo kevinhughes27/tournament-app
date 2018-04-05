@@ -44,7 +44,7 @@ class Division < ApplicationRecord
     return true unless self.bracket_type_changed?
     check = SafeToUpdateBracketCheck.new(self)
     check.perform
-    @change_message = check.message
+    @change_message = check.output
     safe = check.succeeded?
     safe
   end

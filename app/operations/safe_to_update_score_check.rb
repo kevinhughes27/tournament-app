@@ -1,7 +1,7 @@
 class SafeToUpdateScoreCheck < ApplicationOperation
-  property :game, accepts: Game, required: true
-  property :home_score, accepts: Integer, required: true
-  property :away_score, accepts: Integer, required: true
+  input :game, accepts: Game, required: true, type: :keyword
+  input :home_score, accepts: Integer, required: true, type: :keyword
+  input :away_score, accepts: Integer, required: true, type: :keyword
 
   def execute
     return true if game.unconfirmed?

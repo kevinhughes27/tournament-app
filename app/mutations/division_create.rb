@@ -1,6 +1,6 @@
 class DivisionCreate < MutationOperation
-  property! :tournament, accepts: Tournament
-  property! :division_params
+  input :tournament, accepts: Tournament, type: :keyword, required: true
+  input :division_params, type: :keyword, required: true
 
   attr_reader :division
 

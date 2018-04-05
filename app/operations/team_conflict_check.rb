@@ -1,6 +1,5 @@
 class TeamConflictCheck < ApplicationOperation
-  processes :game
-  property :game, accepts: Game, required: true
+  input :game, accepts: Game, required: true
 
   def execute
     conflicting_games.present?
