@@ -3,7 +3,7 @@ class GraphqlController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
-  def create
+  def execute
     result = Schema.execute(
       query_string,
       variables: query_variables,
