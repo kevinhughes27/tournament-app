@@ -38,8 +38,8 @@ class User < ApplicationRecord
     email.split('@').first
   end
 
-  def is_tournament_user?(tournament_id)
-    tournaments.exists?(id: tournament_id)
+  def is_tournament_user?(tournament)
+    tournaments.exists?(id: tournament.try(:id) || tournament)
   end
 
   private
