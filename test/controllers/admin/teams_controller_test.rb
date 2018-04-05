@@ -212,4 +212,19 @@ class Admin::TeamsControllerTest < AdminControllerTestCase
       assert_equal "Row: 5 Validation failed: Name can't be blank", flash[:import_error]
     end
   end
+
+  test "assigns teams to a division" do
+    team = FactoryGirl.create(:team)
+    new_division = FactoryGirl.create(:division)
+
+    put :set_division, params: {
+      ids: [team.id],
+      arg: new_division.name
+    }
+
+    assert_response :success
+    assert_equal team.reload.name, response_json.first["name"]
+    assert_equal new_division.name, response_json.first["division"]
+    assert_equal new_division, team.division
+  end
 end

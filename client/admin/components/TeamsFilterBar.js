@@ -21,11 +21,10 @@ let TeamsFilterBar = _assign({}, FilterBar, {
     let ids = _map(TeamsStore.selected(), function (t) { return t.id })
 
     $.ajax({
-      url: 'bulk_action',
+      url: action.url,
       type: 'PUT',
       beforeSend: function (xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')) },
       data: {
-        action_class: action.action_class,
         ids: ids,
         arg: action.arg
       },
@@ -36,7 +35,7 @@ let TeamsFilterBar = _assign({}, FilterBar, {
       },
       error: (response) => {
         this.setState({isLoading: false})
-        let message = response.responseJSON.message || action.failure_msg
+        let message = response.responseJSON.error || action.failure_msg
         Admin.Flash.error(message)
       }
     })

@@ -26,6 +26,7 @@ namespace :admin do
     collection do
       get :sample_csv
       post :import_csv
+      put :set_division
     end
   end
 
@@ -47,8 +48,6 @@ namespace :admin do
   put '/account', to: 'account#update'
 
   get '/player_app', to: 'player_app#show'
-
-  put '/bulk_action', to: 'bulk_actions#perform'
 
   unless Rails.application.config.consider_all_requests_local
     get '/*a', to: 'errors#not_found'
