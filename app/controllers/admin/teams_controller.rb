@@ -77,6 +77,17 @@ class Admin::TeamsController < AdminController
     end
   end
 
+  def set_division
+    update = SetTeamsDivision.new(@tournament, ids: params[:ids], arg: params[:arg])
+    update.perform
+
+    if update.succeeded?
+      render(template: 'admin/teams/teams.json.jbuilder', locals: {teams: update.teams})
+    else
+      render json: {error: update.output}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def load_team
