@@ -114,8 +114,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    composable_operations (0.10.1)
-      smart_properties (~> 1.10)
     concurrent-ruby (1.0.5)
     config (1.4.0)
       activesupport (>= 3.0)
@@ -383,7 +381,6 @@ DEPENDENCIES
   byebug (~> 9.0.6)
   capybara
   coffee-rails (~> 4.1.0)
-  composable_operations
   config
   database_cleaner
   date_validator

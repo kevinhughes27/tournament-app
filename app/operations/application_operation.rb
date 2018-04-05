@@ -1,2 +1,2 @@
-class ApplicationOperation < ComposableOperations::Operation
+class ApplicationOperation < ActiveOperation::Base
 end

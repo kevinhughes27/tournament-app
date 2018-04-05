@@ -1,10 +1,12 @@
 require 'csv'
 
 class TeamCsvImport < ApplicationOperation
-  processes :tournament, :file, :ignore
+  input :tournament
+  input :file
+  input :ignore
 
-  property :tournament, accepts: Tournament, required: true
-  property :file, required: true
+  property! :tournament, accepts: Tournament
+  property! :file
   property :ignore, accepts: [true, false], default: false
 
   attr_reader :row_num

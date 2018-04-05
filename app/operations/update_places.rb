@@ -1,6 +1,6 @@
 class UpdatePlaces < ApplicationOperation
-  processes :game
-  property :game, accepts: Game, required: true
+  input :game
+  property! :game, accepts: Game
 
   def execute
     pushWinnerPlace
