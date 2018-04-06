@@ -1,7 +1,7 @@
 class DivisionUpdate < ApplicationOperation
   input :division, accepts: Division, required: true
   input :params, required: true
-  input :confirm, default: false, type: :keyword
+  input :confirm, accepts: [true, false], default: false, type: :keyword
 
   def execute
     division.assign_attributes(params)

@@ -1,7 +1,7 @@
 class UpdateSettings < ApplicationOperation
   input :tournament, accepts: Tournament, required: true, type: :keyword
   input :params, required: true, type: :keyword
-  input :confirm, default: false, type: :keyword
+  input :confirm, accepts: [true, false], default: false, type: :keyword
 
   def execute
     if !(confirm == 'true' || tournament.handle == params[:handle])

@@ -1,6 +1,6 @@
 class TeamDelete < ApplicationOperation
   input :team, accepts: Team, required: true
-  input :confirm, default: false, type: :keyword
+  input :confirm, accepts: [true, false], default: false, type: :keyword
 
   def execute
     halt 'unable_to_delete' if !team.allow_delete?

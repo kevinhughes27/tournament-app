@@ -1,7 +1,7 @@
 class TeamUpdate < ApplicationOperation
   input :team, accepts: Team, required: true
   input :params, required: true
-  input :confirm, default: false, type: :keyword
+  input :confirm, accepts: [true, false], default: false, type: :keyword
 
   def execute
     if update_unsafe?

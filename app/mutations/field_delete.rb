@@ -1,9 +1,9 @@
 class FieldDelete < ApplicationOperation
   input :field, accepts: Field, required: true
-  input :confirm, default: false, type: :keyword
+  input :confirm, accepts: [true, false], default: false, type: :keyword
 
   def execute
-    halt 'confirm_delete' if !(confirm == 'true' || field.safe_to_delete?)
+    halt 'confirm_delete' if !(confirm || field.safe_to_delete?)
 
     Field.transaction do
       field.destroy!

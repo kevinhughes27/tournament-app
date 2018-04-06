@@ -23,7 +23,7 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    update = TeamUpdate.new(@team, team_params, confirm: params[:confirm])
+    update = TeamUpdate.new(@team, team_params, confirm: params[:confirm] == 'true')
     update.perform
 
     if update.succeeded?
@@ -39,7 +39,7 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    delete = TeamDelete.new(@team, confirm: params[:confirm])
+    delete = TeamDelete.new(@team, confirm: params[:confirm] == 'true')
     delete.perform
 
     if delete.succeeded?

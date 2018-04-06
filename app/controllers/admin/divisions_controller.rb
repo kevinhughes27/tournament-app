@@ -31,7 +31,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    update = DivisionUpdate.new(@division, division_params, confirm: params[:confirm])
+    update = DivisionUpdate.new(@division, division_params, confirm: params[:confirm] == 'true')
     update.perform
 
     if update.succeeded?
@@ -45,7 +45,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def destroy
-    delete = DivisionDelete.new(@division, confirm: params[:confirm])
+    delete = DivisionDelete.new(@division, confirm: params[:confirm] == 'true')
     delete.perform
 
     if delete.succeeded?
@@ -65,7 +65,7 @@ class Admin::DivisionsController < AdminController
         division: @division,
         team_ids: params[:team_ids],
         seeds: params[:seeds],
-        confirm: params[:confirm]
+        confirm: params[:confirm] == 'true'
       )
       seed.perform
 

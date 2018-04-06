@@ -7,7 +7,7 @@ class Admin::SettingsController < AdminController
     update = UpdateSettings.new(
       tournament: @tournament,
       params: tournament_params,
-      confirm: params[:confirm]
+      confirm: params[:confirm] == 'true'
     )
 
     update.perform

@@ -2,7 +2,7 @@ class DivisionSeed < ApplicationOperation
   input :division, accepts: Division, type: :keyword, required: true
   input :team_ids, accepts: Array, type: :keyword
   input :seeds, accepts: Array, type: :keyword
-  input :confirm, default: false, type: :keyword
+  input :confirm, accepts: [true, false], default: false, type: :keyword
 
   SEED_ROUND = 1
 
