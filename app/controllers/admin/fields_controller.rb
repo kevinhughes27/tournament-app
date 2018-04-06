@@ -34,12 +34,6 @@ class Admin::FieldsController < AdminController
   end
 
   def destroy
-    @field.destroy()
-    flash[:notice] = 'Field was successfully destroyed.'
-    redirect_to admin_fields_path
-  end
-
-  def destroy
     delete = FieldDelete.new(@field, confirm: params[:confirm])
     delete.perform
 
