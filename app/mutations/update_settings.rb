@@ -4,7 +4,7 @@ class UpdateSettings < ApplicationOperation
   input :confirm, accepts: [true, false], default: false, type: :keyword
 
   def execute
-    if !(confirm == 'true' || tournament.handle == params[:handle])
+    if !(confirm || tournament.handle == params['handle'])
       tournament.assign_attributes(params)
       halt 'confirm_update'
     end

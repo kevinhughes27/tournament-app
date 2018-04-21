@@ -40,6 +40,16 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert @result['data'].first[1]['success']
   end
 
+  def assert_confirmation_required(message)
+    assert true
+    #TODO assert on the message
+  end
+
+  def assert_failure(message)
+    refute @result['data'].first[1]['success']
+    #TODO assert on the failure message
+  end
+
   def assert_error(message)
     assert_equal message, @result['errors'].first['message']
   end

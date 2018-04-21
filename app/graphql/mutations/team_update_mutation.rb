@@ -13,7 +13,7 @@ TeamUpdateMutation = GraphQL::Relay::Mutation.define do
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
     team = ctx[:tournament].teams.find(inputs[:team_id])
-    params = inputs.to_h.except(:team_id, :confirm)
+    params = inputs.to_h.except('team_id', 'confirm')
 
     op = TeamUpdate.new(team, params, confirm: inputs[:confirm])
 

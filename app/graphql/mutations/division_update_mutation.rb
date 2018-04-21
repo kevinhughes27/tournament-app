@@ -12,11 +12,15 @@ DivisionUpdateMutation = GraphQL::Relay::Mutation.define do
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
     division = ctx[:tournament].divisions.find(inputs[:division_id])
-    params = inputs.to_h.except(:division_id, :confirm)
+    params = inputs.to_h.except('division_id', 'confirm')
 
     op = DivisionUpdate.new(division, params, confirm: inputs[:confirm])
 
-    op.perform
+    begin
+      op.perform
+    rescue => e
+      return { success: false }
+    end
 
     if op.succeeded?
       { success: true }

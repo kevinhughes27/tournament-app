@@ -1,39 +1,33 @@
 require 'test_helper'
 
-class DivisionCreateTest < ActiveSupport::TestCase
+class DivisionCreateTest < ApiTest
   setup do
-    @tournament = FactoryGirl.create(:tournament)
+    login_user
   end
 
   test "division creates all required games" do
     type = 'single_elimination_4'
+    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
     assert_difference "Game.count", +4 do
-      DivisionCreate.perform(
-        tournament: @tournament,
-        division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
-      )
+      execute_graphql("divisionCreate", "DivisionCreateInput", input)
     end
   end
 
   test "division creates all required places" do
     type = 'single_elimination_4'
+    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
     assert_difference "Place.count", +4 do
-      DivisionCreate.perform(
-        tournament: @tournament,
-        division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
-      )
+      execute_graphql("divisionCreate", "DivisionCreateInput", input)
     end
   end
 
   test "creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
+    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
-    DivisionCreate.perform(
-      tournament: @tournament,
-      division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
-    )
+    execute_graphql("divisionCreate", "DivisionCreateInput", input)
 
     template = Bracket.find_by(handle: type).template
     template_game = template[:games].first
@@ -46,11 +40,9 @@ class DivisionCreateTest < ActiveSupport::TestCase
 
   test "creates places as spec'd by the bracket template" do
     type = 'single_elimination_8'
+    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
-    DivisionCreate.perform(
-      tournament: @tournament,
-      division_params: FactoryGirl.attributes_for(:division, bracket_type: type)
-    )
+    execute_graphql("divisionCreate", "DivisionCreateInput", input)
 
     template = Bracket.find_by(handle: type).template
     template_place = template[:places].first

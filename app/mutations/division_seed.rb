@@ -7,7 +7,7 @@ class DivisionSeed < ApplicationOperation
   SEED_ROUND = 1
 
   def execute
-    halt 'confirm_seed' if !(confirm == 'true' || division.safe_to_seed?)
+    halt 'confirm_seed' if !(confirm || division.safe_to_seed?)
     update_teams
     halt 'Ambiguous seed list' if ambiguous_seeds?
     halt "#{num_seats} seats but #{num_teams} teams present" unless num_seats == num_teams

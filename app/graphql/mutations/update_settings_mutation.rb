@@ -10,7 +10,7 @@ UpdateSettingsMutation = GraphQL::Relay::Mutation.define do
   return_field :success, !types.Boolean
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
-    params = inputs.to_h.except(:confirm)
+    params = inputs.to_h.except('confirm')
 
     op = UpdateSettings.new(
       tournament: ctx[:tournament],

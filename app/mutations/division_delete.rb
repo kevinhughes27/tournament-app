@@ -3,7 +3,7 @@ class DivisionDelete < ApplicationOperation
   input :confirm, accepts: [true, false], default: false, type: :keyword
 
   def execute
-    halt 'confirm_delete' if !(confirm == 'true' || division.safe_to_delete?)
+    halt 'confirm_delete' if !(confirm || division.safe_to_delete?)
     division.destroy!
   end
 

@@ -18,7 +18,11 @@ GameScheduleMutation = GraphQL::Relay::Mutation.define do
       inputs[:end_time]
     )
 
-    op.perform
+    begin
+      op.perform
+    rescue => e
+      return GraphQL::ExecutionError.new(e.message)
+    end
 
     if op.succeeded?
       { success: true }

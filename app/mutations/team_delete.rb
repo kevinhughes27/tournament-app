@@ -4,7 +4,7 @@ class TeamDelete < ApplicationOperation
 
   def execute
     halt 'unable_to_delete' if !team.allow_delete?
-    halt 'confirm_delete' if !(confirm == 'true' || team.safe_to_delete?)
+    halt 'confirm_delete' if !(confirm || team.safe_to_delete?)
     team.destroy!
   end
 
