@@ -16,5 +16,5 @@ MutationType = GraphQL::ObjectType.define do
   field :gameUpdateScore, field: GameUpdateScoreMutation.field, auth_required: true
   field :teamDelete,      field: TeamDeleteMutation.field,      auth_required: true
   field :teamUpdate,      field: TeamUpdateMutation.field,      auth_required: true
-  field :updateSettings,  field: UpdateSettingsMutation.field,  auth_required: true
+  field :settingsUpdate,  field: SettingsUpdateMutation.field,  auth_required: true
 end

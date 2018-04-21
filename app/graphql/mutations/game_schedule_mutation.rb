@@ -7,9 +7,13 @@ GameScheduleMutation = GraphQL::Relay::Mutation.define do
   input_field :end_time, types.String
 
   return_field :success, !types.Boolean
+  return_field :errors, types[types.String]
+  return_field :game, GameType
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
-    game = ctx[:tournament].games.find(inputs[:game_id])
+    game = ctx[:tournament].games
+      .includes(:division, :home, :away)
+      .find(inputs[:game_id])
 
     op = GameSchedule.new(
       game,
@@ -20,14 +24,9 @@ GameScheduleMutation = GraphQL::Relay::Mutation.define do
 
     begin
       op.perform
+      { success: true, game: game }
     rescue => e
-      return GraphQL::ExecutionError.new(e.message)
-    end
-
-    if op.succeeded?
-      { success: true }
-    else
-      { success: false }
+      { success: false, errors: [e.message], game: game }
     end
   })
 end

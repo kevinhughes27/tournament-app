@@ -3,6 +3,7 @@ require 'test_helper'
 class DivisionDeleteTest < ApiTest
   setup do
     login_user
+    @output = '{ success, confirm, errors }'
   end
 
   test "delete a division" do
@@ -10,7 +11,7 @@ class DivisionDeleteTest < ApiTest
     input = {division_id: division.id}
 
     assert_difference "Division.count", -1 do
-      execute_graphql("divisionDelete", "DivisionDeleteInput", input)
+      execute_graphql("divisionDelete", "DivisionDeleteInput", input, @output)
       assert_success
     end
   end
@@ -21,7 +22,7 @@ class DivisionDeleteTest < ApiTest
     input = {division_id: division.id}
 
     assert_no_difference "Division.count" do
-      execute_graphql("divisionDelete", "DivisionDeleteInput", input)
+      execute_graphql("divisionDelete", "DivisionDeleteInput", input, @output)
       assert_confirmation_required "This division has games that have been scored. Deleting this division will delete all the games that belong to it. Are you sure this is what you want to do?"
     end
   end
@@ -32,7 +33,7 @@ class DivisionDeleteTest < ApiTest
     input = {division_id: division.id, confirm: true}
 
     assert_difference "Division.count", -1 do
-      execute_graphql("divisionDelete", "DivisionDeleteInput", input)
+      execute_graphql("divisionDelete", "DivisionDeleteInput", input, @output)
       assert_success
     end
   end
@@ -43,7 +44,7 @@ class DivisionDeleteTest < ApiTest
     input = {division_id: division.id}
 
     assert_difference "Division.count", -1 do
-      execute_graphql("divisionDelete", "DivisionDeleteInput", input)
+      execute_graphql("divisionDelete", "DivisionDeleteInput", input, @output)
       assert_success
     end
 

@@ -16,16 +16,6 @@ QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  field :games do
-    type types[GameType]
-    resolve -> (obj, args, ctx) {
-      ctx[:tournament].games
-        .scheduled
-        .with_teams
-        .includes(:home, :away, :field)
-    }
-  end
-
   field :fields do
     type types[FieldType]
     resolve -> (obj, args, ctx) {
@@ -37,6 +27,23 @@ QueryType = GraphQL::ObjectType.define do
     type types[TeamType]
     resolve -> (obj, args, ctx) {
       ctx[:tournament].teams
+    }
+  end
+
+  field :divisions do
+    type types[DivisionType]
+    resolve -> (obj, args, ctx) {
+      ctx[:tournament].divisions
+    }
+  end
+
+  field :games do
+    type types[GameType]
+    resolve -> (obj, args, ctx) {
+      ctx[:tournament].games
+        .scheduled
+        .with_teams
+        .includes(:home, :away, :field)
     }
   end
 end

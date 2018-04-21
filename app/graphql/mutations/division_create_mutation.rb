@@ -7,6 +7,8 @@ DivisionCreateMutation = GraphQL::Relay::Mutation.define do
   input_field :bracket_type, types.String
 
   return_field :success, !types.Boolean
+  return_field :errors, types[types.String]
+  return_field :division, DivisionType
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
     op = DivisionCreate.new(
@@ -16,10 +18,19 @@ DivisionCreateMutation = GraphQL::Relay::Mutation.define do
 
     op.perform
 
+    division = op.division
+
     if op.succeeded?
-      { success: true }
+      {
+        success: true,
+        division: division
+      }
     else
-      { success: false }
+      {
+        success: false,
+        errors: division.errors.full_messages,
+        division: division
+      }
     end
   })
 end

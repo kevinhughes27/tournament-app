@@ -3,6 +3,7 @@ require 'test_helper'
 class DivisionSeedTest < ApiTest
   setup do
     login_user
+    @output = '{ success, confirm, errors }'
   end
 
   test "seed a division" do
@@ -11,7 +12,7 @@ class DivisionSeedTest < ApiTest
     teams = create_teams(division, 4)
 
     input = {division_id: division.id}
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_success
   end
 
@@ -33,7 +34,7 @@ class DivisionSeedTest < ApiTest
       seeds: [team2.seed, team1.seed]
     }
 
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_confirmation_required "This division has games that have been scored. Seeding this division will reset those games. Are you sure this is what you want to do?"
   end
 
@@ -43,7 +44,7 @@ class DivisionSeedTest < ApiTest
     teams = create_teams(division, 8)
 
     input = {division_id: division.id}
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_failure '4 seats but 8 teams present'
   end
 
@@ -53,7 +54,7 @@ class DivisionSeedTest < ApiTest
     teams = create_teams(division, 8)
 
     input = {division_id: division.id}
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_success
 
     games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
@@ -70,7 +71,7 @@ class DivisionSeedTest < ApiTest
     teams = create_teams(division, 8)
 
     input = {division_id: division.id}
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_success
 
     round1_games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
@@ -84,7 +85,7 @@ class DivisionSeedTest < ApiTest
     assert round2_games.all?{ |g| g.teams_present? }
 
     input = {division_id: division.id, confirm: true}
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_success
 
     round2_games.reload
@@ -98,7 +99,7 @@ class DivisionSeedTest < ApiTest
     teams = create_teams(division, 5)
 
     input = {division_id: division.id}
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_success
 
     game = division.games.find_by(bracket_uid: 'rr3')
@@ -114,7 +115,7 @@ class DivisionSeedTest < ApiTest
     refute division.seeded?
 
     input = {division_id: division.id}
-    execute_graphql("divisionSeed", "DivisionSeedInput", input)
+    execute_graphql("divisionSeed", "DivisionSeedInput", input, @output)
     assert_success
 
     assert division.reload.seeded?

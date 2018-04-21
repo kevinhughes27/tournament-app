@@ -1,14 +1,14 @@
-<% if object.errors.any? %>
+<% if errors.present? %>
   <div class="alert alert-danger alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
     <h4>
       <i class="icon fa fa-warning"></i>
-      There was <%= pluralize(object.errors.count, "error") %> with this <%= object.class %>:
+      There was <%= pluralize(errors.count, "error") %> with this <%= name %>:
     </h4>
 
     <ul>
-      <% object.errors.full_messages.each do |message| %>
+      <% errors.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>

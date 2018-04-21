@@ -3,6 +3,7 @@ require 'test_helper'
 class DivisionCreateTest < ApiTest
   setup do
     login_user
+    @output = '{ success, errors }'
   end
 
   test "division creates all required games" do
@@ -10,7 +11,8 @@ class DivisionCreateTest < ApiTest
     input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
     assert_difference "Game.count", +4 do
-      execute_graphql("divisionCreate", "DivisionCreateInput", input)
+      execute_graphql("divisionCreate", "DivisionCreateInput", input, @output)
+      assert_success
     end
   end
 
@@ -19,7 +21,8 @@ class DivisionCreateTest < ApiTest
     input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
     assert_difference "Place.count", +4 do
-      execute_graphql("divisionCreate", "DivisionCreateInput", input)
+      execute_graphql("divisionCreate", "DivisionCreateInput", input, @output)
+      assert_success
     end
   end
 
@@ -27,7 +30,8 @@ class DivisionCreateTest < ApiTest
     type = 'single_elimination_8'
     input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
-    execute_graphql("divisionCreate", "DivisionCreateInput", input)
+    execute_graphql("divisionCreate", "DivisionCreateInput", input, @output)
+    assert_success
 
     template = Bracket.find_by(handle: type).template
     template_game = template[:games].first
@@ -42,7 +46,8 @@ class DivisionCreateTest < ApiTest
     type = 'single_elimination_8'
     input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
 
-    execute_graphql("divisionCreate", "DivisionCreateInput", input)
+    execute_graphql("divisionCreate", "DivisionCreateInput", input, @output)
+    assert_success
 
     template = Bracket.find_by(handle: type).template
     template_place = template[:places].first

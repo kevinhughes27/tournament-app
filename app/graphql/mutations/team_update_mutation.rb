@@ -10,6 +10,10 @@ TeamUpdateMutation = GraphQL::Relay::Mutation.define do
   input_field :confirm, types.Boolean
 
   return_field :success, !types.Boolean
+  return_field :confirm, types.Boolean
+  return_field :not_allowed, types.Boolean
+  return_field :errors, types[types.String]
+  return_field :team, TeamType
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
     team = ctx[:tournament].teams.find(inputs[:team_id])
@@ -20,13 +24,30 @@ TeamUpdateMutation = GraphQL::Relay::Mutation.define do
     op.perform
 
     if op.succeeded?
-      { success: true }
+      {
+        success: true,
+        team: team
+      }
     elsif op.confirmation_required?
-      { success: false }
+      {
+        success: false,
+        confirm: true,
+        errors: ["There are games scheduled for this team. Updating the team may unassign it from those games. You will need to re-seed the #{team.division.name} division."],
+        team: team
+      }
     elsif op.not_allowed?
-      { success: false }
+      {
+        success: false,
+        not_allowed: true,
+        errors: ["There are games in this team's division that have been scored. In order to update this team you need to delete the #{team.division.name} division first."],
+        team: team
+      }
     else
-      { success: false }
+      {
+        success: false,
+        errors: team.errors.full_messages,
+        team: team
+      }
     end
   })
 end

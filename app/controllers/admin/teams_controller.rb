@@ -1,11 +1,10 @@
 class Admin::TeamsController < AdminController
-  before_action :load_team, only: [:show, :update, :destroy]
-
   def index
     @teams = @tournament.teams.includes(:division)
   end
 
   def show
+    @team = @tournament.teams.find(params[:id])
   end
 
   def new
@@ -23,15 +22,30 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    update = TeamUpdate.new(@team, team_params, confirm: params[:confirm] == 'true')
-    update.perform
+    input = params_to_input(team_params, params, 'team_id')
 
-    if update.succeeded?
+    result = execute_graphql(
+      'teamUpdate',
+      'TeamUpdateInput',
+      input,
+      "{
+         success,
+         confirm,
+         not_allowed,
+         errors,
+         team { id, name, email, phone, division_id, seed }
+       }"
+    )
+
+    @team = Team.new(result['team'])
+    @errors = result['errors']
+
+    if result['success']
       flash[:notice] = 'Team was successfully updated.'
       redirect_to admin_team_path(@team)
-    elsif update.confirmation_required?
+    elsif result['confirm']
       render partial: 'confirm_update', status: :unprocessable_entity
-    elsif update.not_allowed?
+    elsif result['not_allowed']
       render partial: 'unable_to_update', status: :not_allowed
     else
       render :show
@@ -39,17 +53,30 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    delete = TeamDelete.new(@team, confirm: params[:confirm] == 'true')
-    delete.perform
+    input = params_to_input({}, params, 'team_id')
 
-    if delete.succeeded?
+    result = execute_graphql(
+      'teamDelete',
+      'TeamDeleteInput',
+      input,
+      "{
+         success,
+         confirm,
+         not_allowed
+       }"
+    )
+
+    if result['success']
       flash[:notice] = 'Team was successfully destroyed.'
       redirect_to admin_teams_path
-    elsif delete.confirmation_required?
+    elsif result['confirm']
+      @team = @tournament.teams.find(params[:id])
       render partial: 'confirm_delete', status: :unprocessable_entity
-    elsif delete.halted?
+    elsif result['not_allowed']
+      @team = @tournament.teams.find(params[:id])
       render partial: 'unable_to_delete', status: :not_allowed
     else
+      @team = @tournament.teams.find(params[:id])
       flash[:error] = 'Team could not be deleted.'
       render :show
     end
@@ -89,10 +116,6 @@ class Admin::TeamsController < AdminController
   end
 
   private
-
-  def load_team
-    @team = @tournament.teams.find(params[:id])
-  end
 
   def team_params
     @team_params ||= params.require(:team).permit(

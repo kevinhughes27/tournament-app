@@ -9,7 +9,7 @@
 
 <div class="row">
   <div class="col-md-8">
-    <%= render 'admin/errors', object: @team %>
+    <%= render 'admin/errors', name: 'Team', errors: @team.errors.full_messages %>
 
     <%= ui_box do %>
       <%= form_for [:admin, @team], remote: true do |form| %>

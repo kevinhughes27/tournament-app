@@ -22,11 +22,11 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert_equal "/admin", path
   end
 
-  def execute_graphql(mutation, input_type, input, filter: false)
+  def execute_graphql(mutation, input_type, input, output = '{ success }', filter: false)
     url = "http://#{@tournament.handle}.lvh.me/graphql"
 
     params = {
-      "query" => "mutation #{mutation}($input: #{input_type}!) { #{mutation}(input: $input) { success }}",
+      "query" => "mutation #{mutation}($input: #{input_type}!) { #{mutation}(input: $input) #{output} }",
       "variables" => {"input" => input},
       "filter" => filter
     }
@@ -34,23 +34,29 @@ class ApiTest < ActionDispatch::IntegrationTest
     post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
 
     @result = JSON.parse(response.body)
+    # assert the query was valid here
   end
 
   def assert_success
-    assert @result['data'].first[1]['success']
+    assert mutation_result['success']
   end
 
   def assert_confirmation_required(message)
-    assert true
-    #TODO assert on the message
+    refute mutation_result['success']
+    assert mutation_result['confirm']
+    assert_equal message, mutation_result['errors'].first
   end
 
-  def assert_failure(message)
-    refute @result['data'].first[1]['success']
-    #TODO assert on the failure message
+  def assert_failure(expected_errors = nil)
+    refute mutation_result['success']
+    assert_equal Array(expected_errors), mutation_result['errors'] if expected_errors
   end
 
   def assert_error(message)
     assert_equal message, @result['errors'].first['message']
+  end
+
+  def mutation_result
+     @result['data'].first[1]
   end
 end

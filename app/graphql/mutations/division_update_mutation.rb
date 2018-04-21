@@ -9,6 +9,9 @@ DivisionUpdateMutation = GraphQL::Relay::Mutation.define do
   input_field :confirm, types.Boolean
 
   return_field :success, !types.Boolean
+  return_field :confirm, types.Boolean
+  return_field :errors, types[types.String]
+  return_field :division, DivisionType
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
     division = ctx[:tournament].divisions.find(inputs[:division_id])
@@ -19,15 +22,30 @@ DivisionUpdateMutation = GraphQL::Relay::Mutation.define do
     begin
       op.perform
     rescue => e
-      return { success: false }
+      message = e.message.gsub('Validation failed: ', '')
+      return { success: false, errors: [message] }
     end
 
+    division = op.division
+
     if op.succeeded?
-      { success: true }
+      {
+        success: true,
+        division: division
+      }
     elsif op.confirmation_required?
-      { success: false }
+      {
+        success: false,
+        confirm: true,
+        errors: [division.change_message],
+        division: division
+      }
     else
-      { success: false }
+      {
+        success: false,
+        errors: division.errors.full_messages,
+        division: division
+      }
     end
   })
 end

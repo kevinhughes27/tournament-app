@@ -3,12 +3,13 @@ require 'test_helper'
 class GameUpdateScoreTest < ApiTest
   setup do
     login_user
+    @output = '{ success, errors }'
   end
 
   test "update a games score" do
     game = FactoryGirl.create(:game)
     input = {game_id: game.id, home_score: 15, away_score: 13}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
     assert_equal 15, game.reload.home_score
     assert_equal 13, game.away_score
@@ -20,7 +21,7 @@ class GameUpdateScoreTest < ApiTest
 
     input = {game_id: game.id, home_score: 14, away_score: 12}
 
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_failure "unsafe score update"
   end
 
@@ -30,7 +31,7 @@ class GameUpdateScoreTest < ApiTest
 
     input = {game_id: game1.id, home_score: game1.away_score, away_score: game1.home_score}
 
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_failure "unsafe score update"
   end
 
@@ -40,7 +41,7 @@ class GameUpdateScoreTest < ApiTest
 
     input = {game_id: game.id, home_score: 14, away_score: 12, force: true}
 
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
 
     assert_success
     assert_equal 14, game.reload.home_score
@@ -55,7 +56,7 @@ class GameUpdateScoreTest < ApiTest
     new_away_score = game1.home_score
     input = {game_id: game1.id, home_score: new_home_score, away_score: new_away_score, force: true}
 
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
 
     assert_success
     assert_equal new_home_score, game1.reload.home_score
@@ -67,7 +68,7 @@ class GameUpdateScoreTest < ApiTest
 
     input = {game_id: game.id, home_score: 10, away_score: 5}
 
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
 
     assert_failure "teams not present"
     assert_nil game.home_score
@@ -79,7 +80,7 @@ class GameUpdateScoreTest < ApiTest
 
     input = {game_id: game.id, home_score: 5, away_score: 5}
 
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_failure "ties not allowed for this game"
   end
 
@@ -88,7 +89,7 @@ class GameUpdateScoreTest < ApiTest
 
     input = {game_id: game.id, home_score: 5, away_score: 5}
 
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
 
     assert_success
     assert_equal 5, game.reload.home_score
@@ -98,7 +99,7 @@ class GameUpdateScoreTest < ApiTest
   test "confirms the game" do
     game = FactoryGirl.create(:game)
     input = {game_id: game.id, home_score: 15, away_score: 11}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
     assert game.reload.confirmed?
   end
@@ -107,7 +108,7 @@ class GameUpdateScoreTest < ApiTest
     game = FactoryGirl.create(:game)
     assert_difference "ScoreEntry.count", +1 do
       input = {game_id: game.id, home_score: 15, away_score: 11}
-      execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+      execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
       assert_success
     end
   end
@@ -118,7 +119,7 @@ class GameUpdateScoreTest < ApiTest
     game.reload
 
     input = {game_id: game.id, home_score: 15, away_score: 11, resolve: true}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
     assert_equal 'resolved', dispute.reload.status
   end
@@ -127,7 +128,7 @@ class GameUpdateScoreTest < ApiTest
     game = FactoryGirl.create(:pool_game)
     FinishPoolJob.expects(:perform_later)
     input = {game_id: game.id, home_score: 15, away_score: 11}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
   end
 
@@ -135,7 +136,7 @@ class GameUpdateScoreTest < ApiTest
     game = FactoryGirl.create(:game)
     AdvanceBracketJob.expects(:perform_later)
     input = {game_id: game.id, home_score: 15, away_score: 11}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
   end
 
@@ -143,7 +144,7 @@ class GameUpdateScoreTest < ApiTest
     game = FactoryGirl.create(:game, :finished)
     AdvanceBracketJob.expects(:perform_later).never
     input = {game_id: game.id, home_score: game.home_score + 1, away_score: game.away_score + 1}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
   end
 
@@ -151,7 +152,7 @@ class GameUpdateScoreTest < ApiTest
     game = FactoryGirl.create(:game, :finished)
     AdvanceBracketJob.expects(:perform_later)
     input = {game_id: game.id, home_score: game.away_score, away_score: game.home_score}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
   end
 
@@ -159,7 +160,7 @@ class GameUpdateScoreTest < ApiTest
     game = FactoryGirl.create(:game)
     UpdatePlacesJob.expects(:perform_later)
     input = {game_id: game.id, home_score: 15, away_score: 11}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
   end
 
@@ -168,7 +169,7 @@ class GameUpdateScoreTest < ApiTest
     ActionCable.server.expects(:broadcast)
 
     input = {game_id: game.id, home_score: 15, away_score: 13}
-    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input)
+    execute_graphql("gameUpdateScore", "GameUpdateScoreInput", input, @output)
     assert_success
   end
 end

@@ -3,13 +3,14 @@ require 'test_helper'
 class DivisionUpdateTest < ApiTest
   setup do
     login_user
+    @output = '{ success, confirm, errors }'
   end
 
   test "update a division" do
     division = FactoryGirl.create(:division)
     input = {division_id: division.id, name: 'Junior Open', bracket_type: 'single_elimination_8'}
 
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
 
     assert_success
     assert_equal input[:name], division.reload.name
@@ -20,7 +21,7 @@ class DivisionUpdateTest < ApiTest
     game = FactoryGirl.create(:game, :scheduled, division: division)
     input = {division_id: division.id, bracket_type: 'single_elimination_4'}
 
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
     assert_confirmation_required "This division has games that have been scheduled. Changing the bracket might reset some of those games. Are you sure this is what you want to do?"
   end
 
@@ -29,7 +30,7 @@ class DivisionUpdateTest < ApiTest
     game = FactoryGirl.create(:game, :finished, division: division)
     input = {division_id: division.id, bracket_type: 'single_elimination_4'}
 
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
     assert_confirmation_required "This division has games that have been scored. Changing the bracket will reset those games. Are you sure this is what you want to do?"
   end
 
@@ -37,7 +38,7 @@ class DivisionUpdateTest < ApiTest
     division = FactoryGirl.create(:division)
     input = {division_id: division.id, bracket_type: 'single_elimination_4', confirm: true}
 
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
 
     assert_success
     assert_equal input[:bracket_type], division.reload.bracket_type
@@ -47,7 +48,7 @@ class DivisionUpdateTest < ApiTest
     division = FactoryGirl.create(:division)
     input = {division_id: division.id, name: ''}
 
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
     assert_failure "Name can't be blank"
   end
 
@@ -57,7 +58,7 @@ class DivisionUpdateTest < ApiTest
     assert_equal 12, division.games.count
 
     input = {division_id: division.id, bracket_type: 'single_elimination_4'}
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
 
     assert_success
     assert_equal 4, division.games.count
@@ -75,7 +76,7 @@ class DivisionUpdateTest < ApiTest
     assert division.reload.seeded?
 
     input = {division_id: division.id, bracket_type: 'single_elimination_4'}
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
 
     assert_success
     refute division.reload.seeded?
@@ -87,7 +88,7 @@ class DivisionUpdateTest < ApiTest
     assert_equal 8, division.places.count
 
     input = {division_id: division.id, bracket_type: 'single_elimination_4'}
-    execute_graphql("divisionUpdate", "DivisionUpdateInput", input)
+    execute_graphql("divisionUpdate", "DivisionUpdateInput", input, @output)
 
     assert_success
     assert_equal 4, division.places.count

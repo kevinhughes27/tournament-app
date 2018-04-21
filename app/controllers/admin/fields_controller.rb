@@ -34,13 +34,22 @@ class Admin::FieldsController < AdminController
   end
 
   def destroy
-    delete = FieldDelete.new(@field, confirm: params[:confirm] == 'true')
-    delete.perform
+    input = params_to_input({}, params, 'field_id')
 
-    if delete.succeeded?
+    result = execute_graphql(
+      'fieldDelete',
+      'FieldDeleteInput',
+      input,
+      "{
+         success,
+         confirm
+       }"
+    )
+
+    if result['success']
       flash[:notice] = 'Field was successfully destroyed.'
       redirect_to admin_fields_path
-    elsif delete.confirmation_required?
+    elsif result['confirm']
       render partial: 'confirm_delete', status: :unprocessable_entity
     else
       flash[:error] = 'Field could not be deleted.'

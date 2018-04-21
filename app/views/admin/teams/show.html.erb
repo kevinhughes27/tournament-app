@@ -10,7 +10,7 @@
 
 <div class="row">
   <div class="col-md-8">
-    <%= render 'admin/errors', object: @team %>
+    <%= render 'admin/errors', name: 'Team', errors: @errors %>
 
     <%= ui_box do %>
       <%= form_for [:admin, @team], html: {

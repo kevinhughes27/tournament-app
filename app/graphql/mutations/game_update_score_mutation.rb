@@ -8,6 +8,7 @@ GameUpdateScoreMutation = GraphQL::Relay::Mutation.define do
   input_field :resolve, types.Boolean
 
   return_field :success, !types.Boolean
+  return_field :errors, types[types.String]
 
   resolve(Auth.protect -> (obj, inputs, ctx) {
     game = ctx[:tournament].games.find(inputs[:game_id])
@@ -26,7 +27,7 @@ GameUpdateScoreMutation = GraphQL::Relay::Mutation.define do
     if op.succeeded?
       { success: true }
     else
-      { success: false }
+      { success: false, errors: [op.output] }
     end
   })
 end

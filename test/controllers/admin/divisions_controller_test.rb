@@ -50,8 +50,8 @@ class Admin::DivisionsControllerTest < AdminControllerTestCase
       post :create, params: { division: params }
 
       division = assigns(:division)
-      assert division.errors.present?
       assert_template :new
+      assert_match "Name can&#39;t be blank", response.body
     end
   end
 

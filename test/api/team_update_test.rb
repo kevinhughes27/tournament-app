@@ -3,6 +3,7 @@ require 'test_helper'
 class TeamUpdateTest < ApiTest
   setup do
     login_user
+    @output = '{ success, confirm, errors }'
   end
 
   test "update a team" do
@@ -10,7 +11,7 @@ class TeamUpdateTest < ApiTest
     attributes = FactoryGirl.attributes_for(:team).except(:tournament, :division)
     input = {team_id: team.id, **attributes}
 
-    execute_graphql("teamUpdate", "TeamUpdateInput", input)
+    execute_graphql("teamUpdate", "TeamUpdateInput", input, @output)
 
     assert_success
     assert_equal attributes[:name], team.reload.name
@@ -20,7 +21,7 @@ class TeamUpdateTest < ApiTest
     team = FactoryGirl.create(:team)
     input = {team_id: team.id, name: ''}
 
-    execute_graphql("teamUpdate", "TeamUpdateInput", input)
+    execute_graphql("teamUpdate", "TeamUpdateInput", input, @output)
     assert_failure "Name can't be blank"
   end
 
@@ -29,7 +30,7 @@ class TeamUpdateTest < ApiTest
     FactoryGirl.create(:game, home: team)
     input = {team_id: team.id, seed: 3}
 
-    execute_graphql("teamUpdate", "TeamUpdateInput", input)
+    execute_graphql("teamUpdate", "TeamUpdateInput", input, @output)
     assert_confirmation_required "There are games scheduled for this team. Updating the team may unassign it from those games. You will need to re-seed the #{team.division.name} division."
   end
 
@@ -38,7 +39,7 @@ class TeamUpdateTest < ApiTest
     FactoryGirl.create(:game, home: team)
     input = {team_id: team.id, seed: 3, confirm: true}
 
-    execute_graphql("teamUpdate", "TeamUpdateInput", input)
+    execute_graphql("teamUpdate", "TeamUpdateInput", input, @output)
 
     assert_success
     assert_equal 3, team.reload.seed
@@ -49,7 +50,7 @@ class TeamUpdateTest < ApiTest
     FactoryGirl.create(:game, :finished, home: team)
     input = {team_id: team.id, seed: 3}
 
-    execute_graphql("teamUpdate", "TeamUpdateInput", input)
+    execute_graphql("teamUpdate", "TeamUpdateInput", input, @output)
     assert_failure "There are games in this team's division that have been scored. In order to update this team you need to delete the #{team.division.name} division first."
   end
 end

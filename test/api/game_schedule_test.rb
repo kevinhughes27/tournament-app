@@ -4,6 +4,7 @@ class GameScheduleTest < ApiTest
   setup do
     login_user
     @free_field = FactoryGirl.create(:field)
+    @output = '{ success, errors }'
   end
 
   test "checks for home team time conflicts" do
@@ -17,8 +18,8 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
   test "finds home team time conflicts in games when the team is the away team in another game" do
@@ -32,8 +33,8 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
   test "checks for home team time conflicts (uses uid if required)" do
@@ -47,8 +48,8 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
   test "checks for away team time conflicts" do
@@ -62,8 +63,8 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
   test "finds away team time conflicts when the team is the home team in another game" do
@@ -77,8 +78,8 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
   test "checks for away team time conflicts (uses uid if required)" do
@@ -92,8 +93,8 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
   test "team time conflicts must be same division" do
@@ -107,7 +108,7 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
     assert_success
   end
 
@@ -122,8 +123,8 @@ class GameScheduleTest < ApiTest
       end_time: game.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Field #{game.field.name} is in use at 12:06 PM -  1:36 PM"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Field #{game.field.name} is in use at 12:06 PM -  1:36 PM"
   end
 
   test "field conflict check works with timecap increments" do
@@ -138,7 +139,7 @@ class GameScheduleTest < ApiTest
       end_time: start_time + 90.minutes
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
     assert_success
   end
 
@@ -154,8 +155,8 @@ class GameScheduleTest < ApiTest
       end_time: game2.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Game '#{game1.bracket_uid}' must be played before game '#{game2.bracket_uid}'"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Game '#{game1.bracket_uid}' must be played before game '#{game2.bracket_uid}'"
   end
 
   test "games checks for schedule order conflicts (prerequisite game)" do
@@ -169,7 +170,7 @@ class GameScheduleTest < ApiTest
       end_time: game1.end_time
     }
 
-    execute_graphql("gameSchedule", "GameScheduleInput", input)
-    assert_error "Game '#{game2.bracket_uid}' must be played after game '#{game1.bracket_uid}'"
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Game '#{game2.bracket_uid}' must be played after game '#{game1.bracket_uid}'"
   end
 end

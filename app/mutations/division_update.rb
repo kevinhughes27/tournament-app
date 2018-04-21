@@ -7,10 +7,9 @@ class DivisionUpdate < ApplicationOperation
     division.assign_attributes(params)
     bracket_type_changed = division.bracket_type_changed?
 
-    halt 'confirm_update' if !(confirm == 'true' || division.safe_to_change?)
+    halt 'confirm_update' if !(confirm || division.safe_to_change?)
 
-    division.update(params)
-    fail if division.errors.present?
+    division.update!(params)
 
     update_bracket if bracket_type_changed
   end

@@ -3,6 +3,7 @@ require 'test_helper'
 class TeamDeleteTest < ApiTest
   setup do
     login_user
+    @output = '{ success, confirm, errors }'
   end
 
   test "delete a team" do
@@ -10,7 +11,7 @@ class TeamDeleteTest < ApiTest
     input = {team_id: team.id}
 
     assert_difference "Team.count", -1 do
-      execute_graphql("teamDelete", "TeamDeleteInput", input)
+      execute_graphql("teamDelete", "TeamDeleteInput", input, @output)
       assert_success
     end
   end
@@ -23,7 +24,7 @@ class TeamDeleteTest < ApiTest
     input = {team_id: team.id}
 
     assert_no_difference "Team.count" do
-      execute_graphql("teamDelete", "TeamDeleteInput", input)
+      execute_graphql("teamDelete", "TeamDeleteInput", input, @output)
       assert_confirmation_required "There are games scheduled for this team. Deleting the team will unassign it from those games. You will need to re-seed the #{team.division.name} division."
     end
   end
@@ -36,7 +37,7 @@ class TeamDeleteTest < ApiTest
     input = {team_id: team.id, confirm: true}
 
     assert_difference "Team.count", -1 do
-      execute_graphql("teamDelete", "TeamDeleteInput", input)
+      execute_graphql("teamDelete", "TeamDeleteInput", input, @output)
       assert_success
     end
   end
@@ -47,7 +48,7 @@ class TeamDeleteTest < ApiTest
     input = {team_id: team.id, confirm: true}
 
     assert_difference "Team.count", -1 do
-      execute_graphql("teamDelete", "TeamDeleteInput", input)
+      execute_graphql("teamDelete", "TeamDeleteInput", input, @output)
       assert_success
     end
 
@@ -62,7 +63,7 @@ class TeamDeleteTest < ApiTest
     input = {team_id: team.id}
 
     assert_no_difference "Team.count" do
-      execute_graphql("teamDelete", "TeamDeleteInput", input)
+      execute_graphql("teamDelete", "TeamDeleteInput", input, @output)
       assert_failure "There are games in this team's division that have been scored. In order to delete this team you need to delete the #{team.division.name} division first."
     end
   end

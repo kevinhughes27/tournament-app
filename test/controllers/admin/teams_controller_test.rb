@@ -47,7 +47,7 @@ class Admin::TeamsControllerTest < AdminControllerTestCase
 
   test "update a team" do
     team = FactoryGirl.create(:team)
-    attributes = FactoryGirl.attributes_for(:team)
+    attributes = FactoryGirl.attributes_for(:team).except(:division)
     put :update, params: { id: team.id, team: attributes }
 
     assert_redirected_to admin_team_path(team)
