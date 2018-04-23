@@ -147,7 +147,6 @@ class GameScheduleTest < ApiTest
     game1 = FactoryGirl.create(:game, bracket_uid: 'a')
     game2 = FactoryGirl.create(:game, :scheduled, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
 
-    schedule = GameSchedule.new(game1, @free_field.id, game2.start_time, game2.end_time)
     input = {
       game_id: game1.id,
       field_id: @free_field.id,

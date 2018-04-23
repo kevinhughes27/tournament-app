@@ -3,18 +3,18 @@ MutationType = GraphQL::ObjectType.define do
   description "The mutation root for this schema"
 
   # public
-  field :submitScore, field: SubmitScoreMutation.field
-  field :checkPin, field: CheckPinMutation.field
+  field :submitScore, field: Mutations::SubmitScore.field
+  field :checkPin,    field: Mutations::CheckPin.field
 
   # admin
-  field :divisionCreate,  field: DivisionCreateMutation.field,  auth_required: true
-  field :divisionDelete,  field: DivisionDeleteMutation.field,  auth_required: true
-  field :divisionSeed,    field: DivisionSeedMutation.field,    auth_required: true
-  field :divisionUpdate,  field: DivisionUpdateMutation.field,  auth_required: true
-  field :fieldDelete,     field: FieldDeleteMutation.field,     auth_required: true
-  field :gameSchedule,    field: GameScheduleMutation.field,    auth_required: true
-  field :gameUpdateScore, field: GameUpdateScoreMutation.field, auth_required: true
-  field :teamDelete,      field: TeamDeleteMutation.field,      auth_required: true
-  field :teamUpdate,      field: TeamUpdateMutation.field,      auth_required: true
-  field :settingsUpdate,  field: SettingsUpdateMutation.field,  auth_required: true
+  field :divisionCreate,  field: Mutations::DivisionCreate.field,  auth_required: true
+  field :divisionDelete,  field: Mutations::DivisionDelete.field,  auth_required: true
+  field :divisionSeed,    field: Mutations::DivisionSeed.field,    auth_required: true
+  field :divisionUpdate,  field: Mutations::DivisionUpdate.field,  auth_required: true
+  field :fieldDelete,     field: Mutations::FieldDelete.field,     auth_required: true
+  field :gameSchedule,    field: Mutations::GameSchedule.field,    auth_required: true
+  field :gameUpdateScore, field: Mutations::GameUpdateScore.field, auth_required: true
+  field :teamDelete,      field: Mutations::TeamDelete.field,      auth_required: true
+  field :teamUpdate,      field: Mutations::TeamUpdate.field,      auth_required: true
+  field :settingsUpdate,  field: Mutations::SettingsUpdate.field,  auth_required: true
 end
