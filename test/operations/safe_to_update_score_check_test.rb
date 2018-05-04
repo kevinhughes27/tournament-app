@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SafeToUpdateScoreCheckTest < ActiveJob::TestCase
+class SafeToUpdateScoreCheckTest < OperationTest
   test "safe if pool is not finished" do
     game1 = FactoryGirl.create(:pool_game, pool: 'A')
     game2 = FactoryGirl.create(:game, home_prereq: 'A1')

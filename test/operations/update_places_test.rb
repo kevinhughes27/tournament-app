@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class UpdatePlacesTest < ActiveSupport::TestCase
+class UpdatePlacesTest < OperationTest
   setup do
-    @tournament = FactoryGirl.create(:tournament)
     @division = FactoryGirl.create(:division)
     @home = FactoryGirl.create(:team, division: @division)
     @away = FactoryGirl.create(:team, division: @division)
