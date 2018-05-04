@@ -54,7 +54,6 @@ class BracketSimulationTest < OperationTest
 
   def play_game(game)
     score = gen_score
-
     UpdateScore.perform(
       game: game,
       home_score: score[0],
