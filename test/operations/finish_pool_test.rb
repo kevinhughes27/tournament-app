@@ -263,6 +263,7 @@ class FinishPoolTest < OperationTest
 
   def seed_division(division)
     execute_graphql("divisionSeed", "DivisionSeedInput", {division_id: division.id})
+    division.reload
   end
 
   def play_pool(teams, division, pool)

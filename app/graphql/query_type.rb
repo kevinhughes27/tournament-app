@@ -42,7 +42,7 @@ QueryType = GraphQL::ObjectType.define do
     resolve -> (obj, args, ctx) {
       ctx[:tournament].games
         .scheduled
-        .with_teams
+        .with_team
         .includes(:home, :away, :field)
     }
   end

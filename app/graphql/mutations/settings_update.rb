@@ -4,7 +4,7 @@ module Mutations
 
     input_field :name, types.String
     input_field :handle, types.String
-    input_field :score_submit_pin, types.String
+    input_field :score_submit_pin, types.Int
     input_field :game_confirm_setting, types.String
     input_field :timezone, types.String
     input_field :confirm, types.Boolean

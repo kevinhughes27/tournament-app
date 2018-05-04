@@ -125,5 +125,8 @@ class Admin::TeamsController < AdminController
       :division_id,
       :seed
     )
+
+    @team_params[:phone] = @team_params[:phone].to_s if @team_params[:phone]
+    @team_params
   end
 end
