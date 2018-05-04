@@ -31,7 +31,7 @@ Capybara.configure do |config|
   config.always_include_port = true
 end
 
-class BrowserTestCase < ActiveSupport::TestCase
+class BrowserTest < ActiveSupport::TestCase
   include Capybara::DSL
   self.use_transactional_tests = false
 

@@ -1,4 +1,4 @@
-class AdminControllerTestCase < ActionController::TestCase
+class AdminControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create(:user)
     @tournament = FactoryGirl.create(:tournament)

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::SettingsControllerTest < AdminControllerTestCase
+class Admin::SettingsControllerTest < AdminControllerTest
   test "get settings page" do
     get :show
   end

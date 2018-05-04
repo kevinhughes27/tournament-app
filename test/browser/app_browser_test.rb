@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AppBrowserTest < BrowserTestCase
+class AppBrowserTest < BrowserTest
   setup do
     @tournament = FactoryGirl.create(:tournament, handle: 'no-borders')
     @map = FactoryGirl.create(:map, tournament: @tournament)

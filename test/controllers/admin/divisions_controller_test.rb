@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::DivisionsControllerTest < AdminControllerTestCase
+class Admin::DivisionsControllerTest < AdminControllerTest
   test "get new" do
     get :new
     assert_response :success
