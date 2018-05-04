@@ -2,20 +2,7 @@ class Resolvers::SubmitScore < Resolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @game = @tournament.games.find(inputs[:game_id])
-    @report = ScoreReport.new(
-      tournament_id: @tournament.id,
-      game_id: @game.id,
-      team_id: inputs[:team_id],
-      submitter_fingerprint: inputs[:submitter_fingerprint],
-      home_score: inputs[:home_score],
-      away_score: inputs[:away_score],
-      rules_knowledge: inputs[:rules_knowledge],
-      fouls: inputs[:fouls],
-      fairness: inputs[:fairness],
-      attitude: inputs[:attitude],
-      communication: inputs[:communication],
-      comments: inputs[:comments]
-    )
+    @report = build_report(inputs)
 
     if !valid_submitter?
       return { success: false }
@@ -31,6 +18,23 @@ class Resolvers::SubmitScore < Resolver
   end
 
   private
+
+  def build_report(inputs)
+    ScoreReport.new(
+      tournament_id: @tournament.id,
+      game_id: @game.id,
+      team_id: inputs[:team_id],
+      submitter_fingerprint: inputs[:submitter_fingerprint],
+      home_score: inputs[:home_score],
+      away_score: inputs[:away_score],
+      rules_knowledge: inputs[:rules_knowledge],
+      fouls: inputs[:fouls],
+      fairness: inputs[:fairness],
+      attitude: inputs[:attitude],
+      communication: inputs[:communication],
+      comments: inputs[:comments]
+    )
+  end
 
   def valid_submitter?
     @game.home == @report.team || @game.away == @report.team
@@ -48,12 +52,10 @@ class Resolvers::SubmitScore < Resolver
     return if confirm_setting == 'multiple' && @game.score_reports.size < 2
 
     if matches_other_reports?
-      Resolvers::GameUpdateScore.call(nil, {
-        game_id: @game.id,
+      UpdateScore.perform(
+        game: @game,
         home_score: @report.home_score,
-        away_score: @report.away_score,
-        force: true
-      }, ctx)
+        away_score: @report.away_score)
     elsif @game.score_disputes.blank?
       ScoreDispute.create!(
         tournament_id: @report.tournament_id,

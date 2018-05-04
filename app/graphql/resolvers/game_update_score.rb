@@ -28,18 +28,13 @@ class Resolvers::GameUpdateScore < Resolver
       }
     end
 
-    @game.resolve_disputes! if inputs[:resolve]
+    UpdateScore.perform(game: @game, home_score: @home_score, away_score: @away_score)
 
-    update_score
-    create_score_entry if @user
+    create_score_entry
 
-    # resets all pool games even if the results haven't changed
-    update_pool if @game.pool_game?
-
-    advance_bracket if @game.bracket_game? && @winner_changed
-
-    # pool places are pushed by update_pool
-    update_places if @game.bracket_game?
+    if inputs[:resolve]
+      @game.resolve_disputes!
+    end
 
     return {
       success: true
@@ -64,15 +59,6 @@ class Resolvers::GameUpdateScore < Resolver
     )
   end
 
-  def update_score
-    @winner_changed = winner_changed?
-    @game.update!(home_score: @home_score, away_score: @away_score)
-  end
-
-  def winner_changed?
-    !@game.confirmed? || (@game.home_score > @game.away_score) ^ (@home_score > @away_score)
-  end
-
   def create_score_entry
     ScoreEntry.create!(
       tournament: @game.tournament,
@@ -83,17 +69,5 @@ class Resolvers::GameUpdateScore < Resolver
       home_score: @home_score,
       away_score: @away_score
     )
-  end
-
-  def update_pool
-    FinishPoolJob.perform_later(division: @game.division, pool_uid: @game.pool)
-  end
-
-  def advance_bracket
-    AdvanceBracketJob.perform_later(game_id: @game.id)
-  end
-
-  def update_places
-    UpdatePlacesJob.perform_later(game_id: @game.id)
   end
 end
