@@ -28,6 +28,10 @@ class GraphqlController < ApplicationController
   end
 
   def filter
-    params[:filter] == false ? nil : OnlyFilter
+    if Rails.env.production?
+      OnlyFilter
+    else
+      params[:filter] == false ? nil : OnlyFilter
+    end
   end
 end
