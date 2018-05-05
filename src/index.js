@@ -20,7 +20,6 @@ import reducers from './reducers';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import registerServiceWorker from './registerServiceWorker';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -52,4 +51,9 @@ ReactDom.render(
   document.getElementById('root')
 );
 
-registerServiceWorker();
+// unregister service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.ready.then(registration => {
+    registration.unregister();
+  });
+}
