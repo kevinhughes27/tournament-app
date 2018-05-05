@@ -4,8 +4,8 @@ module Mutations
 
     input_field :game_id, types.ID
     input_field :field_id, types.ID
-    input_field :start_time, types.String
-    input_field :end_time, types.String
+    input_field :start_time, DateTimeType
+    input_field :end_time, DateTimeType
 
     return_field :success, !types.Boolean
     return_field :errors, types[types.String]
