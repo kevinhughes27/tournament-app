@@ -6,7 +6,7 @@ const client = new ApolloClient();
 const mutation = gql`
   mutation checkPin($input: CheckPinInput!) {
     checkPin(input: $input) {
-      valid
+      success
     }
   }
 `;
@@ -14,7 +14,7 @@ const mutation = gql`
 function checkPin(pin) {
   return client
     .mutate({ mutation: mutation, variables: { input: { pin } } })
-    .then(response => response.data.checkPin.valid)
+    .then(response => response.data.checkPin.success)
     .catch(error => console.log(error));
 }
 
