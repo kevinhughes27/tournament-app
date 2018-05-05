@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AdvanceBracketJobTest < OperationTest
+class AdvanceBracketTest < OperationTest
   include ActiveJob::TestHelper
 
   test "pushes winner through the bracket" do
