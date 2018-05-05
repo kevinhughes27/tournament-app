@@ -22,6 +22,21 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert_equal "/admin", path
   end
 
+  # filter is default true since fields are only hidden not protected
+  def query_graphql(query, filter: true)
+    url = "http://#{@tournament.handle}.lvh.me/graphql"
+
+    params = {
+      "query" => "query { #{query} } ",
+      "filter" => filter
+    }
+
+    post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
+
+    @result = JSON.parse(response.body)
+  end
+
+  # filter is default false to ensure that mutations are protected and hidden
   def execute_graphql(mutation, input_type, input, output = '{ success }', filter: false)
     url = "http://#{@tournament.handle}.lvh.me/graphql"
 
@@ -58,5 +73,9 @@ class ApiTest < ActionDispatch::IntegrationTest
 
   def mutation_result
      @result['data'].first[1]
+  end
+
+  def query_result
+    @result['data']
   end
 end
