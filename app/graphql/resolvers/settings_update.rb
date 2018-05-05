@@ -6,7 +6,7 @@ class Resolvers::SettingsUpdate < Resolver
     tournament = ctx[:tournament]
     params = inputs.to_h.except('confirm')
 
-    if !(inputs[:confirm] || tournament.handle == params['handle'])
+    if changing_handle?(tournament, params) && !inputs[:confirm]
       tournament.assign_attributes(params)
       return {
         success: false,
@@ -20,5 +20,9 @@ class Resolvers::SettingsUpdate < Resolver
     else
       { success: false, errors: tournament.errors.full_messages }
     end
+  end
+
+  def changing_handle?(tournament, params)
+    params['handle'] && tournament.handle != params['handle']
   end
 end
