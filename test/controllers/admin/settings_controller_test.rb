@@ -1,15 +1,12 @@
 require 'test_helper'
 
-class Admin::SettingsControllerTest < AdminControllerTestCase
+class Admin::SettingsControllerTest < AdminControllerTest
   test "get settings page" do
     get :show
   end
 
   test "update settings" do
-    params = @tournament.attributes
-    params[:name] = 'Updated Name'
-
-    put :update, params: { tournament: params }
+    put :update, params: { tournament: { name: 'Updated Name'} }
     assert_redirected_to admin_settings_url(subdomain: @tournament.handle)
 
     assert_equal 'Settings saved.', flash[:notice]

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::MapControllerTest < AdminControllerTestCase
+class Admin::MapControllerTest < AdminControllerTest
   test "get map page" do
     FactoryGirl.create(:map)
     get :show

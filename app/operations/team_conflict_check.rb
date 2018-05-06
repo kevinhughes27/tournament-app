@@ -12,7 +12,7 @@ class TeamConflictCheck < ApplicationOperation
       conflicting_team_name("away")
     end
 
-    "Team #{name} is already playing at #{game.playing_time_range_string}"
+    "Team #{name} is already playing at #{conflicting_game.playing_time_range_string}"
   end
 
   private
@@ -35,11 +35,24 @@ class TeamConflictCheck < ApplicationOperation
 
   def conflicting_games
     return unless prereqs.present?
+    @conflicting_games ||= start_time_overlaps + end_time_overlaps
+  end
 
-    @conflicting_games ||= Game.where(
+  def start_time_overlaps
+    Game.where(
       tournament: game.tournament,
       division: game.division,
       start_time: game.playing_time_range
+    ).where(
+      "home_prereq IN (?) OR away_prereq IN (?)", prereqs, prereqs
+    ).where.not(id: game.id)
+  end
+
+  def end_time_overlaps
+    Game.where(
+      tournament: game.tournament,
+      division: game.division,
+      end_time: game.playing_time_range
     ).where(
       "home_prereq IN (?) OR away_prereq IN (?)", prereqs, prereqs
     ).where.not(id: game.id)

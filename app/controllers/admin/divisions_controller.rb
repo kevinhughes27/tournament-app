@@ -1,5 +1,5 @@
 class Admin::DivisionsController < AdminController
-  before_action :load_division, only: [:show, :edit, :update, :destroy, :update_teams, :seed]
+  before_action :load_division, only: [:show, :edit, :destroy, :update_teams, :seed]
 
   def index
     @divisions = @tournament.divisions.includes(:teams, games: [:home, :away])
@@ -17,12 +17,23 @@ class Admin::DivisionsController < AdminController
   end
 
   def create
-    create = DivisionCreate.new(tournament: @tournament, division_params: division_params)
-    create.perform
+    input = params_to_input(division_params)
 
-    @division = create.division
+    result = execute_graphql(
+      'divisionCreate',
+      'DivisionCreateInput',
+      input,
+      "{
+         success,
+         errors,
+         division { id, name, num_teams, num_days, bracket_type }
+       }"
+    )
 
-    if create.succeeded?
+    @division = Division.new(result['division'])
+    @errors = result['errors']
+
+    if result['success']
       flash[:notice] = 'Division was successfully created.'
       redirect_to admin_division_path(@division)
     else
@@ -31,13 +42,28 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    update = DivisionUpdate.new(@division, division_params, confirm: params[:confirm])
-    update.perform
+    input = params_to_input(division_params, params, 'division_id')
 
-    if update.succeeded?
+    result = execute_graphql(
+      'divisionUpdate',
+      'DivisionUpdateInput',
+      input,
+      "{
+         success,
+         confirm,
+         errors,
+         division { id, name, num_teams, num_days, bracket_type }
+       }"
+    )
+
+    @division = Division.new(result['division'])
+    @errors = result['errors']
+
+    if result['success']
       flash[:notice] = 'Division was successfully updated.'
       redirect_to admin_division_path(@division)
-    elsif update.confirmation_required?
+    elsif result['confirm']
+      @message = result['errors'].first
       render partial: 'confirm_update', status: :unprocessable_entity
     else
       render :edit
@@ -45,13 +71,22 @@ class Admin::DivisionsController < AdminController
   end
 
   def destroy
-    delete = DivisionDelete.new(@division, confirm: params[:confirm])
-    delete.perform
+    input = params_to_input({}, params, 'division_id')
 
-    if delete.succeeded?
+    result = execute_graphql(
+      'divisionDelete',
+      'DivisionDeleteInput',
+      input,
+      "{
+         success,
+         confirm
+       }"
+    )
+
+    if result['success']
       flash[:notice] = 'Division was successfully destroyed.'
       redirect_to admin_divisions_path
-    elsif delete.confirmation_required?
+    elsif result['confirm']
       render partial: 'confirm_delete', status: :unprocessable_entity
     else
       flash[:error] = 'Division could not be deleted.'
@@ -61,21 +96,26 @@ class Admin::DivisionsController < AdminController
 
   def seed
     if request.post?
-      seed = DivisionSeed.new(
-        division: @division,
-        team_ids: params[:team_ids],
-        seeds: params[:seeds],
-        confirm: params[:confirm]
-      )
-      seed.perform
+      input = params_to_input(seed_params, params, 'division_id')
 
-      if seed.succeeded?
+      result = execute_graphql(
+        'divisionSeed',
+        'DivisionSeedInput',
+        input,
+        "{
+           success,
+           confirm,
+           errors
+         }"
+      )
+
+      if result['success']
         flash[:notice] = 'Division seeded'
         redirect_to admin_division_path(@division)
-      elsif seed.confirmation_required?
+      elsif result['confirm']
         render partial: 'confirm_seed', status: :unprocessable_entity
       else
-        flash[:seed_error] = seed.output
+        flash[:seed_error] = result['errors'].first
       end
     end
   end
@@ -93,5 +133,9 @@ class Admin::DivisionsController < AdminController
       :num_days,
       :bracket_type
     )
+  end
+
+  def seed_params
+    params.slice(:team_ids, :seeds)
   end
 end

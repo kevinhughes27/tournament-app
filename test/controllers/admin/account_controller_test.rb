@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::AccountControllerTest < AdminControllerTestCase
+class Admin::AccountControllerTest < AdminControllerTest
   test "get account page" do
     get :show
     assert_response :success

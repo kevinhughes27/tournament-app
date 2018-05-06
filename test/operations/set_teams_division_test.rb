@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class SetTeamsDivisionTest < ActiveSupport::TestCase
+class SetTeamsDivisionTest < OperationTest
   setup do
-    @tournament = FactoryGirl.create(:tournament)
     @division = FactoryGirl.create(:division)
   end
 

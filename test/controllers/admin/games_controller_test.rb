@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::GamesControllerTest < AdminControllerTestCase
+class Admin::GamesControllerTest < AdminControllerTest
   test "should get index" do
     FactoryGirl.create(:game)
     get :index

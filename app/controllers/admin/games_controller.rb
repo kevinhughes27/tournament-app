@@ -1,32 +1,6 @@
 class Admin::GamesController < AdminController
-  before_action :load_games, only: :index
-  before_action :load_game, only: :update
-
   def index
-  end
-
-  def update
-    update = GameUpdateScore.new(
-      game: @game,
-      home_score: params[:home_score],
-      away_score: params[:away_score],
-      user: current_user,
-      force: params[:force] == 'true',
-      resolve: params[:resolve] == 'true'
-    )
-    update.perform
-
-    if update.succeeded?
-      head :ok
-    else
-      render json: { error: update.output }, status: :unprocessable_entity
-    end
-  end
-
-  private
-
-  def load_games
-    @games = @tournament.games.includes(
+    @games = current_tournament.games.includes(
       :home,
       :away,
       :division,
@@ -35,7 +9,29 @@ class Admin::GamesController < AdminController
     )
   end
 
-  def load_game
-    @game = Game.find(params[:id])
+  def update
+    input = params_to_input(update_params, params, 'game_id')
+
+    result = execute_graphql(
+      'gameUpdateScore',
+      'GameUpdateScoreInput',
+      input,
+      "{
+         success,
+         errors
+       }"
+    )
+
+    if result['success']
+      head :ok
+    else
+      render json: { error: result['errors'].first }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def update_params
+    params.slice(:home_score, :away_score)
   end
 end

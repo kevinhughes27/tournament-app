@@ -4,18 +4,22 @@ class Admin::SettingsController < AdminController
   end
 
   def update
-    update = UpdateSettings.new(
-      tournament: @tournament,
-      params: tournament_params,
-      confirm: params[:confirm]
+    input = params_to_input(tournament_params, params)
+
+    result = execute_graphql(
+      'settingsUpdate',
+      'SettingsUpdateInput',
+      input,
+      "{
+         success,
+         confirm
+       }"
     )
 
-    update.perform
-
-    if update.succeeded?
+    if result['success']
       flash[:notice] = 'Settings saved.'
       redirect_to admin_settings_url(subdomain: @tournament.handle)
-    elsif update.confirmation_required?
+    elsif result['confirm']
       render partial: 'confirm_update', status: :unprocessable_entity
     else
       render :show

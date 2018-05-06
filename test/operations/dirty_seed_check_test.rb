@@ -1,17 +1,10 @@
 require 'test_helper'
 
-class DirtySeedCheckTest < ActiveSupport::TestCase
-  setup do
-    @tournament = FactoryGirl.create(:tournament)
-  end
-
+class DirtySeedCheckTest < OperationTest
   test "perform" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
-    division = create_division(@tournament, params)
-
-    teams = (1..8).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
-    end
+    division = create_division(params)
+    teams = create_teams(division, 8)
 
     refute division.seeded?
     assert DirtySeedCheck.perform(division)
@@ -29,11 +22,8 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
 
   test "perform with pool" do
     params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
-    division = create_division(@tournament, params)
-
-    teams = (1..8).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
-    end
+    division = create_division(params)
+    teams = create_teams(division, 8)
 
     refute division.seeded?
     assert DirtySeedCheck.perform(division)
@@ -51,11 +41,20 @@ class DirtySeedCheckTest < ActiveSupport::TestCase
 
   private
 
-  def create_division(tournament, params)
-    DivisionCreate.perform(tournament: tournament, division_params: params)
+  def create_division(params)
+    input = params.except(:tournament)
+    execute_graphql("divisionCreate", "DivisionCreateInput", input)
+    Division.last
+  end
+
+  def create_teams(division, num)
+    (1..num).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
   end
 
   def seed_division(division)
-    DivisionSeed.perform(division: division)
+    execute_graphql("divisionSeed", "DivisionSeedInput", {division_id: division.id})
+    division.reload
   end
 end

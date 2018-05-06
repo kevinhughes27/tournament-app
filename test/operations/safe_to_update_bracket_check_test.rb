@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SafeToUpdateBracketCheckTest < ActiveJob::TestCase
+class SafeToUpdateBracketCheckTest < OperationTest
   test "update is safe if no games are scheduled or played" do
     division = FactoryGirl.create(:game).division
     check = SafeToUpdateBracketCheck.new(division)

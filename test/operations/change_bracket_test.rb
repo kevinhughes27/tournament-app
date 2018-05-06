@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class ChangeBracketTest < ActiveSupport::TestCase
+class ChangeBracketTest < OperationTest
   setup do
-    @tournament = FactoryGirl.create(:tournament)
     @division = FactoryGirl.create(:division)
     @field = FactoryGirl.create(:field)
   end

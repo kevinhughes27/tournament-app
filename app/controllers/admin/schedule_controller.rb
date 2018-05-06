@@ -12,32 +12,39 @@ class Admin::ScheduleController < AdminController
   end
 
   def update
-    load_game
+    input = params_to_input(schedule_params)
 
-    GameSchedule.perform(
-      @game,
-      params[:field_id],
-      params[:start_time],
-      params[:end_time]
+    result = execute_graphql(
+      'gameSchedule',
+      'GameScheduleInput',
+      input,
+      "{
+         success,
+         errors,
+         game { id, field_id, start_time, end_time }
+       }"
     )
 
-    render json: {
-      game_id: @game.id,
-      field_id: @game.field_id,
-      start_time: @game.start_time,
-      end_time: @game.end_time,
-      updated_at: @game.updated_at
-    }
+    game = Game.new(result['game'])
 
-  rescue => e
-    render json: {
-      game_id: @game.id,
-      field_id: @game.field_id,
-      start_time: @game.start_time,
-      end_time: @game.end_time,
-      updated_at: @game.updated_at,
-      error: e.message
-    }, status: :unprocessable_entity
+    if result['success']
+      render json: {
+        game_id: game.id,
+        field_id: game.field_id,
+        start_time: game.start_time,
+        end_time: game.end_time,
+        updated_at: Time.now
+      }
+    else
+      render json: {
+        game_id: game.id,
+        field_id: game.field_id,
+        start_time: game.start_time,
+        end_time: game.end_time,
+        updated_at: Time.now,
+        error: result['errors'].first
+      }, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -71,16 +78,6 @@ class Admin::ScheduleController < AdminController
 
   private
 
-  def load_game
-    @game = Game.includes(
-      :division,
-      :home,
-      :away,
-      :score_reports,
-      :score_disputes
-    ).find_by(tournament_id: @tournament.id, id: params[:game_id])
-  end
-
   def load_games
     @games = @tournament.games.includes(
       :division,
@@ -97,5 +94,9 @@ class Admin::ScheduleController < AdminController
 
   def load_divisions
     @divisions = @tournament.divisions.includes(:teams, games: [:home, :away])
+  end
+
+  def schedule_params
+    params.slice(:game_id, :field_id, :start_time, :end_time)
   end
 end

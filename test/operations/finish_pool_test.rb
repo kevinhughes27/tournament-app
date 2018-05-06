@@ -1,18 +1,12 @@
 require 'test_helper'
 
-class FinishPoolTest < ActiveSupport::TestCase
+class FinishPoolTest < OperationTest
   include ActiveJob::TestHelper
 
   setup do
-    @tournament = FactoryGirl.create(:tournament)
-    @division = DivisionCreate.perform(
-      tournament: @tournament,
-      division_params: FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
-    )
-
-    @teams = (1..8).map do |seed|
-      FactoryGirl.create(:team, division: @division, name: "Team #{seed}", seed: seed)
-    end
+    params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
+    @division = create_division(params)
+    @teams = create_teams(@division, 8)
   end
 
   test "pool not finished" do
@@ -71,9 +65,7 @@ class FinishPoolTest < ActiveSupport::TestCase
 
   test "update pool using points_for for tie breaker" do
     division = FactoryGirl.create(:division)
-    teams = (1..4).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
-    end
+    teams = create_teams(division, 4)
 
     FactoryGirl.create(:game,
       division: division,
@@ -127,9 +119,7 @@ class FinishPoolTest < ActiveSupport::TestCase
 
   test "update pool using points_for for tie breaker with a tie game" do
     division = FactoryGirl.create(:division)
-    teams = (1..4).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
-    end
+    teams = create_teams(division, 4)
 
     FactoryGirl.create(:game,
       division: division,
@@ -259,8 +249,21 @@ class FinishPoolTest < ActiveSupport::TestCase
 
   private
 
+  def create_division(params)
+    input = params.except(:tournament)
+    execute_graphql("divisionCreate", "DivisionCreateInput", input)
+    Division.last
+  end
+
+  def create_teams(division, num)
+    (1..num).map do |seed|
+      FactoryGirl.create(:team, division: division, seed: seed)
+    end
+  end
+
   def seed_division(division)
-    DivisionSeed.perform(division: division)
+    execute_graphql("divisionSeed", "DivisionSeedInput", {division_id: division.id})
+    division.reload
   end
 
   def play_pool(teams, division, pool)

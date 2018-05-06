@@ -7,7 +7,7 @@
   <%= ui_save_button_tag(form_id:'.edit_user') %>
 <% end %>
 
-<%= render 'admin/errors', object: @user %>
+<%= render 'admin/errors', name: 'User', errors: @user.errors.full_messages %>
 
 <div class="row">
   <div class="col-md-8">

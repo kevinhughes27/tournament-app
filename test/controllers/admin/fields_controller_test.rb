@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::FieldsControllerTest < AdminControllerTestCase
+class Admin::FieldsControllerTest < AdminControllerTest
   setup do
     FactoryGirl.create(:map)
   end

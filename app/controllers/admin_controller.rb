@@ -12,4 +12,54 @@ class AdminController < ApplicationController
   helper UiHelper
 
   respond_to :html
+
+  def execute_graphql(mutation, input_type, input, output)
+    query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) #{output}}"
+    query_variables = {"input" => input}
+
+    result = Schema.execute(
+      query_string,
+      variables: query_variables,
+      context: {
+        tournament: current_tournament,
+        current_user: current_user
+      }
+    )
+
+    result['data'][mutation]
+  end
+
+  # convert controller input to a graphql input
+  # the new input object is sparse based on the params
+  def params_to_input(strong_params, params = {}, id_key = nil)
+    input = {}
+
+    strong_params.each do |k, v|
+      # stringify key
+      key = k.to_s
+
+      # convert to integer if integer string
+      value = if v.is_a?(String) && v.is_i?
+        v.to_i
+      elsif v.is_a?(Array) && v[0].is_i?
+        v.map(&:to_i)
+      else
+        v
+      end
+
+      input[key] = value
+    end
+
+    # add id as an integer with full id_key
+    input[id_key] = params[:id].to_i if params[:id].present?
+
+    # add confirm param as proper boolean
+    input['confirm'] = params[:confirm] == 'true' if params[:confirm].present?
+
+    # convert boolean params (only GameUpdateScore)
+    input['force'] = params[:force] == 'true' if params[:force].present?
+    input['resolve'] = params[:resolve] == 'true' if params[:resolve].present?
+
+    input
+  end
 end

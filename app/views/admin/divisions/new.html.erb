@@ -8,7 +8,7 @@
   <%= ui_save_button_tag(form_id:'.new_division') %>
 <% end %>
 
-<%= render 'admin/errors', object: @division %>
+<%= render 'admin/errors', name: 'Division', errors: @errors %>
 
 <div class="row">
   <div class="col-md-5">

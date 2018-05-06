@@ -2,21 +2,19 @@ require 'test_helper'
 
 class DivisionTest < ActiveSupport::TestCase
   test "division deletes games when it is deleted" do
-    tournament = FactoryGirl.create(:tournament)
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = create_division(tournament, params)
+    division = FactoryGirl.create(:division)
+    FactoryGirl.create(:game, division: division)
 
-    assert_difference "Game.count", -4 do
+    assert_difference "Game.count", -1 do
       division.destroy
     end
   end
 
   test "division deletes places when it is deleted" do
-    tournament = FactoryGirl.create(:tournament)
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = create_division(tournament, params)
+    division = FactoryGirl.create(:division)
+    FactoryGirl.create(:place, division: division)
 
-    assert_difference "Place.count", -4 do
+    assert_difference "Place.count", -1 do
       division.destroy
     end
   end
@@ -25,12 +23,9 @@ class DivisionTest < ActiveSupport::TestCase
     division = FactoryGirl.create(:division)
     team = FactoryGirl.create(:team, division: division)
 
-    teams = division.teams
-    assert teams.present?
-
     division.destroy
 
-    assert teams.reload.all? { |team| team.division.nil? }
+    assert team.reload.division.nil?
   end
 
   test "dirty_seed? calls operation" do
@@ -40,18 +35,15 @@ class DivisionTest < ActiveSupport::TestCase
   end
 
   test "safe_to_delete? is true for division with no games played" do
-    tournament = FactoryGirl.create(:tournament)
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = create_division(tournament, params)
+    division = FactoryGirl.create(:division)
+    FactoryGirl.create(:game, division: division)
 
     assert division.safe_to_delete?
   end
 
   test "safe_to_delete? is false for division with games played" do
-    tournament = FactoryGirl.create(:tournament)
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
-    division = create_division(tournament, params)
-    division.games.first.update_columns(score_confirmed: true)
+    division = FactoryGirl.create(:division)
+    FactoryGirl.create(:game, :finished, division: division)
 
     refute division.safe_to_delete?
   end
@@ -67,31 +59,23 @@ class DivisionTest < ActiveSupport::TestCase
     end
   end
 
-  test "limit is define" do
+  test "limit is defined" do
     assert_equal 12, Division::LIMIT
   end
 
   test "bracket_games scope" do
-    tournament = FactoryGirl.create(:tournament)
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 4.2.1')
-    division = create_division(tournament, params)
+    division = FactoryGirl.create(:division)
+    game = FactoryGirl.create(:game, division: division)
 
     bracket_games = division.bracket_games
     assert bracket_games.first.bracket_uid
   end
 
   test "pool_games scope" do
-    tournament = FactoryGirl.create(:tournament)
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 4.2.1')
-    division = create_division(tournament, params)
+    division = FactoryGirl.create(:division)
+    game = FactoryGirl.create(:pool_game, division: division)
 
     pool_games = division.pool_games('A')
     assert_equal 'A', pool_games.first.pool
-  end
-
-  private
-
-  def create_division(tournament, params)
-    DivisionCreate.perform(tournament: tournament, division_params: params)
   end
 end
