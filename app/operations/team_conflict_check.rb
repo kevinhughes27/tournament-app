@@ -12,7 +12,7 @@ class TeamConflictCheck < ApplicationOperation
       conflicting_team_name("away")
     end
 
-    "Team #{name} is already playing at #{game.playing_time_range_string}"
+    "Team #{name} is already playing at #{conflicting_game.playing_time_range_string}"
   end
 
   private

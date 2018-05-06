@@ -97,6 +97,36 @@ class GameScheduleTest < ApiTest
     assert_failure "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
+  test "checks for overlap team time conflicts" do
+    game = FactoryGirl.create(:game, :scheduled)
+    new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
+
+    input = {
+      game_id: new_game.id,
+      field_id: @free_field.id,
+      start_time: game.start_time - 60.minutes,
+      end_time: game.end_time - 60.minutes
+    }
+
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
+  end
+
+  test "checks for underlap team time conflicts" do
+    game = FactoryGirl.create(:game, :scheduled)
+    new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
+
+    input = {
+      game_id: new_game.id,
+      field_id: @free_field.id,
+      start_time: game.start_time + 60.minutes,
+      end_time: game.end_time + 60.minutes
+    }
+
+    execute_graphql("gameSchedule", "GameScheduleInput", input, @output)
+    assert_failure "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
+  end
+
   test "team time conflicts must be same division" do
     game = FactoryGirl.create(:game, :scheduled, away: nil)
     new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq, division: FactoryGirl.create(:division))
