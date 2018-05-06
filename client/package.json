@@ -54,13 +54,9 @@
     "eslint-plugin-react": "^6.4.1",
     "eslint-plugin-standard": "^2.0.1",
     "estraverse-fb": "^1.3.1",
-    "react-transform-hmr": "^1.0.4",
     "webpack-dev-server": "^2.4.2"
   },
   "scripts": {
-    "build:production": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js",
-    "build:dev": "webpack --config webpack.client.rails.build.config.js",
-    "build": "webpack --config webpack.client.rails.build.config.js",
-    "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js"
+    "build": "webpack --config webpack.client.rails.build.config.js"
   }
 }

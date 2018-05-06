@@ -11,10 +11,8 @@
   ],
   "scripts": {
     "postinstall": "subpkg install",
-    "heroku-postbuild": "yarn build",
     "build": "subpkg build",
-    "hot-assets": "cd client && yarn run hot-assets",
-    "dev": "foreman start -f Procfile.hot -p 3000"
+    "heroku-postbuild": "yarn build"
   },
   "dependencies": {
     "nsp": "^2.6.3",
