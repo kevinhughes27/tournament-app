@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AppControllerTest < ActionController::TestCase
+class PlayerAppControllerTest < ActionController::TestCase
   setup do
     @tournament = FactoryGirl.create(:tournament)
     FactoryGirl.create(:map, tournament: @tournament)
