@@ -1,5 +1,5 @@
 class GraphqlController < ApplicationController
-  include TournamentConcern
+  include TournamentController
 
   skip_before_action :verify_authenticity_token
 

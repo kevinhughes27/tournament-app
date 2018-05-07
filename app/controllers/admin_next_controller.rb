@@ -1,5 +1,5 @@
 class AdminNextController < ApplicationController
-  include TournamentConcern
+  include TournamentController
   include ReactAppController
 
   app_name 'admin_next'

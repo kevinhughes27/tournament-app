@@ -1,17 +1,22 @@
 class AdminController < ApplicationController
-  include TournamentConcern
-  include TournamentCableConcern
-
-  include AdminErrorHandling
-  include AdminAuthConcern
+  include TournamentController
+  include TournamentCable
 
   abstract!
 
+  helper UiHelper
   layout 'admin'
 
-  helper UiHelper
+  before_action :authenticate_user!
+  before_action :authenticate_tournament_user!
 
-  respond_to :html
+  rescue_from(ActiveRecord::RecordNotFound, with: :render_admin_404)
+
+  def authenticate_tournament_user!
+    unless current_user.is_tournament_user?(@tournament.id) || current_user.staff?
+      redirect_to new_user_session_path
+    end
+  end
 
   def execute_graphql(mutation, input_type, input, output)
     query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) #{output}}"
@@ -61,5 +66,12 @@ class AdminController < ApplicationController
     input['resolve'] = params[:resolve] == 'true' if params[:resolve].present?
 
     input
+  end
+
+  def render_admin_404
+    respond_to do |format|
+      format.html { render 'admin/404', status: :not_found }
+      format.any  { head :not_found }
+    end
   end
 end

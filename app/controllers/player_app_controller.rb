@@ -1,5 +1,5 @@
 class PlayerAppController < ApplicationController
-  include TournamentConcern
+  include TournamentController
   include ReactAppController
 
   app_name 'player-app'

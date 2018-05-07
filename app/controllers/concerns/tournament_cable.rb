@@ -1,4 +1,4 @@
-module TournamentCableConcern
+module TournamentCable
   extend ActiveSupport::Concern
 
   included do
