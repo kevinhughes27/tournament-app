@@ -12,8 +12,8 @@ class SubmitScoreTest < ApiTest
 
   test "error" do
     @input = input.delete(:home_score)
-    execute_graphql("submitScore", "SubmitScoreInput", @input)
-    assert_error "Variable input of type SubmitScoreInput! was provided invalid value"
+    execute_graphql("submitScore", "SubmitScoreInput", @input,
+      expect_error: "Variable input of type SubmitScoreInput! was provided invalid value")
   end
 
   test 'submitting a score report emails the other team' do

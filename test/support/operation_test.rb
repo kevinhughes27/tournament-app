@@ -8,7 +8,7 @@ class OperationTest < ActiveSupport::TestCase
   end
 
   def execute_graphql(mutation, input_type, input)
-    query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) { success, errors }}"
+    query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) { success, userErrors }}"
     query_variables = {"input" => input.stringify_keys}
 
     result = Schema.execute(
@@ -20,6 +20,7 @@ class OperationTest < ActiveSupport::TestCase
       }
     )
 
-    assert result['data'][mutation]['success']
+    assert_nil result['errors'], 'GraphQL Errors'
+    assert result['data'][mutation]['success'], "Mutation failed: #{result['data'][mutation]['userErrors']}"
   end
 end
