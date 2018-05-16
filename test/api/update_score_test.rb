@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateScoreTest < ApiTest
   setup do
     login_user
-    @output = '{ success, errors }'
+    @output = '{ success, userErrors }'
   end
 
   test "update a games score" do

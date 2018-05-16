@@ -3,7 +3,7 @@ require 'test_helper'
 class CreateTeamTest < ApiTest
   setup do
     login_user
-    @output = '{ success, errors }'
+    @output = '{ success, userErrors }'
   end
 
   test "create a team" do

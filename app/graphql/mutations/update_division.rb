@@ -11,7 +11,7 @@ module Mutations
 
     return_field :success, !types.Boolean
     return_field :confirm, types.Boolean
-    return_field :errors, types[types.String]
+    return_field :userErrors, types[types.String]
     return_field :division, DivisionType
 
     resolve(Auth.protect(Resolvers::UpdateDivision))

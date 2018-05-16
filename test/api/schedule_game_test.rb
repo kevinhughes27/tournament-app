@@ -4,7 +4,7 @@ class ScheduleGameTest < ApiTest
   setup do
     login_user
     @free_field = FactoryGirl.create(:field)
-    @output = '{ success, errors }'
+    @output = '{ success, userErrors }'
   end
 
   test "checks for home team time conflicts" do

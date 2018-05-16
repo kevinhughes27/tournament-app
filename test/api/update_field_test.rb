@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateFieldTest < ApiTest
   setup do
     login_user
-    @output = '{ success, errors }'
+    @output = '{ success, userErrors }'
   end
 
   test "update a field" do

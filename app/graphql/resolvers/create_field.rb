@@ -11,7 +11,7 @@ class Resolvers::CreateField < Resolver
     else
       {
         success: false,
-        errors: field.errors.full_messages,
+        userErrors: field.errors.full_messages,
         field: field
       }
     end

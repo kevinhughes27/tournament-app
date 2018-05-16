@@ -4,7 +4,7 @@ module Mutations
     input_field :pin, types.String
 
     return_field :success, !types.Boolean
-    return_field :errors, types[types.String]
+    return_field :userErrors, types[types.String]
 
     resolve -> (obj, inputs, ctx) {
       valid = (inputs[:pin] == ctx[:tournament].score_submit_pin)
@@ -12,7 +12,7 @@ module Mutations
       if valid
         { success: true }
       else
-        { success: false, errors: ['Incorrect pin'] }
+        { success: false, userErrors: ['Incorrect pin'] }
       end
     }
   end

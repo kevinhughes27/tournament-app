@@ -8,7 +8,7 @@ module Mutations
     input_field :end_time, DateTimeType
 
     return_field :success, !types.Boolean
-    return_field :errors, types[types.String]
+    return_field :userErrors, types[types.String]
     return_field :game, GameType
 
     resolve(Auth.protect(Resolvers::ScheduleGame))
