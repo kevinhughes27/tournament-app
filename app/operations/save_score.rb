@@ -1,4 +1,4 @@
-class UpdateScore < ApplicationOperation
+class SaveScore < ApplicationOperation
   input :game, accepts: Game, type: :keyword, required: true
   input :home_score, accepts: Integer, type: :keyword, required: true
   input :away_score, accepts: Integer, type: :keyword, required: true

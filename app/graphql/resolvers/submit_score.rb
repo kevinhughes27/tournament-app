@@ -52,7 +52,7 @@ class Resolvers::SubmitScore < Resolver
     return if confirm_setting == 'multiple' && @game.score_reports.size < 2
 
     if matches_other_reports?
-      UpdateScore.perform(
+      SaveScore.perform(
         game: @game,
         home_score: @report.home_score,
         away_score: @report.away_score)

@@ -28,7 +28,7 @@ class Resolvers::UpdateScore < Resolver
       }
     end
 
-    UpdateScore.perform(game: @game, home_score: @home_score, away_score: @away_score)
+    SaveScore.perform(game: @game, home_score: @home_score, away_score: @away_score)
 
     create_score_entry
 
