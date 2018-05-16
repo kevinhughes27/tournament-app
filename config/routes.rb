@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   draw :internal
 
   constraints(Subdomain) do
-    post 'graphql' => 'graphql#execute'
-    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
+    draw :api
     draw :admin
+    draw :admin_next
     draw :player_app
   end
 
