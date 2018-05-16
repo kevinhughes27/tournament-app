@@ -7,14 +7,18 @@ MutationType = GraphQL::ObjectType.define do
   field :checkPin,    field: Mutations::CheckPin.field
 
   # admin
+  field :mapUpdate,       field: Mutations::MapUpdate.field,       auth_required: true
   field :divisionCreate,  field: Mutations::DivisionCreate.field,  auth_required: true
-  field :divisionDelete,  field: Mutations::DivisionDelete.field,  auth_required: true
-  field :divisionSeed,    field: Mutations::DivisionSeed.field,    auth_required: true
   field :divisionUpdate,  field: Mutations::DivisionUpdate.field,  auth_required: true
+  field :divisionSeed,    field: Mutations::DivisionSeed.field,    auth_required: true
+  field :divisionDelete,  field: Mutations::DivisionDelete.field,  auth_required: true
+  field :fieldCreate,     field: Mutations::FieldCreate.field,     auth_required: true
+  field :fieldUpdate,     field: Mutations::FieldUpdate.field,     auth_required: true
   field :fieldDelete,     field: Mutations::FieldDelete.field,     auth_required: true
   field :gameSchedule,    field: Mutations::GameSchedule.field,    auth_required: true
   field :gameUpdateScore, field: Mutations::GameUpdateScore.field, auth_required: true
-  field :teamDelete,      field: Mutations::TeamDelete.field,      auth_required: true
+  field :teamCreate,      field: Mutations::TeamCreate.field,      auth_required: true
   field :teamUpdate,      field: Mutations::TeamUpdate.field,      auth_required: true
+  field :teamDelete,      field: Mutations::TeamDelete.field,      auth_required: true
   field :settingsUpdate,  field: Mutations::SettingsUpdate.field,  auth_required: true
 end

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TeamTypeTest < ApiTest
-  test "private fields are hidden to the public" do
+  test "email field is hidden to the public" do
     team = FactoryGirl.create(:team)
 
     query_graphql("
@@ -14,7 +14,7 @@ class TeamTypeTest < ApiTest
     assert_error "Field 'email' doesn't exist on type 'Team'"
   end
 
-  test "private fields require auth" do
+  test "email field is present for authenticated requests" do
     login_user
     team = FactoryGirl.create(:team)
 
