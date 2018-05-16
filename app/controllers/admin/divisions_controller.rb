@@ -20,8 +20,8 @@ class Admin::DivisionsController < AdminController
     input = params_to_input(division_params)
 
     result = execute_graphql(
-      'divisionCreate',
-      'DivisionCreateInput',
+      'createDivision',
+      'CreateDivisionInput',
       input,
       "{
          success,
@@ -45,8 +45,8 @@ class Admin::DivisionsController < AdminController
     input = params_to_input(division_params, params, 'division_id')
 
     result = execute_graphql(
-      'divisionUpdate',
-      'DivisionUpdateInput',
+      'updateDivision',
+      'UpdateDivisionInput',
       input,
       "{
          success,
@@ -74,8 +74,8 @@ class Admin::DivisionsController < AdminController
     input = params_to_input({}, params, 'division_id')
 
     result = execute_graphql(
-      'divisionDelete',
-      'DivisionDeleteInput',
+      'deleteDivision',
+      'DeleteDivisionInput',
       input,
       "{
          success,
@@ -99,8 +99,8 @@ class Admin::DivisionsController < AdminController
       input = params_to_input(seed_params, params, 'division_id')
 
       result = execute_graphql(
-        'divisionSeed',
-        'DivisionSeedInput',
+        'seedDivision',
+        'SeedDivisionInput',
         input,
         "{
            success,

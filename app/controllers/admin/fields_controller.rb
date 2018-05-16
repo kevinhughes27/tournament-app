@@ -37,8 +37,8 @@ class Admin::FieldsController < AdminController
     input = params_to_input({}, params, 'field_id')
 
     result = execute_graphql(
-      'fieldDelete',
-      'FieldDeleteInput',
+      'deleteField',
+      'DeleteFieldInput',
       input,
       "{
          success,

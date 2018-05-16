@@ -251,7 +251,7 @@ class FinishPoolTest < OperationTest
 
   def create_division(params)
     input = params.except(:tournament)
-    execute_graphql("divisionCreate", "DivisionCreateInput", input)
+    execute_graphql("createDivision", "CreateDivisionInput", input)
     Division.last
   end
 
@@ -262,7 +262,7 @@ class FinishPoolTest < OperationTest
   end
 
   def seed_division(division)
-    execute_graphql("divisionSeed", "DivisionSeedInput", {division_id: division.id})
+    execute_graphql("seedDivision", "SeedDivisionInput", {division_id: division.id})
     division.reload
   end
 
