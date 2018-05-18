@@ -15,8 +15,8 @@ class Admin::ScheduleController < AdminController
     input = params_to_input(schedule_params)
 
     result = execute_graphql(
-      'gameSchedule',
-      'GameScheduleInput',
+      'scheduleGame',
+      'ScheduleGameInput',
       input,
       "{
          success,

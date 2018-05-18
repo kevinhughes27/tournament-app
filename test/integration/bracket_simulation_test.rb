@@ -22,7 +22,7 @@ class BracketSimulationTest < OperationTest
   def create_division(bracket_type:)
     params = FactoryGirl.attributes_for(:division, bracket_type: bracket_type)
     input = params.except(:tournament)
-    execute_graphql("divisionCreate", "DivisionCreateInput", input)
+    execute_graphql("createDivision", "CreateDivisionInput", input)
     Division.last
   end
 
@@ -35,7 +35,7 @@ class BracketSimulationTest < OperationTest
   end
 
   def seed_division
-    execute_graphql("divisionSeed", "DivisionSeedInput", {division_id: @division.id})
+    execute_graphql("seedDivision", "SeedDivisionInput", {division_id: @division.id})
     assert @division.reload.seeded?, 'Seeding failed'
   end
 
@@ -54,7 +54,7 @@ class BracketSimulationTest < OperationTest
 
   def play_game(game)
     score = gen_score
-    UpdateScore.perform(
+    SaveScore.perform(
       game: game,
       home_score: score[0],
       away_score: score[1]

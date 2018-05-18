@@ -7,8 +7,8 @@ class Admin::SettingsController < AdminController
     input = params_to_input(tournament_params, params)
 
     result = execute_graphql(
-      'settingsUpdate',
-      'SettingsUpdateInput',
+      'updateSettings',
+      'UpdateSettingsInput',
       input,
       "{
          success,

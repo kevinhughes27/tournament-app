@@ -25,8 +25,8 @@ class Admin::TeamsController < AdminController
     input = params_to_input(team_params, params, 'team_id')
 
     result = execute_graphql(
-      'teamUpdate',
-      'TeamUpdateInput',
+      'updateTeam',
+      'UpdateTeamInput',
       input,
       "{
          success,
@@ -56,8 +56,8 @@ class Admin::TeamsController < AdminController
     input = params_to_input({}, params, 'team_id')
 
     result = execute_graphql(
-      'teamDelete',
-      'TeamDeleteInput',
+      'deleteTeam',
+      'DeleteTeamInput',
       input,
       "{
          success,

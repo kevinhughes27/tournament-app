@@ -237,7 +237,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
 
   def create_division(params)
     input = params.except(:tournament)
-    Resolvers::DivisionCreate.call(nil, input, {tournament: params[:tournament]})
+    Resolvers::CreateDivision.call(nil, input, {tournament: params[:tournament]})
     Division.last
   end
 

@@ -13,8 +13,8 @@ class Admin::GamesController < AdminController
     input = params_to_input(update_params, params, 'game_id')
 
     result = execute_graphql(
-      'gameUpdateScore',
-      'GameUpdateScoreInput',
+      'updateScore',
+      'UpdateScoreInput',
       input,
       "{
          success,
