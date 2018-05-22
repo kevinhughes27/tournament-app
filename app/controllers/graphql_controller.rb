@@ -1,4 +1,4 @@
-class GraphqlController < ActionController::API
+class GraphqlController < ApiController
   include TournamentController
 
   def execute
