@@ -3,7 +3,7 @@ require 'test_helper'
 class CheckPinTest < ApiTest
   setup do
     @tournament.update(score_submit_pin: '1234')
-    @output = '{ success, errors }'
+    @output = '{ success, userErrors }'
   end
 
   test "entering correct pin" do

@@ -18,14 +18,14 @@ class Admin::GamesController < AdminController
       input,
       "{
          success,
-         errors
+         userErrors
        }"
     )
 
     if result['success']
       head :ok
     else
-      render json: { error: result['errors'].first }, status: :unprocessable_entity
+      render json: { error: result['userErrors'].first }, status: :unprocessable_entity
     end
   end
 

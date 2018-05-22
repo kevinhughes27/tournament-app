@@ -3,7 +3,7 @@ require 'test_helper'
 class DeleteDivisionTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, errors }'
+    @output = '{ success, confirm, userErrors }'
   end
 
   test "delete a division" do

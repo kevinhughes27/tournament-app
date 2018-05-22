@@ -11,14 +11,14 @@ class Resolvers::UpdateSettings < Resolver
       return {
         success: false,
         confirm: true,
-        errors: [SETTINGS_UPDATE_CONFIRM_MSG]
+        userErrors: [SETTINGS_UPDATE_CONFIRM_MSG]
       }
     end
 
     if tournament.update(params)
       { success: true }
     else
-      { success: false, errors: tournament.errors.full_messages }
+      { success: false, userErrors: tournament.errors.full_messages }
     end
   end
 

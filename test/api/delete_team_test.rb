@@ -3,7 +3,7 @@ require 'test_helper'
 class DeleteTeamTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, errors }'
+    @output = '{ success, confirm, userErrors }'
   end
 
   test "delete a team" do

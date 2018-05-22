@@ -9,7 +9,7 @@ module Mutations
     input_field :resolve, types.Boolean
 
     return_field :success, !types.Boolean
-    return_field :errors, types[types.String]
+    return_field :userErrors, types[types.String]
 
     resolve(Auth.protect(Resolvers::UpdateScore))
   end

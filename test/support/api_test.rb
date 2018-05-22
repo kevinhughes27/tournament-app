@@ -23,7 +23,7 @@ class ApiTest < ActionDispatch::IntegrationTest
   end
 
   # filter is default true since fields are only hidden not protected
-  def query_graphql(query, filter: true)
+  def query_graphql(query, filter: true, expect_error: nil)
     url = "http://#{@tournament.handle}.lvh.me/graphql"
 
     params = {
@@ -34,10 +34,16 @@ class ApiTest < ActionDispatch::IntegrationTest
     post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
 
     @result = JSON.parse(response.body)
+
+    if expect_error
+      assert_error expect_error
+    else
+      assert_error_free
+    end
   end
 
   # filter is default false to ensure that mutations are protected and hidden
-  def execute_graphql(mutation, input_type, input, output = '{ success }', filter: false)
+  def execute_graphql(mutation, input_type, input, output = '{ success }', filter: false, expect_error: nil)
     url = "http://#{@tournament.handle}.lvh.me/graphql"
 
     params = {
@@ -49,7 +55,12 @@ class ApiTest < ActionDispatch::IntegrationTest
     post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
 
     @result = JSON.parse(response.body)
-    # assert the query was valid here
+
+    if expect_error
+      assert_error expect_error
+    else
+      assert_error_free
+    end
   end
 
   def assert_success
@@ -59,12 +70,18 @@ class ApiTest < ActionDispatch::IntegrationTest
   def assert_confirmation_required(message)
     refute mutation_result['success']
     assert mutation_result['confirm']
-    assert_equal message, mutation_result['errors'].first
+    assert_equal message, mutation_result['userErrors'].first
   end
 
   def assert_failure(expected_errors = nil)
     refute mutation_result['success']
-    assert_equal Array(expected_errors), mutation_result['errors'] if expected_errors
+    assert_equal Array(expected_errors), mutation_result['userErrors'] if expected_errors
+  end
+
+  private
+
+  def assert_error_free
+    assert_nil @result['errors'], 'GraphQL Errors'
   end
 
   def assert_error(message)

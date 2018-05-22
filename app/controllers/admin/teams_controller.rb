@@ -32,13 +32,13 @@ class Admin::TeamsController < AdminController
          success,
          confirm,
          not_allowed,
-         errors,
+         userErrors,
          team { id, name, email, phone, division_id, seed }
        }"
     )
 
     @team = Team.new(result['team'])
-    @errors = result['errors']
+    @errors = result['userErrors']
 
     if result['success']
       flash[:notice] = 'Team was successfully updated.'

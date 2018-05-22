@@ -20,7 +20,7 @@ class Admin::ScheduleController < AdminController
       input,
       "{
          success,
-         errors,
+         userErrors,
          game { id, field_id, start_time, end_time }
        }"
     )
@@ -42,7 +42,7 @@ class Admin::ScheduleController < AdminController
         start_time: game.start_time,
         end_time: game.end_time,
         updated_at: Time.now,
-        error: result['errors'].first
+        error: result['userErrors'].first
       }, status: :unprocessable_entity
     end
   end

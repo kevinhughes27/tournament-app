@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateDivisionTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, errors }'
+    @output = '{ success, confirm, userErrors }'
   end
 
   test "update a division" do

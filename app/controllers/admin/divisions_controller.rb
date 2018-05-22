@@ -25,13 +25,13 @@ class Admin::DivisionsController < AdminController
       input,
       "{
          success,
-         errors,
+         userErrors,
          division { id, name, num_teams, num_days, bracket_type }
        }"
     )
 
     @division = Division.new(result['division'])
-    @errors = result['errors']
+    @errors = result['userErrors']
 
     if result['success']
       flash[:notice] = 'Division was successfully created.'
@@ -51,19 +51,19 @@ class Admin::DivisionsController < AdminController
       "{
          success,
          confirm,
-         errors,
+         userErrors,
          division { id, name, num_teams, num_days, bracket_type }
        }"
     )
 
     @division = Division.new(result['division'])
-    @errors = result['errors']
+    @errors = result['userErrors']
 
     if result['success']
       flash[:notice] = 'Division was successfully updated.'
       redirect_to admin_division_path(@division)
     elsif result['confirm']
-      @message = result['errors'].first
+      @message = result['userErrors'].first
       render partial: 'confirm_update', status: :unprocessable_entity
     else
       render :edit
@@ -105,7 +105,7 @@ class Admin::DivisionsController < AdminController
         "{
            success,
            confirm,
-           errors
+           userErrors
          }"
       )
 
@@ -115,7 +115,7 @@ class Admin::DivisionsController < AdminController
       elsif result['confirm']
         render partial: 'confirm_seed', status: :unprocessable_entity
       else
-        flash[:seed_error] = result['errors'].first
+        flash[:seed_error] = result['userErrors'].first
       end
     end
   end

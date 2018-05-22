@@ -10,14 +10,14 @@ class Resolvers::DeleteDivision < Resolver
       {
         success: false,
         confirm: true,
-        errors: [DIVISION_DELETE_CONFIRM_MSG]
+        userErrors: [DIVISION_DELETE_CONFIRM_MSG]
       }
     elsif division.destroy
       { success: true }
     else
       {
         success: false,
-        errors: division.errors.full_messages
+        userErrors: division.errors.full_messages
       }
     end
   end
