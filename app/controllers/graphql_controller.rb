@@ -1,7 +1,5 @@
-class GraphqlController < ApplicationController
+class GraphqlController < ApiController
   include TournamentController
-
-  skip_before_action :verify_authenticity_token
 
   def execute
     result = Schema.execute(
