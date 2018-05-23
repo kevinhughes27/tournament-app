@@ -14,15 +14,15 @@ class MapView extends Component {
 
     const { search, games } = this.props;
     const filteredGames = gamesSearch(search, games);
-    const sortedGames = _sortBy(filteredGames, game => moment(game.start_time));
+    const sortedGames = _sortBy(filteredGames, game => moment(game.startTime));
 
     const nextGame = _filter(sortedGames, game => {
       const currentTime = moment();
-      const startTime = moment(game.start_time);
+      const startTime = moment(game.startTime);
       return currentTime.isBefore(startTime);
     })[0];
-    const filteredFields = _filter(fields, field => field.geo_json);
-    const nextFieldName = _get(nextGame, 'field_name', -1);
+    const filteredFields = _filter(fields, field => field.geoJson);
+    const nextFieldName = _get(nextGame, 'fieldName', -1);
     const nextField = _find(filteredFields, f => f.name === nextFieldName);
 
     return (
@@ -49,7 +49,7 @@ function renderFields(fields, nextFieldName) {
     };
 
     return (
-      <GeoJSON key={field.id} data={JSON.parse(field.geo_json)} style={style} />
+      <GeoJSON key={field.id} data={JSON.parse(field.geoJson)} style={style} />
     );
   });
 }
@@ -59,9 +59,9 @@ function renderPopup(nextGame, nextField) {
     return (
       <Popup position={[nextField.lat, nextField.long]}>
         <span>
-          {nextGame.home_name} vs {nextGame.away_name}
+          {nextGame.homeName} vs {nextGame.awayName}
           <br />
-          <strong>@ {moment(nextGame.start_time).format('h:mm')}</strong>
+          <strong>@ {moment(nextGame.startTime).format('h:mm')}</strong>
         </span>
       </Popup>
     );

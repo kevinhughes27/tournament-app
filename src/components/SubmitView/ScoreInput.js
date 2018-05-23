@@ -3,26 +3,26 @@ import TextField from 'material-ui/TextField';
 
 export default class ScoreInput extends Component {
   render() {
-    const { game, home_score, away_score, onChange } = this.props;
+    const { game, homeScore, awayScore, onChange } = this.props;
 
     return (
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <TextField
-          name="home_score"
+          name="homeScore"
           type="number"
           autoComplete="off"
-          value={home_score}
+          value={homeScore}
           onChange={onChange}
-          placeholder={game.home_name}
+          placeholder={game.homeName}
           style={{ flexBasis: '35%' }}
         />
         <TextField
-          name="away_score"
+          name="awayScore"
           type="number"
           autoComplete="off"
-          value={away_score}
+          value={awayScore}
           onChange={onChange}
-          placeholder={game.away_name}
+          placeholder={game.awayName}
           style={{ flexBasis: '35%' }}
         />
       </div>

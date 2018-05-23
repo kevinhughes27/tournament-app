@@ -70,7 +70,7 @@ class SubmitModal extends React.Component {
     return (
       <div>
         <Button onClick={this.handleOpen}>
-          {game.home_name} vs {game.away_name}
+          {game.homeName} vs {game.awayName}
           <span style={{ paddingLeft: '8px' }}>
             {renderReportStatus(report)}
           </span>
@@ -104,7 +104,7 @@ class SubmitModal extends React.Component {
                 <CloseIcon />
               </IconButton>
               <Typography type="title" color="inherit" className={classes.flex}>
-                {game.home_name} vs {game.away_name}
+                {game.homeName} vs {game.awayName}
               </Typography>
             </Toolbar>
           </AppBar>
@@ -149,16 +149,16 @@ function renderReportStatus(report) {
 function gameScore(game, report, teamName) {
   let html;
 
-  if (game.score_confirmed) {
+  if (game.scoreConfirmed) {
     html = (
       <span>
-        {game.home_score} - {game.away_score}
+        {game.homeScore} - {game.awayScore}
       </span>
     );
   } else if (report) {
     html = (
       <span>
-        {report.home_score} - {report.away_score}
+        {report.homeScore} - {report.awayScore}
       </span>
     );
   }

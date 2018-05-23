@@ -25,7 +25,7 @@ const EXAMPLES = [
 ];
 
 const HANDLES = [
-  'rules_knowledge',
+  'rulesKnowledge',
   'fouls',
   'fairness',
   'attitude',
@@ -42,8 +42,8 @@ class ScoreForm extends Component {
     });
 
     this.state = {
-      home_score: props.homeScore,
-      away_score: props.awayScore,
+      homeScore: props.homeScore,
+      awayScore: props.awayScore,
       ...initialState
     };
 
@@ -70,15 +70,15 @@ class ScoreForm extends Component {
     const teamName = this.props.search;
     const team = _find(this.props.teams, t => t.name === teamName);
 
-    if (this.state.home_score === '' || this.state.away_score === '') {
+    if (this.state.homeScore === '' || this.state.awayScore === '') {
       alert('Please enter a score');
       return;
     }
 
     const payload = {
-      game_id: parseInt(game.id, 10),
-      team_id: parseInt(team.id, 10),
-      submitter_fingerprint: new Fingerprint2().getSync().fprint,
+      gameId: parseInt(game.id, 10),
+      teamId: parseInt(team.id, 10),
+      submitterFingerprint: new Fingerprint2().getSync().fprint,
       ...this.state
     };
 
@@ -88,14 +88,14 @@ class ScoreForm extends Component {
 
   render() {
     const { game, handleClose } = this.props;
-    const { home_score, away_score } = this.state;
+    const { homeScore, awayScore } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
         <ScoreInput
           game={game}
-          home_score={home_score}
-          away_score={away_score}
+          homeScore={homeScore}
+          awayScore={awayScore}
           onChange={this.handleChange}
         />
         {renderSpiritQuestions(this.state, this.handleChange)}

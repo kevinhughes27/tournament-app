@@ -13,8 +13,8 @@ class ScheduleView extends Component {
   render() {
     const { games, search } = this.props;
     const filteredGames = gamesSearch(search, games, { fuzzy: true });
-    const sortedGames = _sortBy(filteredGames, game => moment(game.start_time));
-    const gamesByStartTime = _groupBy(sortedGames, game => game.start_time);
+    const sortedGames = _sortBy(filteredGames, game => moment(game.startTime));
+    const gamesByStartTime = _groupBy(sortedGames, game => game.startTime);
 
     return (
       <div>
@@ -45,7 +45,7 @@ function renderGameGroup(startTime, games) {
             >
               {gameText(game)}
               <div>
-                {game.field_name}
+                {game.fieldName}
                 <LocationIcon />
               </div>
             </div>
@@ -58,18 +58,18 @@ function renderGameGroup(startTime, games) {
 }
 
 function gameText(game) {
-  if (game.score_confirmed) {
+  if (game.scoreConfirmed) {
     let boldWinner;
-    if (game.home_score > game.away_score) {
+    if (game.homeScore > game.awayScore) {
       boldWinner = (
         <span>
-          <strong>{game.home_name}</strong> vs {game.away_name}
+          <strong>{game.homeName}</strong> vs {game.awayName}
         </span>
       );
-    } else if (game.away_score > game.home_score) {
+    } else if (game.awayScore > game.homeScore) {
       boldWinner = (
         <span>
-          {game.home_name} vs <strong>{game.away_name}</strong>
+          {game.homeName} vs <strong>{game.awayName}</strong>
         </span>
       );
     }
@@ -78,14 +78,14 @@ function gameText(game) {
       <span>
         {boldWinner}
         <span>
-          {' '}({game.home_score} - {game.away_score})
+          {' '}({game.homeScore} - {game.awayScore})
         </span>
       </span>
     );
   } else {
     return (
       <span>
-        {game.home_name} vs {game.away_name}
+        {game.homeName} vs {game.awayName}
       </span>
     );
   }

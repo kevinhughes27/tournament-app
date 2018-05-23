@@ -11,9 +11,9 @@ function fuzzyMatch(search, games) {
   if (search !== '') {
     filteredGames = _filter(games, game => {
       return (
-        String(game.home_name).toLowerCase().indexOf(search.toLowerCase()) >=
+        String(game.homeName).toLowerCase().indexOf(search.toLowerCase()) >=
           0 ||
-        String(game.away_name).toLowerCase().indexOf(search.toLowerCase()) >= 0
+        String(game.awayName).toLowerCase().indexOf(search.toLowerCase()) >= 0
       );
     });
   } else {
@@ -30,8 +30,8 @@ function exactMatch(teamName, games) {
   if (teamName !== '') {
     filteredGames = _filter(games, game => {
       return (
-        String(game.home_name).toLowerCase() === teamName.toLowerCase() ||
-        String(game.away_name).toLowerCase() === teamName.toLowerCase()
+        String(game.homeName).toLowerCase() === teamName.toLowerCase() ||
+        String(game.awayName).toLowerCase() === teamName.toLowerCase()
       );
     });
   }

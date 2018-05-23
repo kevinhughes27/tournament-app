@@ -35,8 +35,8 @@ describe('Player App', function() {
     browser.click('button=' + gameName);
 
     // fill out form
-    browser.setValue('[name="home_score"]', homeScore);
-    browser.setValue('[name="away_score"]', awayScore);
+    browser.setValue('[name="homeScore"]', homeScore);
+    browser.setValue('[name="awayScore"]', awayScore);
     browser.click('label=Very Good');
 
     // submit
@@ -48,8 +48,8 @@ describe('Player App', function() {
     // var reports = JSON.parse(value);
 
     // assert.equal(reports.length, 1);
-    // assert.equal(reports[0].home_score, homeScore);
-    // assert.equal(reports[0].away_score, awayScore);
+    // assert.equal(reports[0].homeScore, homeScore);
+    // assert.equal(reports[0].awayScore, awayScore);
     // assert.equal(reports[0].status, 'success');
 
     // assert on green checkmark

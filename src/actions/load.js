@@ -15,21 +15,21 @@ const query = gql`
     }
     games(scheduled: true, hasTeam: true) {
       id
-      home_name
-      away_name
-      start_time
-      end_time
-      field_name
-      home_score
-      away_score
-      score_confirmed
+      homeName
+      awayName
+      startTime
+      endTime
+      fieldName
+      homeScore
+      awayScore
+      scoreConfirmed
     }
     fields {
       id
       name
       lat
       long
-      geo_json
+      geoJson
     }
     teams {
       id
