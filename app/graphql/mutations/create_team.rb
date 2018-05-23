@@ -10,7 +10,7 @@ module Mutations
 
     return_field :success, !types.Boolean
     return_field :userErrors, types[types.String]
-    return_field :team, TeamType
+    return_field :team, Types::Team
 
     resolve(Auth.protect(Resolvers::CreateTeam))
   end

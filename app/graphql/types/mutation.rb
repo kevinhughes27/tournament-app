@@ -1,7 +1,4 @@
-MutationType = GraphQL::ObjectType.define do
-  name "Mutation"
-  description "The mutation root for this schema"
-
+class Types::Mutation < Types::BaseObject
   # public
   field :submitScore, field: Mutations::SubmitScore.field
   field :checkPin,    field: Mutations::CheckPin.field

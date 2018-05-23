@@ -14,7 +14,7 @@ module Mutations
     return_field :confirm, types.Boolean
     return_field :not_allowed, types.Boolean
     return_field :userErrors, types[types.String]
-    return_field :team, TeamType
+    return_field :team, Types::Team
 
     resolve(Auth.protect(Resolvers::UpdateTeam))
   end
