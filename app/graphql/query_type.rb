@@ -60,12 +60,21 @@ QueryType = GraphQL::ObjectType.define do
 
   field :games do
     type types[GameType]
+    argument :scheduled, types.Boolean
+    argument :hasTeam, types.Boolean
     resolve -> (obj, args, ctx) {
-      ctx[:tournament].games
-        .scheduled
-        .with_team
-        .includes(:home, :away, :field)
-        .all
+      scope = ctx[:tournament].games
+
+      if args[:scheduled]
+        scope = scope.scheduled
+      end
+
+      if args[:hasTeam]
+        scope = scope.has_team
+      end
+
+      scope = scope.includes(:home, :away, :field)
+      scope
     }
   end
 
