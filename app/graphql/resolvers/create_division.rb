@@ -1,4 +1,4 @@
-class Resolvers::CreateDivision < Resolver
+class Resolvers::CreateDivision < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @division = @tournament.divisions.create(inputs.to_h)

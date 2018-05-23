@@ -1,4 +1,4 @@
-class Resolvers::ScheduleGame < Resolver
+class Resolvers::ScheduleGame < Resolvers::BaseResolver
   attr_reader :game
 
   delegate :dependent_games,

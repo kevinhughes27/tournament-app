@@ -1,4 +1,4 @@
-class Resolvers::DeleteDivision < Resolver
+class Resolvers::DeleteDivision < Resolvers::BaseResolver
   DIVISION_DELETE_CONFIRM_MSG = """This division has games that have been scored.\
  Deleting this division will delete all the games that belong to it.\
  Are you sure this is what you want to do?"""

@@ -1,4 +1,4 @@
-class Resolvers::DeleteTeam < Resolver
+class Resolvers::DeleteTeam < Resolvers::BaseResolver
   TEAM_DELETE_CONFIRM_MSG = """There are games scheduled for this team.\
  Deleting the team will unassign it from those games.\
  You will need to re-seed the division_name division."""

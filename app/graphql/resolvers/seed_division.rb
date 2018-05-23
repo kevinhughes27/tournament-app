@@ -1,4 +1,4 @@
-class Resolvers::SeedDivision < Resolver
+class Resolvers::SeedDivision < Resolvers::BaseResolver
   SEED_ROUND = 1
   DIVISION_SEED_CONFIRM_MSG = """This division has games that have been scored.\
  Seeding this division will reset those games.\

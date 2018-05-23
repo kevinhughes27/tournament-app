@@ -1,4 +1,4 @@
-class Resolvers::UpdateTeam < Resolver
+class Resolvers::UpdateTeam < Resolvers::BaseResolver
   TEAM_UPDATE_CONFIRM_MSG = """There are games scheduled for this team.\
  Updating the team may unassign it from those games.\
  You will need to re-seed the division_name division."""

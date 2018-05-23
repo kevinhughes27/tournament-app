@@ -1,4 +1,4 @@
-class Resolvers::UpdateSettings < Resolver
+class Resolvers::UpdateSettings < Resolvers::BaseResolver
   SETTINGS_UPDATE_CONFIRM_MSG = """Changing your handle will change the web url of your tournament.\
  If you have distributed this link anywhere it will no longer work."""
 

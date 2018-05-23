@@ -1,4 +1,4 @@
-class Resolvers::SubmitScore < Resolver
+class Resolvers::SubmitScore < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @game = @tournament.games.find(inputs[:game_id])

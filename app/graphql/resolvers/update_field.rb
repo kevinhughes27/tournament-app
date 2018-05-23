@@ -1,4 +1,4 @@
-class Resolvers::UpdateField < Resolver
+class Resolvers::UpdateField < Resolvers::BaseResolver
   def call(inputs, ctx)
     field = ctx[:tournament].fields.find(inputs[:field_id])
 

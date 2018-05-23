@@ -1,4 +1,4 @@
-class Resolvers::UpdateDivision < Resolver
+class Resolvers::UpdateDivision < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @division = @tournament.divisions.find(inputs[:division_id])

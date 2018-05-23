@@ -1,4 +1,4 @@
-class Resolvers::UpdateScore < Resolver
+class Resolvers::UpdateScore < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @user = ctx[:current_user]

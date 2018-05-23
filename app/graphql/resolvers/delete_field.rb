@@ -1,4 +1,4 @@
-class Resolvers::DeleteField < Resolver
+class Resolvers::DeleteField < Resolvers::BaseResolver
   FIELD_DELETE_CONFIRM_MSG = """There are games scheduled on this field.\
  Deleting will leave these games unassigned.\
  You can re-assign them on the schedule page however if your Tournament\

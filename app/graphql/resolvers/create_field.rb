@@ -1,4 +1,4 @@
-class Resolvers::CreateField < Resolver
+class Resolvers::CreateField < Resolvers::BaseResolver
   def call(inputs, ctx)
     params = inputs.to_h
     field = ctx[:tournament].fields.create(params)
