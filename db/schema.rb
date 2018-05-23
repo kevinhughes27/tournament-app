@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013005529) do
+ActiveRecord::Schema.define(version: 20180523133856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,8 +131,6 @@ ActiveRecord::Schema.define(version: 20171013005529) do
     t.integer  "game_id"
     t.integer  "team_id"
     t.string   "submitter_fingerprint"
-    t.integer  "team_score",            limit: 2
-    t.integer  "opponent_score",        limit: 2
     t.integer  "rules_knowledge",       limit: 2
     t.integer  "fouls",                 limit: 2
     t.integer  "fairness",              limit: 2
