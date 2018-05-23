@@ -12,7 +12,7 @@ class Resolvers::SeedDivision < Resolver
       return {
         success: false,
         confirm: true,
-        userErrors: [DIVISION_SEED_CONFIRM_MSG]
+        user_errors: [DIVISION_SEED_CONFIRM_MSG]
       }
     end
 
@@ -21,14 +21,14 @@ class Resolvers::SeedDivision < Resolver
     if ambiguous_seeds(inputs[:seeds])
       return {
         success: false,
-        userErrors: ['Ambiguous seed list']
+        user_errors: ['Ambiguous seed list']
       }
     end
 
     if (num_seats != num_teams)
       return {
         success: false,
-        userErrors: ["#{num_seats} seats but #{num_teams} teams present"]
+        user_errors: ["#{num_seats} seats but #{num_teams} teams present"]
       }
     end
 

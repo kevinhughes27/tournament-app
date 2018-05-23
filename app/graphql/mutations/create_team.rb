@@ -1,17 +1,9 @@
-module Mutations
-  CreateTeam = GraphQL::Relay::Mutation.define do
-    name "CreateTeam"
+class Mutations::CreateTeam < Mutations::BaseMutation
+  graphql_name "CreateTeam"
 
-    input_field :name, types.String
-    input_field :email, types.String
-    input_field :phone, types.String
-    input_field :division_id, types.ID
-    input_field :seed, types.Int
+  argument :input, Types::CreateTeamInput, required: true
 
-    return_field :success, !types.Boolean
-    return_field :userErrors, types[types.String]
-    return_field :team, Types::Team
-
-    resolve(Auth.protect(Resolvers::CreateTeam))
-  end
+  field :success, Boolean, null: false
+  field :userErrors, [String], null: true
+  field :team, Types::Team, null: false
 end

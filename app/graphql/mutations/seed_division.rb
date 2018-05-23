@@ -1,16 +1,9 @@
-module Mutations
-  SeedDivision = GraphQL::Relay::Mutation.define do
-    name "SeedDivision"
+class Mutations::SeedDivision < Mutations::BaseMutation
+  graphql_name "SeedDivision"
 
-    input_field :division_id, types.ID
-    input_field :team_ids, types[types.ID]
-    input_field :seeds, types[types.Int]
-    input_field :confirm, types.Boolean
+  argument :input, Types::SeedDivisionInput, required: true
 
-    return_field :success, !types.Boolean
-    return_field :confirm, types.Boolean
-    return_field :userErrors, types[types.String]
-
-    resolve(Auth.protect(Resolvers::SeedDivision))
-  end
+  field :success, Boolean, null: false
+  field :confirm, Boolean, null: true
+  field :userErrors, [String], null: true
 end

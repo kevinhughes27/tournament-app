@@ -9,7 +9,7 @@ class Resolvers::UpdateTeam < Resolver
 
   def call(inputs, ctx)
     team = ctx[:tournament].teams.find(inputs[:team_id])
-    params = inputs.to_h.except('team_id', 'confirm')
+    params = inputs.to_h.except(:team_id, :confirm)
 
     team.assign_attributes(params)
     update_unsafe = team.division_id_changed? || team.seed_changed?
@@ -19,7 +19,7 @@ class Resolvers::UpdateTeam < Resolver
         return {
           success: false,
           not_allowed: true,
-          userErrors: [TEAM_UPDATE_NOT_ALLOWED.gsub('division_name', team.division.name)],
+          user_errors: [TEAM_UPDATE_NOT_ALLOWED.gsub('division_name', team.division.name)],
           team: team
         }
       end
@@ -28,7 +28,7 @@ class Resolvers::UpdateTeam < Resolver
         return {
           success: false,
           confirm: true,
-          userErrors: [TEAM_UPDATE_CONFIRM_MSG.gsub('division_name', team.division.name)],
+          user_errors: [TEAM_UPDATE_CONFIRM_MSG.gsub('division_name', team.division.name)],
           team: team
         }
       end
@@ -42,7 +42,7 @@ class Resolvers::UpdateTeam < Resolver
     else
       {
         success: false,
-        userErrors: team.errors.full_messages,
+        user_errors: team.errors.full_messages,
         team: team
       }
     end

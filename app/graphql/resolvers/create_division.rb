@@ -14,7 +14,7 @@ class Resolvers::CreateDivision < Resolver
        {
          success: false,
          division: @division,
-         userErrors: @division.errors.full_messages
+         user_errors: @division.errors.full_messages
        }
     end
   end

@@ -2,7 +2,7 @@ class Resolvers::UpdateField < Resolver
   def call(inputs, ctx)
     field = ctx[:tournament].fields.find(inputs[:field_id])
 
-    params = inputs.to_h.except('field_id')
+    params = inputs.to_h.except(:field_id)
 
     if field.update(params)
       {
@@ -12,7 +12,7 @@ class Resolvers::UpdateField < Resolver
     else
       {
         success: false,
-        userErrors: field.errors.full_messages,
+        user_errors: field.errors.full_messages,
         field: field
       }
     end

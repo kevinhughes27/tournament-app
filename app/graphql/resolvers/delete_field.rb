@@ -11,7 +11,7 @@ class Resolvers::DeleteField < Resolver
       return {
         success: false,
         confirm: true,
-        userErrors: [FIELD_DELETE_CONFIRM_MSG]
+        user_errors: [FIELD_DELETE_CONFIRM_MSG]
       }
     end
 

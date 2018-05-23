@@ -1,21 +1,11 @@
-module Mutations
-  SubmitScore = GraphQL::Relay::Mutation.define do
-    name "SubmitScore"
+class Mutations::SubmitScore < Mutations::BaseMutation
+  graphql_name "SubmitScore"
 
-    input_field :game_id, types.ID
-    input_field :team_id, types.ID
-    input_field :submitter_fingerprint, types.String
-    input_field :home_score, types.Int
-    input_field :away_score, types.Int
-    input_field :rules_knowledge, types.Int
-    input_field :fouls, types.Int
-    input_field :fairness, types.Int
-    input_field :attitude, types.Int
-    input_field :communication, types.Int
-    input_field :comments, types.String
+  argument :input, Types::SubmitScoreInput, required: true
 
-    return_field :success, !types.Boolean
+  field :success, Boolean, null: false
 
-    resolve Resolvers::SubmitScore
+  def resolve(input)
+    Resolvers::SubmitScore.call(input[:input], context)
   end
 end

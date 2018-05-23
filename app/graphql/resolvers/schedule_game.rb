@@ -19,7 +19,7 @@ class Resolvers::ScheduleGame < Resolver
       return {
         success: false,
         game: game,
-        userErrors: game.errors.full_messages
+        user_errors: game.errors.full_messages
       }
     end
 
@@ -31,7 +31,7 @@ class Resolvers::ScheduleGame < Resolver
       return {
         success: false,
         game: game,
-        userErrors: [e.message]
+        user_errors: [e.message]
       }
     end
 

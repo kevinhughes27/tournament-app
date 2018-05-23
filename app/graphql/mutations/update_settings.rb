@@ -1,18 +1,9 @@
-module Mutations
-  UpdateSettings = GraphQL::Relay::Mutation.define do
-    name "UpdateSettings"
+class Mutations::UpdateSettings < Mutations::BaseMutation
+  graphql_name "UpdateSettings"
 
-    input_field :name, types.String
-    input_field :handle, types.String
-    input_field :score_submit_pin, types.Int
-    input_field :game_confirm_setting, types.String
-    input_field :timezone, types.String
-    input_field :confirm, types.Boolean
+  argument :input, Types::UpdateSettingsInput, required: true
 
-    return_field :success, !types.Boolean
-    return_field :confirm, types.Boolean
-    return_field :userErrors, types[types.String]
-
-    resolve(Auth.protect(Resolvers::UpdateSettings))
-  end
+  field :success, Boolean, null: false
+  field :confirm, Boolean, null: true
+  field :userErrors, [String], null: true
 end

@@ -1,16 +1,8 @@
-module Mutations
-  UpdateScore = GraphQL::Relay::Mutation.define do
-    name "UpdateScore"
+class Mutations::UpdateScore < Mutations::BaseMutation
+  graphql_name "UpdateScore"
 
-    input_field :game_id, types.ID
-    input_field :home_score, types.Int
-    input_field :away_score, types.Int
-    input_field :force, types.Boolean
-    input_field :resolve, types.Boolean
+  argument :input, Types::UpdateScoreInput, required: true
 
-    return_field :success, !types.Boolean
-    return_field :userErrors, types[types.String]
-
-    resolve(Auth.protect(Resolvers::UpdateScore))
-  end
+  field :success, Boolean, null: false
+  field :userErrors, [String], null: true
 end
