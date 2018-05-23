@@ -13,7 +13,7 @@ const query = gql`
       long
       zoom
     }
-    games {
+    games(scheduled: true, hasTeam: true) {
       id
       home_name
       away_name
