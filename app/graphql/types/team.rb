@@ -4,8 +4,8 @@ class Types::Team < Types::BaseObject
 
   field :id, ID, null: true
   field :name, String, null: true
-  field :email, String, auth_required: true, null: true
-  field :phone, String, auth_required: true, null: true
+  field :email, String, auth: :required, null: true
+  field :phone, String, auth: :required, null: true
   field :divisionId, Int, null: true
   field :seed, Int, null: true
 end

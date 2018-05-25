@@ -76,13 +76,13 @@ class Types::Query < Types::BaseObject
     context[:tournament].game.find(:id)
   end
 
-  field :score_reports, [Types::ScoreReport], auth_required: true, null: true
+  field :score_reports, [Types::ScoreReport], auth: :required, null: true
 
   def score_reports
     context[:tournament].score_reports.all
   end
 
-  field :score_report, Types::ScoreReport, auth_required: true, null: true do
+  field :score_report, Types::ScoreReport, auth: :required, null: true do
     argument :id, ID, required: true
   end
 

@@ -4,24 +4,24 @@ class Types::Mutation < Types::BaseObject
   field :checkPin,    mutation: Mutations::CheckPin
 
   # admin
-  field :updateMap,      mutation: Mutations::UpdateMap,      auth_required: true
+  field :updateMap,      mutation: Mutations::UpdateMap,      auth: :required
 
-  field :createTeam,     mutation: Mutations::CreateTeam,     auth_required: true
-  field :updateTeam,     mutation: Mutations::UpdateTeam,     auth_required: true
-  field :deleteTeam,     mutation: Mutations::DeleteTeam,     auth_required: true
+  field :createTeam,     mutation: Mutations::CreateTeam,     auth: :required
+  field :updateTeam,     mutation: Mutations::UpdateTeam,     auth: :required
+  field :deleteTeam,     mutation: Mutations::DeleteTeam,     auth: :required
 
-  field :createDivision, mutation: Mutations::CreateDivision, auth_required: true
-  field :updateDivision, mutation: Mutations::UpdateDivision, auth_required: true
-  field :seedDivision,   mutation: Mutations::SeedDivision,   auth_required: true
-  field :deleteDivision, mutation: Mutations::DeleteDivision, auth_required: true
+  field :createDivision, mutation: Mutations::CreateDivision, auth: :required
+  field :updateDivision, mutation: Mutations::UpdateDivision, auth: :required
+  field :seedDivision,   mutation: Mutations::SeedDivision,   auth: :required
+  field :deleteDivision, mutation: Mutations::DeleteDivision, auth: :required
 
-  field :createField,    mutation: Mutations::CreateField,    auth_required: true
-  field :updateField,    mutation: Mutations::UpdateField,    auth_required: true
-  field :deleteField,    mutation: Mutations::DeleteField,    auth_required: true
+  field :createField,    mutation: Mutations::CreateField,    auth: :required
+  field :updateField,    mutation: Mutations::UpdateField,    auth: :required
+  field :deleteField,    mutation: Mutations::DeleteField,    auth: :required
 
-  field :scheduleGame,   mutation: Mutations::ScheduleGame,   auth_required: true
+  field :scheduleGame,   mutation: Mutations::ScheduleGame,   auth: :required
 
-  field :updateScore,    mutation: Mutations::UpdateScore,    auth_required: true
+  field :updateScore,    mutation: Mutations::UpdateScore,    auth: :required
 
-  field :updateSettings, mutation: Mutations::UpdateSettings, auth_required: true
+  field :updateSettings, mutation: Mutations::UpdateSettings, auth: :required
 end
