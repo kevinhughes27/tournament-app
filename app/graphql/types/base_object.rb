@@ -1,3 +1,3 @@
 class Types::BaseObject < GraphQL::Schema::Object
-  field_class AuthorizedField
+  field_class Auth::Field
 end

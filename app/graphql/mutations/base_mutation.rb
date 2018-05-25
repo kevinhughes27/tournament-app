@@ -1,6 +1,33 @@
 class Mutations::BaseMutation < GraphQL::Schema::Mutation
+  def public?
+    false
+  end
+
+  def self.public_mutation
+    define_method(:public?) { true }
+  end
+
   def resolve(input)
-    resolver = self.class.to_s.gsub('Mutations::', 'Resolvers::').constantize
-    Auth.protect(context) { resolver.call(input[:input], context) }
+    if public?
+      resolver.call(input[:input], context)
+    else
+      protect(context) { resolver.call(input[:input], context) }
+    end
+  end
+
+  private
+
+  def resolver
+    self.class.to_s.gsub('Mutations::', 'Resolvers::').constantize
+  end
+
+  def protect(context)
+    if context[:current_user].nil?
+      raise GraphQL::ExecutionError.new("You need to sign in or sign up before continuing")
+    elsif context[:current_user].is_tournament_user?(context[:tournament])
+      yield
+    else
+      raise GraphQL::ExecutionError.new("You are not a registered user for this tournament")
+    end
   end
 end

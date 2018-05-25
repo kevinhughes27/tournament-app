@@ -27,9 +27,9 @@ class GraphqlController < ApiController
 
   def filter
     if Rails.env.production?
-      OnlyFilter
+      Auth::Filter
     else
-      params[:filter] == false ? nil : OnlyFilter
+      params[:filter] == false ? nil : Auth::Filter
     end
   end
 end
