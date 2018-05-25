@@ -1,4 +1,4 @@
-class Types::ScheduleGameInput < Types::BaseInputObject
+class Inputs::ScheduleGameInput < Inputs::BaseInputObject
   argument :gameId, ID, required: true
   argument :fieldId, ID, required: true
   argument :startTime, Types::DateTime, required: true

@@ -1,4 +1,4 @@
-class Types::SeedDivisionInput < Types::BaseInputObject
+class Inputs::SeedDivisionInput < Inputs::BaseInputObject
   argument :divisionId, ID, required: true
   argument :teamIds, [ID], required: false
   argument :seeds, [Int], required: false

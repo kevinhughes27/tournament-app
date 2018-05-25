@@ -1,4 +1,4 @@
-class Types::UpdateFieldInput < Types::BaseInputObject
+class Inputs::UpdateFieldInput < Inputs::BaseInputObject
   argument :fieldId, ID, required: true
   argument :name, String, required: false
   argument :lat, Float, required: false

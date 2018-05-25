@@ -1,7 +1,7 @@
 class Mutations::DeleteDivision < Mutations::BaseMutation
   graphql_name "DeleteDivision"
 
-  argument :input, Types::DeleteDivisionInput, required: true
+  argument :input, Inputs::DeleteDivisionInput, required: true
 
   field :success, Boolean, null: false
   field :confirm, Boolean, null: true

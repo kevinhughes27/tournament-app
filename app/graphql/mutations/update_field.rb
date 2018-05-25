@@ -1,7 +1,7 @@
 class Mutations::UpdateField < Mutations::BaseMutation
   graphql_name "UpdateField"
 
-  argument :input, Types::UpdateFieldInput, required: true
+  argument :input, Inputs::UpdateFieldInput, required: true
 
   field :success, Boolean, null: false
   field :userErrors, [String], null: true

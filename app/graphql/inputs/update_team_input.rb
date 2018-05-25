@@ -1,4 +1,4 @@
-class Types::UpdateTeamInput < Types::BaseInputObject
+class Inputs::UpdateTeamInput < Inputs::BaseInputObject
   argument :teamId, ID, required: true
   argument :name, String, required: false
   argument :email, String, required: false

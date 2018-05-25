@@ -1,4 +1,4 @@
-class Types::SubmitScoreInput < Types::BaseInputObject
+class Inputs::SubmitScoreInput < Inputs::BaseInputObject
   argument :gameId, ID, required: true
   argument :teamId, ID, required: true
   argument :submitterFingerprint, String, required: true

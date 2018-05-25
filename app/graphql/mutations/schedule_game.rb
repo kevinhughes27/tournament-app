@@ -1,7 +1,7 @@
 class Mutations::ScheduleGame < Mutations::BaseMutation
   graphql_name "ScheduleGame"
 
-  argument :input, Types::ScheduleGameInput, required: true
+  argument :input, Inputs::ScheduleGameInput, required: true
 
   field :success, Boolean, null: false
   field :userErrors, [String], null: true

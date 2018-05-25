@@ -1,7 +1,7 @@
 class Mutations::SubmitScore < Mutations::BaseMutation
   graphql_name "SubmitScore"
 
-  argument :input, Types::SubmitScoreInput, required: true
+  argument :input, Inputs::SubmitScoreInput, required: true
 
   field :success, Boolean, null: false
 

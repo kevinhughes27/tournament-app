@@ -1,7 +1,7 @@
 class Mutations::UpdateSettings < Mutations::BaseMutation
   graphql_name "UpdateSettings"
 
-  argument :input, Types::UpdateSettingsInput, required: true
+  argument :input, Inputs::UpdateSettingsInput, required: true
 
   field :success, Boolean, null: false
   field :confirm, Boolean, null: true

@@ -1,7 +1,7 @@
 class Mutations::UpdateTeam < Mutations::BaseMutation
   graphql_name "UpdateTeam"
 
-  argument :input, Types::UpdateTeamInput, required: true
+  argument :input, Inputs::UpdateTeamInput, required: true
 
   field :success, Boolean, null: false
   field :confirm, Boolean, null: true

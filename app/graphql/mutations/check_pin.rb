@@ -1,7 +1,7 @@
 class Mutations::CheckPin < Mutations::BaseMutation
   graphql_name "CheckPin"
 
-  argument :input, Types::CheckPinInput, required: true
+  argument :input, Inputs::CheckPinInput, required: true
 
   field :success, Boolean, null: false
   field :userErrors, [String], null: true

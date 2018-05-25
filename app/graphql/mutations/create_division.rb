@@ -1,7 +1,7 @@
 class Mutations::CreateDivision < Mutations::BaseMutation
   graphql_name "CreateDivision"
 
-  argument :input, Types::CreateDivisionInput, required: true
+  argument :input, Inputs::CreateDivisionInput, required: true
 
   field :success, Boolean, null: false
   field :userErrors, [String], null: true

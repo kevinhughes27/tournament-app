@@ -1,4 +1,4 @@
-class Types::UpdateDivisionInput < Types::BaseInputObject
+class Inputs::UpdateDivisionInput < Inputs::BaseInputObject
   argument :divisionId, ID, required: true
   argument :name, String, required: false
   argument :numTeams, Int, required: false

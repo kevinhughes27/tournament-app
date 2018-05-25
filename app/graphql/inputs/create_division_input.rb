@@ -1,4 +1,4 @@
-class Types::CreateDivisionInput < Types::BaseInputObject
+class Inputs::CreateDivisionInput < Inputs::BaseInputObject
   argument :name, String, required: false
   argument :numTeams, Int, required: false
   argument :numDays, Int, required: false
