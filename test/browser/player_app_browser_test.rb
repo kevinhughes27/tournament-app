@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AppBrowserTest < BrowserTest
+class PlayerAppBrowserTest < BrowserTest
   setup do
     @tournament = FactoryGirl.create(:tournament, handle: 'no-borders')
     @map = FactoryGirl.create(:map, tournament: @tournament)
@@ -22,8 +22,8 @@ class AppBrowserTest < BrowserTest
     click_on('Swift vs Goose')
 
     # fill out form
-    fill_in('home_score', with: 15)
-    fill_in('away_score', with: 11)
+    fill_in('homeScore', with: 15)
+    fill_in('awayScore', with: 11)
     click_on('Submit')
 
     assert_submitted
