@@ -22,7 +22,7 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    input = params_to_input(team_params, params, 'team_id')
+    input = params_to_input(team_params, params, 'teamId')
 
     result = execute_graphql(
       'updateTeam',
@@ -31,13 +31,13 @@ class Admin::TeamsController < AdminController
       "{
          success,
          confirm,
-         not_allowed,
+         notAllowed,
          userErrors,
-         team { id, name, email, phone, division_id, seed }
+         team { id, name, email, phone, divisionId, seed }
        }"
     )
 
-    @team = Team.new(result['team'])
+    @team = Team.new(result_to_attributes(result, 'team'))
     @errors = result['userErrors']
 
     if result['success']
@@ -45,7 +45,7 @@ class Admin::TeamsController < AdminController
       redirect_to admin_team_path(@team)
     elsif result['confirm']
       render partial: 'confirm_update', status: :unprocessable_entity
-    elsif result['not_allowed']
+    elsif result['notAllowed']
       render partial: 'unable_to_update', status: :not_allowed
     else
       render :show
@@ -53,7 +53,7 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    input = params_to_input({}, params, 'team_id')
+    input = params_to_input({}, params, 'teamId')
 
     result = execute_graphql(
       'deleteTeam',
@@ -62,7 +62,7 @@ class Admin::TeamsController < AdminController
       "{
          success,
          confirm,
-         not_allowed
+         notAllowed
        }"
     )
 
@@ -72,7 +72,7 @@ class Admin::TeamsController < AdminController
     elsif result['confirm']
       @team = @tournament.teams.find(params[:id])
       render partial: 'confirm_delete', status: :unprocessable_entity
-    elsif result['not_allowed']
+    elsif result['notAllowed']
       @team = @tournament.teams.find(params[:id])
       render partial: 'unable_to_delete', status: :not_allowed
     else

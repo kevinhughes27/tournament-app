@@ -1,4 +1,4 @@
-class Resolvers::CreateTeam < Resolver
+class Resolvers::CreateTeam < Resolvers::BaseResolver
   def call(inputs, ctx)
     params = inputs.to_h
     team = ctx[:tournament].teams.create(params)
@@ -11,7 +11,7 @@ class Resolvers::CreateTeam < Resolver
     else
       {
         success: false,
-        userErrors: team.errors.full_messages,
+        user_errors: team.errors.full_messages,
         team: team
       }
     end

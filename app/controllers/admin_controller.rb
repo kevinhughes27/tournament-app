@@ -20,7 +20,7 @@ class AdminController < ApplicationController
 
   def execute_graphql(mutation, input_type, input, output)
     query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) #{output}}"
-    query_variables = {"input" => input}
+    query_variables = {"input" => input.deep_transform_keys { |key| key.to_s.camelize(:lower) }}
 
     result = Schema.execute(
       query_string,
@@ -66,6 +66,10 @@ class AdminController < ApplicationController
     input['resolve'] = params[:resolve] == 'true' if params[:resolve].present?
 
     input
+  end
+
+  def result_to_attributes(result, key)
+    result[key].deep_transform_keys { |key| key.to_s.underscore }
   end
 
   def render_admin_404

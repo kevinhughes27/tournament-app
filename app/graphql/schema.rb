@@ -1,6 +1,4 @@
-require_relative 'utils/definitions'
-
-Schema = GraphQL::Schema.define do
-  query QueryType
-  mutation MutationType
+class Schema < GraphQL::Schema
+  query Types::Query
+  mutation Types::Mutation
 end

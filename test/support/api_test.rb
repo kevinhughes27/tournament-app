@@ -48,7 +48,7 @@ class ApiTest < ActionDispatch::IntegrationTest
 
     params = {
       "query" => "mutation #{mutation}($input: #{input_type}!) { #{mutation}(input: $input) #{output} }",
-      "variables" => {"input" => input},
+      "variables" => {"input" => input.deep_transform_keys { |key| key.to_s.camelize(:lower) }},
       "filter" => filter
     }
 
@@ -89,7 +89,7 @@ class ApiTest < ActionDispatch::IntegrationTest
   end
 
   def mutation_result
-     @result['data'].first[1]
+    @result['data'].first[1]
   end
 
   def query_result

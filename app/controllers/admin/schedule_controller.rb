@@ -21,11 +21,11 @@ class Admin::ScheduleController < AdminController
       "{
          success,
          userErrors,
-         game { id, field_id, start_time, end_time }
+         game { id, fieldId, startTime, endTime }
        }"
     )
 
-    game = Game.new(result['game'])
+    game = Game.new(result_to_attributes(result, 'game'))
 
     if result['success']
       render json: {

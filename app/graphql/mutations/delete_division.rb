@@ -1,14 +1,9 @@
-module Mutations
-  DeleteDivision = GraphQL::Relay::Mutation.define do
-    name "DeleteDivision"
+class Mutations::DeleteDivision < Mutations::BaseMutation
+  graphql_name "DeleteDivision"
 
-    input_field :division_id, types.ID
-    input_field :confirm, types.Boolean
+  argument :input, Inputs::DeleteDivisionInput, required: true
 
-    return_field :success, !types.Boolean
-    return_field :confirm, types.Boolean
-    return_field :userErrors, types[types.String]
-
-    resolve(Auth.protect(Resolvers::DeleteDivision))
-  end
+  field :success, Boolean, null: false
+  field :confirm, Boolean, null: true
+  field :userErrors, [String], null: true
 end

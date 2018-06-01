@@ -1,21 +1,11 @@
-module Mutations
-  UpdateTeam = GraphQL::Relay::Mutation.define do
-    name "UpdateTeam"
+class Mutations::UpdateTeam < Mutations::BaseMutation
+  graphql_name "UpdateTeam"
 
-    input_field :team_id, types.ID
-    input_field :name, types.String
-    input_field :email, types.String
-    input_field :phone, types.String
-    input_field :division_id, types.ID
-    input_field :seed, types.Int
-    input_field :confirm, types.Boolean
+  argument :input, Inputs::UpdateTeamInput, required: true
 
-    return_field :success, !types.Boolean
-    return_field :confirm, types.Boolean
-    return_field :not_allowed, types.Boolean
-    return_field :userErrors, types[types.String]
-    return_field :team, TeamType
-
-    resolve(Auth.protect(Resolvers::UpdateTeam))
-  end
+  field :success, Boolean, null: false
+  field :confirm, Boolean, null: true
+  field :not_allowed, Boolean, null: true
+  field :userErrors, [String], null: true
+  field :team, Types::Team, null: false
 end

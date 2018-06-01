@@ -1,4 +1,4 @@
-class Resolvers::DeleteTeam < Resolver
+class Resolvers::DeleteTeam < Resolvers::BaseResolver
   TEAM_DELETE_CONFIRM_MSG = """There are games scheduled for this team.\
  Deleting the team will unassign it from those games.\
  You will need to re-seed the division_name division."""
@@ -14,7 +14,7 @@ class Resolvers::DeleteTeam < Resolver
       return {
         success: false,
         not_allowed: true,
-        userErrors: [TEAM_DELETE_NOT_ALLOWED.gsub('division_name', team.division.name)]
+        user_errors: [TEAM_DELETE_NOT_ALLOWED.gsub('division_name', team.division.name)]
       }
     end
 
@@ -22,7 +22,7 @@ class Resolvers::DeleteTeam < Resolver
       return {
         success: false,
         confirm: true,
-        userErrors: [TEAM_DELETE_CONFIRM_MSG.gsub('division_name', team.division.name)]
+        user_errors: [TEAM_DELETE_CONFIRM_MSG.gsub('division_name', team.division.name)]
       }
     end
 

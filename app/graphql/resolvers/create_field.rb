@@ -1,4 +1,4 @@
-class Resolvers::CreateField < Resolver
+class Resolvers::CreateField < Resolvers::BaseResolver
   def call(inputs, ctx)
     params = inputs.to_h
     field = ctx[:tournament].fields.create(params)
@@ -11,7 +11,7 @@ class Resolvers::CreateField < Resolver
     else
       {
         success: false,
-        userErrors: field.errors.full_messages,
+        user_errors: field.errors.full_messages,
         field: field
       }
     end

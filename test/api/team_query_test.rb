@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TeamTypeTest < ApiTest
+class TeamQueryTest < ApiTest
   test "email field is hidden to the public" do
     team = FactoryGirl.create(:team)
 

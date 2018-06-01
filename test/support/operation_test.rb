@@ -9,7 +9,7 @@ class OperationTest < ActiveSupport::TestCase
 
   def execute_graphql(mutation, input_type, input)
     query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) { success, userErrors }}"
-    query_variables = {"input" => input.stringify_keys}
+    query_variables = {"input" => input.deep_transform_keys { |key| key.to_s.camelize(:lower) }}
 
     result = Schema.execute(
       query_string,

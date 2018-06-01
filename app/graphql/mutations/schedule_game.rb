@@ -1,16 +1,9 @@
-module Mutations
-  ScheduleGame = GraphQL::Relay::Mutation.define do
-    name "ScheduleGame"
+class Mutations::ScheduleGame < Mutations::BaseMutation
+  graphql_name "ScheduleGame"
 
-    input_field :game_id, types.ID
-    input_field :field_id, types.ID
-    input_field :start_time, DateTimeType
-    input_field :end_time, DateTimeType
+  argument :input, Inputs::ScheduleGameInput, required: true
 
-    return_field :success, !types.Boolean
-    return_field :userErrors, types[types.String]
-    return_field :game, GameType
-
-    resolve(Auth.protect(Resolvers::ScheduleGame))
-  end
+  field :success, Boolean, null: false
+  field :userErrors, [String], null: true
+  field :game, Types::Game, null: false
 end

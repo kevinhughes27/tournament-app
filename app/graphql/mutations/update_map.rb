@@ -1,13 +1,7 @@
-module Mutations
-  UpdateMap = GraphQL::Relay::Mutation.define do
-    name "UpdateMap"
+class Mutations::UpdateMap < Mutations::BaseMutation
+  graphql_name "UpdateMap"
 
-    input_field :lat, types.Float
-    input_field :long, types.Float
-    input_field :zoom, types.Int
+  argument :input, Inputs::UpdateMapInput, required: true
 
-    return_field :success, !types.Boolean
-
-    resolve(Auth.protect(Resolvers::UpdateMap))
-  end
+  field :success, Boolean, null: false
 end

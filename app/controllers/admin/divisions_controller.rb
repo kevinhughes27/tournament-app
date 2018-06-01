@@ -26,11 +26,11 @@ class Admin::DivisionsController < AdminController
       "{
          success,
          userErrors,
-         division { id, name, num_teams, num_days, bracket_type }
+         division { id, name, numTeams, numDays, bracketType }
        }"
     )
 
-    @division = Division.new(result['division'])
+    @division = Division.new(result_to_attributes(result, 'division'))
     @errors = result['userErrors']
 
     if result['success']
@@ -52,11 +52,11 @@ class Admin::DivisionsController < AdminController
          success,
          confirm,
          userErrors,
-         division { id, name, num_teams, num_days, bracket_type }
+         division { id, name, numTeams, numDays, bracketType }
        }"
     )
 
-    @division = Division.new(result['division'])
+    @division = Division.new(result_to_attributes(result, 'division'))
     @errors = result['userErrors']
 
     if result['success']
