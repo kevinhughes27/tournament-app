@@ -23,6 +23,7 @@ class Admin::TeamsController < AdminController
 
   def update
     input = params_to_input(team_params, params, 'teamId')
+    input['phone'] = input['phone'].to_s if input['phone']
 
     result = execute_graphql(
       'updateTeam',
@@ -118,15 +119,12 @@ class Admin::TeamsController < AdminController
   private
 
   def team_params
-    @team_params ||= params.require(:team).permit(
+    params.require(:team).permit(
       :name,
       :email,
       :phone,
       :division_id,
       :seed
     )
-
-    @team_params[:phone] = @team_params[:phone].to_s if @team_params[:phone]
-    @team_params
   end
 end

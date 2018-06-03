@@ -54,6 +54,17 @@ class Admin::TeamsControllerTest < AdminControllerTest
     assert_equal attributes[:name], team.reload.name
   end
 
+  # this is a tricky case while we are moving to graphql but still have rails controllers and strong params
+  test "update a team with numeric phone number" do
+    team = FactoryGirl.create(:team)
+    attributes = FactoryGirl.attributes_for(:team, phone: '15555555555').except(:division)
+
+    put :update, params: { id: team.id, team: attributes }
+
+    assert_redirected_to admin_team_path(team)
+    assert_equal attributes[:phone], team.reload.phone
+  end
+
   test "update a team with errors" do
     team = FactoryGirl.create(:team)
 
