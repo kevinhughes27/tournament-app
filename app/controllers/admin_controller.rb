@@ -31,6 +31,8 @@ class AdminController < ApplicationController
       }
     )
 
+    raise RuntimeError, result['errors'] if result['errors'].present?
+
     result['data'][mutation]
   end
 
