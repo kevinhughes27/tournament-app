@@ -3,3 +3,7 @@
 [submodule "player-app"]
 	path = clients/player-app
 	url = https://3a064e8763011090a05f60c218572f950dbf6fa9:x-oauth-basic@github.com/kevinhughes27/ut-player-app.git
+
+[submodule "player-app-old"]
+	path = player-app
+	url = https://3a064e8763011090a05f60c218572f950dbf6fa9:x-oauth-basic@github.com/kevinhughes27/ut-player-app.git
