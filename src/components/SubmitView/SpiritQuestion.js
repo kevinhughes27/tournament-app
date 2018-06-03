@@ -18,11 +18,11 @@ class SpiritQuestion extends Component {
             value={this.props.value.toString()}
             onChange={this.props.onChange}
           >
-            <FormControlLabel value="1" control={<Radio />} label="Poor" />
-            <FormControlLabel value="2" control={<Radio />} label="Not Good" />
-            <FormControlLabel value="3" control={<Radio />} label="Good" />
-            <FormControlLabel value="4" control={<Radio />} label="Very Good" />
-            <FormControlLabel value="5" control={<Radio />} label="Excellent" />
+            <FormControlLabel value="0" control={<Radio />} label="Poor" />
+            <FormControlLabel value="1" control={<Radio />} label="Not Good" />
+            <FormControlLabel value="2" control={<Radio />} label="Good" />
+            <FormControlLabel value="3" control={<Radio />} label="Very Good" />
+            <FormControlLabel value="4" control={<Radio />} label="Excellent" />
           </RadioGroup>
         </FormControl>
       </div>
