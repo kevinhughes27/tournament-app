@@ -50,6 +50,6 @@ class Tournament < ApplicationRecord
   end
 
   def domain
-    "//#{handle}.#{Settings.host}"
+    "https://#{handle}.#{Settings.host}"
   end
 end

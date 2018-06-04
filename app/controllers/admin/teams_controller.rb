@@ -23,6 +23,7 @@ class Admin::TeamsController < AdminController
 
   def update
     input = params_to_input(team_params, params, 'teamId')
+    input['name'] = input['name'].to_s if input['name']
     input['phone'] = input['phone'].to_s if input['phone']
 
     result = execute_graphql(
