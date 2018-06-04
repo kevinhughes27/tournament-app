@@ -5,6 +5,7 @@ import _map from 'lodash/map'
 import _unionWith from 'lodash/unionWith'
 import _isEqual from 'lodash/isEqual'
 import _sortBy from 'lodash/sortBy'
+import _isEmpty from 'lodash/isEmpty'
 import _keys from 'lodash/keys'
 
 import React from 'react'
@@ -55,9 +56,14 @@ class Division extends React.Component {
     let bracket = this.state.bracket
     let bracketTree = this.props.bracket_tree
 
-    if (bracket && bracketTree) {
-      let bracketVis = new BracketVis(node)
-      bracketVis.render(bracket, bracketTree)
+    if (bracket) {
+      let hasBracket = !_isEmpty(bracket.bracket_tree)
+      if (hasBracket) {
+        let bracketVis = new BracketVis(node)
+        bracketVis.render(bracket, bracketTree)
+      } else {
+        node.empty()
+      }
     }
   }
 
