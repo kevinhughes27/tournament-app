@@ -13,10 +13,10 @@
 
     {"round":2, "bracket_uid":"a3", "home_prereq":"La1", "away_prereq":"La2"},
     {"round":2, "bracket_uid":"b3", "home_prereq":"Lb1", "away_prereq":"Lb2"},
-    {"round":2, "bracket_uid":"c3", "home_prereq":"Lc1", "away_prereq":"Lc3"},
+    {"round":2, "bracket_uid":"c3", "home_prereq":"Lc1", "away_prereq":"Lc2"},
 
     {"round":3, "bracket_uid":"b4", "home_prereq":"Wb1", "away_prereq":"Wb2"},
-    {"round":3, "bracket_uid":"c4", "home_prereq":"Wc1", "away_prereq":"Wc3"},
+    {"round":3, "bracket_uid":"c4", "home_prereq":"Wc1", "away_prereq":"Wc2"},
 
     {"round":4, "bracket_uid":"a4", "home_prereq":"Wa1", "away_prereq":"Wa2"}
   ],
