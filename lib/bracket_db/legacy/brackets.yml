@@ -332,30 +332,6 @@
   template: <%= BracketDb::load('cuuc_7') %>
 
 -
-  handle: USAU 8.1
-  name: One team advances (USAU 8.1)
-  description: >
-    The first day has two pools of four and the second day is a single elimination
-    bracket.
-  num_teams: 8
-  days: 2
-  rounds: 3
-  pool: true
-  template: <%= BracketDb::load('usau_8.1') %>
-
--
-  handle: USAU 8.2
-  name: Two teams advance (USAU 8.2)
-  description: >
-    The first day has two pools of four and the second day is a clipped double
-    elimination bracket.
-  num_teams: 8
-  days: 2
-  rounds: 4
-  pool: true
-  template: <%= BracketDb::load('usau_8.2') %>
-
--
   handle: USAU 8.3
   name: Three, Seven, or Eight teams advance (USAU 8.3)
   description: >
