@@ -40,9 +40,11 @@ class BracketVis {
   }
 
   render (bracket, bracketTree = null) {
+    let maxRound = bracket.bracket_tree[0].round + 1
+
     let treeData = {
       root: true,
-      round: bracket.rounds,
+      round: maxRound,
       children: bracketTree || bracket.bracket_tree
     }
 
