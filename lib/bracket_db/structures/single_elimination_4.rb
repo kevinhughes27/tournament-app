@@ -1,4 +1,4 @@
-BracketDb.define 'SINGLE_ELIMINATION_4' do
+BracketDb.define 'single_elimination_4' do
   name 'Single Elimination'
   teams 4
   days 1

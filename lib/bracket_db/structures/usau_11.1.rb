@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_11.1' do
+BracketDb.define 'USAU 11.1' do
   name 'One team advances (USAU 11.1)'
   description 'Bottom 3 teams play a round robin on the second day.'
   teams 11

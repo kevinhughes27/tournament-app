@@ -1,4 +1,4 @@
-BracketDb.define '14_POOL_CROSSOVER' do
+BracketDb.define '14 pool crossover' do
   name '2 Pools with a crossover match'
   description 'After the pool of 7 each teams plays a single crossover match'
   teams 14
@@ -19,5 +19,5 @@ BracketDb.define '14_POOL_CROSSOVER' do
     ]
   end
 
-  places %w(W1 L1 W3 L3 W5 L5 W7 L7 W9 L9 W11 L11 W13 L1)
+  places %w(W1 L1 W3 L3 W5 L5 W7 L7 W9 L9 W11 L11 W13 L13)
 end

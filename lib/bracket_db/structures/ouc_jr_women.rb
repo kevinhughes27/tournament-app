@@ -1,4 +1,4 @@
-BracketDb.define 'OUC_JR_WOMEN' do
+BracketDb.define 'OUC JR Women' do
   name 'Ontario Junior Women 2017'
   teams 6
   days 2

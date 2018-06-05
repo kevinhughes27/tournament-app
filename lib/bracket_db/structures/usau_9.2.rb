@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_9.2' do
+BracketDb.define 'USAU 9.2' do
   name 'Two teams advance (USAU 9.2)'
   description 'The pool of five plays games to 11, while the pool of four plays games to 15 in order to balance the total number of points played between pools.'
   teams 9

@@ -33,7 +33,7 @@ class CreateDivisionTest < ApiTest
     execute_graphql("createDivision", "CreateDivisionInput", input, @output)
     assert_success
 
-    template = Bracket.find_by(handle: type).template
+    template = BracketDb.find(handle: type).template
     template_game = template[:games].first
     game = Game.find_by(bracket_uid: template_game[:bracket_uid])
 
@@ -49,7 +49,7 @@ class CreateDivisionTest < ApiTest
     execute_graphql("createDivision", "CreateDivisionInput", input, @output)
     assert_success
 
-    template = Bracket.find_by(handle: type).template
+    template = BracketDb.find(handle: type).template
     template_place = template[:places].first
 
     assert Place.find_by(prereq: template_place[:prereq])

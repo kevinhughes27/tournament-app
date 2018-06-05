@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_6.6.1' do
+BracketDb.define 'USAU 6.6.1' do
   name 'Six teams advance (USAU 6.6.1)'
   teams 6
   days 1

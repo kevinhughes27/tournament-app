@@ -1,2 +1,2 @@
-require 'bracket_db'
+require 'bracket_db/bracket_db'
 BracketDb.init

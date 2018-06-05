@@ -3,9 +3,9 @@ require 'test_helper'
 class BracketSimulationTest < OperationTest
   MAX_SIMULATION_TIME = 10
 
-  Bracket.all.each do |bracket|
-    test "play a division with bracket_type: #{bracket.handle}" do
-      @division = create_division(bracket_type: bracket.handle)
+  BracketDb.all.each do |handle, bracket|
+    test "play a division with bracket_type: #{handle}" do
+      @division = create_division(bracket_type: handle)
 
       create_teams
       seed_division

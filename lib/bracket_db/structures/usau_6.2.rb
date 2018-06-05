@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_6.2' do
+BracketDb.define 'USAU 6.2' do
   name 'Two teams advance (USAU 6.2)'
   description 'Pool games are played to 13 and over 2 days.'
   teams 6

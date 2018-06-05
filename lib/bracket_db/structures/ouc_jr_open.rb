@@ -1,4 +1,4 @@
-BracketDb.define 'OUC_JR_OPEN' do
+BracketDb.define 'OUC JR Open' do
   name 'Ontario Junior Open 2017'
   teams 10
   days 2

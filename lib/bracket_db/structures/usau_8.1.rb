@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_8.1' do
+BracketDb.define 'USAU 8.1' do
   name 'One team advances (USAU 8.1)'
   description 'The first day has two pools of four and the second day is a single elimination bracket.'
   teams 8

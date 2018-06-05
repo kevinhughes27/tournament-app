@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_4.2.3' do
+BracketDb.define 'USAU 4.2.3' do
   name 'Three teams advance (USAU 4.2.3)'
   description 'The last game for second place can be left unplayed since both teams have qualified already.'
   teams 4

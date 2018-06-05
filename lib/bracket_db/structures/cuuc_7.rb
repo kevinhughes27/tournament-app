@@ -1,4 +1,4 @@
-BracketDb.define 'CUUC_7' do
+BracketDb.define 'CUUC 7' do
   name "CUUC Women's Qualifier"
   teams 7
   days 1

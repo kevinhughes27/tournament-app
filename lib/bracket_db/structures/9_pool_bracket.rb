@@ -1,8 +1,8 @@
-BracketDb.define '9_POOL_BRACKET' do
+BracketDb.define '9_pool_bracket' do
   name 'Two Pools and a Bracket'
   description 'Each team gets 2 games on Sunday.'
-  teams '9'
-  days '2'
+  teams 9
+  days 2
 
   pool '5.1.3', 'A', [1,3,6,8,9]
   pool '4.1', 'B', [2,4,5,7]

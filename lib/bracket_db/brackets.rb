@@ -1,7 +1,7 @@
 module BracketDb
   class Brackets
     def self.[](template)
-      TEMPLATES[template]
+      TEMPLATES[template].deep_dup
     end
 
     TEMPLATES = {

@@ -1,4 +1,4 @@
-BracketDb.define 'GOOSEBOWL_16' do
+BracketDb.define 'Goosebowl 16' do
   name 'Goosebowl'
   description 'Power Pools setup with only a single crossover'
   teams 16

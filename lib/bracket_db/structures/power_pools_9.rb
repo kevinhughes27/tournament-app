@@ -1,4 +1,4 @@
-BracketDb.define 'POWER_POOLS_9' do
+BracketDb.define 'Power Pools 9' do
   name 'Power Pools'
   description 'The losers in the loser bracket play the bottom seed of the B pool for extra games.'
   teams 9

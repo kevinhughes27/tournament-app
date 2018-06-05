@@ -1,4 +1,4 @@
-BracketDb.define 'POWER_POOLS_16' do
+BracketDb.define 'Power Pools 16' do
   name 'Power Pools'
   teams 16
   days 2

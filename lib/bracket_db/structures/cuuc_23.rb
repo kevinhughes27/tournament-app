@@ -1,4 +1,4 @@
-BracketDb.define 'CUUC_23' do
+BracketDb.define 'CUUC 23' do
   name 'CUUC Open Div II'
   teams 23
   days 2

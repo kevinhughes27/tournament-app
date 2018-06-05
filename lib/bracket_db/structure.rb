@@ -25,6 +25,10 @@ module BracketDb
       @teams = value
     end
 
+    def num_teams
+      @teams
+    end
+
     def days(value)
       @days = value
     end
@@ -63,6 +67,13 @@ module BracketDb
       @places += game_uids.each_with_index.map do |uid, idx|
         { position: idx + 1 + offset, prereq: uid}
       end
+    end
+
+    def template
+      {
+        games: @games,
+        places: @places
+      }
     end
   end
 end

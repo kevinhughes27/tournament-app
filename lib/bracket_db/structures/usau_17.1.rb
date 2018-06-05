@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_17.1' do
+BracketDb.define 'USAU 17.1' do
   name 'One team advances (USAU 17.1)'
   teams 17
   days 2

@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_14.1' do
+BracketDb.define 'USAU 14.1' do
   name 'One team advances (USAU 14.1)'
   description 'Teams not in the bracket play a final game against their matching finish in the opposite pool'
   teams 14

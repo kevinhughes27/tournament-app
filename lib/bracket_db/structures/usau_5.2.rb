@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_5.2' do
+BracketDb.define 'USAU 5.2' do
   name 'Two teams advance (USAU 5.2)'
   description 'This format requires seven rounds, five for the round-robin and two for the clipped double-elimination. The most games a team will play is six.'
   teams 5

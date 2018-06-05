@@ -1,4 +1,4 @@
-BracketDb.define 'BEACH_WORLDS' do
+BracketDb.define 'Beach Worlds' do
   name 'Beach Worlds'
   teams 12
   days 5

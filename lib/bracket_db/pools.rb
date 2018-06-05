@@ -1,7 +1,7 @@
 module BracketDb
   class Pools
     def self.[](template)
-      TEMPLATES[template]
+      TEMPLATES[template].deep_dup
     end
 
     TEMPLATES = {

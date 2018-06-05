@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_5.4' do
+BracketDb.define 'USAU 5.4' do
   name 'Four teams advance (USAU 5.4)'
   description 'The top team is determined on the first day, and that team has no games the second day.'
   teams 5

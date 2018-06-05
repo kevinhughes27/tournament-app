@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_16.1' do
+BracketDb.define 'USAU 16.1' do
   name 'One team advances (USAU 16.1)'
   teams 16
   days 2
@@ -6,7 +6,7 @@ BracketDb.define 'USAU_16.1' do
   pool '4.1', 'A', %w(1 8  9 16)
   pool '4.1', 'B', %w(2 7 10 15)
   pool '4.1', 'C', %w(3 6 11 14)
-  pool '4.1', 'D', %w(4 5 12 12)
+  pool '4.1', 'D', %w(4 5 12 13)
 
   bracket '16.1'
 

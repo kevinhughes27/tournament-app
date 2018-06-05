@@ -1,4 +1,4 @@
-BracketDb.define 'USAU_5.3' do
+BracketDb.define 'USAU 5.3' do
   name 'Three teams advance (USAU 5.3)'
   description 'This format requires seven rounds, five for the round-robin and two for the elimination bracket. The top seed and the bottom finisher will only get one game on Sunday. This is almost unavoidable, given the desire to keep all five teams in contention.'
   teams 5

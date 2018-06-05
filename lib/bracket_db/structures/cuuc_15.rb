@@ -1,4 +1,4 @@
-BracketDb.define 'CUUC_15' do
+BracketDb.define 'CUUC 15' do
   name 'CUUC Friday Open Division'
   teams 15
   days 1
@@ -38,5 +38,5 @@ BracketDb.define 'CUUC_15' do
     ]
   end
 
-  places %w(Wm Wn Wy Wz Ly Lz Lw Lx Lv Lt Ls Lu Lq Laa)
+  places %w(Wm Wn Wy Wz Ly Lz Lw Lx Lv Lt Ls Lu Lq Waa Laa)
 end

@@ -1,4 +1,4 @@
-BracketDb.define 'ROUND_ROBIN_5' do
+BracketDb.define 'round_robin_5' do
   name 'Round Robin'
   teams 5
   days 1
