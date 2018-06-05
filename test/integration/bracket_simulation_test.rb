@@ -27,7 +27,7 @@ class BracketSimulationTest < OperationTest
   end
 
   def create_teams
-    n = @division.bracket.num_teams
+    n = @division.bracket.teams
 
     (1..n).map do |seed|
       FactoryGirl.create(:team, division: @division, name: "Team #{seed}", seed: seed)

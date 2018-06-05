@@ -1,4 +1,4 @@
-require_relative 'structure'
+require_relative 'dsl'
 
 module BracketDb
   @registry = {}
@@ -9,8 +9,9 @@ module BracketDb
     end
 
     def define(name, &block)
-      structure = Structure.new
-      structure.instance_eval(&block)
+      dsl = DSL.new
+      dsl.instance_eval(&block)
+      structure = dsl.to_structure
       @registry[name] = structure
     end
 
@@ -19,7 +20,9 @@ module BracketDb
     end
 
     def where(teams:, days:)
-      @registry.select{ |s| s.teams == teams && s.days == days }
+      @registry.select do |handle, bracket|
+        bracket.teams == teams && bracket.days == days
+      end
     end
 
     def find(handle:)
