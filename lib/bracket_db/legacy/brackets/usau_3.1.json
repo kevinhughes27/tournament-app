@@ -1,7 +1,0 @@
-{
-  "games": [
-    {"round": 1, "seed_round": 1, "bracket_uid": "a", "home_prereq":1, "away_prereq":3},
-    {"round": 2, "seed_round": 1, "bracket_uid": "b", "home_prereq":2, "away_prereq":3},
-    {"round": 3, "seed_round": 1, "bracket_uid": "c", "home_prereq":1, "away_prereq":2}
-  ]
-}
