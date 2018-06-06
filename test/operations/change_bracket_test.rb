@@ -8,7 +8,7 @@ class ChangeBracketTest < OperationTest
 
   test "re-creates games as spec'd by the bracket template" do
     type = 'single_elimination_4'
-    template = Bracket.find_by(handle: type).template
+    template = BracketDb.find(handle: type).template
     template_game = template[:games].first
 
     ChangeBracket.perform(
@@ -26,7 +26,7 @@ class ChangeBracketTest < OperationTest
 
   test "games that are the same before and after are unaffected" do
     type = 'single_elimination_4'
-    template = Bracket.find_by(handle: type).template
+    template = BracketDb.find(handle: type).template
     template_game = template[:games].first
 
     game = Game.from_template(

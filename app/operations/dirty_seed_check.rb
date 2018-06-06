@@ -48,7 +48,7 @@ class DirtySeedCheck < ApplicationOperation
   end
 
   def games
-    @games ||= if division.bracket.pool
+    @games ||= if division.bracket.pools.present?
       Game.where(
         tournament_id: division.tournament_id,
         division_id: division.id
