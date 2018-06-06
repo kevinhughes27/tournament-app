@@ -34,7 +34,7 @@ module Schedulable
   end
 
   def playing_time_range
-    (start_time)..(end_time - 1.minutes)
+    (start_time)..(end_time)
   end
 
   def playing_time_range_string

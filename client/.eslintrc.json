@@ -3,7 +3,6 @@
     "browser": true
   },
   "globals": {
-    "BracketDb": true,
     "$": true,
     "Turbolinks": true,
     "Admin": true,

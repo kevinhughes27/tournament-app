@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class BracketTest < ActiveSupport::TestCase
-  BracketDb::TemplateValidator.methods(false).each do |validation|
+class BracketDbTest < ActiveSupport::TestCase
+  BracketDb::StructureValidator.methods(false).each do |validation|
     next unless validation.to_s.include? 'validate_'
-    Bracket.all.each do |bracket|
-      test "bracket template #{validation} #{bracket.handle}" do
-        assert BracketDb::TemplateValidator.send(validation, bracket.template)
+    BracketDb.all.each do |handle, bracket|
+      test "bracket template #{validation} #{handle}" do
+        assert BracketDb::StructureValidator.send(validation, bracket.template)
       end
     end
   end

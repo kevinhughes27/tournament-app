@@ -79,7 +79,7 @@ class Division extends React.Component {
   }
 
   renderPools (bracket) {
-    let games = this.props.games ? JSON.parse(this.props.games) : bracket.template.games
+    let games = this.props.games ? JSON.parse(this.props.games) : bracket.games
     let divisionName = games[0].division
 
     let teamsByPool = this._teamsByPool(games)
@@ -157,7 +157,7 @@ class Division extends React.Component {
     let bracket = this.state.bracket
 
     if (bracket) {
-      let hasPools = bracket.pool
+      let hasPools = bracket.pools !== []
 
       return (
         <div>

@@ -36,7 +36,7 @@ class Resolvers::UpdateDivision < Resolvers::BaseResolver
   def update_bracket
     @division.update_column(:seeded, false)
 
-    bracket = Bracket.find_by(handle: @division.bracket_type)
+    bracket = BracketDb.find(handle: @division.bracket_type)
 
     ChangeBracketJob.perform_now(
       tournament_id: @division.tournament_id,

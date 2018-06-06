@@ -129,7 +129,7 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
         division_id: @division.id,
         seed_round: SEED_ROUND
       )
-    elsif @division.bracket.pool
+    elsif @division.bracket.pools.present?
       Game.where(
         tournament_id: @division.tournament_id,
         division_id: @division.id

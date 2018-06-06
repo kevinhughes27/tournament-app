@@ -18,12 +18,11 @@ gem 'browser-timezone-rails'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 
 # datastores
-gem 'pg'
+gem 'pg', '~> 0.21.0'
 gem 'redis'
-gem 'frozen_record'
 
 # engines
-gem 'devise', '~> 4.4.1'
+gem 'devise'
 
 # auth
 gem 'omniauth-google-oauth2'

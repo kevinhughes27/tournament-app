@@ -27,7 +27,7 @@ class Division < ApplicationRecord
   scope :un_seeded, -> { where(seeded: false) }
 
   def bracket
-    @bracket ||= Bracket.find_by(handle: self.bracket_type)
+    @bracket ||= BracketDb.find(handle: self.bracket_type)
   end
 
   delegate :template, to: :bracket
