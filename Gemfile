@@ -20,7 +20,6 @@ gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 # datastores
 gem 'pg'
 gem 'redis'
-gem 'frozen_record'
 
 # engines
 gem 'devise', '~> 4.4.1'

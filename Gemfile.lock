@@ -150,8 +150,6 @@ GEM
     ffi (1.9.23)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
-    frozen_record (0.8.0)
-      activemodel
     gibbon (3.0.2)
       faraday (>= 0.9.1)
       multi_json (>= 1.11.0)
@@ -389,7 +387,6 @@ DEPENDENCIES
   factory_girl_rails
   faker
   font-awesome-rails
-  frozen_record
   gibbon
   graphiql-rails
   graphql
