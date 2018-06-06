@@ -1,6 +1,6 @@
-require_relative 'pools'
-require_relative 'brackets'
-require_relative 'structure'
+require_relative 'components/pools'
+require_relative 'components/brackets'
+require_relative 'components/structure'
 
 module BracketDb
   class DSL
