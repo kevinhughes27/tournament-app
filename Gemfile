@@ -22,7 +22,7 @@ gem 'pg'
 gem 'redis'
 
 # engines
-gem 'devise', '~> 4.4.1'
+gem 'devise'
 
 # auth
 gem 'omniauth-google-oauth2'
