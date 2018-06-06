@@ -8,15 +8,13 @@ BracketDb.define 'Power Pools 12' do
 
   bracket '8.1'
 
-  games do
-    [
-      {round:1, bracket_uid: "aa", home_prereq: "A5", away_prereq: "B6"},
-      {round:1, bracket_uid: "bb", home_prereq: "A6", away_prereq: "B5"},
+  games [
+    {round:1, bracket_uid: "aa", home_prereq: "A5", away_prereq: "B6"},
+    {round:1, bracket_uid: "bb", home_prereq: "A6", away_prereq: "B5"},
 
-      {round:2, bracket_uid: "9", home_prereq: "Waa", away_prereq: "Wbb"},
-      {round:2, bracket_uid: "11", home_prereq: "Laa", away_prereq: "Lbb"}
-    ]
-  end
+    {round:2, bracket_uid: "9", home_prereq: "Waa", away_prereq: "Wbb"},
+    {round:2, bracket_uid: "11", home_prereq: "Laa", away_prereq: "Lbb"}
+  ]
 
   places %w(W1 L1 W3 L3 W5 L5 W7 L7 W9 L9 W11 L11)
 end

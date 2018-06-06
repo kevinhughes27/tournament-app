@@ -8,11 +8,7 @@ BracketDb.define 'USAU 10.2' do
 
   bracket '8.2.1'
 
-  games do
-    [
-      {round:1, bracket_uid: "9", home_prereq: "A5", away_prereq: "B5"}
-    ]
-  end
+  games [{round:1, bracket_uid: "9", home_prereq: "A5", away_prereq: "B5"}]
 
   places %w(W1 W2 L2 Lh W5 L5 W7 L7 W9 L9)
 end

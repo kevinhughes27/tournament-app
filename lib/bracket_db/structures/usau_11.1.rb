@@ -9,13 +9,11 @@ BracketDb.define 'USAU 11.1' do
 
   bracket '8.1'
 
-  games do
-    [
-      {round: 1, bracket_uid: "aa", home_prereq: "A5", away_prereq: "B6"},
-      {round: 2, bracket_uid: "bb", home_prereq: "B5", away_prereq: "B6"},
-      {round: 3, bracket_uid: "cc", home_prereq: "A5", away_prereq: "B5"}
-    ]
-  end
+  games [
+    {round: 1, bracket_uid: "aa", home_prereq: "A5", away_prereq: "B6"},
+    {round: 2, bracket_uid: "bb", home_prereq: "B5", away_prereq: "B6"},
+    {round: 3, bracket_uid: "cc", home_prereq: "A5", away_prereq: "B5"}
+  ]
 
   places %w(W1 L1 W3 L3 W5 L5 W7 L7 A5 B5 B6)
 end

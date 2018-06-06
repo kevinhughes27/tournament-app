@@ -6,13 +6,11 @@ BracketDb.define 'CUUC 7' do
   pool '3.1', 'O', [1,4,5]
   pool '4.1', 'P', [2,3,6,7]
 
-  games do
-    [
-      {round:1, bracket_uid: "zz", home_prereq: "O1", away_prereq: "P1"},
-      {round:1, bracket_uid: "xx", home_prereq: "O2", away_prereq: "P4"},
-      {round:1, bracket_uid: "yy", home_prereq: "O3", away_prereq: "P3"},
-    ]
-  end
+  games [
+    {round:1, bracket_uid: "zz", home_prereq: "O1", away_prereq: "P1"},
+    {round:1, bracket_uid: "xx", home_prereq: "O2", away_prereq: "P4"},
+    {round:1, bracket_uid: "yy", home_prereq: "O3", away_prereq: "P3"},
+  ]
 
   places %w(Wzz Lzz P2 Wxx Wyy Lxx Lyy)
 end

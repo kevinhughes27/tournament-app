@@ -48,8 +48,8 @@ module BracketDb
       @games += bracket_games
     end
 
-    def games(&block)
-      @games += block.call
+    def games(misc_games)
+      @games += misc_games
     end
 
     def places(game_uids)
