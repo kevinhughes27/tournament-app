@@ -1,6 +1,6 @@
 require 'json-schema'
 
-class BracketDb::TemplateValidator
+class BracketDb::StructureValidator
   BRACKET_SCHEMA = {
     "type" => "object",
     "properties" => {
