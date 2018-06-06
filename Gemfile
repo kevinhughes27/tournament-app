@@ -18,7 +18,7 @@ gem 'browser-timezone-rails'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 
 # datastores
-gem 'pg'
+gem 'pg', '~> 0.21.0'
 gem 'redis'
 
 # engines
