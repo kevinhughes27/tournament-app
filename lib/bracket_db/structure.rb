@@ -40,6 +40,7 @@ module BracketDb
         days: @days,
         games: @games,
         places: @places,
+        pools: pools,
         bracket_tree: to_tree
       }
     end
