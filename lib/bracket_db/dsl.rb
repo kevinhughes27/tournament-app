@@ -5,7 +5,8 @@ require_relative 'structure'
 module BracketDb
   class DSL
 
-    def initialize
+    def initialize(handle)
+      @handle = handle
       @name = ''
       @description = ''
       @teams = 0
@@ -60,6 +61,7 @@ module BracketDb
 
     def to_structure
       Structure.new(
+        handle: @handle,
         name: @name,
         description: @description,
         teams: @teams,

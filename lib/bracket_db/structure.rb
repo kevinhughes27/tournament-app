@@ -2,7 +2,8 @@ require_relative 'to_tree'
 
 module BracketDb
   class Structure
-    def initialize(name:, description:, teams:, days:, games:, places:)
+    def initialize(handle:, name:, description:, teams:, days:, games:, places:)
+      @handle = handle
       @name = name
       @description = description
       @teams = teams
@@ -31,9 +32,9 @@ module BracketDb
       }
     end
 
-    def to_json(handle)
+    def to_json
       {
-        handle: handle,
+        handle: @handle,
         name: @name,
         description: @description,
         teams: @teams,

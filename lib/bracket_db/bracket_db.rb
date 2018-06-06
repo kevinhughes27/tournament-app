@@ -8,11 +8,11 @@ module BracketDb
       Dir["#{File.dirname(__FILE__)}/structures/*.rb"].each {|f| require f}
     end
 
-    def define(name, &block)
-      dsl = DSL.new
+    def define(handle, &block)
+      dsl = DSL.new(handle)
       dsl.instance_eval(&block)
       structure = dsl.to_structure
-      @registry[name] = structure
+      @registry[handle] = structure
     end
 
     def all
