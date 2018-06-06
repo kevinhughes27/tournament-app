@@ -42,7 +42,7 @@ class TeamConflictCheck < ApplicationOperation
     Game.where(
       tournament: game.tournament,
       division: game.division,
-      start_time: game.playing_time_range
+      start_time: (game.start_time)..(game.end_time - 1.minutes)
     ).where(
       "home_prereq IN (?) OR away_prereq IN (?)", prereqs, prereqs
     ).where.not(id: game.id)
@@ -52,7 +52,7 @@ class TeamConflictCheck < ApplicationOperation
     Game.where(
       tournament: game.tournament,
       division: game.division,
-      end_time: game.playing_time_range
+      end_time: (game.start_time + 1.minutes)..(game.end_time)
     ).where(
       "home_prereq IN (?) OR away_prereq IN (?)", prereqs, prereqs
     ).where.not(id: game.id)
