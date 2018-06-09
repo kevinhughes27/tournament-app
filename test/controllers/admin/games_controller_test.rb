@@ -5,7 +5,6 @@ class Admin::GamesControllerTest < AdminControllerTest
     FactoryGirl.create(:game)
     get :index
     assert_response :success
-    assert_not_nil assigns(:games)
   end
 
   test "blank slate" do

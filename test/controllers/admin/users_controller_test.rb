@@ -4,13 +4,11 @@ class Admin::UsersControllerTest < AdminControllerTest
   test "get new" do
     get :new
     assert_response :success
-    assert_not_nil assigns(:user)
   end
 
   test "get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:users)
   end
 
   test "create a new user" do

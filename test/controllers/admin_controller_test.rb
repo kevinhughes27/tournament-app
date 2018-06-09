@@ -41,7 +41,7 @@ class Admin::TestCaseControllerTest < ActionController::TestCase
     set_tournament('wat')
     get :index
     assert_response :not_found
-    assert_template 'login/404', layout: 'login'
+    assert_match 'Tournament Not Found', response.body
   end
 
   test "404 error (html)" do
@@ -49,6 +49,6 @@ class Admin::TestCaseControllerTest < ActionController::TestCase
     @controller.expects(:render_index).raises(ActiveRecord::RecordNotFound)
     get :index
     assert_response :not_found
-    assert_template 'admin/404'
+    assert_match "There's nothing here!", response.body
   end
 end

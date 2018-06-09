@@ -14,14 +14,12 @@ class Admin::FieldsControllerTest < AdminControllerTest
     field = FactoryGirl.create(:field)
     get :show, params: { id: field.id }
     assert_response :success
-    assert_not_nil assigns(:field)
   end
 
   test "get index" do
     field = FactoryGirl.create(:field)
     get :index
     assert_response :success
-    assert_not_nil assigns(:fields)
   end
 
   test "blank slate" do
@@ -34,7 +32,6 @@ class Admin::FieldsControllerTest < AdminControllerTest
     field = FactoryGirl.create(:field)
     get :export_csv, format: :csv
     assert_response :success
-    assert_not_nil assigns(:fields)
     assert_equal "text/csv", response.content_type
   end
 
@@ -42,7 +39,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
     assert_difference "Field.count" do
       post :create, params: { field: field_params }
 
-      field = assigns(:field)
+      field = Field.last
       assert_redirected_to admin_field_path(field)
     end
   end
@@ -53,7 +50,6 @@ class Admin::FieldsControllerTest < AdminControllerTest
 
     assert_no_difference "Field.count" do
       post :create, params: { field: params }
-      assert_template :new
     end
   end
 
@@ -92,7 +88,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
     assert_no_difference "Field.count" do
       delete :destroy, params: { id: field.id }
       assert_response :unprocessable_entity
-      assert_template 'admin/fields/_confirm_delete'
+      assert_match 'Confirm Deletion', response.body
     end
   end
 

@@ -38,6 +38,5 @@ class PasswordsControllerTest < ActionController::TestCase
     params = { user: {password: '', password_confirmation: '', reset_password_token: token } }
     put :update, params: params
     assert_response :ok
-    assert_template 'passwords/edit'
   end
 end

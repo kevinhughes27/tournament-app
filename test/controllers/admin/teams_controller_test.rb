@@ -4,21 +4,18 @@ class Admin::TeamsControllerTest < AdminControllerTest
   test "get new" do
     get :new
     assert_response :success
-    assert_not_nil assigns(:team)
   end
 
   test "get show" do
     team = FactoryGirl.create(:team)
     get :show, params: { id: team.id }
     assert_response :success
-    assert_not_nil assigns(:team)
   end
 
   test "get index" do
     FactoryGirl.create(:team)
     get :index
     assert_response :success
-    assert_not_nil assigns(:teams)
   end
 
   test "blank slate" do
@@ -31,7 +28,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
     assert_difference "Team.count" do
       post :create, params: { team: FactoryGirl.attributes_for(:team) }
 
-      team = assigns(:team)
+      team = Team.last
       assert_redirected_to admin_team_path(team)
     end
   end
@@ -41,7 +38,6 @@ class Admin::TeamsControllerTest < AdminControllerTest
 
     assert_no_difference "Team.count" do
       post :create, params: { team: params }
-      assert_template :new
     end
   end
 
@@ -71,7 +67,6 @@ class Admin::TeamsControllerTest < AdminControllerTest
     params = { name: '' }
     put :update, params: { id: team.id, team: params }
 
-    assert_template :show
     assert_match "Name can&#39;t be blank", @response.body
   end
 
@@ -83,7 +78,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
     put :update, params: { id: team.id, team: params }
 
     assert_response :unprocessable_entity
-    assert_template 'admin/teams/_confirm_update'
+    assert_match "Confirm Change", response.body
   end
 
   test "confirm update a team with unsafe params" do
@@ -104,7 +99,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
     params = { seed: 3 }
     put :update, params: { id: team.id, team: params }
 
-    assert_template 'admin/teams/_unable_to_update'
+    assert_match "Unable to Update", response.body
   end
 
   test "delete a team" do
@@ -123,7 +118,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
     assert_no_difference "Team.count" do
       delete :destroy, params: { id: team.id }
       assert_response :unprocessable_entity
-      assert_template 'admin/teams/_confirm_delete'
+      assert_match "Confirm Deletion", response.body
     end
   end
 
@@ -145,7 +140,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
 
     assert_no_difference "Team.count" do
       delete :destroy, params: { id: team.id }
-      assert_template 'admin/teams/_unable_to_delete'
+      assert_match "Unable to Delete", response.body
     end
   end
 

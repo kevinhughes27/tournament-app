@@ -4,21 +4,18 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   test "get new" do
     get :new
     assert_response :success
-    assert_not_nil assigns(:division)
   end
 
   test "get show" do
     division = FactoryGirl.create(:division)
     get :show, params: { id: division.id }
     assert_response :success
-    assert_not_nil assigns(:division)
   end
 
   test "get edit" do
     division = FactoryGirl.create(:division)
     get :edit, params: { id: division.id }
     assert_response :success
-    assert_not_nil assigns(:division)
   end
 
   test "get index" do
@@ -37,7 +34,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
     assert_difference "Division.count" do
       post :create, params: { division: division_params }
 
-      division = assigns(:division)
+      division = Division.last
       assert_redirected_to admin_division_path(division)
     end
   end
@@ -49,8 +46,6 @@ class Admin::DivisionsControllerTest < AdminControllerTest
     assert_no_difference "Division.count" do
       post :create, params: { division: params }
 
-      division = assigns(:division)
-      assert_template :new
       assert_match "Name can&#39;t be blank", response.body
     end
   end
@@ -71,7 +66,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
     put :update, params: { id: division.id, division: params }
 
     assert_response :unprocessable_entity
-    assert_template 'admin/divisions/_confirm_update'
+    assert_match "Confirm Update", response.body
   end
 
   test "update a division (unsafe) + confirm" do
@@ -109,7 +104,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
     assert_no_difference "Division.count" do
       delete :destroy, params: { id: division.id }
       assert_response :unprocessable_entity
-      assert_template 'admin/divisions/_confirm_delete'
+      assert_match 'Confirm Deletion', response.body
     end
   end
 
@@ -217,7 +212,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
 
     post :seed, params: params
 
-    assert_template 'admin/divisions/_confirm_seed'
+    assert_match 'Confirm Seed', response.body
   end
 
   test "seed a division with an error" do

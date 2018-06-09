@@ -12,14 +12,14 @@ class AdminErrorHandlingTest < ActionDispatch::IntegrationTest
     login_as(@user)
     get "http://#{@tournament.handle}.lvh.me/admin/wat"
     assert_equal 404, status
-    assert_template 'admin/404', layout: 'admin'
+    assert_match "There's nothing here!", response.body
   end
 
   test "admin 404s for record not found" do
     login_as(@user)
     get "http://#{@tournament.handle}.lvh.me/admin/teams/99"
     assert_equal 404, status
-    assert_template 'admin/404', layout: 'admin'
+    assert_match "There's nothing here!", response.body
   end
 
   private

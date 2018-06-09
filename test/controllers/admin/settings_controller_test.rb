@@ -17,7 +17,7 @@ class Admin::SettingsControllerTest < AdminControllerTest
     new_handle = 'new-handle'
     put :update, params: { tournament: {handle: new_handle} }
     assert_response :unprocessable_entity
-    assert_template 'admin/settings/_confirm_update'
+    assert_match 'Confirm Handle Change', response.body
   end
 
   test "update handle redirects properly" do
