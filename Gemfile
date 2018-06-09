@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 # server
-gem 'rails', '5.0.7'
-gem 'actioncable'
+gem 'rails', '5.1.6'
+gem 'actioncable', '5.1.6'
 gem 'puma'
 gem 'config'
 gem 'jbuilder'
@@ -30,7 +30,7 @@ gem 'omniauth-facebook'
 
 # model gems
 gem 'activerecord-import'
-gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
+gem 'paranoia', '~> 2.4.1'
 gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
@@ -49,7 +49,7 @@ gem 'rollbar'
 gem 'wicked_pdf'
 
 # asset gems
-gem 'react_on_rails', '~> 8.0.3'
+gem 'react_on_rails', '8.0.6'
 gem 'webpacker_lite', '2.0.4'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
@@ -57,7 +57,7 @@ gem 'uglifier', '~> 3.2.0'
 gem 'sassc-rails'
 
 # javascript gems
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'twine-rails'
 gem 'turbolinks', '~> 5.0.0'
