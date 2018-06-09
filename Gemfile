@@ -3,6 +3,7 @@ ruby '2.5.0'
 
 # server
 gem 'rails', '5.2.0'
+gem 'bootsnap'
 gem 'actioncable'
 gem 'puma'
 gem 'config'
@@ -76,6 +77,7 @@ group :development, :test do
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'rainbow'
+  gem 'listen'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
 
