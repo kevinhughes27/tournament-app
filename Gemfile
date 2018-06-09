@@ -4,7 +4,6 @@ ruby '2.5.0'
 # server
 gem 'rails', '5.2.0'
 gem 'bootsnap'
-gem 'actioncable'
 gem 'puma'
 gem 'config'
 gem 'jbuilder'
@@ -13,6 +12,9 @@ gem 'active_operation'
 # api
 gem 'graphql'
 gem 'graphiql-rails'
+
+# websockets
+gem 'actioncable'
 
 # controllers
 gem 'browser-timezone-rails'
