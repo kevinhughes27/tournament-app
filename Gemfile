@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 # server
-gem 'rails', '5.0.4'
+gem 'rails', '5.0.7'
 gem 'actioncable'
 gem 'puma'
 gem 'config'
