@@ -4,17 +4,15 @@ class Game < ApplicationRecord
   belongs_to :tournament
   belongs_to :division
 
-  belongs_to :field
-  belongs_to :home, class_name: 'Team', foreign_key: :home_id
-  belongs_to :away, class_name: 'Team', foreign_key: :away_id
+  belongs_to :field, optional: true
+  belongs_to :home, class_name: 'Team', foreign_key: :home_id, optional: true
+  belongs_to :away, class_name: 'Team', foreign_key: :away_id, optional: true
 
   has_many :score_reports, dependent: :destroy
   has_many :score_entries, dependent: :destroy
   has_many :score_disputes, dependent: :destroy
 
-  validates_presence_of :tournament,
-                        :division,
-                        :home_prereq,
+  validates_presence_of :home_prereq,
                         :away_prereq,
                         :round
   validates_presence_of :pool, if: Proc.new{ |g| g.bracket_uid.nil? }

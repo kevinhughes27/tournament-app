@@ -3,14 +3,12 @@ class Team < ApplicationRecord
   LIMIT = 256
 
   belongs_to :tournament
-  belongs_to :division
+  belongs_to :division, optional: true
   has_many :score_reports, dependent: :nullify
 
   auto_strip_attributes :name, :email, :phone
 
-  validates_presence_of :tournament, :name
-  validates_uniqueness_of :name, scope: :tournament
-
+  validates :name, presence: true, uniqueness: { scope: :tournament }
   validates_format_of :email, with: Devise.email_regexp, allow_blank: true
   validates :phone, phone: { possible: true, allow_blank: true }
   validates :seed, numericality: { allow_blank: true }

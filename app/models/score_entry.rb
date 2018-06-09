@@ -8,11 +8,6 @@ class ScoreEntry < ApplicationRecord
 
   acts_as_paranoid
 
-  validates_presence_of :tournament
-  validates_presence_of :game
-  validates_presence_of :user
-  validates_presence_of :home
-  validates_presence_of :away
   validates_presence_of :home_score
   validates_presence_of :away_score
 end

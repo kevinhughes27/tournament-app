@@ -114,8 +114,8 @@ class UpdateScoreTest < ApiTest
   end
 
   test "resolves any disputes" do
-    game = FactoryGirl.create(:game)
-    dispute = ScoreDispute.create!(tournament: game.tournament, game_id: game.id)
+    game = FactoryBot.create(:game)
+    dispute = ScoreDispute.create!(tournament: game.tournament, game_id: game.id, user: @user)
     game.reload
 
     input = {game_id: game.id, home_score: 15, away_score: 11, resolve: true}

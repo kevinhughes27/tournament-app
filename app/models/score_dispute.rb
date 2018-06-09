@@ -1,12 +1,9 @@
 class ScoreDispute < ApplicationRecord
   belongs_to :tournament
   belongs_to :game
-  belongs_to :user
+  belongs_to :user, optional: true
 
   acts_as_paranoid
-
-  validates_presence_of :tournament
-  validates_presence_of :game
 
   STATES = %w(open resolved)
   validates :status, inclusion: { in: STATES }

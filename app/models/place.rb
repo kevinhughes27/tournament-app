@@ -1,10 +1,8 @@
 class Place < ApplicationRecord
   belongs_to :tournament
   belongs_to :division
-  belongs_to :team
+  belongs_to :team, optional: true
 
-  validates_presence_of :tournament
-  validates_presence_of :division
   validates_presence_of :prereq
   validates_presence_of :position
 

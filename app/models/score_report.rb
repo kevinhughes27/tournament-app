@@ -5,10 +5,7 @@ class ScoreReport < ApplicationRecord
 
   acts_as_paranoid
 
-  validates_presence_of :tournament,
-                        :game,
-                        :team,
-                        :submitter_fingerprint,
+  validates_presence_of :submitter_fingerprint,
                         :home_score,
                         :away_score
 
