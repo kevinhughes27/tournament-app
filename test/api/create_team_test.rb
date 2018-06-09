@@ -8,7 +8,7 @@ class CreateTeamTest < ApiTest
 
   test "create a team" do
     assert_difference "Team.count" do
-      input = FactoryGirl.attributes_for(:team).except(:tournament, :division)
+      input = FactoryBot.attributes_for(:team).except(:tournament, :division)
 
       execute_graphql("createTeam", "CreateTeamInput", input, @output)
 
@@ -17,7 +17,7 @@ class CreateTeamTest < ApiTest
   end
 
   test "create a team with errors" do
-    input = FactoryGirl.attributes_for(:team, name: nil).except(:tournament, :division)
+    input = FactoryBot.attributes_for(:team, name: nil).except(:tournament, :division)
 
     assert_no_difference "Team.count" do
       execute_graphql("createTeam", "CreateTeamInput", input, @output)

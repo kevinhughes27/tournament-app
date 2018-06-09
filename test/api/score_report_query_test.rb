@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ScoreReportQueryTest < ApiTest
   test "scoreReports are hidden to public" do
-    report = FactoryGirl.create(:score_report)
+    report = FactoryBot.create(:score_report)
 
     query_graphql(
       "scoreReports {
@@ -15,7 +15,7 @@ class ScoreReportQueryTest < ApiTest
 
   test "scoreReports" do
     login_user
-    report = FactoryGirl.create(:score_report)
+    report = FactoryBot.create(:score_report)
 
     query_graphql("
       scoreReports {
@@ -28,7 +28,7 @@ class ScoreReportQueryTest < ApiTest
   end
 
   test "scoreReport are hidden to public" do
-    report = FactoryGirl.create(:score_report)
+    report = FactoryBot.create(:score_report)
 
     query_graphql(
       "scoreReport(id: #{report.id}) {
@@ -41,7 +41,7 @@ class ScoreReportQueryTest < ApiTest
 
   test "scoreReport" do
     login_user
-    report = FactoryGirl.create(:score_report)
+    report = FactoryBot.create(:score_report)
 
     query_graphql("
       scoreReport(id: #{report.id}) {

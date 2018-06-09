@@ -8,7 +8,7 @@ class CreateDivisionTest < ApiTest
 
   test "division creates all required games" do
     type = 'single_elimination_4'
-    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
+    input = FactoryBot.attributes_for(:division, bracket_type: type).except(:tournament)
 
     assert_difference "Game.count", +4 do
       execute_graphql("createDivision", "CreateDivisionInput", input, @output)
@@ -18,7 +18,7 @@ class CreateDivisionTest < ApiTest
 
   test "division creates all required places" do
     type = 'single_elimination_4'
-    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
+    input = FactoryBot.attributes_for(:division, bracket_type: type).except(:tournament)
 
     assert_difference "Place.count", +4 do
       execute_graphql("createDivision", "CreateDivisionInput", input, @output)
@@ -28,7 +28,7 @@ class CreateDivisionTest < ApiTest
 
   test "creates games as spec'd by the bracket template" do
     type = 'single_elimination_8'
-    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
+    input = FactoryBot.attributes_for(:division, bracket_type: type).except(:tournament)
 
     execute_graphql("createDivision", "CreateDivisionInput", input, @output)
     assert_success
@@ -44,7 +44,7 @@ class CreateDivisionTest < ApiTest
 
   test "creates places as spec'd by the bracket template" do
     type = 'single_elimination_8'
-    input = FactoryGirl.attributes_for(:division, bracket_type: type).except(:tournament)
+    input = FactoryBot.attributes_for(:division, bracket_type: type).except(:tournament)
 
     execute_graphql("createDivision", "CreateDivisionInput", input, @output)
     assert_success

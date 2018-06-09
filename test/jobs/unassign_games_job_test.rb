@@ -2,8 +2,8 @@ require 'test_helper'
 
 class UnassignGamesJobTest < ActiveJob::TestCase
   test "removes the team from all games (home)" do
-    tournament = FactoryGirl.create(:tournament)
-    game = FactoryGirl.create(:game)
+    tournament = FactoryBot.create(:tournament)
+    game = FactoryBot.create(:game)
     team = game.home
 
     UnassignGamesJob.perform_now(
@@ -15,8 +15,8 @@ class UnassignGamesJobTest < ActiveJob::TestCase
   end
 
   test "removes the team from all games (away)" do
-    tournament = FactoryGirl.create(:tournament)
-    game = FactoryGirl.create(:game)
+    tournament = FactoryBot.create(:tournament)
+    game = FactoryBot.create(:game)
     team = game.away
 
     UnassignGamesJob.perform_now(

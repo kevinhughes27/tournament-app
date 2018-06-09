@@ -32,11 +32,11 @@ class Admin::SettingsControllerTest < AdminControllerTest
   end
 
   test "reset clears data" do
-    FactoryGirl.create(:field)
-    FactoryGirl.create(:team)
-    FactoryGirl.create(:division)
-    FactoryGirl.create(:game)
-    FactoryGirl.create(:score_report)
+    FactoryBot.create(:field)
+    FactoryBot.create(:team)
+    FactoryBot.create(:division)
+    FactoryBot.create(:game)
+    FactoryBot.create(:score_report)
 
     post :reset_data
     assert_redirected_to admin_settings_path

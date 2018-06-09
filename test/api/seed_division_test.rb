@@ -7,7 +7,7 @@ class SeedDivisionTest < ApiTest
   end
 
   test "seed a division" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
     teams = create_teams(division, 4)
 
@@ -17,11 +17,11 @@ class SeedDivisionTest < ApiTest
   end
 
   test "seed (unsafe)" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
     teams = create_teams(division, 4)
 
-    FactoryGirl.create(:game, :finished, division: division, home: teams.first)
+    FactoryBot.create(:game, :finished, division: division, home: teams.first)
 
     assert division.teams.any?{ |t| !t.allow_change? }
 
@@ -39,7 +39,7 @@ class SeedDivisionTest < ApiTest
   end
 
   test "seed a division with an error" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
     teams = create_teams(division, 8)
 
@@ -49,7 +49,7 @@ class SeedDivisionTest < ApiTest
   end
 
   test "initializes the first round" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
     teams = create_teams(division, 8)
 
@@ -66,7 +66,7 @@ class SeedDivisionTest < ApiTest
   end
 
   test "resets any games past the seed round" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
     teams = create_teams(division, 8)
 
@@ -94,7 +94,7 @@ class SeedDivisionTest < ApiTest
   end
 
   test "round robin 5 (seeds into round 2 games)" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'round_robin_5')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'round_robin_5')
     division = create_division(params)
     teams = create_teams(division, 5)
 
@@ -108,7 +108,7 @@ class SeedDivisionTest < ApiTest
   end
 
   test "sets division seeded to true" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
     teams = create_teams(division, 8)
 
@@ -132,7 +132,7 @@ class SeedDivisionTest < ApiTest
 
   def create_teams(division, num)
     (1..num).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
   end
 

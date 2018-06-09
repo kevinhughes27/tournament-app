@@ -4,14 +4,14 @@ class AdvanceBracketTest < OperationTest
   include ActiveJob::TestHelper
 
   test "pushes winner through the bracket" do
-    game1 = FactoryGirl.create(:game,
+    game1 = FactoryBot.create(:game,
       round: 1,
       bracket_uid: 'q1',
       home_score: 15,
       away_score: 11
     )
 
-    game2 = FactoryGirl.create(:game,
+    game2 = FactoryBot.create(:game,
       round: 2,
       home_prereq: 'Wq1',
     )
@@ -21,14 +21,14 @@ class AdvanceBracketTest < OperationTest
   end
 
   test "pushes loser through the bracket" do
-    game1 = FactoryGirl.create(:game,
+    game1 = FactoryBot.create(:game,
       round: 1,
       bracket_uid: 'q1',
       home_score: 15,
       away_score: 11
     )
 
-    game2 = FactoryGirl.create(:game,
+    game2 = FactoryBot.create(:game,
       round: 2,
       away_prereq: 'Lq1'
     )
@@ -38,9 +38,9 @@ class AdvanceBracketTest < OperationTest
   end
 
   test "resets dependent_games if required" do
-    team = FactoryGirl.create(:team)
+    team = FactoryBot.create(:team)
 
-    game1 = FactoryGirl.create(:game,
+    game1 = FactoryBot.create(:game,
       round: 1,
       bracket_uid: 'q1',
       home: team,
@@ -48,7 +48,7 @@ class AdvanceBracketTest < OperationTest
       away_score: 15
     )
 
-    game2 = FactoryGirl.create(:game,
+    game2 = FactoryBot.create(:game,
       round: 2,
       home_prereq: 'Wq1',
       home: team,
@@ -64,9 +64,9 @@ class AdvanceBracketTest < OperationTest
   end
 
   test "resets future games as required (recursive reset)" do
-    team = FactoryGirl.create(:team)
+    team = FactoryBot.create(:team)
 
-    game1 = FactoryGirl.create(:game,
+    game1 = FactoryBot.create(:game,
       round: 1,
       bracket_uid: 'q1',
       home: team,
@@ -74,7 +74,7 @@ class AdvanceBracketTest < OperationTest
       away_score: 11
     )
 
-    game2 = FactoryGirl.create(:game,
+    game2 = FactoryBot.create(:game,
       round: 2,
       bracket_uid: 's1',
       home_prereq: 'Wq1',
@@ -83,7 +83,7 @@ class AdvanceBracketTest < OperationTest
       away_score: 11
     )
 
-    game3 = FactoryGirl.create(:game,
+    game3 = FactoryBot.create(:game,
       round: 3,
       home_prereq: 'Ws1',
       home: team,

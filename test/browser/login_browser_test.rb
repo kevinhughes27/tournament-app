@@ -2,9 +2,9 @@ require "test_helper"
 
 class LoginBrowserTest < BrowserTest
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament, handle: 'no-borders')
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament, handle: 'no-borders')
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
   test "login to tournament admin" do

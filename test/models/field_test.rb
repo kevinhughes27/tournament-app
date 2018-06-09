@@ -2,21 +2,21 @@ require 'test_helper'
 
 class FieldTest < ActiveSupport::TestCase
   test "safe_to_delete? is true for field with no games" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
 
     assert field.safe_to_delete?
   end
 
   test "safe_to_delete? is false for field games" do
-    field = FactoryGirl.create(:field)
-    game = FactoryGirl.create(:game, :scheduled, field: field)
+    field = FactoryBot.create(:field)
+    game = FactoryBot.create(:game, :scheduled, field: field)
 
     refute field.safe_to_delete?
   end
 
   test "limited number of fields per tournament" do
-    tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:field, tournament: tournament)
+    tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:field, tournament: tournament)
 
     stub_constant(Field, :LIMIT, 1) do
       field = tournament.fields.build(name: 'new field')
@@ -26,7 +26,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "geo json must be valid json" do
-    params = FactoryGirl.attributes_for(:field, geo_json: 'not json }')
+    params = FactoryBot.attributes_for(:field, geo_json: 'not json }')
     field = Field.new(params)
 
     refute field.valid?
@@ -34,7 +34,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "lat must be number" do
-    params = FactoryGirl.attributes_for(:field, lat: 'not number')
+    params = FactoryBot.attributes_for(:field, lat: 'not number')
     field = Field.new(params)
 
     refute field.valid?
@@ -42,7 +42,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "lat must be smaller than 90" do
-    params = FactoryGirl.attributes_for(:field, lat: 100)
+    params = FactoryBot.attributes_for(:field, lat: 100)
     field = Field.new(params)
 
     refute field.valid?
@@ -50,7 +50,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "lat must be greater than -90" do
-    params = FactoryGirl.attributes_for(:field, lat: -100)
+    params = FactoryBot.attributes_for(:field, lat: -100)
     field = Field.new(params)
 
     refute field.valid?
@@ -58,7 +58,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "long must be number" do
-    params = FactoryGirl.attributes_for(:field, long: 'not number')
+    params = FactoryBot.attributes_for(:field, long: 'not number')
     field = Field.new(params)
 
     refute field.valid?
@@ -66,7 +66,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "long must be smaller than 180" do
-    params = FactoryGirl.attributes_for(:field, long: 190)
+    params = FactoryBot.attributes_for(:field, long: 190)
     field = Field.new(params)
 
     refute field.valid?
@@ -74,7 +74,7 @@ class FieldTest < ActiveSupport::TestCase
   end
 
   test "long must be greater than -180" do
-    params = FactoryGirl.attributes_for(:field, long: -190)
+    params = FactoryBot.attributes_for(:field, long: -190)
     field = Field.new(params)
 
     refute field.valid?

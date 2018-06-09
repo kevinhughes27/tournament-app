@@ -7,7 +7,7 @@ class DeleteDivisionTest < ApiTest
   end
 
   test "delete a division" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     input = {division_id: division.id}
 
     assert_difference "Division.count", -1 do
@@ -17,8 +17,8 @@ class DeleteDivisionTest < ApiTest
   end
 
   test "unsafe delete a division needs confirm" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :finished, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :finished, division: division)
     input = {division_id: division.id}
 
     assert_no_difference "Division.count" do
@@ -28,8 +28,8 @@ class DeleteDivisionTest < ApiTest
   end
 
   test "confirm delete a division" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :finished, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :finished, division: division)
     input = {division_id: division.id, confirm: true}
 
     assert_difference "Division.count", -1 do
@@ -39,8 +39,8 @@ class DeleteDivisionTest < ApiTest
   end
 
   test "deleting a division deletes games" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :scheduled, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :scheduled, division: division)
     input = {division_id: division.id}
 
     assert_difference "Division.count", -1 do

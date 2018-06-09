@@ -2,11 +2,11 @@ require "test_helper"
 
 class PlayerAppBrowserTest < BrowserTest
   setup do
-    @tournament = FactoryGirl.create(:tournament, handle: 'no-borders')
-    @map = FactoryGirl.create(:map, tournament: @tournament)
-    @team = FactoryGirl.create(:team, name: 'Swift')
-    @opponent = FactoryGirl.create(:team, name: 'Goose')
-    @game1 = FactoryGirl.create(:game, :scheduled, home: @team, away: @opponent)
+    @tournament = FactoryBot.create(:tournament, handle: 'no-borders')
+    @map = FactoryBot.create(:map, tournament: @tournament)
+    @team = FactoryBot.create(:team, name: 'Swift')
+    @opponent = FactoryBot.create(:team, name: 'Goose')
+    @game1 = FactoryBot.create(:game, :scheduled, home: @team, away: @opponent)
   end
 
   test 'submit a score' do

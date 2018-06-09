@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::GamesControllerTest < AdminControllerTest
   test "should get index" do
-    FactoryGirl.create(:game)
+    FactoryBot.create(:game)
     get :index
     assert_response :success
   end
@@ -14,7 +14,7 @@ class Admin::GamesControllerTest < AdminControllerTest
   end
 
   test "update a games score" do
-    game = FactoryGirl.create(:game)
+    game = FactoryBot.create(:game)
 
     put :update, params: {
       id: game.id,
@@ -28,8 +28,8 @@ class Admin::GamesControllerTest < AdminControllerTest
   end
 
   test "update a games score (unsafe)" do
-    game1 = FactoryGirl.create(:game, :finished)
-    game2 = FactoryGirl.create(:game, :finished, home_prereq: "W#{game1.bracket_uid}")
+    game1 = FactoryBot.create(:game, :finished)
+    game2 = FactoryBot.create(:game, :finished, home_prereq: "W#{game1.bracket_uid}")
 
     put :update, params: {
       id: game1.id,
@@ -41,8 +41,8 @@ class Admin::GamesControllerTest < AdminControllerTest
   end
 
   test "update a games score (unsafe) + force" do
-    game1 = FactoryGirl.create(:game, :finished)
-    game2 = FactoryGirl.create(:game, :finished, home_prereq: "W#{game1.bracket_uid}")
+    game1 = FactoryBot.create(:game, :finished)
+    game2 = FactoryBot.create(:game, :finished, home_prereq: "W#{game1.bracket_uid}")
 
     new_home_score = game1.away_score
     new_away_score = game1.home_score
@@ -61,7 +61,7 @@ class Admin::GamesControllerTest < AdminControllerTest
   end
 
   test "updating scores broadcasts changes" do
-    game = FactoryGirl.create(:game)
+    game = FactoryBot.create(:game)
 
     ActionCable.server.expects(:broadcast)
 

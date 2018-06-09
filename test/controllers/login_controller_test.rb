@@ -2,9 +2,9 @@ require 'test_helper'
 
 class LoginControllerTest < ActionController::TestCase
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
     set_tournament(@tournament)
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
@@ -61,7 +61,7 @@ class LoginControllerTest < ActionController::TestCase
   end
 
   test "login with valid user but wrong tournament" do
-    tournament = FactoryGirl.create(:tournament)
+    tournament = FactoryBot.create(:tournament)
     set_tournament(tournament)
 
     post :create, params: { user: {email: @user.email, password: 'password'} }
@@ -70,7 +70,7 @@ class LoginControllerTest < ActionController::TestCase
   end
 
   test "login staff bypass" do
-    user = FactoryGirl.create(:staff)
+    user = FactoryBot.create(:staff)
     post :create, params: { user: {email: user.email, password: 'password'} }
     assert_redirected_to admin_path
   end

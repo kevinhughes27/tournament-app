@@ -7,8 +7,8 @@ class UpdateFieldTest < ApiTest
   end
 
   test "update a field" do
-    field = FactoryGirl.create(:field)
-    attributes = FactoryGirl.attributes_for(:field).except(:tournament)
+    field = FactoryBot.create(:field)
+    attributes = FactoryBot.attributes_for(:field).except(:tournament)
     input = {field_id: field.id, **attributes}
 
     execute_graphql("updateField", "UpdateFieldInput", input, @output)
@@ -18,8 +18,8 @@ class UpdateFieldTest < ApiTest
   end
 
   test "update a field with errors" do
-    field = FactoryGirl.create(:field)
-    attributes = FactoryGirl.attributes_for(:field, name: nil).except(:tournament)
+    field = FactoryBot.create(:field)
+    attributes = FactoryBot.attributes_for(:field, name: nil).except(:tournament)
     input = {field_id: field.id, **attributes}
 
     execute_graphql("updateField", "UpdateFieldInput", input, @output)

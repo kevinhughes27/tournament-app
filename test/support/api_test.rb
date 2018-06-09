@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ApiTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
   protected

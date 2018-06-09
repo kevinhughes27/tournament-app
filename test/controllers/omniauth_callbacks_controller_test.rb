@@ -2,9 +2,9 @@ require 'test_helper'
 
 class OmniauthCallbacksControllerTest < ActionController::TestCase
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
 
     set_tournament(@tournament)
 
@@ -43,8 +43,8 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
   end
 
   test "auth callback for existing user with multiple tournaments redirects to tournament choose page" do
-    tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: tournament)
+    tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, user: @user, tournament: tournament)
 
     assert_equal 2, @user.tournaments.count
 

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :tournament do
     name { Faker::Company.name }
     handle { Faker::Internet.domain_word }

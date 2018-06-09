@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TeamQueryTest < ApiTest
   test "email field is hidden to the public" do
-    team = FactoryGirl.create(:team)
+    team = FactoryBot.create(:team)
 
     query_graphql(
       "teams {
@@ -15,7 +15,7 @@ class TeamQueryTest < ApiTest
 
   test "email field is present for authenticated requests" do
     login_user
-    team = FactoryGirl.create(:team)
+    team = FactoryBot.create(:team)
 
     query_graphql("
       teams {

@@ -164,10 +164,10 @@ GEM
       dry-types (~> 0.13.1)
     erubi (1.7.1)
     execjs (2.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.10.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.10.0)
+      factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
@@ -417,7 +417,7 @@ DEPENDENCIES
   date_validator
   devise
   dotenv-rails
-  factory_girl_rails
+  factory_bot_rails
   faker
   font-awesome-rails
   gibbon

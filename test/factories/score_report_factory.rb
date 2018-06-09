@@ -1,8 +1,8 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :score_report do
-    tournament { Tournament.first || FactoryGirl.build(:tournament) }
-    game { FactoryGirl.build(:game, tournament: tournament) }
-    team { FactoryGirl.build(:team, tournament: tournament) }
+    tournament { Tournament.first || FactoryBot.build(:tournament) }
+    game { FactoryBot.build(:game, tournament: tournament) }
+    team { FactoryBot.build(:team, tournament: tournament) }
     submitter_fingerprint { Faker::Crypto.sha1 }
     home_score 15
     away_score 13

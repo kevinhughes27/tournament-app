@@ -20,7 +20,7 @@ class BracketSimulationTest < OperationTest
   private
 
   def create_division(bracket_type:)
-    params = FactoryGirl.attributes_for(:division, bracket_type: bracket_type)
+    params = FactoryBot.attributes_for(:division, bracket_type: bracket_type)
     input = params.except(:tournament)
     execute_graphql("createDivision", "CreateDivisionInput", input)
     Division.last
@@ -30,7 +30,7 @@ class BracketSimulationTest < OperationTest
     n = @division.bracket.teams
 
     (1..n).map do |seed|
-      FactoryGirl.create(:team, division: @division, name: "Team #{seed}", seed: seed)
+      FactoryBot.create(:team, division: @division, name: "Team #{seed}", seed: seed)
     end
   end
 
