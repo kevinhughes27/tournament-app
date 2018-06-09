@@ -49,7 +49,5 @@ namespace :admin do
 
   get '/player_app', to: 'player_app#show'
 
-  unless Rails.application.config.consider_all_requests_local
-    get '/*a', to: 'errors#not_found'
-  end
+  get '/*a', to: 'errors#not_found'
 end

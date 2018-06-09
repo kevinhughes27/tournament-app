@@ -1,3 +1,17 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  draw :signup
+  draw :login
+
+  draw :internal
+
+  constraints(Subdomain) do
+    draw :api
+    draw :admin
+    draw :admin_next
+    draw :player_app
+  end
+
+  draw :brochure
+
+  mount ActionCable.server => '/cable'
 end
