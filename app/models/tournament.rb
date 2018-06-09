@@ -50,6 +50,7 @@ class Tournament < ApplicationRecord
   end
 
   def domain
-    "https://#{handle}.#{Settings.host}"
+    protocol = Rails.env.production? ? 'https' : 'http'
+    "#{protocol}://#{handle}.#{Settings.host}"
   end
 end
