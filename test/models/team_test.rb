@@ -17,21 +17,23 @@ class TeamTest < ActiveSupport::TestCase
     assert_nil game.reload.away
   end
 
-  test "updating a team's division unassigns if from all games (home)" do
+  test "updating a team's division unassigns it from all games (home)" do
     division = FactoryBot.create(:division)
+    new_division = FactoryBot.create(:division)
     team = FactoryBot.create(:team, division: division)
     game = FactoryBot.create(:game, division: division, home: team)
 
-    team.update(division: FactoryBot.build(:division))
+    team.update(division: new_division)
     assert_nil game.reload.home
   end
 
-  test "updating a team's division unassigns if from all games (away)" do
+  test "updating a team's division unassigns it from all games (away)" do
     division = FactoryBot.create(:division)
+    new_division = FactoryBot.create(:division)
     team = FactoryBot.create(:team, division: division)
     game = FactoryBot.create(:game, division: division, away: team)
 
-    team.update(division: FactoryBot.build(:division))
+    team.update(division: new_division)
     assert_nil game.reload.away
   end
 

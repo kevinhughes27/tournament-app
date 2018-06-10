@@ -14,7 +14,7 @@ class Team < ApplicationRecord
   validates :seed, numericality: { allow_blank: true }
   validate :validate_division
 
-  after_update :unassign_games, if: :division_id_changed?
+  after_update :unassign_games, if: :division_changed?
   after_destroy :unassign_games
 
   def safe_to_change?
@@ -31,11 +31,16 @@ class Team < ApplicationRecord
 
   private
 
+  def division_changed?
+    saved_changes.include?('division_id')
+  end
+
   def unassign_games
-    UnassignGamesJob.perform_later(
-      tournament_id: tournament_id,
-      team_id: id
-    )
+    games = Game.where(tournament_id: tournament_id, home_id: id)
+    games.update_all(home_id: nil)
+
+    games = Game.where(tournament_id: tournament_id, away_id: id)
+    games.update_all(away_id: nil)
   end
 
   def validate_division
