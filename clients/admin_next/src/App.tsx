@@ -2,9 +2,9 @@ import * as React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Avatar from '@material-ui/core/Avatar';
 
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
@@ -15,6 +15,9 @@ const styles = {
   },
   flex: {
     flex: 1,
+  },
+  avatar: {
+    margin: 10,
   },
   menuButton: {
     marginLeft: -12,
@@ -37,7 +40,8 @@ function App(props: Props) {
           <Typography variant="title" color="inherit" className={classes.flex}>
             Ultimate Tournament
           </Typography>
-          <Button color="inherit">Kevin Hughes</Button>
+          <Avatar alt="Kevin Hughes" src="https://www.gravatar.com/avatar/a14e0880b9ef8720734a7db6b6c4ade0" className={classes.avatar} />
+          Kevin Hughes
         </Toolbar>
       </AppBar>
     </div>
