@@ -1,68 +1,47 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import withStyles, { WithStyles, StyleRulesCallback } from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 import withRoot from './withRoot';
 
-const styles: StyleRulesCallback<'root'> = theme => ({
+const styles = {
   root: {
-    paddingTop: theme.spacing.unit * 20,
-    textAlign: 'center',
+    flexGrow: 1,
   },
-});
-
-interface IState {
-  open: boolean;
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
 };
 
-class Index extends React.Component<WithStyles<'root'>, IState> {
-  public state = {
-    open: false,
-  };
 
-  public handleClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
+interface Props extends WithStyles<typeof styles> {}
 
-  public handleClick = () => {
-    this.setState({
-      open: true,
-    });
-  };
-
-  public render() {
-    return (
-      <div className={this.props.classes.root}>
-        <Dialog open={this.state.open} onClose={this.handleClose}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={this.handleClose}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Typography variant="display1" gutterBottom={true}>
-          Material-UI
-        </Typography>
-        <Typography variant="subheading" gutterBottom={true}>
-          example project
-        </Typography>
-        <Button variant="raised" color="secondary" onClick={this.handleClick}>
-          Super Secret Password
-        </Button>
-      </div>
-    );
-  }
+function App(props: Props) {
+  const { classes } = props;
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="title" color="inherit" className={classes.flex}>
+            Ultimate Tournament
+          </Typography>
+          <Button color="inherit">Kevin Hughes</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
-export default withRoot(withStyles(styles)<{}>(Index));
+export default withRoot(withStyles(styles)<{}>(App));
