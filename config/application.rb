@@ -4,8 +4,6 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 
-require_relative '../lib/subdomain'
-
 module UltimateTournament
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
