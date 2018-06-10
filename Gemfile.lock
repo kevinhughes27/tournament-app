@@ -119,7 +119,6 @@ GEM
       dry-validation (>= 0.10.4)
     connection_pool (2.2.2)
     crass (1.0.4)
-    database_cleaner (1.7.0)
     date_validator (0.9.0)
       activemodel
       activesupport
@@ -413,7 +412,6 @@ DEPENDENCIES
   capybara
   coffee-rails
   config
-  database_cleaner
   date_validator
   devise
   dotenv-rails

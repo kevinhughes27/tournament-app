@@ -33,17 +33,12 @@ end
 
 class BrowserTest < ActiveSupport::TestCase
   include Capybara::DSL
-  self.use_transactional_tests = false
 
   setup do
     ReactOnRails::TestHelper.ensure_assets_compiled
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
   end
 
   teardown do
-    DatabaseCleaner.clean
-
     path = screenshot_path(method_name)
     page.save_screenshot(path) unless passed?
 
