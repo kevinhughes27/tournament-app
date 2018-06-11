@@ -22,6 +22,7 @@ class ScheduleView extends Component {
           const games = gamesByStartTime[startTime];
           return renderGameGroup(startTime, games);
         })}
+        <div style={{ paddingBottom: 56 }} />
       </div>
     );
   }

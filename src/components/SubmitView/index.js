@@ -35,10 +35,13 @@ function renderContent(search, games, reports) {
     );
   } else {
     return (
-      <List>
-        <ListSubheader>Submit a score for each game played</ListSubheader>
-        {filteredGames.map(game => renderGame(game, reports))}
-      </List>
+      <div>
+        <List>
+          <ListSubheader>Submit a score for each game played</ListSubheader>
+          {filteredGames.map(game => renderGame(game, reports))}
+        </List>
+        <div style={{ paddingBottom: 56 }} />
+      </div>
     );
   }
 }
