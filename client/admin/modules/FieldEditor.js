@@ -2,7 +2,7 @@ import _last from 'lodash/last'
 import {LatLng, geoJson} from 'leaflet'
 
 import Map from './Map'
-import MapUndoControl from './MapUndoControl'
+import MapControl from './MapControl'
 import {FieldStyle, OtherFieldStyle} from './FieldStyles'
 
 const LAT_FIELD = '#field_lat'
@@ -22,6 +22,7 @@ class FieldEditor {
     this._drawOtherFields(fields)
     this._initializeEventHandlers()
     this._initializeUndo()
+    this._initializeReset()
   }
 
   _initializeEventHandlers () {
@@ -44,7 +45,12 @@ class FieldEditor {
   }
 
   _initializeUndo () {
-    let undoControl = new MapUndoControl({undoCallback: this._undoHandler.bind(this)})
+    let undoControl = new MapControl({icon: 'fa-undo', callback: this._undoHandler.bind(this)})
+    this.map.addControl(undoControl)
+  }
+
+  _initializeReset () {
+    let undoControl = new MapControl({icon: 'fa-trash', callback: this._resetHandler.bind(this)})
     this.map.addControl(undoControl)
   }
 
@@ -132,6 +138,15 @@ class FieldEditor {
     this._clearField()
     this._drawField()
     this._updateForm()
+  }
+
+  _resetHandler () {
+    this.geoJson = undefined
+    this._clearField()
+    this._updateForm()
+    this.historyBuffer = [] // must reset the history for a new shape
+    this._initializeEventHandlers()
+    this._initDrawingMode() // start drawing mode immediately because mouse is already over the map
   }
 
   _cancelDrawing () {
