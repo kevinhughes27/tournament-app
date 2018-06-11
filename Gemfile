@@ -19,7 +19,7 @@ gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 
 # datastores
 gem 'pg', '~> 0.21.0'
-gem 'redis'
+gem 'redis', '~> 3.0'
 
 # engines
 gem 'devise'
