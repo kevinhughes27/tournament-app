@@ -2,7 +2,7 @@ import _last from 'lodash/last'
 import {LatLng, geoJson} from 'leaflet'
 
 import Map from './Map'
-import MapUndoControl from './MapUndoControl'
+import MapControl from './MapControl'
 import {FieldStyle, FieldHoverStyle} from './FieldStyles'
 
 const LAT_FIELD = '#tournament_map_attributes_lat'
@@ -41,7 +41,7 @@ class MapForm {
   }
 
   _initializeUndo () {
-    let undoControl = new MapUndoControl({undoCallback: this._undoHandler.bind(this)})
+    let undoControl = new MapControl({icon: 'fa-undo', callback: this._undoHandler.bind(this)})
     this.map.addControl(undoControl)
   }
 

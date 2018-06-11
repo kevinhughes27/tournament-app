@@ -10,10 +10,10 @@ let onAdd = function (map) {
   let link = DomUtil.create('a', '', container)
   link.href = '#'
   link.title = 'Undo'
-  link.innerHTML = '<i class="fa fa-undo"></i>'
+  link.innerHTML = `<i class="fa ${this.options.icon}"></i>`
 
   DomEvent.on(link, 'click', DomEvent.stop)
-          .on(link, 'click', () => this.options.undoCallback())
+          .on(link, 'click', () => this.options.callback())
 
   return container
 }
