@@ -29,8 +29,13 @@ module Schedulable
   end
 
   def played?
-    return false unless end_time
+    return false unless scheduled?
     Time.now > end_time
+  end
+
+  def length
+    return nil unless scheduled?
+    ((end_time - start_time) / 60).to_i
   end
 
   def playing_time_range

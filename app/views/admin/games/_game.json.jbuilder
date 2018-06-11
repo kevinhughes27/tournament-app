@@ -14,6 +14,7 @@ json.extract! game,
   :field_id,
   :start_time,
   :end_time,
+  :length,
   :updated_at
 
 json.division game.division.name
