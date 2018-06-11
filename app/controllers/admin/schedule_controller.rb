@@ -85,7 +85,7 @@ class Admin::ScheduleController < AdminController
       :away,
       :score_reports,
       :score_disputes
-    ).order(division_id: :asc)
+    ).order(:division_id, :start_time)
   end
 
   def load_fields
