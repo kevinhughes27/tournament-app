@@ -13,7 +13,7 @@
   </div>
 
   <div class="row">
-    <%= render 'games', games: division.games %>
+    <%= render 'games', games: division.games.order(:start_time) %>
   </div>
 </div>
 
