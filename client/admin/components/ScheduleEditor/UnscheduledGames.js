@@ -4,6 +4,7 @@ import {Tabs, Tab} from 'react-bootstrap'
 
 import _keys from 'lodash/keys'
 import _groupBy from 'lodash/groupBy'
+import _sortBy from 'lodash/sortBy'
 import _map from 'lodash/map'
 
 import UnscheduledGame from './UnscheduledGame'
@@ -39,10 +40,10 @@ class UnscheduledGames extends React.Component {
     let bracketGames = games.filter((g) => { return g.bracket })
 
     let poolGamesByRound = _groupBy(poolGames, 'round')
-    let poolRounds = _keys(poolGamesByRound).sort()
+    let poolRounds = _sortBy(_keys(poolGamesByRound), r => parseInt(r))
 
     let bracketGamesByRound = _groupBy(bracketGames, 'round')
-    let bracketRounds = _keys(bracketGamesByRound).sort()
+    let bracketRounds = _sortBy(_keys(bracketGamesByRound), r => parseInt(r))
 
     let title = <span>
       <i className='fa fa-stop' style={{color: color}}></i> {divisionName}
