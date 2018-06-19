@@ -32,7 +32,7 @@ module ReactAppController
     Rails.root.join(clients_directory, @@app_directory, 'build', 'static', dir, file)
   end
 
-  def index_service_worker_file
+  def service_worker_file
     Rails.root.join(clients_directory, @@app_directory, 'build', 'service-worker.js')
   end
 
