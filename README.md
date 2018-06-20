@@ -11,7 +11,7 @@ Contents
   * [**Postgres**](#postgres)
   * [**Dependencies**](#dependencies)
 * [**Development**](#development)
-  * [**Creating a Tournament locally**](#creating-a-Tournament-locally)
+  * [**Creating a Tournament locally**](#creating-a-tournament-locally)
   * [**API**](#api)
   * [**Clients**](#clients)
   * [**Tests**](#tests)
