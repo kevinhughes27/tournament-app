@@ -8,7 +8,7 @@ class CreateFieldTest < ApiTest
 
   test "create a field" do
     assert_difference "Field.count" do
-      input = FactoryGirl.attributes_for(:field).except(:tournament)
+      input = FactoryBot.attributes_for(:field).except(:tournament)
 
       execute_graphql("createField", "CreateFieldInput", input, @output)
 
@@ -17,7 +17,7 @@ class CreateFieldTest < ApiTest
   end
 
   test "create a field with errors" do
-    input = FactoryGirl.attributes_for(:field, name: nil).except(:tournament)
+    input = FactoryBot.attributes_for(:field, name: nil).except(:tournament)
 
     assert_no_difference "Field.count" do
       execute_graphql("createField", "CreateFieldInput", input, @output)

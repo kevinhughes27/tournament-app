@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ScoreReportMailerTest < ActionMailer::TestCase
   test "notify_team_email" do
-    report = FactoryGirl.create(:score_report)
+    report = FactoryBot.create(:score_report)
     team = report.team
     other_team = report.other_team
 

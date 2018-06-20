@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ChangeBracketTest < OperationTest
   setup do
-    @division = FactoryGirl.create(:division)
-    @field = FactoryGirl.create(:field)
+    @division = FactoryBot.create(:division)
+    @field = FactoryBot.create(:field)
   end
 
   test "re-creates games as spec'd by the bracket template" do

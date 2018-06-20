@@ -2,12 +2,12 @@ require 'test_helper'
 
 class SetTeamsDivisionTest < OperationTest
   setup do
-    @division = FactoryGirl.create(:division)
+    @division = FactoryBot.create(:division)
   end
 
   test "assigns teams to divisions" do
-    team = FactoryGirl.create(:team)
-    new_division = FactoryGirl.create(:division)
+    team = FactoryBot.create(:team)
+    new_division = FactoryBot.create(:division)
 
     action = SetTeamsDivision.new(
       @tournament,
@@ -21,9 +21,9 @@ class SetTeamsDivisionTest < OperationTest
   end
 
   test "fails if it is not safe to change divisions" do
-    team = FactoryGirl.create(:team)
-    new_division = FactoryGirl.create(:division)
-    FactoryGirl.create(:game, :finished, home: team)
+    team = FactoryBot.create(:team)
+    new_division = FactoryBot.create(:division)
+    FactoryBot.create(:game, :finished, home: team)
 
     action = SetTeamsDivision.new(
       @tournament,

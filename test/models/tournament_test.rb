@@ -8,7 +8,7 @@ class TournamentTest < ActiveSupport::TestCase
   end
 
   test "tournament name must be unique" do
-    FactoryGirl.create(:tournament, name: 'No Borders')
+    FactoryBot.create(:tournament, name: 'No Borders')
     tournament = Tournament.new(name: 'No Borders', handle: 'new-handle')
     refute tournament.save
     assert_equal ["has already been taken"], tournament.errors[:name]
@@ -21,7 +21,7 @@ class TournamentTest < ActiveSupport::TestCase
   end
 
   test "tournament handle must be unique" do
-    FactoryGirl.create(:tournament, handle: 'no-borders')
+    FactoryBot.create(:tournament, handle: 'no-borders')
     tournament = Tournament.new(name: 'New Tournament', handle: 'no-borders')
     refute tournament.save
     assert_equal ["has already been taken"], tournament.errors[:handle]
@@ -40,13 +40,13 @@ class TournamentTest < ActiveSupport::TestCase
   end
 
   test "tournament requires at least one tournament user" do
-    tournament = FactoryGirl.create(:tournament)
+    tournament = FactoryBot.create(:tournament)
     refute tournament.valid?
     assert_equal ["can't be blank"], tournament.errors[:tournament_users]
   end
 
   test "deleting a tournament deletes all its data" do
-    tournament = FactoryGirl.create(:tournament)
+    tournament = FactoryBot.create(:tournament)
     tournament.destroy
 
     assert Map.where(tournament: tournament).empty?
@@ -58,26 +58,26 @@ class TournamentTest < ActiveSupport::TestCase
   end
 
   test "save pin" do
-    tournament = FactoryGirl.build(:tournament, score_submit_pin: '1234')
+    tournament = FactoryBot.build(:tournament, score_submit_pin: '1234')
     assert tournament.valid?
   end
 
   test "pin must be 4 chars" do
-    tournament = FactoryGirl.build(:tournament, score_submit_pin: '12345')
+    tournament = FactoryBot.build(:tournament, score_submit_pin: '12345')
     refute tournament.valid?
     assert_equal ["is the wrong length (should be 4 characters)"],
       tournament.errors[:score_submit_pin]
   end
 
   test "pin must be only numbers" do
-    tournament = FactoryGirl.build(:tournament, score_submit_pin: '123a')
+    tournament = FactoryBot.build(:tournament, score_submit_pin: '123a')
     refute tournament.valid?
     assert_equal ["is invalid"],
       tournament.errors[:score_submit_pin]
   end
 
   test "pin can be blank" do
-    tournament = FactoryGirl.build(:tournament, score_submit_pin: '')
+    tournament = FactoryBot.build(:tournament, score_submit_pin: '')
     assert tournament.valid?
   end
 end

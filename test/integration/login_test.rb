@@ -2,9 +2,9 @@ require 'test_helper'
 
 class LoginTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
     ReactOnRails::TestHelper.ensure_assets_compiled
   end
 
@@ -32,7 +32,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   end
 
   test "admin requires login and a tournament user" do
-    tournament = FactoryGirl.create(:tournament)
+    tournament = FactoryBot.create(:tournament)
     refute tournament.users.find_by(id: @user.id)
 
     get "http://#{tournament.handle}.lvh.me/admin"

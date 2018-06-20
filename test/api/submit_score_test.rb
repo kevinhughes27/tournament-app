@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SubmitScoreTest < ApiTest
   setup do
-    @game = FactoryGirl.create(:game)
+    @game = FactoryBot.create(:game)
   end
 
   test "success" do

@@ -2,9 +2,9 @@ require 'test_helper'
 
 class TournamentUserTest < ActiveSupport::TestCase
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, tournament: @tournament, user: @user)
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, tournament: @tournament, user: @user)
   end
 
   test "tournament_users are unique" do
@@ -16,7 +16,7 @@ class TournamentUserTest < ActiveSupport::TestCase
   end
 
   test "limited number of users per tournament" do
-    new_user = FactoryGirl.build(:user)
+    new_user = FactoryBot.build(:user)
 
     stub_constant(TournamentUser, :LIMIT, 1) do
       tournament_user = @tournament.tournament_users.build(user: new_user)

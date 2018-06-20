@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :map do
-    tournament { Tournament.first || FactoryGirl.build(tournament) }
+    tournament { Tournament.first || FactoryBot.build(tournament) }
     lat 45.2466442
     long -75.6149635
     zoom 17

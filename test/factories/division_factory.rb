@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :division do
-    tournament { Tournament.first || FactoryGirl.build(:tournament) }
+    tournament { Tournament.first || FactoryBot.build(:tournament) }
     name { Faker::Team.state }
     num_days 1
     num_teams 8

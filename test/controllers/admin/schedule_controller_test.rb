@@ -2,13 +2,13 @@ require 'test_helper'
 
 class Admin::ScheduleControllerTest < AdminControllerTest
   test "should get index" do
-    FactoryGirl.create(:game, :scheduled)
+    FactoryBot.create(:game, :scheduled)
     get :index
     assert_response :success
   end
 
   test "should get index pdf" do
-    FactoryGirl.create(:game, :scheduled)
+    FactoryBot.create(:game, :scheduled)
     get :index, format: 'pdf'
     assert_response :success
   end
@@ -20,8 +20,8 @@ class Admin::ScheduleControllerTest < AdminControllerTest
   end
 
   test "update schedule" do
-    game = FactoryGirl.create(:game, :scheduled)
-    field = FactoryGirl.create(:field)
+    game = FactoryBot.create(:game, :scheduled)
+    field = FactoryBot.create(:field)
 
     params = {game_id: game.id, field_id: field.id, start_time: Time.now, end_time: Time.now + 90.minutes}
 
@@ -33,7 +33,7 @@ class Admin::ScheduleControllerTest < AdminControllerTest
   end
 
   test "update schedule 422" do
-    game = FactoryGirl.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled)
     params = {game_id: game.id, field_id: 'wat', start_time: Time.now, end_time: Time.now + 90.minutes}
 
     put :update, params: params
@@ -43,7 +43,7 @@ class Admin::ScheduleControllerTest < AdminControllerTest
   end
 
   test "unschedule a game" do
-    game = FactoryGirl.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled)
     delete :destroy, params: {game_id: game.id}
 
     assert_response :ok

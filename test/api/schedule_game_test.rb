@@ -3,13 +3,13 @@ require 'test_helper'
 class ScheduleGameTest < ApiTest
   setup do
     login_user
-    @free_field = FactoryGirl.create(:field)
+    @free_field = FactoryBot.create(:field)
     @output = '{ success, userErrors }'
   end
 
   test "checks for home team time conflicts" do
-    game = FactoryGirl.create(:game, :scheduled)
-    new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
+    game = FactoryBot.create(:game, :scheduled)
+    new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
       game_id: new_game.id,
@@ -23,8 +23,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "finds home team time conflicts in games when the team is the away team in another game" do
-    game = FactoryGirl.create(:game, :scheduled)
-    new_game = FactoryGirl.create(:game, away_prereq: game.home_prereq)
+    game = FactoryBot.create(:game, :scheduled)
+    new_game = FactoryBot.create(:game, away_prereq: game.home_prereq)
 
     input = {
       game_id: new_game.id,
@@ -38,8 +38,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for home team time conflicts (uses uid if required)" do
-    game = FactoryGirl.create(:game, :scheduled, home: nil)
-    new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
+    game = FactoryBot.create(:game, :scheduled, home: nil)
+    new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
       game_id: new_game.id,
@@ -53,8 +53,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for away team time conflicts" do
-    game = FactoryGirl.create(:game, :scheduled)
-    new_game = FactoryGirl.create(:game, away_prereq: game.away_prereq)
+    game = FactoryBot.create(:game, :scheduled)
+    new_game = FactoryBot.create(:game, away_prereq: game.away_prereq)
 
     input = {
       game_id: new_game.id,
@@ -68,8 +68,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "finds away team time conflicts when the team is the home team in another game" do
-    game = FactoryGirl.create(:game, :scheduled)
-    new_game = FactoryGirl.create(:game, home_prereq: game.away_prereq)
+    game = FactoryBot.create(:game, :scheduled)
+    new_game = FactoryBot.create(:game, home_prereq: game.away_prereq)
 
     input = {
       game_id: new_game.id,
@@ -83,8 +83,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for away team time conflicts (uses uid if required)" do
-    game = FactoryGirl.create(:game, :scheduled, away: nil)
-    new_game = FactoryGirl.create(:game, away_prereq: game.away_prereq)
+    game = FactoryBot.create(:game, :scheduled, away: nil)
+    new_game = FactoryBot.create(:game, away_prereq: game.away_prereq)
 
     input = {
       game_id: new_game.id,
@@ -98,8 +98,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for overlap team time conflicts" do
-    game = FactoryGirl.create(:game, :scheduled)
-    new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
+    game = FactoryBot.create(:game, :scheduled)
+    new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
       game_id: new_game.id,
@@ -113,8 +113,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for underlap team time conflicts" do
-    game = FactoryGirl.create(:game, :scheduled)
-    new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq)
+    game = FactoryBot.create(:game, :scheduled)
+    new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
       game_id: new_game.id,
@@ -128,8 +128,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "team time conflicts must be same division" do
-    game = FactoryGirl.create(:game, :scheduled, away: nil)
-    new_game = FactoryGirl.create(:game, home_prereq: game.home_prereq, division: FactoryGirl.create(:division))
+    game = FactoryBot.create(:game, :scheduled, away: nil)
+    new_game = FactoryBot.create(:game, home_prereq: game.home_prereq, division: FactoryBot.create(:division))
 
     input = {
       game_id: new_game.id,
@@ -143,8 +143,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for field conflicts" do
-    game = FactoryGirl.create(:game, :scheduled, away: nil)
-    new_game = FactoryGirl.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
+    game = FactoryBot.create(:game, :scheduled, away: nil)
+    new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
     input = {
       game_id: new_game.id,
@@ -158,8 +158,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "field conflict check works with timecap increments" do
-    game = FactoryGirl.create(:game, :scheduled, away: nil)
-    new_game = FactoryGirl.create(:game)
+    game = FactoryBot.create(:game, :scheduled, away: nil)
+    new_game = FactoryBot.create(:game)
     start_time = game.end_time
 
     input = {
@@ -174,8 +174,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "games checks for schedule order conflicts (dependent game)" do
-    game1 = FactoryGirl.create(:game, bracket_uid: 'a')
-    game2 = FactoryGirl.create(:game, :scheduled, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
+    game1 = FactoryBot.create(:game, bracket_uid: 'a')
+    game2 = FactoryBot.create(:game, :scheduled, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
 
     input = {
       game_id: game1.id,
@@ -189,8 +189,8 @@ class ScheduleGameTest < ApiTest
   end
 
   test "games checks for schedule order conflicts (prerequisite game)" do
-    game1 = FactoryGirl.create(:game, :scheduled, bracket_uid: 'a')
-    game2 = FactoryGirl.create(:game, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
+    game1 = FactoryBot.create(:game, :scheduled, bracket_uid: 'a')
+    game2 = FactoryBot.create(:game, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
 
     input = {
       game_id: game2.id,

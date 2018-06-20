@@ -1,9 +1,10 @@
-production:
-  adapter: redis
-  url: <%= Settings.cable_redis_url %>
-
 development:
   adapter: async
 
 test:
   adapter: async
+
+production:
+  adapter: redis
+  url: <%= Settings.cable_redis_url %>
+  channel_prefix: ultimate_tournament_production

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::FieldsControllerTest < AdminControllerTest
   setup do
-    FactoryGirl.create(:map)
+    FactoryBot.create(:map)
   end
 
   test "get new" do
@@ -11,17 +11,15 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "get show" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
     get :show, params: { id: field.id }
     assert_response :success
-    assert_not_nil assigns(:field)
   end
 
   test "get index" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
     get :index
     assert_response :success
-    assert_not_nil assigns(:fields)
   end
 
   test "blank slate" do
@@ -31,10 +29,9 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "get export_csv" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
     get :export_csv, format: :csv
     assert_response :success
-    assert_not_nil assigns(:fields)
     assert_equal "text/csv", response.content_type
   end
 
@@ -42,7 +39,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
     assert_difference "Field.count" do
       post :create, params: { field: field_params }
 
-      field = assigns(:field)
+      field = Field.last
       assert_redirected_to admin_field_path(field)
     end
   end
@@ -53,12 +50,11 @@ class Admin::FieldsControllerTest < AdminControllerTest
 
     assert_no_difference "Field.count" do
       post :create, params: { field: params }
-      assert_template :new
     end
   end
 
   test "update a field" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
     put :update, params: { id: field.id, field: field_params }
 
     assert_redirected_to admin_field_path(field)
@@ -66,7 +62,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "update a field with errors" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
     params = field_params
     params.delete(:name)
 
@@ -77,7 +73,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "delete a field" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
 
     assert_difference "Field.count", -1 do
       delete :destroy, params: { id: field.id }
@@ -86,19 +82,19 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "delete a field needs confirm" do
-    field = FactoryGirl.create(:field)
-    FactoryGirl.create(:game, :scheduled, field: field)
+    field = FactoryBot.create(:field)
+    FactoryBot.create(:game, :scheduled, field: field)
 
     assert_no_difference "Field.count" do
       delete :destroy, params: { id: field.id }
       assert_response :unprocessable_entity
-      assert_template 'admin/fields/_confirm_delete'
+      assert_match 'Confirm Deletion', response.body
     end
   end
 
   test "confirm delete a field" do
-    field = FactoryGirl.create(:field)
-    FactoryGirl.create(:game, :scheduled, field: field)
+    field = FactoryBot.create(:field)
+    FactoryBot.create(:game, :scheduled, field: field)
 
     assert_difference "Field.count", -1 do
       delete :destroy, params: { id: field.id, confirm: 'true' }
@@ -143,7 +139,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "import csv (update matches)" do
-    field = FactoryGirl.create(:field, name: 'UPI5')
+    field = FactoryBot.create(:field, name: 'UPI5')
 
     assert_difference "Field.count", +14 do
       post :import_csv, params: {

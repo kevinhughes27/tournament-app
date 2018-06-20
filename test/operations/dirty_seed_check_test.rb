@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DirtySeedCheckTest < OperationTest
   test "perform" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
     teams = create_teams(division, 8)
 
@@ -21,7 +21,7 @@ class DirtySeedCheckTest < OperationTest
   end
 
   test "perform with pool" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'USAU 8.1')
     division = create_division(params)
     teams = create_teams(division, 8)
 
@@ -49,7 +49,7 @@ class DirtySeedCheckTest < OperationTest
 
   def create_teams(division, num)
     (1..num).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
   end
 

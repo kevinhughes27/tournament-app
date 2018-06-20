@@ -4,7 +4,7 @@ class FinishPoolTest < OperationTest
   include ActiveJob::TestHelper
 
   setup do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'USAU 8.1')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'USAU 8.1')
     @division = create_division(params)
     @teams = create_teams(@division, 8)
   end
@@ -64,10 +64,10 @@ class FinishPoolTest < OperationTest
   end
 
   test "update pool using points_for for tie breaker" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     teams = create_teams(division, 4)
 
-    FactoryGirl.create(:game,
+    FactoryBot.create(:game,
       division: division,
       pool: 'A',
       round: 1,
@@ -81,7 +81,7 @@ class FinishPoolTest < OperationTest
       away_score: 0
     )
 
-    FactoryGirl.create(:game,
+    FactoryBot.create(:game,
       division: division,
       pool: 'A',
       round: 1,
@@ -118,10 +118,10 @@ class FinishPoolTest < OperationTest
   end
 
   test "update pool using points_for for tie breaker with a tie game" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     teams = create_teams(division, 4)
 
-    FactoryGirl.create(:game,
+    FactoryBot.create(:game,
       division: division,
       pool: 'A',
       round: 1,
@@ -135,7 +135,7 @@ class FinishPoolTest < OperationTest
       away_score: 0
     )
 
-    FactoryGirl.create(:game,
+    FactoryBot.create(:game,
       division: division,
       pool: 'A',
       round: 1,
@@ -149,7 +149,7 @@ class FinishPoolTest < OperationTest
       away_score: 2
     )
 
-    FactoryGirl.create(:game,
+    FactoryBot.create(:game,
       division: division,
       pool: 'A',
       round: 1,
@@ -257,7 +257,7 @@ class FinishPoolTest < OperationTest
 
   def create_teams(division, num)
     (1..num).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
   end
 

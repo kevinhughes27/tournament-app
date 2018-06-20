@@ -4,25 +4,22 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   test "get new" do
     get :new
     assert_response :success
-    assert_not_nil assigns(:division)
   end
 
   test "get show" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     get :show, params: { id: division.id }
     assert_response :success
-    assert_not_nil assigns(:division)
   end
 
   test "get edit" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     get :edit, params: { id: division.id }
     assert_response :success
-    assert_not_nil assigns(:division)
   end
 
   test "get index" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     get :index
     assert_response :success
   end
@@ -37,7 +34,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
     assert_difference "Division.count" do
       post :create, params: { division: division_params }
 
-      division = assigns(:division)
+      division = Division.last
       assert_redirected_to admin_division_path(division)
     end
   end
@@ -49,14 +46,12 @@ class Admin::DivisionsControllerTest < AdminControllerTest
     assert_no_difference "Division.count" do
       post :create, params: { division: params }
 
-      division = assigns(:division)
-      assert_template :new
       assert_match "Name can&#39;t be blank", response.body
     end
   end
 
   test "update a division" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     put :update, params: { id: division.id, division: division_params }
 
     assert_redirected_to admin_division_path(division)
@@ -64,18 +59,18 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "update a division (unsafe)" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :finished, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :finished, division: division)
 
     params = division_params.merge(bracket_type: 'single_elimination_4')
     put :update, params: { id: division.id, division: params }
 
     assert_response :unprocessable_entity
-    assert_template 'admin/divisions/_confirm_update'
+    assert_match "Confirm Update", response.body
   end
 
   test "update a division (unsafe) + confirm" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     params = division_params.merge(bracket_type: 'single_elimination_4')
     put :update, params: { id: division.id, division: params, confirm: 'true' }
 
@@ -84,7 +79,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "update a division with errors" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     params = division_params
     params.delete(:name)
 
@@ -95,7 +90,7 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "delete a division" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     assert_difference "Division.count", -1 do
       delete :destroy, params: { id: division.id }
       assert_redirected_to admin_divisions_path
@@ -103,19 +98,19 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "unsafe delete a division needs confirm" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :finished, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :finished, division: division)
 
     assert_no_difference "Division.count" do
       delete :destroy, params: { id: division.id }
       assert_response :unprocessable_entity
-      assert_template 'admin/divisions/_confirm_delete'
+      assert_match 'Confirm Deletion', response.body
     end
   end
 
   test "confirm delete a division" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :finished, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :finished, division: division)
 
     assert_difference "Division.count", -1 do
       delete :destroy, params: { id: division.id, confirm: 'true' }
@@ -124,11 +119,11 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "update teams and seed" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
 
     teams = (1..4).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
 
     team1 = teams.first
@@ -153,11 +148,11 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "update teams and seed (ids not in order)" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
 
     teams = (1..4).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
 
     team1 = teams.first
@@ -182,11 +177,11 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "seed a division" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
 
     teams = (1..4).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
 
     post :seed, params: { id: division.id }
@@ -195,14 +190,14 @@ class Admin::DivisionsControllerTest < AdminControllerTest
   end
 
   test "seed (unsafe)" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
 
     teams = (1..4).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
 
-    FactoryGirl.create(:game, :finished, division: division, home: teams.first)
+    FactoryBot.create(:game, :finished, division: division, home: teams.first)
 
     assert division.teams.any?{ |t| !t.allow_change? }
 
@@ -217,15 +212,15 @@ class Admin::DivisionsControllerTest < AdminControllerTest
 
     post :seed, params: params
 
-    assert_template 'admin/divisions/_confirm_seed'
+    assert_match 'Confirm Seed', response.body
   end
 
   test "seed a division with an error" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_4')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
 
     teams = (1..8).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
 
     post :seed, params: { id: division.id }

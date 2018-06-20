@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :field do
-    tournament { Tournament.first || FactoryGirl.build(:tournament) }
+    tournament { Tournament.first || FactoryBot.build(:tournament) }
     name { Faker::Team.state }
     lat 45.2442971314328
     long -75.6138271093369

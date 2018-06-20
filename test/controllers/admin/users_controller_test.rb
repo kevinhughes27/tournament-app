@@ -4,17 +4,15 @@ class Admin::UsersControllerTest < AdminControllerTest
   test "get new" do
     get :new
     assert_response :success
-    assert_not_nil assigns(:user)
   end
 
   test "get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:users)
   end
 
   test "create a new user" do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
     params = { user: { email: user.email, password: user.password }}
 
     assert_difference "User.count" do
@@ -26,7 +24,7 @@ class Admin::UsersControllerTest < AdminControllerTest
   end
 
   test "add an account for an exisiting user" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     params = { user: { email: user.email, password: '' }}
 
     assert_no_difference "User.count" do

@@ -13,7 +13,7 @@ class SignupControllerTest < ActionController::TestCase
   end
 
   test "signup create with errors" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     params = { user: { email: user.email, password: user.password }}
     post :create, params: params, format: :json
     assert_response :unprocessable_entity

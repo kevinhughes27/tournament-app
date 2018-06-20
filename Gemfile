@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 # server
-gem 'rails', '5.0.4'
-gem 'actioncable'
+gem 'rails', '5.2.0'
+gem 'bootsnap'
 gem 'puma'
 gem 'config'
 gem 'jbuilder'
@@ -12,6 +12,9 @@ gem 'active_operation'
 # api
 gem 'graphql'
 gem 'graphiql-rails'
+
+# websockets
+gem 'actioncable'
 
 # controllers
 gem 'browser-timezone-rails'
@@ -30,7 +33,7 @@ gem 'omniauth-facebook'
 
 # model gems
 gem 'activerecord-import'
-gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', ref: '3c0d897a3e0eb49c7ff8ee7ad9ba221d41ff160a'
+gem 'paranoia', '~> 2.4.1'
 gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
@@ -49,7 +52,7 @@ gem 'rollbar'
 gem 'wicked_pdf'
 
 # asset gems
-gem 'react_on_rails', '~> 8.0.3'
+gem 'react_on_rails', '8.0.6'
 gem 'webpacker_lite', '2.0.4'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
@@ -57,7 +60,7 @@ gem 'uglifier', '~> 3.2.0'
 gem 'sassc-rails'
 
 # javascript gems
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'twine-rails'
 gem 'turbolinks', '~> 5.0.0'
@@ -71,11 +74,12 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 9.0.6'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'spring'
   gem 'bundler-audit', require: false
   gem 'rainbow'
+  gem 'listen'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
 
@@ -94,12 +98,10 @@ group :development do
 end
 
 group :test do
-  gem 'rails-controller-testing'
   gem 'mocha', :require => false
   gem 'timecop'
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'database_cleaner'
   gem 'nokogiri'
   gem 'launchy'
   gem 'simplecov', :require => false

@@ -7,7 +7,7 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "update a division" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     input = {division_id: division.id, name: 'Junior Open', bracket_type: 'single_elimination_8'}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
@@ -17,8 +17,8 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "update a division (unsafe scheduled)" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :scheduled, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :scheduled, division: division)
     input = {division_id: division.id, bracket_type: 'single_elimination_4'}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
@@ -26,8 +26,8 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "update a division (unsafe scored)" do
-    division = FactoryGirl.create(:division)
-    game = FactoryGirl.create(:game, :finished, division: division)
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :finished, division: division)
     input = {division_id: division.id, bracket_type: 'single_elimination_4'}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
@@ -35,7 +35,7 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "update a division (unsafe) + confirm" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     input = {division_id: division.id, bracket_type: 'single_elimination_4', confirm: true}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
@@ -45,7 +45,7 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "update a division with errors" do
-    division = FactoryGirl.create(:division)
+    division = FactoryBot.create(:division)
     input = {division_id: division.id, name: ''}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
@@ -53,7 +53,7 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "updating the bracket_type clears the previous games" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
     assert_equal 12, division.games.count
 
@@ -65,11 +65,11 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "updating the bracket_type resets seeded status" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
 
     teams = (1..8).map do |seed|
-      FactoryGirl.create(:team, division: division, seed: seed)
+      FactoryBot.create(:team, division: division, seed: seed)
     end
 
     seed_division(division)
@@ -83,7 +83,7 @@ class UpdateDivisionTest < ApiTest
   end
 
   test "updating the bracket_type clears the previous places" do
-    params = FactoryGirl.attributes_for(:division, bracket_type: 'single_elimination_8')
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
     assert_equal 8, division.places.count
 

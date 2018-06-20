@@ -2,13 +2,13 @@ require 'test_helper'
 
 class UpdatePlacesTest < OperationTest
   setup do
-    @division = FactoryGirl.create(:division)
-    @home = FactoryGirl.create(:team, division: @division)
-    @away = FactoryGirl.create(:team, division: @division)
+    @division = FactoryBot.create(:division)
+    @home = FactoryBot.create(:team, division: @division)
+    @away = FactoryBot.create(:team, division: @division)
   end
 
   test "pushes winner to a place" do
-    game = FactoryGirl.create(:game,
+    game = FactoryBot.create(:game,
       division: @division,
       round: 1,
       bracket_uid: 'q1',
@@ -33,7 +33,7 @@ class UpdatePlacesTest < OperationTest
   end
 
   test "pushes loser to a place" do
-    game = FactoryGirl.create(:game,
+    game = FactoryBot.create(:game,
       division: @division,
       round: 1,
       bracket_uid: 'q1',

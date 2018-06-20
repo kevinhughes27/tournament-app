@@ -2,24 +2,23 @@ require 'test_helper'
 
 class AdminErrorHandlingTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
-    ReactOnRails::TestHelper.ensure_assets_compiled
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
   test "admin 404s for invalid route" do
     login_as(@user)
     get "http://#{@tournament.handle}.lvh.me/admin/wat"
     assert_equal 404, status
-    assert_template 'admin/404', layout: 'admin'
+    assert_match "There's nothing here!", response.body
   end
 
   test "admin 404s for record not found" do
     login_as(@user)
     get "http://#{@tournament.handle}.lvh.me/admin/teams/99"
     assert_equal 404, status
-    assert_template 'admin/404', layout: 'admin'
+    assert_match "There's nothing here!", response.body
   end
 
   private

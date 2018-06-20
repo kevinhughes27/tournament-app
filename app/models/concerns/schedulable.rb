@@ -43,8 +43,8 @@ module Schedulable
   end
 
   def playing_time_range_string
-    formatted_start = start_time.to_formatted_s(:timeonly)
-    formatted_end = end_time.to_formatted_s(:timeonly)
+    formatted_start = start_time.strftime("%l:%M %p")
+    formatted_end = end_time.strftime("%l:%M %p")
     "#{formatted_start} - #{formatted_end}"
   end
 end

@@ -17,7 +17,7 @@ class Admin::SettingsControllerTest < AdminControllerTest
     new_handle = 'new-handle'
     put :update, params: { tournament: {handle: new_handle} }
     assert_response :unprocessable_entity
-    assert_template 'admin/settings/_confirm_update'
+    assert_match 'Confirm Handle Change', response.body
   end
 
   test "update handle redirects properly" do
@@ -32,11 +32,11 @@ class Admin::SettingsControllerTest < AdminControllerTest
   end
 
   test "reset clears data" do
-    FactoryGirl.create(:field)
-    FactoryGirl.create(:team)
-    FactoryGirl.create(:division)
-    FactoryGirl.create(:game)
-    FactoryGirl.create(:score_report)
+    FactoryBot.create(:field)
+    FactoryBot.create(:team)
+    FactoryBot.create(:division)
+    FactoryBot.create(:game)
+    FactoryBot.create(:score_report)
 
     post :reset_data
     assert_redirected_to admin_settings_path

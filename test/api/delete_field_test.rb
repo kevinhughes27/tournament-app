@@ -7,7 +7,7 @@ class DeleteFieldTest < ApiTest
   end
 
   test "delete a field" do
-    field = FactoryGirl.create(:field)
+    field = FactoryBot.create(:field)
     input = {field_id: field.id}
 
     assert_difference "Field.count", -1 do
@@ -17,8 +17,8 @@ class DeleteFieldTest < ApiTest
   end
 
   test "delete a field needs confirm" do
-    field = FactoryGirl.create(:field)
-    FactoryGirl.create(:game, :scheduled, field: field)
+    field = FactoryBot.create(:field)
+    FactoryBot.create(:game, :scheduled, field: field)
     input = {field_id: field.id}
 
     assert_no_difference "Field.count" do
@@ -28,8 +28,8 @@ class DeleteFieldTest < ApiTest
   end
 
   test "confirm delete a field" do
-    field = FactoryGirl.create(:field)
-    FactoryGirl.create(:game, :scheduled, field: field)
+    field = FactoryBot.create(:field)
+    FactoryBot.create(:game, :scheduled, field: field)
     input = {field_id: field.id, confirm: true}
 
     assert_difference "Field.count", -1 do
@@ -39,8 +39,8 @@ class DeleteFieldTest < ApiTest
   end
 
   test "deleting a field unschedules any games from that field" do
-    field = FactoryGirl.create(:field)
-    game = FactoryGirl.create(:game, :scheduled, field: field)
+    field = FactoryBot.create(:field)
+    game = FactoryBot.create(:game, :scheduled, field: field)
     input = {field_id: field.id, confirm: true}
 
     execute_graphql("deleteField", "DeleteFieldInput", input, @output)

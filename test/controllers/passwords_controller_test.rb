@@ -2,9 +2,9 @@ require 'test_helper'
 
 class PasswordsControllerTest < ActionController::TestCase
   setup do
-    @user = FactoryGirl.create(:user)
-    @tournament = FactoryGirl.create(:tournament)
-    FactoryGirl.create(:tournament_user, user: @user, tournament: @tournament)
+    @user = FactoryBot.create(:user)
+    @tournament = FactoryBot.create(:tournament)
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
 
     set_tournament(@tournament)
 
@@ -38,6 +38,5 @@ class PasswordsControllerTest < ActionController::TestCase
     params = { user: {password: '', password_confirmation: '', reset_password_token: token } }
     put :update, params: params
     assert_response :ok
-    assert_template 'passwords/edit'
   end
 end
