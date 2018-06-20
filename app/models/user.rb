@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Staff
+
   has_many :user_authentications, dependent: :destroy
   has_many :tournament_users, dependent: :destroy
   has_many :tournaments, through: :tournament_users
@@ -23,15 +25,6 @@ class User < ApplicationRecord
       authentication.save!
     end
     authentication.user
-  end
-
-  STAFF = [
-    'kevinhughes27@gmail.com',
-    'samcluthe@gmail.com'
-  ]
-
-  def staff?
-    STAFF.include?(email)
   end
 
   def name
