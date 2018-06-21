@@ -7,7 +7,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import UserMenu from './UserMenu';
 
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import withRoot from './withRoot';
 
 const styles = {
   flex: {
@@ -42,4 +41,4 @@ class TopBar extends React.Component<Props> {
   }
 }
 
-export default withRoot(withStyles(styles)<{}>(TopBar));
+export default withStyles(styles)<{}>(TopBar);

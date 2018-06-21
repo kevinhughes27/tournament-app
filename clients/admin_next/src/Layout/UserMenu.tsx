@@ -5,7 +5,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import withRoot from './withRoot';
 
 const styles = {
   flex: {
@@ -71,4 +70,4 @@ class UserMenu extends React.Component<Props, State> {
   }
 }
 
-export default withRoot(withStyles(styles)<{}>(UserMenu));
+export default withStyles(styles)<{}>(UserMenu);

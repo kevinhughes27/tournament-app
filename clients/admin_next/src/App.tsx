@@ -1,8 +1,8 @@
 import * as React from 'react';
-import TopBar from './TopBar';
+import TopBar from './Layout/TopBar';
 
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import withRoot from './withRoot';
+import withTheme from './withTheme';
 
 const styles = {
   root: {
@@ -25,4 +25,4 @@ class App extends React.Component<Props> {
   }
 }
 
-export default withRoot(withStyles(styles)<{}>(App));
+export default withTheme(withStyles(styles)<{}>(App));
