@@ -9,13 +9,15 @@ class ApiTest < ActionDispatch::IntegrationTest
 
   protected
 
-  def login_user
+  def login_user(user = nil)
+    user ||= @user
+
     get "http://#{@tournament.handle}.lvh.me/admin"
     follow_redirect!
     assert_equal 200, status
     assert_equal new_user_session_path, path
 
-    post new_user_session_path, params: { user: {email: @user.email, password: 'password'} }
+    post new_user_session_path, params: { user: {email: user.email, password: user.password} }
     follow_redirect!
     assert_equal 200, status
     assert_equal "/admin", path

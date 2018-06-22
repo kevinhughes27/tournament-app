@@ -9,6 +9,15 @@ class AuthTest < ApiTest
     assert_success
   end
 
+  test "mutation with staff auth" do
+    staff = FactoryBot.create(:staff)
+    login_user(staff)
+    game = FactoryBot.create(:game, :scheduled)
+    input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}
+    execute_graphql("updateScore", "UpdateScoreInput", input)
+    assert_success
+  end
+
   test "mutation without auth" do
     game = FactoryBot.create(:game, :scheduled)
     input = {"game_id" => game.id, "home_score" => 10, "away_score" => 5}

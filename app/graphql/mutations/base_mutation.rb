@@ -24,10 +24,17 @@ class Mutations::BaseMutation < GraphQL::Schema::Mutation
   def protect(context)
     if context[:current_user].nil?
       raise GraphQL::ExecutionError.new("You need to sign in or sign up before continuing")
-    elsif context[:current_user].is_tournament_user?(context[:tournament])
+    elsif authorized?(context)
       yield
     else
       raise GraphQL::ExecutionError.new("You are not a registered user for this tournament")
     end
+  end
+
+  def authorized?(context)
+    user = context[:current_user]
+    tournament = context[:tournament]
+
+    user.staff? || user.is_tournament_user?(tournament)
   end
 end
