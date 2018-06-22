@@ -1,23 +1,18 @@
 import * as React from 'react';
+import { withStyles, WithStyles } from '@material-ui/core/styles'
+import { NavItems as styles } from '../assets/jss/styles';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 import GroupIcon from '@material-ui/icons/Group';
 import DivisionsIcon from '@material-ui/icons/GridOn';
 import PlaceIcon from '@material-ui/icons/Place';
 import CalendarIcon from '@material-ui/icons/PermContactCalendar';
 import GamesIcon from '@material-ui/icons/List';
-
-import Divider from '@material-ui/core/Divider';
-import { withStyles, WithStyles } from '@material-ui/core/styles'
-
-const styles = {
-  list: {
-    width: 250,
-  }  
-}
 
 interface Props extends WithStyles<typeof styles> {}
 

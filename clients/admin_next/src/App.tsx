@@ -1,15 +1,10 @@
 import * as React from 'react';
-import TopBar from './Layout/TopBar';
-import SideBar from './Layout/SideBar';
-
 import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { App as styles } from './assets/jss/styles';
 import withTheme from './withTheme';
 
-const styles = {
-  root: {
-    flexGrow: 1,
-  }
-};
+import TopBar from './layout/TopBar';
+import SideBar from './layout/SideBar';
 
 interface Props extends WithStyles<typeof styles> {}
 

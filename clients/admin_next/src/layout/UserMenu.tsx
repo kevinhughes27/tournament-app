@@ -1,20 +1,11 @@
 import * as React from 'react';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { UserMenu as styles } from '../assets/jss/styles';
+
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-
-const styles = {
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
 
 interface Props extends WithStyles<typeof styles> {}
 
