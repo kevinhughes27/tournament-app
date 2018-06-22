@@ -8,11 +8,15 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
-import GroupIcon from '@material-ui/icons/Group';
-import DivisionsIcon from '@material-ui/icons/GridOn';
-import PlaceIcon from '@material-ui/icons/Place';
-import CalendarIcon from '@material-ui/icons/PermContactCalendar';
-import GamesIcon from '@material-ui/icons/List';
+import { 
+  faHome,
+  faUsers,
+  faSitemap,
+  faMapSigns,
+  faCalendar,
+  faList
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -26,25 +30,31 @@ class NavItems extends React.Component<Props> {
           <div>
             <ListItem button>
               <ListItemIcon>
-                <GroupIcon />
+                <FontAwesomeIcon icon={faHome} />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <FontAwesomeIcon icon={faUsers} />
               </ListItemIcon>
               <ListItemText primary="Teams" />
             </ListItem>
             <ListItem button>
               <ListItemIcon>
-                <DivisionsIcon />
+                <FontAwesomeIcon icon={faSitemap} />
               </ListItemIcon>
-              <ListItemText primary="Divisions" />
+              <ListItemText primary="Division" />
             </ListItem>
             <ListItem button>
               <ListItemIcon>
-                <PlaceIcon />
+              <FontAwesomeIcon icon={faMapSigns} />
               </ListItemIcon>
               <ListItemText primary="Fields" />
             </ListItem>
             <ListItem button>
               <ListItemIcon>
-                <CalendarIcon />
+              <FontAwesomeIcon icon={faCalendar} />
               </ListItemIcon>
               <ListItemText primary="Schedule" />
             </ListItem>
@@ -55,7 +65,7 @@ class NavItems extends React.Component<Props> {
           <div>
             <ListItem button>
               <ListItemIcon>
-                <GamesIcon />
+                <FontAwesomeIcon icon={faList} />
               </ListItemIcon>
               <ListItemText primary="Games" />
             </ListItem>
