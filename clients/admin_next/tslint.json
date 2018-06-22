@@ -9,6 +9,7 @@
   "rules": {
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "interface-name": [true, "never-prefix"]
+    "interface-name": [true, "never-prefix"],
+    "jsx-boolean-value": false
   }
 }

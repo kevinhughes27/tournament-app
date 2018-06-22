@@ -9,36 +9,39 @@ import UserMenu from './UserMenu';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 
 const styles = {
-  flex: {
+  title: {
     flex: 1,
+    color: 'white'
   },
   menuButton: {
+    color: 'white',
     marginLeft: -12,
     marginRight: 20,
   },
 };
 
-
-interface Props extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {
+  openNav: (event: React.SyntheticEvent<{}>) => void,
+}
 
 class TopBar extends React.Component<Props> {
   public render () {
     const { classes } = this.props;
 
     return (
-        <AppBar position="static">
-            <Toolbar>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="title" color="inherit" className={classes.flex}>
-                    Ultimate Tournament
-                </Typography>
-                <UserMenu />
-            </Toolbar>
-        </AppBar>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton className={classes.menuButton} aria-label="Menu" onClick={this.props.openNav}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="title" className={classes.title}>
+            Ultimate Tournament
+          </Typography>
+          <UserMenu />
+        </Toolbar>
+      </AppBar>
     );
   }
 }
 
-export default withStyles(styles)<{}>(TopBar);
+export default withStyles(styles)(TopBar);
