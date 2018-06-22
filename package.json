@@ -7,7 +7,8 @@
   },
   "subPackages": [
     "client",
-    "clients/player-app"
+    "clients/player-app",
+    "clients/admin_next"
   ],
   "scripts": {
     "postinstall": "subpkg install",
@@ -20,6 +21,8 @@
   },
   "cacheDirectories": [
     "node_modules",
-    "client/node_modules"
+    "client/node_modules",
+    "clients/player-app/node_modules",
+    "clients/admin_next/node_modules"
   ]
 }
