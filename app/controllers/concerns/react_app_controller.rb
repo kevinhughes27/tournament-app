@@ -6,7 +6,9 @@ module ReactAppController
     protect_from_forgery except: [:index, :static, :service_worker]
 
     def self.app_name(name)
-      @@app_directory = name
+      define_method :app_directory do
+        name
+      end
     end
   end
 
@@ -25,15 +27,15 @@ module ReactAppController
   private
 
   def index_html
-    Rails.root.join(clients_directory, @@app_directory, 'build', 'index.html')
+    Rails.root.join(clients_directory, app_directory, 'build', 'index.html')
   end
 
   def static_file(dir, file)
-    Rails.root.join(clients_directory, @@app_directory, 'build', 'static', dir, file)
+    Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, file)
   end
 
   def service_worker_file
-    Rails.root.join(clients_directory, @@app_directory, 'build', 'service-worker.js')
+    Rails.root.join(clients_directory, app_directory, 'build', 'service-worker.js')
   end
 
   def clients_directory
