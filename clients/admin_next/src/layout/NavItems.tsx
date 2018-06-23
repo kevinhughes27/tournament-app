@@ -2,6 +2,8 @@ import * as React from 'react';
 import { withStyles, WithStyles } from '@material-ui/core/styles'
 import { NavItems as styles } from '../assets/jss/styles';
 
+import { NavLink } from 'react-router-dom';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -18,6 +20,31 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+const primaryItems = [
+  { path: "/", icon: faHome, text: "Home" },
+  { path: "/teams", icon: faUsers, text: "Teams" },
+  { path: "/divisions", icon: faSitemap, text: "Divisions" },
+  { path: "/fields", icon: faMapSigns, text: "Fields" },
+  { path: "/schedule", icon: faCalendar, text: "Schedule" }
+]
+
+const secondaryItems = [
+  { path: "/games", icon: faList, text: "Games" }
+]
+
+const NavItem = (path: string, icon: any, text: string) => {
+  return (
+    <NavLink to={path} style={{textDecoration: 'None'}} key={text}>
+      <ListItem button>
+        <ListItemIcon>
+          <FontAwesomeIcon icon={icon} />
+        </ListItemIcon>
+        <ListItemText primary={text} />
+      </ListItem>
+    </NavLink>
+  )
+}
+
 interface Props extends WithStyles<typeof styles> {}
 
 class NavItems extends React.Component<Props> {
@@ -28,47 +55,19 @@ class NavItems extends React.Component<Props> {
       <div className={classes.list}>
         <List>
           <div>
-            <ListItem button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faHome} />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faUsers} />
-              </ListItemIcon>
-              <ListItemText primary="Teams" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faSitemap} />
-              </ListItemIcon>
-              <ListItemText primary="Division" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-              <FontAwesomeIcon icon={faMapSigns} />
-              </ListItemIcon>
-              <ListItemText primary="Fields" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-              <FontAwesomeIcon icon={faCalendar} />
-              </ListItemIcon>
-              <ListItemText primary="Schedule" />
-            </ListItem>
+            {primaryItems.map((item) => {
+              return NavItem(item.path, item.icon, item.text)
+            })}
           </div>
         </List>
+
         <Divider/>
+        
         <List>
           <div>
-            <ListItem button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faList} />
-              </ListItemIcon>
-              <ListItemText primary="Games" />
-            </ListItem>
+            {secondaryItems.map((item) => {
+              return NavItem(item.path, item.icon, item.text)
+            })}
           </div>
         </List>
       </div>

@@ -23,7 +23,7 @@ const SideBar = {};
 const NavItems = {
   list: {
     width: 250,
-  }  
+  }
 };
 
 export {

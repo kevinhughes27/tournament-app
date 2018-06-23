@@ -6,6 +6,9 @@ import withTheme from './withTheme';
 import TopBar from './layout/TopBar';
 import SideBar from './layout/SideBar';
 
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './Routes';
+
 interface Props extends WithStyles<typeof styles> {}
 
 interface State {
@@ -29,14 +32,17 @@ class App extends React.Component<Props, State> {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <TopBar openNav={this.openNav} />
-        <SideBar 
-          open={this.state.navOpen}
-          handleOpen={this.openNav}
-          handleClose={this.closeNave}
-        />
-      </div>
+      <Router>
+        <div className={classes.root}>
+          <TopBar openNav={this.openNav} />
+          <SideBar 
+            open={this.state.navOpen}
+            handleOpen={this.openNav}
+            handleClose={this.closeNave}
+          />
+          <Routes />
+        </div>
+      </Router>
     );
   }
 }
