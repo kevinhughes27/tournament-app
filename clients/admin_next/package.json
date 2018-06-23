@@ -2,6 +2,7 @@
   "name": "admin_next",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/admin_next",
   "proxy": {
     "/graphql": {
       "target": "http://no-borders.lvh.me:3000",
