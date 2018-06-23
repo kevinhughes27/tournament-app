@@ -46,6 +46,7 @@ jobs:
             - ./node_modules
             - ./client/node_modules
             - ./clients/player-app/node_modules
+            - ./clients/admin_next/node_modules
 
       # Database setup
       - run: bundle exec rake db:create
@@ -78,6 +79,9 @@ jobs:
             - public/assets
             - public/webpack
             - tmp/cache/assets
+
+      # Build admin_next
+      - run: cd clients/admin_next && yarn build
 
       # Generate checksum for player-app
       - type: shell

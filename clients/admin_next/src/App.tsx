@@ -1,68 +1,44 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Typography from '@material-ui/core/Typography';
-import withStyles, { WithStyles, StyleRulesCallback } from '@material-ui/core/styles/withStyles';
-import withRoot from './withRoot';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { App as styles } from './assets/jss/styles';
+import withTheme from './withTheme';
 
-const styles: StyleRulesCallback<'root'> = theme => ({
-  root: {
-    paddingTop: theme.spacing.unit * 20,
-    textAlign: 'center',
-  },
-});
+import TopBar from './layout/TopBar';
+import SideBar from './layout/SideBar';
 
-interface IState {
-  open: boolean;
+interface Props extends WithStyles<typeof styles> {}
+
+interface State {
+  navOpen: boolean;
 };
 
-class Index extends React.Component<WithStyles<'root'>, IState> {
+class App extends React.Component<Props, State> {
   public state = {
-    open: false,
+    navOpen: false,
   };
 
-  public handleClose = () => {
-    this.setState({
-      open: false,
-    });
+  public openNav = () => {
+    this.setState({navOpen: true});
   };
 
-  public handleClick = () => {
-    this.setState({
-      open: true,
-    });
+  public closeNave = () => {
+    this.setState({navOpen: false});
   };
 
-  public render() {
+  public render () {
+    const { classes } = this.props;
+
     return (
-      <div className={this.props.classes.root}>
-        <Dialog open={this.state.open} onClose={this.handleClose}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={this.handleClose}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Typography variant="display1" gutterBottom={true}>
-          Material-UI
-        </Typography>
-        <Typography variant="subheading" gutterBottom={true}>
-          example project
-        </Typography>
-        <Button variant="raised" color="secondary" onClick={this.handleClick}>
-          Super Secret Password
-        </Button>
+      <div className={classes.root}>
+        <TopBar openNav={this.openNav} />
+        <SideBar 
+          open={this.state.navOpen}
+          handleOpen={this.openNav}
+          handleClose={this.closeNave}
+        />
       </div>
     );
   }
 }
 
-export default withRoot(withStyles(styles)<{}>(Index));
+export default withTheme(withStyles(styles)(App));
