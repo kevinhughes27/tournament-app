@@ -1,13 +1,19 @@
 import * as React from 'react';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { BlankSlate as styles } from '../assets/jss/styles';
 
-class Divisions extends React.Component {
+interface Props extends WithStyles<typeof styles> {}
+
+class Division extends React.Component<Props> {
   public render() {
+    const { classes } = this.props;
+
     return (
-      <div>
-        Divisions
+      <div className={classes.container}>
+        <span className={classes.item}>Division</span>
       </div>
     )
   }
 }
 
-export default Divisions
+export default withStyles(styles)(Division)

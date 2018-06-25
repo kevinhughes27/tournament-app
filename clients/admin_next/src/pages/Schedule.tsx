@@ -1,13 +1,19 @@
 import * as React from 'react';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { BlankSlate as styles } from '../assets/jss/styles';
 
-class Schedule extends React.Component {
+interface Props extends WithStyles<typeof styles> {}
+
+class Schedule extends React.Component<Props> {
   public render() {
+    const { classes } = this.props;
+
     return (
-      <div>
-        Schedule
+      <div className={classes.container}>
+        <span className={classes.item}>Schedule</span>
       </div>
     )
   }
 }
 
-export default Schedule
+export default withStyles(styles)(Schedule)

@@ -40,7 +40,7 @@ class App extends React.Component<Props, State> {
             handleOpen={this.openNav}
             handleClose={this.closeNave}
           />
-          <Routes />
+          <Routes/>
         </div>
       </Router>
     );
