@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "PORT=4000 react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "yarn relay && react-app-rewired build",
     "relay": "relay-compiler --src ./src --outputDir ./generated --schema ../../app/graphql/schema.graphql --outputExtension ts --extensions tsx ts --transform '@secoya/relay-compiler-typescript'",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts-ts eject"
