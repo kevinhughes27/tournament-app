@@ -15,22 +15,46 @@
     "@fortawesome/react-fontawesome": "^0.1.0-11",
     "@material-ui/core": "^1.2.3",
     "@material-ui/icons": "^1.1.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-relay": "^1.6.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "2.15.1"
+    "relay-runtime": "^1.6.0"
   },
   "scripts": {
-    "start": "PORT=4000 react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
+    "start": "PORT=4000 react-app-rewired start",
+    "build": "react-app-rewired build",
+    "relay": "relay-compiler --src ./src --outputDir ./generated --schema ../../app/graphql/schema.graphql --outputExtension ts --extensions tsx ts --transform '@secoya/relay-compiler-typescript'",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.0.0-beta.47",
+    "@secoya/relay-compiler": "1.1.0-secoya",
+    "@secoya/relay-compiler-typescript": "1.0.0",
     "@types/jest": "^22.2.3",
     "@types/node": "^10.0.4",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
-    "typescript": "^2.8.3"
+    "babel-plugin-relay": "^1.6.0",
+    "react-app-rewire-typescript-babel-preset": "^2.3.0",
+    "react-app-rewired": "^2.0.0",
+    "react-scripts": "2.0.0-next.66cc7a90",
+    "relay-compiler": "^1.6.0",
+    "tslint": "^5.10.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^2.9.2"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">0.25%",
+      "not op_mini all",
+      "ie 11"
+    ]
   }
 }

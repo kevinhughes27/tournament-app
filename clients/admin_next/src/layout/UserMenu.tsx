@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { UserMenu as styles } from '../assets/jss/styles';
+import * as React from "react";
+import { withStyles, WithStyles } from "@material-ui/core/styles";
+import { UserMenu as styles } from "../assets/jss/styles";
 
-import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from "@material-ui/core/IconButton";
+import Avatar from "@material-ui/core/Avatar";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 interface Props extends WithStyles<typeof styles> {}
 
 interface State {
   open: boolean;
-};
+}
 
 class UserMenu extends React.Component<Props, State> {
   public state = {
@@ -20,13 +20,13 @@ class UserMenu extends React.Component<Props, State> {
 
   public handleOpen = () => {
     this.setState({ open: true });
-  };
+  }
 
   public handleClose = () => {
     this.setState({ open: false });
-  };
+  }
 
-  public render () {
+  public render() {
     const { open } = this.state;
 
     return (
@@ -39,14 +39,8 @@ class UserMenu extends React.Component<Props, State> {
         </IconButton>
         <Menu
           id="menu-appbar"
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
+          anchorOrigin={{vertical: "top", horizontal: "right"}}
+          transformOrigin={{vertical: "top", horizontal: "right"}}
           open={open}
           onClose={this.handleClose}
         >
