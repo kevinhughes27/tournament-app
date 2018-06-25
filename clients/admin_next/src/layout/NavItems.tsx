@@ -10,6 +10,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faHome,
   faUsers,
@@ -18,7 +19,8 @@ import {
   faCalendar,
   faList
 } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+interface Props extends WithStyles<typeof styles> {}
 
 const primaryItems = [
   { path: "/", icon: faHome, text: "Home" },
@@ -32,47 +34,37 @@ const secondaryItems = [
   { path: "/games", icon: faList, text: "Games" }
 ]
 
-const NavItem = (path: string, icon: any, text: string) => {
+const NavItem = (path: string, icon: any, text: string) => (
+  <NavLink to={path} style={{textDecoration: 'None'}} key={text}>
+    <ListItem button>
+      <ListItemIcon>
+        <FontAwesomeIcon icon={icon} />
+      </ListItemIcon>
+      <ListItemText primary={text} />
+    </ListItem>
+  </NavLink>
+)
+
+const NavItems = (props: Props) => {
+  const { classes } = props;
+
   return (
-    <NavLink to={path} style={{textDecoration: 'None'}} key={text}>
-      <ListItem button>
-        <ListItemIcon>
-          <FontAwesomeIcon icon={icon} />
-        </ListItemIcon>
-        <ListItemText primary={text} />
-      </ListItem>
-    </NavLink>
+    <div className={classes.list}>
+      <List>
+        {primaryItems.map((item) => {
+          return NavItem(item.path, item.icon, item.text)
+        })}
+      </List>
+
+      <Divider/>
+      
+      <List>
+        {secondaryItems.map((item) => {
+          return NavItem(item.path, item.icon, item.text)
+        })}
+      </List>
+    </div>
   )
-}
-
-interface Props extends WithStyles<typeof styles> {}
-
-class NavItems extends React.Component<Props> {
-  public render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.list}>
-        <List>
-          <div>
-            {primaryItems.map((item) => {
-              return NavItem(item.path, item.icon, item.text)
-            })}
-          </div>
-        </List>
-
-        <Divider/>
-        
-        <List>
-          <div>
-            {secondaryItems.map((item) => {
-              return NavItem(item.path, item.icon, item.text)
-            })}
-          </div>
-        </List>
-      </div>
-    )
-  }
 }
 
 export default withStyles(styles)(NavItems);
