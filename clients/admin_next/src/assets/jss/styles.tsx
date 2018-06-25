@@ -1,6 +1,7 @@
 const App = {
   root: {
     flexGrow: 1,
+    height: '100%',
   }
 };
 
@@ -23,13 +24,26 @@ const SideBar = {};
 const NavItems = {
   list: {
     width: 250,
-  }  
+  }
 };
+
+const BlankSlate = {
+  container: {
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  item: {
+    height: 100
+  }
+}
 
 export {
   App,
   TopBar,
   UserMenu,
   SideBar,
-  NavItems
+  NavItems,
+  BlankSlate
 };
