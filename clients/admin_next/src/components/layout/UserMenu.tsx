@@ -28,6 +28,10 @@ class UserMenu extends React.Component<Props, State> {
     this.setState({ open: false, anchorEl: undefined });
   }
 
+  handleLogout = () => {
+    fetch("/sign_out", {method: "DELETE", credentials: "include"});
+  }
+
   render() {
     const { open, anchorEl } = this.state;
 
@@ -46,7 +50,7 @@ class UserMenu extends React.Component<Props, State> {
         >
           <MenuItem onClick={this.handleClose}>Profile</MenuItem>
           <MenuItem onClick={this.handleClose}>Settings</MenuItem>
-          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+          <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
         </Menu>
       </div>
     );

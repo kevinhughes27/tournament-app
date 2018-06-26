@@ -4,6 +4,7 @@ class LoginController < Devise::SessionsController
 
   skip_before_action :require_no_authentication
   skip_before_action :verify_signed_out_user
+  skip_before_action :verify_authenticity_token, only: [:destroy]
 
   def self.controller_path
     'login'
