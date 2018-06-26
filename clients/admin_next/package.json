@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "start": "PORT=4000 react-app-rewired start",
+    "start": "concurrently \"yarn compile-relay --watch\" \"PORT=4000 react-app-rewired start\"",
     "build": "yarn compile-relay && react-app-rewired build",
     "compile-relay": "relay-compiler --src ./src --schema ../../app/graphql/schema.graphql --extensions tsx",
     "type-check": "tsc --noEmit --pretty",
@@ -30,6 +30,7 @@
     "@types/react-relay": "^1.3.1",
     "@types/relay-runtime": "^1.3.1",
     "babel-plugin-relay": "^1.6.0",
+    "concurrently": "^3.6.0",
     "react": "^16.4.0",
     "react-app-rewire-typescript-babel-preset": "^2.3.0",
     "react-app-rewired": "^2.0.0",

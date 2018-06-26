@@ -17,6 +17,7 @@ const Row = (t: any) => (
   <TableRow key={t.id}>
     <TableCell>{t.id}</TableCell>
     <TableCell>{t.name}</TableCell>
+    <TableCell>{t.divisionId}</TableCell>
     <TableCell>{t.seed}</TableCell>
   </TableRow>
 );
@@ -31,6 +32,7 @@ class TeamsList extends React.Component<Props> {
           <TableRow>
             <TableCell>ID</TableCell>
             <TableCell>Name</TableCell>
+            <TableCell>DivisionId</TableCell>
             <TableCell>Seed</TableCell>
           </TableRow>
         </TableHead>
