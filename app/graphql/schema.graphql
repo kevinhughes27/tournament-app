@@ -94,9 +94,12 @@ type DeleteTeamPayload {
 type Division {
   bracketType: String
   id: ID
+  isSeeded: Boolean
   name: String
+  needsSeed: Boolean
   numDays: Int
   numTeams: Int
+  teamsCount: Int
 }
 
 # A Field
@@ -112,12 +115,14 @@ type Field {
 type Game {
   awayName: String
   awayScore: Int
+  division: Division
   endTime: DateTime
   fieldId: ID
   fieldName: String
   homeName: String
   homeScore: Int
   id: ID!
+  pool: String
 
   # True when a score has been submitted and
   #      accepted by the tournament as confirmed according to its rules.
@@ -127,7 +132,7 @@ type Game {
   startTime: DateTime
 }
 
-# Tourgraphql_nament Map
+# Tournament Map
 type Map {
   lat: Float!
   long: Float!
@@ -237,6 +242,7 @@ type SubmitScorePayload {
 
 # A Team
 type Team {
+  division: Division
   divisionId: Int
   email: String
   id: ID

@@ -9,10 +9,15 @@ const query = graphql`
   query GamesQuery {
     games {
       id
+      pool
       homeName
       awayName
       homeScore
       awayScore
+      division {
+        id
+        name
+      }
     }
   }
 `;

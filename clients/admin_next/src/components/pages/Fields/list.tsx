@@ -15,8 +15,9 @@ interface Props extends WithStyles<typeof styles> {
 
 const Row = (f: any) => (
   <TableRow key={f.id}>
-    <TableCell>{f.id}</TableCell>
     <TableCell>{f.name}</TableCell>
+    <TableCell>{f.lat}</TableCell>
+    <TableCell>{f.long}</TableCell>
   </TableRow>
 );
 
@@ -28,8 +29,9 @@ class FieldsList extends React.Component<Props> {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
             <TableCell>Name</TableCell>
+            <TableCell>Latitude</TableCell>
+            <TableCell>Longitude</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

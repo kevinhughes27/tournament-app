@@ -11,6 +11,9 @@ const query = graphql`
       id
       name
       bracketType
+      teamsCount
+      numTeams
+      isSeeded
     }
   }
 `;

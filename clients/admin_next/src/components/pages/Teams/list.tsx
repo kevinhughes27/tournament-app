@@ -15,9 +15,8 @@ interface Props extends WithStyles<typeof styles> {
 
 const Row = (t: any) => (
   <TableRow key={t.id}>
-    <TableCell>{t.id}</TableCell>
     <TableCell>{t.name}</TableCell>
-    <TableCell>{t.divisionId}</TableCell>
+    <TableCell>{t.division.name}</TableCell>
     <TableCell>{t.seed}</TableCell>
   </TableRow>
 );
@@ -30,9 +29,8 @@ class TeamsList extends React.Component<Props> {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>DivisionId</TableCell>
+            <TableCell>Division</TableCell>
             <TableCell>Seed</TableCell>
           </TableRow>
         </TableHead>

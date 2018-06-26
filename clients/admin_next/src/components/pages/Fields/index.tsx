@@ -10,6 +10,8 @@ const query = graphql`
     fields {
       id
       name
+      lat
+      long
     }
   }
 `;

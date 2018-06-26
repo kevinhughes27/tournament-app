@@ -15,8 +15,9 @@ interface Props extends WithStyles<typeof styles> {
 
 const Row = (g: any) => (
   <TableRow key={g.id}>
-    <TableCell>{g.id}</TableCell>
     <TableCell>{g.homeName} vs {g.awayName}</TableCell>
+    <TableCell>{g.division.name}</TableCell>
+    <TableCell>{g.pool}</TableCell>
     <TableCell>{g.homeScore} - {g.awayScore}</TableCell>
   </TableRow>
 );
@@ -29,8 +30,9 @@ class GamesList extends React.Component<Props> {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
             <TableCell>Name</TableCell>
+            <TableCell>Division</TableCell>
+            <TableCell>Pool</TableCell>
             <TableCell>Score</TableCell>
           </TableRow>
         </TableHead>

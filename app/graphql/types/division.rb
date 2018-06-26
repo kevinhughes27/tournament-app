@@ -7,4 +7,19 @@ class Types::Division < Types::BaseObject
   field :numTeams, Int, null: true
   field :numDays, Int, null: true
   field :bracketType, String, null: true
+  field :teamsCount, Int, null: true
+  field :isSeeded, Boolean, null: true
+  field :needsSeed, Boolean, null: true
+
+  def teams_count
+    object.teams.count
+  end
+
+  def is_seeded
+    object.seeded?
+  end
+
+  def needs_seed
+    object.dirty_seed?
+  end
 end

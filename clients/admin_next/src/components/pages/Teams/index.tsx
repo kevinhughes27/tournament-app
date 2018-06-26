@@ -10,7 +10,10 @@ const query = graphql`
     teams {
       id
       name
-      divisionId
+      division {
+        id
+        name
+      }
       seed
     }
   }

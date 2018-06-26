@@ -6,6 +6,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import TeamsCell from "./TeamsCell";
+import SeededCell from "./SeededCell";
 
 const styles = {};
 
@@ -15,9 +17,10 @@ interface Props extends WithStyles<typeof styles> {
 
 const Row = (d: any) => (
   <TableRow key={d.id}>
-    <TableCell>{d.id}</TableCell>
     <TableCell>{d.name}</TableCell>
     <TableCell>{d.bracketType}</TableCell>
+    <TableCell>{TeamsCell(d)}</TableCell>
+    <TableCell>{SeededCell(d)}</TableCell>
   </TableRow>
 );
 
@@ -29,9 +32,10 @@ class DivisionsList extends React.Component<Props> {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>BracketType</TableCell>
+            <TableCell>Bracket</TableCell>
+            <TableCell>Teams</TableCell>
+            <TableCell>Seeded</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
