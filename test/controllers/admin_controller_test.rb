@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'admin/testcase' => 'admin/test_case#index'
 end
 
-class Admin::TestCaseControllerTest < ActionController::TestCase
+class Admin::TestCaseControllerTest < AdminControllerTest
 
   setup do
     @user = FactoryBot.create(:user)
