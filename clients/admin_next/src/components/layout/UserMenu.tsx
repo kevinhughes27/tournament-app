@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { UserMenu as styles } from "../assets/jss/styles";
+import { UserMenu as styles } from "../../assets/jss/styles";
 
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";

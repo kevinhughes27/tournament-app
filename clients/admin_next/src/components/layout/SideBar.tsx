@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { SideBar as styles } from "../assets/jss/styles";
+import { SideBar as styles } from "../../assets/jss/styles";
 
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import NavItems from "./NavItems";

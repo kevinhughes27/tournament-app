@@ -27,6 +27,18 @@ const NavItems = {
   }
 };
 
+const Loader = {
+  container: {
+    display: "flex",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  spinner: {
+    marginBottom: 80
+  }
+};
+
 const BlankSlate = {
   container: {
     display: "flex",
@@ -34,7 +46,7 @@ const BlankSlate = {
     justifyContent: "center",
     alignItems: "center"
   },
-  item: {
+  content: {
     height: 100
   }
 };
@@ -45,5 +57,6 @@ export {
   UserMenu,
   SideBar,
   NavItems,
+  Loader,
   BlankSlate
 };

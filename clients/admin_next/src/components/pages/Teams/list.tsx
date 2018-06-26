@@ -13,7 +13,7 @@ interface Props extends WithStyles<typeof styles> {
   teams: any;
 }
 
-const Row = (t) => (
+const Row = (t: any) => (
   <TableRow key={t.id}>
     <TableCell>{t.id}</TableCell>
     <TableCell>{t.name}</TableCell>

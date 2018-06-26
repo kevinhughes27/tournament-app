@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { App as styles } from "./assets/jss/styles";
+import { App as styles } from "../assets/jss/styles";
 import withTheme from "./withTheme";
 
 import TopBar from "./layout/TopBar";
