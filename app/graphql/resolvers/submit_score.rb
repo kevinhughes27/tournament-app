@@ -1,7 +1,7 @@
 class Resolvers::SubmitScore < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
-    @game = @tournament.games.find(inputs[:game_id])
+    @game = @tournament.games.find(database_id(inputs[:game_id]))
     @report = build_report(inputs)
 
     if !valid_submitter?
@@ -23,7 +23,7 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
     ScoreReport.new(
       tournament_id: @tournament.id,
       game_id: @game.id,
-      team_id: inputs[:team_id],
+      team_id: database_id(inputs[:team_id]),
       submitter_fingerprint: inputs[:submitter_fingerprint],
       home_score: inputs[:home_score],
       away_score: inputs[:away_score],

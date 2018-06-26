@@ -46,7 +46,7 @@ class SubmitScoreTest < ApiTest
     refute @game.reload.score_confirmed
 
     second_input = input.merge(
-      team_id: @game.away.id,
+      team_id: build_global_id('Team', @game.away.id),
       submitter_fingerprint: 'fingerprint2'
     )
 
@@ -73,7 +73,7 @@ class SubmitScoreTest < ApiTest
     refute @game.reload.score_confirmed
 
     second_input = input.merge(
-      team_id: @game.away.id
+      team_id: build_global_id('Team', @game.away.id)
     )
 
     execute_graphql("submitScore", "SubmitScoreInput", second_input)
@@ -86,7 +86,7 @@ class SubmitScoreTest < ApiTest
     refute @game.reload.score_confirmed
 
     second_input = input.merge(
-      team_id: @game.away.id,
+      team_id: build_global_id('Team', @game.away.id),
       submitter_fingerprint: 'fingerprint2',
       home_score: 3,
       away_score: 15
@@ -132,8 +132,8 @@ class SubmitScoreTest < ApiTest
 
   def input
     {
-      game_id: @game.id,
-      team_id: @game.home.id,
+      game_id: build_global_id('Game', @game.id),
+      team_id: build_global_id('Team', @game.home.id),
       submitter_fingerprint: 'fingerprint',
       home_score: 15,
       away_score: 13,
@@ -144,5 +144,9 @@ class SubmitScoreTest < ApiTest
       communication: 3,
       comments: 'comment'
     }
+  end
+
+  def build_global_id(type, id)
+    GraphQL::Schema::UniqueWithinType.encode(type, id)
   end
 end

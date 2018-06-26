@@ -2,7 +2,7 @@ class Types::Team < Types::BaseObject
   graphql_name "Team"
   description "A Team"
 
-  field :id, ID, null: true
+  global_id_field :id
   field :name, String, null: true
   field :email, String, auth: :required, null: true
   field :phone, String, auth: :required, null: true

@@ -81,11 +81,14 @@ class AdminController < ApplicationController
   end
 
   def result_to_attributes(result, key, except: nil)
-    result[key].deep_transform_keys { |key| key.to_s.underscore }.except(except)
+    attributes = result[key].deep_transform_keys { |key| key.to_s.underscore }.except(except)
+    attributes['id'] = database_id(attributes['id'])
+    attributes
   end
 
-  def result_to_errors(result)
-    result['userErrors'] && result['userErrors'].map{ |e| e['field'].capitalize + ' ' + e['message'] }
+  def database_id(global_id)
+    _, id = GraphQL::Schema::UniqueWithinType.decode(global_id)
+    return id
   end
 
   def render_admin_404

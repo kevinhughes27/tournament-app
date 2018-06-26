@@ -112,7 +112,7 @@ type Division {
   bracket: Bracket
   bracketTree: String
   games: [Game!]
-  id: ID
+  id: ID!
   isSeeded: Boolean
   name: String
   needsSeed: Boolean
@@ -129,7 +129,7 @@ type Error {
 # A Field
 type Field {
   geoJson: String
-  id: ID
+  id: ID!
   lat: Float
   long: Float
   name: String
@@ -282,7 +282,7 @@ type Team {
   division: Division
   divisionId: Int
   email: String
-  id: ID
+  id: ID!
   name: String
   phone: String
   seed: Int
