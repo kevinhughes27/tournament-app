@@ -10,7 +10,7 @@ module.exports = {
   webpack: function(config, env) {
     config = rewireTypescript(config);
     config = rewireTSLint(config);
-    config = injectBabelPlugin("relay", config);
+    config = injectBabelPlugin(["relay", { "artifactDirectory": "./src/__relay_artifacts__" }], config);
     return config;
   },
   jest: function(config) {
