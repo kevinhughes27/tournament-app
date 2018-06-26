@@ -1,4 +1,3 @@
-
 const {
   rewireWebpack: rewireTypescript,
   rewireJest: rewireTypescriptJest,

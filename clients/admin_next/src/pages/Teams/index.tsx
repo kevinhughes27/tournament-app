@@ -5,13 +5,13 @@ import { graphql, QueryRenderer } from "react-relay";
 import List from "./list";
 
 const query = graphql`
-	query TeamsQuery {
-		teams {
+  query TeamsQuery {
+    teams {
       id
       name
       seed
-		}
-	}
+    }
+  }
 `;
 
 const render = ({error, props}: any) => {
