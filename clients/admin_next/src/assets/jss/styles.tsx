@@ -1,7 +1,6 @@
 const App = {
   root: {
-    flexGrow: 1,
-    height: "100%",
+    flexGrow: 1
   }
 };
 
@@ -30,7 +29,7 @@ const NavItems = {
 const Loader = {
   container: {
     display: "flex",
-    height: "100%",
+    height: "92vh",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -42,12 +41,9 @@ const Loader = {
 const BlankSlate = {
   container: {
     display: "flex",
-    height: "100%",
+    height: "92vh",
     justifyContent: "center",
     alignItems: "center"
-  },
-  content: {
-    height: 100
   }
 };
 

@@ -10,7 +10,7 @@ class Schedule extends React.Component<Props> {
 
     return (
       <div className={classes.container}>
-        <span className={classes.content}>Schedule</span>
+        <span>Schedule</span>
       </div>
     );
   }

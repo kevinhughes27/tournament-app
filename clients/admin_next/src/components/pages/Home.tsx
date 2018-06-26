@@ -10,7 +10,7 @@ class Home extends React.Component<Props> {
 
     return (
       <div className={classes.container}>
-        <span className={classes.content}>Home</span>
+        <span>Home</span>
       </div>
     );
   }

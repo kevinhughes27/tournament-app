@@ -9,7 +9,7 @@ import Schedule from "./pages/Schedule";
 import Games from "./pages/Games";
 
 const Routes = () => (
-  <div style={{height: "100%"}}>
+  <div>
     <Route exact path="/" component={Home} />
     <Route path="/teams" component={Teams} />
     <Route path="/divisions" component={Divisions} />

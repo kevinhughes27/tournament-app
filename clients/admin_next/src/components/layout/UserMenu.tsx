@@ -11,34 +11,38 @@ interface Props extends WithStyles<typeof styles> {}
 
 interface State {
   open: boolean;
+  anchorEl: any;
 }
 
 class UserMenu extends React.Component<Props, State> {
   state = {
     open: false,
+    anchorEl: undefined
   };
 
-  handleOpen = () => {
-    this.setState({ open: true });
+  handleOpen = (event: any) => {
+    this.setState({ open: true, anchorEl: event.currentTarget });
   }
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, anchorEl: undefined });
+  }
+
+  handleLogout = () => {
+    fetch("/sign_out", {method: "DELETE", credentials: "include"});
   }
 
   render() {
-    const { open } = this.state;
+    const { open, anchorEl } = this.state;
 
     return (
       <div>
-        <IconButton
-          onClick={this.handleOpen}
-          color="inherit"
-        >
+        <IconButton onClick={this.handleOpen}>
           <Avatar alt="Kevin Hughes" src="https://www.gravatar.com/avatar/a14e0880b9ef8720734a7db6b6c4ade0" />
         </IconButton>
         <Menu
-          id="menu-appbar"
+          id="user-menu"
+          anchorEl={anchorEl}
           anchorOrigin={{vertical: "top", horizontal: "right"}}
           transformOrigin={{vertical: "top", horizontal: "right"}}
           open={open}
@@ -46,7 +50,7 @@ class UserMenu extends React.Component<Props, State> {
         >
           <MenuItem onClick={this.handleClose}>Profile</MenuItem>
           <MenuItem onClick={this.handleClose}>Settings</MenuItem>
-          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+          <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
         </Menu>
       </div>
     );

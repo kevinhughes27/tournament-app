@@ -32,7 +32,7 @@ class App extends React.Component<Props, State> {
     const { classes } = this.props;
 
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div className={classes.root}>
           <TopBar openNav={this.openNav} />
           <SideBar
