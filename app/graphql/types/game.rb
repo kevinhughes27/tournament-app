@@ -3,6 +3,8 @@ class Types::Game < Types::BaseObject
   description "A Game"
 
   field :id, ID, null: false
+  field :division, Types::Division, null: true
+  field :pool, String, null: true
   field :homeName, String, null: true
   field :awayName, String, null: true
   field :fieldId, ID, null: true

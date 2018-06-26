@@ -9,28 +9,51 @@
       "changeOrigin": true
     }
   },
+  "scripts": {
+    "start": "concurrently \"yarn compile-relay --watch\" \"PORT=4000 react-app-rewired start\"",
+    "build": "yarn compile-relay && react-app-rewired build",
+    "compile-relay": "relay-compiler --src ./src --schema ../../app/graphql/schema.graphql --extensions tsx",
+    "type-check": "tsc --noEmit --pretty",
+    "test": "react-app-rewired test --env=jsdom"
+  },
   "dependencies": {
+    "@babel/preset-typescript": "^7.0.0-beta.47",
     "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
     "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
     "@fortawesome/react-fontawesome": "^0.1.0-11",
     "@material-ui/core": "^1.2.3",
     "@material-ui/icons": "^1.1.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "2.15.1"
-  },
-  "scripts": {
-    "start": "PORT=4000 react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
-  },
-  "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/node": "^10.0.4",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
-    "typescript": "^2.8.3"
+    "@types/react-relay": "^1.3.1",
+    "@types/relay-runtime": "^1.3.1",
+    "babel-plugin-relay": "^1.6.0",
+    "concurrently": "^3.6.0",
+    "react": "^16.4.0",
+    "react-app-rewire-typescript-babel-preset": "^2.3.0",
+    "react-app-rewired": "^2.0.0",
+    "react-dom": "^16.4.0",
+    "react-relay": "^1.6.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.0.0-next.66cc7a90",
+    "relay-compiler": "^1.6.0",
+    "relay-runtime": "^1.6.0",
+    "tslint": "^5.10.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^2.9.2"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">0.25%",
+      "not op_mini all",
+      "ie 11"
+    ]
   }
 }
