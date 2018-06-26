@@ -12,7 +12,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 class SideBar extends React.Component<Props> {
-  public render() {
+  render() {
     return (
       <SwipeableDrawer
         open={this.props.open}

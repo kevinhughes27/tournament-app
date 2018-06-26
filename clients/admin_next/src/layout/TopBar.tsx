@@ -14,7 +14,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 class TopBar extends React.Component<Props> {
-  public render() {
+  render() {
     const { classes } = this.props;
 
     return (

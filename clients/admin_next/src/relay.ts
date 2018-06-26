@@ -20,7 +20,7 @@ const fetchQuery = (
       variables,
     }),
   }).then((response) => {
-    return response.json()
+    return response.json();
   });
 };
 

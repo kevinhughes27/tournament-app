@@ -14,22 +14,24 @@ const query = graphql`
 	}
 `;
 
+const render = ({error, props}: any) => {
+  if (error) {
+    return <div>{error.message}</div>;
+  } else if (props) {
+    const teams = props.teams;
+    return <List teams={teams}/>;
+  } else {
+    return <div>Loading</div>;
+  }
+};
+
 class Teams extends React.Component {
-  public render() {
+  render() {
     return (
       <QueryRenderer
         environment={environment}
         query={query}
-        render={({error, props}) => {
-          if (error) {
-            return <div>{error.message}</div>;
-          } else if (props) {
-            const teams = props.teams;
-            return <List teams={teams}/>;
-          } else {
-            return <div>Loading</div>;
-          }
-        }}
+        render={render}
       />
     );
   }

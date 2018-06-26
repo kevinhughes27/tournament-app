@@ -16,19 +16,19 @@ interface State {
 }
 
 class App extends React.Component<Props, State> {
-  public state = {
+  state = {
     navOpen: false,
   };
 
-  public openNav = () => {
+  openNav = () => {
     this.setState({navOpen: true});
   }
 
-  public closeNave = () => {
+  closeNave = () => {
     this.setState({navOpen: false});
   }
 
-  public render() {
+  render() {
     const { classes } = this.props;
 
     return (

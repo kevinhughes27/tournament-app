@@ -10,7 +10,7 @@
 /build
 
 # relay
-/src/__relay_artifacts__
+*__generated__
 
 # misc
 .DS_Store

@@ -5,7 +5,7 @@ import { BlankSlate as styles } from "../assets/jss/styles";
 interface Props extends WithStyles<typeof styles> {}
 
 class Games extends React.Component<Props> {
-  public render() {
+  render() {
     const { classes } = this.props;
 
     return (

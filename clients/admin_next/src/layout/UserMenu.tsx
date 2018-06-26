@@ -14,19 +14,19 @@ interface State {
 }
 
 class UserMenu extends React.Component<Props, State> {
-  public state = {
+  state = {
     open: false,
   };
 
-  public handleOpen = () => {
+  handleOpen = () => {
     this.setState({ open: true });
   }
 
-  public handleClose = () => {
+  handleClose = () => {
     this.setState({ open: false });
   }
 
-  public render() {
+  render() {
     const { open } = this.state;
 
     return (

@@ -1,26 +1,29 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 
-import { RelayProp } from 'react-relay';
-
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { TeamsQuery } from '../__relay_artifacts__/TeamsQuery.graphql';
-
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  relay: RelayProp,
-  teams: TeamsQuery;
+  teams: any;
 }
 
-class TeamsList extends React.Component {
-  public render() {
-    const { classes, teams } = this.props;
+const Row = (t) => (
+  <TableRow key={t.id}>
+    <TableCell>{t.id}</TableCell>
+    <TableCell>{t.name}</TableCell>
+    <TableCell>{t.seed}</TableCell>
+  </TableRow>
+);
+
+class TeamsList extends React.Component<Props> {
+  render() {
+    const { teams } = this.props;
 
     return (
       <Table>
@@ -32,15 +35,7 @@ class TeamsList extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {teams.map(t => {
-            return (
-              <TableRow key={t.id}>
-                <TableCell>{t.id}</TableCell>
-                <TableCell>{t.name}</TableCell>
-                <TableCell>{t.seed}</TableCell>
-              </TableRow>
-            );
-          })}
+          {teams.map(Row)}
         </TableBody>
       </Table>
     );
