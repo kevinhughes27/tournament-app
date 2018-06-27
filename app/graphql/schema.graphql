@@ -158,6 +158,8 @@ type Mutation {
   updateTeam(input: UpdateTeamInput!): UpdateTeamPayload
 }
 
+scalar PinCode
+
 type Query {
   division(id: ID!): Division
   divisions: [Division!]
@@ -313,7 +315,7 @@ input UpdateSettingsInput {
   gameConfirmSetting: String
   handle: String
   name: String
-  scoreSubmitPin: Int
+  scoreSubmitPin: PinCode
   timezone: String
 }
 

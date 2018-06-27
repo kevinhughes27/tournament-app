@@ -26,6 +26,20 @@ class UpdateSettingsTest < ApiTest
     assert_equal input[:handle], @tournament.reload.handle
   end
 
+  test "set pin code" do
+    input = {name: 'Updated Name', handle: @tournament.handle, scoreSubmitPin: '1234'}
+    execute_graphql("updateSettings", "UpdateSettingsInput", input, @output)
+    assert_success
+    assert_equal '1234', @tournament.reload.score_submit_pin
+  end
+
+  test "remove pin code" do
+    input = {name: 'Updated Name', handle: @tournament.handle, scoreSubmitPin: ''}
+    execute_graphql("updateSettings", "UpdateSettingsInput", input, @output)
+    assert_success
+    assert_equal '', @tournament.reload.score_submit_pin
+  end
+
   test "update settings error" do
     input = {name: '', handle: @tournament.handle}
     execute_graphql("updateSettings", "UpdateSettingsInput", input, @output)
