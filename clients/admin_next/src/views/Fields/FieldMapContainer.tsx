@@ -4,27 +4,30 @@ import environment from "../../relay";
 import { graphql, QueryRenderer } from "react-relay";
 import render from "../../helpers/renderHelper";
 
-import FieldList from "./FieldList";
+import FieldMap from "./FieldMap";
 
 const query = graphql`
-  query FieldListContainerQuery {
+  query FieldMapContainerQuery {
+    map {
+     ...FieldMap_map
+    }
     fields {
-      ...FieldList_fields
+      ...FieldMap_fields
     }
   }
 `;
 
-class FieldListContainer extends React.Component {
+class FieldMapContainer extends React.Component {
   render() {
     return (
       <QueryRenderer
         environment={environment}
         query={query}
         variables={{}}
-        render={render(FieldList)}
+        render={render(FieldMap)}
       />
     );
   }
 }
 
-export default FieldListContainer;
+export default FieldMapContainer;

@@ -1,5 +1,5 @@
-import FieldList from "./FieldListContainer";
+import FieldMap from "./FieldMapContainer";
 
 export {
-  FieldList
+  FieldMap
 };

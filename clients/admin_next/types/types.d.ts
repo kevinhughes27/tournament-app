@@ -15,11 +15,18 @@ type Division = {
   isSeeded: boolean;
 }
 
+type MapType = {
+  lat: number;
+  long: number;
+  zoom: number;
+}
+
 type Field = {
   id: string;
   name: string;
   lat: number;
   long: number;
+  geoJson: string;
 }
 
 type Game = {
