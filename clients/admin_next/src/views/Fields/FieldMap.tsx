@@ -13,12 +13,37 @@ interface Props extends WithStyles<typeof styles> {
   fields: Field[];
 }
 
-class FieldMap extends React.Component<Props> {
+interface State {
+  lat: number;
+  long: number;
+  zoom: number;
+}
+
+class FieldMap extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    const { map: { lat, long, zoom } } = props;
+    this.state = {lat, long, zoom};
+  }
+
+  updateMap = (ev: any) => {
+    const {lat, lng: long} = ev.target.getCenter();
+    const zoom = ev.target.getZoom();
+    this.setState({lat, long, zoom});
+  }
+
   render() {
-    const { map: { lat, long, zoom }, fields } = this.props;
+    const { lat, long, zoom } = this.state;
+    const { fields } = this.props;
 
     return (
-      <Map center={[lat, long]} zoom={zoom} zoomControl={false}>
+      <Map
+        center={[lat, long]}
+        zoom={zoom}
+        maxZoom={20}
+        onDrag={this.updateMap}
+        onZoom={this.updateMap}
+      >
         <TileLayer
           url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={["mt0", "mt1", "mt2", "mt3"]}
@@ -30,7 +55,11 @@ class FieldMap extends React.Component<Props> {
 }
 
 const Field = (field: any) => (
-  <GeoJSON key={field.id} data={JSON.parse(field.geoJson)} style={fieldStyle} />
+  <GeoJSON
+    key={field.id}
+    data={JSON.parse(field.geoJson)}
+    style={fieldStyle}
+  />
 );
 
 const StyledFieldMap = withStyles(styles)(FieldMap);
