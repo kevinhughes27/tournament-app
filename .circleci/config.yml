@@ -82,6 +82,7 @@ jobs:
 
       # Build admin_next
       - run: cd clients/admin_next && yarn build
+      - run: cd clients/admin_next && yarn type-check
 
       # Generate checksum for player-app
       - type: shell
