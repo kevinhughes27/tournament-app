@@ -17,20 +17,10 @@
       for your team.
     </p>
     <p>
-      To confirm the result <%= link_to 'click this link', "#{@tournament.domain}/submit",
-        params: {
-          teamName: @team.name,
-          gameId: @report.game_id,
-          homeScore: @report.home_score,
-          awayScore: @away_score
-        } %>
+      To confirm the result <%= link_to 'click this link', @confirm_link %>
     </p>
     <p>
-      To submit a different score <%= link_to 'click here', "#{@tournament.domain}/submit",
-        params: {
-          teamName: @team.name,
-          gameId: @report.game_id
-        } %>
+      To submit a different score <%= link_to 'click here', @dispute_link %>
     </p>
   </body>
 </html>
