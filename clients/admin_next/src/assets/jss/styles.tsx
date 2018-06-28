@@ -1,4 +1,5 @@
 import amber from "@material-ui/core/colors/amber";
+import { Theme, createStyles } from "@material-ui/core/styles";
 
 const Login = {
   container: {
@@ -59,6 +60,19 @@ const Loader = {
   }
 };
 
+const Modal = (theme: Theme) => createStyles({
+  paper: {
+    position: "absolute",
+    top: 50,
+    left: 50,
+    transform: `translate(-50%, -50%)`,
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+  }
+});
+
 const BlankSlate = {
   container: {
     display: "flex",
@@ -107,6 +121,7 @@ export {
   SideBar,
   NavItems,
   Loader,
+  Modal,
   BlankSlate,
   Breadcrumbs,
   ErrorBanner

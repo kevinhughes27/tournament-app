@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 import * as EmailValidator from "email-validator";
+import { isEmpty } from "lodash";
 
 import TextField from "@material-ui/core/TextField";
 import DivisionPicker from "./DivisionPicker";
@@ -64,8 +65,6 @@ class TeamForm extends Form<Props> {
       isSubmitting
     } = formProps;
 
-    const hasErrors = Object.keys(errors).length !== 0;
-
     return (
       <form onSubmit={handleSubmit}>
         <TextField
@@ -105,7 +104,7 @@ class TeamForm extends Form<Props> {
           helperText={formProps.errors.seed && formProps.errors.seed}
         />
         <SubmitButton
-          disabled={!dirty || hasErrors}
+          disabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
           text="Save"
         />

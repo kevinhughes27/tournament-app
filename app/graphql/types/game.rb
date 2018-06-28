@@ -5,12 +5,20 @@ class Types::Game < Types::BaseObject
   field :id, ID, null: false
   field :division, Types::Division, null: true
   field :pool, String, null: true
+  field :bracketUid, String, null: true
+  field :round, String, null: true
+
   field :homeName, String, null: true
   field :awayName, String, null: true
-  field :fieldId, ID, null: true
-  field :fieldName, String, null: true
+  field :homePrereq, String, null: true
+  field :awayPrereq, String, null: true
+  field :homePoolSeed, Int, null: true
+  field :awayPoolSeed, Int, null: true
+
+  field :field, Types::Field, null: true
   field :startTime, Types::DateTime, null: true
   field :endTime, Types::DateTime, null: true
+
   field :homeScore, Int, null: true
   field :awayScore, Int, null: true
   field :scoreConfirmed, Boolean, null: false do

@@ -20,6 +20,7 @@ class Types::Mutation < Types::BaseObject
   field :deleteField,    mutation: Mutations::DeleteField,    auth: :required
 
   field :scheduleGame,   mutation: Mutations::ScheduleGame,   auth: :required
+  field :unscheduleGame, mutation: Mutations::UnscheduleGame,   auth: :required
 
   field :updateScore,    mutation: Mutations::UpdateScore,    auth: :required
 

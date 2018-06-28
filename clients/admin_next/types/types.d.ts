@@ -1,5 +1,7 @@
+type ID = string;
+
 type Team = {
-  id: string;
+  id: ID;
   name: string;
   email: string;
   division: Division;
@@ -7,7 +9,7 @@ type Team = {
 }
 
 type Division = {
-  id: string;
+  id: ID;
   name: string;
   bracketType: string;
   teamsCount: number;
@@ -22,7 +24,7 @@ type MapType = {
 }
 
 type Field = {
-  id: string;
+  id: ID;
   name: string;
   lat: number;
   long: number;
@@ -30,11 +32,21 @@ type Field = {
 }
 
 type Game = {
-  id: string;
+  id: ID;
   pool: string;
   homeName: string;
   awayName: string;
+  homePrereq: string;
+  awayPrereq: string;
+  homePoolSeed: number;
+  awayPoolSeed: number;
+  bracketUid: string;
   homeScore: number;
   awayScore: number;
   division : Division;
+  field: Field;
+  startTime: string;
+  endTime: string;
+  updatedAt: string;
+  scheduled: boolean;
 }

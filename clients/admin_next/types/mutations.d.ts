@@ -17,6 +17,20 @@ type UpdateScore = {
   message: string;
 }
 
+type ScheduleGame = {
+  game: Game;
+  success: boolean;
+  message: string;
+  userErrors: UserError[];
+}
+
+type UnscheduleGame = {
+  game: Game;
+  success: boolean;
+  message: string;
+  userErrors: UserError[];
+}
+
 type UserError = {
   field: string;
   message: string;
