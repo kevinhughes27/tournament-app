@@ -58,6 +58,19 @@ module BracketDb
         {round: 4, home_pool_seed: 2, away_pool_seed: 5},
         {round: 5, home_pool_seed: 3, away_pool_seed: 5}
       ],
+      '5.1.4' => [
+        {round: 1, home_pool_seed: 1, away_pool_seed: 2},
+        {round: 2, home_pool_seed: 1, away_pool_seed: 4},
+        {round: 3, home_pool_seed: 2, away_pool_seed: 5},
+        {round: 4, home_pool_seed: 2, away_pool_seed: 4},
+        {round: 5, home_pool_seed: 2, away_pool_seed: 3},
+
+        {round: 1, home_pool_seed: 4, away_pool_seed: 5},
+        {round: 2, home_pool_seed: 3, away_pool_seed: 5},
+        {round: 3, home_pool_seed: 3, away_pool_seed: 4},
+        {round: 4, home_pool_seed: 1, away_pool_seed: 3},
+        {round: 5, home_pool_seed: 1, away_pool_seed: 5}
+      ],
       '6.1.2' => [
         {round: 1, home_pool_seed: 1, away_pool_seed: 3},
         {round: 2, home_pool_seed: 1, away_pool_seed: 5},
