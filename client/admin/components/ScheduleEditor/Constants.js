@@ -1,5 +1,5 @@
 export const SCHEDULE_START = 8
-export const SCHEDULE_END = 20
+export const SCHEDULE_END = 17
 export const SCHEDULE_INC = 15 // minutes
 export const DEFAULT_LENGTH = 90 // minutes
 
