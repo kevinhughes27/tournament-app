@@ -14,7 +14,7 @@ BracketDb.define 'USAU 11.5' do
     {round:2, bracket_uid: "1", home_prereq: "Wa", away_prereq: "Wb"},
     {round:2, bracket_uid: "d", home_prereq: "La", away_prereq: "Lb"},
 
-    {round:3, bracket_uid: "2", home_prereq: "Wd", away_prereq: "L1"},
+    {round:3, bracket_uid: "2", home_prereq: "L1", away_prereq: "Wd"},
 
     # bracket 6.2
     {round:1, bracket_uid: "h", home_prereq: "A4", away_prereq: "B5"},
