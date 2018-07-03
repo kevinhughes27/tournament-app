@@ -1,9 +1,9 @@
 import * as React from "react";
-import environment from "../../../relay";
+import environment from "../../relay";
 import { graphql, QueryRenderer } from "react-relay";
 
 import List from "./list";
-import Loader from "../../Loader";
+import Loader from "../../components/Loader";
 
 const query = graphql`
   query FieldsQuery {
@@ -26,7 +26,7 @@ const render = ({error, props}: any) => {
   }
 };
 
-class FieldsPage extends React.Component {
+class FieldsView extends React.Component {
   render() {
     return (
       <QueryRenderer
@@ -38,4 +38,4 @@ class FieldsPage extends React.Component {
   }
 }
 
-export default FieldsPage;
+export default FieldsView;

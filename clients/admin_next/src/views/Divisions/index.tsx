@@ -1,23 +1,19 @@
 import * as React from "react";
-import environment from "../../../relay";
+import environment from "../../relay";
 import { graphql, QueryRenderer } from "react-relay";
 
 import List from "./list";
-import Loader from "../../Loader";
+import Loader from "../../components/Loader";
 
 const query = graphql`
-  query GamesQuery {
-    games {
+  query DivisionsQuery {
+    divisions {
       id
-      pool
-      homeName
-      awayName
-      homeScore
-      awayScore
-      division {
-        id
-        name
-      }
+      name
+      bracketType
+      teamsCount
+      numTeams
+      isSeeded
     }
   }
 `;
@@ -26,13 +22,13 @@ const render = ({error, props}: any) => {
   if (error) {
     return <div>{error.message}</div>;
   } else if (props) {
-    return <List games={props.games}/>;
+    return <List divisions={props.divisions}/>;
   } else {
     return <Loader />;
   }
 };
 
-class GamesPage extends React.Component {
+class DivisionsView extends React.Component {
   render() {
     return (
       <QueryRenderer
@@ -44,4 +40,4 @@ class GamesPage extends React.Component {
   }
 }
 
-export default GamesPage;
+export default DivisionsView;
