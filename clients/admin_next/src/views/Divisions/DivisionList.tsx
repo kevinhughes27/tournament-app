@@ -1,6 +1,6 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -24,7 +24,7 @@ const Row = (d: any) => (
   </TableRow>
 );
 
-class DivisionsList extends React.Component<Props> {
+class View extends React.Component<Props> {
   render() {
     const { divisions } = this.props;
 
@@ -46,4 +46,4 @@ class DivisionsList extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(DivisionsList);
+export default withStyles(styles)(View);

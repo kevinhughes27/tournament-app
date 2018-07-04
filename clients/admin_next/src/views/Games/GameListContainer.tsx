@@ -2,16 +2,22 @@ import * as React from "react";
 import environment from "../../relay";
 import { graphql, QueryRenderer } from "react-relay";
 
-import List from "./list";
+import GameList from "./GameList";
 import Loader from "../../components/Loader";
 
 const query = graphql`
-  query FieldsQuery {
-    fields {
+  query GameListContainerQuery {
+    games {
       id
-      name
-      lat
-      long
+      pool
+      homeName
+      awayName
+      homeScore
+      awayScore
+      division {
+        id
+        name
+      }
     }
   }
 `;
@@ -20,22 +26,23 @@ const render = ({error, props}: any) => {
   if (error) {
     return <div>{error.message}</div>;
   } else if (props) {
-    return <List fields={props.fields}/>;
+    return <GameList games={props.games}/>;
   } else {
     return <Loader />;
   }
 };
 
-class FieldsView extends React.Component {
+class GameListContainer extends React.Component {
   render() {
     return (
       <QueryRenderer
         environment={environment}
         query={query}
+        variables={{}}
         render={render}
       />
     );
   }
 }
 
-export default FieldsView;
+export default GameListContainer;

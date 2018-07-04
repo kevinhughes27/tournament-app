@@ -4,16 +4,16 @@ import { graphql, QueryRenderer } from "react-relay";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import Loader from "../../components/Loader";
-import View from "./show";
+import TeamShow from "./TeamShow";
 
 interface Props extends RouteComponentProps<any> {}
 
-class Container extends React.Component<Props> {
+class TeamShowContainer extends React.Component<Props> {
   render() {
     const teamId = this.props.match.params.teamId;
 
     const query = graphql`
-      query showContainerQuery($teamId: ID!) {
+      query TeamShowContainerQuery($teamId: ID!) {
         team(id: $teamId) {
           id
           name
@@ -30,7 +30,7 @@ class Container extends React.Component<Props> {
       if (error) {
         return <div>{error.message}</div>;
       } else if (props) {
-        return <View team={props.team}/>;
+        return <TeamShow team={props.team}/>;
       } else {
         return <Loader />;
       }
@@ -47,4 +47,4 @@ class Container extends React.Component<Props> {
   }
 }
 
-export default withRouter(Container);
+export default withRouter(TeamShowContainer);

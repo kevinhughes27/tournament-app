@@ -1,7 +1,7 @@
-import TeamShow from "./showContainer";
-import TeamsList from "./listContainer";
+import TeamShow from "./TeamShowContainer";
+import TeamList from "./TeamListContainer";
 
 export {
   TeamShow,
-  TeamsList
+  TeamList
 };

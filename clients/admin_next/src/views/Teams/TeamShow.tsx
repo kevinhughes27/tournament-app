@@ -15,7 +15,7 @@ interface Props extends WithStyles<typeof styles> {
   team: any;
 }
 
-class View extends React.Component<Props> {
+class TeamShow extends React.Component<Props> {
   render() {
     const { team, classes } = this.props;
 
@@ -32,4 +32,4 @@ class View extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(View);
+export default withStyles(styles)(TeamShow);

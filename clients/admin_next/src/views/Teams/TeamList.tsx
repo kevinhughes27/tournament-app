@@ -32,7 +32,7 @@ const Row = (t: any) => (
   </TableRow>
 );
 
-class TeamsList extends React.Component<Props> {
+class TeamList extends React.Component<Props> {
   render() {
     const { teams, classes } = this.props;
 
@@ -58,4 +58,4 @@ class TeamsList extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(TeamsList);
+export default withStyles(styles)(TeamList);

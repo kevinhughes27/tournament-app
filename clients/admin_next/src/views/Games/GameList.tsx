@@ -1,6 +1,6 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,36 +10,38 @@ import TableRow from "@material-ui/core/TableRow";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  fields: any;
+  games: any;
 }
 
-const Row = (f: any) => (
-  <TableRow key={f.id}>
-    <TableCell>{f.name}</TableCell>
-    <TableCell>{f.lat}</TableCell>
-    <TableCell>{f.long}</TableCell>
+const Row = (g: any) => (
+  <TableRow key={g.id}>
+    <TableCell>{g.homeName} vs {g.awayName}</TableCell>
+    <TableCell>{g.division.name}</TableCell>
+    <TableCell>{g.pool}</TableCell>
+    <TableCell>{g.homeScore} - {g.awayScore}</TableCell>
   </TableRow>
 );
 
-class FieldsList extends React.Component<Props> {
+class GameList extends React.Component<Props> {
   render() {
-    const { fields } = this.props;
+    const { games } = this.props;
 
     return (
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Latitude</TableCell>
-            <TableCell>Longitude</TableCell>
+            <TableCell>Division</TableCell>
+            <TableCell>Pool</TableCell>
+            <TableCell>Score</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {fields.map(Row)}
+          {games.map(Row)}
         </TableBody>
       </Table>
     );
   }
 }
 
-export default withStyles(styles)(FieldsList);
+export default withStyles(styles)(GameList);
