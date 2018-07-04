@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +7,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+
+import TeamListItem from "./TeamListItem";
 
 const styles = {
   title: {
@@ -19,18 +20,6 @@ const styles = {
 interface Props extends WithStyles<typeof styles> {
   teams: any;
 }
-
-const Row = (t: any) => (
-  <TableRow hover key={t.id}>
-    <TableCell>
-      <Link to={`/teams/${t.id}`}>
-        {t.name}
-      </Link>
-    </TableCell>
-    <TableCell>{t.division.name}</TableCell>
-    <TableCell>{t.seed}</TableCell>
-  </TableRow>
-);
 
 class TeamList extends React.Component<Props> {
   render() {
@@ -50,7 +39,7 @@ class TeamList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {teams.map(Row)}
+            {teams.map((t: any) => <TeamListItem key={t.id} team={t}/>)}
           </TableBody>
         </Table>
       </div>
