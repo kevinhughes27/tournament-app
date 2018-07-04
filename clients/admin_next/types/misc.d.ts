@@ -3,8 +3,4 @@ declare module "react-jss/*";
 declare module "*.svg";
 declare module "*.png";
 declare module "*.jpg";
-declare module "react-dom";
-declare module "react-router-dom";
-declare module "react-relay";
-declare module "relay-runtime";
 declare module "relay-runtime/lib/RelayQueryResponseCache";

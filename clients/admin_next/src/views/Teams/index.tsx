@@ -35,6 +35,7 @@ class TeamsView extends React.Component {
       <QueryRenderer
         environment={environment}
         query={query}
+        variables={{}}
         render={render}
       />
     );

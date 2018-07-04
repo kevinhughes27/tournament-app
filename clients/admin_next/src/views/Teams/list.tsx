@@ -1,21 +1,32 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
+import { withStyles, WithStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-const styles = {};
+const styles = {
+  title: {
+    padding: 10,
+    paddingLeft: 20
+  }
+};
 
 interface Props extends WithStyles<typeof styles> {
   teams: any;
 }
 
 const Row = (t: any) => (
-  <TableRow key={t.id}>
-    <TableCell>{t.name}</TableCell>
+  <TableRow hover key={t.id}>
+    <TableCell>
+      <Link to={`/teams/${t.id}`}>
+        {t.name}
+      </Link>
+    </TableCell>
     <TableCell>{t.division.name}</TableCell>
     <TableCell>{t.seed}</TableCell>
   </TableRow>
@@ -23,21 +34,26 @@ const Row = (t: any) => (
 
 class TeamsList extends React.Component<Props> {
   render() {
-    const { teams } = this.props;
+    const { teams, classes } = this.props;
 
     return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Division</TableCell>
-            <TableCell>Seed</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {teams.map(Row)}
-        </TableBody>
-      </Table>
+      <div>
+        <Typography variant="subheading" className={classes.title}>
+          Teams
+        </Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Division</TableCell>
+              <TableCell>Seed</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {teams.map(Row)}
+          </TableBody>
+        </Table>
+      </div>
     );
   }
 }
