@@ -24,7 +24,7 @@ const Row = (d: any) => (
   </TableRow>
 );
 
-class View extends React.Component<Props> {
+class DivisionList extends React.Component<Props> {
   render() {
     const { divisions } = this.props;
 
@@ -46,4 +46,4 @@ class View extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(View);
+export default withStyles(styles)(DivisionList);
