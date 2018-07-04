@@ -2,11 +2,11 @@ import * as React from "react";
 import environment from "../../relay";
 import { graphql, QueryRenderer } from "react-relay";
 
-import List from "./list";
+import View from "./list";
 import Loader from "../../components/Loader";
 
 const query = graphql`
-  query TeamsQuery {
+  query listContainerQuery {
     teams {
       id
       name
@@ -23,13 +23,13 @@ const render = ({error, props}: any) => {
   if (error) {
     return <div>{error.message}</div>;
   } else if (props) {
-    return <List teams={props.teams}/>;
+    return <View teams={props.teams}/>;
   } else {
     return <Loader />;
   }
 };
 
-class TeamsView extends React.Component {
+class Container extends React.Component {
   render() {
     return (
       <QueryRenderer
@@ -42,4 +42,4 @@ class TeamsView extends React.Component {
   }
 }
 
-export default TeamsView;
+export default Container;
