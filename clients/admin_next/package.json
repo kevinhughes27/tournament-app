@@ -16,7 +16,7 @@
   "scripts": {
     "start": "concurrently \"yarn compile-relay --watch\" \"PORT=4000 react-app-rewired start\"",
     "build": "yarn compile-relay && react-app-rewired build",
-    "compile-relay": "relay-compiler --src ./src --schema ../../app/graphql/schema.graphql --extensions tsx",
+    "compile-relay": "relay-compiler --src ./src --schema ../../app/graphql/schema.graphql --extensions tsx ts",
     "type-check": "tsc --noEmit --pretty",
     "test": "react-app-rewired test --env=jsdom"
   },

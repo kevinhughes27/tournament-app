@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import TeamForm from "./TeamForm";
 
 const styles = {};
 
@@ -21,7 +22,7 @@ class TeamShow extends React.Component<Props> {
             {text: team.name}
           ]}
         />
-        email: {team.email}
+        <TeamForm team={team} />
       </div>
     );
   }
