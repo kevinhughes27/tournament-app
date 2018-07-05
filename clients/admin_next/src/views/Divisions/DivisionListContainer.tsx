@@ -1,17 +1,19 @@
 import * as React from "react";
-import environment from "../../../relay";
+import environment from "../../relay";
 import { graphql, QueryRenderer } from "react-relay";
 
-import List from "./list";
-import Loader from "../../Loader";
+import DivisionList from "./DivisionList";
+import Loader from "../../components/Loader";
 
 const query = graphql`
-  query FieldsQuery {
-    fields {
+  query DivisionListContainerQuery {
+    divisions {
       id
       name
-      lat
-      long
+      bracketType
+      teamsCount
+      numTeams
+      isSeeded
     }
   }
 `;
@@ -20,22 +22,23 @@ const render = ({error, props}: any) => {
   if (error) {
     return <div>{error.message}</div>;
   } else if (props) {
-    return <List fields={props.fields}/>;
+    return <DivisionList divisions={props.divisions}/>;
   } else {
     return <Loader />;
   }
 };
 
-class FieldsPage extends React.Component {
+class DivisionListContainer extends React.Component {
   render() {
     return (
       <QueryRenderer
         environment={environment}
         query={query}
+        variables={{}}
         render={render}
       />
     );
   }
 }
 
-export default FieldsPage;
+export default DivisionListContainer;

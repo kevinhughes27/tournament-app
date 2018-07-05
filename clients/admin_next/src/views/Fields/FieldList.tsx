@@ -1,6 +1,6 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,36 +10,36 @@ import TableRow from "@material-ui/core/TableRow";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  teams: any;
+  fields: any;
 }
 
-const Row = (t: any) => (
-  <TableRow key={t.id}>
-    <TableCell>{t.name}</TableCell>
-    <TableCell>{t.division.name}</TableCell>
-    <TableCell>{t.seed}</TableCell>
+const Row = (f: any) => (
+  <TableRow key={f.id}>
+    <TableCell>{f.name}</TableCell>
+    <TableCell>{f.lat}</TableCell>
+    <TableCell>{f.long}</TableCell>
   </TableRow>
 );
 
-class TeamsList extends React.Component<Props> {
+class FieldList extends React.Component<Props> {
   render() {
-    const { teams } = this.props;
+    const { fields } = this.props;
 
     return (
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Division</TableCell>
-            <TableCell>Seed</TableCell>
+            <TableCell>Latitude</TableCell>
+            <TableCell>Longitude</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {teams.map(Row)}
+          {fields.map(Row)}
         </TableBody>
       </Table>
     );
   }
 }
 
-export default withStyles(styles)(TeamsList);
+export default withStyles(styles)(FieldList);

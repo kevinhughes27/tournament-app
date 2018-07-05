@@ -1,20 +1,17 @@
 import * as React from "react";
-import environment from "../../../relay";
+import environment from "../../relay";
 import { graphql, QueryRenderer } from "react-relay";
 
-import List from "./list";
-import Loader from "../../Loader";
+import FieldList from "./FieldList";
+import Loader from "../../components/Loader";
 
 const query = graphql`
-  query TeamsQuery {
-    teams {
+  query FieldListContainerQuery {
+    fields {
       id
       name
-      division {
-        id
-        name
-      }
-      seed
+      lat
+      long
     }
   }
 `;
@@ -23,22 +20,23 @@ const render = ({error, props}: any) => {
   if (error) {
     return <div>{error.message}</div>;
   } else if (props) {
-    return <List teams={props.teams}/>;
+    return <FieldList fields={props.fields}/>;
   } else {
     return <Loader />;
   }
 };
 
-class TeamsPage extends React.Component {
+class FieldListContainer extends React.Component {
   render() {
     return (
       <QueryRenderer
         environment={environment}
         query={query}
+        variables={{}}
         render={render}
       />
     );
   }
 }
 
-export default TeamsPage;
+export default FieldListContainer;

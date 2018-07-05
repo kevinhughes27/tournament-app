@@ -7,7 +7,7 @@ import TopBar from "./layout/TopBar";
 import SideBar from "./layout/SideBar";
 
 import { BrowserRouter as Router } from "react-router-dom";
-import Routes from "./Routes";
+import Routes from "../routes";
 
 interface Props extends WithStyles<typeof styles> {}
 
