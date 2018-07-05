@@ -38,11 +38,11 @@ class Admin::SettingsController < AdminController
     tournament_params = params.require(:tournament).permit(
       :name,
       :handle,
+      :timezone,
       :score_submit_pin,
       :game_confirm_setting
     )
 
-    tournament_params[:timezone] = Time.zone.name
     tournament_params
   end
 end
