@@ -84,10 +84,6 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    browser-timezone-rails (1.0.1)
-      js_cookie_rails
-      jstz-rails3-plus
-      rails (>= 3.1)
     builder (3.2.3)
     bullet (5.7.5)
       activesupport (>= 3.0.0)
@@ -406,7 +402,6 @@ DEPENDENCIES
   auto_strip_attributes
   bootsnap
   bootstrap-sass
-  browser-timezone-rails
   bullet
   bundler-audit
   byebug (~> 9.0.6)
@@ -424,7 +419,9 @@ DEPENDENCIES
   graphql
   jbuilder
   jquery-rails
+  js_cookie_rails
   json-schema (~> 2.6.0)
+  jstz-rails3-plus
   kaminari!
   launchy
   letter_opener

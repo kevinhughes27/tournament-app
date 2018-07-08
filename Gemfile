@@ -17,7 +17,6 @@ gem 'graphiql-rails'
 gem 'actioncable'
 
 # controllers
-gem 'browser-timezone-rails'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 
 # datastores
@@ -62,6 +61,8 @@ gem 'sassc-rails'
 # javascript gems
 gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'js_cookie_rails'
+gem 'jstz-rails3-plus'
 gem 'twine-rails'
 gem 'turbolinks', '~> 5.0.0'
 
