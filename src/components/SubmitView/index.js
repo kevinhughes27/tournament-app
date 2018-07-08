@@ -26,7 +26,7 @@ function renderContent(search, games, reports) {
   const filteredGames = gamesSearch(search, games);
 
   if (search === '') {
-    return <div className="center">Please search for a team.</div>;
+    return <div className="center">Please search for your team.</div>;
   } else if (filteredGames.length === 0) {
     return (
       <div className="center">
