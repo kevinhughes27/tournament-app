@@ -3,7 +3,7 @@ import _toPairs from 'lodash/toPairs'
 import _find from 'lodash/find'
 
 import React from 'react'
-import queryString from 'query-string'
+import { parse } from 'search-params'
 import setQuery from 'set-query-string'
 
 import {
@@ -17,8 +17,12 @@ import {
 let FilterBar = {
 
   getDefaultProps () {
+    let query = location.search !== ""
+      ? parse(location.search, {booleanFormat: 'string'})
+      : {}
+
     return {
-      'query': queryString.parse(location.search)
+      'query': query
     }
   },
 

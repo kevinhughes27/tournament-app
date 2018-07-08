@@ -30,9 +30,9 @@
       filters: [
         division_filters(@tournament),
         pool_filters(@tournament),
-        {text: 'Bracket', key: 'bracket', value: 1, hidden: true},
-        {text: 'No score', key: 'confirmed', value: 0},
-        {text: 'Played', key: 'played', value: 1},
+        {text: 'Bracket', key: 'bracket', value: true, hidden: true},
+        {text: 'No score', key: 'unconfirmed', value: true},
+        {text: 'Played', key: 'played', value: true},
       ].flatten
     }) %>
   <% end %>
