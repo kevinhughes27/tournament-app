@@ -146,7 +146,7 @@ class Division extends React.Component {
 
     return (
       <div className='pull-right subdued' style={{fontSize: '10px'}}>
-        <a href={`/admin/games?division=${divisionName}&bracket=1`}>
+        <a href={`/admin/games?division=${divisionName}&bracket=true`}>
           Games <i className="fa fa-external-link"></i>
         </a>
       </div>

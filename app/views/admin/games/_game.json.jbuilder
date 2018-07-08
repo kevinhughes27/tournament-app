@@ -28,6 +28,7 @@ json.one_team_present game.one_team_present?
 
 json.played game.played?
 json.confirmed game.confirmed?
+json.unconfirmed game.unconfirmed?
 
 json.score_reports(game.score_reports) do |report|
   json.partial! 'admin/score_reports/score_report', report: report
