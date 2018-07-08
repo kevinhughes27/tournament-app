@@ -66,7 +66,7 @@ class SubmitModal extends React.Component {
     this.setState({ open: false });
   };
 
-  renderButton = (game, report, teamName) => {
+  renderButton = (game, report) => {
     return (
       <div>
         <Button onClick={this.handleOpen}>
@@ -75,19 +75,18 @@ class SubmitModal extends React.Component {
             {renderReportStatus(report)}
           </span>
         </Button>
-        {gameScore(game, report, teamName)}
+        {renderGameScore(game, report)}
       </div>
     );
   };
 
   render() {
-    const { classes, game, report } = this.props;
-    const teamName = this.props.search;
+    const { classes, team, game, report } = this.props;
     const { homeScore, awayScore } = this.deepLinkScores();
 
     return (
       <div>
-        {this.renderButton(game, report, teamName)}
+        {this.renderButton(game, report)}
         <Dialog
           fullScreen
           open={this.state.open}
@@ -117,6 +116,7 @@ class SubmitModal extends React.Component {
             }}
           >
             <ScoreForm
+              team={team}
               game={game}
               homeScore={homeScore}
               awayScore={awayScore}
@@ -143,10 +143,10 @@ function renderReportStatus(report) {
 }
 
 /*
-  gameScore - if the game is confirmed then the final score is shown.
+  renderGameScore - if the game is confirmed then the final score is shown.
   if the game is not confirmed then the user's submitted score is shown.
 */
-function gameScore(game, report, teamName) {
+function renderGameScore(game, report) {
   let html;
 
   if (game.scoreConfirmed) {

@@ -6,7 +6,6 @@ import ScoreInput from './ScoreInput';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../../actions/submitScore';
 import Fingerprint2 from 'fingerprintjs2sync';
-import _find from 'lodash/find';
 
 const QUESTIONS = [
   '1. Rules knowledge and Use',
@@ -66,9 +65,7 @@ class ScoreForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { game, dispatch, handleClose } = this.props;
-    const teamName = this.props.search;
-    const team = _find(this.props.teams, t => t.name === teamName);
+    const { team, game, dispatch, handleClose } = this.props;
 
     if (this.state.homeScore === '' || this.state.awayScore === '') {
       alert('Please enter a score');
@@ -154,7 +151,4 @@ function renderSpiritQuestion(index, value, onChange) {
   );
 }
 
-export default connect(state => ({
-  teams: state.tournament.teams,
-  search: state.search
-}))(ScoreForm);
+export default connect()(ScoreForm);

@@ -5,10 +5,11 @@ import ListSubheader from 'material-ui/List/ListSubheader';
 import Lock from './Lock';
 import SubmitModal from './SubmitModal';
 import gamesSearch from '../../helpers/gamesSearch';
+import _find from 'lodash/find';
 
 class SubmitView extends Component {
   render() {
-    const { search, games, reports } = this.props;
+    const { search, teams, games, reports } = this.props;
 
     if (this.props.protect) {
       return (
@@ -17,16 +18,16 @@ class SubmitView extends Component {
         </Lock>
       );
     } else {
-      return renderContent(search, games, reports);
+      return renderContent(search, teams, games, reports);
     }
   }
 }
 
-function renderContent(search, games, reports) {
+function renderContent(search, teams, games, reports) {
   const filteredGames = gamesSearch(search, games);
 
   if (search === '') {
-    return <div className="center">Please search for your team.</div>;
+    return <div className="center">Please search for your team</div>;
   } else if (filteredGames.length === 0) {
     return (
       <div className="center">
@@ -34,19 +35,26 @@ function renderContent(search, games, reports) {
       </div>
     );
   } else {
-    return (
-      <div>
-        <List>
-          <ListSubheader>Submit a score for each game played</ListSubheader>
-          {filteredGames.map(game => renderGame(game, reports))}
-        </List>
-        <div style={{ paddingBottom: 56 }} />
-      </div>
-    );
+    return renderGames(search, teams, games, reports);
   }
 }
 
-function renderGame(game, reports) {
+function renderGames(search, teams, games, reports) {
+  const teamName = search;
+  const team = _find(teams, t => t.name === teamName);
+
+  return (
+    <div>
+      <List>
+        <ListSubheader>Submit a score for each game played</ListSubheader>
+        {games.map(game => renderGame(team, game, reports))}
+      </List>
+      <div style={{ paddingBottom: 56 }} />
+    </div>
+  );
+}
+
+function renderGame(team, game, reports) {
   const filteredReports = reports.filter(
     r => parseInt(r.gameId, 10) === parseInt(game.id, 10)
   );
@@ -54,13 +62,14 @@ function renderGame(game, reports) {
 
   return (
     <ListItem key={game.id}>
-      <SubmitModal game={game} report={report} />
+      <SubmitModal team={team} game={game} report={report} />
     </ListItem>
   );
 }
 
 export default connect(state => ({
   protect: state.tournament.settings.protectScoreSubmit,
+  teams: state.tournament.teams,
   games: state.tournament.games,
   reports: state.reports,
   search: state.search
