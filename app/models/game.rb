@@ -104,6 +104,7 @@ class Game < ApplicationRecord
     self.home_score = nil
     self.away_score = nil
     self.score_reports.destroy_all
+    self.score_disputes.destroy_all
   end
 
   def dependent_games

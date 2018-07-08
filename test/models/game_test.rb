@@ -58,11 +58,49 @@ class GameTest < ActiveSupport::TestCase
     assert_equal ["must be greater than or equal to 0"], game.errors[:away_score]
   end
 
+  test "reset_score! removes scores, reports and disputes but not entries" do
+    game = FactoryBot.create(:game)
+    report = FactoryBot.create(:score_report, game: game, team: game.home)
+    dispute = FactoryBot.create(:score_dispute, game: game)
+    entry = FactoryBot.create(:score_entry, game: game)
+
+    assert_difference "ScoreReport.count", -1 do
+      assert_difference "ScoreDispute.count", -1 do
+        assert_no_difference "ScoreEntry.count" do
+          game.reload
+          game.reset_score!
+          assert_nil game.home_score
+          assert_nil game.away_score
+        end
+      end
+    end
+  end
+
   test "when a game is destroyed its score reports are too" do
     game = FactoryBot.create(:game)
     report = FactoryBot.create(:score_report, game: game, team: game.home)
 
     assert_difference "ScoreReport.count", -1 do
+      game.reload
+      game.destroy
+    end
+  end
+
+  test "when a game is destroyed its score disputes are too" do
+    game = FactoryBot.create(:game)
+    dispute = FactoryBot.create(:score_dispute, game: game)
+
+    assert_difference "ScoreDispute.count", -1 do
+      game.reload
+      game.destroy
+    end
+  end
+
+  test "when a game is destroyed its score entries are too" do
+    game = FactoryBot.create(:game)
+    entry = FactoryBot.create(:score_entry, game: game)
+
+    assert_difference "ScoreEntry.count", -1 do
       game.reload
       game.destroy
     end
