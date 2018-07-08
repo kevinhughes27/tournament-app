@@ -52,4 +52,24 @@ class ScoreReport < ApplicationRecord
   def total
     rules_knowledge + fouls + fairness + attitude + communication
   end
+
+  def build_confirm_link
+    params = {
+      teamName: other_team.name,
+      gameId: game_id,
+      homeScore: home_score,
+      awayScore: away_score
+    }
+
+    "#{tournament.domain}/submit?#{params.to_query}"
+  end
+
+  def build_dispute_link
+    params = {
+      teamName: other_team.name,
+      gameId: game_id
+    }
+
+    "#{tournament.domain}/submit?#{params.to_query}"
+  end
 end

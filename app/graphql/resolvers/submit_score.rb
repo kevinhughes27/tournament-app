@@ -41,11 +41,7 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
   end
 
   def notify_other_team
-    ScoreReportMailer.notify_team_email(
-      @report.other_team,
-      @report.team,
-      @report
-    ).deliver_later
+    ScoreReportMailer.notify_team_email(@report).deliver_later
   end
 
   def confirm_game(ctx)

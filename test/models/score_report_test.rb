@@ -55,4 +55,24 @@ class ScoreReportTest < ActiveSupport::TestCase
     report.destroy()
     assert_equal 0, ScoreReport.count
   end
+
+  test "build_confirm_link" do
+    report = FactoryBot.create(:score_report)
+    link = URI(report.build_confirm_link)
+    params = Rack::Utils.parse_query(link.query)
+
+    assert_equal params['gameId'], report.game_id.to_s
+    assert_equal params['teamName'], report.other_team.name
+    assert_equal params['homeScore'], report.home_score.to_s
+    assert_equal params['awayScore'], report.away_score.to_s
+  end
+
+  test "build_dispute_link" do
+    report = FactoryBot.create(:score_report)
+    link = URI(report.build_dispute_link)
+    params = Rack::Utils.parse_query(link.query)
+
+    assert_equal params['gameId'], report.game_id.to_s
+    assert_equal params['teamName'], report.other_team.name
+  end
 end

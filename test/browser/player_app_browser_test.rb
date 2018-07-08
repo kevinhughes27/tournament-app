@@ -36,6 +36,25 @@ class PlayerAppBrowserTest < BrowserTest
     assert report.submitter_fingerprint
   end
 
+  test 'deep link' do
+    report = FactoryBot.create(:score_report, game: @game1, team: @team)
+
+    deep_link = report.build_confirm_link
+
+    visit(deep_link)
+
+    click_on('Submit')
+
+    assert_submitted
+
+    confirmed_report = ScoreReport.last
+    assert_equal confirmed_report.team.name, report.other_team.name
+    assert_equal confirmed_report.game, report.game
+    assert_equal confirmed_report.home_score, report.home_score
+    assert_equal confirmed_report.away_score, report.away_score
+    assert confirmed_report.submitter_fingerprint
+  end
+
   def assert_submitted
     assert page.find("svg[color='green']")
   end

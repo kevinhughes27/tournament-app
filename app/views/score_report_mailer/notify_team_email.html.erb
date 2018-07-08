@@ -6,15 +6,7 @@
   <body>
     <h1><%= @team.name %>,</h1>
     <p>
-      Your opponent <%= @opponent.name %> submitted the result as a <%= @report.score %>
-      <strong>
-        <% if @report.submitter_won? %>
-          loss
-        <% else %>
-          win
-        <% end %>
-      </strong>
-      for your team.
+      Your opponent <%= @opponent.name %> submitted the result as a <%= @report.score %> <strong><%= @outcome %></strong> for your team.
     </p>
     <p>
       To confirm the result <%= link_to 'click this link', @confirm_link %>
