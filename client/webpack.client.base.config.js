@@ -6,7 +6,7 @@ const { resolve } = require('path')
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader')
 
 const configPath = resolve('..', 'config')
-const { manifest } = webpackConfigLoader(configPath)
+const { output, settings } = webpackConfigLoader(configPath);
 
 const devBuild = process.env.NODE_ENV !== 'production'
 
@@ -57,7 +57,7 @@ module.exports = {
       minChunks: Infinity
     }),
     new ManifestPlugin({
-      fileName: manifest,
+      publicPath: output.publicPath,
       writeToFileEmit: true
     })
   ],

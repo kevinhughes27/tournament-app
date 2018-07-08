@@ -1,0 +1,20 @@
+default: &default
+  source_path: app/javascript
+  source_entry_path: packs
+  public_output_path: packs
+  cache_path: tmp/cache/webpacker
+  resolved_paths: []
+  cache_manifest: false
+
+development:
+  <<: *default
+  compile: true
+
+test:
+  <<: *default
+  compile: true
+
+production:
+  <<: *default
+  compile: false
+  cache_manifest: true
