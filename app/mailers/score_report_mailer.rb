@@ -1,7 +1,7 @@
 class ScoreReportMailer < ApplicationMailer
   def notify_team_email(report)
     team_to_notify = report.other_team
-    return unless team_to_notify.email.present?
+    return unless team_to_notify && team_to_notify.email.present?
 
     @team = team_to_notify
     @opponent = report.team
