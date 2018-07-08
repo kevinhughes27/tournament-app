@@ -11,8 +11,6 @@ module UltimateTournament
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.active_record.default_timezone = :local
-
     config.generators do |generate|
       generate.helper false
       generate.assets false
