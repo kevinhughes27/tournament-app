@@ -17,13 +17,15 @@ class SubmitScoreTest < ApiTest
   end
 
   test 'submitting a score report emails the other team' do
-    ScoreReportMailer.expects(:notify_team_email).with(
-      @game.away,
-      @game.home,
-      instance_of(ScoreReport)
-    ).returns(stub(:deliver_later))
-
     execute_graphql("submitScore", "SubmitScoreInput", input)
+    email = ActionMailer::Base.deliveries.last
+
+    assert_equal @game.away.email, email.to[0]
+    assert_equal 'Opponent Score Submission', email.subject
+
+    assert_match(/#{@game.away.name},/, email.body.to_s)
+    assert_match(/Your opponent #{@game.home.name} submitted/, email.body.to_s)
+    assert_match(/15 - 13 <strong>loss<\/strong> for your team/, email.body.to_s)
   end
 
   test 'submitting a score report creates a score report' do

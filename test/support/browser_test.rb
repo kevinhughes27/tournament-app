@@ -42,6 +42,7 @@ class BrowserTest < ActiveSupport::TestCase
     path = screenshot_path(method_name)
     page.save_screenshot(path) unless passed?
 
+    page.execute_script('window.localStorage.clear();')
     Capybara.reset_sessions!
   end
 
