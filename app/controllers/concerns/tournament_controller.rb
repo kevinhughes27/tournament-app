@@ -3,11 +3,14 @@ module TournamentController
 
   included do
     before_action :load_tournament
+    around_action :set_time_zone
   end
 
   def current_tournament
     @tournament
   end
+
+  private
 
   def load_tournament
     @tournament = Tournament
@@ -15,5 +18,10 @@ module TournamentController
       .find_by!(handle: request.subdomain)
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def set_time_zone(&action)
+    tz = Time.find_zone(@tournament.timezone) || Time.zone
+    Time.use_zone(tz, &action)
   end
 end
