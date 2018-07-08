@@ -43,6 +43,7 @@ class PlayerAppBrowserTest < BrowserTest
 
     visit(deep_link)
 
+    fill_in('comments', with: 'Yup thats the score')
     click_on('Submit')
 
     assert_submitted
@@ -52,6 +53,7 @@ class PlayerAppBrowserTest < BrowserTest
     assert_equal confirmed_report.game, report.game
     assert_equal confirmed_report.home_score, report.home_score
     assert_equal confirmed_report.away_score, report.away_score
+    assert confirmed_report.comments, 'Yup thats the score'
     assert confirmed_report.submitter_fingerprint
   end
 
