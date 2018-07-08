@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SignupBrowserTest < BrowserTest
   test 'signup' do
-    visit("http://www.#{Settings.domain}/")
+    visit("http://www.#{Settings.host}")
     click_on('Get Started')
 
     fill_in('user_email', with: Faker::Internet.email)
