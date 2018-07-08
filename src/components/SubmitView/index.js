@@ -35,7 +35,7 @@ function renderContent(search, teams, games, reports) {
       </div>
     );
   } else {
-    return renderGames(search, teams, games, reports);
+    return renderGames(search, teams, filteredGames, reports);
   }
 }
 
