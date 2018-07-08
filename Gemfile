@@ -52,7 +52,7 @@ gem 'rollbar'
 gem 'wicked_pdf'
 
 # asset gems
-gem 'react_on_rails', '9.0.0'
+gem 'react_on_rails', '10.0.0'
 gem 'webpacker'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'

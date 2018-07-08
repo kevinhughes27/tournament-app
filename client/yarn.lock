@@ -3501,14 +3501,14 @@ react-grid-layout@^0.13.5:
     react-draggable "^2.1.1"
     react-resizable "^1.4.0"
 
-react-on-rails@9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-9.0.0.tgz#a4fc20f590fba08d27d1792309f8fbcb6845f6a7"
+react-on-rails@10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-10.0.0.tgz#afc658bf23f5dfe3fd836adc178eb4672727a89d"
   dependencies:
-    react-on-rails "^9.0.0-beta.12"
+    react-on-rails "^9.0.3"
     react-redux "^5.0.6"
 
-react-on-rails@^9.0.0-beta.12:
+react-on-rails@^9.0.0-beta.12, react-on-rails@^9.0.3:
   version "9.0.3"
   resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-9.0.3.tgz#da8a9873a94d62fe91e1f80d76716583f2be9da7"
   dependencies:
