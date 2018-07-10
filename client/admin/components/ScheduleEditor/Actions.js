@@ -16,8 +16,8 @@ export function schedule (gameId, fieldId, startTime, endTime) {
     data: {
       game_id: gameId,
       field_id: fieldId,
-      start_time: startTime,
-      end_time: endTime
+      start_time: moment(startTime).format('YYYY-MM-DDTHH:mm'),
+      end_time: moment(endTime).format('YYYY-MM-DDTHH:mm')
     },
     success: (response) => {
       GamesStore.updateGame({

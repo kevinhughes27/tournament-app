@@ -23,10 +23,17 @@ class TournamentsController < ApplicationController
   private
 
   def tournament_create_params
-    params.require(:tournament).permit(
+    @params = params.require(:tournament).permit(
       :name,
       :handle,
     )
+
+    @params[:timezone] = browser_timezone
+    @params
+  end
+
+  def browser_timezone
+    cookies["browser.timezone"]
   end
 
   def create_map

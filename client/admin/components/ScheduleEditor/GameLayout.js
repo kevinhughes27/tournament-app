@@ -8,8 +8,8 @@ class GameLayout {
   }
 
   inlineStyles () {
-    const startTime = moment(this.game.start_time)
-    const endTime = moment(this.game.end_time)
+    const startTime = moment.parseZone(this.game.start_time)
+    const endTime = moment.parseZone(this.game.end_time)
 
     // this is the number of minutes in the day not shown at
     // the begining of the rendered schedule.
