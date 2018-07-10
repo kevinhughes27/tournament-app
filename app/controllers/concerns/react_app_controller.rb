@@ -17,7 +17,12 @@ module ReactAppController
   end
 
   def static
-    render file: static_file(params[:dir], params[:file])
+    file = static_file(params[:dir], params[:file], params[:format])
+    if File.exist?(file)
+      render file: file
+    else
+      redirect_to_latest(params[:dir], params[:file], params[:format])
+    end
   end
 
   def service_worker
@@ -30,8 +35,15 @@ module ReactAppController
     Rails.root.join(clients_directory, app_directory, 'build', 'index.html')
   end
 
-  def static_file(dir, file)
-    Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, file)
+  def static_file(dir, file, extension)
+    Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, "#{file}.#{extension}")
+  end
+
+  def redirect_to_latest(dir, file, extension)
+    file_glob = Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, '*')
+    file_path = Dir[file_glob].find{ |f| f.end_with?(".#{extension}") }
+    file = file_path.split('/').last
+    redirect_to "/static/#{dir}/#{file}"
   end
 
   def service_worker_file
