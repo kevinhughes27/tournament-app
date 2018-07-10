@@ -13,7 +13,9 @@ class ScheduleView extends Component {
   render() {
     const { games, search } = this.props;
     const filteredGames = gamesSearch(search, games, { fuzzy: true });
-    const sortedGames = _sortBy(filteredGames, game => moment(game.startTime));
+    const sortedGames = _sortBy(filteredGames, game =>
+      moment.parseZone(game.startTime)
+    );
     const gamesByStartTime = _groupBy(sortedGames, game => game.startTime);
 
     return (
@@ -32,7 +34,7 @@ function renderGameGroup(startTime, games) {
   return (
     <List key={startTime}>
       <ListSubheader>
-        {moment(startTime).format('dddd h:mm A')}
+        {moment.parseZone(startTime).format('dddd h:mm A')}
       </ListSubheader>
       {games.map(game => {
         return (

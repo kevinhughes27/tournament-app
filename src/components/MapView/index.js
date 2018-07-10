@@ -14,11 +14,13 @@ class MapView extends Component {
 
     const { search, games } = this.props;
     const filteredGames = gamesSearch(search, games);
-    const sortedGames = _sortBy(filteredGames, game => moment(game.startTime));
+    const sortedGames = _sortBy(filteredGames, game =>
+      moment.parseZone(game.startTime)
+    );
 
     const nextGame = _filter(sortedGames, game => {
       const currentTime = moment();
-      const startTime = moment(game.startTime);
+      const startTime = moment.parseZone(game.startTime);
       return currentTime.isBefore(startTime);
     })[0];
     const filteredFields = _filter(fields, field => field.geoJson);
@@ -61,7 +63,9 @@ function renderPopup(nextGame, nextField) {
         <span>
           {nextGame.homeName} vs {nextGame.awayName}
           <br />
-          <strong>@ {moment(nextGame.startTime).format('h:mm')}</strong>
+          <strong>
+            @ {moment.parseZone(nextGame.startTime).format('h:mm')}
+          </strong>
         </span>
       </Popup>
     );
