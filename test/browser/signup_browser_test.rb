@@ -21,5 +21,6 @@ class SignupBrowserTest < BrowserTest
 
     tournament = Tournament.last
     assert_equal 'Browser Test Tournament', tournament.name
+    assert_not_nil tournament.timezone
   end
 end
