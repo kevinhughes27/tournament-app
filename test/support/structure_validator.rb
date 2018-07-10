@@ -67,6 +67,7 @@ class BracketDb::StructureValidator
 
   class ProgressionError < StandardError; end
   class NotEnoughPlaces < StandardError; end
+  class TooMannyPlaces < StandardError; end
   class MissingPlaceError < StandardError; end
   class GamesPlacesMismatch < StandardError; end
 
@@ -120,6 +121,7 @@ class BracketDb::StructureValidator
 
     def validate_places(template_json)
       positions = template_json[:places].map { |p| p[:position] }
+      raise TooMannyPlaces if positions.size > num_teams(template_json)
       raise NotEnoughPlaces unless num_teams(template_json) == positions.size
       positions.each_with_index do |p, idx|
         raise MissingPlaceError unless (idx+1) == p
