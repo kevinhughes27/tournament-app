@@ -52,8 +52,8 @@ gem 'rollbar'
 gem 'wicked_pdf'
 
 # asset gems
-gem 'react_on_rails', '8.0.6'
-gem 'webpacker_lite', '2.0.4'
+gem 'react_on_rails', '11.0.9'
+gem 'webpacker'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'uglifier', '~> 3.2.0'

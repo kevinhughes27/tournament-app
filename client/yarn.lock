@@ -3482,9 +3482,9 @@ react-grid-layout@^0.13.5:
     react-draggable "^2.1.1"
     react-resizable "^1.4.0"
 
-react-on-rails@8.0.6:
-  version "8.0.6"
-  resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-8.0.6.tgz#b0f30772a850dca6fa2c508576455557a2dd40ea"
+react-on-rails@11.0.9:
+  version "11.0.9"
+  resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-11.0.9.tgz#6e292e14fdd01acc0d21498e78217de9e09b354c"
 
 react-onclickoutside@^6.1.1:
   version "6.4.0"
