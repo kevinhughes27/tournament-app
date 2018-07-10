@@ -8,7 +8,7 @@ class LoginBrowserTest < BrowserTest
   end
 
   test "login to tournament admin" do
-    visit("http://no-borders.#{Settings.domain}/admin")
+    visit("http://no-borders.#{Settings.host}/admin")
 
     assert_text 'Log in to manage your tournament'
     fill_in('user_email', with: @user.email)
@@ -19,7 +19,7 @@ class LoginBrowserTest < BrowserTest
   end
 
   test "login from signup page" do
-    visit("http://www.#{Settings.domain}/")
+    visit("http://www.#{Settings.host}")
     click_on('Log in')
 
     assert_text 'Log in to manage your tournament'

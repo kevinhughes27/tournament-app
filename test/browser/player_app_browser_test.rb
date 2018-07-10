@@ -10,7 +10,7 @@ class PlayerAppBrowserTest < BrowserTest
   end
 
   test 'submit a score' do
-    visit("http://no-borders.#{Settings.domain}/")
+    visit("http://no-borders.#{Settings.host}/")
 
     # search for team
     fill_in(placeholder: 'Search Teams', with: 'Swift')

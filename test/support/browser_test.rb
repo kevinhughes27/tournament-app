@@ -26,7 +26,7 @@ Capybara.current_driver = ENV['CI'] ? :headless_chrome : :chrome
 
 Capybara.configure do |config|
   config.ignore_hidden_elements = false
-  config.app_host = "http://#{Settings.domain}"
+  config.app_host = "http://#{Settings.host}"
   config.server_port = 3000
   config.always_include_port = true
 end
