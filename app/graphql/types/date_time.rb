@@ -6,6 +6,6 @@ class Types::DateTime < Types::BaseScalar
   end
 
   def self.coerce_result(ruby_value, context)
-    ruby_value.utc.rfc2822
+    ruby_value.rfc2822
   end
 end
