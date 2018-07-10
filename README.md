@@ -179,7 +179,7 @@ The public facing client for a tournament. It is developed as a stand alone Reac
 
 It is connected using a git `submodule`. To initialize the module run `git submodule update --init`.
 
-If you need to update the player app to deploy a new version first enter the directory `cd clients/player-app`, checkout master `git checkout master` and run `git pull`. Check the status afterwards `git status` and it will show updates that you will need to commit like normal (it will look different than normal commit diff though because git knows it's a submodule).
+If you need to update the player app to deploy a new version first enter the directory `cd clients/player_app`, checkout master `git checkout master` and run `git pull`. Check the status afterwards `git status` and it will show updates that you will need to commit like normal (it will look different than normal commit diff though because git knows it's a submodule).
 
 ## Operations
 

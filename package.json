@@ -7,7 +7,7 @@
   },
   "subPackages": [
     "client",
-    "clients/player-app",
+    "clients/player_app",
     "clients/admin_next"
   ],
   "scripts": {
@@ -22,7 +22,7 @@
   "cacheDirectories": [
     "node_modules",
     "client/node_modules",
-    "clients/player-app/node_modules",
+    "clients/player_app/node_modules",
     "clients/admin_next/node_modules"
   ]
 }

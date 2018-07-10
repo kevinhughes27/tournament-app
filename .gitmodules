@@ -1,5 +1,5 @@
 # https://coderwall.com/p/2hwbjw/deploying-private-submodules-on-heroku
 
 [submodule "player-app"]
-	path = clients/player-app
+	path = clients/player_app
 	url = https://3a064e8763011090a05f60c218572f950dbf6fa9:x-oauth-basic@github.com/kevinhughes27/ut-player-app.git

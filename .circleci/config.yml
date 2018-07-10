@@ -45,7 +45,7 @@ jobs:
           paths:
             - ./node_modules
             - ./client/node_modules
-            - ./clients/player-app/node_modules
+            - ./clients/player_app/node_modules
             - ./clients/admin_next/node_modules
 
       # Database setup
@@ -84,23 +84,23 @@ jobs:
       - run: cd clients/admin_next && yarn build
       - run: cd clients/admin_next && yarn type-check
 
-      # Generate checksum for player-app
+      # Generate checksum for player_app
       - type: shell
         command: |
-          git submodule status > player-app-checksum.txt
+          git submodule status > player_app-checksum.txt
 
-      # Restore player-app cache
+      # Restore player_app cache
       - restore_cache:
-          key: player-app-{{ checksum "player-app-checksum.txt" }}
+          key: player_app-{{ checksum "player_app-checksum.txt" }}
 
-      # Build player-app
-      - run: cd clients/player-app && yarn build
+      # Build player_app
+      - run: cd clients/player_app && yarn build
 
-      # Store player-app cache
+      # Store player_app cache
       - save_cache:
-          key: player-app-{{ checksum "player-app-checksum.txt" }}
+          key: player_app-{{ checksum "player_app-checksum.txt" }}
           paths:
-            - clients/player-app/build
+            - clients/player_app/build
 
       # Run tests
       - run: bundle exec rake ci:all
