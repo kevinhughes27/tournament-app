@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import Loader from './Loader';
-import ScheduleView from './ScheduleView';
-import MapView from './MapView';
-import SubmitView from './SubmitView';
+import Routes from './Routes';
 
 class App extends Component {
   componentWillMount() {
@@ -16,9 +13,7 @@ class App extends Component {
   render() {
     return (
       <Loader>
-        <Route exact path="/" component={ScheduleView} />
-        <Route path="/map" component={MapView} />
-        <Route exact path="/submit" component={SubmitView} />
+        <Routes />
       </Loader>
     );
   }

@@ -1,11 +1,10 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { createHistory } from 'history';
-
+import history from './history';
 import reducers from './reducers';
 
-const history = createHistory();
 const middleware = routerMiddleware(history);
 
 const store = createStore(
@@ -16,4 +15,4 @@ const store = createStore(
   applyMiddleware(thunk, logger, middleware)
 );
 
-export { store, history };
+export default store;
