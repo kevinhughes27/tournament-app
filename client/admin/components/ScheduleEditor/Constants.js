@@ -1,7 +1,7 @@
 import ls from 'local-storage'
 
 export const SCHEDULE_START = 8
-export const SCHEDULE_END = 17
+export const SCHEDULE_END = 16
 export const SCHEDULE_INC = ls.get('SCHEDULE_INC') || 15 // minutes
 export const DEFAULT_LENGTH = 90 // minutes
 
