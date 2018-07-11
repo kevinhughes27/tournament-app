@@ -93,7 +93,7 @@ class FieldColumn extends React.Component {
     const hours = percentY * (SCHEDULE_END - SCHEDULE_START) + SCHEDULE_START
     const slot = SCHEDULE_INC * Math.round(hours * 60 / SCHEDULE_INC)
     const endTime = moment(this.props.date, 'LL').minutes(slot)
-    const startTime = moment.parseZone(game.start_time)
+    const startTime = moment.parseZone(game.start_time).format('YYYY-MM-DDTHH:mm')
 
     if (moment.duration(endTime.diff(startTime)).asMinutes() < SCHEDULE_INC) {
       return
