@@ -10,7 +10,7 @@ import AutoComplete from './AutoComplete';
 import Typography from 'material-ui/Typography';
 
 class TopBar extends Component {
-  componentWillMount() {
+  componentDidMount() {
     teamDeepLink(this.props.params, this.props.dispatch);
   }
 
