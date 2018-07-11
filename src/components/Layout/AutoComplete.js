@@ -49,6 +49,10 @@ class AutoComplete extends Component {
     };
   }
 
+  componentWillReceiveProps(props) {
+    this.setState({ value: props.value });
+  }
+
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: getSuggestions(this.props.suggestions, value)

@@ -26,6 +26,10 @@ body {
   padding-bottom: 56px;
 }
 
+.content > div {
+  height: 100%;
+}
+
 .center {
   display: flex;
   flex: 1;

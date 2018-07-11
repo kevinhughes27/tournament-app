@@ -2,49 +2,22 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import ReactGA from 'react-ga';
 
-import createHistory from 'history/createBrowserHistory';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-
-import {
-  ConnectedRouter,
-  routerReducer,
-  routerMiddleware
-} from 'react-router-redux';
-
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-
-import App from './components/App';
-import reducers from './reducers';
+import { ConnectedRouter } from 'react-router-redux';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-const history = createHistory();
-const middleware = routerMiddleware(history);
-
-const store = createStore(
-  combineReducers({
-    ...reducers,
-    router: routerReducer
-  }),
-  applyMiddleware(thunk, logger, middleware)
-);
+import App from './components/App';
+import store from './store';
+import history from './history';
 
 ReactGA.initialize('UA-76316112-3');
 injectTapEventPlugin();
 
-function logPageView() {
-  if (window.location.hostname !== 'localhost') {
-    ReactGA.set({ page: window.location.pathname });
-    ReactGA.pageview(window.location.pathname);
-  }
-}
-
 ReactDom.render(
   <Provider store={store}>
-    <ConnectedRouter history={history} onUpdate={logPageView}>
+    <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>
   </Provider>,
