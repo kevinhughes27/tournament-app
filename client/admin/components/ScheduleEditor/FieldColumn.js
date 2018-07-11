@@ -72,7 +72,10 @@ class FieldColumn extends React.Component {
   endResize () {
     if (this.state.resizing) {
       let game = this.state.resizingGame
-      schedule(game.id, game.field_id, game.start_time, game.end_time)
+      let startTime = moment.parseZone(game.start_time).format('YYYY-MM-DDTHH:mm')
+      let endTime = moment.parseZone(game.end_time).format('YYYY-MM-DDTHH:mm')
+
+      schedule(game.id, game.field_id, startTime, endTime)
     }
 
     this.setState({resizing: false, resizingGame: null})
@@ -90,8 +93,9 @@ class FieldColumn extends React.Component {
     const hours = percentY * (SCHEDULE_END - SCHEDULE_START) + SCHEDULE_START
     const slot = SCHEDULE_INC * Math.round(hours * 60 / SCHEDULE_INC)
     const endTime = moment(this.props.date, 'LL').minutes(slot)
+    const startTime = moment.parseZone(game.start_time)
 
-    if (moment.duration(endTime.diff(game.start_time)).asMinutes() < SCHEDULE_INC) {
+    if (moment.duration(endTime.diff(startTime)).asMinutes() < SCHEDULE_INC) {
       return
     }
 
