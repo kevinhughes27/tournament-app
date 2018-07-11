@@ -4,7 +4,7 @@ BracketDb.define 'USAU 11.5' do
   days 2
 
   pool '5.1.4', 'A', [1,3,6,7,9]
-  pool '6.1.2', 'B', [2,4,5,8,10,11]
+  pool '6.1.1', 'B', [2,4,5,8,10,11]
 
   games [
     # bracket 4.2.2
