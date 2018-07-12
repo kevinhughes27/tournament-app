@@ -3,10 +3,6 @@
 # Ignore bundler config.
 /.bundle
 
-# ignore local node modules
-*node_modules*
-*npm-debug.log*
-
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
@@ -14,6 +10,13 @@
 .~*
 *.mp4
 *.dump
+
+# javascript
+/public/packs
+/public/packs-test
+*node_modules*
+*yarn-debug.log*
+*npm-debug.log*
 
 # test outputs
 test/coverage
@@ -27,6 +30,3 @@ server.pass.key
 
 # deploy
 deploy_key.md
-
-# Generated js bundles
-/public/packs/*
