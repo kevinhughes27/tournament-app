@@ -8,11 +8,12 @@ const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
   team: any;
+  divisions: any;
 }
 
 class TeamShow extends React.Component<Props> {
   render() {
-    const { team } = this.props;
+    const { team, divisions } = this.props;
 
     return (
       <div>
@@ -22,7 +23,7 @@ class TeamShow extends React.Component<Props> {
             {text: team.name}
           ]}
         />
-        <TeamForm team={team} />
+        <TeamForm team={team} divisions={divisions}/>
       </div>
     );
   }

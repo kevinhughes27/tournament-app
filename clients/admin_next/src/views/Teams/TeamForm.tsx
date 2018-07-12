@@ -3,9 +3,11 @@ import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+
+import DivisionPicker from "./DivisionPicker";
 
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
@@ -18,10 +20,13 @@ const styles = {
 
 interface Props extends WithStyles<typeof styles> {
   team: any;
+  divisions: any;
 }
 
 interface State {
   name: string;
+  email: string;
+  divisionId: number;
   seed: number;
   open: boolean;
   message: string;
@@ -31,9 +36,13 @@ class TeamForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const team = props.team;
+
     this.state = {
-      name: props.team.name,
-      seed: props.team.seed,
+      name: team.name,
+      email: team.email || "",
+      divisionId: team.division.id || "",
+      seed: team.seed || "",
       open: false,
       message: ""
     };
@@ -43,6 +52,14 @@ class TeamForm extends React.Component<Props, State> {
     this.setState({ name: event.target.value });
   }
 
+  handleEmailChange = (event: any) => {
+    this.setState({ email: event.target.value });
+  }
+
+  handleDivisionChange = (event: any) => {
+    this.setState({ divisionId: event.target.value });
+  }
+
   handleSeedChange = (event: any) => {
     let value = event.target.value;
     value = value === "" ? value : Number(value);
@@ -50,10 +67,17 @@ class TeamForm extends React.Component<Props, State> {
   }
 
   handleSubmit = () => {
+    const { name, email, divisionId, seed } = this.state;
+    const input = {
+      name,
+      email,
+      divisionId,
+      seed
+    };
+
     UpdateTeamMutation.commit(
       environment,
-      this.state.name,
-      this.state.seed,
+      input,
       this.props.team,
       (response: any, errors: any) => {
         if (response.success) {
@@ -69,10 +93,10 @@ class TeamForm extends React.Component<Props, State> {
 
   handleClose = () => {
     this.setState({ open: false });
-  };
+  }
 
   render() {
-    const { classes } = this.props;
+    const { divisions, classes } = this.props;
 
     return (
       <div>
@@ -83,6 +107,19 @@ class TeamForm extends React.Component<Props, State> {
           fullWidth
           value={this.state.name}
           onChange={this.handleNameChange}
+        />
+        <TextField
+          id="email"
+          label="Email"
+          margin="normal"
+          fullWidth
+          value={this.state.email}
+          onChange={this.handleEmailChange}
+        />
+        <DivisionPicker
+          division={this.state.divisionId}
+          divisions={divisions}
+          onChange={this.handleDivisionChange}
         />
         <TextField
           id="seed"
@@ -97,10 +134,10 @@ class TeamForm extends React.Component<Props, State> {
           Save
         </Button>
         <Snackbar
-          anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+          anchorOrigin={{vertical: "bottom", horizontal: "left"}}
           open={this.state.open}
           autoHideDuration={2000}
-          ContentProps={{'aria-describedby': 'message-id',}}
+          ContentProps={{"aria-describedby": "message-id"}}
           message={<span id="message-id">{this.state.message}</span>}
           action={[
             <IconButton

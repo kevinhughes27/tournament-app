@@ -24,6 +24,9 @@ class TeamShowContainer extends React.Component<Props> {
           }
           seed
         }
+        divisions {
+          ...DivisionPicker_divisions
+        }
       }
     `;
 
@@ -31,7 +34,7 @@ class TeamShowContainer extends React.Component<Props> {
       if (error) {
         return <div>{error.message}</div>;
       } else if (props) {
-        return <TeamShow team={props.team}/>;
+        return <TeamShow team={props.team} divisions={props.divisions}/>;
       } else {
         return <Loader />;
       }

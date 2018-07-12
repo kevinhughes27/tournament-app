@@ -7,6 +7,8 @@ const mutation = graphql`
       team {
         id
         name
+        email
+        divisionId
         seed
       }
       success
@@ -16,13 +18,12 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(name: string, seed: number, team: Team) {
+function getOptimisticResponse(input: any, team: Team) {
   return {
     updateTeam: {
       team: {
         id: team.id,
-        name: name,
-        seed: seed
+        ...input
       }
     },
   };
@@ -36,8 +37,7 @@ interface Team {
 
 function commit(
   environment: Environment,
-  name: string,
-  seed: number,
+  input: any,
   team: Team,
   callback: Function
 ) {
@@ -45,12 +45,11 @@ function commit(
     environment,
     {
       mutation,
-      optimisticResponse: getOptimisticResponse(name, seed, team),
+      optimisticResponse: getOptimisticResponse(input, team),
       variables: {
         input: {
           teamId: team.id,
-          name: name,
-          seed: seed
+          ...input
         },
       },
       onCompleted: (response, errors) => {
