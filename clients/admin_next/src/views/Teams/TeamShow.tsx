@@ -7,7 +7,7 @@ import TeamForm from "./TeamForm";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  team: any;
+  team: Team;
   divisions: any;
 }
 

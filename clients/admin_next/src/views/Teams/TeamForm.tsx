@@ -13,6 +13,9 @@ import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 
 const styles = {
+  container: {
+    padding: 20
+  },
   button: {
     marginTop: 20
   }
@@ -99,7 +102,7 @@ class TeamForm extends React.Component<Props, State> {
     const { divisions, classes } = this.props;
 
     return (
-      <div>
+      <div className={classes.container}>
         <TextField
           id="name"
           label="Name"
