@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class Admin::SettingsControllerTest < AdminControllerTest
+  setup do
+    @tournament.update_column(:timezone, 'America/New_York')
+  end
+
   test "get settings page" do
     get :show
   end
