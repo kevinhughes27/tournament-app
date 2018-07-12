@@ -8,7 +8,7 @@ const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
   team: Team;
-  divisions: any;
+  divisions: Division[];
 }
 
 class TeamShow extends React.Component<Props> {

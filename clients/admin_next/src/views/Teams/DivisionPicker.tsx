@@ -8,8 +8,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  division: any;
-  divisions: any;
+  divisionId: string;
+  divisions: Division[];
   onChange: (event: React.ChangeEvent<{}>) => void;
 }
 
@@ -24,7 +24,7 @@ class DivisionPicker extends React.Component<Props> {
         margin="normal"
         fullWidth
         select
-        value={this.props.division}
+        value={this.props.divisionId}
         onChange={this.props.onChange}
       >
         {options.map((option: any) => Option(option))}

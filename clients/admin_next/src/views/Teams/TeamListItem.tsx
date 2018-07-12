@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
 interface Props extends RouteComponentProps<any> {
-  team: any;
+  team: Team;
 }
 
 class TeamListItem extends React.Component<Props> {

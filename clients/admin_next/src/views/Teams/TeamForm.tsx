@@ -22,14 +22,14 @@ const styles = {
 };
 
 interface Props extends WithStyles<typeof styles> {
-  team: any;
-  divisions: any;
+  team: Team;
+  divisions: Division[];
 }
 
 interface State {
   name: string;
   email: string;
-  divisionId: number;
+  divisionId: string;
   seed: number;
   open: boolean;
   message: string;
@@ -43,9 +43,9 @@ class TeamForm extends React.Component<Props, State> {
 
     this.state = {
       name: team.name,
-      email: team.email || "",
-      divisionId: team.division.id || "",
-      seed: team.seed || "",
+      email: team.email,
+      divisionId: team.division.id,
+      seed: team.seed,
       open: false,
       message: ""
     };
@@ -116,11 +116,11 @@ class TeamForm extends React.Component<Props, State> {
           label="Email"
           margin="normal"
           fullWidth
-          value={this.state.email}
+          value={this.state.email || ""}
           onChange={this.handleEmailChange}
         />
         <DivisionPicker
-          division={this.state.divisionId}
+          divisionId={this.state.divisionId}
           divisions={divisions}
           onChange={this.handleDivisionChange}
         />

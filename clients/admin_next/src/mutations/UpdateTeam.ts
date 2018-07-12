@@ -29,17 +29,11 @@ function getOptimisticResponse(input: any, team: Team) {
   };
 }
 
-interface Team {
-  id: number;
-  name: string;
-  seed: number;
-}
-
 function commit(
   environment: Environment,
   input: any,
   team: Team,
-  callback: Function
+  callback: (mutation: any, errors: any) => void
 ) {
   return commitMutation(
     environment,
