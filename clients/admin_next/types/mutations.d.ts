@@ -1,8 +1,17 @@
+type UpdateTeamMutation = {
+  updateTeam: UpdateTeam;
+}
+
 type UpdateTeam = {
-  updateTeam: {
-    success;
-    confirm;
-    userErrors;
-    team;
-  }
+  team: Team;
+  success: boolean;
+  confirm: boolean;
+  message: string;
+  userErrors: UserError[];
+}
+
+
+type UserError = {
+  field: string;
+  message: string;
 }

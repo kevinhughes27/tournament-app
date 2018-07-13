@@ -90,7 +90,7 @@ const Form = {
   }
 };
 
-const Errors = {
+const Warning = {
   warning: {
     backgroundColor: amber[700]
   },
@@ -116,5 +116,5 @@ export {
   BlankSlate,
   Breadcrumbs,
   Form,
-  Errors
+  Warning
 };

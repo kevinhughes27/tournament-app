@@ -13,7 +13,11 @@ const mutation = graphql`
       }
       success
       confirm
-      userErrors
+      message
+      userErrors {
+        field
+        message
+      }
     }
   }
 `;
@@ -33,7 +37,8 @@ function commit(
   environment: Environment,
   input: any,
   team: Team,
-  callback: (mutation: UpdateTeam, errors: PayloadError[] | null | undefined) => void
+  success: (mutation: UpdateTeamMutation) => void,
+  failure: (error: Error | undefined) => void
 ) {
   return commitMutation(
     environment,
@@ -46,9 +51,12 @@ function commit(
           ...input
         },
       },
-      onCompleted: (response, errors) => {
-        callback(response, errors);
+      onCompleted: (response) => {
+        success(response);
       },
+      onError: (error) => {
+        failure(error);
+      }
     },
   );
 }

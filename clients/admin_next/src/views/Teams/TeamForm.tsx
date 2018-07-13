@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import SubmitButton from "../../components/SubmitButton";
 import DivisionPicker from "./DivisionPicker";
 import Toast from "../../components/Toast";
-import Errors from "../../components/Errors";
+import Warning from "../../components/Warning";
 
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
@@ -20,12 +20,12 @@ interface Props extends WithStyles<typeof styles> {
 
 interface State {
   message?: string;
-  errors?: string[];
+  error?: string;
 }
 
 const defaultState = {
   message: undefined,
-  errors: undefined
+  error: undefined
 };
 
 class TeamForm extends React.Component<Props, State> {
@@ -58,21 +58,44 @@ class TeamForm extends React.Component<Props, State> {
       environment,
       values,
       this.props.team,
-      (response, errors) => {
-        const result = response.updateTeam;
-
-        actions.resetForm();
-        actions.setSubmitting(false);
-
-        if (result.success) {
-          this.setState({message: "Team Saved"});
-        } else if (errors) {
-          this.setState({errors: ["Invalid Input"]});
-        } else {
-          this.setState({errors: result.userErrors});
-        }
-      }
+      (response) => this.onComplete(response, actions),
+      (error) => this.onError(error)
     );
+  }
+
+  onComplete = (response: UpdateTeamMutation, actions: FormikActions<FormikValues>) => {
+    const result = response.updateTeam;
+
+    actions.setSubmitting(false);
+
+    if (result.success) {
+      this.handleSuccess(actions);
+    } else {
+      this.handleFailure(result, actions);
+    }
+  }
+
+  onError = (error: Error | undefined) => {
+    if (error) {
+      this.setState({error: error.message});
+    } else {
+      this.setState({error: "Something went wrong."});
+    }
+  }
+
+  handleSuccess = (actions: FormikActions<FormikValues>) => {
+    actions.resetForm();
+    this.setState({message: "Team Saved"});
+  }
+
+  handleFailure = (result: UpdateTeam, actions: FormikActions<FormikValues>) => {
+    if (result.userErrors && result.userErrors.length > 0) {
+      result.userErrors.forEach((error) => actions.setFieldError(error.field, error.message));
+    } else if (result.message) {
+      this.setState({error: result.message});
+    } else {
+      this.setState({error: "Something went wrong."});
+    }
   }
 
   render() {
@@ -88,7 +111,7 @@ class TeamForm extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <Toast message={this.state.message} />
-        <Errors errors={this.state.errors} />
+        <Warning error={this.state.error} />
         <Formik
           initialValues={initialValues}
           validate={this.validate}
@@ -110,7 +133,7 @@ class TeamForm extends React.Component<Props, State> {
       isSubmitting
     } = formProps;
 
-    const error = Object.keys(errors).length !== 0;
+    const hasErrors = Object.keys(errors).length !== 0;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -148,7 +171,7 @@ class TeamForm extends React.Component<Props, State> {
           helperText={formProps.errors.seed && formProps.errors.seed}
         />
         <SubmitButton
-          disabled={!dirty || error}
+          disabled={!dirty || hasErrors}
           submitting={isSubmitting}
           text="Save"
         />
