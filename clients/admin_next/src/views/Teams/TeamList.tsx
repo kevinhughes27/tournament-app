@@ -1,21 +1,16 @@
 import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
+import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamListItem from "./TeamListItem";
 
-const styles = {
-  title: {
-    padding: 10,
-    paddingLeft: 20
-  }
-};
+const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
   teams: any;
@@ -23,13 +18,11 @@ interface Props extends WithStyles<typeof styles> {
 
 class TeamList extends React.Component<Props> {
   render() {
-    const { teams, classes } = this.props;
+    const { teams } = this.props;
 
     return (
       <div>
-        <Typography variant="subheading" className={classes.title}>
-          Teams
-        </Typography>
+        <Breadcrumbs items={[{text: "Teams"}]} />
         <Table>
           <TableHead>
             <TableRow>

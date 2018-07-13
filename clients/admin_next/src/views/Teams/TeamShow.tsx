@@ -1,15 +1,9 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
-const styles = {
-  title: {
-    padding: 10,
-    paddingLeft: 20
-  }
-};
+const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
   team: any;
@@ -17,16 +11,16 @@ interface Props extends WithStyles<typeof styles> {
 
 class TeamShow extends React.Component<Props> {
   render() {
-    const { team, classes } = this.props;
+    const { team } = this.props;
 
     return (
       <div>
-        <Typography variant="subheading" className={classes.title}>
-          <Link to={`/teams`}>Teams</Link> / {team.name}
-        </Typography>
-        <p>
-          {team.name}
-        </p>
+        <Breadcrumbs
+          items={[
+            {link: "/teams", text: "Teams"},
+            {text: team.name}
+          ]}
+        />
       </div>
     );
   }

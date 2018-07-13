@@ -37,6 +37,7 @@
     "react-app-rewire-typescript-babel-preset": "^2.3.0",
     "react-app-rewired": "^2.0.0",
     "react-dom": "^16.4.0",
+    "react-join": "^1.1.4",
     "react-relay": "^1.6.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.0-next.66cc7a90",
