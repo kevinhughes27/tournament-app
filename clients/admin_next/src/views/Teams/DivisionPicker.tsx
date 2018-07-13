@@ -19,7 +19,7 @@ class DivisionPicker extends React.Component<Props> {
 
     return (
       <TextField
-        id="division"
+        name="divisionId"
         label="Division"
         margin="normal"
         fullWidth
@@ -27,13 +27,13 @@ class DivisionPicker extends React.Component<Props> {
         value={this.props.divisionId}
         onChange={this.props.onChange}
       >
-        {options.map((option: any) => Option(option))}
+        {options.map((option: {id: string, name: string}) => Option(option))}
       </TextField>
     );
   }
 }
 
-const Option = (option: any) => (
+const Option = (option: {id: string, name: string}) => (
   <MenuItem key={option.id} value={option.id}>
     {option.name}
   </MenuItem>

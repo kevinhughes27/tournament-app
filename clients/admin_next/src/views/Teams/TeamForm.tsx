@@ -4,8 +4,8 @@ import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Form as styles } from "../../assets/jss/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 
+import SubmitButton from "../../components/SubmitButton";
 import DivisionPicker from "./DivisionPicker";
 import Toast from "../../components/Toast";
 import Errors from "../../components/Errors";
@@ -23,19 +23,24 @@ interface State {
   errors?: string[];
 }
 
+const defaultState = {
+  message: undefined,
+  errors: undefined
+};
+
 class TeamForm extends React.Component<Props, State> {
-  state = {
-    message: undefined,
-    errors: undefined
-  };
+  state = defaultState;
 
   onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
+    this.setState(defaultState);
+
     UpdateTeamMutation.commit(
       environment,
       values,
       this.props.team,
       (response, errors) => {
         const result = response.updateTeam;
+        actions.setSubmitting(false);
 
         if (result.success) {
           this.setState({message: "Team Saved"});
@@ -53,9 +58,9 @@ class TeamForm extends React.Component<Props, State> {
 
     const initialValues = {
       name: team.name,
-      email: team.email,
-      divisionId: team.division.id,
-      seed: team.seed
+      email: team.email || "",
+      divisionId: team.division && team.division.id || "",
+      seed: team.seed || ""
     };
 
     return (
@@ -71,13 +76,20 @@ class TeamForm extends React.Component<Props, State> {
     );
   }
 
-  renderForm = ({values, handleChange, handleSubmit}: FormikProps<FormikValues>) => {
-    const { divisions, classes } = this.props;
+  renderForm = (formProps: FormikProps<FormikValues>) => {
+    const { divisions } = this.props;
+    const {
+      values,
+      dirty,
+      handleChange,
+      handleSubmit,
+      isSubmitting
+    } = formProps;
 
     return (
       <form onSubmit={handleSubmit}>
         <TextField
-          id="name"
+          name="name"
           label="Name"
           margin="normal"
           fullWidth
@@ -85,11 +97,11 @@ class TeamForm extends React.Component<Props, State> {
           onChange={handleChange}
         />
         <TextField
-          id="email"
+          name="email"
           label="Email"
           margin="normal"
           fullWidth
-          value={values.email || ""}
+          value={values.email}
           onChange={handleChange}
         />
         <DivisionPicker
@@ -98,7 +110,7 @@ class TeamForm extends React.Component<Props, State> {
           onChange={handleChange}
         />
         <TextField
-          id="seed"
+          name="seed"
           label="Seed"
           margin="normal"
           fullWidth
@@ -106,9 +118,11 @@ class TeamForm extends React.Component<Props, State> {
           value={values.seed}
           onChange={handleChange}
         />
-        <Button variant="contained" color="primary" type="submit" className={classes.button}>
-          Save
-        </Button>
+        <SubmitButton
+          dirty={dirty}
+          submitting={isSubmitting}
+          text="Save"
+        />
       </form>
     );
   }

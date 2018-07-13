@@ -87,9 +87,6 @@ const Breadcrumbs = {
 const Form = {
   container: {
     padding: 20
-  },
-  button: {
-    marginTop: 20
   }
 };
 

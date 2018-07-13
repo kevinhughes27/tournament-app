@@ -19,7 +19,7 @@ class TeamListItem extends React.Component<Props> {
     return (
       <TableRow hover onClick={this.handleClick}>
         <TableCell>{team.name}</TableCell>
-        <TableCell>{team.division.name}</TableCell>
+        <TableCell>{team.division && team.division.name}</TableCell>
         <TableCell>{team.seed}</TableCell>
       </TableRow>
     );

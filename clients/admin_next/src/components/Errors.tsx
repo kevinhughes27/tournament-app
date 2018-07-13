@@ -12,7 +12,7 @@ class Errors extends React.Component<Props> {
   render() {
     const { errors, classes } = this.props;
 
-    if (errors === undefined || errors === []) {
+    if (errors === undefined || errors.length === 0) {
       return null;
     }
 
