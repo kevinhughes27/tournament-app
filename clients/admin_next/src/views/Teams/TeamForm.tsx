@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 
 import DivisionPicker from "./DivisionPicker";
 import Toast from "../../components/Toast";
+import Errors from "../../components/Errors";
 
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
@@ -19,11 +20,13 @@ interface Props extends WithStyles<typeof styles> {
 
 interface State {
   message?: string;
+  errors?: string[];
 }
 
 class TeamForm extends React.Component<Props, State> {
   state = {
-    message: undefined
+    message: undefined,
+    errors: undefined
   };
 
   render() {
@@ -32,6 +35,7 @@ class TeamForm extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <Toast message={this.state.message} />
+        <Errors errors={this.state.errors} />
         <Formik
           initialValues={{
             name: team.name,
@@ -50,9 +54,9 @@ class TeamForm extends React.Component<Props, State> {
                 if (response.success) {
                   this.setState({message: "Team Saved"});
                 } else if (errors) {
-                  this.setState({message: "Invalid Input"});
+                  this.setState({errors: ["Invalid Input"]});
                 } else {
-                  this.setState({message: response.userErrors});
+                  this.setState({errors: response.userErrors});
                 }
               }
             );
