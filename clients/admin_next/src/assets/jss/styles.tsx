@@ -47,6 +47,22 @@ const BlankSlate = {
   }
 };
 
+const Breadcrumbs = {
+  container: {
+    paddingTop: 20,
+    paddingLeft: 20,
+  },
+  link: {
+    "textDecoration": "none",
+    "&:hover": {
+      textDecoration: "underline"
+    },
+    "&:visited": {
+      color: "rgba(0, 0, 0, 0.87)"
+    }
+  }
+};
+
 export {
   App,
   TopBar,
@@ -54,5 +70,6 @@ export {
   SideBar,
   NavItems,
   Loader,
-  BlankSlate
+  BlankSlate,
+  Breadcrumbs
 };
