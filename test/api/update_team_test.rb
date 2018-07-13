@@ -17,6 +17,17 @@ class UpdateTeamTest < ApiTest
     assert_equal attributes[:name], team.reload.name
   end
 
+  test "un-set seed" do
+    team = FactoryBot.create(:team, seed: 1)
+    attributes = FactoryBot.attributes_for(:team).except(:tournament, :division)
+    input = {team_id: team.id, seed: ''}
+
+    execute_graphql("updateTeam", "UpdateTeamInput", input, @output)
+
+    assert_success
+    assert_nil team.reload.seed
+  end
+
   test "update a team with errors" do
     team = FactoryBot.create(:team)
     input = {team_id: team.id, name: ''}

@@ -158,6 +158,8 @@ type Mutation {
   updateTeam(input: UpdateTeamInput!): UpdateTeamPayload
 }
 
+scalar NullableInt
+
 scalar PinCode
 
 type Query {
@@ -332,7 +334,7 @@ input UpdateTeamInput {
   email: String
   name: String
   phone: String
-  seed: Int
+  seed: NullableInt
   teamId: ID!
 }
 
