@@ -28,6 +28,9 @@ namespace :admin do
       post :import_csv
       put :set_division
     end
+    member do
+      get :spirit_scores
+    end
   end
 
   get '/schedule', to: 'schedule#index'

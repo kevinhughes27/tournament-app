@@ -7,6 +7,13 @@ class Admin::TeamsController < AdminController
     @team = @tournament.teams.find(params[:id])
   end
 
+  def spirit_scores
+    @team = @tournament.teams.find(params[:id])
+    @reports = @tournament.score_reports
+      .includes(game: [:home, :away])
+      .select{ |r| r.other_team == @team }
+  end
+
   def new
     @team = @tournament.teams.build
   end
