@@ -12,7 +12,7 @@ class Resolvers::UpdateDivision < Resolvers::BaseResolver
         success: false,
         confirm: true,
         division: @division,
-        user_errors: [@division.change_message]
+        message: @division.change_message
       }
     end
 
@@ -26,7 +26,7 @@ class Resolvers::UpdateDivision < Resolvers::BaseResolver
       {
         success: false,
         division: @division,
-        user_errors: @division.errors.full_messages
+        user_errors: @division.fields_errors
       }
     end
   end

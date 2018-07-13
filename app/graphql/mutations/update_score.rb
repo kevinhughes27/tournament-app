@@ -4,5 +4,5 @@ class Mutations::UpdateScore < Mutations::BaseMutation
   argument :input, Inputs::UpdateScoreInput, required: true
 
   field :success, Boolean, null: false
-  field :userErrors, [String], null: true
+  field :message, String, null: true
 end

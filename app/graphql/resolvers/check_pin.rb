@@ -5,7 +5,7 @@ class Resolvers::CheckPin < Resolvers::BaseResolver
     if valid
       { success: true }
     else
-      { success: false, user_errors: ['Incorrect pin'] }
+      { success: false }
     end
   end
 end

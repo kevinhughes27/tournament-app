@@ -3,7 +3,7 @@ require 'test_helper'
 class CreateFieldTest < ApiTest
   setup do
     login_user
-    @output = '{ success, userErrors }'
+    @output = '{ success userErrors { field message } }'
   end
 
   test "create a field" do
@@ -21,7 +21,7 @@ class CreateFieldTest < ApiTest
 
     assert_no_difference "Field.count" do
       execute_graphql("createField", "CreateFieldInput", input, @output)
-      assert_failure "Name can't be blank"
+      assert_failure({ 'field' => 'name', 'message' => "can't be blank" })
     end
   end
 end

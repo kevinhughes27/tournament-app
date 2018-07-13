@@ -11,7 +11,7 @@ class Resolvers::CreateTeam < Resolvers::BaseResolver
     else
       {
         success: false,
-        user_errors: team.errors.full_messages,
+        user_errors: team.fields_errors,
         team: team
       }
     end

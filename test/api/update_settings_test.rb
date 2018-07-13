@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateSettingsTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, userErrors }'
+    @output = '{ success confirm message userErrors { field message } }'
   end
 
   test "update settings" do
@@ -43,6 +43,6 @@ class UpdateSettingsTest < ApiTest
   test "update settings error" do
     input = {name: '', handle: @tournament.handle}
     execute_graphql("updateSettings", "UpdateSettingsInput", input, @output)
-    assert_failure "Name can't be blank"
+    assert_failure({'field' => 'name', 'message' => "can't be blank"})
   end
 end

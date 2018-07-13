@@ -3,7 +3,7 @@ require 'test_helper'
 class SeedDivisionTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, userErrors }'
+    @output = '{ success confirm message }'
   end
 
   test "seed a division" do

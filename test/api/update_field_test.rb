@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateFieldTest < ApiTest
   setup do
     login_user
-    @output = '{ success, userErrors }'
+    @output = '{ success userErrors { field message } }'
   end
 
   test "update a field" do
@@ -23,6 +23,6 @@ class UpdateFieldTest < ApiTest
     input = {field_id: field.id, **attributes}
 
     execute_graphql("updateField", "UpdateFieldInput", input, @output)
-    assert_failure "Name can't be blank"
+    assert_failure({'field' => 'name', 'message' => "can't be blank"})
   end
 end

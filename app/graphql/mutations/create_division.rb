@@ -3,7 +3,7 @@ class Mutations::CreateDivision < Mutations::BaseMutation
 
   argument :input, Inputs::CreateDivisionInput, required: true
 
-  field :success, Boolean, null: false
-  field :userErrors, [String], null: true
   field :division, Types::Division, null: false
+  field :success, Boolean, null: false
+  field :userErrors, [Types::Error], null: true
 end

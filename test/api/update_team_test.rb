@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateTeamTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, userErrors }'
+    @output = '{ success confirm message userErrors { field message } }'
   end
 
   test "update a team" do
@@ -33,7 +33,7 @@ class UpdateTeamTest < ApiTest
     input = {team_id: team.id, name: ''}
 
     execute_graphql("updateTeam", "UpdateTeamInput", input, @output)
-    assert_failure "Name can't be blank"
+    assert_failure({'field' => 'name', 'message' => "can't be blank"})
   end
 
   test "update a team with unsafe input" do

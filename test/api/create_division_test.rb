@@ -3,7 +3,7 @@ require 'test_helper'
 class CreateDivisionTest < ApiTest
   setup do
     login_user
-    @output = '{ success, userErrors }'
+    @output = '{ success userErrors { field message } }'
   end
 
   test "division creates all required games" do

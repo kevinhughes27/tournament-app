@@ -14,7 +14,7 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
       return {
         success: false,
         not_allowed: true,
-        user_errors: [TEAM_DELETE_NOT_ALLOWED.gsub('division_name', team.division.name)]
+        message: TEAM_DELETE_NOT_ALLOWED.gsub('division_name', team.division.name)
       }
     end
 
@@ -22,7 +22,7 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
       return {
         success: false,
         confirm: true,
-        user_errors: [TEAM_DELETE_CONFIRM_MSG.gsub('division_name', team.division.name)]
+        message: TEAM_DELETE_CONFIRM_MSG.gsub('division_name', team.division.name)
       }
     end
 

@@ -5,5 +5,5 @@ class Mutations::SeedDivision < Mutations::BaseMutation
 
   field :success, Boolean, null: false
   field :confirm, Boolean, null: true
-  field :userErrors, [String], null: true
+  field :message, String, null: true
 end
