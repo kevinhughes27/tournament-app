@@ -19,9 +19,10 @@ class Admin::ScheduleController < AdminController
       'ScheduleGameInput',
       input,
       "{
-         success,
-         userErrors,
-         game { id, fieldId, startTime, endTime }
+         success
+         message
+         userErrors { field message }
+         game { id fieldId startTime endTime }
        }"
     )
 
@@ -36,13 +37,19 @@ class Admin::ScheduleController < AdminController
         updated_at: Time.now
       }
     else
+      error = if result['message'].present?
+        result['message']
+      elsif result['userErrors']
+        result_to_errors(result).first
+      end
+
       render json: {
         game_id: game.id,
         field_id: game.field_id,
         start_time: game.start_time,
         end_time: game.end_time,
         updated_at: Time.now,
-        error: result['userErrors'].first
+        error: error
       }, status: :unprocessable_entity
     end
   end

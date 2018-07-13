@@ -25,13 +25,13 @@ class Admin::DivisionsController < AdminController
       input,
       "{
          success,
-         userErrors,
-         division { id, name, numTeams, numDays, bracketType }
+         userErrors { field message }
+         division { id name numTeams numDays bracketType }
        }"
     )
 
     @division = Division.new(result_to_attributes(result, 'division'))
-    @errors = result['userErrors']
+    @errors = result_to_errors(result)
 
     if result['success']
       flash[:notice] = 'Division was successfully created.'
@@ -49,21 +49,22 @@ class Admin::DivisionsController < AdminController
       'UpdateDivisionInput',
       input,
       "{
-         success,
-         confirm,
-         userErrors,
-         division { id, name, numTeams, numDays, bracketType }
+         success
+         confirm
+         message
+         userErrors { field message }
+         division { id name numTeams numDays bracketType }
        }"
     )
 
     @division = Division.new(result_to_attributes(result, 'division'))
-    @errors = result['userErrors']
+    @errors = result_to_errors(result)
 
     if result['success']
       flash[:notice] = 'Division was successfully updated.'
       redirect_to admin_division_path(@division)
     elsif result['confirm']
-      @message = result['userErrors'].first
+      @message = result['message']
       render partial: 'confirm_update', status: :unprocessable_entity
     else
       render :edit
@@ -78,7 +79,7 @@ class Admin::DivisionsController < AdminController
       'DeleteDivisionInput',
       input,
       "{
-         success,
+         success
          confirm
        }"
     )
@@ -105,7 +106,7 @@ class Admin::DivisionsController < AdminController
         "{
            success,
            confirm,
-           userErrors
+           message
          }"
       )
 
@@ -115,7 +116,7 @@ class Admin::DivisionsController < AdminController
       elsif result['confirm']
         render partial: 'confirm_seed', status: :unprocessable_entity
       else
-        flash[:seed_error] = result['userErrors'].first
+        flash[:seed_error] = result['message']
       end
     end
   end

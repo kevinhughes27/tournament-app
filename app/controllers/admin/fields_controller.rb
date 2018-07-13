@@ -41,7 +41,7 @@ class Admin::FieldsController < AdminController
       'DeleteFieldInput',
       input,
       "{
-         success,
+         success
          confirm
        }"
     )

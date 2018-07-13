@@ -38,16 +38,16 @@ class Admin::TeamsController < AdminController
       'UpdateTeamInput',
       input,
       "{
-         success,
-         confirm,
-         notAllowed,
-         userErrors,
-         team { id, name, email, phone, divisionId, seed }
+         success
+         confirm
+         notAllowed
+         userErrors { field message }
+         team { id name email phone divisionId seed }
        }"
     )
 
     @team = Team.new(result_to_attributes(result, 'team'))
-    @errors = result['userErrors']
+    @errors = result_to_errors(result)
 
     if result['success']
       flash[:notice] = 'Team was successfully updated.'
@@ -69,8 +69,8 @@ class Admin::TeamsController < AdminController
       'DeleteTeamInput',
       input,
       "{
-         success,
-         confirm,
+         success
+         confirm
          notAllowed
        }"
     )

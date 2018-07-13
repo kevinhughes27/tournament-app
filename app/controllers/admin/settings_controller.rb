@@ -11,7 +11,7 @@ class Admin::SettingsController < AdminController
       'UpdateSettingsInput',
       input,
       "{
-         success,
+         success
          confirm
        }"
     )
