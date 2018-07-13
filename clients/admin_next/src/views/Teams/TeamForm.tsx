@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Formik } from "formik";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -27,119 +28,97 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 interface State {
-  name: string;
-  email: string;
-  divisionId: string;
-  seed: number;
   open: boolean;
   message: string;
 }
 
 class TeamForm extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    const team = props.team;
-
-    this.state = {
-      name: team.name,
-      email: team.email,
-      divisionId: team.division.id,
-      seed: team.seed,
-      open: false,
-      message: ""
-    };
-  }
-
-  handleNameChange = (event: any) => {
-    this.setState({ name: event.target.value });
-  }
-
-  handleEmailChange = (event: any) => {
-    this.setState({ email: event.target.value });
-  }
-
-  handleDivisionChange = (event: any) => {
-    this.setState({ divisionId: event.target.value });
-  }
-
-  handleSeedChange = (event: any) => {
-    let value = event.target.value;
-    value = value === "" ? value : Number(value);
-    this.setState({ seed: value });
-  }
-
-  handleSubmit = () => {
-    const { name, email, divisionId, seed } = this.state;
-    const input = {
-      name,
-      email,
-      divisionId,
-      seed
-    };
-
-    UpdateTeamMutation.commit(
-      environment,
-      input,
-      this.props.team,
-      (response: any, errors: any) => {
-        if (response.success) {
-          this.setState({open: true, message: "Team Updated."});
-        } else if (errors) {
-          this.setState({open: true, message: "Invalid Input"});
-        } else {
-          this.setState({open: true, message: response.userErrors});
-        }
-      }
-    );
-  }
+  state = {
+    open: false,
+    message: ""
+  };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({open: false});
   }
 
   render() {
-    const { divisions, classes } = this.props;
+    const { team, divisions, classes } = this.props;
 
     return (
       <div className={classes.container}>
-        <TextField
-          id="name"
-          label="Name"
-          margin="normal"
-          fullWidth
-          value={this.state.name}
-          onChange={this.handleNameChange}
+        <Formik
+          initialValues={{
+            name: team.name,
+            email: team.email,
+            divisionId: team.division.id,
+            seed: team.seed
+          }}
+          onSubmit={(
+            values,
+          ) => {
+            UpdateTeamMutation.commit(
+              environment,
+              values,
+              this.props.team,
+              (response: any, errors: any) => {
+                if (response.success) {
+                  this.setState({open: true, message: "Team Saved"});
+                } else if (errors) {
+                  this.setState({open: true, message: "Invalid Input"});
+                } else {
+                  this.setState({open: true, message: response.userErrors});
+                }
+              }
+            );
+          }}
+          render={({
+            values,
+            handleChange,
+            handleSubmit,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <TextField
+                id="name"
+                label="Name"
+                margin="normal"
+                fullWidth
+                value={values.name}
+                onChange={handleChange}
+              />
+              <TextField
+                id="email"
+                label="Email"
+                margin="normal"
+                fullWidth
+                value={values.email || ""}
+                onChange={handleChange}
+              />
+              <DivisionPicker
+                divisionId={values.divisionId}
+                divisions={divisions}
+                onChange={handleChange}
+              />
+              <TextField
+                id="seed"
+                label="Seed"
+                margin="normal"
+                fullWidth
+                type="number"
+                value={values.seed}
+                onChange={handleChange}
+              />
+              <Button variant="contained" color="primary" type="submit" className={classes.button}>
+                Save
+              </Button>
+            </form>
+          )}
         />
-        <TextField
-          id="email"
-          label="Email"
-          margin="normal"
-          fullWidth
-          value={this.state.email || ""}
-          onChange={this.handleEmailChange}
-        />
-        <DivisionPicker
-          divisionId={this.state.divisionId}
-          divisions={divisions}
-          onChange={this.handleDivisionChange}
-        />
-        <TextField
-          id="seed"
-          label="Seed"
-          margin="normal"
-          fullWidth
-          type="number"
-          value={this.state.seed}
-          onChange={this.handleSeedChange}
-        />
-        <Button variant="contained" color="primary" className={classes.button} onClick={this.handleSubmit}>
-          Save
-        </Button>
         <Snackbar
           anchorOrigin={{vertical: "bottom", horizontal: "left"}}
           open={this.state.open}
-          autoHideDuration={2000}
+          autoHideDuration={1500}
+          onClose={this.handleClose}
           ContentProps={{"aria-describedby": "message-id"}}
           message={<span id="message-id">{this.state.message}</span>}
           action={[
