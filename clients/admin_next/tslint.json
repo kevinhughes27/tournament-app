@@ -5,6 +5,7 @@
     "object-literal-sort-keys": false,
     "interface-name": [true, "never-prefix"],
     "jsx-boolean-value": false,
+    "jsx-no-multiline-js": false,
     "member-access": [true, "no-public"],
     "trailing-comma": false
   }
