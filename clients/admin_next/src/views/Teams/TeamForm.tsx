@@ -50,13 +50,15 @@ class TeamForm extends React.Component<Props, State> {
               environment,
               values,
               this.props.team,
-              (response: any, errors: any) => {
-                if (response.success) {
+              (response, errors) => {
+                const result = response.updateTeam;
+
+                if (result.success) {
                   this.setState({message: "Team Saved"});
                 } else if (errors) {
                   this.setState({errors: ["Invalid Input"]});
                 } else {
-                  this.setState({errors: response.userErrors});
+                  this.setState({errors: result.userErrors});
                 }
               }
             );

@@ -1,5 +1,5 @@
 import { commitMutation, graphql } from "react-relay";
-import { Environment } from "relay-runtime";
+import { Environment, PayloadError } from "relay-runtime";
 
 const mutation = graphql`
   mutation UpdateTeamMutation($input: UpdateTeamInput!) {
@@ -33,7 +33,7 @@ function commit(
   environment: Environment,
   input: any,
   team: Team,
-  callback: (mutation: any, errors: any) => void
+  callback: (mutation: UpdateTeam, errors: PayloadError[] | null | undefined) => void
 ) {
   return commitMutation(
     environment,
@@ -47,7 +47,7 @@ function commit(
         },
       },
       onCompleted: (response, errors) => {
-        callback(response.updateTeam, errors);
+        callback(response, errors);
       },
     },
   );
