@@ -12,6 +12,15 @@ class Admin::TeamsControllerTest < AdminControllerTest
     assert_response :success
   end
 
+  test "get spirit" do
+    team = FactoryBot.create(:team)
+    game = FactoryBot.create(:game, away: team)
+    FactoryBot.create(:score_report, game: game, team: game.home, comments: 'foobar')
+    get :spirit_scores, params: { id: team.id }
+    assert_response :success
+    assert_match 'foobar', response.body
+  end
+
   test "get index" do
     FactoryBot.create(:team)
     get :index
