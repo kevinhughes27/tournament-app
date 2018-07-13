@@ -82,6 +82,15 @@ const Breadcrumbs = {
   }
 };
 
+const Form = {
+  container: {
+    padding: 20
+  },
+  button: {
+    marginTop: 20
+  }
+};
+
 export {
   Login,
   Admin,
@@ -91,5 +100,6 @@ export {
   NavItems,
   Loader,
   BlankSlate,
-  Breadcrumbs
+  Breadcrumbs,
+  Form
 };
