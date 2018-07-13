@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
+import { Formik, FormikValues, FormikProps, FormikActions, FormikErrors } from "formik";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Form as styles } from "../../assets/jss/styles";
@@ -31,6 +31,26 @@ const defaultState = {
 class TeamForm extends React.Component<Props, State> {
   state = defaultState;
 
+  validate = (values: FormikValues) => {
+    const errors: FormikErrors<FormikValues> = {};
+
+    if (!values.name) {
+      errors.name = "Required";
+    }
+
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+    if (values.email && emailRegex.test(values.email)) {
+      errors.email = "Invalid email address";
+    }
+
+    if (values.seed && values.seed <= 0) {
+      errors.seed = "Invalid seed";
+    }
+
+    return errors;
+  }
+
   onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
     this.setState(defaultState);
 
@@ -40,6 +60,8 @@ class TeamForm extends React.Component<Props, State> {
       this.props.team,
       (response, errors) => {
         const result = response.updateTeam;
+
+        actions.resetForm();
         actions.setSubmitting(false);
 
         if (result.success) {
@@ -69,6 +91,7 @@ class TeamForm extends React.Component<Props, State> {
         <Errors errors={this.state.errors} />
         <Formik
           initialValues={initialValues}
+          validate={this.validate}
           onSubmit={this.onSubmit}
           render={this.renderForm}
         />
@@ -81,10 +104,13 @@ class TeamForm extends React.Component<Props, State> {
     const {
       values,
       dirty,
+      errors,
       handleChange,
       handleSubmit,
       isSubmitting
     } = formProps;
+
+    const error = Object.keys(errors).length !== 0;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -95,6 +121,7 @@ class TeamForm extends React.Component<Props, State> {
           fullWidth
           value={values.name}
           onChange={handleChange}
+          helperText={formProps.errors.name && formProps.errors.name}
         />
         <TextField
           name="email"
@@ -103,6 +130,7 @@ class TeamForm extends React.Component<Props, State> {
           fullWidth
           value={values.email}
           onChange={handleChange}
+          helperText={formProps.errors.email && formProps.errors.email}
         />
         <DivisionPicker
           divisionId={values.divisionId}
@@ -117,9 +145,10 @@ class TeamForm extends React.Component<Props, State> {
           type="number"
           value={values.seed}
           onChange={handleChange}
+          helperText={formProps.errors.seed && formProps.errors.seed}
         />
         <SubmitButton
-          dirty={dirty}
+          disabled={!dirty || error}
           submitting={isSubmitting}
           text="Save"
         />

@@ -11,14 +11,14 @@ const styles = {
 };
 
 interface Props extends WithStyles<typeof styles> {
-  dirty: boolean;
+  disabled: boolean;
   submitting: boolean;
   text: string;
 }
 
 class SubmitButton extends React.Component<Props> {
   render() {
-    const { dirty, submitting, classes } = this.props;
+    const { disabled, submitting, classes } = this.props;
 
     return (
       <Button
@@ -26,7 +26,7 @@ class SubmitButton extends React.Component<Props> {
         color="primary"
         type="submit"
         className={classes.button}
-        disabled={!dirty || submitting}
+        disabled={disabled || submitting}
       >
         {this.buttonContent()}
       </Button>
