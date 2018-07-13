@@ -1,30 +1,25 @@
-import { Environment, Network, RecordSource, Store } from "relay-runtime";
+import { Environment, Network, RecordSource, Store, CacheConfig, Variables, RequestNode } from "relay-runtime";
 import RelayQueryResponseCache from "relay-runtime/lib/RelayQueryResponseCache";
 import auth from "./auth";
 
 const cache = new RelayQueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 });
 
 const fetchQuery = (
-  operation: any,
-  variables: any,
-  cacheConfig: any
+  operation: RequestNode,
+  variables: Variables,
+  cacheConfig: CacheConfig
 ) => {
-
   const queryID = operation.name;
-
+  const forceLoad = cacheConfig && cacheConfig.force;
   const cachedData = cache.get(queryID, variables);
 
-  // Handle force option in RefetchOptions
-  // See: https://facebook.github.io/relay/docs/pagination-container.html
-  // https://facebook.github.io/relay/docs/refetch-container.html
-  const forceLoad = cacheConfig && cacheConfig.force;
-
+  // serve the cache if possible
   if (!forceLoad && cachedData) {
     return cachedData;
   }
 
+  // clear the (whole) cache. this option is set for all mutations
   if (forceLoad) {
-    // clear() means to reset all the cache, not only the entry addressed by specific queryId.
     cache.clear();
   }
 
