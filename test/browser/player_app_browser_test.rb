@@ -36,6 +36,39 @@ class PlayerAppBrowserTest < BrowserTest
     assert report.submitter_fingerprint
   end
 
+  test 'submit a score (with pin)' do
+    @tournament.update_column(:score_submit_pin, '1234')
+
+    visit("http://no-borders.#{Settings.host}/")
+
+    # search for team
+    fill_in(placeholder: 'Search Teams', with: 'Swift')
+
+    # navigate to submit score screen
+    click_on('Submit Score')
+
+    # enter pin
+    input = first('input.pincode-input-text')
+    input.send_keys '1234'
+
+    # click on game to submit score
+    click_on('Swift vs Goose')
+
+    # fill out form
+    fill_in('homeScore', with: 15)
+    fill_in('awayScore', with: 11)
+    click_on('Submit')
+
+    assert_submitted
+
+    report = ScoreReport.last
+    assert_equal 'Swift', report.team.name
+    assert_equal @game1, report.game
+    assert_equal 15, report.home_score
+    assert_equal 11, report.away_score
+    assert report.submitter_fingerprint
+  end
+
   test 'deep link' do
     report = FactoryBot.create(:score_report, game: @game1, team: @team)
 
