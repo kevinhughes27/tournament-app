@@ -14,7 +14,7 @@ class SubmitView extends Component {
     if (this.props.protect) {
       return (
         <Lock>
-          {renderContent(search, games, reports)}
+          {renderContent(search, teams, games, reports)}
         </Lock>
       );
     } else {
