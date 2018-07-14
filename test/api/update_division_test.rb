@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateDivisionTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, userErrors }'
+    @output = '{ success confirm message userErrors { field message } }'
   end
 
   test "update a division" do
@@ -49,7 +49,7 @@ class UpdateDivisionTest < ApiTest
     input = {division_id: division.id, name: ''}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
-    assert_failure "Name can't be blank"
+    assert_failure({'field' => 'name', 'message' => "can't be blank"})
   end
 
   test "updating the bracket_type clears the previous games" do

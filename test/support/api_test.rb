@@ -72,12 +72,18 @@ class ApiTest < ActionDispatch::IntegrationTest
   def assert_confirmation_required(message)
     refute mutation_result['success']
     assert mutation_result['confirm']
-    assert_equal message, mutation_result['userErrors'].first
+    assert_equal message, mutation_result['message']
   end
 
-  def assert_failure(expected_errors = nil)
+  def assert_failure(expectation = nil)
     refute mutation_result['success']
-    assert_equal Array(expected_errors), mutation_result['userErrors'] if expected_errors
+
+    if expectation.is_a?(Hash)
+      expectation = expectation.is_a?(Array) ? expectation : [expectation]
+      assert_equal expectation, mutation_result['userErrors']
+    elsif expectation
+      assert_equal expectation, mutation_result['message']
+    end
   end
 
   private

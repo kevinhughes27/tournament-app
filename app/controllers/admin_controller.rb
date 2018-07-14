@@ -74,6 +74,10 @@ class AdminController < ApplicationController
     result[key].deep_transform_keys { |key| key.to_s.underscore }
   end
 
+  def result_to_errors(result)
+    result['userErrors'] && result['userErrors'].map{ |e| e['field'].capitalize + ' ' + e['message'] }
+  end
+
   def render_admin_404
     respond_to do |format|
       format.html { render 'admin/404', status: :not_found }

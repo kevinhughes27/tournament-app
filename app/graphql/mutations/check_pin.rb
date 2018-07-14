@@ -5,5 +5,4 @@ class Mutations::CheckPin < Mutations::BaseMutation
   argument :input, Inputs::CheckPinInput, required: true
 
   field :success, Boolean, null: false
-  field :userErrors, [String], null: true
 end

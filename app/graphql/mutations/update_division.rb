@@ -3,8 +3,9 @@ class Mutations::UpdateDivision < Mutations::BaseMutation
 
   argument :input, Inputs::UpdateDivisionInput, required: true
 
+  field :division, Types::Division, null: false
   field :success, Boolean, null: false
   field :confirm, Boolean, null: true
-  field :userErrors, [String], null: true
-  field :division, Types::Division, null: false
+  field :message, String, null: true
+  field :userErrors, [Types::Error], null: true
 end

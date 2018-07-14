@@ -19,7 +19,7 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
         return {
           success: false,
           not_allowed: true,
-          user_errors: [TEAM_UPDATE_NOT_ALLOWED.gsub('division_name', team.division.name)],
+          message: TEAM_UPDATE_NOT_ALLOWED.gsub('division_name', team.division.name),
           team: team
         }
       end
@@ -28,7 +28,7 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
         return {
           success: false,
           confirm: true,
-          user_errors: [TEAM_UPDATE_CONFIRM_MSG.gsub('division_name', team.division.name)],
+          message: TEAM_UPDATE_CONFIRM_MSG.gsub('division_name', team.division.name),
           team: team
         }
       end
@@ -42,7 +42,7 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
     else
       {
         success: false,
-        user_errors: team.errors.full_messages,
+        user_errors: team.fields_errors,
         team: team
       }
     end

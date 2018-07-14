@@ -10,21 +10,21 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
     if !(@game.home && @game.away)
       return {
         success: false,
-        user_errors: ["teams not present"]
+        message: "teams not present"
       }
     end
 
     if (!ties_allowed? && tie?)
       return {
         success: false,
-        user_errors: ["ties not allowed for this game"]
+        message: "ties not allowed for this game"
       }
     end
 
     if (!inputs[:force] && !safe_to_update_score?)
       return {
         success: false,
-        user_errors: ["unsafe score update"]
+        message: "unsafe score update"
       }
     end
 

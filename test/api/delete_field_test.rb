@@ -3,7 +3,7 @@ require 'test_helper'
 class DeleteFieldTest < ApiTest
   setup do
     login_user
-    @output = '{ success, confirm, userErrors }'
+    @output = '{ success confirm message userErrors { field message } }'
   end
 
   test "delete a field" do
