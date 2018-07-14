@@ -97,7 +97,7 @@ class ScheduleGameTest < ApiTest
     assert_failure "Team #{game.away_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
-  test "checks for overlap team time conflicts" do
+  test "checks for team time conflicts (start_time)" do
     game = FactoryBot.create(:game, :scheduled)
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
@@ -112,7 +112,7 @@ class ScheduleGameTest < ApiTest
     assert_failure "Team #{game.home_prereq} is already playing at 12:06 PM -  1:36 PM"
   end
 
-  test "checks for underlap team time conflicts" do
+  test "checks for team time conflicts (end_time)" do
     game = FactoryBot.create(:game, :scheduled)
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
@@ -142,7 +142,7 @@ class ScheduleGameTest < ApiTest
     assert_success
   end
 
-  test "checks for field conflicts" do
+  test "checks for field conflicts (exact overlap)" do
     game = FactoryBot.create(:game, :scheduled, away: nil)
     new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
@@ -157,7 +157,37 @@ class ScheduleGameTest < ApiTest
     assert_failure "Field #{game.field.name} is in use at 12:06 PM -  1:36 PM"
   end
 
-  test "field conflict check works with timecap increments" do
+  test "checks for field conflicts (start_time)" do
+    game = FactoryBot.create(:game, :scheduled, away: nil)
+    new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
+
+    input = {
+      game_id: new_game.id,
+      field_id: game.field_id,
+      start_time: game.start_time - 30.minutes,
+      end_time: game.end_time - 30.minutes
+    }
+
+    execute_graphql("scheduleGame", "ScheduleGameInput", input, @output)
+    assert_failure "Field #{game.field.name} is in use at 11:36 AM -  1:06 PM"
+  end
+
+  test "checks for field conflicts (end_time)" do
+    game = FactoryBot.create(:game, :scheduled, away: nil)
+    new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
+
+    input = {
+      game_id: new_game.id,
+      field_id: game.field_id,
+      start_time: game.start_time + 30.minutes,
+      end_time: game.end_time + 30.minutes
+    }
+
+    execute_graphql("scheduleGame", "ScheduleGameInput", input, @output)
+    assert_failure "Field #{game.field.name} is in use at 12:36 PM -  2:06 PM"
+  end
+
+  test "field conflict check immediately following" do
     game = FactoryBot.create(:game, :scheduled, away: nil)
     new_game = FactoryBot.create(:game)
     start_time = game.end_time
