@@ -38,10 +38,6 @@ module Schedulable
     ((end_time - start_time) / 60).to_i
   end
 
-  def playing_time_range
-    (start_time)..(end_time)
-  end
-
   def playing_time_range_string
     formatted_start = start_time.strftime("%l:%M %p")
     formatted_end = end_time.strftime("%l:%M %p")
