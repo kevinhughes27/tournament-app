@@ -5,7 +5,7 @@ import ListSubheader from 'material-ui/List/ListSubheader';
 import Lock from './Lock';
 import SubmitModal from './SubmitModal';
 import gamesSearch from '../../helpers/gamesSearch';
-import _find from 'lodash/find';
+import findTeam from '../../helpers/findTeam';
 
 class SubmitView extends Component {
   render() {
@@ -41,7 +41,7 @@ function renderContent(search, teams, games, reports) {
 
 function renderGames(search, teams, games, reports) {
   const teamName = search;
-  const team = _find(teams, t => t.name === teamName);
+  const team = findTeam(teams, teamName);
 
   return (
     <div>
