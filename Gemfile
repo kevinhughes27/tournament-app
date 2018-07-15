@@ -8,6 +8,7 @@ gem 'puma'
 gem 'config'
 gem 'jbuilder'
 gem 'active_operation'
+gem 'kaminari', git: 'https://github.com/amatsuda/kaminari' # internal area pagination
 
 # api
 gem 'graphql'
@@ -16,17 +17,13 @@ gem 'graphiql-rails'
 # websockets
 gem 'actioncable'
 
-# controllers
-gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
-
 # datastores
 gem 'pg', '~> 0.21.0'
 gem 'redis', '~> 3.0'
 
-# engines
-gem 'devise'
-
 # auth
+gem 'devise'
+gem 'knock'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
