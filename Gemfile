@@ -8,7 +8,6 @@ gem 'puma'
 gem 'config'
 gem 'jbuilder'
 gem 'active_operation'
-gem 'kaminari', git: 'https://github.com/amatsuda/kaminari' # internal area pagination
 
 # api
 gem 'graphql'
@@ -33,6 +32,9 @@ gem 'paranoia', '~> 2.4.1'
 gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
+
+# internal area pagination
+gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
 
 # jobs
 gem 'sidekiq'
@@ -75,16 +77,9 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'spring'
-  gem 'bundler-audit', require: false
   gem 'rainbow'
   gem 'listen'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
-end
-
-group :circleci do
-  gem 'minitest-retry'
-  gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
-  gem 'json-schema', '~> 2.6.0'
 end
 
 group :development do
@@ -92,15 +87,19 @@ group :development do
   gem 'bullet'
   gem 'letter_opener'
   gem 'web-console'
-  gem 'rugged'
 end
 
 group :test do
   gem 'mocha', :require => false
-  gem 'timecop'
+  gem 'simplecov', :require => false
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'nokogiri'
   gem 'launchy'
-  gem 'simplecov', :require => false
+  gem 'json-schema', '~> 2.6.0'
+end
+
+group :circleci do
+  gem 'minitest-retry'
+  gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
+  gem 'bundler-audit', require: false
 end
