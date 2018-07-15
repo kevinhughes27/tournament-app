@@ -1,4 +1,23 @@
-const App = {
+const Login = {
+  container: {
+    display: "flex",
+    height: "75vh",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  title: {
+    flex: 1,
+    color: "white"
+  },
+  card: {
+    maxWidth: 380
+  },
+  actions: {
+    justifyContent: "flex-end"
+  }
+};
+
+const Admin = {
   root: {
     flexGrow: 1
   }
@@ -64,7 +83,8 @@ const Breadcrumbs = {
 };
 
 export {
-  App,
+  Login,
+  Admin,
   TopBar,
   UserMenu,
   SideBar,
