@@ -20,7 +20,7 @@ class TopBar extends React.Component<Props> {
     return (
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} aria-label="Menu" onClick={this.props.openNav}>
+          <IconButton id="side-bar" className={classes.menuButton} onClick={this.props.openNav}>
             <MenuIcon />
           </IconButton>
           <Typography variant="title" className={classes.title}>
