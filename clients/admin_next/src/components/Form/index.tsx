@@ -1,28 +1,57 @@
 import * as React from "react";
 
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Form as styles } from "../../assets/jss/styles";
-
 import Toast from "./Toast";
 import Warning from "./Warning";
 
-interface Props extends WithStyles<typeof styles> {
+interface FormAPI {
+  reset: () => void;
+  showMessage: (message: string) => void;
+  showError: (error: string) => void;
+}
+
+interface State {
   message?: string;
   error?: string;
 }
 
-class Form extends React.Component<Props> {
-  render() {
-    const { classes } = this.props;
+const defaultState = {
+  message: undefined,
+  error: undefined
+};
 
-    return (
-      <div className={classes.container}>
-        <Toast message={this.props.message} />
-        <Warning error={this.props.error} />
-        {this.props.children}
-      </div>
-    );
-  }
-}
+const Form = <Props extends FormAPI>(WrappedForm: React.ComponentType<Props>) =>
+  class extends React.Component<Props & FormAPI, State> {
+    state = defaultState;
 
-export default withStyles(styles)(Form);
+    reset = () => {
+      this.setState(defaultState);
+    }
+
+    showError = (error?: string) => {
+      this.setState({error});
+    }
+
+    showMessage = (message: string) => {
+      this.setState({message});
+    }
+
+    render() {
+      return (
+        <div style={{padding: 20}}>
+          <Toast message={this.state.message} />
+          <Warning error={this.state.error} />
+          <WrappedForm
+            {...this.props}
+            reset={this.reset}
+            showMessage={this.showMessage}
+            showError={this.showError}
+          />
+        </div>
+      );
+    }
+  };
+
+export {
+  Form,
+  FormAPI
+};

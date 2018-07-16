@@ -84,12 +84,6 @@ const Breadcrumbs = {
   }
 };
 
-const Form = {
-  container: {
-    padding: 20
-  }
-};
-
 const Warning = {
   warning: {
     backgroundColor: amber[700]
@@ -115,6 +109,5 @@ export {
   Loader,
   BlankSlate,
   Breadcrumbs,
-  Form,
   Warning
 };

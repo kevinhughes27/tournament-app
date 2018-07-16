@@ -1,7 +1,3 @@
-type UpdateTeamMutation = {
-  updateTeam: UpdateTeam;
-}
-
 type UpdateTeam = {
   team: Team;
   success: boolean;
@@ -9,7 +5,6 @@ type UpdateTeam = {
   message: string;
   userErrors: UserError[];
 }
-
 
 type UserError = {
   field: string;

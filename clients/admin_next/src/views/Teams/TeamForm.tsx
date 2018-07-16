@@ -4,7 +4,7 @@ import * as EmailValidator from "email-validator";
 
 import TextField from "@material-ui/core/TextField";
 import DivisionPicker from "./DivisionPicker";
-import Form from "../../components/Form";
+import { Form, FormAPI } from "../../components/Form";
 import SubmitButton from "../../components/SubmitButton";
 
 import environment from "../../relay";
@@ -15,18 +15,28 @@ interface Props {
   divisions: Division[];
 }
 
-interface State {
-  message?: string;
-  error?: string;
-}
+class TeamForm extends React.Component<Props & FormAPI> {
+  initialValues = () => {
+    const { team } = this.props;
 
-const defaultState = {
-  message: undefined,
-  error: undefined
-};
+    return {
+      name: team.name,
+      email: team.email || "",
+      divisionId: team.division && team.division.id || "",
+      seed: team.seed || ""
+    };
+  }
 
-class TeamForm extends React.Component<Props, State> {
-  state = defaultState;
+  render() {
+    return (
+      <Formik
+        initialValues={this.initialValues()}
+        validate={this.validate}
+        onSubmit={this.onSubmit}
+        render={this.renderForm}
+      />
+    );
+  }
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
@@ -47,20 +57,18 @@ class TeamForm extends React.Component<Props, State> {
   }
 
   onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
-    this.setState(defaultState);
+    this.props.reset();
 
     UpdateTeamMutation.commit(
       environment,
       values,
       this.props.team,
       (response) => this.onComplete(response, actions),
-      (error) => this.onError(error)
+      (error) => this.props.showError(error)
     );
   }
 
-  onComplete = (response: UpdateTeamMutation, actions: FormikActions<FormikValues>) => {
-    const result = response.updateTeam;
-
+  onComplete = (result: UpdateTeam, actions: FormikActions<FormikValues>) => {
     actions.setSubmitting(false);
 
     if (result.success) {
@@ -70,49 +78,19 @@ class TeamForm extends React.Component<Props, State> {
     }
   }
 
-  onError = (error: Error | undefined) => {
-    if (error) {
-      this.setState({error: error.message});
-    } else {
-      this.setState({error: "Something went wrong."});
-    }
-  }
-
   handleSuccess = (actions: FormikActions<FormikValues>) => {
     actions.resetForm();
-    this.setState({message: "Team Saved"});
+    this.props.showMessage("Team Saved");
   }
 
   handleFailure = (result: UpdateTeam, actions: FormikActions<FormikValues>) => {
     if (result.userErrors && result.userErrors.length > 0) {
       result.userErrors.forEach((error) => actions.setFieldError(error.field, error.message));
     } else if (result.message) {
-      this.setState({error: result.message});
+      this.props.showError(result.message);
     } else {
-      this.setState({error: "Something went wrong."});
+      this.props.showError("Something went wrong.");
     }
-  }
-
-  render() {
-    const { team } = this.props;
-
-    const initialValues = {
-      name: team.name,
-      email: team.email || "",
-      divisionId: team.division && team.division.id || "",
-      seed: team.seed || ""
-    };
-
-    return (
-      <Form error={this.state.error} message={this.state.message}>
-        <Formik
-          initialValues={initialValues}
-          validate={this.validate}
-          onSubmit={this.onSubmit}
-          render={this.renderForm}
-        />
-      </Form>
-    );
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
@@ -173,4 +151,4 @@ class TeamForm extends React.Component<Props, State> {
   }
 }
 
-export default TeamForm;
+export default Form(TeamForm);
