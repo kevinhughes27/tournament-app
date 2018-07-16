@@ -4,8 +4,10 @@ import * as EmailValidator from "email-validator";
 
 import TextField from "@material-ui/core/TextField";
 import DivisionPicker from "./DivisionPicker";
-import { Form, FormAPI } from "../../components/Form";
 import SubmitButton from "../../components/SubmitButton";
+
+import { Form, FormAPI } from "../../components/Form";
+import { onComplete } from "../../helpers/formHelpers";
 
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
@@ -63,34 +65,9 @@ class TeamForm extends React.Component<Props & FormAPI> {
       environment,
       values,
       this.props.team,
-      (response) => this.onComplete(response, actions),
+      (result) => onComplete(result, "Team Saved", this.props, actions),
       (error) => this.props.showError(error)
     );
-  }
-
-  onComplete = (result: UpdateTeam, actions: FormikActions<FormikValues>) => {
-    actions.setSubmitting(false);
-
-    if (result.success) {
-      this.handleSuccess(actions);
-    } else {
-      this.handleFailure(result, actions);
-    }
-  }
-
-  handleSuccess = (actions: FormikActions<FormikValues>) => {
-    actions.resetForm();
-    this.props.showMessage("Team Saved");
-  }
-
-  handleFailure = (result: UpdateTeam, actions: FormikActions<FormikValues>) => {
-    if (result.userErrors && result.userErrors.length > 0) {
-      result.userErrors.forEach((error) => actions.setFieldError(error.field, error.message));
-    } else if (result.message) {
-      this.props.showError(result.message);
-    } else {
-      this.props.showError("Something went wrong.");
-    }
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {

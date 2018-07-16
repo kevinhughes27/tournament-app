@@ -1,3 +1,9 @@
+interface MutationResult {
+  success: boolean;
+  message: string;
+  userErrors: UserError[];
+}
+
 type UpdateTeam = {
   team: Team;
   success: boolean;
