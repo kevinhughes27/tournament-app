@@ -1,5 +1,5 @@
 import { commitMutation, graphql } from "react-relay";
-import { Environment, PayloadError } from "relay-runtime";
+import { Environment } from "relay-runtime";
 
 const mutation = graphql`
   mutation UpdateTeamMutation($input: UpdateTeamInput!) {

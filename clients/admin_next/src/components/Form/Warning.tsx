@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core";
-import { Warning as styles } from "../assets/jss/styles";
+import { Warning as styles } from "../../assets/jss/styles";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import WarningIcon from "@material-ui/icons/Warning";
 

@@ -1,19 +1,16 @@
 import * as React from "react";
 import { Formik, FormikValues, FormikProps, FormikActions, FormikErrors } from "formik";
+import * as EmailValidator from "email-validator";
 
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Form as styles } from "../../assets/jss/styles";
 import TextField from "@material-ui/core/TextField";
-
-import SubmitButton from "../../components/SubmitButton";
 import DivisionPicker from "./DivisionPicker";
-import Toast from "../../components/Toast";
-import Warning from "../../components/Warning";
+import Form from "../../components/Form";
+import SubmitButton from "../../components/SubmitButton";
 
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   team: Team;
   divisions: Division[];
 }
@@ -38,9 +35,7 @@ class TeamForm extends React.Component<Props, State> {
       errors.name = "Required";
     }
 
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
-    if (values.email && emailRegex.test(values.email)) {
+    if (values.email && !EmailValidator.validate(values.email)) {
       errors.email = "Invalid email address";
     }
 
@@ -99,7 +94,7 @@ class TeamForm extends React.Component<Props, State> {
   }
 
   render() {
-    const { team, classes } = this.props;
+    const { team } = this.props;
 
     const initialValues = {
       name: team.name,
@@ -109,16 +104,14 @@ class TeamForm extends React.Component<Props, State> {
     };
 
     return (
-      <div className={classes.container}>
-        <Toast message={this.state.message} />
-        <Warning error={this.state.error} />
+      <Form error={this.state.error} message={this.state.message}>
         <Formik
           initialValues={initialValues}
           validate={this.validate}
           onSubmit={this.onSubmit}
           render={this.renderForm}
         />
-      </div>
+      </Form>
     );
   }
 
@@ -180,4 +173,4 @@ class TeamForm extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(TeamForm);
+export default TeamForm;
