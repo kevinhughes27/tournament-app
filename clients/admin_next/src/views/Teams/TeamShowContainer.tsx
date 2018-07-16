@@ -17,6 +17,7 @@ class TeamShowContainer extends React.Component<Props> {
         team(id: $teamId) {
           id
           name
+          email
           division {
             id
             name

@@ -13,15 +13,13 @@ class ApiTest < ActionDispatch::IntegrationTest
   def login_user(user = nil)
     user ||= @user
 
-    get "http://#{@tournament.handle}.lvh.me/admin"
-    follow_redirect!
-    assert_equal 200, status
-    assert_equal new_user_session_path, path
+    url = "http://#{@tournament.handle}.lvh.me/user_token"
 
-    post new_user_session_path, params: { user: {email: user.email, password: user.password} }
-    follow_redirect!
-    assert_equal 200, status
-    assert_equal "/admin", path
+    post url, params: { auth: {email: user.email, password: user.password} }
+    assert_equal 201, status
+
+    jwt = JSON.parse(response.body)['jwt']
+    @authenticated_header = {'Authorization' => "Bearer #{jwt}"}
   end
 
   # filter is default true since fields are only hidden not protected
@@ -33,7 +31,7 @@ class ApiTest < ActionDispatch::IntegrationTest
       "filter" => filter
     }
 
-    post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
+    post url, params: params.to_json, headers: headers
 
     @result = JSON.parse(response.body)
 
@@ -54,8 +52,8 @@ class ApiTest < ActionDispatch::IntegrationTest
       "filter" => filter
     }
 
-    post url, params: params.to_json, headers: { 'CONTENT_TYPE' => 'application/json' }
-
+    post url, params: params.to_json, headers: headers
+    assert_equal 200, response.status
     @result = JSON.parse(response.body)
 
     if expect_error
@@ -87,6 +85,12 @@ class ApiTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def headers
+    @headers = { 'CONTENT_TYPE' => 'application/json' }
+    @headers.merge!(@authenticated_header) if @authenticated_header
+    @headers
+  end
 
   def assert_error_free
     assert_nil @result['errors'], 'GraphQL Errors'

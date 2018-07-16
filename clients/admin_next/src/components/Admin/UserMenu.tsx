@@ -1,4 +1,5 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { UserMenu as styles } from "../../assets/jss/styles";
 
@@ -7,7 +8,9 @@ import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-interface Props extends WithStyles<typeof styles> {}
+import auth from "../../auth";
+
+type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {};
 
 interface State {
   open: boolean;
@@ -29,7 +32,8 @@ class UserMenu extends React.Component<Props, State> {
   }
 
   handleLogout = () => {
-    fetch("/sign_out", {method: "DELETE", credentials: "include"});
+    auth.logout();
+    this.props.history.push("/");
   }
 
   render() {
@@ -57,4 +61,4 @@ class UserMenu extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(UserMenu);
+export default withRouter(withStyles(styles)(UserMenu));

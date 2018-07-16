@@ -21,6 +21,7 @@ class TeamShow extends React.Component<Props> {
             {text: team.name}
           ]}
         />
+        email: {team.email}
       </div>
     );
   }

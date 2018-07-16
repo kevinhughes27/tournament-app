@@ -13,6 +13,9 @@ class User < ApplicationRecord
          :trackable,
          :validatable
 
+  # knock expects `authenticate`, devise provides `valid_password?`
+  alias :authenticate :valid_password?
+
   after_commit :subscribe_to_mailchimp, on: :create
 
   def self.from_omniauth(auth)

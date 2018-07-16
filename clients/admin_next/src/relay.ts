@@ -1,5 +1,6 @@
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
 import RelayQueryResponseCache from "relay-runtime/lib/RelayQueryResponseCache";
+import auth from "./auth";
 
 const cache = new RelayQueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 });
 
@@ -27,16 +28,20 @@ const fetchQuery = (
     cache.clear();
   }
 
+  const headers = {
+    "content-type": "application/json",
+    "Authorization": `Bearer ${auth.getToken()}`
+  };
+
+  const body = JSON.stringify({
+    query: operation.text,
+    variables,
+  });
+
   return fetch("/graphql", {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    credentials: "include",
-    body: JSON.stringify({
-      query: operation.text,
-      variables,
-    }),
+    headers,
+    body,
   }).then((response) => {
     return response.json();
   }).then((data) => {

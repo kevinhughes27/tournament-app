@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Route } from "react-router-dom";
 
-import Home from "./views/Home";
-import {TeamList, TeamShow } from "./views/Teams";
-import { DivisionList } from "./views/Divisions";
-import { FieldList } from "./views/Fields";
-import Schedule from "./views/Schedule";
-import { GameList } from "./views/Games";
+import Home from "./Home";
+import {TeamList, TeamShow } from "./Teams";
+import { DivisionList } from "./Divisions";
+import { FieldList } from "./Fields";
+import Schedule from "./Schedule";
+import { GameList } from "./Games";
 
 const Routes = () => (
   <div>

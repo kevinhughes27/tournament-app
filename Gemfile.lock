@@ -198,6 +198,10 @@ GEM
     jstz-rails3-plus (1.0.5)
       railties (>= 3.1)
     jwt (1.5.6)
+    knock (2.1.1)
+      bcrypt (~> 3.1)
+      jwt (~> 1.5)
+      rails (>= 4.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.6.0)
@@ -312,7 +316,6 @@ GEM
       multi_json
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
-    rugged (0.27.1)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -360,7 +363,6 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    timecop (0.9.1)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.1.0)
@@ -423,6 +425,7 @@ DEPENDENCIES
   json-schema (~> 2.6.0)
   jstz-rails3-plus
   kaminari!
+  knock
   launchy
   letter_opener
   listen
@@ -430,7 +433,6 @@ DEPENDENCIES
   minitest-retry
   mocha
   newrelic_rpm
-  nokogiri
   omniauth-facebook
   omniauth-google-oauth2
   paranoia (~> 2.4.1)
@@ -444,14 +446,12 @@ DEPENDENCIES
   react_on_rails (= 11.0.9)
   redis (~> 3.0)
   rollbar
-  rugged
   sassc-rails
   selenium-webdriver
   sidekiq
   simplecov
   sinatra
   spring
-  timecop
   turbolinks (~> 5.0.0)
   twine-rails
   uglifier (~> 3.2.0)
