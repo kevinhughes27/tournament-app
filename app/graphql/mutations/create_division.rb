@@ -5,5 +5,6 @@ class Mutations::CreateDivision < Mutations::BaseMutation
 
   field :division, Types::Division, null: false
   field :success, Boolean, null: false
+  field :message, String, null: true
   field :userErrors, [Types::Error], null: true
 end

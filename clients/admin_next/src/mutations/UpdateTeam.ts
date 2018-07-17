@@ -38,7 +38,7 @@ function commit(
   input: any,
   team: Team,
   success: (result: UpdateTeam) => void,
-  failure: (error: string) => void
+  failure: (error: Error | undefined) => void
 ) {
   return commitMutation(
     environment,
@@ -55,7 +55,7 @@ function commit(
         success(response.updateTeam);
       },
       onError: (error) => {
-        failure(error && error.message || "Something went wrong.");
+        failure(error);
       }
     },
   );

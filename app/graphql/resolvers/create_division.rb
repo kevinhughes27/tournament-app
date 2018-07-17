@@ -8,6 +8,7 @@ class Resolvers::CreateDivision < Resolvers::BaseResolver
       create_places
       {
         success: true,
+        message: 'Division created',
         division: @division
       }
     else

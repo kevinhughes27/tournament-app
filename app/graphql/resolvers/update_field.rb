@@ -7,6 +7,7 @@ class Resolvers::UpdateField < Resolvers::BaseResolver
     if field.update(params)
       {
         success: true,
+        message: 'Field updated',
         field: field
       }
     else

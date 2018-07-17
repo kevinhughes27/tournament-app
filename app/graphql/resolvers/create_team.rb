@@ -6,6 +6,7 @@ class Resolvers::CreateTeam < Resolvers::BaseResolver
     if team.persisted?
       {
         success: true,
+        message: 'Team created',
         team: team
       }
     else

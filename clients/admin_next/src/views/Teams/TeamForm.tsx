@@ -7,7 +7,7 @@ import DivisionPicker from "./DivisionPicker";
 import SubmitButton from "../../components/SubmitButton";
 
 import { Form, FormAPI } from "../../components/Form";
-import { onComplete } from "../../helpers/formHelpers";
+import { onComplete, onError } from "../../helpers/formHelpers";
 
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
@@ -65,8 +65,8 @@ class TeamForm extends React.Component<Props & FormAPI> {
       environment,
       values,
       this.props.team,
-      (result) => onComplete(result, "Team Saved", this.props, actions),
-      (error) => this.props.showError(error)
+      (result) => onComplete(result, this.props, actions),
+      (error) => onError(error, this.props)
     );
   }
 

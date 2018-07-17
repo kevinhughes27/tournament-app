@@ -21,9 +21,15 @@ class Resolvers::DeleteField < Resolvers::BaseResolver
     end
 
     if deleted
-      { success: true }
+      {
+        success: true,
+        message: 'Field deleted'
+      }
     else
-      { success: false }
+      {
+        success: false,
+        message: 'Delete failed'
+      }
     end
   end
 

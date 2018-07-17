@@ -3,26 +3,29 @@ import { FormAPI } from "components/Form";
 
 const onComplete = (
   result: MutationResult,
-  message: string,
   props: FormAPI,
   actions: FormikActions<FormikValues>
 ) => {
   actions.setSubmitting(false);
 
   if (result.success) {
-    handleSuccess(message, props, actions);
+    handleSuccess(result, props, actions);
   } else {
     handleFailure(result, props, actions);
   }
 };
 
+const onError = (error: Error | undefined, props: FormAPI) => {
+  props.showError(error && error.message || "Something went wrong.");
+};
+
 const handleSuccess = (
-  message: string,
+  result: MutationResult,
   props: FormAPI,
   actions: FormikActions<FormikValues>
 ) => {
   actions.resetForm();
-  props.showMessage(message);
+  props.showMessage(result.message);
 };
 
 const handleFailure = (
@@ -49,5 +52,6 @@ const setFieldErrors = (
 };
 
 export {
-  onComplete
+  onComplete,
+  onError
 };

@@ -37,6 +37,7 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
     if team.update(params)
       {
         success: true,
+        message: 'Team updated',
         team: team
       }
     else
