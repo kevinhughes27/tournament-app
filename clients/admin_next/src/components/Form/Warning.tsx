@@ -5,14 +5,14 @@ import SnackbarContent from "@material-ui/core/SnackbarContent";
 import WarningIcon from "@material-ui/icons/Warning";
 
 interface Props  extends WithStyles<typeof styles> {
-  error?: string;
+  message?: string;
 }
 
 class Warning extends React.Component<Props> {
   render() {
-    const { error, classes } = this.props;
+    const { message, classes } = this.props;
 
-    if (error === undefined) {
+    if (message === undefined) {
       return null;
     }
 
@@ -21,7 +21,7 @@ class Warning extends React.Component<Props> {
         className={classes.warning}
         message={<span className={classes.message}>
           <WarningIcon className={classes.icon}/>
-          <span>{this.props.error}</span>
+          <span>{this.props.message}</span>
         </span>}
       />
     );

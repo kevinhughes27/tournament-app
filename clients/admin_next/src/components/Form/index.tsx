@@ -1,23 +1,23 @@
 import * as React from "react";
 import { Subtract } from "utility-types";
 
-import Toast from "./Toast";
+import Notice from "./Notice";
 import Warning from "./Warning";
 
 interface FormAPI {
   reset: () => void;
   showMessage: (message: string) => void;
-  showError: (error: string) => void;
+  showError: (errorMessage: string) => void;
 }
 
 interface State {
   message?: string;
-  error?: string;
+  errorMessage?: string;
 }
 
 const defaultState = {
   message: undefined,
-  error: undefined
+  errorMessage: undefined
 };
 
 const Form = <Props extends FormAPI>(WrappedForm: React.ComponentType<Props>) =>
@@ -28,8 +28,8 @@ const Form = <Props extends FormAPI>(WrappedForm: React.ComponentType<Props>) =>
       this.setState(defaultState);
     }
 
-    showError = (error?: string) => {
-      this.setState({error});
+    showError = (errorMessage?: string) => {
+      this.setState({errorMessage});
     }
 
     showMessage = (message: string) => {
@@ -39,8 +39,8 @@ const Form = <Props extends FormAPI>(WrappedForm: React.ComponentType<Props>) =>
     render() {
       return (
         <div style={{padding: 20}}>
-          <Toast message={this.state.message} />
-          <Warning error={this.state.error} />
+          <Notice message={this.state.message} />
+          <Warning message={this.state.errorMessage} />
           <WrappedForm
             {...this.props}
             reset={this.reset}

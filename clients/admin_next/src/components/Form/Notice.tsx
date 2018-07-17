@@ -15,7 +15,7 @@ interface State {
   message: string;
 }
 
-class Toast extends React.Component<Props, State> {
+class Notice extends React.Component<Props, State> {
   state = {
     open: false,
     message: ""
@@ -56,4 +56,4 @@ class Toast extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(Toast);
+export default withStyles(styles)(Notice);
