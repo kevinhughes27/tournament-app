@@ -33,7 +33,9 @@ class LoginForm extends React.Component<Props, State> {
     this.setState({[target.name]: target.value} as any);
   }
 
-  handleSubmit = () => {
+  handleSubmit = (ev: React.FormEvent<EventTarget>) => {
+    ev.preventDefault();
+
     auth.login(this.state.email, this.state.password).then(() => {
       this.props.onComplete();
     });
@@ -53,35 +55,36 @@ class LoginForm extends React.Component<Props, State> {
         </AppBar>
         <div className={classes.container}>
           <Card className={classes.card}>
-            <CardContent>
-              <Typography variant="subheading">
-                Log in to manage your tournament
-              </Typography>
+            <form onSubmit={this.handleSubmit}>
+              <CardContent>
+                <Typography variant="subheading">
+                  Log in to manage your tournament
+                </Typography>
+                <TextField
+                  name="email"
+                  label="Username"
+                  margin="normal"
+                  fullWidth
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
 
-              <TextField
-                name="email"
-                label="Username"
-                margin="normal"
-                fullWidth
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-
-              <TextField
-                name="password"
-                label="Password"
-                margin="normal"
-                type="password"
-                fullWidth
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-            </CardContent>
-            <CardActions className={classes.actions}>
-              <Button color="primary" variant="contained" onClick={this.handleSubmit}>
-                Log in
-              </Button>
-            </CardActions>
+                <TextField
+                  name="password"
+                  label="Password"
+                  margin="normal"
+                  type="password"
+                  fullWidth
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </CardContent>
+              <CardActions className={classes.actions}>
+                <Button color="primary" variant="contained" type="submit">
+                  Log in
+                </Button>
+              </CardActions>
+            </form>
           </Card>
         </div>
       </div>
