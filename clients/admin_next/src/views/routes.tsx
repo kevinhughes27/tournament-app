@@ -6,7 +6,7 @@ import {TeamList, TeamShow } from "./Teams";
 import { DivisionList } from "./Divisions";
 import { FieldList } from "./Fields";
 import Schedule from "./Schedule";
-import { GameList } from "./Games";
+import { GameList, GameShow } from "./Games";
 
 const Routes = () => (
   <div>
@@ -16,7 +16,8 @@ const Routes = () => (
     <Route path="/divisions" component={DivisionList} />
     <Route path="/fields" component={FieldList} />
     <Route path="/schedule" component={Schedule} />
-    <Route path="/games" component={GameList} />
+    <Route exact path="/games" component={GameList} />
+    <Route path="/games/:gameId" component={GameShow} />
   </div>
 );
 

@@ -8,39 +8,36 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
+import Breadcrumbs from "../../components/Breadcrumbs";
+import GameListItem from "./GameListItem";
+
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
   games: Game[];
 }
 
-const Row = (g: any) => (
-  <TableRow key={g.id}>
-    <TableCell>{g.homeName} vs {g.awayName}</TableCell>
-    <TableCell>{g.division.name}</TableCell>
-    <TableCell>{g.pool}</TableCell>
-    <TableCell>{g.homeScore} - {g.awayScore}</TableCell>
-  </TableRow>
-);
-
 class GameList extends React.Component<Props> {
   render() {
     const { games } = this.props;
 
     return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Division</TableCell>
-            <TableCell>Pool</TableCell>
-            <TableCell>Score</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {games.map(Row)}
-        </TableBody>
-      </Table>
+      <div>
+        <Breadcrumbs items={[{text: "Games"}]} />
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Division</TableCell>
+              <TableCell>Pool</TableCell>
+              <TableCell>Score</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {games.map((g: Game) => <GameListItem key={g.id} game={g}/>)}
+          </TableBody>
+        </Table>
+      </div>
     );
   }
 }

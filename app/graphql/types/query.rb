@@ -73,7 +73,7 @@ class Types::Query < Types::BaseObject
   end
 
   def game(id:)
-    context[:tournament].game.find(id)
+    context[:tournament].games.find(id)
   end
 
   field :score_reports, [Types::ScoreReport], auth: :required, null: true

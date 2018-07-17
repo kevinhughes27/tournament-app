@@ -33,7 +33,7 @@ class TeamList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {teams.map((t: any) => <TeamListItem key={t.id} team={t}/>)}
+            {teams.map((t: Team) => <TeamListItem key={t.id} team={t}/>)}
           </TableBody>
         </Table>
       </div>
