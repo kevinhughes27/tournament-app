@@ -23,23 +23,27 @@ export default class Lock extends Component {
 
   render() {
     if (this.state.locked) {
-      return (
-        <div className="lock-screen">
-          <div style={{ textAlign: 'center' }}>
-            <h3>Enter PIN to Unlock:</h3>
-            <PinInput
-              length={PIN_LENGTH}
-              onComplete={value => {
-                checkPin(value).then(
-                  valid => (valid ? this.unlock() : this.lock())
-                );
-              }}
-            />
-          </div>
-        </div>
-      );
+      return this.renderLockScreen();
     } else {
       return this.props.children;
     }
   }
+
+  renderLockScreen = () => {
+    return (
+      <div className="lock-screen">
+        <div style={{ textAlign: 'center' }}>
+          <h3>Enter PIN to Unlock:</h3>
+          <PinInput
+            length={PIN_LENGTH}
+            onComplete={value => {
+              checkPin(value).then(
+                valid => (valid ? this.unlock() : this.lock())
+              );
+            }}
+          />
+        </div>
+      </div>
+    );
+  };
 }
