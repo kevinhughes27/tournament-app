@@ -47,13 +47,7 @@ export default createFragmentContainer(StyledTeamList, {
   teams: graphql`
     fragment TeamList_teams on Team @relay(plural: true) {
       id
-      name
-      email
-      division {
-        id
-        name
-      }
-      seed
+      ...TeamListItem_team
     }
   `
 });

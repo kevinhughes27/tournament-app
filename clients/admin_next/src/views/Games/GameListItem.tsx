@@ -1,5 +1,6 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import {createFragmentContainer, graphql} from "react-relay";
 
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
@@ -27,4 +28,19 @@ class GameListItem extends React.Component<Props> {
   }
 }
 
-export default withRouter(GameListItem);
+export default createFragmentContainer(withRouter(GameListItem), {
+  game: graphql`
+    fragment GameListItem_game on Game {
+      id
+      pool
+      homeName
+      awayName
+      homeScore
+      awayScore
+      division {
+        id
+        name
+      }
+    }
+  `
+});

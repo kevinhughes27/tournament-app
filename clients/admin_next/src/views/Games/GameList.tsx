@@ -48,15 +48,7 @@ export default createFragmentContainer(StyledGameList, {
   games: graphql`
     fragment GameList_games on Game @relay(plural: true) {
       id
-      pool
-      homeName
-      awayName
-      homeScore
-      awayScore
-      division {
-        id
-        name
-      }
+      ...GameListItem_game
     }
   `
 });
