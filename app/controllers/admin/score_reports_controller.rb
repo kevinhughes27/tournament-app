@@ -4,6 +4,16 @@ class Admin::ScoreReportsController < AdminController
     sum_reports_by_team
   end
 
+  def export_csv
+    @reports = @tournament.score_reports.includes(game: [:home, :away, :division])
+
+    csv = ReportsCsvExport.perform(@reports)
+
+    respond_to do |format|
+      format.csv { send_data csv, filename: 'reports.csv' }
+    end
+  end
+
   def destroy
     @tournament.score_reports.find(params[:id]).destroy
   end
