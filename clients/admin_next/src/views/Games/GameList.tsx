@@ -1,4 +1,5 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -10,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  games: any;
+  games: Game[];
 }
 
 const Row = (g: any) => (
@@ -44,4 +45,21 @@ class GameList extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(GameList);
+const StyledGameList = withStyles(styles)(GameList);
+
+export default createFragmentContainer(StyledGameList, {
+  games: graphql`
+    fragment GameList_games on Game @relay(plural: true) {
+      id
+      pool
+      homeName
+      awayName
+      homeScore
+      awayScore
+      division {
+        id
+        name
+      }
+    }
+  `
+});

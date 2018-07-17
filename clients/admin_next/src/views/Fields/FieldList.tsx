@@ -1,4 +1,5 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -10,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  fields: any;
+  fields: Field[];
 }
 
 const Row = (f: any) => (
@@ -42,4 +43,15 @@ class FieldList extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(FieldList);
+const StyledFieldList = withStyles(styles)(FieldList);
+
+export default createFragmentContainer(StyledFieldList, {
+  fields: graphql`
+    fragment FieldList_fields on Field @relay(plural: true) {
+      id
+      name
+      lat
+      long
+    }
+  `
+});
