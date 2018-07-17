@@ -3,6 +3,7 @@ import {createFragmentContainer, graphql} from "react-relay";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import ScoreForm from "./ScoreForm";
 
 const styles = {};
 
@@ -22,6 +23,7 @@ class GameShow extends React.Component<Props> {
             {text: `${game.homeName} vs ${game.awayName}` }
           ]}
         />
+        <ScoreForm game={game} />
       </div>
     );
   }
