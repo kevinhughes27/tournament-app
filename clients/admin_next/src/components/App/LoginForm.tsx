@@ -64,6 +64,7 @@ class LoginForm extends React.Component<Props, State> {
                   name="email"
                   label="Username"
                   margin="normal"
+                  autoComplete="off"
                   fullWidth
                   value={this.state.email}
                   onChange={this.handleChange}
@@ -72,8 +73,9 @@ class LoginForm extends React.Component<Props, State> {
                 <TextField
                   name="password"
                   label="Password"
-                  margin="normal"
                   type="password"
+                  margin="normal"
+                  autoComplete="off"
                   fullWidth
                   value={this.state.password}
                   onChange={this.handleChange}

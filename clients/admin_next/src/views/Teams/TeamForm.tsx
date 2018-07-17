@@ -89,6 +89,7 @@ class TeamForm extends React.Component<Props & FormAPI> {
           name="name"
           label="Name"
           margin="normal"
+          autoComplete="off"
           fullWidth
           value={values.name}
           onChange={handleChange}
@@ -98,6 +99,7 @@ class TeamForm extends React.Component<Props & FormAPI> {
           name="email"
           label="Email"
           margin="normal"
+          autoComplete="off"
           fullWidth
           value={values.email}
           onChange={handleChange}
@@ -111,9 +113,10 @@ class TeamForm extends React.Component<Props & FormAPI> {
         <TextField
           name="seed"
           label="Seed"
-          margin="normal"
-          fullWidth
           type="number"
+          margin="normal"
+          autoComplete="off"
+          fullWidth
           value={values.seed}
           onChange={handleChange}
           helperText={formProps.errors.seed && formProps.errors.seed}
