@@ -37,7 +37,8 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
     end
 
     return {
-      success: true
+      success: true,
+      message: 'Score updated'
     }
   end
 

@@ -13,7 +13,10 @@ class Resolvers::DeleteDivision < Resolvers::BaseResolver
         message: DIVISION_DELETE_CONFIRM_MSG
       }
     elsif division.destroy
-      { success: true }
+      {
+        success: true,
+        message: 'Division deleted'
+      }
     else
       {
         success: false,

@@ -35,7 +35,8 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
     seed
 
     return {
-      success: true
+      success: true,
+      message: 'Division seeded'
     }
   end
 

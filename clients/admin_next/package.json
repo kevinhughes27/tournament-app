@@ -16,7 +16,7 @@
   "scripts": {
     "start": "concurrently \"yarn compile-relay --watch\" \"PORT=4000 react-app-rewired start\"",
     "build": "yarn compile-relay && react-app-rewired build",
-    "compile-relay": "relay-compiler --src ./src --schema ../../app/graphql/schema.graphql --extensions tsx",
+    "compile-relay": "relay-compiler --src ./src --schema ../../app/graphql/schema.graphql --extensions tsx ts",
     "type-check": "tsc --noEmit --pretty",
     "test": "react-app-rewired test --env=jsdom"
   },
@@ -37,6 +37,8 @@
     "@types/relay-runtime": "^1.3.3",
     "babel-plugin-relay": "^1.6.0",
     "concurrently": "^3.6.0",
+    "email-validator": "^2.0.4",
+    "formik": "^1.0.0-beta.9",
     "jwt-decode": "^2.2.0",
     "react": "^16.4.0",
     "react-app-rewire-typescript-babel-preset": "^2.3.0",
@@ -50,7 +52,8 @@
     "relay-runtime": "^1.6.0",
     "tslint": "^5.10.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "utility-types": "^2.0.0"
   },
   "browserslist": {
     "development": [

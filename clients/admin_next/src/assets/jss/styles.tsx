@@ -1,3 +1,5 @@
+import amber from "@material-ui/core/colors/amber";
+
 const Login = {
   container: {
     display: "flex",
@@ -82,6 +84,21 @@ const Breadcrumbs = {
   }
 };
 
+const Warning = {
+  warning: {
+    backgroundColor: amber[700]
+  },
+  icon: {
+    fontSize: 20,
+    opacity: 0.9,
+    marginRight: 10
+  },
+  message: {
+    display: "flex",
+    alignItems: "center",
+  }
+};
+
 export {
   Login,
   Admin,
@@ -91,5 +108,6 @@ export {
   NavItems,
   Loader,
   BlankSlate,
-  Breadcrumbs
+  Breadcrumbs,
+  Warning
 };

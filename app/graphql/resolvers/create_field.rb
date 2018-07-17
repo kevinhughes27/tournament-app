@@ -6,6 +6,7 @@ class Resolvers::CreateField < Resolvers::BaseResolver
     if field.persisted?
       {
         success: true,
+        message: 'Field created',
         field: field
       }
     else

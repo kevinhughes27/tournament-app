@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
 interface Props extends RouteComponentProps<any> {
-  team: any;
+  team: Team;
 }
 
 class TeamListItem extends React.Component<Props> {
@@ -19,7 +19,7 @@ class TeamListItem extends React.Component<Props> {
     return (
       <TableRow hover onClick={this.handleClick}>
         <TableCell>{team.name}</TableCell>
-        <TableCell>{team.division.name}</TableCell>
+        <TableCell>{team.division && team.division.name}</TableCell>
         <TableCell>{team.seed}</TableCell>
       </TableRow>
     );

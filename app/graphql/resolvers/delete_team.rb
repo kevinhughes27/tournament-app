@@ -27,9 +27,15 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
     end
 
     if team.destroy
-      { success: true }
+      {
+        success: true,
+        message: 'Team deleted'
+      }
     else
-      { success: false }
+      {
+        success: false,
+        message: 'Delete failed'
+      }
     end
   end
 

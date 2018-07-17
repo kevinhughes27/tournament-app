@@ -13,7 +13,7 @@ import TeamListItem from "./TeamListItem";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  teams: any;
+  teams: Team[];
 }
 
 class TeamList extends React.Component<Props> {

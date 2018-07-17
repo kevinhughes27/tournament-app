@@ -5,5 +5,6 @@ class Mutations::CreateTeam < Mutations::BaseMutation
 
   field :team, Types::Team, null: false
   field :success, Boolean, null: false
+  field :message, String, null: true
   field :userErrors, [Types::Error], null: true
 end

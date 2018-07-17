@@ -11,18 +11,10 @@ class AdminNextBrowserTest < BrowserTest
 
   test 'admin next' do
     visit_app
-
     login
-
-    assert_text 'Home'
-
     navigate_to('Teams')
-    assert_text @team.name
-
-    # navigate to team
-    click_text(@team.name)
-    assert_text @team.email
-
+    open_team
+    edit_team
     logout
   end
 
@@ -38,11 +30,32 @@ class AdminNextBrowserTest < BrowserTest
     fill_in('email', with: @user.email)
     fill_in('password', with: 'password')
     click_on('Log in')
+
+    assert_text('Home')
   end
 
   def navigate_to(nav_item)
     find('#side-bar').click
     click_on(nav_item)
+  end
+
+  def open_team
+    assert_text @team.name
+    click_text(@team.name)
+    assert_equal find_field('email').value, @team.email
+  end
+
+  def edit_team
+    fill_in('name', with: '')
+    fill_in('name', with: 'Hug Machine')
+    fill_in('seed', with: '')
+    fill_in('seed', with: 1)
+    click_on('Save')
+    assert_text ('Team updated')
+
+    team = Team.last
+    assert_equal 'Hug Machine', team.name
+    assert_equal 1, team.seed
   end
 
   def logout

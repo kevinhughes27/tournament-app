@@ -20,6 +20,7 @@ class Resolvers::UpdateDivision < Resolvers::BaseResolver
       update_bracket if bracket_type_changed
       {
         success: true,
+        message: 'Division updated',
         division: @division
       }
     else

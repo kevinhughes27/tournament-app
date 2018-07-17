@@ -16,9 +16,15 @@ class Resolvers::UpdateSettings < Resolvers::BaseResolver
     end
 
     if tournament.update(params)
-      { success: true }
+      {
+        success: true,
+        message: 'Settings updated'
+      }
     else
-      { success: false, user_errors: tournament.fields_errors }
+      {
+        success: false,
+        user_errors: tournament.fields_errors
+      }
     end
   end
 
