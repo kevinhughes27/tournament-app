@@ -37,7 +37,7 @@ class ScoreForm extends Component {
 
     let initialState = {};
     HANDLES.forEach(h => {
-      initialState[h] = 3;
+      initialState[h] = 2;
     });
 
     this.state = {
