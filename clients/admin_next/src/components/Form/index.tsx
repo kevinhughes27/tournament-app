@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Subtract } from "utility-types";
 
 import Toast from "./Toast";
 import Warning from "./Warning";
@@ -20,7 +21,7 @@ const defaultState = {
 };
 
 const Form = <Props extends FormAPI>(WrappedForm: React.ComponentType<Props>) =>
-  class extends React.Component<Props & FormAPI, State> {
+  class extends React.Component<Subtract<Props, FormAPI>, State> {
     state = defaultState;
 
     reset = () => {
