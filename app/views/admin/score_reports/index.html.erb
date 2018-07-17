@@ -3,6 +3,10 @@
   <%= link_to 'Games', admin_games_path %> / Spirit Scores
 <% end %>
 
+<%= content_for :top_bar_right do %>
+  <%= link_to 'Export', export_csv_admin_score_reports_path(format: "csv"), class: "btn btn-primary" %>
+<% end %>
+
 <% if @reports.present? %>
   <%= ui_box do %>
     <%= react_component('ReportsIndex', props: {
