@@ -51,7 +51,7 @@ class AdminNextBrowserTest < BrowserTest
     fill_in('seed', with: '')
     fill_in('seed', with: 1)
     click_on('Save')
-    assert_text ('Team Saved')
+    assert_text ('Team updated')
 
     team = Team.last
     assert_equal 'Hug Machine', team.name
