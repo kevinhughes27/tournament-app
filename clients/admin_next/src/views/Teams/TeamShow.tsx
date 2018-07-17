@@ -1,4 +1,5 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "../../components/Breadcrumbs";
@@ -29,4 +30,19 @@ class TeamShow extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(TeamShow);
+const StyledTeamShow = withStyles(styles)(TeamShow);
+
+export default createFragmentContainer(StyledTeamShow, {
+  team: graphql`
+    fragment TeamShow_team on Team {
+      id
+      name
+      email
+      division {
+        id
+        name
+      }
+      seed
+    }
+  `
+});

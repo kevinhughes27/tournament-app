@@ -1,9 +1,10 @@
 import * as React from "react";
-import environment from "../../relay";
-import { graphql, QueryRenderer } from "react-relay";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import Loader from "../../components/Loader";
+import environment from "../../relay";
+import { graphql, QueryRenderer } from "react-relay";
+import render from "../../helpers/renderHelper";
+
 import TeamShow from "./TeamShow";
 
 interface Props extends RouteComponentProps<any> {}
@@ -15,14 +16,7 @@ class TeamShowContainer extends React.Component<Props> {
     const query = graphql`
       query TeamShowContainerQuery($teamId: ID!) {
         team(id: $teamId) {
-          id
-          name
-          email
-          division {
-            id
-            name
-          }
-          seed
+          ...TeamShow_team
         }
         divisions {
           ...DivisionPicker_divisions
@@ -30,22 +24,12 @@ class TeamShowContainer extends React.Component<Props> {
       }
     `;
 
-    const render = ({error, props}: any) => {
-      if (error) {
-        return <div>{error.message}</div>;
-      } else if (props) {
-        return <TeamShow team={props.team} divisions={props.divisions}/>;
-      } else {
-        return <Loader />;
-      }
-    };
-
     return (
       <QueryRenderer
         environment={environment}
         query={query}
         variables={{teamId}}
-        render={render}
+        render={render(TeamShow)}
       />
     );
   }

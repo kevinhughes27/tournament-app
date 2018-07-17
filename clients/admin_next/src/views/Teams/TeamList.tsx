@@ -1,4 +1,5 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -40,4 +41,19 @@ class TeamList extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(TeamList);
+const StyledTeamList = withStyles(styles)(TeamList);
+
+export default createFragmentContainer(StyledTeamList, {
+  teams: graphql`
+    fragment TeamList_teams on Team @relay(plural: true) {
+      id
+      name
+      email
+      division {
+        id
+        name
+      }
+      seed
+    }
+  `
+});
