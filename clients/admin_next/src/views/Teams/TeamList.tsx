@@ -33,7 +33,7 @@ class TeamList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {teams.map((t: any) => <TeamListItem key={t.id} team={t}/>)}
+            {teams.map((t: Team) => <TeamListItem key={t.id} team={t}/>)}
           </TableBody>
         </Table>
       </div>
@@ -47,13 +47,7 @@ export default createFragmentContainer(StyledTeamList, {
   teams: graphql`
     fragment TeamList_teams on Team @relay(plural: true) {
       id
-      name
-      email
-      division {
-        id
-        name
-      }
-      seed
+      ...TeamListItem_team
     }
   `
 });

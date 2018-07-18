@@ -1,7 +1,7 @@
 interface MutationResult {
   success: boolean;
   message: string;
-  userErrors: UserError[];
+  userErrors?: UserError[];
 }
 
 type UpdateTeam = {
@@ -10,6 +10,11 @@ type UpdateTeam = {
   confirm: boolean;
   message: string;
   userErrors: UserError[];
+}
+
+type UpdateScore = {
+  success: boolean;
+  message: string;
 }
 
 type UserError = {
