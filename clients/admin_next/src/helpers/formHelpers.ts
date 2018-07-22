@@ -1,28 +1,22 @@
 import { FormikValues, FormikActions } from "formik";
-import { FormAPI } from "components/Form";
 import { showNotice } from "../components/Notice";
+import { showErrors } from "../components/ErrorBanner";
 
 const onComplete = (
   result: MutationResult,
-  props: FormAPI,
   actions: FormikActions<FormikValues>
 ) => {
   actions.setSubmitting(false);
 
   if (result.success) {
-    handleSuccess(result, props, actions);
+    handleSuccess(result, actions);
   } else {
-    handleFailure(result, props, actions);
+    handleFailure(result, actions);
   }
-};
-
-const onError = (error: Error | undefined, props: FormAPI) => {
-  props.showError(error && error.message || "Something went wrong.");
 };
 
 const handleSuccess = (
   result: MutationResult,
-  props: FormAPI,
   actions: FormikActions<FormikValues>
 ) => {
   actions.resetForm();
@@ -31,15 +25,14 @@ const handleSuccess = (
 
 const handleFailure = (
   result: MutationResult,
-  props: FormAPI,
   actions: FormikActions<FormikValues>
 ) => {
   if (result.userErrors) {
     setFieldErrors(result.userErrors, actions);
   } else if (result.message) {
-    props.showError(result.message);
+    showErrors(result.message);
   } else {
-    props.showError("Something went wrong.");
+    showErrors("Something went wrong.");
   }
 };
 
@@ -50,6 +43,10 @@ const setFieldErrors = (
   errors.forEach((error) => {
     actions.setFieldError(error.field, error.message);
   });
+};
+
+const onError = (error: Error | undefined) => {
+  showErrors(error && error.message || "Something went wrong.");
 };
 
 export {
