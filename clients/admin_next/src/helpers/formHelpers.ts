@@ -1,5 +1,6 @@
 import { FormikValues, FormikActions } from "formik";
 import { FormAPI } from "components/Form";
+import { showNotice } from "../components/Notice";
 
 const onComplete = (
   result: MutationResult,
@@ -25,7 +26,7 @@ const handleSuccess = (
   actions: FormikActions<FormikValues>
 ) => {
   actions.resetForm();
-  props.showMessage(result.message);
+  showNotice(result.message);
 };
 
 const handleFailure = (
