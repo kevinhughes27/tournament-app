@@ -36,29 +36,29 @@ function getOptimisticResponse(input: any, team: Team) {
 function commit(
   environment: Environment,
   input: any,
-  team: Team,
-  success: (result: UpdateTeam) => void,
-  failure: (error: Error | undefined) => void
+  team: Team
 ) {
-  return commitMutation(
-    environment,
-    {
-      mutation,
-      optimisticResponse: getOptimisticResponse(input, team),
-      variables: {
-        input: {
-          teamId: team.id,
-          ...input
+  return new Promise((resolve: (result: UpdateTeam) => void, reject: (error: Error | undefined) => void) => {
+    return commitMutation(
+      environment,
+      {
+        mutation,
+        optimisticResponse: getOptimisticResponse(input, team),
+        variables: {
+          input: {
+            teamId: team.id,
+            ...input
+          },
         },
+        onCompleted: (response) => {
+          resolve(response.updateTeam);
+        },
+        onError: (error) => {
+          reject(error);
+        }
       },
-      onCompleted: (response) => {
-        success(response.updateTeam);
-      },
-      onError: (error) => {
-        failure(error);
-      }
-    },
-  );
+    );
+  });
 }
 
 export default { commit };

@@ -84,7 +84,7 @@ const Breadcrumbs = {
   }
 };
 
-const Warning = {
+const ErrorBanner = {
   warning: {
     backgroundColor: amber[700]
   },
@@ -109,5 +109,5 @@ export {
   Loader,
   BlankSlate,
   Breadcrumbs,
-  Warning
+  ErrorBanner
 };

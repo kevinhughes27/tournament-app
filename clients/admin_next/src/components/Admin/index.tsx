@@ -4,6 +4,7 @@ import { Admin as styles } from "../../assets/jss/styles";
 
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
+import Notice from "../Notice";
 import Routes from "../../views/routes";
 
 interface Props extends WithStyles<typeof styles> {}
@@ -36,6 +37,7 @@ class Admin extends React.Component<Props, State> {
           handleOpen={this.openNav}
           handleClose={this.closeNave}
         />
+        <Notice />
         <Routes/>
       </div>
     );

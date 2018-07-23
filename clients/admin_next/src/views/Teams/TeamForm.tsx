@@ -1,14 +1,12 @@
 import * as React from "react";
-import { Formik, FormikValues, FormikProps, FormikActions, FormikErrors } from "formik";
+import { FormikValues, FormikProps, FormikErrors } from "formik";
 import * as EmailValidator from "email-validator";
 
 import TextField from "@material-ui/core/TextField";
 import DivisionPicker from "./DivisionPicker";
 import SubmitButton from "../../components/SubmitButton";
 
-import { Form, FormAPI } from "../../components/Form";
-import { onComplete, onError } from "../../helpers/formHelpers";
-
+import Form from "../../components/Form";
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 
@@ -17,7 +15,7 @@ interface Props {
   divisions: Division[];
 }
 
-class TeamForm extends React.Component<Props & FormAPI> {
+class TeamForm extends Form<Props> {
   initialValues = () => {
     const { team } = this.props;
 
@@ -27,17 +25,6 @@ class TeamForm extends React.Component<Props & FormAPI> {
       divisionId: team.division && team.division.id || "",
       seed: team.seed || ""
     };
-  }
-
-  render() {
-    return (
-      <Formik
-        initialValues={this.initialValues()}
-        validate={this.validate}
-        onSubmit={this.onSubmit}
-        render={this.renderForm}
-      />
-    );
   }
 
   validate = (values: FormikValues) => {
@@ -58,15 +45,11 @@ class TeamForm extends React.Component<Props & FormAPI> {
     return errors;
   }
 
-  onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
-    this.props.reset();
-
-    UpdateTeamMutation.commit(
+  submit = (values: FormikValues) => {
+    return UpdateTeamMutation.commit(
       environment,
       values,
-      this.props.team,
-      (result) => onComplete(result, this.props, actions),
-      (error) => onError(error, this.props)
+      this.props.team
     );
   }
 
@@ -131,4 +114,4 @@ class TeamForm extends React.Component<Props & FormAPI> {
   }
 }
 
-export default Form(TeamForm);
+export default TeamForm;

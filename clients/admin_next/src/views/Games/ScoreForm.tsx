@@ -1,12 +1,10 @@
 import * as React from "react";
-import { Formik, FormikValues, FormikProps, FormikActions, FormikErrors } from "formik";
+import { FormikValues, FormikProps, FormikErrors } from "formik";
 
 import TextField from "@material-ui/core/TextField";
 import SubmitButton from "../../components/SubmitButton";
 
-import { Form, FormAPI } from "../../components/Form";
-import { onComplete, onError } from "../../helpers/formHelpers";
-
+import Form from "../../components/Form";
 import environment from "../../relay";
 import UpdateScoreMutation from "../../mutations/UpdateScore";
 
@@ -14,7 +12,7 @@ interface Props {
   game: Game;
 }
 
-class ScoreForm extends React.Component<Props & FormAPI> {
+class ScoreForm extends Form<Props> {
   initialValues = () => {
     const { game } = this.props;
 
@@ -22,17 +20,6 @@ class ScoreForm extends React.Component<Props & FormAPI> {
       homeScore: game.homeScore || "",
       awayScore: game.awayScore || ""
     };
-  }
-
-  render() {
-    return (
-      <Formik
-        initialValues={this.initialValues()}
-        validate={this.validate}
-        onSubmit={this.onSubmit}
-        render={this.renderForm}
-      />
-    );
   }
 
   validate = (values: FormikValues) => {
@@ -49,15 +36,11 @@ class ScoreForm extends React.Component<Props & FormAPI> {
     return errors;
   }
 
-  onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
-    this.props.reset();
-
-    UpdateScoreMutation.commit(
+  submit = (values: FormikValues) => {
+    return UpdateScoreMutation.commit(
       environment,
       values,
-      this.props.game,
-      (result) => onComplete(result, this.props, actions),
-      (error) => onError(error, this.props)
+      this.props.game
     );
   }
 
@@ -107,4 +90,4 @@ class ScoreForm extends React.Component<Props & FormAPI> {
   }
 }
 
-export default Form(ScoreForm);
+export default ScoreForm;

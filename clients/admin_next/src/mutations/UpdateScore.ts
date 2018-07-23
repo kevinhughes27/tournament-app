@@ -42,30 +42,30 @@ function blindTrustUpdater(store: RecordSourceSelectorProxy) {
 function commit(
   environment: Environment,
   input: any,
-  game: Game,
-  success: (result: UpdateScore) => void,
-  failure: (error: Error | undefined) => void
+  game: Game
 ) {
-  return commitMutation(
-    environment,
-    {
-      mutation,
-      optimisticResponse: getOptimisticResponse(input, game),
-      updater: blindTrustUpdater,
-      variables: {
-        input: {
-          gameId: game.id,
-          ...input
+  return new Promise((resolve: (result: UpdateTeam) => void, reject: (error: Error | undefined) => void) => {
+    commitMutation(
+      environment,
+      {
+        mutation,
+        optimisticResponse: getOptimisticResponse(input, game),
+        updater: blindTrustUpdater,
+        variables: {
+          input: {
+            gameId: game.id,
+            ...input
+          },
         },
-      },
       onCompleted: (response) => {
-        success(response.updateScore);
+        resolve(response.updateScore);
       },
       onError: (error) => {
-        failure(error);
+        reject(error);
       }
-    },
-  );
+      },
+    );
+  });
 }
 
 export default { commit };

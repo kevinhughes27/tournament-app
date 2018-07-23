@@ -1,35 +1,37 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
-const styles = {};
-
-interface Props  extends WithStyles<typeof styles> {
-  message?: string;
-}
+let showNoticeFn: (message: string) => void;
 
 interface State {
   open: boolean;
   message: string;
 }
 
-class Notice extends React.Component<Props, State> {
+class Notice extends React.Component<{}, State> {
   state = {
     open: false,
-    message: ""
+    message: "",
   };
 
-  componentWillReceiveProps(props: Props) {
+  componentDidMount() {
+    showNoticeFn = this.handleOpen;
+  }
+
+  handleOpen = (message: string) => {
     this.setState({
-      open: props.message !== undefined,
-      message: props.message || ""
+      open: true,
+      message,
     });
   }
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({
+      open: false,
+      message: "",
+    });
   }
 
   render() {
@@ -56,4 +58,8 @@ class Notice extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(Notice);
+export function showNotice(message: string) {
+  showNoticeFn(message);
+}
+
+export default Notice;
