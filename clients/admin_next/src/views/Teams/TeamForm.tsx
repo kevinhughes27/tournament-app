@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormikValues, FormikProps, FormikActions, FormikErrors } from "formik";
+import { FormikValues, FormikProps, FormikErrors } from "formik";
 import * as EmailValidator from "email-validator";
 
 import TextField from "@material-ui/core/TextField";
@@ -7,8 +7,6 @@ import DivisionPicker from "./DivisionPicker";
 import SubmitButton from "../../components/SubmitButton";
 
 import Form from "../../components/Form";
-import { onComplete, onError } from "../../helpers/formHelpers";
-
 import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 
@@ -47,13 +45,11 @@ class TeamForm extends Form<Props> {
     return errors;
   }
 
-  submit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
-    UpdateTeamMutation.commit(
+  submit = (values: FormikValues) => {
+    return UpdateTeamMutation.commit(
       environment,
       values,
-      this.props.team,
-      (result) => onComplete(result, actions),
-      (error) => onError(error)
+      this.props.team
     );
   }
 

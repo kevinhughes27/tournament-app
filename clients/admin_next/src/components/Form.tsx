@@ -1,5 +1,6 @@
 import * as React from "react";
 import ErrorBanner, { hideErrors } from "./ErrorBanner";
+import { onComplete, onError } from "../helpers/formHelpers";
 import {
   Formik,
   FormikProps,
@@ -10,17 +11,17 @@ import {
 
 class Form<T> extends React.Component<T> {
   initialValues: any = () => {
-    throw new Error('You have to implement initialValues');
+    throw new Error("You have to implement initialValues");
   }
 
   validate = ({}: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
     return errors;
-  };
+  }
 
   submit: any = ({}: FormikValues, {}: FormikActions<FormikValues>) => {
-    throw new Error('You have to implement submit');
-  };
+    throw new Error("You have to implement submit");
+  }
 
   render() {
     return (
@@ -37,12 +38,16 @@ class Form<T> extends React.Component<T> {
   }
 
   renderForm: any = ({}: FormikProps<FormikValues>) => {
-    throw new Error('You have to implement renderForm');
-  };
+    throw new Error("You have to implement renderForm");
+  }
 
   private onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
     hideErrors();
-    this.submit(values, actions);
+    this.submit(values, actions).then((result: any) => {
+      onComplete(result, actions);
+    }, (error: Error | undefined) => {
+      onError(error);
+    });
   }
 }
 

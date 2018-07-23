@@ -1,12 +1,10 @@
 import * as React from "react";
-import { FormikValues, FormikProps, FormikActions, FormikErrors } from "formik";
+import { FormikValues, FormikProps, FormikErrors } from "formik";
 
 import TextField from "@material-ui/core/TextField";
 import SubmitButton from "../../components/SubmitButton";
 
 import Form from "../../components/Form";
-import { onComplete, onError } from "../../helpers/formHelpers";
-
 import environment from "../../relay";
 import UpdateScoreMutation from "../../mutations/UpdateScore";
 
@@ -38,13 +36,11 @@ class ScoreForm extends Form<Props> {
     return errors;
   }
 
-  submit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
-    UpdateScoreMutation.commit(
+  submit = (values: FormikValues) => {
+    return UpdateScoreMutation.commit(
       environment,
       values,
-      this.props.game,
-      (result) => onComplete(result, actions),
-      (error) => onError(error)
+      this.props.game
     );
   }
 
