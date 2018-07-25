@@ -1,14 +1,10 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Map, TileLayer, GeoJSON } from "react-leaflet";
+import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
 
-const styles = {};
-const fieldStyle = () => {
-  return { color: "rgb(51, 136, 255)" };
-};
-
-interface Props extends WithStyles<typeof styles> {
+interface Props extends RouteComponentProps<any> {
   map: MapType;
   fields: Field[];
 }
@@ -17,12 +13,13 @@ interface State {
   lat: number;
   long: number;
   zoom: number;
+  hover?: ID;
 }
 
 class FieldMap extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const { map: { lat, long, zoom } } = props;
+    const { lat, long, zoom } = props.map;
     this.state = {lat, long, zoom};
   }
 
@@ -48,23 +45,36 @@ class FieldMap extends React.Component<Props, State> {
           url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           subdomains={["mt0", "mt1", "mt2", "mt3"]}
         />
-        {fields.map((field: any) => Field(field))}
+        {fields.map(this.renderFields)}
       </Map>
     );
   }
+
+  renderFields = (field: Field) => (
+    <GeoJSON
+      key={field.id}
+      data={JSON.parse(field.geoJson)}
+      style={this.fieldStyle(field)}
+      onMouseover={() => this.setState({hover: field.id})}
+      onMouseout={() => this.setState({hover: undefined})}
+      onClick={() => this.handleClick(field.id)}
+    />
+  )
+
+  handleClick = (fieldId: ID) => {
+    this.props.history.push(`/fields/${fieldId}`);
+  }
+
+  fieldStyle = (field: Field) => {
+    if (this.state.hover === field.id) {
+      return FieldHoverStyle;
+    } else {
+      return FieldStyle;
+    }
+  }
 }
 
-const Field = (field: any) => (
-  <GeoJSON
-    key={field.id}
-    data={JSON.parse(field.geoJson)}
-    style={fieldStyle}
-  />
-);
-
-const StyledFieldMap = withStyles(styles)(FieldMap);
-
-export default createFragmentContainer(StyledFieldMap, {
+export default createFragmentContainer(withRouter(FieldMap), {
   map: graphql`
     fragment FieldMap_map on Map {
       lat

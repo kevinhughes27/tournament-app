@@ -1,5 +1,7 @@
 import FieldMap from "./FieldMapContainer";
+import FieldShow from "./FieldShowContainer";
 
 export {
-  FieldMap
+  FieldMap,
+  FieldShow
 };
