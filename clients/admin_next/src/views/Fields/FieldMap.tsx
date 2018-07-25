@@ -3,6 +3,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
 import { Map, TileLayer, GeoJSON } from "react-leaflet";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 interface Props extends RouteComponentProps<any> {
   map: MapType;
@@ -34,19 +35,22 @@ class FieldMap extends React.Component<Props, State> {
     const { fields } = this.props;
 
     return (
-      <Map
-        center={[lat, long]}
-        zoom={zoom}
-        maxZoom={20}
-        onDrag={this.updateMap}
-        onZoom={this.updateMap}
-      >
-        <TileLayer
-          url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-          subdomains={["mt0", "mt1", "mt2", "mt3"]}
-        />
-        {fields.map(this.renderFields)}
-      </Map>
+      <div>
+        <Breadcrumbs items={[{text: "Fields"}]} />
+        <Map
+          center={[lat, long]}
+          zoom={zoom}
+          maxZoom={20}
+          onDrag={this.updateMap}
+          onZoom={this.updateMap}
+        >
+          <TileLayer
+            url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+            subdomains={["mt0", "mt1", "mt2", "mt3"]}
+          />
+          {fields.map(this.renderFields)}
+        </Map>
+      </div>
     );
   }
 

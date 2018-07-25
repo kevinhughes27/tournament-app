@@ -2,6 +2,7 @@ import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import { Map, TileLayer, GeoJSON } from "react-leaflet";
 import { OtherFieldStyle, FieldStyle } from "./FieldStyle";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 interface Props {
   map: MapType;
@@ -15,17 +16,25 @@ class FieldShow extends React.Component<Props> {
     const { field, fields } = this.props;
 
     return (
-      <Map
-        center={[lat, long]}
-        zoom={zoom}
-      >
-        <TileLayer
-          url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-          subdomains={["mt0", "mt1", "mt2", "mt3"]}
+      <div>
+        <Breadcrumbs
+          items={[
+            {link: "/fields", text: "Fields"},
+            {text: field.name}
+          ]}
         />
-        {this.renderField(field)}
-        {fields.map(this.renderOtherFields)}
-      </Map>
+        <Map
+          center={[lat, long]}
+          zoom={zoom}
+        >
+          <TileLayer
+            url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+            subdomains={["mt0", "mt1", "mt2", "mt3"]}
+          />
+          {this.renderField(field)}
+          {fields.map(this.renderOtherFields)}
+        </Map>
+      </div>
     );
   }
 
