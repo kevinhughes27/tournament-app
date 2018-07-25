@@ -27,12 +27,9 @@ class Resolvers::ScheduleGame < Resolvers::BaseResolver
 
     @game.save
 
-    start_time_str = inputs[:start_time].format('h:mm')
-    end_time_str = inputs[:end_time].format('h:mm')
-
     return {
       success: true,
-      message: "Game scheduled at #{start_time_str} to #{end_time_str}",
+      message: "Game scheduled at #{@game.playing_time_range_string}",
       game: @game
     }
   end

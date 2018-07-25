@@ -22,7 +22,7 @@ class Admin::ScheduleController < AdminController
          success
          message
          userErrors { field message }
-         game { id fieldId startTime endTime }
+         game { id field { id } startTime endTime }
        }"
     )
 
@@ -31,7 +31,7 @@ class Admin::ScheduleController < AdminController
     if result['success']
       render json: {
         game_id: game.id,
-        field_id: game.field_id,
+        field_id: game.field['id'],
         start_time: game.start_time,
         end_time: game.end_time,
         updated_at: Time.now
@@ -45,7 +45,7 @@ class Admin::ScheduleController < AdminController
 
       render json: {
         game_id: game.id,
-        field_id: game.field_id,
+        field_id: game.field['id'],
         start_time: game.start_time,
         end_time: game.end_time,
         updated_at: Time.now,

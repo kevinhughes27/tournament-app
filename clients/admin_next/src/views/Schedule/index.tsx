@@ -1,19 +1,33 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { BlankSlate as styles } from "../../assets/jss/styles";
 
-interface Props extends WithStyles<typeof styles> {}
+import environment from "../../relay";
+import { graphql, QueryRenderer } from "react-relay";
+import render from "../../helpers/renderHelper";
 
-class Schedule extends React.Component<Props> {
+import ScheduleEditor from "./ScheduleEditor";
+
+const query = graphql`
+  query ScheduleQuery {
+    fields {
+      ...ScheduleEditor_fields
+    }
+    games {
+      ...ScheduleEditor_games
+    }
+  }
+`;
+
+class Schedule extends React.Component {
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.container}>
-        <span>Schedule</span>
-      </div>
+      <QueryRenderer
+        environment={environment}
+        query={query}
+        variables={{}}
+        render={render(ScheduleEditor)}
+      />
     );
   }
 }
 
-export default withStyles(styles)(Schedule);
+export default Schedule;
