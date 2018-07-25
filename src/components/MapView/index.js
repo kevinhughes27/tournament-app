@@ -24,7 +24,7 @@ class MapView extends Component {
       return currentTime.isBefore(startTime);
     })[0];
     const filteredFields = _filter(fields, field => field.geoJson);
-    const nextFieldName = _get(nextGame, 'fieldName', -1);
+    const nextFieldName = _get(nextGame, 'field.name', -1);
     const nextField = _find(filteredFields, f => f.name === nextFieldName);
 
     return (

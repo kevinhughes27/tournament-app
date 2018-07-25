@@ -19,7 +19,10 @@ const query = gql`
       awayName
       startTime
       endTime
-      fieldName
+      field {
+        id
+        name
+      }
       homeScore
       awayScore
       scoreConfirmed

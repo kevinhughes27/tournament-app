@@ -48,7 +48,7 @@ function renderGameGroup(startTime, games) {
             >
               {gameText(game)}
               <div>
-                {game.fieldName}
+                {game.field.name}
                 <LocationIcon />
               </div>
             </div>
