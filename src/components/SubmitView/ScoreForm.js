@@ -73,8 +73,8 @@ class ScoreForm extends Component {
     }
 
     const payload = {
-      gameId: parseInt(game.id, 10),
-      teamId: parseInt(team.id, 10),
+      gameId: game.id,
+      teamId: team.id,
       submitterFingerprint: new Fingerprint2().getSync().fprint,
       ...this.state
     };

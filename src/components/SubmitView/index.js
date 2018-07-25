@@ -55,9 +55,7 @@ function renderGames(search, teams, games, reports) {
 }
 
 function renderGame(team, game, reports) {
-  const filteredReports = reports.filter(
-    r => parseInt(r.gameId, 10) === parseInt(game.id, 10)
-  );
+  const filteredReports = reports.filter(r => r.gameId === game.id);
   const report = filteredReports[filteredReports.length - 1];
 
   return (
