@@ -131,8 +131,6 @@ type Game {
   division: Division
   endTime: DateTime
   field: Field
-  fieldId: ID
-  fieldName: String
   homeName: String
   homePoolSeed: Int
   homePrereq: String
