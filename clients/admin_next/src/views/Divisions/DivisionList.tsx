@@ -6,21 +6,12 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import TeamsCell from "./TeamsCell";
-import SeededCell from "./SeededCell";
+
+import DivisionListItem from "./DivisionListItem";
 
 interface Props {
   divisions: Division[];
 }
-
-const Row = (d: any) => (
-  <TableRow key={d.id}>
-    <TableCell>{d.name}</TableCell>
-    <TableCell>{d.bracketType}</TableCell>
-    <TableCell>{TeamsCell(d)}</TableCell>
-    <TableCell>{SeededCell(d)}</TableCell>
-  </TableRow>
-);
 
 class DivisionList extends React.Component<Props> {
   render() {
@@ -37,7 +28,7 @@ class DivisionList extends React.Component<Props> {
           </TableRow>
         </TableHead>
         <TableBody>
-          {divisions.map(Row)}
+          {divisions.map((d: Division) => <DivisionListItem key={d.id} division={d}/>)}
         </TableBody>
       </Table>
     );
@@ -48,11 +39,7 @@ export default createFragmentContainer(DivisionList, {
   divisions: graphql`
     fragment DivisionList_divisions on Division @relay(plural: true) {
       id
-      name
-      bracketType
-      teamsCount
-      numTeams
-      isSeeded
+      ...DivisionListItem_division
     }
   `
 });
