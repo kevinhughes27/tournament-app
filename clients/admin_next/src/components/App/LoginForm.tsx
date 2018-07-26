@@ -20,13 +20,14 @@ interface Props extends WithStyles<typeof styles> {
 interface State {
   email: string;
   password: string;
-  error?: string;
+  error: string;
 }
 
 class LoginForm extends React.Component<Props, State> {
   state = {
     email: "",
-    password: ""
+    password: "",
+    error: ""
   };
 
   handleChange = (event: React.FormEvent<EventTarget>) => {

@@ -1,0 +1,55 @@
+language: node_js
+node_js: 8.11.3
+
+addons:
+  postgresql: 9.4
+  chrome: stable
+  artifacts:
+    paths:
+    - $HOME/tmp/coverage
+    - $HOME/tmp/capybara
+
+services:
+  - redis-server
+
+cache:
+  bundler: true
+  directories:
+   - /home/travis/.rvm/
+   - /node_modules
+   - /client/node_modules
+   - /clients/admin_next/node_modules
+   - /clients/player_app/node_modules
+
+env:
+  RAILS_ENV: test
+  RACK_ENV: test
+  GENERATE_SOURCEMAP: false
+
+before_install:
+  - rvm install 2.5.1
+  - gem install bundler
+  - wget -N http://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
+  - unzip ~/chromedriver_linux64.zip -d ~/
+  - rm ~/chromedriver_linux64.zip
+  - sudo mv -f ~/chromedriver /usr/local/share/
+  - sudo chmod +x /usr/local/share/chromedriver
+  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+
+install:
+  - bundle install --with ci --without production --without development
+  - yarn install
+  - bundle exec rake assets:precompile
+  - cd clients/admin_next && yarn build && cd ../..
+  - cd clients/player_app && yarn build && cd ../..
+
+before_script:
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
+
+script:
+  - cd clients/admin_next && yarn type-check && cd ../..
+  - bundle exec rake ci:all
+
+notifications:
+  email: false
