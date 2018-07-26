@@ -1,13 +1,10 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ScoreForm from "./ScoreForm";
 
-const styles = {};
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   game: Game;
 }
 
@@ -29,9 +26,7 @@ class GameShow extends React.Component<Props> {
   }
 }
 
-const StyledGameShow = withStyles(styles)(GameShow);
-
-export default createFragmentContainer(StyledGameShow, {
+export default createFragmentContainer(GameShow, {
   game: graphql`
     fragment GameShow_game on Game {
       id

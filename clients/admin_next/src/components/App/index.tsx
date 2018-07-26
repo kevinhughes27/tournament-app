@@ -2,16 +2,11 @@ import * as React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import withTheme from "./withTheme";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 
 import Login from "./Login";
 import Admin from "../Admin";
 
-const styles = {};
-
-interface Props extends WithStyles<typeof styles> {}
-
-class App extends React.Component<Props> {
+class App extends React.Component {
   render() {
     return (
       <Router basename={process.env.PUBLIC_URL}>
@@ -23,4 +18,4 @@ class App extends React.Component<Props> {
   }
 }
 
-export default withTheme(withStyles(styles)(App));
+export default withTheme(App);

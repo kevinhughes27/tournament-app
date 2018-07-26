@@ -1,7 +1,6 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,9 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TeamsCell from "./TeamsCell";
 import SeededCell from "./SeededCell";
 
-const styles = {};
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   divisions: Division[];
 }
 
@@ -47,9 +44,7 @@ class DivisionList extends React.Component<Props> {
   }
 }
 
-const StyledDivisionList = withStyles(styles)(DivisionList);
-
-export default createFragmentContainer(StyledDivisionList, {
+export default createFragmentContainer(DivisionList, {
   divisions: graphql`
     fragment DivisionList_divisions on Division @relay(plural: true) {
       id
