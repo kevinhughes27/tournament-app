@@ -54,4 +54,4 @@ function commit(
   );
 }
 
-export default { commit }
+export default { commit };
