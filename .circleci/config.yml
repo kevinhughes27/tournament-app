@@ -81,7 +81,7 @@ jobs:
             - tmp/cache/assets
 
       # Build admin_next
-      - run: cd clients/admin_next && DEBUG=babel yarn build
+      - run: cd clients/admin_next && DEBUG=babel yarn build &> /dev/null
       - run: cd clients/admin_next && yarn type-check
 
       # Generate checksum for player_app
