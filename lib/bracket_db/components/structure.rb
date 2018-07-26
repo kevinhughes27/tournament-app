@@ -12,16 +12,20 @@ module BracketDb
       @places = places
     end
 
-    attr_reader :name,
+    attr_reader :handle,
+      :name,
       :description,
       :teams,
-      :days
+      :days,
+      :games,
+      :places,
+      :tree,
 
     def pools
       @games.map{ |g| g[:pool] }.compact.uniq
     end
 
-    def to_tree
+    def tree
       @bracket_tree ||= BracketDb::to_tree(@games)
     end
 
@@ -42,7 +46,7 @@ module BracketDb
         games: @games,
         places: @places,
         pools: pools,
-        bracket_tree: to_tree
+        bracket_tree: tree
       }
     end
   end

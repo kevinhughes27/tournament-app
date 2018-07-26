@@ -1,3 +1,15 @@
+# Structure for games
+type Bracket {
+  description: String
+  games: String
+  handle: String
+  name: String
+  numDays: Int
+  numTeams: Int
+  places: String
+  tree: String
+}
+
 input CheckPinInput {
   pin: String!
 }
@@ -97,7 +109,9 @@ type DeleteTeamPayload {
 
 # A Division
 type Division {
-  bracketType: String
+  bracket: Bracket
+  bracketTree: String
+  games: [Game!]
   id: ID
   isSeeded: Boolean
   name: String
@@ -179,6 +193,8 @@ scalar NullableInt
 scalar PinCode
 
 type Query {
+  bracket(handle: String!): Bracket
+  brackets(numDays: Int!, numTeams: Int!): [Bracket!]
   division(id: ID!): Division
   divisions: [Division!]
   field(id: ID!): Field

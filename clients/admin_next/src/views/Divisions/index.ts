@@ -1,5 +1,7 @@
 import DivisionList from "./DivisionListContainer";
+import DivisionShow from "./DivisionShowContainer";
 
 export {
-  DivisionList
+  DivisionList,
+  DivisionShow
 };
