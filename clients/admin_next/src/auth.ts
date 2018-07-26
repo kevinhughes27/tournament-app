@@ -18,7 +18,9 @@ class Auth {
       headers,
       body
     }).then((response) => {
-      return response.json();
+      return response.status === 201
+        ? response.json()
+        : Promise.reject("Invalid username or password");
     }).then((data) => {
       this.setToken(data.jwt);
       return Promise.resolve();

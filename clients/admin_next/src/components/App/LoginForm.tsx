@@ -20,6 +20,7 @@ interface Props extends WithStyles<typeof styles> {
 interface State {
   email: string;
   password: string;
+  error?: string;
 }
 
 class LoginForm extends React.Component<Props, State> {
@@ -38,6 +39,8 @@ class LoginForm extends React.Component<Props, State> {
 
     auth.login(this.state.email, this.state.password).then(() => {
       this.props.onComplete();
+    }).catch((error) => {
+      this.setState({error});
     });
   }
 
@@ -64,10 +67,10 @@ class LoginForm extends React.Component<Props, State> {
                   name="email"
                   label="Username"
                   margin="normal"
-                  autoComplete="off"
                   fullWidth
                   value={this.state.email}
                   onChange={this.handleChange}
+                  helperText={this.state.error}
                 />
 
                 <TextField
