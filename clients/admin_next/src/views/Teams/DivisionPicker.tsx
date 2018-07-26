@@ -1,13 +1,10 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const styles = {};
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   divisionId: string;
   divisions: Division[];
   onChange: (event: React.ChangeEvent<{}>) => void;
@@ -39,9 +36,7 @@ const Option = (option: {id: string, name: string}) => (
   </MenuItem>
 );
 
-const StyledDivisionPicker = withStyles(styles)(DivisionPicker);
-
-export default createFragmentContainer(StyledDivisionPicker, {
+export default createFragmentContainer(DivisionPicker, {
   divisions: graphql`
     fragment DivisionPicker_divisions on Division @relay(plural: true) {
       id
