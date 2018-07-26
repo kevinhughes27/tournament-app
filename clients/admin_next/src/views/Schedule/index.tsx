@@ -1,9 +1,6 @@
 import * as React from "react";
-
-import environment from "../../relay";
-import { graphql, QueryRenderer } from "react-relay";
-import render from "../../helpers/renderHelper";
-
+import { graphql } from "react-relay";
+import renderQuery from "../../helpers/renderHelper";
 import ScheduleEditor from "./ScheduleEditor";
 
 const query = graphql`
@@ -19,14 +16,7 @@ const query = graphql`
 
 class Schedule extends React.Component {
   render() {
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={query}
-        variables={{}}
-        render={render(ScheduleEditor)}
-      />
-    );
+    return renderQuery(query, {}, ScheduleEditor);
   }
 }
 

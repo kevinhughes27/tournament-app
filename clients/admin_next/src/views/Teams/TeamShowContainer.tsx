@@ -1,10 +1,7 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-
-import environment from "../../relay";
-import { graphql, QueryRenderer } from "react-relay";
-import render from "../../helpers/renderHelper";
-
+import { graphql } from "react-relay";
+import renderQuery from "../../helpers/renderHelper";
 import TeamShow from "./TeamShow";
 
 interface Props extends RouteComponentProps<any> {}
@@ -24,14 +21,7 @@ class TeamShowContainer extends React.Component<Props> {
       }
     `;
 
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={query}
-        variables={{teamId}}
-        render={render(TeamShow)}
-      />
-    );
+    return renderQuery(query, {teamId}, TeamShow);
   }
 }
 

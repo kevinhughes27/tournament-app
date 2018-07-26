@@ -1,5 +1,22 @@
 import * as React from "react";
+import { QueryRenderer } from "react-relay";
 import Loader from "../components/Loader";
+import environment from "../relay";
+
+const renderQuery = (
+  query: any,
+  variables: any,
+  component: React.ComponentType<any>
+) => {
+  return (
+    <QueryRenderer
+      environment={environment}
+      query={query}
+      variables={variables}
+      render={render(component)}
+    />
+  );
+};
 
 const render = (Component: React.ComponentType<any>) =>
   ({error, props}: any) => {
@@ -12,4 +29,4 @@ const render = (Component: React.ComponentType<any>) =>
     }
   };
 
-export default render;
+export default renderQuery;

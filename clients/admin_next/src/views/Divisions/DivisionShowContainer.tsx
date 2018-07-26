@@ -1,10 +1,7 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-
-import environment from "../../relay";
-import { graphql, QueryRenderer } from "react-relay";
-import render from "../../helpers/renderHelper";
-
+import { graphql } from "react-relay";
+import renderQuery from "../../helpers/renderHelper";
 import DivisionShow from "./DivisionShow";
 
 interface Props extends RouteComponentProps<any> {}
@@ -21,14 +18,7 @@ class DivisionShowContainer extends React.Component<Props> {
       }
     `;
 
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={query}
-        variables={{divisionId}}
-        render={render(DivisionShow)}
-      />
-    );
+    return renderQuery(query, {divisionId}, DivisionShow);
   }
 }
 

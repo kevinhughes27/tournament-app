@@ -1,9 +1,6 @@
 import * as React from "react";
-
-import environment from "../../relay";
-import { graphql, QueryRenderer } from "react-relay";
-import render from "../../helpers/renderHelper";
-
+import { graphql } from "react-relay";
+import renderQuery from "../../helpers/renderHelper";
 import DivisionList from "./DivisionList";
 
 const query = graphql`
@@ -16,14 +13,7 @@ const query = graphql`
 
 class DivisionListContainer extends React.Component {
   render() {
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={query}
-        variables={{}}
-        render={render(DivisionList)}
-      />
-    );
+    return renderQuery(query, {}, DivisionList);
   }
 }
 
