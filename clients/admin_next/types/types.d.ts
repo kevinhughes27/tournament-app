@@ -11,10 +11,24 @@ type Team = {
 type Division = {
   id: ID;
   name: string;
-  bracketType: string;
+  bracket: Bracket;
+  bracketTree: string;
+  games: Game[];
   teamsCount: number;
   numTeams: number;
   isSeeded: boolean;
+}
+
+type Bracket = {
+  handle: string;
+  name: string;
+  description: string;
+  numTeams: number;
+  numDays: number;
+
+  games: string;
+  places: string;
+  tree: string;
 }
 
 type MapType = {

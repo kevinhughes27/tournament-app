@@ -7,6 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
+import Breadcrumbs from "../../components/Breadcrumbs";
 import DivisionListItem from "./DivisionListItem";
 
 interface Props {
@@ -18,19 +19,22 @@ class DivisionList extends React.Component<Props> {
     const { divisions } = this.props;
 
     return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Bracket</TableCell>
-            <TableCell>Teams</TableCell>
-            <TableCell>Seeded</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {divisions.map((d: Division) => <DivisionListItem key={d.id} division={d}/>)}
-        </TableBody>
-      </Table>
+      <div>
+        <Breadcrumbs items={[{text: "Divisions"}]} />
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Bracket</TableCell>
+              <TableCell>Teams</TableCell>
+              <TableCell>Seeded</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {divisions.map((d: Division) => <DivisionListItem key={d.id} division={d}/>)}
+          </TableBody>
+        </Table>
+      </div>
     );
   }
 }

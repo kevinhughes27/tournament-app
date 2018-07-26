@@ -1,0 +1,33 @@
+.bracketContainer {
+  height: 440px;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 480px;
+}
+
+#bracketGraph {
+  height: 100%;
+}
+
+#bracketGraph .node {
+  cursor: pointer;
+}
+#bracketGraph .node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+#bracketGraph .node rect {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+#bracketGraph .node text {
+  font-size: 10px;
+  font-family: sans-serif;
+}
+#bracketGraph .link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}

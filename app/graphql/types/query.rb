@@ -53,6 +53,23 @@ class Types::Query < Types::BaseObject
     context[:tournament].divisions.find(id)
   end
 
+  field :bracket, Types::Bracket, null: true do
+    argument :handle, String, required: true
+  end
+
+  def bracket(handle:)
+    BracketDb.find(handle: handle)
+  end
+
+  field :brackets, [Types::Bracket], null: true do
+    argument :numTeams, Int, required: true
+    argument :numDays, Int, required: true
+  end
+
+  def brackets(num_teams:, num_days:)
+    BracketDb.where(teams: num_teams, days: num_days)
+  end
+
   field :games, [Types::Game], null: true do
     argument :scheduled, Boolean, required: false
     argument :hasTeam, Boolean, required: false

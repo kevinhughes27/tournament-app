@@ -22,7 +22,7 @@ class DivisionListItem extends React.Component<Props> {
     return (
       <TableRow hover onClick={this.handleClick}>
       <TableCell>{division.name}</TableCell>
-      <TableCell>{division.bracketType}</TableCell>
+      <TableCell>{division.bracket.handle}</TableCell>
       <TableCell>{TeamsCell(division)}</TableCell>
       <TableCell>{SeededCell(division)}</TableCell>
     </TableRow>
@@ -35,7 +35,9 @@ export default createFragmentContainer(withRouter(DivisionListItem), {
     fragment DivisionListItem_division on Division {
       id
       name
-      bracketType
+      bracket {
+        handle
+      }
       teamsCount
       numTeams
       isSeeded
