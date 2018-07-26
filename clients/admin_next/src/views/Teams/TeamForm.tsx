@@ -8,7 +8,6 @@ import DivisionPicker from "./DivisionPicker";
 import SubmitButton from "../../components/SubmitButton";
 
 import Form from "../../components/Form";
-import environment from "../../relay";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 
 interface Props {
@@ -47,11 +46,7 @@ class TeamForm extends Form<Props> {
   }
 
   submit = (values: FormikValues) => {
-    return UpdateTeamMutation.commit(
-      environment,
-      values,
-      this.props.team
-    );
+    return UpdateTeamMutation.commit(values, this.props.team);
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {

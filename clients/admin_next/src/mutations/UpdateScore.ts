@@ -1,5 +1,6 @@
 import { commitMutation, graphql } from "react-relay";
-import { Environment, RecordSourceSelectorProxy } from "relay-runtime";
+import { RecordSourceSelectorProxy } from "relay-runtime";
+import environment from "../relay";
 
 const mutation = graphql`
   mutation UpdateScoreMutation($input: UpdateScoreInput!) {
@@ -40,7 +41,6 @@ function blindTrustUpdater(store: RecordSourceSelectorProxy) {
 }
 
 function commit(
-  environment: Environment,
   input: any,
   game: Game
 ) {
@@ -68,4 +68,4 @@ function commit(
   });
 }
 
-export default { commit };
+export default { commit }

@@ -14,7 +14,6 @@ import ScheduledGame from "./ScheduledGame";
 import DropOverlay from "./DropOverlay";
 import { showNotice } from "../../../components/Notice";
 
-import environment from "../../../relay";
 import ScheduleGameMutation from "../../../mutations/ScheduleGame";
 import UnscheduleGameMutation from "../../../mutations/UnscheduleGame";
 
@@ -93,13 +92,14 @@ class FieldColumn extends React.Component<Props, State> {
       const startTime = hoverTime.format("YYYY-MM-DDTHH:mm");
       const endTime = hoverTime.add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
 
+      const input = {
+        fieldId: this.props.fieldId,
+        startTime,
+        endTime
+      };
+
       ScheduleGameMutation.commit(
-        environment,
-        {
-          fieldId: this.props.fieldId,
-          startTime,
-          endTime
-        },
+        input,
         game,
         this.mutationComplete,
         this.mutationError
@@ -109,7 +109,6 @@ class FieldColumn extends React.Component<Props, State> {
 
   unschedule = (game: Game) => {
     UnscheduleGameMutation.commit(
-      environment,
       game,
       this.mutationComplete,
       this.mutationError
@@ -150,13 +149,14 @@ class FieldColumn extends React.Component<Props, State> {
       const startTime = moment.parseZone(game.startTime).format("YYYY-MM-DDTHH:mm");
       const endTime = moment.parseZone(game.startTime).add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
 
+      const input = {
+        fieldId: game.field.id,
+        startTime,
+        endTime,
+      };
+
       ScheduleGameMutation.commit(
-        environment,
-        {
-          fieldId: game.field.id,
-          startTime,
-          endTime,
-        },
+        input,
         game,
         this.mutationComplete,
         this.mutationError

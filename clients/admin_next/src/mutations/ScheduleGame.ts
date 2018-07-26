@@ -1,5 +1,5 @@
 import { commitMutation, graphql } from "react-relay";
-import { Environment } from "relay-runtime";
+import environment from "../relay";
 
 const mutation = graphql`
   mutation ScheduleGameMutation($input: ScheduleGameInput!) {
@@ -34,7 +34,6 @@ function getOptimisticResponse(input: any, game: Game) {
 }
 
 function commit(
-  environment: Environment,
   input: any,
   game: Game,
   success: (result: ScheduleGame) => void,
@@ -61,4 +60,4 @@ function commit(
   );
 }
 
-export default { commit };
+export default { commit }

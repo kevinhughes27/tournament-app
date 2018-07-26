@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import SubmitButton from "../../components/SubmitButton";
 
 import Form from "../../components/Form";
-import environment from "../../relay";
 import UpdateScoreMutation from "../../mutations/UpdateScore";
 
 interface Props {
@@ -37,11 +36,7 @@ class ScoreForm extends Form<Props> {
   }
 
   submit = (values: FormikValues) => {
-    return UpdateScoreMutation.commit(
-      environment,
-      values,
-      this.props.game
-    );
+    return UpdateScoreMutation.commit(values, this.props.game);
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
