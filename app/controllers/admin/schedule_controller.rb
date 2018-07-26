@@ -26,12 +26,13 @@ class Admin::ScheduleController < AdminController
        }"
     )
 
-    game = Game.new(result_to_attributes(result, 'game'))
+    game = Game.new(result_to_attributes(result, 'game', except: 'field'))
+    field_id = game.field.present? && game.field['id']
 
     if result['success']
       render json: {
         game_id: game.id,
-        field_id: game.field['id'],
+        field_id: field_id,
         start_time: game.start_time,
         end_time: game.end_time,
         updated_at: Time.now
@@ -45,7 +46,7 @@ class Admin::ScheduleController < AdminController
 
       render json: {
         game_id: game.id,
-        field_id: game.field['id'],
+        field_id: field_id,
         start_time: game.start_time,
         end_time: game.end_time,
         updated_at: Time.now,

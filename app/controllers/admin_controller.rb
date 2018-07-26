@@ -70,8 +70,8 @@ class AdminController < ApplicationController
     input
   end
 
-  def result_to_attributes(result, key)
-    result[key].deep_transform_keys { |key| key.to_s.underscore }
+  def result_to_attributes(result, key, except: nil)
+    result[key].deep_transform_keys { |key| key.to_s.underscore }.except(except)
   end
 
   def result_to_errors(result)
