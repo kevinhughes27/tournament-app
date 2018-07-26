@@ -1,10 +1,7 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-
-import environment from "../../relay";
-import { graphql, QueryRenderer } from "react-relay";
-import render from "../../helpers/renderHelper";
-
+import { graphql } from "react-relay";
+import renderQuery from "../../helpers/renderHelper";
 import FieldShow from "./FieldShow";
 
 interface Props extends RouteComponentProps<any> {}
@@ -27,14 +24,7 @@ class FieldShowContainer extends React.Component<Props> {
       }
 `;
 
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={query}
-        variables={{fieldId}}
-        render={render(FieldShow)}
-      />
-    );
+    return renderQuery(query, {fieldId}, FieldShow);
   }
 }
 
