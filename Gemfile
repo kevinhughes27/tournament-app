@@ -7,6 +7,7 @@ gem 'bootsnap'
 gem 'puma'
 gem 'config'
 gem 'jbuilder'
+gem 'tzinfo-data'
 gem 'active_operation'
 
 # api
@@ -98,8 +99,8 @@ group :test do
   gem 'json-schema', '~> 2.6.0'
 end
 
-group :circleci do
+group :ci do
   gem 'minitest-retry'
-  gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
+  gem 'minitest-ci'
   gem 'bundler-audit', require: false
 end

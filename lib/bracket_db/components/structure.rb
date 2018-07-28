@@ -19,7 +19,7 @@ module BracketDb
       :days,
       :games,
       :places,
-      :tree,
+      :tree
 
     def pools
       @games.map{ |g| g[:pool] }.compact.uniq

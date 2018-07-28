@@ -54,11 +54,12 @@ class Admin::DivisionsController < AdminController
          confirm
          message
          userErrors { field message }
-         division { id name numTeams numDays bracketType }
+         division { id name numTeams numDays bracket { handle }}
        }"
     )
 
-    @division = Division.new(result_to_attributes(result, 'division'))
+    @division = Division.new(result_to_attributes(result, 'division', except: 'bracket'))
+    @division.bracket_type = result['division']['bracket']['handle']
     @errors = result_to_errors(result)
 
     if result['success']

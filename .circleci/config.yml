@@ -2,8 +2,6 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/ut
-
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
       - image: circleci/postgres:9.4.12-alpine
@@ -13,6 +11,7 @@ jobs:
       PGUSER: ubuntu
       RAILS_ENV: test
       RACK_ENV: test
+      GENERATE_SOURCEMAP: false
 
     steps:
       # Checkout the source code
@@ -21,36 +20,42 @@ jobs:
 
       # Restore bundle cache
       - type: cache-restore
-        key: gemfile-{{ checksum "Gemfile.lock" }}
+        key: Gemfile-{{ checksum "Gemfile.lock" }}
 
       # Bundle install dependencies
-      - run: bundle install --with circleci --without production --without development --path vendor/bundle
+      - run: bundle install --with ci --without production --without development --path vendor/bundle
 
       # Store bundle cache
       - type: cache-save
-        key: gemfile-{{ checksum "Gemfile.lock" }}
+        key: Gemfile-{{ checksum "Gemfile.lock" }}
         paths:
           - vendor/bundle
 
       # Restore yarn cache
       - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: |
+            yarn
+            {{ checksum "yarn.lock" }}
+            {{ checksum "client/yarn.lock" }}
+            {{ checksum "clients/admin_next/yarn.lock" }}
+            {{ checksum "clients/player_app/yarn.lock" }}
 
       # Yarn install dependencies
       - run: yarn install
 
       # Store yarn cache
       - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: |
+            yarn
+            {{ checksum "yarn.lock" }}
+            {{ checksum "client/yarn.lock" }}
+            {{ checksum "clients/admin_next/yarn.lock" }}
+            {{ checksum "clients/player_app/yarn.lock" }}
           paths:
             - ./node_modules
             - ./client/node_modules
             - ./clients/player_app/node_modules
             - ./clients/admin_next/node_modules
-
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
 
       # Generate checksum for assets
       - type: shell
@@ -81,7 +86,7 @@ jobs:
             - tmp/cache/assets
 
       # Build admin_next
-      - run: cd clients/admin_next && DEBUG=babel yarn build &> /dev/null
+      - run: cd clients/admin_next && npm run build
       - run: cd clients/admin_next && yarn type-check
 
       # Generate checksum for player_app
@@ -102,14 +107,22 @@ jobs:
           paths:
             - clients/player_app/build
 
+      # Database setup
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
       # Run tests
       - run: bundle exec rake ci:all
 
       # Store Artifacts
       - store_artifacts:
-          path: ~/ut/tmp/coverage
+          path: ~/project/tmp/coverage
           destination: coverage
 
       - store_artifacts:
-          path: ~/ut/tmp/capybara
+          path: ~/project/tmp/capybara
           destination: capybara
+
+      - store_artifacts:
+          path: /home/circleci/.npm/_logs
+          destination: npm
