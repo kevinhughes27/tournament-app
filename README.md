@@ -20,7 +20,7 @@ Contents
   * [**Admin**](#admin)
   * [**Admin Next**](#admin-next)
   * [**Player App**](#player-app)
-* [**Operations**](#operations)
+* [**Operating**](#operating)
 
 ## Setup
 
@@ -122,9 +122,11 @@ bundle exec rails server
 
 GraphQL ships with a console that is accessible at: `http://no-borders.lvh.me:3000/graphiql` or whatever your tournament subdomain is. Graphiql is the best way to explore the API and test new additions or changes.
 
+The API schema differs based on the current user's permissions. Parts of the API are public (for the public clients) and others are only for admins. Graphiql does not support login directly but it will pass credentials from cookies along. If you need to use Graphiql to test these parts then login to the admin locally and refresh Graphiql.
+
 ### Clients
 
-To develop on a client check the client's own readme for instructions on how to  run the development version.
+To develop on a client check the client's own readme for instructions on how to run the development version.
 
 Most clients will have a development server which supports fancy things like hot reloading and helpful crash handling. Generally a client will be started with `yarn start` and the output of this command will say where the app is accessible (e.g. localhost:4000)
 
@@ -163,15 +165,32 @@ This will build all the clients and start both a web process and worker process
 
 There should be no new development on the old admin client unless it is to maintain a minor compatibility for the API as the new admin client is developed.
 
-This client does not have a development server so you'll need to run `yarn build` after making any changes.
+This client does not have a development server (anymore) so you'll need to run `yarn build` after making any changes.
 
-Some of the config here might not make much sense since a) React on Rails is more complicated than it needs to be and b) I removed a bunch of the config since we're not developing on it anymore and I wanted to remove some clutter.
+Some of the config here might not make much sense since a) React on Rails is more complicated than it needs to be and b) I removed a bunch of the config since we're not developing on it anymore and I hate clutter.
 
 Note - Any new react component needs to be added to clientRegistration.js and registered for use with React On Rails.
 
 ### Admin Next
 
-New Admin client under development. See main issue [here](https://github.com/kevinhughes27/ultimate-tournament/issues/750)
+New Admin client under development. See main issue [here](https://github.com/kevinhughes27/ultimate-tournament/issues/750).
+
+To work on the new admin locally you need to run 2 processes: the webpack development server and the Rails server for the GraphQL API.
+
+```
+# webpack development server
+cd clients/admin_next
+yarn start
+
+# rails server
+bundle exec rails server
+```
+
+The webpack development server proxies all requests to `no-borders.lvh.me:/3000` which is the default development tournament. The proxy is configurable in the admin_next `package.json`.
+
+Admin Next uses Relay to make queries to the GraphQL API. Relay has a compile step which consumes the entire schema. To dump the schema run this rake task: `bundle exec rake dump_schema`. There is a test to ensure the commited schema file is up to  date so this is only neccessary if you make a change to the schema. Relay will recompile if you change a query in the client but the process needs to be restarted if you dump a new version of the schema.
+
+`yarn start` runs the development server and the relay compiler in parallel. However if relay fails to compile it is easier to debug on its own using `yarn compile-relay`.
 
 ### Player App
 
@@ -181,7 +200,7 @@ It is connected using a git `submodule`. To initialize the module run `git submo
 
 If you need to update the player app to deploy a new version first enter the directory `cd clients/player_app`, checkout master `git checkout master` and run `git pull`. Check the status afterwards `git status` and it will show updates that you will need to commit like normal (it will look different than normal commit diff though because git knows it's a submodule).
 
-## Operations
+## Operating
 
 Staff accounts can login to any tournament using their account to debug a tournament
 
