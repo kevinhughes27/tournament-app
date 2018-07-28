@@ -98,6 +98,14 @@ const Breadcrumbs = {
   }
 };
 
+const ActionButton = (theme: Theme) => createStyles({
+  fab: {
+    position: "absolute",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  }
+});
+
 const ErrorBanner = {
   warning: {
     backgroundColor: amber[700]
@@ -124,5 +132,6 @@ export {
   Modal,
   BlankSlate,
   Breadcrumbs,
+  ActionButton,
   ErrorBanner
 };
