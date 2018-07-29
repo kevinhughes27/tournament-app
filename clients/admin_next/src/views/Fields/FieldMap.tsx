@@ -6,15 +6,15 @@ import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
 import Breadcrumbs from "../../components/Breadcrumbs";
 
 interface Props extends RouteComponentProps<any> {
-  map: MapType;
-  fields: Field[];
+  map: FieldMap_map;
+  fields: FieldMap_fields;
 }
 
 interface State {
   lat: number;
   long: number;
   zoom: number;
-  hover?: ID;
+  hover?: string;
 }
 
 class FieldMap extends React.Component<Props, State> {
@@ -48,29 +48,29 @@ class FieldMap extends React.Component<Props, State> {
             url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
-          {fields.map(this.renderFields)}
+          {fields.map(this.renderField)}
         </Map>
       </div>
     );
   }
 
-  renderFields = (field: Field) => (
+  renderField = (field: FieldMap_fields[0]) => (
     <GeoJSON
       key={field.id}
       data={JSON.parse(field.geoJson)}
-      style={this.fieldStyle(field)}
+      style={this.fieldStyle(field.id)}
       onMouseover={() => this.setState({hover: field.id})}
       onMouseout={() => this.setState({hover: undefined})}
       onClick={() => this.handleClick(field.id)}
     />
   )
 
-  handleClick = (fieldId: ID) => {
+  handleClick = (fieldId: string) => {
     this.props.history.push(`/fields/${fieldId}`);
   }
 
-  fieldStyle = (field: Field) => {
-    if (this.state.hover === field.id) {
+  fieldStyle = (fieldId: string) => {
+    if (this.state.hover === fieldId) {
       return FieldHoverStyle;
     } else {
       return FieldStyle;

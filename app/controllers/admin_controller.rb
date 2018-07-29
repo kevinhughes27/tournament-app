@@ -68,6 +68,7 @@ class AdminController < ApplicationController
     end
 
     # add id as an integer with full id_key
+    id_key ||= 'id'
     input[id_key] = params[:id].to_i if params[:id].present?
 
     # add confirm param as proper boolean

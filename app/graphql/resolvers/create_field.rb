@@ -13,7 +13,6 @@ class Resolvers::CreateField < Resolvers::BaseResolver
       {
         success: false,
         user_errors: field.fields_errors,
-        field: field
       }
     end
   end

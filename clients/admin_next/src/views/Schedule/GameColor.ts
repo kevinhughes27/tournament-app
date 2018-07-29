@@ -13,7 +13,7 @@ const COLORS = [
   "#ff0066"
 ];
 
-const GameColor = (game: Game) => {
+const GameColor = (game: { division: { id: string; }}) => {
   const divisionId = game.division.id;
   const color = COLORS[parseInt(divisionId, 10) % 12];
   return color;

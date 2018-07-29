@@ -11,12 +11,11 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(input: any, game: Game) {
+function getOptimisticResponse(variables: UpdateScoreMutationVariables) {
   return {
     updateScore: {
       game: {
-        id: game.id,
-        ...input
+        ...variables
       }
     },
   };
@@ -24,6 +23,7 @@ function getOptimisticResponse(input: any, game: Game) {
 
 function blindTrustUpdater(store: RecordSourceSelectorProxy) {
   const updateScore = store.getRootField("updateScore");
+
   if (updateScore) {
     const input = JSON.parse(
       updateScore.getDataID()
@@ -41,31 +41,30 @@ function blindTrustUpdater(store: RecordSourceSelectorProxy) {
 }
 
 function commit(
-  input: any,
-  game: Game
+  variables: UpdateScoreMutationVariables
 ) {
-  return new Promise((resolve: (result: UpdateTeam) => void, reject: (error: Error | undefined) => void) => {
-    commitMutation(
-      environment,
-      {
-        mutation,
-        optimisticResponse: getOptimisticResponse(input, game),
-        updater: blindTrustUpdater,
-        variables: {
-          input: {
-            gameId: game.id,
-            ...input
+  return new Promise(
+    (
+      resolve: (result: MutationResult) => void,
+      reject: (error: Error | undefined) => void
+    ) => {
+      commitMutation(
+        environment,
+        {
+          mutation,
+          variables,
+          optimisticResponse: getOptimisticResponse(variables),
+          updater: blindTrustUpdater,
+          onCompleted: (response: UpdateScoreMutationResponse) => {
+            resolve(response.updateScore as MutationResult);
           },
+          onError: (error) => {
+            reject(error);
+          }
         },
-      onCompleted: (response) => {
-        resolve(response.updateScore);
-      },
-      onError: (error) => {
-        reject(error);
-      }
-      },
-    );
-  });
+      );
+    }
+  );
 }
 
 export default { commit };

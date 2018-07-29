@@ -12,19 +12,19 @@ import UpdateTeamMutation from "../../mutations/UpdateTeam";
 import CreateTeamMutation from "../../mutations/CreateTeam";
 
 interface Props {
-  team: Team;
-  divisions: Division[];
+  input: UpdateTeamMutationVariables["input"] & CreateTeamMutationVariables["input"];
+  divisions: DivisionPicker_divisions;
 }
 
 class TeamForm extends Form<Props> {
   initialValues = () => {
-    const { team } = this.props;
+    const { input } = this.props;
 
     return {
-      name: team.name,
-      email: team.email || "",
-      divisionId: team.division && team.division.id || "",
-      seed: team.seed || ""
+      name: input.name,
+      email: input.email || "",
+      divisionId: input.divisionId || "",
+      seed: input.seed || ""
     };
   }
 
@@ -47,10 +47,12 @@ class TeamForm extends Form<Props> {
   }
 
   submit = (values: FormikValues) => {
-    if (this.props.team.id) {
-      return UpdateTeamMutation.commit(values, this.props.team);
+    const teamId = this.props.input.id;
+
+    if (teamId) {
+      return UpdateTeamMutation.commit({input: {id: teamId, ...values}});
     } else {
-      return CreateTeamMutation.commit(values);
+      return CreateTeamMutation.commit({input: {...values}});
     }
   }
 

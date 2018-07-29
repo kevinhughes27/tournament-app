@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStop } from "@fortawesome/free-solid-svg-icons";
 import { keys, groupBy, sortBy, map, Dictionary } from "lodash";
 
-import UnscheduledGame from "./UnscheduledGame";
-import GameColor from "./GameColor";
+import Game from "./Game";
+import GameColor from "../GameColor";
 
 interface Props {
-  games: Game[];
+  games: UnscheduledGame[];
 }
 
 interface State {
@@ -56,7 +56,7 @@ class UnscheduledGames extends React.Component<Props, State> {
     );
   }
 
-  renderTabContent = (games: Game[]) => {
+  renderTabContent = (games: UnscheduledGame[]) => {
     const poolGames = games.filter((g) => !!g.pool);
     const bracketGames = games.filter((g) => !g.pool);
 
@@ -74,17 +74,17 @@ class UnscheduledGames extends React.Component<Props, State> {
     );
   }
 
-  renderStage = (stage: string, rounds: string[], games: Dictionary<Game[]>) => {
+  renderStage = (stage: string, rounds: string[], games: Dictionary<UnscheduledGame[]>) => {
     return map(rounds, (round) => {
       return this.renderGamesRow(stage, round, games[round]);
     });
   }
 
-  renderGamesRow = (stage: string, round: string, games: Game[]) => {
+  renderGamesRow = (stage: string, round: string, games: UnscheduledGame[]) => {
     return (
       <div key={stage + round} style={{display: "flex"}}>
         {map(games, (g) => {
-          return <UnscheduledGame key={g.id} game={g}/>;
+          return <Game key={g.id} game={g}/>;
         })}
       </div>
     );

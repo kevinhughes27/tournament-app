@@ -2,18 +2,18 @@ class Types::Division < Types::BaseObject
   graphql_name "Division"
   description "A Division"
 
-  field :id, ID, null: true
-  field :name, String, null: true
-  field :numTeams, Int, null: true
-  field :numDays, Int, null: true
-  field :teamsCount, Int, null: true
+  field :id, ID, null: false
+  field :name, String, null: false
+  field :numTeams, Int, null: false
+  field :numDays, Int, null: false
+  field :teamsCount, Int, null: false
 
-  field :bracket, Types::Bracket, null: true
-  field :bracketTree, String, null: true
-  field :games, [Types::Game], null: true
+  field :bracket, Types::Bracket, null: false
+  field :bracketTree, String, null: false
+  field :games, [Types::Game], null: false
 
-  field :isSeeded, Boolean, null: true
-  field :needsSeed, Boolean, null: true
+  field :isSeeded, Boolean, null: false
+  field :needsSeed, Boolean, null: false
 
   def teams_count
     object.teams.count

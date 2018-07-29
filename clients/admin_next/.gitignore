@@ -10,7 +10,8 @@
 /build
 
 # relay
-*__generated__
+/src/generated
+/types/generated.d.ts
 
 # misc
 .DS_Store

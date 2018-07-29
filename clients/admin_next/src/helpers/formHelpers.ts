@@ -20,7 +20,7 @@ const handleSuccess = (
   actions: FormikActions<FormikValues>
 ) => {
   actions.resetForm();
-  showNotice(result.message);
+  if (result.message) { showNotice(result.message); }
 };
 
 const handleFailure = (
@@ -37,7 +37,7 @@ const handleFailure = (
 };
 
 const setFieldErrors = (
-  errors: UserError[],
+  errors: ReadonlyArray<UserError>,
   actions: FormikActions<FormikValues>
 ) => {
   errors.forEach((error) => {

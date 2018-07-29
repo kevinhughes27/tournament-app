@@ -3,12 +3,12 @@ import { keys, map, each, filter, groupBy, sortBy, unionWith, isEqual } from "lo
 import Pool from "./Pool";
 
 interface Props {
-  games: Game[];
+  division: DivisionShow_division;
 }
 
 class Pools extends React.Component<Props> {
   render() {
-    const games = this.props.games;
+    const games = this.props.division.games;
     const teams = teamsByPool(games);
     const pools = keys(teams);
 
@@ -26,7 +26,7 @@ class Pools extends React.Component<Props> {
   }
 }
 
-const teamsByPool = (games: Game[]) => {
+const teamsByPool = (games: any) => {
   const byPool: any = {};
 
   const allPoolGames = filter(games, "pool");

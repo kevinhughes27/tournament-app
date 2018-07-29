@@ -14,7 +14,7 @@ class Types::Query < Types::BaseObject
   field :fields, [Types::Field], null: true
 
   def fields
-    context[:tournament].fields.all
+    context[:tournament].fields.where.not(lat: nil, long: nil, geo_json: nil).all
   end
 
   field :field, Types::Field, null: true do
@@ -22,7 +22,7 @@ class Types::Query < Types::BaseObject
   end
 
   def field(id:)
-    context[:tournament].fields.find(id)
+    context[:tournament].fields.where.not(lat: nil, long: nil, geo_json: nil).find(id)
   end
 
   field :teams, [Types::Team], null: true

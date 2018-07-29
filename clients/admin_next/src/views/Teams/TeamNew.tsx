@@ -3,36 +3,18 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamForm from "./TeamForm";
 
 interface Props {
-  divisions: Division[];
+  divisions: DivisionPicker_divisions;
 }
 
 class TeamNew extends React.Component<Props> {
   render() {
     const { divisions } = this.props;
 
-    const newTeam = {
+    const input = {
       id: "",
       name: "",
       email: "",
-      division: {
-        id: "",
-        name: "",
-        bracket: {
-          handle: "",
-          name: "",
-          description: "",
-          numTeams: 0,
-          numDays: 0,
-          games: "",
-          places: "",
-          tree: ""
-        },
-        bracketTree: "",
-        games: [],
-        teamsCount: 0,
-        numTeams: 0,
-        isSeeded: false
-      },
+      divisionId: "",
       seed: 0
     };
 
@@ -44,7 +26,7 @@ class TeamNew extends React.Component<Props> {
             {text: "New"}
           ]}
         />
-        <TeamForm team={newTeam} divisions={divisions}/>
+        <TeamForm input={input} divisions={divisions}/>
       </div>
     );
   }

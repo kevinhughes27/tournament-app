@@ -18,11 +18,11 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(game: Game) {
+function getOptimisticResponse(variables: UnscheduleGameMutationVariables) {
   return {
     unscheduleGame: {
       game: {
-        id: game.id,
+        id: variables.gameId,
         startTime: null,
         endTime: null,
         field: null
@@ -32,20 +32,18 @@ function getOptimisticResponse(game: Game) {
 }
 
 function commit(
-  game: Game,
-  success: (result: UnscheduleGame) => void,
+  variables: UnscheduleGameMutationVariables,
+  success: (result: SchedulingResult) => void,
   failure: (error: Error | undefined) => void
 ) {
   return commitMutation(
     environment,
     {
       mutation,
-      optimisticResponse: getOptimisticResponse(game),
-      variables: {
-        gameId: game.id
-      },
+      variables,
+      optimisticResponse: getOptimisticResponse(variables),
       onCompleted: (response) => {
-        success(response.unscheduleGame);
+        success(response.unscheduleGame as SchedulingResult);
       },
       onError: (error) => {
         failure(error);

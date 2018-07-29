@@ -1,12 +1,11 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
-
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
 interface Props extends RouteComponentProps<any> {
-  game: Game;
+  game: GameListItem_game;
 }
 
 class GameListItem extends React.Component<Props> {

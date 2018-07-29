@@ -29,7 +29,7 @@ class Admin::TeamsController < AdminController
   end
 
   def update
-    input = params_to_input(team_params, params, 'teamId')
+    input = params_to_input(team_params, params)
     input['name'] = input['name'].to_s if input['name']
     input['phone'] = input['phone'].to_s if input['phone']
 
@@ -62,7 +62,7 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
-    input = params_to_input({}, params, 'teamId')
+    input = params_to_input({}, params)
 
     result = execute_graphql(
       'deleteTeam',

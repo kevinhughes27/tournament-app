@@ -1,14 +1,13 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
-
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TeamsCell from "./TeamsCell";
 import SeededCell from "./SeededCell";
 
 interface Props extends RouteComponentProps<any> {
-  division: Division;
+  division: DivisionListItem_division;
 }
 
 class DivisionListItem extends React.Component<Props> {

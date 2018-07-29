@@ -21,36 +21,40 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(input: any) {
+function getOptimisticResponse(variables: CreateTeamMutationVariables) {
   return {
     createTeam: {
       team: {
-        id: "new",
-        ...input
+        ...variables
       }
     },
   };
 }
 
 function commit(
-  input: any
+  variables: CreateTeamMutationVariables
 ) {
-  return new Promise((resolve: (result: UpdateTeam) => void, reject: (error: Error | undefined) => void) => {
-    return commitMutation(
-      environment,
-      {
-        mutation,
-        optimisticResponse: getOptimisticResponse(input),
-        variables: { input },
-        onCompleted: (response) => {
-          resolve(response.createTeam);
+  return new Promise(
+    (
+      resolve: (result: MutationResult) => void,
+      reject: (error: Error | undefined) => void
+    ) => {
+      return commitMutation(
+        environment,
+        {
+          mutation,
+          variables,
+          optimisticResponse: getOptimisticResponse(variables),
+          onCompleted: (response: CreateTeamMutationResponse) => {
+            resolve(response.createTeam as MutationResult);
+          },
+          onError: (error) => {
+            reject(error);
+          }
         },
-        onError: (error) => {
-          reject(error);
-        }
-      },
-    );
-  });
+      );
+    }
+  );
 }
 
 export default { commit };

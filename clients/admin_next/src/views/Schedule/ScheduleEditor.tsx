@@ -5,19 +5,19 @@ import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
 import Calendar from "./Calendar";
-import UnscheduledGames from "./UnscheduledGames";
+import Unscheduled from "./Unscheduled";
 import Legend from "./Legend";
 
 interface Props {
-  fields: Field[];
-  games: Game[];
+  fields: ScheduleEditor_fields;
+  games: ScheduleEditor_games;
 }
 
 class ScheduleEditor extends React.Component<Props> {
   render() {
     const { fields, games } = this.props;
-    const unscheduledGames = games.filter((g) => !g.startTime);
-    const scheduledGames = games.filter((g) => !!g.startTime);
+    const unscheduledGames = games.filter((g) => !g.startTime) as UnscheduledGame[];
+    const scheduledGames = games.filter((g) => !!g.startTime) as ScheduledGame[];
 
     return (
       <div>
@@ -28,11 +28,11 @@ class ScheduleEditor extends React.Component<Props> {
     );
   }
 
-  renderTop = (unscheduledGames: Game[]) => {
+  renderTop = (unscheduledGames: UnscheduledGame[]) => {
     if (unscheduledGames.length === 0) {
       return <Legend games={unscheduledGames} />;
     } else {
-      return <UnscheduledGames games={unscheduledGames}/>;
+      return <Unscheduled games={unscheduledGames}/>;
     }
   }
 }

@@ -59,16 +59,6 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@7.0.0-beta.40":
-  version "7.0.0-beta.40"
-  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.40.tgz#ab61f9556f4f71dbd1138949c795bb9a21e302ea"
-  dependencies:
-    "@babel/types" "7.0.0-beta.40"
-    jsesc "^2.5.1"
-    lodash "^4.2.0"
-    source-map "^0.5.0"
-    trim-right "^1.0.1"
-
 "@babel/generator@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.44.tgz#c7e67b9b5284afcf69b309b50d7d37f3e5033d42"
@@ -1274,14 +1264,6 @@
     globals "^11.1.0"
     lodash "^4.17.5"
 
-"@babel/types@7.0.0-beta.40":
-  version "7.0.0-beta.40"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.40.tgz#25c3d7aae14126abe05fcb098c65a66b6d6b8c14"
-  dependencies:
-    esutils "^2.0.2"
-    lodash "^4.2.0"
-    to-fast-properties "^2.0.0"
-
 "@babel/types@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.44.tgz#6b1b164591f77dec0a0342aca995f2d046b3a757"
@@ -1395,18 +1377,18 @@
     indefinite-observable "^1.0.1"
 
 "@types/leaflet@*":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.2.8.tgz#9862b55a6e073974737c03e1b8faa132b46d0c94"
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.2.9.tgz#ed0857fb41c5769cf4f385332c9edfa398715f85"
   dependencies:
     "@types/geojson" "*"
 
 "@types/lodash@^4.14.112":
-  version "4.14.114"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.114.tgz#e6f251af5994dd0d7ce141f9241439b4f40270f6"
+  version "4.14.115"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.115.tgz#54d171b2ce12c058742443b5f6754760f701b8f9"
 
-"@types/node@*", "@types/node@^10.0.4":
-  version "10.5.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.3.tgz#5bcfaf088ad17894232012877669634c06b20cc5"
+"@types/node@*":
+  version "10.5.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.4.tgz#6eccc158504357d1da91434d75e86acde94bb10b"
 
 "@types/react-dnd-html5-backend@^2.1.9":
   version "2.1.9"
@@ -2130,9 +2112,9 @@ babel-plugin-named-asset-import@1.0.0-next.3e165448:
   version "1.0.0-next.3e165448"
   resolved "https://registry.yarnpkg.com/babel-plugin-named-asset-import/-/babel-plugin-named-asset-import-1.0.0-next.3e165448.tgz#f5ef4e118eeda727fcb7d4847aae1e1cf1bfe36b"
 
-babel-plugin-relay@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-relay/-/babel-plugin-relay-1.6.0.tgz#a224da524362d6903a524214a1b840530fdfbd28"
+"babel-plugin-relay@https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/babel-plugin-relay-1.6.1-plugin.1.tgz":
+  version "1.6.1-plugin.1"
+  resolved "https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/babel-plugin-relay-1.6.1-plugin.1.tgz#c3161da6c638a41bd2594c3b73a72a0ab2986903"
   dependencies:
     babel-runtime "^6.23.0"
     babel-types "^6.24.1"
@@ -2346,7 +2328,7 @@ babel-polyfill@^6.20.0:
     core-js "^2.5.0"
     regenerator-runtime "^0.10.5"
 
-babel-preset-fbjs@^2.1.4:
+babel-preset-fbjs@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/babel-preset-fbjs/-/babel-preset-fbjs-2.2.0.tgz#c25b879a914feefd964052b1bce4c90ee915023a"
   dependencies:
@@ -2458,10 +2440,6 @@ babel-types@^6.18.0, babel-types@^6.24.1, babel-types@^6.26.0:
     esutils "^2.0.2"
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
-
-babylon@7.0.0-beta.40:
-  version "7.0.0-beta.40"
-  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.40.tgz#91fc8cd56d5eb98b28e6fde41045f2957779940a"
 
 babylon@7.0.0-beta.44:
   version "7.0.0-beta.44"
@@ -4325,7 +4303,7 @@ fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
 
-fast-glob@^2.0.0, fast-glob@^2.0.2:
+fast-glob@^2.0.2, fast-glob@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-2.2.2.tgz#71723338ac9b4e0e2fff1d6748a2a13d5ed352bf"
   dependencies:
@@ -4366,7 +4344,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.14, fbjs@^0.8.16:
+fbjs@0.8.17, fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.16:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   dependencies:
@@ -4803,9 +4781,9 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-graphql-compiler@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/graphql-compiler/-/graphql-compiler-1.6.0.tgz#24f146cdf88b80e045322a572a1a5d84b9c2a9d5"
+graphql-compiler@1.6.1-plugin.1, "graphql-compiler@https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/graphql-compiler-1.6.1-plugin.1.tgz":
+  version "1.6.1-plugin.1"
+  resolved "https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/graphql-compiler-1.6.1-plugin.1.tgz#baeb9c43262c879b6b4904580a050ba8d8aff92d"
   dependencies:
     chalk "^1.1.1"
     fb-watchman "^2.0.0"
@@ -5180,6 +5158,10 @@ ignore-walk@^3.0.1:
 ignore@^3.3.3, ignore@^3.3.5:
   version "3.3.10"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.10.tgz#0a97fb876986e8081c631160f8f9f389157f0043"
+
+immutable@^3.7.6:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
 
 immutable@~3.7.6:
   version "3.7.6"
@@ -7991,14 +7973,14 @@ react-popper@^0.7.0:
     popper.js "^1.12.5"
     prop-types "^15.5.10"
 
-react-relay@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-1.6.0.tgz#7a0eca435c81b9b01d8917d4bca6507eefbcdfe4"
+"react-relay@https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/react-relay-1.6.1-plugin.1.tgz":
+  version "1.6.1-plugin.1"
+  resolved "https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/react-relay-1.6.1-plugin.1.tgz#0ee64c03f33621b6048a7f791256b6c2eafd52e8"
   dependencies:
     babel-runtime "^6.23.0"
-    fbjs "^0.8.14"
+    fbjs "0.8.17"
     prop-types "^15.5.8"
-    relay-runtime "1.6.0"
+    relay-runtime "1.6.1-plugin.1"
 
 react-router-dom@^4.3.1:
   version "4.3.1"
@@ -8326,33 +8308,40 @@ relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
 
-relay-compiler@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/relay-compiler/-/relay-compiler-1.6.0.tgz#0a1bc8d28c1cf31d8985108a761ba6c0db48d4a1"
+relay-compiler-language-typescript@^0.9.0:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/relay-compiler-language-typescript/-/relay-compiler-language-typescript-0.9.1.tgz#aa9203292af526987e0368ee5205f06b586e2ec2"
   dependencies:
-    "@babel/generator" "7.0.0-beta.40"
-    "@babel/types" "7.0.0-beta.40"
+    immutable "^3.7.6"
+    invariant "^2.2.2"
+
+"relay-compiler@https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/relay-compiler-1.6.1-plugin.1.tgz":
+  version "1.6.1-plugin.1"
+  resolved "https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/relay-compiler-1.6.1-plugin.1.tgz#459ed91cf15ac01f8dad9a38990a509062e32232"
+  dependencies:
+    "@babel/generator" "7.0.0-beta.54"
+    "@babel/parser" "7.0.0-beta.54"
+    "@babel/types" "7.0.0-beta.54"
     babel-polyfill "^6.20.0"
-    babel-preset-fbjs "^2.1.4"
+    babel-preset-fbjs "2.2.0"
     babel-runtime "^6.23.0"
     babel-traverse "^6.26.0"
-    babylon "7.0.0-beta.40"
     chalk "^1.1.1"
-    fast-glob "^2.0.0"
+    fast-glob "^2.2.2"
     fb-watchman "^2.0.0"
-    fbjs "^0.8.14"
-    graphql-compiler "1.6.0"
+    fbjs "0.8.17"
+    graphql-compiler "1.6.1-plugin.1"
     immutable "~3.7.6"
-    relay-runtime "1.6.0"
+    relay-runtime "1.6.1-plugin.1"
     signedsource "^1.0.0"
     yargs "^9.0.0"
 
-relay-runtime@1.6.0, relay-runtime@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/relay-runtime/-/relay-runtime-1.6.0.tgz#2b70058fb77a4c93a171752ce147f8ee8d8a88b9"
+relay-runtime@1.6.1-plugin.1, "relay-runtime@https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/relay-runtime-1.6.1-plugin.1.tgz":
+  version "1.6.1-plugin.1"
+  resolved "https://github.com/alloy/relay/releases/download/v1.6.1-plugin.1/relay-runtime-1.6.1-plugin.1.tgz#4e4d81c9d37baf667b314df571071eedf27439dd"
   dependencies:
     babel-runtime "^6.23.0"
-    fbjs "^0.8.14"
+    fbjs "0.8.17"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
@@ -9413,7 +9402,7 @@ tslint-react@^3.6.0:
   dependencies:
     tsutils "^2.13.1"
 
-tslint@^5.10.0:
+tslint@^5.11.0:
   version "5.11.0"
   resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.11.0.tgz#98f30c02eae3cde7006201e4c33cb08b48581eed"
   dependencies:
@@ -9467,9 +9456,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.9.2:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+typescript@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.0.1.tgz#43738f29585d3a87575520a4b93ab6026ef11fdb"
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
@@ -9708,10 +9697,6 @@ utila@~0.3:
 utila@~0.4:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
-
-utility-types@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/utility-types/-/utility-types-2.0.0.tgz#3c9fe26914a1c7b8aff690e8f941e76b091d3149"
 
 utils-merge@1.0.1:
   version "1.0.1"

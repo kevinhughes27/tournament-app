@@ -8,7 +8,7 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
  the division_name division first."""
 
   def call(inputs, ctx)
-    team = ctx[:tournament].teams.find(inputs[:team_id])
+    team = ctx[:tournament].teams.find(inputs[:id])
     params = inputs.to_h.except(:team_id, :confirm)
 
     team.assign_attributes(params)
@@ -41,6 +41,8 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
         team: team
       }
     else
+      # remove after admin_next ships
+      team.name ||= ""
       {
         success: false,
         user_errors: team.fields_errors,
