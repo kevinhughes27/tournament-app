@@ -9,6 +9,7 @@ import SubmitButton from "../../components/SubmitButton";
 
 import Form from "../../components/Form";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
+import CreateTeamMutation from "../../mutations/CreateTeam";
 
 interface Props {
   team: Team;
@@ -46,7 +47,11 @@ class TeamForm extends Form<Props> {
   }
 
   submit = (values: FormikValues) => {
-    return UpdateTeamMutation.commit(values, this.props.team);
+    if (this.props.team.id) {
+      return UpdateTeamMutation.commit(values, this.props.team);
+    } else {
+      return CreateTeamMutation.commit(values);
+    }
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
