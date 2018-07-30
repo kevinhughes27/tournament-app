@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as moment from "moment";
-import { filter, isEmpty, sortBy, map } from "lodash";
+import { isEmpty, sortBy, map } from "lodash";
 
 import XLabels from "./XLabels";
 import YLabels from "./YLabels";
@@ -10,8 +10,8 @@ import DatePicker from "./DatePicker";
 import SettingsModal from "./SettingsModal";
 
 interface Props {
-  fields: Field[];
-  games: Game[];
+  fields: ScheduleEditor_fields;
+  games: ScheduledGame[];
 }
 
 interface State {
@@ -37,8 +37,6 @@ class Calendar extends React.Component<Props, State> {
   }
 
   render() {
-    const date = this.state.date;
-    const dateStr = date.format("LL");
     const fields = this.props.fields;
 
     return (
@@ -48,14 +46,7 @@ class Calendar extends React.Component<Props, State> {
         <div className="body">
           <YLabels />
           <div className="grid">
-            {map(fields, (f: any) => {
-              return <FieldColumn
-                key={f.name}
-                date={dateStr}
-                fieldId={f.id}
-                games={this.gamesForField(f.id)}
-              />;
-            })}
+            {map(fields, this.renderColumn)}
           </div>
         </div>
       </div>
@@ -85,9 +76,19 @@ class Calendar extends React.Component<Props, State> {
     );
   }
 
-  gamesForField = (fieldId: string) => {
-    const games = this.props.games;
-    return filter(games, (g: Game) => g.field.id === fieldId);
+  renderColumn = (field: any) => {
+    const date = this.state.date;
+    const dateStr = date.format("LL");
+    const games = this.props.games.filter((g) => g.field && g.field.id === field.id);
+
+    return (
+      <FieldColumn
+        key={field.name}
+        date={dateStr}
+        fieldId={field.id}
+        games={games}
+      />
+    );
   }
 }
 

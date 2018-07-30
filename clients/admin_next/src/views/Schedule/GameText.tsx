@@ -2,13 +2,13 @@ import * as React from "react";
 
 const GameText = (game: Game, length: number) => {
   if (!game.pool) {
-    return BracketText(game, length);
+    return BracketText(game as BracketGame, length);
   } else {
-    return PoolText(game, length);
+    return PoolText(game as PoolGame, length);
   }
 };
 
-const BracketText = (game: Game, length: number) => {
+const BracketText = (game: BracketGame, length: number) => {
   if (length <= 60) {
     return (
       <div className="game-text-1">
@@ -25,7 +25,7 @@ const BracketText = (game: Game, length: number) => {
   }
 };
 
-const PoolText = (game: Game, length: number) => {
+const PoolText = (game: PoolGame, length: number) => {
   if (length <= 60) {
     return (
       <div className="game-text-1">

@@ -3,15 +3,15 @@ class Types::Game < Types::BaseObject
   description "A Game"
 
   field :id, ID, null: false
-  field :division, Types::Division, null: true
+  field :division, Types::Division, null: false
   field :pool, String, null: true
   field :bracketUid, String, null: true
-  field :round, String, null: true
+  field :round, Int, null: false
 
   field :homeName, String, null: true
   field :awayName, String, null: true
-  field :homePrereq, String, null: true
-  field :awayPrereq, String, null: true
+  field :homePrereq, String, null: false
+  field :awayPrereq, String, null: false
   field :homePoolSeed, Int, null: true
   field :awayPoolSeed, Int, null: true
 

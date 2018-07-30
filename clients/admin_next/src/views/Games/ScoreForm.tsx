@@ -8,16 +8,16 @@ import Form from "../../components/Form";
 import UpdateScoreMutation from "../../mutations/UpdateScore";
 
 interface Props {
-  game: Game;
+  input: UpdateScoreMutationVariables["input"];
 }
 
 class ScoreForm extends Form<Props> {
   initialValues = () => {
-    const { game } = this.props;
+    const { input } = this.props;
 
     return {
-      homeScore: game.homeScore || "",
-      awayScore: game.awayScore || ""
+      homeScore: input.homeScore || "",
+      awayScore: input.awayScore || ""
     };
   }
 
@@ -36,7 +36,13 @@ class ScoreForm extends Form<Props> {
   }
 
   submit = (values: FormikValues) => {
-    return UpdateScoreMutation.commit(values, this.props.game);
+    return UpdateScoreMutation.commit({
+      input: {
+        gameId: this.props.input.gameId,
+        homeScore: values.homeScore,
+        awayScore: values.awayScore
+      }
+    });
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {

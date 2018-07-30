@@ -1,16 +1,21 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
-
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ScoreForm from "./ScoreForm";
 
 interface Props {
-  game: Game;
+  game: GameShow_game;
 }
 
 class GameShow extends React.Component<Props> {
   render() {
     const { game } = this.props;
+
+    const input = {
+      gameId: game.id,
+      homeScore: game.homeScore || 0,
+      awayScore: game.awayScore || 0
+    };
 
     return (
       <div>
@@ -20,7 +25,7 @@ class GameShow extends React.Component<Props> {
             {text: `${game.homeName} vs ${game.awayName}` }
           ]}
         />
-        <ScoreForm game={game} />
+        <ScoreForm input={input} />
       </div>
     );
   }

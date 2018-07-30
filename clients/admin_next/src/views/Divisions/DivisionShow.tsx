@@ -5,7 +5,7 @@ import Pools from "./Pools";
 import Bracket from "./Bracket";
 
 interface Props {
-  division: Division;
+  division: DivisionShow_division;
 }
 
 class DivisionShow extends React.Component<Props> {
@@ -27,7 +27,7 @@ class DivisionShow extends React.Component<Props> {
           </p>
           <p>{bracket.description}</p>
         </div>
-        <Pools games={division.games} />
+        <Pools division={division} />
         <Bracket bracketTree={division.bracketTree} />
       </div>
     );
@@ -49,6 +49,7 @@ export default createFragmentContainer(DivisionShow, {
       bracketTree
       bracket {
         name
+        description
       }
     }
   `

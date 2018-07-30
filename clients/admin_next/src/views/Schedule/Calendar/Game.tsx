@@ -11,11 +11,11 @@ import Position from "./Position";
 import GameText from "../GameText";
 
 interface Props {
-  game: Game;
+  game: ScheduledGame;
   error: boolean;
   gameLength: number;
-  startResize: (game: Game) => void;
-  unschedule: (game: Game) => void;
+  startResize: (game: ScheduledGame) => void;
+  unschedule: (game: ScheduledGame) => void;
   connectDragSource?: ConnectDragSource;
   isDragging?: boolean;
 }
@@ -39,7 +39,7 @@ const collect: DragSourceCollector = (connect, monitor) => {
   };
 };
 
-class ScheduledGame extends React.Component<Props> {
+class Game extends React.Component<Props> {
   private gameRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: Props) {
@@ -88,4 +88,4 @@ class ScheduledGame extends React.Component<Props> {
   }
 }
 
-export default DragSource("game", gameSource, collect)(ScheduledGame);
+export default DragSource("game", gameSource, collect)(Game);

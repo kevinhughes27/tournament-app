@@ -4,13 +4,18 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamForm from "./TeamForm";
 
 interface Props {
-  team: Team;
-  divisions: Division[];
+  team: TeamShow_team;
+  divisions: DivisionPicker_divisions;
 }
 
 class TeamShow extends React.Component<Props> {
   render() {
     const { team, divisions } = this.props;
+
+    const input = {
+      ...team,
+      divisionId: team.division && team.division.id
+    };
 
     return (
       <div>
@@ -20,7 +25,7 @@ class TeamShow extends React.Component<Props> {
             {text: team.name}
           ]}
         />
-        <TeamForm team={team} divisions={divisions}/>
+        <TeamForm input={input} divisions={divisions}/>
       </div>
     );
   }

@@ -11,7 +11,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import GameListItem from "./GameListItem";
 
 interface Props {
-  games: Game[];
+  games: GameList_games;
 }
 
 class GameList extends React.Component<Props> {
@@ -31,7 +31,7 @@ class GameList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {games.map((g: Game) => <GameListItem key={g.id} game={g}/>)}
+            {games.map((g) => <GameListItem key={g.id} game={g as GameListItem_game}/>)}
           </TableBody>
         </Table>
       </div>

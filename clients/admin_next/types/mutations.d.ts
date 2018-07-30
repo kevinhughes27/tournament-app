@@ -1,37 +1,26 @@
+interface SchedulingResult {
+  readonly game: {
+    readonly id: string;
+    readonly startTime: any | null;
+    readonly endTime: any | null;
+    readonly field: ({
+        readonly id: string;
+    }) | null;
+  };
+  readonly success: boolean;
+  readonly message: string | null;
+}
+
 interface MutationResult {
-  success: boolean;
-  message: string;
-  userErrors?: UserError[];
+  readonly success: boolean;
+  readonly message: string | null;
+  readonly userErrors: ReadonlyArray<{
+      readonly field: string;
+      readonly message: string;
+  }> | null
 }
 
-type UpdateTeam = {
-  team: Team;
-  success: boolean;
-  confirm: boolean;
-  message: string;
-  userErrors: UserError[];
-}
-
-type UpdateScore = {
-  success: boolean;
-  message: string;
-}
-
-type ScheduleGame = {
-  game: Game;
-  success: boolean;
-  message: string;
-  userErrors: UserError[];
-}
-
-type UnscheduleGame = {
-  game: Game;
-  success: boolean;
-  message: string;
-  userErrors: UserError[];
-}
-
-type UserError = {
-  field: string;
-  message: string;
+interface UserError {
+  readonly field: string;
+  readonly message: string;
 }

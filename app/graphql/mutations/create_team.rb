@@ -3,7 +3,7 @@ class Mutations::CreateTeam < Mutations::BaseMutation
 
   argument :input, Inputs::CreateTeamInput, required: true
 
-  field :team, Types::Team, null: false
+  field :team, Types::Team, null: true
   field :success, Boolean, null: false
   field :message, String, null: true
   field :userErrors, [Types::Error], null: true

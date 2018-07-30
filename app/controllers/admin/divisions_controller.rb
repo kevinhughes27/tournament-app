@@ -30,8 +30,14 @@ class Admin::DivisionsController < AdminController
        }"
     )
 
-    @division = Division.new(result_to_attributes(result, 'division', except: 'bracket'))
-    @division.bracket_type = result['division']['bracket']['handle']
+    @division = if result['division']
+      division = Division.new(result_to_attributes(result, 'division', except: 'bracket'))
+      division.bracket_type = result['division']['bracket']['handle']
+      division
+    else
+      Division.new(division_params)
+    end
+
     @errors = result_to_errors(result)
 
     if result['success']
@@ -43,7 +49,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def update
-    input = params_to_input(division_params, params, 'division_id')
+    input = params_to_input(division_params, params)
 
     result = execute_graphql(
       'updateDivision',
@@ -74,7 +80,7 @@ class Admin::DivisionsController < AdminController
   end
 
   def destroy
-    input = params_to_input({}, params, 'division_id')
+    input = params_to_input({}, params)
 
     result = execute_graphql(
       'deleteDivision',
@@ -126,7 +132,15 @@ class Admin::DivisionsController < AdminController
   private
 
   def load_division
-    @division = @tournament.divisions.includes(:teams, games: [:home, :away, :score_reports, :score_disputes]).find(params[:id])
+    @division = @tournament.divisions.includes(
+      :teams,
+      games: [
+        :home,
+        :away,
+        :score_reports,
+        :score_disputes
+      ]
+    ).find(params[:id])
   end
 
   def division_params

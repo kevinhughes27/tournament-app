@@ -1,5 +1,5 @@
 class Inputs::UpdateDivisionInput < Inputs::BaseInputObject
-  argument :divisionId, ID, required: true
+  argument :id, ID, required: true
   argument :name, String, required: false
   argument :numTeams, Int, required: false
   argument :numDays, Int, required: false

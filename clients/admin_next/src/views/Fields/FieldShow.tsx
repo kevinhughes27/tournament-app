@@ -5,9 +5,9 @@ import { OtherFieldStyle, FieldStyle } from "./FieldStyle";
 import Breadcrumbs from "../../components/Breadcrumbs";
 
 interface Props {
-  map: MapType;
-  field: Field;
-  fields: Field[];
+  map: FieldShow_map;
+  field: FieldShow_field;
+  fields: FieldShow_fields;
 }
 
 class FieldShow extends React.Component<Props> {
@@ -38,7 +38,7 @@ class FieldShow extends React.Component<Props> {
     );
   }
 
-  renderField = (field: Field) => (
+  renderField = (field: FieldShow_field) => (
     <GeoJSON
       key={field.id}
       data={JSON.parse(field.geoJson)}
@@ -46,7 +46,7 @@ class FieldShow extends React.Component<Props> {
     />
   )
 
-  renderOtherFields = (field: Field) => {
+  renderOtherFields = (field: FieldShow_fields[0]) => {
     if (field.id === this.props.field.id) {
       return null;
     }

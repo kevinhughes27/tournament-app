@@ -5,13 +5,13 @@ import { groupBy, map } from "lodash";
 import GameColor from "./GameColor";
 
 interface Props {
-  games: Game[];
+  games: UnscheduledGame[];
 }
 
 class Legend extends React.Component<Props> {
   render() {
     const games = this.props.games;
-    const gamesByDivision = groupBy(games, (g) => g.division.name);
+    const gamesByDivision = groupBy(games, (g) => g.division && g.division.name);
 
     return (
       <div style={{paddingLeft: 20}}>
@@ -20,8 +20,9 @@ class Legend extends React.Component<Props> {
     );
   }
 
-  renderDivision = (games: Game[], divisionName: string) => {
-    const color = GameColor(games[0]);
+  renderDivision = (games: UnscheduledGame[], divisionName: string) => {
+    const game = games[0];
+    const color = GameColor(game);
 
     return (
       <span key={divisionName}>

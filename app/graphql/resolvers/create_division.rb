@@ -14,7 +14,6 @@ class Resolvers::CreateDivision < Resolvers::BaseResolver
     else
        {
          success: false,
-         division: @division,
          user_errors: @division.fields_errors
        }
     end

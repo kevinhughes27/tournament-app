@@ -6,8 +6,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 interface Props {
   divisionId: string;
-  divisions: Division[];
+  divisions: DivisionPicker_divisions;
   onChange: (event: React.ChangeEvent<{}>) => void;
+}
+
+interface DivisionOption {
+  id: string;
+  name: string;
 }
 
 class DivisionPicker extends React.Component<Props> {
@@ -24,13 +29,13 @@ class DivisionPicker extends React.Component<Props> {
         value={this.props.divisionId}
         onChange={this.props.onChange}
       >
-        {options.map((option: {id: string, name: string}) => Option(option))}
+        {options.map((option) => Option(option))}
       </TextField>
     );
   }
 }
 
-const Option = (option: {id: string, name: string}) => (
+const Option = (option: DivisionOption) => (
   <MenuItem key={option.id} value={option.id}>
     {option.name}
   </MenuItem>

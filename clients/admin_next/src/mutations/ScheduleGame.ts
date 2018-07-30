@@ -18,40 +18,29 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(input: any, game: Game) {
+function getOptimisticResponse(variables: ScheduleGameMutationVariables) {
   return {
     scheduleGame: {
       game: {
-        id: game.id,
-        startTime: input.startTime,
-        endTime: input.endTime,
-        field: {
-          id: input.fieldId
-        }
+        ...variables
       }
     },
   };
 }
 
 function commit(
-  input: any,
-  game: Game,
-  success: (result: ScheduleGame) => void,
+  variables: ScheduleGameMutationVariables,
+  success: (result: SchedulingResult) => void,
   failure: (error: Error | undefined) => void
 ) {
   return commitMutation(
     environment,
     {
       mutation,
-      optimisticResponse: getOptimisticResponse(input, game),
-      variables: {
-        input: {
-          gameId: game.id,
-          ...input
-        },
-      },
+      variables,
+      optimisticResponse: getOptimisticResponse(variables),
       onCompleted: (response) => {
-        success(response.scheduleGame);
+        success(response.scheduleGame as SchedulingResult);
       },
       onError: (error) => {
         failure(error);

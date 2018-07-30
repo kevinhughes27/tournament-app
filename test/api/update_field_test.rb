@@ -9,7 +9,7 @@ class UpdateFieldTest < ApiTest
   test "update a field" do
     field = FactoryBot.create(:field)
     attributes = FactoryBot.attributes_for(:field).except(:tournament)
-    input = {field_id: field.id, **attributes}
+    input = {id: field.id, **attributes}
 
     execute_graphql("updateField", "UpdateFieldInput", input, @output)
 
@@ -20,7 +20,7 @@ class UpdateFieldTest < ApiTest
   test "update a field with errors" do
     field = FactoryBot.create(:field)
     attributes = FactoryBot.attributes_for(:field, name: nil).except(:tournament)
-    input = {field_id: field.id, **attributes}
+    input = {id: field.id, **attributes}
 
     execute_graphql("updateField", "UpdateFieldInput", input, @output)
     assert_failure({'field' => 'name', 'message' => "can't be blank"})

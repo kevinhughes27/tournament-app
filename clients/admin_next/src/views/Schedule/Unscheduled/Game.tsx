@@ -6,11 +6,11 @@ import {
   DragSourceCollector
 } from "react-dnd";
 
-import GameColor from "./GameColor";
-import GameText from "./GameText";
+import GameColor from "../GameColor";
+import GameText from "../GameText";
 
 interface Props {
-  game: Game;
+  game: UnscheduledGame;
   connectDragSource?: ConnectDragSource;
   isDragging?: boolean;
 }
@@ -28,7 +28,7 @@ const collect: DragSourceCollector = (connect, monitor) => {
   };
 };
 
-export class UnscheduledGame extends React.Component<Props> {
+export class Game extends React.Component<Props> {
   render() {
     const { connectDragSource, isDragging, game } = this.props;
 
@@ -53,4 +53,4 @@ export class UnscheduledGame extends React.Component<Props> {
   }
 }
 
-export default DragSource("game", gameSource, collect)(UnscheduledGame);
+export default DragSource("game", gameSource, collect)(Game);

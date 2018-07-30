@@ -3,7 +3,7 @@ class Mutations::CreateField < Mutations::BaseMutation
 
   argument :input, Inputs::CreateFieldInput, required: true
 
-  field :field, Types::Field, null: false
+  field :field, Types::Field, null: true
   field :success, Boolean, null: false
   field :message, String, null: true
   field :userErrors, [Types::Error], null: true

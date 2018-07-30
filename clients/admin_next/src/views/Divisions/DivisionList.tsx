@@ -11,7 +11,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import DivisionListItem from "./DivisionListItem";
 
 interface Props {
-  divisions: Division[];
+  divisions: DivisionList_divisions;
 }
 
 class DivisionList extends React.Component<Props> {
@@ -31,7 +31,7 @@ class DivisionList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {divisions.map((d: Division) => <DivisionListItem key={d.id} division={d}/>)}
+            {divisions.map((d) => <DivisionListItem key={d.id} division={d as DivisionListItem_division}/>)}
           </TableBody>
         </Table>
       </div>

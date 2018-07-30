@@ -7,13 +7,12 @@ class Resolvers::CreateTeam < Resolvers::BaseResolver
       {
         success: true,
         message: 'Team created',
-        team: team
+        team: team,
       }
     else
       {
         success: false,
         user_errors: team.fields_errors,
-        team: team
       }
     end
   end

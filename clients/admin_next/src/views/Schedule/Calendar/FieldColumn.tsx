@@ -10,7 +10,7 @@ import {
 } from "react-dnd";
 
 import Settings from "./Settings";
-import ScheduledGame from "./ScheduledGame";
+import Game from "./Game";
 import DropOverlay from "./DropOverlay";
 import { showNotice } from "../../../components/Notice";
 
@@ -20,16 +20,16 @@ import UnscheduleGameMutation from "../../../mutations/UnscheduleGame";
 interface Props {
   date: string;
   fieldId: string;
-  games: Game[];
+  games: ScheduledGame[];
   isOver?: boolean;
   connectDropTarget?: ConnectDropTarget;
 }
 
 interface State {
   hoverTime: moment.Moment | null;
-  resizingGame: Game | null;
+  resizingGame: ScheduledGame | null;
   gameLength: number;
-  gameErrors: Set<ID>;
+  gameErrors: Set<string>;
 }
 
 const target: DropTargetSpec<Props> = {
@@ -39,7 +39,7 @@ const target: DropTargetSpec<Props> = {
 
   drop({}, monitor, component: FieldColumn) {
     if (monitor) {
-      const game = monitor.getItem() as Game;
+      const game = monitor.getItem() as ScheduledGame;
       component.schedule(game);
     }
   }
@@ -85,37 +85,39 @@ class FieldColumn extends React.Component<Props, State> {
     }
   }
 
-  schedule = (game: Game) => {
+  schedule = (game: ScheduledGame | UnscheduledGame) => {
     const { hoverTime, gameLength } = this.state;
 
     if (hoverTime) {
       const startTime = hoverTime.format("YYYY-MM-DDTHH:mm");
       const endTime = hoverTime.add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
 
-      const input = {
-        fieldId: this.props.fieldId,
-        startTime,
-        endTime
+      const variables = {
+        input: {
+          gameId: game.id,
+          fieldId: this.props.fieldId,
+          startTime,
+          endTime
+        }
       };
 
       ScheduleGameMutation.commit(
-        input,
-        game,
+        variables,
         this.mutationComplete,
         this.mutationError
       );
     }
   }
 
-  unschedule = (game: Game) => {
+  unschedule = (game: ScheduledGame | UnscheduledGame) => {
     UnscheduleGameMutation.commit(
-      game,
+      { gameId: game.id },
       this.mutationComplete,
       this.mutationError
     );
   }
 
-  startResize = (game: Game) => {
+  startResize = (game: ScheduledGame) => {
     this.setState({resizingGame: game});
   }
 
@@ -149,15 +151,17 @@ class FieldColumn extends React.Component<Props, State> {
       const startTime = moment.parseZone(game.startTime).format("YYYY-MM-DDTHH:mm");
       const endTime = moment.parseZone(game.startTime).add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
 
-      const input = {
-        fieldId: game.field.id,
-        startTime,
-        endTime,
+      const variables = {
+        input: {
+          gameId: game.id,
+          fieldId: game.field.id,
+          startTime,
+          endTime,
+        }
       };
 
       ScheduleGameMutation.commit(
-        input,
-        game,
+        variables,
         this.mutationComplete,
         this.mutationError
       );
@@ -169,7 +173,7 @@ class FieldColumn extends React.Component<Props, State> {
     this.setState({resizingGame: null});
   }
 
-  mutationComplete = (result: ScheduleGame) => {
+  mutationComplete = (result: SchedulingResult) => {
     const errors = this.state.gameErrors;
 
     if (result.success) {
@@ -180,7 +184,9 @@ class FieldColumn extends React.Component<Props, State> {
 
     this.setState({gameErrors: errors});
 
-    showNotice(result.message);
+    if (result.message) {
+      showNotice(result.message);
+    }
   }
 
   mutationError = (error: Error | undefined) => {
@@ -212,14 +218,14 @@ class FieldColumn extends React.Component<Props, State> {
     }
   }
 
-  renderScheduledGame = (game: Game) => {
+  renderScheduledGame = (game: ScheduledGame) => {
     const hasError = this.state.gameErrors.has(game.id);
     const gameLength = (game === this.state.resizingGame)
       ? this.state.gameLength
       : moment.duration(moment(game.endTime).diff(game.startTime)).asMinutes();
 
     return (
-      <ScheduledGame
+      <Game
         key={game.id}
         game={game}
         error={hasError}

@@ -1,7 +1,7 @@
 class Resolvers::UpdateDivision < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
-    @division = @tournament.divisions.find(inputs[:division_id])
+    @division = @tournament.divisions.find(inputs[:id])
     params = inputs.to_h.except(:division_id, :confirm)
 
     @division.assign_attributes(params)

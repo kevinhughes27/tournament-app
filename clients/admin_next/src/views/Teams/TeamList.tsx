@@ -13,7 +13,7 @@ import TeamListItem from "./TeamListItem";
 import ActionButton from "../../components/ActionButton";
 
 interface Props extends RouteComponentProps<{}> {
-  teams: Team[];
+  teams: TeamList_teams;
 }
 
 class TeamList extends React.Component<Props> {
@@ -32,7 +32,7 @@ class TeamList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {teams.map((t: Team) => <TeamListItem key={t.id} team={t}/>)}
+            {teams.map((t) => <TeamListItem key={t.id} team={t as TeamListItem_team}/>)}
           </TableBody>
         </Table>
         <ActionButton onClick={() => this.props.history.push("/teams/new")}/>

@@ -5,7 +5,7 @@ class Resolvers::DeleteField < Resolvers::BaseResolver
  is in progress this is probably not something you want to do."""
 
   def call(inputs, ctx)
-    field = ctx[:tournament].fields.find(inputs[:field_id])
+    field = ctx[:tournament].fields.find(inputs[:id])
 
     if !(inputs[:confirm] || field.safe_to_delete?)
       return {
