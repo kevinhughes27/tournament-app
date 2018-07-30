@@ -10,7 +10,8 @@ const child = spawnSync('relay-compiler',
     '--src', './src',
     '--schema', '../../app/graphql/schema.graphql',
     '--language', 'typescript',
-    '--artifactDirectory', artifactDirectory
+    '--artifactDirectory', artifactDirectory,
+    ...process.argv
   ]
 );
 

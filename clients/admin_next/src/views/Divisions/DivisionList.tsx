@@ -1,4 +1,5 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
 
 import Table from "@material-ui/core/Table";
@@ -9,8 +10,9 @@ import TableRow from "@material-ui/core/TableRow";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DivisionListItem from "./DivisionListItem";
+import ActionButton from "../../components/ActionButton";
 
-interface Props {
+interface Props extends RouteComponentProps<{}> {
   divisions: DivisionList_divisions;
 }
 
@@ -34,12 +36,13 @@ class DivisionList extends React.Component<Props> {
             {divisions.map((d) => <DivisionListItem key={d.id} division={d as DivisionListItem_division}/>)}
           </TableBody>
         </Table>
+        <ActionButton onClick={() => this.props.history.push("/divisions/new")}/>
       </div>
     );
   }
 }
 
-export default createFragmentContainer(DivisionList, {
+export default createFragmentContainer(withRouter(DivisionList), {
   divisions: graphql`
     fragment DivisionList_divisions on Division @relay(plural: true) {
       id

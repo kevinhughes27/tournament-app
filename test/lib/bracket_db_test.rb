@@ -9,4 +9,17 @@ class BracketDbTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "where query" do
+    brackets = BracketDb.where(teams: 8, days: 2)
+    brackets.each do |b|
+      assert_equal b.teams, 8
+      assert_equal b.days, 2
+    end
+  end
+
+  test "find query" do
+    bracket = BracketDb.find(handle: 'USAU 8.1')
+    assert bracket.handle, 'USAU 8.1'
+  end
 end

@@ -1,6 +1,6 @@
 class Admin::BracketDbController < AdminController
   def index
-    brackets = BracketDb.where(teams: num_teams, days: num_days)
+    brackets = BracketDb.options(teams: num_teams, days: num_days)
     json = brackets.map { |h, br| br.to_json }
     render json: json
   end
