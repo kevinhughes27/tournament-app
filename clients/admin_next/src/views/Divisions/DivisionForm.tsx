@@ -45,6 +45,7 @@ class DivisionForm extends Form<Props> {
       values,
       dirty,
       errors,
+      setFieldValue,
       handleChange,
       handleSubmit,
       isSubmitting
@@ -88,6 +89,7 @@ class DivisionForm extends Form<Props> {
           numTeams={values.numTeams}
           numDays={values.numDays}
           bracketType={values.bracketType}
+          setValue={setFieldValue}
           onChange={handleChange}
         />
         <SubmitButton

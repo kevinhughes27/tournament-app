@@ -8,6 +8,7 @@ interface Props {
   numTeams: number;
   numDays: number;
   bracketType: string;
+  setValue: (field: string, value: string) => void;
   onChange: (event: React.ChangeEvent<{}>) => void;
 }
 
