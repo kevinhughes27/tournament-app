@@ -21,21 +21,23 @@ class DivisionList extends React.Component<Props> {
     const { divisions } = this.props;
 
     return (
-      <div>
+      <div style={{maxWidth: "100%"}}>
         <Breadcrumbs items={[{text: "Divisions"}]} />
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Bracket</TableCell>
-              <TableCell>Teams</TableCell>
-              <TableCell>Seeded</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {divisions.map((d) => <DivisionListItem key={d.id} division={d as DivisionListItem_division}/>)}
-          </TableBody>
-        </Table>
+        <div style={{maxWidth: "100%", overflowX: "scroll"}}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Bracket</TableCell>
+                <TableCell>Teams</TableCell>
+                <TableCell>Seeded</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {divisions.map((d) => <DivisionListItem key={d.id} division={d as DivisionListItem_division}/>)}
+            </TableBody>
+          </Table>
+        </div>
         <ActionButton onClick={() => this.props.history.push("/divisions/new")}/>
       </div>
     );

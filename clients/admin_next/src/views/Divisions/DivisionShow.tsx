@@ -31,9 +31,7 @@ class DivisionShow extends React.Component<Props> {
 
     return (
       <div style={{paddingLeft: 20}}>
-        <p>
-          <strong>{bracket.name}</strong>
-        </p>
+        <p>{bracket.name}</p>
         <p>{bracket.description}</p>
       </div>
     );

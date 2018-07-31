@@ -95,7 +95,6 @@ class DivisionForm extends Form<Props> {
         <SubmitButton
           disabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
-          text="Save"
         />
       </form>
     );

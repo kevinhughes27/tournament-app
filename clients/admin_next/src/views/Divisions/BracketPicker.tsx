@@ -63,7 +63,12 @@ class BracketPicker extends React.Component<Props> {
     const bracket = this.props.brackets.find((b) => b.handle === value);
 
     if (bracket) {
-      return <Structure games={bracket.games} bracketTree={bracket.tree} />;
+      return (
+        <div>
+          <p>{bracket.description}</p>
+          <Structure games={bracket.games} bracketTree={bracket.tree} />
+        </div>
+      );
     } else {
       return null;
     }
@@ -91,6 +96,7 @@ export default createFragmentContainer(BracketPicker, {
     fragment BracketPicker_brackets on Bracket @relay(plural: true) {
       handle
       name
+      description
       games
       tree
     }
