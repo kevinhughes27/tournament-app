@@ -2,6 +2,7 @@ import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
+import Bracket from "./Bracket";
 
 interface Props {
   numTeams: number;
@@ -37,20 +38,34 @@ class BracketPicker extends React.Component<Props> {
 
     if (options.length > 0) {
       return (
-        <TextField
-          name="bracketType"
-          label="Bracket"
-          margin="normal"
-          fullWidth
-          select
-          value={this.props.bracketType}
-          onChange={this.props.onChange}
-        >
-          {options.map((option) => Option(option))}
-        </TextField>
+        <div>
+          <TextField
+            name="bracketType"
+            label="Bracket"
+            margin="normal"
+            fullWidth
+            select
+            value={this.props.bracketType}
+            onChange={this.props.onChange}
+          >
+            {options.map((option) => Option(option))}
+          </TextField>
+          {this.renderBracket()}
+        </div>
       );
     } else {
       return <DisabledInput />;
+    }
+  }
+
+  renderBracket = () => {
+    const value  = this.props.bracketType;
+    const bracket = this.props.brackets.find((b) => b.handle === value);
+
+    if (bracket) {
+      return <Bracket bracketTree={bracket.tree} />;
+    } else {
+      return null;
     }
   }
 }
@@ -76,6 +91,7 @@ export default createFragmentContainer(BracketPicker, {
     fragment BracketPicker_brackets on Bracket @relay(plural: true) {
       handle
       name
+      tree
     }
   `,
 });
