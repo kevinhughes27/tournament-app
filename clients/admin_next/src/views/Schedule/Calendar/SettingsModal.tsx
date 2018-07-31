@@ -11,7 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
 import Settings from "./Settings";
-import SubmitButton from "../../../components/SubmitButton";
+import SaveIcon from "@material-ui/icons/Save";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface Props extends WithStyles<typeof styles> {
   onUpdate: () => void;
@@ -140,11 +141,15 @@ class SettingsModal extends React.Component<Props> {
           value={values.defaultGameLength}
           onChange={handleChange}
         />
-        <SubmitButton
-          disabled={!dirty}
-          submitting={isSubmitting}
-          text="Save"
-        />
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className={this.props.classes.button}
+          disabled={!dirty || isSubmitting}
+        >
+          {isSubmitting ? <CircularProgress size={20} /> : <SaveIcon />}
+        </Button>
       </form>
     );
   }
