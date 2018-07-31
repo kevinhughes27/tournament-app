@@ -1,8 +1,7 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import Pools from "./Pools";
-import Bracket from "./Bracket";
+import Structure from "./Structure";
 
 interface Props {
   division: DivisionShow_division;
@@ -10,8 +9,7 @@ interface Props {
 
 class DivisionShow extends React.Component<Props> {
   render() {
-    const { division } = this.props;
-    const bracket = division.bracket;
+    const division = this.props.division;
 
     return (
       <div>
@@ -21,14 +19,22 @@ class DivisionShow extends React.Component<Props> {
             {text: division.name}
           ]}
         />
-        <div style={{paddingLeft: 20}}>
-          <p>
-            <strong>{bracket.name}</strong>
-          </p>
-          <p>{bracket.description}</p>
-        </div>
-        <Pools division={division} />
-        <Bracket bracketTree={division.bracketTree} />
+        {this.renderDescription()}
+        <Structure games={division.games} bracketTree={division.bracketTree} />
+      </div>
+    );
+  }
+
+  renderDescription = () => {
+    const division = this.props.division;
+    const bracket = division.bracket;
+
+    return (
+      <div style={{paddingLeft: 20}}>
+        <p>
+          <strong>{bracket.name}</strong>
+        </p>
+        <p>{bracket.description}</p>
       </div>
     );
   }

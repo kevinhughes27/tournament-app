@@ -21,7 +21,9 @@ class Types::Bracket < Types::BaseObject
   end
 
   def games
-    object.games.to_json
+    object.games.map do |g|
+      g.deep_transform_keys{ |k| k.to_s.camelize(:lower) }
+    end.to_json
   end
 
   def places
