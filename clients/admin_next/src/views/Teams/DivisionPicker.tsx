@@ -8,6 +8,7 @@ interface Props {
   divisionId: string;
   divisions: DivisionPicker_divisions;
   onChange: (event: React.ChangeEvent<{}>) => void;
+  helperText: any;
 }
 
 interface DivisionOption {
@@ -28,6 +29,7 @@ class DivisionPicker extends React.Component<Props> {
         select
         value={this.props.divisionId}
         onChange={this.props.onChange}
+        helperText={this.props.helperText}
       >
         {options.map((option) => Option(option))}
       </TextField>

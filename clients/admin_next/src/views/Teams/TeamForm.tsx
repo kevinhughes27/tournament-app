@@ -39,7 +39,13 @@ class TeamForm extends Form<Props> {
       errors.email = "Invalid email address";
     }
 
-    if (values.seed && values.seed <= 0) {
+    if (!values.divisionId) {
+      errors.divisionId = "Required";
+    }
+
+    if (!values.seed) {
+      errors.seed = "Required";
+    } else if (values.seed <= 0) {
       errors.seed = "Invalid seed";
     }
 
@@ -93,6 +99,7 @@ class TeamForm extends Form<Props> {
           divisionId={values.divisionId}
           divisions={divisions}
           onChange={handleChange}
+          helperText={formProps.errors.divisionId}
         />
         <TextField
           name="seed"
