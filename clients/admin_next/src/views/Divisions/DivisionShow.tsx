@@ -1,9 +1,11 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Structure from "./Structure";
+import ActionButton from "../../components/ActionButton";
 
-interface Props {
+interface Props extends RouteComponentProps<{}> {
   division: DivisionShow_division;
 }
 
@@ -21,6 +23,7 @@ class DivisionShow extends React.Component<Props> {
         />
         {this.renderDescription()}
         <Structure games={division.games} bracketTree={division.bracketTree} />
+        <ActionButton icon="edit" onClick={() => this.props.history.push(`/divisions/${division.id}/edit`)}/>
       </div>
     );
   }
@@ -38,7 +41,7 @@ class DivisionShow extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(DivisionShow, {
+export default createFragmentContainer(withRouter(DivisionShow), {
   division: graphql`
     fragment DivisionShow_division on Division {
       id
