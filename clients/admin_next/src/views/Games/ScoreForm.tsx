@@ -84,7 +84,6 @@ class ScoreForm extends Form<Props> {
         <SubmitButton
           disabled={!dirty || hasErrors}
           submitting={isSubmitting}
-          text="Save"
         />
       </form>
     );

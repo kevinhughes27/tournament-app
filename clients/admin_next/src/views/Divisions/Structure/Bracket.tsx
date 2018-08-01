@@ -23,6 +23,15 @@ class Bracket extends React.Component<Props> {
     }
   }
 
+  componentDidUpdate() {
+    const node = this.bracketRef.current;
+    const bracketTree = this.props.bracketTree;
+
+    if (node) {
+      renderBracketGraph(node, bracketTree);
+    }
+  }
+
   render() {
     return (
       <Paper className="bracketContainer" elevation={1}>

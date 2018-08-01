@@ -1,13 +1,13 @@
 # Structure for games
 type Bracket {
-  description: String
-  games: String
-  handle: String
-  name: String
-  numDays: Int
-  numTeams: Int
-  places: String
-  tree: String
+  description: String!
+  games: String!
+  handle: String!
+  name: String!
+  numDays: Int!
+  numTeams: Int!
+  places: String!
+  tree: String!
 }
 
 input CheckPinInput {

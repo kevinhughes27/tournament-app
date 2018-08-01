@@ -63,13 +63,17 @@ const Loader = {
 const Modal = (theme: Theme) => createStyles({
   paper: {
     position: "absolute",
-    top: 50,
-    left: 50,
+    top: "50%",
+    left: "50%",
     transform: `translate(-50%, -50%)`,
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
+  },
+  button: {
+    marginTop: 20,
+    float: "right"
   }
 });
 
@@ -100,7 +104,7 @@ const Breadcrumbs = {
 
 const ActionButton = (theme: Theme) => createStyles({
   fab: {
-    position: "absolute",
+    position: "fixed",
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 2,
   }
