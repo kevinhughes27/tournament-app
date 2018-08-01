@@ -16,7 +16,7 @@ module BracketDb
     end
 
     def all
-      @registry.values
+      @registry
     end
 
     def where(teams:, days:)
@@ -27,7 +27,7 @@ module BracketDb
 
     # remove when admin next ships
     def options(teams:, days:)
-      @registry.select do |bracket|
+      @registry.select do |handle, bracket|
         bracket.teams == teams && bracket.days == days
       end
     end
