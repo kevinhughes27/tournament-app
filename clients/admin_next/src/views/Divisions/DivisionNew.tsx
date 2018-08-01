@@ -5,6 +5,7 @@ import DivisionForm from "./DivisionForm";
 class TeamNew extends React.Component {
   render() {
     const input = {
+      id: "",
       name: "",
       numTeams: 8,
       numDays: 2,

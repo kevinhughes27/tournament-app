@@ -38,7 +38,7 @@ class DivisionList extends React.Component<Props> {
             </TableBody>
           </Table>
         </div>
-        <ActionButton onClick={() => this.props.history.push("/divisions/new")}/>
+        <ActionButton icon="add" onClick={() => this.props.history.push("/divisions/new")}/>
       </div>
     );
   }

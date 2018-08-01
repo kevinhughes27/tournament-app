@@ -35,7 +35,7 @@ class TeamList extends React.Component<Props> {
             {teams.map((t) => <TeamListItem key={t.id} team={t as TeamListItem_team}/>)}
           </TableBody>
         </Table>
-        <ActionButton onClick={() => this.props.history.push("/teams/new")}/>
+        <ActionButton icon="add" onClick={() => this.props.history.push("/teams/new")}/>
       </div>
     );
   }

@@ -4,8 +4,15 @@ import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Zoom from "@material-ui/core/Zoom";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
+
+const icons = {
+  add: <AddIcon />,
+  edit: <EditIcon />
+};
 
 interface Props extends WithStyles<typeof styles> {
+  icon: "add" | "edit";
   onClick: () => void;
 }
 
@@ -32,7 +39,7 @@ class ActionButton extends React.Component<Props> {
             className={classes.fab}
             onClick={this.props.onClick}
           >
-            <AddIcon />
+            {icons[this.props.icon]}
           </Button>
         </Zoom>
       );

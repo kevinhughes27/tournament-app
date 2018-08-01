@@ -8,9 +8,10 @@ import SubmitButton from "../../components/SubmitButton";
 
 import Form from "../../components/Form";
 import CreateDivisionMutation from "../../mutations/CreateDivision";
+import UpdateDivisionMutation from "../../mutations/UpdateDivision";
 
 interface Props {
-  input: CreateDivisionMutationVariables["input"];
+  input: UpdateDivisionMutationVariables["input"] & CreateDivisionMutationVariables["input"];
 }
 
 class DivisionForm extends Form<Props> {
@@ -37,7 +38,13 @@ class DivisionForm extends Form<Props> {
   }
 
   submit = (values: FormikValues) => {
-    return CreateDivisionMutation.commit({input: {...values}});
+    const divisionId = this.props.input.id;
+
+    if (divisionId) {
+      return UpdateDivisionMutation.commit({input: {id: divisionId, ...values}});
+    } else {
+      return CreateDivisionMutation.commit({input: {...values}});
+    }
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
