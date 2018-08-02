@@ -10,15 +10,40 @@ import TableRow from "@material-ui/core/TableRow";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamListItem from "./TeamListItem";
-import ActionButton from "../../components/ActionButton";
+import TeamImportModal from "./TeamImportModal";
+
+import ActionMenu from "../../components/ActionMenu";
+import AddIcon from "@material-ui/icons/Add";
+import ImportIcon from "@material-ui/icons/GroupAdd";
 
 interface Props extends RouteComponentProps<{}> {
   teams: TeamList_teams;
 }
 
 class TeamList extends React.Component<Props> {
+  state = {
+    modalOpen: false
+  }
+
+  openTeamNew = () => {
+    this.props.history.push("/teams/new");
+  }
+
+  openImportModal = () => {
+    this.setState({modalOpen: true});
+  }
+
+  closeImportModal = () => {
+    this.setState({modalOpen: false});
+  }
+
   render() {
     const { teams } = this.props;
+
+    const actions = [
+      {icon: <AddIcon/>, name: "Add Team", handler: this.openTeamNew },
+      {icon: <ImportIcon/>, name: "Import Teams", handler: this.openImportModal}
+    ];
 
     return (
       <div>
@@ -35,7 +60,8 @@ class TeamList extends React.Component<Props> {
             {teams.map((t) => <TeamListItem key={t.id} team={t as TeamListItem_team}/>)}
           </TableBody>
         </Table>
-        <ActionButton icon="add" onClick={() => this.props.history.push("/teams/new")}/>
+        <ActionMenu actions={actions}/>
+        <TeamImportModal open={this.state.modalOpen} handleClose={this.closeImportModal}/>
       </div>
     );
   }
