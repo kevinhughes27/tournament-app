@@ -1,28 +1,23 @@
 import * as React from "react";
-import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
-import { Modal as styles } from "../../assets/jss/styles";
+import { Formik, FormikValues, FormikProps } from "formik";
+import { Modal as styles } from "../../../assets/jss/styles";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { last } from "lodash";
 import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
 interface Props extends WithStyles<typeof styles> {
-  open: boolean;
-  handleClose: () => void;
+  importTeams: (csvData: string, override: string) => void;
 }
 
 interface State {
   csvData: string;
 }
 
-class TeamImportModal extends React.Component<Props, State> {
+class TeamImportForm extends React.Component<Props, State> {
   state = {
     csvData: ""
   };
@@ -51,43 +46,19 @@ class TeamImportModal extends React.Component<Props, State> {
     }
   }
 
-  onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
-    return null;
+  onSubmit = (values: FormikValues) => {
+    const csvData = this.state.csvData;
+    const override = values.override;
+    this.props.importTeams(csvData, override);
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <Modal open={this.props.open} onClose={this.props.handleClose}>
-        <div className={classes.paper}>
-          {this.renderTitle()}
-          <Formik
-            initialValues={this.initialValues()}
-            onSubmit={this.onSubmit}
-            render={this.renderForm}
-          />
-        </div>
-      </Modal>
-    );
-  }
-
-  renderTitle = () => {
-    const style = {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    };
-
-    return (
-      <div style={style}>
-        <Typography variant="title">
-          Import Teams
-        </Typography>
-        <IconButton onClick={this.props.handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </div>
+      <Formik
+        initialValues={this.initialValues()}
+        onSubmit={this.onSubmit}
+        render={this.renderForm}
+      />
     );
   }
 
@@ -164,4 +135,4 @@ class TeamImportModal extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(TeamImportModal);
+export default withStyles(styles)(TeamImportForm);

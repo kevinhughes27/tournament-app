@@ -10,7 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamListItem from "./TeamListItem";
-import TeamImportModal from "./TeamImportModal";
+import TeamImport from "./TeamImport";
 
 import ActionMenu from "../../components/ActionMenu";
 import AddIcon from "@material-ui/icons/Add";
@@ -61,7 +61,7 @@ class TeamList extends React.Component<Props> {
           </TableBody>
         </Table>
         <ActionMenu actions={actions}/>
-        <TeamImportModal open={this.state.modalOpen} handleClose={this.closeImportModal}/>
+        <TeamImport open={this.state.modalOpen} handleClose={this.closeImportModal}/>
       </div>
     );
   }
