@@ -23,7 +23,7 @@ interface Props extends RouteComponentProps<{}> {
 class TeamList extends React.Component<Props> {
   state = {
     modalOpen: false
-  }
+  };
 
   openTeamNew = () => {
     this.props.history.push("/teams/new");

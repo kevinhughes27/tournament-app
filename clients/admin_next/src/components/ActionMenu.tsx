@@ -46,8 +46,8 @@ class ActionMenu extends React.Component<Props, State> {
       };
 
       let isTouch;
-      if (typeof document !== 'undefined') {
-        isTouch = 'ontouchstart' in document.documentElement;
+      if (typeof document !== "undefined") {
+        isTouch = "ontouchstart" in document.documentElement;
       }
 
       return (
