@@ -9,4 +9,5 @@ declare module "react-join";
 declare module "react-datepicker";
 declare module "local-storage";
 declare module "d3";
+declare module "csv";
 declare module "inflection";

@@ -18,6 +18,7 @@ import ImportIcon from "@material-ui/icons/GroupAdd";
 
 interface Props extends RouteComponentProps<{}> {
   teams: TeamList_teams;
+  divisions: TeamImport_divisions;
 }
 
 class TeamList extends React.Component<Props> {
@@ -61,7 +62,11 @@ class TeamList extends React.Component<Props> {
           </TableBody>
         </Table>
         <ActionMenu actions={actions}/>
-        <TeamImport open={this.state.modalOpen} handleClose={this.closeImportModal}/>
+        <TeamImport
+          divisions={this.props.divisions}
+          open={this.state.modalOpen}
+          handleClose={this.closeImportModal}
+        />
       </div>
     );
   }

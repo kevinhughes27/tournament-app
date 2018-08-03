@@ -10,6 +10,7 @@ import TeamImportStatus from "./TeamImportStatus";
 import TeamImporter from "./TeamImporter";
 
 interface Props extends WithStyles<typeof styles> {
+  divisions: TeamImport_divisions;
   open: boolean;
   handleClose: () => void;
 }
@@ -23,8 +24,8 @@ class TeamImportModal extends React.Component<Props, State> {
     importer: null
   };
 
-  importTeams = (csvData: string, overide: string) => {
-    const importer = new TeamImporter(csvData, overide);
+  importTeams = (csvData: string) => {
+    const importer = new TeamImporter(csvData, this.props.divisions);
 
     this.setState({importer});
 

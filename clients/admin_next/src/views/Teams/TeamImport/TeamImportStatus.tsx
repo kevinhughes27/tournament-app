@@ -6,15 +6,14 @@ import TeamImporter from "./TeamImporter";
 const styles = {};
 
 interface Props extends WithStyles<typeof styles> {
-  importer: TeamImporter
+  importer: TeamImporter;
 }
 
 class TeamImportStatus extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    this.props.importer.setTick(() => this.forceUpdate())
+    this.props.importer.setTick(() => this.forceUpdate());
   }
-
 
   render() {
     const { importer } = this.props;
@@ -22,6 +21,7 @@ class TeamImportStatus extends React.Component<Props> {
     return (
       <div>
         <LinearProgress variant="determinate" value={importer.progress()} />
+        {JSON.stringify(importer.errors)}
       </div>
     );
   }
