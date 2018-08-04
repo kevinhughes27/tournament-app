@@ -1,8 +1,9 @@
 import * as React from "react";
 import Modal from "../../../components/Modal";
+import TeamImporter from "./TeamImporter";
 import TeamImportForm from "./TeamImportForm";
 import TeamImportStatus from "./TeamImportStatus";
-import TeamImporter from "./TeamImporter";
+import TeamImportResult from "./TeamImportResult";
 
 interface Props {
   divisions: TeamImport_divisions;
@@ -36,7 +37,7 @@ class TeamImportModal extends React.Component<Props> {
 
   renderContent = () => {
     if (this.importer.progress === 100) {
-      return <p>Done</p>;
+      return <TeamImportResult completed={this.importer.completed} errors={this.importer.errors} onClose={this.props.onClose} />;
     } else if (this.importer.started) {
       return <TeamImportStatus progress={this.importer.progress} errors={this.importer.errors} />;
     } else {
