@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Formik, FormikValues, FormikProps } from "formik";
-import { last } from "lodash";
+import FileInput from "../../../components/FileInput";
 import Button from "@material-ui/core/Button";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
@@ -62,30 +62,20 @@ class TeamImportForm extends React.Component<Props, State> {
       isSubmitting,
     } = formProps;
 
-    const prettyFileName = last(values.csvFile.split("\\"));
+
 
     return (
       <form onSubmit={handleSubmit}>
-        <input
-          id="upload-button"
+        <FileInput
           name="csvFile"
-          accept=".csv"
-          style={{display: "none"}}
-          type="file"
           value={values.csvFile}
+          accept=".csv"
+          buttonText="CSV File"
           onChange={(ev) => {
             handleChange(ev);
             this.fileChanged(ev);
           }}
         />
-        <label htmlFor="upload-button">
-          <Button variant="contained" component="span">
-            CSV File
-          </Button>
-        </label>
-        <span style={{paddingLeft: 20}}>
-          {prettyFileName}
-        </span>
 
         <p>
           Download a sample CSV template to see an example of the required format.
