@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Formik, FormikValues, FormikProps } from "formik";
+import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import FileInput from "../../../components/FileInput";
 import Button from "@material-ui/core/Button";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
 interface Props {
-  importTeams: (csvData: string) => void;
+  startImport: (csvData: string) => void;
 }
 
 interface State {
@@ -40,8 +40,9 @@ class TeamImportForm extends React.Component<Props, State> {
     }
   }
 
-  onSubmit = () => {
-    this.props.importTeams(this.state.csvData);
+  onSubmit = ({}: FormikValues, actions: FormikActions<FormikValues>) => {
+    actions.resetForm();
+    this.props.startImport(this.state.csvData);
   }
 
   render() {
@@ -61,8 +62,6 @@ class TeamImportForm extends React.Component<Props, State> {
       handleSubmit,
       isSubmitting,
     } = formProps;
-
-
 
     return (
       <form onSubmit={handleSubmit}>

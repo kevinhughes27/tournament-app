@@ -5,56 +5,56 @@ import CreateTeamMutation from "../../../mutations/CreateTeam";
 const HEADER = ["Name", "Email", "Division", "Seed"];
 
 class TeamImporter {
-  csvData: string;
+  component: React.Component;
   divisions: TeamImport_divisions;
 
+  started: boolean;
+
+  progress: number;
   total: number;
   completed: number;
   errors: any;
 
-  tick: () => void;
-
-  constructor(csvData: string, divisions: TeamImport_divisions) {
-    this.csvData = csvData;
+  constructor(component: React.Component, divisions: TeamImport_divisions) {
+    this.component = component;
     this.divisions = divisions;
 
-    this.total = 10;
+    this.started = false;
+
+    this.progress = 0;
+    this.total = 1;
     this.completed = 0;
     this.errors = {};
-
-    this.tick = () => { return; };
   }
 
-  setTick = (callback: () => void) => {
-    this.tick = callback;
+  start = (csvData: string) => {
+    this.started = true;
+    this.component.forceUpdate();
+    this.parse(csvData);
   }
 
-  start = () => {
-    csv.parse(this.csvData, (err: string, data: any[]) => {
-      if (err) {
-        return;
-      }
+  private parse = (csvData: string) => {
+    csv.parse(csvData, (err: string, data: any[]) => {
+      if (err) { return; }
 
       const header = data[0];
-
-      // invalid csv
-      if (!isEqual(header, HEADER)) {
-        return;
-      }
+      if (!isEqual(header, HEADER)) { return; } // invalid csv
 
       const rows = data.slice(1);
 
       this.total = rows.length;
 
-      rows.forEach(this.importTeam);
+      this.import(rows);
     });
   }
 
-  progress = () => {
-    return ((keys(this.errors).length + this.completed) / this.total) * 100;
+  private import = async (rows: any[]) => {
+    for (const [i, row] of rows.entries()) {
+      await this.importTeam(row, i);
+    }
   }
 
-  private importTeam = (row: any[], rowIdx: number) => {
+  private importTeam = async (row: any[], rowIdx: number) => {
     const division = this.divisions.find((d) => d.name === row[2]);
 
     const variables = {
@@ -64,15 +64,21 @@ class TeamImporter {
       seed: parseInt(row[3], 10)
     };
 
-    CreateTeamMutation.commit({input: variables}).then((result) => {
-      if (result.success) {
-        this.completed += 1;
-      } else {
-        this.errors[rowIdx] = result.userErrors;
-      }
+    const result = await CreateTeamMutation.commit({input: variables});
 
-      this.tick();
-    });
+    if (result.success) {
+      this.completed += 1;
+    } else {
+      this.errors[rowIdx] = result.userErrors;
+    }
+
+    this.updateProgress();
+  }
+
+  private updateProgress = () => {
+    const errorCount = keys(this.errors).length;
+    this.progress = ((errorCount + this.completed) / this.total) * 100;
+    this.component.forceUpdate();
   }
 }
 

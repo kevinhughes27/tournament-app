@@ -10,21 +10,16 @@ interface Props {
   onClose: () => void;
 }
 
-interface State {
-  importer: TeamImporter | null;
-}
+class TeamImportModal extends React.Component<Props> {
+  importer: TeamImporter;
 
-class TeamImportModal extends React.Component<Props, State> {
-  state = {
-    importer: null
-  };
+  constructor(props: Props) {
+    super(props);
+    this.importer = new TeamImporter(this, this.props.divisions);
+  }
 
-  importTeams = (csvData: string) => {
-    const importer = new TeamImporter(csvData, this.props.divisions);
-
-    this.setState({importer});
-
-    importer.start();
+  startImport = (csvData: string) => {
+    this.importer.start(csvData);
   }
 
   render() {
@@ -40,12 +35,12 @@ class TeamImportModal extends React.Component<Props, State> {
   }
 
   renderContent = () => {
-    const importer = this.state.importer;
-
-    if (importer === null) {
-      return <TeamImportForm importTeams={this.importTeams} />;
+    if (this.importer.progress === 100) {
+      return <p>Done</p>;
+    } else if (this.importer.started) {
+      return <TeamImportStatus progress={this.importer.progress} errors={this.importer.errors} />;
     } else {
-      return <TeamImportStatus importer={importer} />;
+      return <TeamImportForm startImport={this.startImport} />;
     }
   }
 }
