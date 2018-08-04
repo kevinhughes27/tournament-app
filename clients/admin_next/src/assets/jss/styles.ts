@@ -71,9 +71,10 @@ const Modal = (theme: Theme) => createStyles({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
-  button: {
-    marginTop: 20,
-    float: "right"
+  title: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
   }
 });
 

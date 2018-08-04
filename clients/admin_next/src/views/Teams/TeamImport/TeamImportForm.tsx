@@ -1,12 +1,10 @@
 import * as React from "react";
 import { Formik, FormikValues, FormikProps } from "formik";
-import { Modal as styles } from "../../../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { last } from "lodash";
 import Button from "@material-ui/core/Button";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   importTeams: (csvData: string) => void;
 }
 
@@ -97,7 +95,7 @@ class TeamImportForm extends React.Component<Props, State> {
           variant="contained"
           color="primary"
           type="submit"
-          className={this.props.classes.button}
+          style={{marginTop: 20, float: "right"}}
           disabled={!this.state.csvData || isSubmitting}
         >
           <ImportIcon />
@@ -107,4 +105,4 @@ class TeamImportForm extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(TeamImportForm);
+export default TeamImportForm;

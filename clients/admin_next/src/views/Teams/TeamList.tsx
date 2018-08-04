@@ -65,7 +65,7 @@ class TeamList extends React.Component<Props> {
         <TeamImport
           divisions={this.props.divisions}
           open={this.state.modalOpen}
-          handleClose={this.closeImportModal}
+          onClose={this.closeImportModal}
         />
       </div>
     );

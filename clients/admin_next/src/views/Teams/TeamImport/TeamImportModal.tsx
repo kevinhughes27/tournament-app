@@ -1,18 +1,13 @@
 import * as React from "react";
-import { Modal as styles } from "../../../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import Modal from "../../../components/Modal";
 import TeamImportForm from "./TeamImportForm";
 import TeamImportStatus from "./TeamImportStatus";
 import TeamImporter from "./TeamImporter";
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   divisions: TeamImport_divisions;
   open: boolean;
-  handleClose: () => void;
+  onClose: () => void;
 }
 
 interface State {
@@ -33,34 +28,14 @@ class TeamImportModal extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <Modal open={this.props.open} onClose={this.props.handleClose}>
-        <div className={classes.paper}>
-          {this.renderTitle()}
-          {this.renderContent()}
-        </div>
+      <Modal
+        title="Import Teams"
+        open={this.props.open}
+        onClose={this.props.onClose}
+      >
+        {this.renderContent()}
       </Modal>
-    );
-  }
-
-  renderTitle = () => {
-    const style = {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    };
-
-    return (
-      <div style={style}>
-        <Typography variant="title">
-          Import Teams
-        </Typography>
-        <IconButton onClick={this.props.handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </div>
     );
   }
 
@@ -75,4 +50,4 @@ class TeamImportModal extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(TeamImportModal);
+export default TeamImportModal;
