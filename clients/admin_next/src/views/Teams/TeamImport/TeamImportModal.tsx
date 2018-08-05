@@ -23,12 +23,21 @@ class TeamImportModal extends React.Component<Props> {
     this.importer.start(csvData);
   }
 
+  onClose = () => {
+    if (this.importer.progress === 100) {
+      this.importer = new TeamImporter(this, this.props.divisions);
+      this.props.onClose();
+    } else if (!this.importer.started) {
+      this.props.onClose();
+    }
+  }
+
   render() {
     return (
       <Modal
         title="Import Teams"
         open={this.props.open}
-        onClose={this.props.onClose}
+        onClose={this.onClose}
       >
         {this.renderContent()}
       </Modal>
@@ -37,7 +46,13 @@ class TeamImportModal extends React.Component<Props> {
 
   renderContent = () => {
     if (this.importer.progress === 100) {
-      return <TeamImportResult completed={this.importer.completed} errors={this.importer.errors} onClose={this.props.onClose} />;
+      return (
+        <TeamImportResult
+          completed={this.importer.completed}
+          errors={this.importer.errors}
+          onClose={this.onClose}
+        />
+      );
     } else if (this.importer.started) {
       return <TeamImportStatus progress={this.importer.progress} errors={this.importer.errors} />;
     } else {
