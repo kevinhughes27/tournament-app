@@ -7986,6 +7986,10 @@ react-fast-compare@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-1.0.0.tgz#813a039155e49b43ceffe99528fe5e9d97a6c938"
 
+react-file-download@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/react-file-download/-/react-file-download-0.3.5.tgz#7a4e75874528806bfa53ddddd98b4da427d3a897"
+
 react-join@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/react-join/-/react-join-1.1.4.tgz#77c9c69b75ea596c1782a5e61426a104fda556a2"
