@@ -1,8 +1,5 @@
-import csv from "csv";
-import { keys, isEqual } from "lodash";
+import { keys } from "lodash";
 import CreateTeamMutation from "../../../mutations/CreateTeam";
-
-const HEADER = ["Name", "Email", "Division", "Seed"];
 
 class TeamImporter {
   component: React.Component;
@@ -27,25 +24,11 @@ class TeamImporter {
     this.errors = {};
   }
 
-  start = (csvData: string) => {
+  start = (data: string[][]) => {
     this.started = true;
+    this.total = data.length;
     this.component.forceUpdate();
-    this.parse(csvData);
-  }
-
-  private parse = (csvData: string) => {
-    csv.parse(csvData, (err: string, data: any[]) => {
-      if (err) { return; }
-
-      const header = data[0];
-      if (!isEqual(header, HEADER)) { return; } // invalid csv
-
-      const rows = data.slice(1);
-
-      this.total = rows.length;
-
-      this.import(rows);
-    });
+    this.import(data);
   }
 
   private import = async (rows: any[]) => {

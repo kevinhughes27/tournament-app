@@ -7,19 +7,21 @@ import Button from "@material-ui/core/Button";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
 interface Props {
-  startImport: (csvData: string) => void;
+  startImport: (data: string[][]) => void;
 }
 
 interface State {
-  csvData: string;
+  data: string[][];
   error: string;
 }
 
+const defaultState =  {
+  data: [],
+  error: ""
+};
+
 class TeamImportForm extends React.Component<Props, State> {
-  state = {
-    csvData: "",
-    error: ""
-  };
+  state = defaultState;
 
   initialValues = () => {
     return {
@@ -27,42 +29,52 @@ class TeamImportForm extends React.Component<Props, State> {
     };
   }
 
-  fileChanged = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({csvData: "", error: ""});
+  fileChanged = async (ev: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState(defaultState);
 
     const files = ev.target.files;
 
     if (files && files.length === 1) {
       const file = files[0];
-      const reader = new FileReader();
+      const csvData = await this.uploadCSV(file);
+      this.validateCSV(csvData);
+    }
+  }
+
+  uploadCSV = (file: File) => {
+    const reader = new FileReader();
+
+    return new Promise<string>((resolve) => {
+      reader.onload = () => {
+        resolve(reader.result);
+      };
 
       reader.readAsText(file);
-      reader.onload = () => {
-        const csvData = reader.result;
+    });
+  }
 
-        csv.parse(csvData, (err: string, data: any[]) => {
-          if (err) {
-            this.setState({error: "Invalid CSV file"});
-            return;
-          }
+  validateCSV = (csvData: string) => {
+    csv.parse(csvData, (err: string, data: string[][]) => {
+      if (err) {
+        this.setState({error: "Invalid CSV file"});
+        return;
+      }
 
-          const header = data[0];
-          const expectedHeader = ["Name", "Email", "Division", "Seed"];
+      const header = data[0];
+      const expectedHeader = ["Name", "Email", "Division", "Seed"];
 
-          if (!isEqual(header, expectedHeader)) {
-            this.setState({error: "Invalid CSV Columns"});
-            return;
-          }
+      if (!isEqual(header, expectedHeader)) {
+        this.setState({error: "Invalid CSV Columns"});
+        return;
+      }
 
-          this.setState({csvData});
-        });
-      };
-    }
+      this.setState({data: data.slice(1)});
+    });
   }
 
   onSubmit = ({}: FormikValues, actions: FormikActions<FormikValues>) => {
     actions.resetForm();
-    this.props.startImport(this.state.csvData);
+    this.props.startImport(this.state.data);
   }
 
   render() {
@@ -105,7 +117,7 @@ class TeamImportForm extends React.Component<Props, State> {
           color="primary"
           type="submit"
           style={{marginTop: 20, float: "right"}}
-          disabled={!this.state.csvData || isSubmitting}
+          disabled={!this.state.data || isSubmitting}
         >
           <ImportIcon />
         </Button>

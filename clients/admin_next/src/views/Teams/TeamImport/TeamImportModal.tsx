@@ -19,8 +19,8 @@ class TeamImportModal extends React.Component<Props> {
     this.importer = new TeamImporter(this, this.props.divisions);
   }
 
-  startImport = (csvData: string) => {
-    this.importer.start(csvData);
+  startImport = (data: string[][]) => {
+    this.importer.start(data);
   }
 
   onClose = () => {
