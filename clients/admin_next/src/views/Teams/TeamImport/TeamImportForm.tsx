@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import FileInput from "../../../components/FileInput";
+import csv from "csv";
+import { isEqual } from "lodash";
 import Button from "@material-ui/core/Button";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
@@ -10,11 +12,13 @@ interface Props {
 
 interface State {
   csvData: string;
+  error: string;
 }
 
 class TeamImportForm extends React.Component<Props, State> {
   state = {
-    csvData: ""
+    csvData: "",
+    error: ""
   };
 
   initialValues = () => {
@@ -24,7 +28,7 @@ class TeamImportForm extends React.Component<Props, State> {
   }
 
   fileChanged = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({csvData: ""});
+    this.setState({csvData: "", error: ""});
 
     const files = ev.target.files;
 
@@ -35,7 +39,23 @@ class TeamImportForm extends React.Component<Props, State> {
       reader.readAsText(file);
       reader.onload = () => {
         const csvData = reader.result;
-        this.setState({csvData});
+
+        csv.parse(csvData, (err: string, data: any[]) => {
+          if (err) {
+            this.setState({error: "Invalid CSV file"});
+            return;
+          }
+
+          const header = data[0];
+          const expectedHeader = ["Name", "Email", "Division", "Seed"];
+
+          if (!isEqual(header, expectedHeader)) {
+            this.setState({error: "Invalid CSV Columns"});
+            return;
+          }
+
+          this.setState({csvData});
+        });
       };
     }
   }
@@ -75,7 +95,7 @@ class TeamImportForm extends React.Component<Props, State> {
             this.fileChanged(ev);
           }}
         />
-
+        <p>{this.state.error}</p>
         <p>
           Download a sample CSV template to see an example of the required format.
         </p>
