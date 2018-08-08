@@ -10,7 +10,9 @@ class TeamImporter {
   progress: number;
   total: number;
   completed: number;
-  errors: any;
+  errors: {
+    [key: number]: string;
+  };
 
   constructor(component: React.Component, divisions: TeamImport_divisions) {
     this.component = component;
@@ -52,7 +54,9 @@ class TeamImporter {
     if (result.success) {
       this.completed += 1;
     } else {
-      this.errors[rowIdx] = result.userErrors;
+      const fieldErrors = result.userErrors || [];
+      const fullMessage = fieldErrors.map((e) => e.field + " " + e.message).join(", ");
+      this.errors[rowIdx] = fullMessage;
     }
 
     this.updateProgress();

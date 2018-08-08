@@ -1,9 +1,12 @@
 import * as React from "react";
 import { Button } from "@material-ui/core";
+import TeamImportErrors from "./TeamImportErrors";
 
 interface Props {
   completed: number;
-  errors: any;
+  errors: {
+    [key: number]: string;
+  };
   onClose: () => void;
 }
 
@@ -14,7 +17,7 @@ class TeamImportResult extends React.Component<Props> {
     return (
       <div>
         <p>Imported {completed} teams</p>
-        {JSON.stringify(errors)}
+        <TeamImportErrors errors={errors} />
         <Button
           variant="contained"
           color="primary"
