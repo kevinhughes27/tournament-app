@@ -39,48 +39,44 @@ class ActionMenu extends React.Component<Props, State> {
   render() {
     const { classes, theme, actions } = this.props;
 
-    if (theme) {
-      const transitionDuration = {
-        enter: theme.transitions.duration.enteringScreen,
-        exit: theme.transitions.duration.leavingScreen,
-      };
+    const transitionDuration = {
+      enter: theme!.transitions.duration.enteringScreen,
+      exit: theme!.transitions.duration.leavingScreen,
+    };
 
-      let isTouch;
-      if (typeof document !== "undefined") {
-        isTouch = "ontouchstart" in document.documentElement;
-      }
-
-      return (
-        <Zoom
-          in={true}
-          timeout={transitionDuration}
-          style={{transitionDelay: `${transitionDuration.exit}ms`}}
-          unmountOnExit
-        >
-          <SpeedDial
-            ariaLabel="Menu"
-            className={classes.fab}
-            icon={<SpeedDialIcon />}
-            onClick={this.handleClick}
-            onClose={this.handleClose}
-            onMouseEnter={isTouch ? undefined : this.handleOpen}
-            onMouseLeave={isTouch ? undefined : this.handleClose}
-            open={this.state.open}
-          >
-            {actions.map((action) => (
-              <SpeedDialAction
-                key={action.name}
-                icon={action.icon}
-                tooltipTitle={action.name}
-                onClick={action.handler}
-              />
-            ))}
-          </SpeedDial>
-        </Zoom>
-      );
-    } else {
-      return null;
+    let isTouch;
+    if (typeof document !== "undefined") {
+      isTouch = "ontouchstart" in document.documentElement;
     }
+
+    return (
+      <Zoom
+        in={true}
+        timeout={transitionDuration}
+        style={{transitionDelay: `${transitionDuration.exit}ms`}}
+        unmountOnExit
+      >
+        <SpeedDial
+          ariaLabel="Menu"
+          className={classes.fab}
+          icon={<SpeedDialIcon />}
+          onClick={this.handleClick}
+          onClose={this.handleClose}
+          onMouseEnter={isTouch ? undefined : this.handleOpen}
+          onMouseLeave={isTouch ? undefined : this.handleClose}
+          open={this.state.open}
+        >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              onClick={action.handler}
+            />
+          ))}
+        </SpeedDial>
+      </Zoom>
+    );
   }
 }
 

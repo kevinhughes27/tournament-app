@@ -15,33 +15,29 @@ class SubmitButton extends React.Component<Props> {
   render() {
     const { disabled, submitting, classes, theme } = this.props;
 
-    if (theme) {
-      const transitionDuration = {
-        enter: theme.transitions.duration.enteringScreen,
-        exit: theme.transitions.duration.leavingScreen,
-      };
+    const transitionDuration = {
+      enter: theme!.transitions.duration.enteringScreen,
+      exit: theme!.transitions.duration.leavingScreen,
+    };
 
-      return (
-        <Zoom
-          in={true}
-          timeout={transitionDuration}
-          style={{transitionDelay: `${transitionDuration.exit}ms`}}
-          unmountOnExit
+    return (
+      <Zoom
+        in={true}
+        timeout={transitionDuration}
+        style={{transitionDelay: `${transitionDuration.exit}ms`}}
+        unmountOnExit
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className={classes.fab}
+          disabled={disabled || submitting}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            className={classes.fab}
-            disabled={disabled || submitting}
-          >
-            {this.buttonContent()}
-          </Button>
-        </Zoom>
-      );
-    } else {
-      return null;
-    }
+          {this.buttonContent()}
+        </Button>
+      </Zoom>
+    );
   }
 
   buttonContent = () => {

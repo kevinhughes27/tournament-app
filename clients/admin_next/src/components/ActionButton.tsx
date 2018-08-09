@@ -20,32 +20,28 @@ class ActionButton extends React.Component<Props> {
   render() {
     const { classes, theme } = this.props;
 
-    if (theme) {
-      const transitionDuration = {
-        enter: theme.transitions.duration.enteringScreen,
-        exit: theme.transitions.duration.leavingScreen,
-      };
+    const transitionDuration = {
+      enter: theme!.transitions.duration.enteringScreen,
+      exit: theme!.transitions.duration.leavingScreen,
+    };
 
-      return (
-        <Zoom
-          in={true}
-          timeout={transitionDuration}
-          style={{transitionDelay: `${transitionDuration.exit}ms`}}
-          unmountOnExit
+    return (
+      <Zoom
+        in={true}
+        timeout={transitionDuration}
+        style={{transitionDelay: `${transitionDuration.exit}ms`}}
+        unmountOnExit
+      >
+        <Button
+          variant="fab"
+          color="primary"
+          className={classes.fab}
+          onClick={this.props.onClick}
         >
-          <Button
-            variant="fab"
-            color="primary"
-            className={classes.fab}
-            onClick={this.props.onClick}
-          >
-            {icons[this.props.icon]}
-          </Button>
-        </Zoom>
-      );
-    } else {
-      return null;
-    }
+          {icons[this.props.icon]}
+        </Button>
+      </Zoom>
+    );
   }
 }
 
