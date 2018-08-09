@@ -49,7 +49,7 @@ class TeamImportForm extends React.Component<Props, State> {
 
     return new Promise<string>((resolve) => {
       reader.onload = () => {
-        resolve(reader.result);
+        resolve(reader.result as string);
       };
 
       reader.readAsText(file);
