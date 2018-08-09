@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import {TeamList, TeamShow, TeamNew } from "./Teams";
 import { DivisionList, DivisionShow, DivisionEdit, DivisionNew } from "./Divisions";
-import { FieldMap, FieldShow } from "./Fields";
+import { FieldMap, FieldShow, FieldNew } from "./Fields";
 import Schedule from "./Schedule";
 import { GameList, GameShow } from "./Games";
 
@@ -22,6 +22,7 @@ const Routes = () => (
     <Route path="/divisions/:divisionId" component={DivisionShow}/>
 
     <Route exact path="/fields" component={FieldMap}/>
+    <Route path="/fields/new" component={FieldNew}/>
     <Route path="/fields/:fieldId" component={FieldShow}/>
 
     <Route path="/schedule" component={Schedule}/>

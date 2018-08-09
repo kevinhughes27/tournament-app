@@ -3,7 +3,9 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
 import { Map, TileLayer, GeoJSON } from "react-leaflet";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
-import Breadcrumbs from "../../components/Breadcrumbs";
+import ActionMenu from "../../components/ActionMenu";
+import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 
 interface Props extends RouteComponentProps<any> {
   map: FieldMap_map;
@@ -24,6 +26,14 @@ class FieldMap extends React.Component<Props, State> {
     this.state = {lat, long, zoom};
   }
 
+  openFieldNew = () => {
+    this.props.history.push("/fields/new");
+  }
+
+  editMap = () => {
+
+  }
+
   updateMap = (ev: any) => {
     const {lat, lng: long} = ev.target.getCenter();
     const zoom = ev.target.getZoom();
@@ -34,9 +44,13 @@ class FieldMap extends React.Component<Props, State> {
     const { lat, long, zoom } = this.state;
     const { fields } = this.props;
 
+    const actions = [
+      {icon: <EditIcon/>, name: "Edit Map", handler: this.editMap },
+      {icon: <AddIcon/>, name: "Add Field", handler: this.openFieldNew },
+    ];
+
     return (
       <div>
-        <Breadcrumbs items={[{text: "Fields"}]} />
         <Map
           center={[lat, long]}
           zoom={zoom}
@@ -50,6 +64,7 @@ class FieldMap extends React.Component<Props, State> {
           />
           {fields.map(this.renderField)}
         </Map>
+        <ActionMenu actions={actions}/>
       </div>
     );
   }
