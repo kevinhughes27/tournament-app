@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
-import Modal from "../../../components/Modal";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Modal from "../../../components/Modal";
+import SubmitButton from "../../../components/SubmitButton";
 import Settings from "./Settings";
-import SaveIcon from "@material-ui/icons/Save";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface Props {
   onUpdate: () => void;
@@ -114,15 +113,11 @@ class SettingsModal extends React.Component<Props> {
           value={values.defaultGameLength}
           onChange={handleChange}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{marginTop: 20, float: "right"}}
-          disabled={!dirty || isSubmitting}
-        >
-          {isSubmitting ? <CircularProgress size={20} /> : <SaveIcon />}
-        </Button>
+        <SubmitButton
+          inline
+          disabled={!dirty}
+          submitting={isSubmitting}
+        />
       </form>
     );
   }
