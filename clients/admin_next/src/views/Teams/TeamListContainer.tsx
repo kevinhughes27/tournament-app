@@ -7,6 +7,9 @@ const query = graphql`
   query TeamListContainerQuery {
     teams {
       ...TeamList_teams
+    },
+    divisions {
+      ...TeamImport_divisions
     }
   }
 `;

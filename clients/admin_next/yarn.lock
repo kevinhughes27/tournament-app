@@ -1179,6 +1179,13 @@
     "@babel/helper-plugin-utils" "7.0.0-beta.54"
     "@babel/plugin-transform-typescript" "7.0.0-beta.54"
 
+"@babel/runtime@7.0.0-beta.42":
+  version "7.0.0-beta.42"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.42.tgz#352e40c92e0460d3e82f49bd7e79f6cda76f919f"
+  dependencies:
+    core-js "^2.5.3"
+    regenerator-runtime "^0.11.1"
+
 "@babel/runtime@7.0.0-beta.46":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.46.tgz#466a9c0498f6d12d054a185981eef742d59d4871"
@@ -1186,11 +1193,10 @@
     core-js "^2.5.3"
     regenerator-runtime "^0.11.1"
 
-"@babel/runtime@^7.0.0-beta.42":
-  version "7.0.0-beta.54"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.54.tgz#39ebb42723fe7ca4b3e1b00e967e80138d47cadf"
+"@babel/runtime@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.56.tgz#cda612dffd5b1719a7b8e91e3040bd6ae64de8b0"
   dependencies:
-    core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
 "@babel/template@7.0.0-beta.44":
@@ -1311,11 +1317,11 @@
     humps "^2.0.1"
     prop-types "^15.5.10"
 
-"@material-ui/core@^1.2.3":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-1.4.1.tgz#fb041b95a99a8da0fee87e2953b4107df0120e92"
+"@material-ui/core@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-1.4.3.tgz#e6bc29b441c07932cc64fffb02670792b119fb8e"
   dependencies:
-    "@babel/runtime" "^7.0.0-beta.42"
+    "@babel/runtime" "7.0.0-beta.42"
     "@types/jss" "^9.5.3"
     "@types/react-transition-group" "^2.0.8"
     brcast "^3.0.1"
@@ -1335,20 +1341,24 @@
     jss-vendor-prefixer "^7.0.0"
     keycode "^2.1.9"
     normalize-scroll-left "^0.1.2"
-    popper.js "^1.0.0"
+    popper.js "^1.14.1"
     prop-types "^15.6.0"
-    react-event-listener "^0.6.0"
+    react-event-listener "^0.6.2"
     react-jss "^8.1.0"
     react-transition-group "^2.2.1"
-    recompose "^0.27.0"
-    scroll "^2.0.3"
+    recompose "^0.28.0"
     warning "^4.0.1"
 
-"@material-ui/icons@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-1.1.0.tgz#4d025df7b0ba6ace8d6710079ed76013a4d26595"
+"@material-ui/icons@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-2.0.1.tgz#1151cc66a3d41099de3ddaac33488e399d3425f0"
   dependencies:
-    recompose "^0.26.0 || ^0.27.0"
+    "@babel/runtime" "7.0.0-beta.42"
+    recompose "^0.28.0"
+
+"@material-ui/lab@^1.0.0-alpha.9":
+  version "1.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-1.0.0-alpha.9.tgz#a76da06cce4d2c3eefcea567afb6970c18237969"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -1407,6 +1417,12 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.6.tgz#f1a65a4e7be8ed5d123f8b3b9eacc913e35a1a3c"
   dependencies:
     "@types/node" "*"
+    "@types/react" "*"
+
+"@types/react-dropzone@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-dropzone/-/react-dropzone-4.2.0.tgz#c4a290c784456e3c939dff75dba6b66b61f212e5"
+  dependencies:
     "@types/react" "*"
 
 "@types/react-leaflet@^1.1.5":
@@ -1883,6 +1899,12 @@ asynckit@^0.4.0:
 atob@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
+
+attr-accept@^1.0.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-1.1.3.tgz#48230c79f93790ef2775fcec4f0db0f5db41ca52"
+  dependencies:
+    core-js "^2.5.0"
 
 autoprefixer@8.5.0:
   version "8.5.0"
@@ -3198,7 +3220,7 @@ core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
-core-js@^2.4.0, core-js@^2.5.0, core-js@^2.5.3, core-js@^2.5.7:
+core-js@^2.4.0, core-js@^2.5.0, core-js@^2.5.3:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
 
@@ -3454,6 +3476,29 @@ cssstyle@^1.0.0:
 csstype@^2.0.0, csstype@^2.2.0, csstype@^2.5.2:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.6.tgz#2ae1db2319642d8b80a668d2d025c6196071e788"
+
+csv-generate@^2.0.2:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/csv-generate/-/csv-generate-2.1.0.tgz#ba4bea4aa06858eae78fe16a403ef20e7cde6374"
+
+csv-parse@^2.4.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-2.5.0.tgz#65748997ecc3719c594622db1b9ea0e2eb7d56bb"
+
+csv-stringify@^3.0.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/csv-stringify/-/csv-stringify-3.1.1.tgz#3a4e180a84f9c45a6a0a0401c1b41b315b9131f0"
+  dependencies:
+    lodash.get "~4.4.2"
+
+csv@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/csv/-/csv-3.1.0.tgz#91ad8625e294bf37a5b366b84d01aa40b2d20f15"
+  dependencies:
+    csv-generate "^2.0.2"
+    csv-parse "^2.4.0"
+    csv-stringify "^3.0.0"
+    stream-transform "^1.0.2"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -3736,10 +3781,6 @@ dom-urls@^1.1.0:
   resolved "https://registry.yarnpkg.com/dom-urls/-/dom-urls-1.1.0.tgz#001ddf81628cd1e706125c7176f53ccec55d918e"
   dependencies:
     urijs "^1.16.1"
-
-dom-walk@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
 
 domain-browser@^1.1.1:
   version "1.2.0"
@@ -4712,13 +4753,6 @@ global-prefix@^1.0.1:
     ini "^1.3.4"
     is-windows "^1.0.1"
     which "^1.2.14"
-
-global@~4.3.0:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/global/-/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
-  dependencies:
-    min-document "^2.19.0"
-    process "~0.5.1"
 
 globals@^11.0.1, globals@^11.1.0:
   version "11.7.0"
@@ -6336,6 +6370,10 @@ lodash.defaults@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
 
+lodash.get@~4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -6589,12 +6627,6 @@ mime@^2.0.3, mime@^2.1.0:
 mimic-fn@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.2.0.tgz#820c86a39334640e99516928bd03fca88057d022"
-
-min-document@^2.19.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/min-document/-/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
-  dependencies:
-    dom-walk "^0.1.0"
 
 mini-css-extract-plugin@^0.4.0:
   version "0.4.1"
@@ -7326,9 +7358,13 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
 
-popper.js@^1.0.0, popper.js@^1.12.5:
+popper.js@^1.12.5:
   version "1.14.3"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
+
+popper.js@^1.14.1:
+  version "1.14.4"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
 
 portfinder@^1.0.9:
   version "1.0.13"
@@ -7671,10 +7707,6 @@ process@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
 
-process@~0.5.1:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/process/-/process-0.5.2.tgz#1638d8a8e34c2f440a91db95ab9aeb677fc185cf"
-
 progress@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
@@ -7695,7 +7727,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -7794,12 +7826,6 @@ raf@3.4.0:
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.0.tgz#a28876881b4bc2ca9117d4138163ddb80f781575"
   dependencies:
     performance-now "^2.1.0"
-
-rafl@~1.2.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/rafl/-/rafl-1.2.2.tgz#fe930f758211020d47e38815f5196a8be4150740"
-  dependencies:
-    global "~4.3.0"
 
 randomatic@^3.0.0:
   version "3.0.0"
@@ -7920,21 +7946,32 @@ react-dom@^16.4.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-dropzone@^4.2.13:
+  version "4.2.13"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.2.13.tgz#31393c079b4e5ddcc176c095cebc3545d1248b9d"
+  dependencies:
+    attr-accept "^1.0.3"
+    prop-types "^15.5.7"
+
 react-error-overlay@5.0.0-next.3e165448:
   version "5.0.0-next.3e165448"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.0.0-next.3e165448.tgz#2cbd10780c1fa9c7e35d6e443773e18948b7ee49"
 
-react-event-listener@^0.6.0:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/react-event-listener/-/react-event-listener-0.6.1.tgz#41c7a80a66b398c27dd511e22712b02f3d4eccca"
+react-event-listener@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/react-event-listener/-/react-event-listener-0.6.2.tgz#df405e9578be052b77a76e4c3914686637caecff"
   dependencies:
-    "@babel/runtime" "^7.0.0-beta.42"
+    "@babel/runtime" "7.0.0-beta.42"
     prop-types "^15.6.0"
     warning "^4.0.1"
 
 react-fast-compare@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-1.0.0.tgz#813a039155e49b43ceffe99528fe5e9d97a6c938"
+
+react-file-download@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/react-file-download/-/react-file-download-0.3.5.tgz#7a4e75874528806bfa53ddddd98b4da427d3a897"
 
 react-join@^1.1.4:
   version "1.1.4"
@@ -8154,11 +8191,11 @@ realpath-native@^1.0.0:
   dependencies:
     util.promisify "^1.0.0"
 
-"recompose@^0.26.0 || ^0.27.0", recompose@^0.27.0:
-  version "0.27.1"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.27.1.tgz#1a49e931f183634516633bbb4f4edbfd3f38a7ba"
+recompose@^0.28.0:
+  version "0.28.2"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.28.2.tgz#19e679227bdf979e0d31b73ffe7ae38c9194f4a7"
   dependencies:
-    babel-runtime "^6.26.0"
+    "@babel/runtime" "7.0.0-beta.56"
     change-emitter "^0.1.2"
     fbjs "^0.8.1"
     hoist-non-react-statics "^2.3.1"
@@ -8602,12 +8639,6 @@ schema-utils@^0.4.0, schema-utils@^0.4.3, schema-utils@^0.4.4, schema-utils@^0.4
     ajv "^6.1.0"
     ajv-keywords "^3.1.0"
 
-scroll@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/scroll/-/scroll-2.0.3.tgz#0951b785544205fd17753bc3d294738ba16fc2ab"
-  dependencies:
-    rafl "~1.2.1"
-
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -8999,6 +9030,10 @@ stream-http@^2.7.2:
 stream-shift@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
+
+stream-transform@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/stream-transform/-/stream-transform-1.0.2.tgz#47de4d15fbc29b7e2a7e54d25e99538876f114c1"
 
 strict-uri-encode@^1.0.0:
   version "1.1.0"

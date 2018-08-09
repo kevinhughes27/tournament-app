@@ -1,20 +1,12 @@
 import * as React from "react";
 import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
-
-import { Modal as styles } from "../../../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
-import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-
+import Button from "@material-ui/core/Button";
+import Modal from "../../../components/Modal";
+import SubmitButton from "../../../components/SubmitButton";
 import Settings from "./Settings";
-import SaveIcon from "@material-ui/icons/Save";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   onUpdate: () => void;
 }
 
@@ -52,40 +44,20 @@ class SettingsModal extends React.Component<Props> {
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
         <Button onClick={this.handleOpen}>Settings</Button>
-        <Modal open={this.state.open} onClose={this.handleClose}>
-          <div className={classes.paper}>
-            {this.renderTitle()}
-            <Formik
-              initialValues={this.initialValues()}
-              onSubmit={this.onSubmit}
-              render={this.renderForm}
-            />
-          </div>
+        <Modal
+          title="Settings"
+          open={this.state.open}
+          onClose={this.handleClose}
+        >
+          <Formik
+            initialValues={this.initialValues()}
+            onSubmit={this.onSubmit}
+            render={this.renderForm}
+          />
         </Modal>
-      </div>
-    );
-  }
-
-  renderTitle = () => {
-    const style = {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    };
-
-    return (
-      <div style={style}>
-        <Typography variant="title">
-          Settings
-        </Typography>
-        <IconButton onClick={this.handleClose}>
-          <CloseIcon />
-        </IconButton>
       </div>
     );
   }
@@ -141,18 +113,14 @@ class SettingsModal extends React.Component<Props> {
           value={values.defaultGameLength}
           onChange={handleChange}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          className={this.props.classes.button}
-          disabled={!dirty || isSubmitting}
-        >
-          {isSubmitting ? <CircularProgress size={20} /> : <SaveIcon />}
-        </Button>
+        <SubmitButton
+          inline
+          disabled={!dirty}
+          submitting={isSubmitting}
+        />
       </form>
     );
   }
 }
 
-export default withStyles(styles)(SettingsModal);
+export default SettingsModal;

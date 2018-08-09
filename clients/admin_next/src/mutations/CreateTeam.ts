@@ -1,5 +1,6 @@
 import { commitMutation, graphql } from "react-relay";
 import environment from "../relay";
+import { RecordSourceSelectorProxy } from "relay-runtime";
 
 const mutation = graphql`
   mutation CreateTeamMutation($input: CreateTeamInput!) {
@@ -31,6 +32,19 @@ function getOptimisticResponse(variables: CreateTeamMutationVariables) {
   };
 }
 
+function updater(store: RecordSourceSelectorProxy) {
+  const root = store.getRoot();
+  const payload = store.getRootField("createTeam");
+
+  if (root && payload) {
+    const teams = root.getLinkedRecords("teams") || [];
+    const newTeam = payload.getLinkedRecord("team");
+    const newTeams = [...teams, newTeam];
+
+    root.setLinkedRecords(newTeams, "teams");
+  }
+}
+
 function commit(
   variables: CreateTeamMutationVariables
 ) {
@@ -45,6 +59,7 @@ function commit(
           mutation,
           variables,
           optimisticResponse: getOptimisticResponse(variables),
+          updater,
           onCompleted: (response: CreateTeamMutationResponse) => {
             resolve(response.createTeam as MutationResult);
           },

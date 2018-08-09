@@ -71,9 +71,10 @@ const Modal = (theme: Theme) => createStyles({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
-  button: {
-    marginTop: 20,
-    float: "right"
+  title: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
   }
 });
 
@@ -110,6 +111,18 @@ const ActionButton = (theme: Theme) => createStyles({
   }
 });
 
+const SubmitButton = (theme: Theme) => createStyles({
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  },
+  inline: {
+    marginTop: 20,
+    float: "right"
+  }
+});
+
 const ErrorBanner = {
   warning: {
     backgroundColor: amber[700]
@@ -137,5 +150,6 @@ export {
   BlankSlate,
   Breadcrumbs,
   ActionButton,
+  SubmitButton,
   ErrorBanner
 };

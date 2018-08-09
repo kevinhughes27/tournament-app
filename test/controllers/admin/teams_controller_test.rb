@@ -161,7 +161,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
   test "import csv" do
     division = FactoryBot.create(:division, name: 'Open')
 
-    assert_difference "Team.count", +7 do
+    assert_difference "Team.count", +8 do
       post :import_csv, params: {
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'ignore'
@@ -174,7 +174,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
   end
 
   test "import csv (ignore matches)" do
-    assert_difference "Team.count", +7 do
+    assert_difference "Team.count", +8 do
       post :import_csv, params: {
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'ignore'
@@ -196,7 +196,7 @@ class Admin::TeamsControllerTest < AdminControllerTest
   test "import csv (update matches)" do
     team = FactoryBot.create(:team, name: 'SE7EN')
 
-    assert_difference "Team.count", +6 do
+    assert_difference "Team.count", +7 do
       post :import_csv, params: {
         csv_file: fixture_file_upload('files/teams.csv','text/csv'),
         match_behaviour: 'update'

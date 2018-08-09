@@ -58,7 +58,7 @@ class TeamForm extends Form<Props> {
     if (teamId) {
       return UpdateTeamMutation.commit({input: {id: teamId, ...values}});
     } else {
-      return CreateTeamMutation.commit({input: {...values}});
+      return CreateTeamMutation.commit({input: values});
     }
   }
 
