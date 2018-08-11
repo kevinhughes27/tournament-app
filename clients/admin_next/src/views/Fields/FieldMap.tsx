@@ -4,6 +4,7 @@ import {createFragmentContainer, graphql} from "react-relay";
 import { Map, TileLayer, GeoJSON } from "react-leaflet";
 import { LeafletEvent } from "leaflet";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
+import Geosuggest, { Suggest } from "react-geosuggest";
 import ActionMenu from "../../components/ActionMenu";
 import ActionButton from "../../components/ActionButton";
 import EditIcon from "@material-ui/icons/Edit";
@@ -52,6 +53,16 @@ class FieldMap extends React.Component<Props, State> {
     this.setState({lat, long, zoom});
   }
 
+  placeSelected = (suggest: Suggest) => {
+    const location = suggest.location;
+
+    const lat = parseFloat(location.lat);
+    const long = parseFloat(location.lng);
+    const defaultZoom = 15;
+
+    this.setState({lat, long, zoom: defaultZoom});
+  }
+
   saveMap = async () => {
     const { lat, long, zoom } = this.state;
     this.setState({mode: "view"});
@@ -66,10 +77,10 @@ class FieldMap extends React.Component<Props, State> {
 
   render() {
     const { lat, long, zoom } = this.state;
-    const { fields } = this.props;
 
     return (
       <div>
+        {this.renderControls()}
         <Map
           center={[lat, long]}
           zoom={zoom}
@@ -81,11 +92,27 @@ class FieldMap extends React.Component<Props, State> {
             url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
-          {fields.map(this.renderField)}
+          {this.renderFields()}
         </Map>
         {this.renderAction()}
       </div>
     );
+  }
+
+  renderControls = () => {
+    if (this.state.mode === "editMap") {
+      return (
+        <Geosuggest
+          className="leaflet-search"
+          inputClassName="leaflet-search-input"
+          suggestsClassName="leaflet-search-results"
+          minLength={3}
+          onSuggestSelect={this.placeSelected}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   renderAction = () => {
@@ -101,16 +128,20 @@ class FieldMap extends React.Component<Props, State> {
     }
   }
 
-  renderField = (field: FieldMap_fields[0]) => (
-    <GeoJSON
-      key={field.id}
-      data={JSON.parse(field.geoJson)}
-      style={this.fieldStyle(field.id)}
-      onMouseover={() => this.setState({hover: field.id})}
-      onMouseout={() => this.setState({hover: undefined})}
-      onClick={() => this.openField(field.id)}
-    />
-  )
+  renderFields = () => {
+    const { fields } = this.props;
+
+    return fields.map((field: FieldMap_fields[0]) => (
+      <GeoJSON
+        key={field.id}
+        data={JSON.parse(field.geoJson)}
+        style={this.fieldStyle(field.id)}
+        onMouseover={() => this.setState({hover: field.id})}
+        onMouseout={() => this.setState({hover: undefined})}
+        onClick={() => this.openField(field.id)}
+      />
+    ));
+  }
 
   fieldStyle = (fieldId: string) => {
     if (this.state.hover === fieldId) {
