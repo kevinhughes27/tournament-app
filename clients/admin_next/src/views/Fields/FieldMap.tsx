@@ -8,6 +8,8 @@ import ActionMenu from "../../components/ActionMenu";
 import ActionButton from "../../components/ActionButton";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
+import UpdateMapMutation from "../../mutations/UpdateMap";
+import { showNotice } from "../../components/Notice";
 
 interface Props extends RouteComponentProps<any> {
   map: FieldMap_map;
@@ -46,8 +48,16 @@ class FieldMap extends React.Component<Props, State> {
     this.setState({lat, long, zoom});
   }
 
-  saveMap = () => {
+  saveMap = async () => {
+    const { lat, long, zoom } = this.state;
     this.setState({mode: "view"});
+
+    try {
+      const result = await UpdateMapMutation.commit({input: {lat, long, zoom}});
+      showNotice(result.message!);
+    } catch (e) {
+      showNotice(e.message);
+    }
   }
 
   render() {

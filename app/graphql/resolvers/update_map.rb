@@ -6,10 +6,12 @@ class Resolvers::UpdateMap < Resolvers::BaseResolver
     if ctx[:tournament].map.update(params)
       {
         success: true,
+        message: "Map updated"
       }
     else
       {
         success: false,
+        message: "Error updating map"
       }
     end
   end
