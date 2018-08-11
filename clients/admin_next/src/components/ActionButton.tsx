@@ -5,14 +5,16 @@ import Zoom from "@material-ui/core/Zoom";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
+import SaveIcon from "@material-ui/icons/Save";
 
 const icons = {
   add: <AddIcon />,
-  edit: <EditIcon />
+  edit: <EditIcon />,
+  save: <SaveIcon />
 };
 
 interface Props extends WithStyles<typeof styles> {
-  icon: "add" | "edit";
+  icon: "add" | "edit" | "save";
   onClick: () => void;
 }
 
