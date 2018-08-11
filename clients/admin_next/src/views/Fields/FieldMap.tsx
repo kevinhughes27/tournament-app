@@ -37,6 +37,10 @@ class FieldMap extends React.Component<Props, State> {
     this.props.history.push("/fields/new");
   }
 
+  openField = (fieldId: string) => {
+    this.props.history.push(`/fields/${fieldId}`);
+  }
+
   editMap = () => {
     const { lat, long, zoom } = this.props.map;
     this.setState({ mode: "editMap", lat, long, zoom});
@@ -104,13 +108,9 @@ class FieldMap extends React.Component<Props, State> {
       style={this.fieldStyle(field.id)}
       onMouseover={() => this.setState({hover: field.id})}
       onMouseout={() => this.setState({hover: undefined})}
-      onClick={() => this.handleClick(field.id)}
+      onClick={() => this.openField(field.id)}
     />
   )
-
-  handleClick = (fieldId: string) => {
-    this.props.history.push(`/fields/${fieldId}`);
-  }
 
   fieldStyle = (fieldId: string) => {
     if (this.state.hover === fieldId) {
