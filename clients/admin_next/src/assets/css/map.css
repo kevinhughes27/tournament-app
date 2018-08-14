@@ -76,3 +76,11 @@
 .geosuggest__item__matched-text {
   font-weight: bold;
 }
+
+.sr-only {
+  display: none;
+}
+
+.leaflet-draw-draw-polygon {
+  background-position: -210px -1px !important;
+}
