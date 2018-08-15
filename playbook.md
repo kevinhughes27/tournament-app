@@ -4,7 +4,12 @@ Playbook
 Renewing SSL certificate
 -------------------------
 
-1. Download latest `certbot-auto`
+** To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot-auto
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot-auto renew"
+
+1. Download latest `certbot-auto`. If you have an exisiting version it will auto-update itself when executed.
 
 2. Login to Namecheap and get ready to add a TXT record on the Advanced DNS tab for ultimate-tournament
 
@@ -27,7 +32,7 @@ Renewing SSL certificate
 6. Run:
 
   ```
-    sudo heroku certs:update /etc/letsencrypt/live/ultimate-tournament.io/fullchain.pem /etc/letsencrypt/live/ultimate-tournament.io/privkey.pem --app ultimate-tournament
+  sudo heroku certs:update /etc/letsencrypt/live/ultimate-tournament.io/fullchain.pem /etc/letsencrypt/live/ultimate-tournament.io/privkey.pem --app ultimate-tournament
   ```
 
   To upload the new certificate to Heroku

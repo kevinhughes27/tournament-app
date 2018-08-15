@@ -23,6 +23,7 @@ test/coverage
 *test/reports
 
 # ssl
+certbot-auto
 server.crt
 server.csr
 server.key
