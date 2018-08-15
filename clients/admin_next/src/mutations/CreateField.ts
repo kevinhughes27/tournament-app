@@ -1,5 +1,6 @@
 import { commitMutation, graphql } from "react-relay";
 import environment from "../relay";
+import { RecordSourceSelectorProxy } from "relay-runtime";
 
 const mutation = graphql`
   mutation CreateFieldMutation($input: CreateFieldInput!) {
@@ -29,6 +30,19 @@ function getOptimisticResponse(variables: CreateFieldMutationVariables) {
   };
 }
 
+function updater(store: RecordSourceSelectorProxy) {
+  const root = store.getRoot();
+  const payload = store.getRootField("createField");
+
+  if (root && payload) {
+    const fields = root.getLinkedRecords("fields") || [];
+    const newField = payload.getLinkedRecord("field");
+    const newFields = [...fields, newField];
+
+    root.setLinkedRecords(newFields, "fields");
+  }
+}
+
 function commit(
   variables: CreateFieldMutationVariables
 ) {
@@ -42,6 +56,7 @@ function commit(
         {
           mutation,
           variables,
+          updater,
           optimisticResponse: getOptimisticResponse(variables),
           onCompleted: (response: CreateFieldMutationResponse) => {
             resolve(response.createField as MutationResult);

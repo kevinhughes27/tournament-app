@@ -48,6 +48,7 @@ const newField = {
 class FieldsEditor extends React.Component<Props, State> {
   mapRef = React.createRef<Map<any>>();
   map?: Leaflet.Map;
+  fieldsLayer?: Leaflet.FeatureGroup<any>;
 
   constructor(props: Props) {
     super(props);
@@ -80,8 +81,7 @@ class FieldsEditor extends React.Component<Props, State> {
   editField = (field: FieldsEditor_fields[0], layer: any) => {
     this.resetEditing();
     layer.enableEdit();
-    const freshField = this.props.fields.find((f) => f.id === field.id);
-    this.setState({mode: "editField", editing: freshField!});
+    this.setState({mode: "editField", editing: field});
   }
 
   resetEditing = () => {
@@ -161,6 +161,8 @@ class FieldsEditor extends React.Component<Props, State> {
 
     try {
       const result = await CreateFieldMutation.commit({input: payload});
+      this.clearFields();
+      this.drawFields();
       showNotice(result.message!);
     } catch (e) {
       showNotice(e.message);
@@ -174,6 +176,8 @@ class FieldsEditor extends React.Component<Props, State> {
 
     try {
       const result = await UpdateFieldMutation.commit({input: payload});
+      this.clearFields();
+      this.drawFields();
       showNotice(result.message!);
     } catch (e) {
       showNotice(e.message);
@@ -270,17 +274,27 @@ class FieldsEditor extends React.Component<Props, State> {
   drawFields = () => {
     const { fields } = this.props;
 
+    this.fieldsLayer = new Leaflet.FeatureGroup();
+
     fields.forEach((field: FieldsEditor_fields[0]) => {
       const json = JSON.parse(field.geoJson);
       const style = () => FieldStyle;
-      const layers = Leaflet.geoJson(json, {style}).addTo(this.map!);
+      const layers = Leaflet.geoJson(json, {style});
 
       layers.eachLayer((layer: any) => {
         layer.on("click", () => this.editField(field, layer));
         layer.on("mouseover", () => layer.setStyle(FieldHoverStyle));
         layer.on("mouseout", () => layer.setStyle(FieldStyle));
       });
+
+      this.fieldsLayer!.addLayer(layers);
     });
+
+    this.map!.addLayer(this.fieldsLayer);
+  }
+
+  clearFields = () => {
+    this.fieldsLayer!.clearLayers();
   }
 }
 
