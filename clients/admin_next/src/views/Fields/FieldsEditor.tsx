@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Leaflet from "leaflet";
-import "leaflet-editable"
+import "leaflet-editable";
 import {createFragmentContainer, graphql} from "react-relay";
 import { Map, TileLayer } from "react-leaflet";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
@@ -35,7 +35,7 @@ interface State {
     lat: number;
     long: number;
     geoJson: string;
-  }
+  };
 }
 
 const newField = {
@@ -43,7 +43,7 @@ const newField = {
   lat: 0,
   long: 0,
   geoJson: ""
-}
+};
 
 class FieldsEditor extends React.Component<Props, State> {
   mapRef = React.createRef<Map<any>>();
@@ -86,7 +86,7 @@ class FieldsEditor extends React.Component<Props, State> {
 
   resetEditing = () => {
     this.map!.eachLayer((layer: any) => {
-      layer.disableEdit && layer.disableEdit()
+      if (layer.disableEdit) { layer.disableEdit(); }
     });
   }
 
@@ -112,7 +112,7 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   autoComplete = (event: any) => {
-    const verticies = event.layer.getLatLngs()[0]
+    const verticies = event.layer.getLatLngs()[0];
 
     if (verticies.length === 4) {
       event.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
@@ -273,13 +273,13 @@ class FieldsEditor extends React.Component<Props, State> {
     fields.forEach((field: FieldsEditor_fields[0]) => {
       const json = JSON.parse(field.geoJson);
       const style = () => FieldStyle;
-      const layers = Leaflet.geoJson(json, {style: style}).addTo(this.map!);
+      const layers = Leaflet.geoJson(json, {style}).addTo(this.map!);
 
       layers.eachLayer((layer: any) => {
         layer.on("click", () => this.editField(field, layer));
         layer.on("mouseover", () => layer.setStyle(FieldHoverStyle));
         layer.on("mouseout", () => layer.setStyle(FieldStyle));
-      })
+      });
     });
   }
 }

@@ -139,13 +139,13 @@ const ErrorBanner = {
 };
 
 const FieldNameInput = {
-  position: 'absolute' as 'absolute',
+  position: "absolute" as "absolute",
   zIndex: 1000,
-  backgroundColor: 'white',
+  backgroundColor: "white",
   width: 240,
   left: 60,
   paddingLeft: 10
-}
+};
 
 export {
   Login,
