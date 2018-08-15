@@ -79,7 +79,8 @@ class FieldsEditor extends React.Component<Props, State> {
   editField = (field: FieldsEditor_fields[0], layer: any) => {
     this.resetEditing();
     layer.enableEdit();
-    this.setState({mode: "editField", editing: field});
+    const freshField = this.props.fields.find((f) => f.id === field.id);
+    this.setState({mode: "editField", editing: freshField!});
   }
 
   resetEditing = () => {
