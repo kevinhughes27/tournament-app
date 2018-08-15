@@ -12,6 +12,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import { merge } from "lodash";
 import UpdateMapMutation from "../../mutations/UpdateMap";
+import UpdateFieldMutation from "../../mutations/UpdateField";
+import CreateFieldMutation from "../../mutations/CreateField";
 import { showNotice } from "../../components/Notice";
 
 interface Props {
@@ -75,9 +77,15 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   editField = (field: FieldsEditor_fields[0], layer: any) => {
-    this.map!.eachLayer((layer: any) => { layer.disableEdit && layer.disableEdit() }); // reset editing
+    this.resetEditing();
     layer.enableEdit();
     this.setState({mode: "editField", editing: field});
+  }
+
+  resetEditing = () => {
+    this.map!.eachLayer((layer: any) => {
+      layer.disableEdit && layer.disableEdit()
+    });
   }
 
   /* Leaflet event handlers */
@@ -89,7 +97,7 @@ class FieldsEditor extends React.Component<Props, State> {
 
   updateField = (event: any) => {
     const {lat, lng: long} = event.layer.getCenter();
-    const geoJson = event.layer.toGeoJSON();
+    const geoJson = JSON.stringify(event.layer.toGeoJSON());
 
     const editing = {...this.state.editing};
     merge(editing, {lat, long, geoJson});
@@ -146,10 +154,28 @@ class FieldsEditor extends React.Component<Props, State> {
 
   createField = async () => {
     const payload = this.state.editing;
+    this.resetEditing();
+    this.setState({mode: "view"});
+
+    try {
+      const result = await CreateFieldMutation.commit({input: payload});
+      showNotice(result.message!);
+    } catch (e) {
+      showNotice(e.message);
+    }
   }
 
   saveField = async () => {
-    const payload = this.state.editing;
+    const payload = {id: this.state.editing.fieldId!, ...this.state.editing};
+    this.resetEditing();
+    this.setState({mode: "view"});
+
+    try {
+      const result = await UpdateFieldMutation.commit({input: payload});
+      showNotice(result.message!);
+    } catch (e) {
+      showNotice(e.message);
+    }
   }
 
   /* Rendering */

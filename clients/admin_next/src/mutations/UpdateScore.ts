@@ -22,11 +22,11 @@ function getOptimisticResponse(variables: UpdateScoreMutationVariables) {
 }
 
 function blindTrustUpdater(store: RecordSourceSelectorProxy) {
-  const updateScore = store.getRootField("updateScore");
+  const payload = store.getRootField("updateScore");
 
-  if (updateScore) {
+  if (payload) {
     const input = JSON.parse(
-      updateScore.getDataID()
+      payload.getDataID()
         .replace("client:root:updateScore(input:", "")
         .replace(")", "")
     );
