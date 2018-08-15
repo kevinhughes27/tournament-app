@@ -6,6 +6,7 @@ import { Map, TileLayer } from "react-leaflet";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
 import Geosuggest, { Suggest } from "react-geosuggest";
 import TextField from "@material-ui/core/TextField";
+import { FieldNameInput } from "../../assets/jss/styles";
 import ActionMenu from "../../components/ActionMenu";
 import ActionButton from "../../components/ActionButton";
 import EditIcon from "@material-ui/icons/Edit";
@@ -230,6 +231,8 @@ class FieldsEditor extends React.Component<Props, State> {
           margin="normal"
           autoComplete="off"
           fullWidth
+          style={FieldNameInput}
+          InputLabelProps={{style: {paddingLeft: 10}}}
           value={this.state.editing.name}
           onChange={this.updateName}
         />
