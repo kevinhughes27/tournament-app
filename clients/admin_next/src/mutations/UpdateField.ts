@@ -30,19 +30,6 @@ function getOptimisticResponse(variables: UpdateFieldMutationVariables) {
   };
 }
 
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const payload = store.getRootField("updateField");
-
-  if (root && payload) {
-    const fields = root.getLinkedRecords("fields")! || [];
-    const updatedField = payload.getLinkedRecord("field");
-    const idx = fields.findIndex((f) => f!.getDataID() === updatedField!.getDataID());
-    const newFields = Object.assign([], fields, {[idx]: updatedField});
-    root.setLinkedRecords(newFields, "fields");
-  }
-}
-
 function commit(
   variables: UpdateFieldMutationVariables
 ) {
@@ -56,7 +43,6 @@ function commit(
         {
           mutation,
           variables,
-          updater,
           optimisticResponse: getOptimisticResponse(variables),
           onCompleted: (response: UpdateFieldMutationResponse) => {
             resolve(response.updateField as MutationResult);
