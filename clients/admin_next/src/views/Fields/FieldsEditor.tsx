@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Leaflet from "leaflet";
 import "leaflet-editable";
 import {createFragmentContainer, graphql} from "react-relay";
-import { Map, TileLayer } from "react-leaflet";
+import { Map, TileLayer, GeoJSON } from "react-leaflet";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
 import Geosuggest, { Suggest } from "react-geosuggest";
 import TextField from "@material-ui/core/TextField";
@@ -48,7 +48,6 @@ const newField = {
 class FieldsEditor extends React.Component<Props, State> {
   mapRef = React.createRef<Map<any>>();
   map?: Leaflet.Map;
-  fieldsLayer?: Leaflet.FeatureGroup<any>;
 
   constructor(props: Props) {
     super(props);
@@ -58,12 +57,9 @@ class FieldsEditor extends React.Component<Props, State> {
 
   componentDidMount() {
     this.map = this.mapRef.current!.leafletElement;
-
     this.map.on("editable:drawing:commit", this.updateField);
     this.map.on("editable:vertex:dragend", this.updateField);
     this.map.on("editable:vertex:rawclick", this.noOp); // prevent vertex delete
-
-    this.drawFields();
   }
 
   /* Mode change handlers */
@@ -161,8 +157,6 @@ class FieldsEditor extends React.Component<Props, State> {
 
     try {
       const result = await CreateFieldMutation.commit({input: payload});
-      this.clearFields();
-      this.drawFields();
       showNotice(result.message!);
     } catch (e) {
       showNotice(e.message);
@@ -176,8 +170,6 @@ class FieldsEditor extends React.Component<Props, State> {
 
     try {
       const result = await UpdateFieldMutation.commit({input: payload});
-      this.clearFields();
-      this.drawFields();
       showNotice(result.message!);
     } catch (e) {
       showNotice(e.message);
@@ -187,6 +179,7 @@ class FieldsEditor extends React.Component<Props, State> {
   /* Rendering */
   render() {
     const { lat, long, zoom } = this.state;
+    const { fields } = this.props;
 
     return (
       <div>
@@ -208,6 +201,7 @@ class FieldsEditor extends React.Component<Props, State> {
             url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
+          {fields.map(this.renderField)}
         </Map>
         {this.renderAction()}
       </div>
@@ -246,6 +240,17 @@ class FieldsEditor extends React.Component<Props, State> {
     }
   }
 
+  renderField = (field: FieldsEditor_fields[0]) => (
+    <GeoJSON
+      key={field.id}
+      data={JSON.parse(field.geoJson)}
+      style={FieldStyle}
+      onMouseover={(ev: any) => ev.layer.setStyle(FieldHoverStyle)}
+      onMouseout={(ev: any) => ev.layer.setStyle(FieldStyle)}
+      onClick={(ev: any) => this.editField(field, ev.layer)}
+    />
+  )
+
   renderAction = () => {
     const { mode } = this.state;
 
@@ -269,32 +274,6 @@ class FieldsEditor extends React.Component<Props, State> {
     ];
 
     return <ActionMenu actions={actions}/>;
-  }
-
-  drawFields = () => {
-    const { fields } = this.props;
-
-    this.fieldsLayer = new Leaflet.FeatureGroup();
-
-    fields.forEach((field: FieldsEditor_fields[0]) => {
-      const json = JSON.parse(field.geoJson);
-      const style = () => FieldStyle;
-      const layers = Leaflet.geoJson(json, {style});
-
-      layers.eachLayer((layer: any) => {
-        layer.on("click", () => this.editField(field, layer));
-        layer.on("mouseover", () => layer.setStyle(FieldHoverStyle));
-        layer.on("mouseout", () => layer.setStyle(FieldStyle));
-      });
-
-      this.fieldsLayer!.addLayer(layers);
-    });
-
-    this.map!.addLayer(this.fieldsLayer);
-  }
-
-  clearFields = () => {
-    this.fieldsLayer!.clearLayers();
   }
 }
 
