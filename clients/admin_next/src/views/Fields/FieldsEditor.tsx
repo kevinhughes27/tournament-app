@@ -1,21 +1,14 @@
 import * as React from "react";
 import * as Leaflet from "leaflet";
-import "leaflet-editable";
 import {createFragmentContainer, graphql} from "react-relay";
-import { Map, TileLayer, GeoJSON } from "react-leaflet";
-import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
-import Geosuggest, { Suggest } from "react-geosuggest";
-import TextField from "@material-ui/core/TextField";
-import { FieldNameInput } from "../../assets/jss/styles";
-import ActionMenu from "../../components/ActionMenu";
-import ActionButton from "../../components/ActionButton";
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
-import { merge } from "lodash";
+import FieldsEditorMap from "./FieldsEditorMap";
+import FieldsEditorControls from "./FieldsEditorControls";
+import FieldsEditorActions from "./FieldsEditorActions";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
 import { showNotice } from "../../components/Notice";
+import { merge } from "lodash";
 
 interface Props {
   map: FieldsEditor_map;
@@ -46,7 +39,7 @@ const newField = {
 };
 
 class FieldsEditor extends React.Component<Props, State> {
-  mapRef = React.createRef<Map<any>>();
+  mapRef = React.createRef<any>();
   map?: Leaflet.Map;
 
   constructor(props: Props) {
@@ -57,9 +50,9 @@ class FieldsEditor extends React.Component<Props, State> {
 
   componentDidMount() {
     this.map = this.mapRef.current!.leafletElement;
-    this.map.on("editable:drawing:commit", this.updateField);
-    this.map.on("editable:vertex:dragend", this.updateField);
-    this.map.on("editable:vertex:rawclick", this.noOp); // prevent vertex delete
+    this.map!.on("editable:drawing:commit", this.updateField);
+    this.map!.on("editable:vertex:dragend", this.updateField);
+    this.map!.on("editable:vertex:rawclick", this.noOp); // prevent vertex delete
   }
 
   /* Mode change handlers */
@@ -112,19 +105,13 @@ class FieldsEditor extends React.Component<Props, State> {
 
     if (verticies.length === 4) {
       event.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
-      event.layer.setStyle(FieldStyle);
       this.map!.off("editable:drawing:clicked", this.autoComplete); // cleanup
     }
   }
 
   /* Input event handlers */
-  placeSelected = (suggest: Suggest) => {
-    const location = suggest.location;
-
-    const lat = parseFloat(location.lat);
-    const long = parseFloat(location.lng);
+  placeSelected = (lat: number, long: number) => {
     const defaultZoom = 15;
-
     this.setState({lat, long, zoom: defaultZoom});
   }
 
@@ -183,97 +170,31 @@ class FieldsEditor extends React.Component<Props, State> {
 
     return (
       <div>
-        {this.renderControls()}
-        <Map
+        <FieldsEditorControls
+          mode={this.state.mode}
+          placeSelected={this.placeSelected}
+          name={this.state.editing.name}
+          updateName={this.updateName}
+        />
+        <FieldsEditorMap
           ref={this.mapRef}
-          center={[lat, long]}
+          lat={lat}
+          long={long}
           zoom={zoom}
-          maxZoom={20}
-          doubleClickZoom={false}
-          onDrag={this.updateMap}
-          onZoom={this.updateMap}
-          editable={true}
-          editOptions={{
-            skipMiddleMarkers: true
-          }}
-        >
-          <TileLayer
-            url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-            subdomains={["mt0", "mt1", "mt2", "mt3"]}
-          />
-          {fields.map(this.renderField)}
-        </Map>
-        {this.renderAction()}
+          fields={fields}
+          updateMap={this.updateMap}
+          editField={this.editField}
+        />
+        <FieldsEditorActions
+          mode={this.state.mode}
+          editMap={this.editMap}
+          addField={this.addField}
+          saveMap={this.saveMap}
+          createField={this.createField}
+          saveField={this.saveField}
+        />
       </div>
     );
-  }
-
-  renderControls = () => {
-    const { mode } = this.state;
-
-    if (mode === "editMap") {
-      return (
-        <Geosuggest
-          className="leaflet-search"
-          inputClassName="leaflet-search-input"
-          suggestsClassName="leaflet-search-results"
-          minLength={3}
-          onSuggestSelect={this.placeSelected}
-        />
-      );
-    } else if (mode === "addField" || mode === "editField") {
-      return (
-        <TextField
-          name="name"
-          label="Name"
-          margin="normal"
-          autoComplete="off"
-          fullWidth
-          style={FieldNameInput}
-          InputLabelProps={{style: {paddingLeft: 10}}}
-          value={this.state.editing.name}
-          onChange={this.updateName}
-        />
-      );
-    } else {
-      return null;
-    }
-  }
-
-  renderField = (field: FieldsEditor_fields[0]) => (
-    <GeoJSON
-      key={field.id}
-      data={JSON.parse(field.geoJson)}
-      style={FieldStyle}
-      onMouseover={(ev: any) => ev.layer.setStyle(FieldHoverStyle)}
-      onMouseout={(ev: any) => ev.layer.setStyle(FieldStyle)}
-      onClick={(ev: any) => this.editField(field, ev.layer)}
-    />
-  )
-
-  renderAction = () => {
-    const { mode } = this.state;
-
-    if (mode === "view") {
-      return this.viewActions();
-    } else if (mode === "editMap") {
-      return <ActionButton icon="save" onClick={this.saveMap} />;
-    } else if (mode === "addField") {
-      return <ActionButton icon="save" onClick={this.createField} />;
-    } else if (mode === "editField") {
-      return <ActionButton icon="save" onClick={this.saveField} />;
-    } else {
-      return null;
-    }
-  }
-
-  viewActions = () => {
-    const actions = [
-      {icon: <EditIcon/>, name: "Edit Map", handler: this.editMap },
-      {icon: <AddIcon/>, name: "Add Field", handler: this.addField },
-    ];
-
-    return <ActionMenu actions={actions}/>;
   }
 }
 
