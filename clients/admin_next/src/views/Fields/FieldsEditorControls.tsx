@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { FieldNameInput } from "../../assets/jss/styles";
 
 interface Props {
-  mode: "view" | "editMap" | "addField" | "editField";
+  mode: "none" | "view" | "editMap" | "addField" | "editField";
   placeSelected: (lat: number, long: number) => void;
   name: string;
   updateName: (event: React.FormEvent<EventTarget>) => void;

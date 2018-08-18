@@ -5,7 +5,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 
 interface Props {
-  mode: "view" | "editMap" | "addField" | "editField";
+  mode: "none" | "view" | "editMap" | "addField" | "editField";
   valid: boolean;
   submitting: boolean;
   editMap: () => void;

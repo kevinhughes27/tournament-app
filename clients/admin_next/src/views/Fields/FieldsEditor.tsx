@@ -15,7 +15,7 @@ interface Props {
   fields: FieldsEditor_fields;
 }
 
-type Mode = "view" | "editMap" | "addField" | "editField";
+type Mode = "none" | "view" | "editMap" | "addField" | "editField";
 
 interface State {
   mode: Mode;
@@ -141,47 +141,31 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   /* Save actions */
-  saveMap = async () => {
-    this.setState({submitting: true});
-
+  saveMap = () => {
     const { lat, long, zoom } = this.state;
-
-    try {
-      const result = await UpdateMapMutation.commit({input: {lat, long, zoom}});
-      this.setState({mode: "view", submitting: false});
-      showNotice(result.message!);
-    } catch (e) {
-      this.setState({submitting: false});
-      showNotice(e.message);
-    }
+    const payload = { lat, long, zoom };
+    this.runMutation(UpdateMapMutation, payload);
   }
 
-  createField = async () => {
-    this.setState({submitting: true});
-
+  createField = () => {
     const payload = this.state.editing;
-
-    try {
-      const result = await CreateFieldMutation.commit({input: payload});
-      this.resetEditing();
-      this.setState({mode: "view", submitting: false});
-      showNotice(result.message!);
-    } catch (e) {
-      this.setState({submitting: false});
-      showNotice(e.message);
-    }
+    this.runMutation(CreateFieldMutation, payload);
   }
 
-  saveField = async () => {
+  saveField = () => {
+    const payload = {id: this.state.editing.fieldId!, ...this.state.editing};
+    this.runMutation(UpdateFieldMutation, payload);
+  }
+
+  runMutation = async (mutation: any, payload: any) => {
     this.setState({submitting: true});
 
-    const payload = {id: this.state.editing.fieldId!, ...this.state.editing};
-
     try {
-      const result = await UpdateFieldMutation.commit({input: payload});
+      const result = await mutation.commit({input: payload});
       this.resetEditing();
-      this.setState({mode: "view", submitting: false});
+      this.setState({mode: "none", submitting: false});
       showNotice(result.message!);
+      setTimeout(() => this.setState({mode: "view"}), 1000);
     } catch (e) {
       this.setState({submitting: false});
       showNotice(e.message);

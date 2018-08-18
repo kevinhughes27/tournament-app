@@ -16,7 +16,12 @@ interface Props {
 
 class DivisionForm extends Form<Props> {
   initialValues = () => {
-    return this.props.input;
+    return {
+      name: this.props.input.name,
+      numTeams: this.props.input.numTeams,
+      numDays: this.props.input.numDays,
+      bracketType: this.props.input.bracketType,
+    };
   }
 
   validate = (values: FormikValues) => {
