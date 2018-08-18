@@ -108,6 +108,9 @@ const ActionButton = (theme: Theme) => createStyles({
     position: "fixed",
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 2,
+  },
+  disabled: {
+    backgroundColor: "rgba(158, 158, 158, 0.8) !important"
   }
 });
 

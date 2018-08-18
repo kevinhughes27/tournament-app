@@ -2,6 +2,7 @@ class GraphqlController < ApiController
   include TournamentController
 
   def execute
+    byebug
     result = Schema.execute(
       query_string,
       variables: query_variables,

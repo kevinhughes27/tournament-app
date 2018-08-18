@@ -6,6 +6,8 @@ import AddIcon from "@material-ui/icons/Add";
 
 interface Props {
   mode: "view" | "editMap" | "addField" | "editField";
+  valid: boolean;
+  submitting: boolean;
   editMap: () => void;
   addField: () => void;
   saveMap: () => void;
@@ -14,18 +16,38 @@ interface Props {
 }
 
 class FieldsEditorActions extends React.Component<Props> {
-
   render() {
-    const { mode, saveMap, createField, saveField } = this.props;
+    const {
+      mode,
+      valid,
+      submitting,
+      saveMap,
+      createField,
+      saveField,
+    } = this.props;
 
     if (mode === "view") {
       return this.viewActions();
     } else if (mode === "editMap") {
       return <ActionButton icon="save" onClick={saveMap} />;
     } else if (mode === "addField") {
-      return <ActionButton icon="save" onClick={createField} />;
+      return (
+        <ActionButton
+          icon="save"
+          disabled={!valid}
+          submitting={submitting}
+          onClick={createField}
+        />
+      );
     } else if (mode === "editField") {
-      return <ActionButton icon="save" onClick={saveField} />;
+      return (
+        <ActionButton
+          icon="save"
+          disabled={!valid}
+          submitting={submitting}
+          onClick={saveField}
+        />
+      );
     } else {
       return null;
     }

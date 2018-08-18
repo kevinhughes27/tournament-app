@@ -22,6 +22,7 @@ interface State {
   lat: number;
   long: number;
   zoom: number;
+  submitting: boolean;
   editing: {
     fieldId?: string;
     name: string;
@@ -44,8 +45,17 @@ class FieldsEditor extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+
     const { lat, long, zoom } = props.map;
-    this.state = {lat, long, zoom, mode: "view", editing: newField};
+
+    this.state = {
+      mode: "view",
+      lat,
+      long,
+      zoom,
+      submitting: false,
+      editing: newField
+    };
   }
 
   componentDidMount() {
@@ -124,48 +134,63 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({editing});
   }
 
+  validate = () => {
+    const namePresent = this.state.editing.name !== "";
+    const geoJsonPresent = this.state.editing.geoJson !== "";
+    return namePresent && geoJsonPresent;
+  }
+
   /* Save actions */
   saveMap = async () => {
+    this.setState({submitting: true});
+
     const { lat, long, zoom } = this.state;
-    this.setState({mode: "view"});
 
     try {
       const result = await UpdateMapMutation.commit({input: {lat, long, zoom}});
+      this.setState({mode: "view", submitting: false});
       showNotice(result.message!);
     } catch (e) {
+      this.setState({submitting: false});
       showNotice(e.message);
     }
   }
 
   createField = async () => {
+    this.setState({submitting: true});
+
     const payload = this.state.editing;
-    this.resetEditing();
-    this.setState({mode: "view"});
 
     try {
       const result = await CreateFieldMutation.commit({input: payload});
+      this.resetEditing();
+      this.setState({mode: "view", submitting: false});
       showNotice(result.message!);
     } catch (e) {
+      this.setState({submitting: false});
       showNotice(e.message);
     }
   }
 
   saveField = async () => {
+    this.setState({submitting: true});
+
     const payload = {id: this.state.editing.fieldId!, ...this.state.editing};
-    this.resetEditing();
-    this.setState({mode: "view"});
 
     try {
       const result = await UpdateFieldMutation.commit({input: payload});
+      this.resetEditing();
+      this.setState({mode: "view", submitting: false});
       showNotice(result.message!);
     } catch (e) {
+      this.setState({submitting: false});
       showNotice(e.message);
     }
   }
 
   /* Rendering */
   render() {
-    const { lat, long, zoom } = this.state;
+    const { lat, long, zoom, submitting } = this.state;
     const { fields } = this.props;
 
     return (
@@ -187,6 +212,8 @@ class FieldsEditor extends React.Component<Props, State> {
         />
         <FieldsEditorActions
           mode={this.state.mode}
+          valid={this.validate()}
+          submitting={submitting}
           editMap={this.editMap}
           addField={this.addField}
           saveMap={this.saveMap}
