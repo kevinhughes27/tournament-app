@@ -43,6 +43,7 @@ class FieldsEditorControls extends React.Component<Props> {
           autoComplete="off"
           fullWidth
           style={FieldNameInput}
+          InputProps={{disableUnderline: true}}
           InputLabelProps={{style: {paddingLeft: 10}}}
           value={name}
           onChange={updateName}
