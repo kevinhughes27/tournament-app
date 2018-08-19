@@ -9,6 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 interface Props extends WithStyles<typeof styles> {
   inline?: boolean;
   icon?: JSX.Element;
+  onClick?: () => void;
   disabled: boolean;
   submitting: boolean;
 }
@@ -33,7 +34,9 @@ class SubmitButton extends React.Component<Props> {
           variant="contained"
           color="primary"
           type="submit"
+          onClick={this.props.onClick}
           className={inline ? classes.inline : classes.fab}
+          classes={{disabled: classes.disabled}}
           disabled={disabled || submitting}
         >
           {this.buttonContent()}

@@ -4,4 +4,5 @@ class Mutations::UpdateMap < Mutations::BaseMutation
   argument :input, Inputs::UpdateMapInput, required: true
 
   field :success, Boolean, null: false
+  field :message, String, null: false
 end

@@ -120,6 +120,9 @@ const SubmitButton = (theme: Theme) => createStyles({
   inline: {
     marginTop: 20,
     float: "right"
+  },
+  disabled: {
+    backgroundColor: "rgba(189, 189, 189, 0.8) !important"
   }
 });
 
