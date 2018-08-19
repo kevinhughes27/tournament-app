@@ -30,6 +30,7 @@ interface State {
     long: number;
     geoJson: string;
   };
+  nameError?: string;
 }
 
 const newField = {
@@ -131,7 +132,7 @@ class FieldsEditor extends React.Component<Props, State> {
     const editing = {...this.state.editing};
     merge(editing, {name: target.value});
 
-    this.setState({editing});
+    this.setState({editing, nameError: undefined});
   }
 
   validate = () => {
@@ -157,19 +158,35 @@ class FieldsEditor extends React.Component<Props, State> {
     this.runMutation(UpdateFieldMutation, payload);
   }
 
+  /* Mutations */
   runMutation = async (mutation: any, payload: any) => {
     this.setState({submitting: true});
 
     try {
       const result = await mutation.commit({input: payload});
-      this.resetEditing();
-      this.setState({mode: "none", submitting: false});
-      showNotice(result.message!);
-      setTimeout(() => this.setState({mode: "view"}), 1000);
+      result.success
+        ? this.mutationSuccess(result)
+        : this.mutationFailed(result);
     } catch (e) {
       this.setState({submitting: false});
       showNotice(e.message);
     }
+  }
+
+  mutationSuccess = (result: MutationResult) => {
+    this.resetEditing();
+    this.setState({mode: "none", submitting: false});
+    showNotice(result.message!);
+    setTimeout(() => this.setState({mode: "view"}), 1000);
+  }
+
+  mutationFailed = (result: MutationResult) => {
+    const userErrors = result.userErrors || [];
+    const userError = userErrors.filter((e) => e.field === "name")[0];
+    const errorMessage = userError && userError.message || "";
+
+    this.setState({nameError: errorMessage, submitting: false});
+    showNotice(result.message!);
   }
 
   /* Rendering */
@@ -184,6 +201,7 @@ class FieldsEditor extends React.Component<Props, State> {
           placeSelected={this.placeSelected}
           name={this.state.editing.name}
           updateName={this.updateName}
+          nameError={this.state.nameError}
         />
         <FieldsEditorMap
           ref={this.mapRef}

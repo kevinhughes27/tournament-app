@@ -8,6 +8,7 @@ interface Props {
   placeSelected: (lat: number, long: number) => void;
   name: string;
   updateName: (event: React.FormEvent<EventTarget>) => void;
+  nameError?: string;
 }
 
 class FieldsEditorControls extends React.Component<Props> {
@@ -45,6 +46,7 @@ class FieldsEditorControls extends React.Component<Props> {
           InputLabelProps={{style: {paddingLeft: 10}}}
           value={name}
           onChange={updateName}
+          helperText={this.props.nameError}
         />
       );
     } else {
