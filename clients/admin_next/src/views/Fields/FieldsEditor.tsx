@@ -75,7 +75,7 @@ class FieldsEditor extends React.Component<Props, State> {
 
   addField = () => {
     this.map!.editTools.startPolygon();
-    this.map!.on('contextmenu', this.startDrawingMobile)
+    this.map!.on("contextmenu", this.startDrawingMobile);
     this.map!.on("editable:drawing:clicked", this.autoComplete);
     this.setState({mode: "addField", editing: newField});
   }
@@ -96,7 +96,7 @@ class FieldsEditor extends React.Component<Props, State> {
   /* Leaflet event handlers */
   startDrawingMobile = (event: Leaflet.LeafletMouseEvent) => {
     this.map!.editTools.startPolygon(event.latlng);
-    this.map!.off('contextmenu', this.startDrawingMobile);
+    this.map!.off("contextmenu", this.startDrawingMobile);
   }
 
   updateMap = () => {

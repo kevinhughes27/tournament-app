@@ -8,7 +8,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 const icons = {
   add: <AddIcon />,
-  edit: <EditIcon />,
+  edit: <EditIcon />
 };
 
 interface Props extends WithStyles<typeof styles> {

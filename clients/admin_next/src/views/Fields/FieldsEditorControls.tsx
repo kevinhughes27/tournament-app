@@ -1,7 +1,6 @@
 import * as React from "react";
 import Geosuggest, { Suggest } from "react-geosuggest";
 import TextField from "@material-ui/core/TextField";
-import { FieldNameInput } from "../../assets/jss/styles";
 
 interface Props {
   mode: "none" | "view" | "editMap" | "addField" | "editField";
@@ -10,6 +9,15 @@ interface Props {
   updateName: (event: React.FormEvent<EventTarget>) => void;
   nameError?: string;
 }
+
+const style = {
+  position: "absolute" as "absolute",
+  zIndex: 1000,
+  backgroundColor: "white",
+  width: 240,
+  left: 60,
+  paddingLeft: 10
+};
 
 class FieldsEditorControls extends React.Component<Props> {
   placeSelected = (suggest: Suggest) => {
@@ -42,7 +50,7 @@ class FieldsEditorControls extends React.Component<Props> {
           margin="normal"
           autoComplete="off"
           fullWidth
-          style={FieldNameInput}
+          style={style}
           InputProps={{disableUnderline: true}}
           InputLabelProps={{style: {paddingLeft: 10}}}
           value={name}
