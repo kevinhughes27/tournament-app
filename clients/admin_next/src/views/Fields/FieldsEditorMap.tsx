@@ -1,4 +1,5 @@
 import * as React from "react";
+import { LeafletGeoJSONEvent, Polygon } from "leaflet";
 import { Map, TileLayer, GeoJSON } from "react-leaflet";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
 import "leaflet-editable";
@@ -8,11 +9,13 @@ interface Props {
   long: number;
   zoom: number;
   fields: FieldsEditor_fields;
-  updateMap: (ev: any) => void;
-  editField: (field: FieldsEditor_fields[0], layer: any) => void;
+  updateMap: () => void;
+  editField: (field: FieldsEditor_fields[0], polygon: Polygon) => void;
 }
 
-const FieldsEditorMap = React.forwardRef((props: Props, ref: any) => (
+type Ref = Map<any>;
+
+const FieldsEditorMap = React.forwardRef<Ref, Props>((props, ref) => (
   <Map
     ref={ref}
     center={[props.lat, props.long]}
@@ -35,9 +38,18 @@ const FieldsEditorMap = React.forwardRef((props: Props, ref: any) => (
         key={field.id}
         data={JSON.parse(field.geoJson)}
         style={FieldStyle}
-        onMouseover={(ev: any) => ev.layer.setStyle(FieldHoverStyle)}
-        onMouseout={(ev: any) => ev.layer.setStyle(FieldStyle)}
-        onClick={(ev: any) => props.editField(field, ev.layer)}
+        onMouseover={(ev: LeafletGeoJSONEvent) => {
+          const polygon = ev.layer as Polygon;
+          polygon.setStyle(FieldHoverStyle);
+        }}
+        onMouseout={(ev: LeafletGeoJSONEvent) => {
+          const polygon = ev.layer as Polygon;
+          polygon.setStyle(FieldStyle);
+        }}
+        onClick={(ev: LeafletGeoJSONEvent) => {
+          const polygon = ev.layer as Polygon;
+          props.editField(field, polygon);
+        }}
       />
     ))}
   </Map>

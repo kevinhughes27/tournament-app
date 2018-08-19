@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as Leaflet from "leaflet";
+import { Map } from "react-leaflet";
 import {createFragmentContainer, graphql} from "react-relay";
 import FieldsEditorMap from "./FieldsEditorMap";
 import FieldsEditorControls from "./FieldsEditorControls";
@@ -41,7 +42,7 @@ const newField = {
 };
 
 class FieldsEditor extends React.Component<Props, State> {
-  mapRef = React.createRef<any>();
+  mapRef = React.createRef<Map>();
   map?: Leaflet.Map;
 
   constructor(props: Props) {
@@ -78,28 +79,31 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({mode: "addField", editing: newField});
   }
 
-  editField = (field: FieldsEditor_fields[0], layer: any) => {
+  editField = (field: FieldsEditor_fields[0], polygon: Leaflet.Polygon) => {
     this.resetEditing();
-    layer.enableEdit();
+    polygon.enableEdit();
     this.setState({mode: "editField", editing: field});
   }
 
   resetEditing = () => {
-    this.map!.eachLayer((layer: any) => {
-      if (layer.disableEdit) { layer.disableEdit(); }
+    this.map!.eachLayer((layer: Leaflet.ILayer) => {
+      const polygon = layer as Leaflet.Polygon;
+      if (polygon.disableEdit) { polygon.disableEdit(); }
     });
   }
 
   /* Leaflet event handlers */
-  updateMap = (ev: Leaflet.LeafletEvent) => {
-    const {lat, lng: long} = ev.target.getCenter();
-    const zoom = ev.target.getZoom();
+  updateMap = () => {
+    const {lat, lng: long} = this.map!.getCenter();
+    const zoom = this.map!.getZoom();
     this.setState({lat, long, zoom});
   }
 
-  updateField = (event: any) => {
-    const {lat, lng: long} = event.layer.getCenter();
-    const geoJson = JSON.stringify(event.layer.toGeoJSON());
+  updateField = (event: Leaflet.LeafletGeoJSONEvent) => {
+    const polygon = event.layer as Leaflet.Polygon;
+
+    const {lat, lng: long} = polygon.getBounds().getCenter();
+    const geoJson = JSON.stringify(polygon.toGeoJSON());
 
     const editing = {...this.state.editing};
     merge(editing, {lat, long, geoJson});
@@ -107,10 +111,13 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({editing});
   }
 
-  noOp = (event: any) => {
+  // https://github.com/Leaflet/Leaflet.Editable/blob/master/src/Leaflet.Editable.js#L389
+  noOp = (event: {cancel: () => void}) => {
     event.cancel();
   }
 
+  // getLatLngs returns [][]
+  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14809
   autoComplete = (event: any) => {
     const verticies = event.layer.getLatLngs()[0];
 
