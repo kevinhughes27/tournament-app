@@ -15,19 +15,27 @@ const corner = {i: 0, dotp: 1};
 const maxIterations = 1000;
 const epsilon = 1e-9;
 
-export default (geojson, map, t = 1) => {
+interface GeoJson {
+  geometry: {
+    coordinates: Coordinate[]
+  }
+}
+
+type Coordinate = number[];
+
+export default (geojson: GeoJson, map: Leaflet.Map) => {
   const coordinates = uniqWith(geojson.geometry.coordinates[0], isEqual);
 
   let points = coordinates.map((p) => project(p, map));
 
-  let newPoints = [];
+  let newPoints = clone(points);
   let score = Infinity;
 
   for (let i = 0; i < maxIterations; i++) {
-    let motions = points.map(calcMotion);
+    const motions = points.map(calcMotion);
 
     for (let j = 0; j < motions.length; j++) {
-      points[j] = addPoints(points[j],motions[j]);
+      points[j] = addPoints(points[j], motions[j]);
     }
 
     const newScore = squareness(points);
@@ -42,31 +50,31 @@ export default (geojson, map, t = 1) => {
     }
   }
 
-  points = newPoints.map((p) => unproject(p, map));
+  const newCoordinates = newPoints.map((p) => unproject(p, map));
 
   return {
     "type": "Feature",
     "properties": {},
     "geometry": {
       "type": "Polygon",
-      "coordinates": [points.map((p) => [p[1], p[0]] )]
+      "coordinates": [newCoordinates]
     }
   };
 }
 
-function project(coord, map) {
+function project(coord: Coordinate, map: Leaflet.Map) {
   const latLng = new Leaflet.LatLng(coord[1], coord[0]);
   const point = map.latLngToLayerPoint(latLng);
   return [point.x, point.y];
 }
 
-function unproject(coord, map) {
+function unproject(coord: Coordinate, map: Leaflet.Map) {
   const point = new Leaflet.Point(coord[0], coord[1]);
   const latLng = map.layerPointToLatLng(point);
-  return [latLng.lat, latLng.lng];
+  return [latLng.lng, latLng.lat];
 }
 
-function calcMotion(b, i, array) {
+function calcMotion(b: Coordinate, i: number, array:  Coordinate[]) {
   var a = array[(i - 1 + array.length) % array.length],
       c = array[(i + 1) % array.length],
       p = subtractPoints(a, b),
@@ -92,8 +100,8 @@ function calcMotion(b, i, array) {
   return normalizePoint(addPoints(p, q), 0.1 * dotp * scale);
 }
 
-function squareness(points) {
-  return points.reduce(function(sum, val, i, array) {
+function squareness(points:  Coordinate[]) {
+  return points.reduce(function(sum, _, i, array) {
     var dotp = normalizedDotProduct(i, array);
 
     dotp = filterDotProduct(dotp);
@@ -101,7 +109,7 @@ function squareness(points) {
   }, 0);
 }
 
-function normalizedDotProduct(i, points) {
+function normalizedDotProduct(i: number, points: Coordinate[]) {
   var a = points[(i - 1 + points.length) % points.length],
       b = points[i],
       c = points[(i + 1) % points.length],
@@ -114,15 +122,15 @@ function normalizedDotProduct(i, points) {
   return p[0] * q[0] + p[1] * q[1];
 }
 
-function subtractPoints(a, b) {
+function subtractPoints(a: Coordinate, b: Coordinate) {
   return [a[0] - b[0], a[1] - b[1]];
 }
 
-function addPoints(a, b) {
+function addPoints(a: Coordinate, b: Coordinate) {
   return [a[0] + b[0], a[1] + b[1]];
 }
 
-function normalizePoint(point, scale) {
+function normalizePoint(point: Coordinate, scale: number) {
   var vector = [0, 0];
   var length = Math.sqrt(point[0] * point[0] + point[1] * point[1]);
   if (length !== 0) {
@@ -136,7 +144,7 @@ function normalizePoint(point, scale) {
   return vector;
 }
 
-function filterDotProduct(dotp) {
+function filterDotProduct(dotp: number) {
   if (lowerThreshold > Math.abs(dotp) || Math.abs(dotp) > upperThreshold) {
     return dotp;
   }
@@ -144,16 +152,8 @@ function filterDotProduct(dotp) {
   return 0;
 }
 
-// linear interpolation
-export function geoVecInterp(a, b, t) {
-  return [
-      a[0] + (b[0] - a[0]) * t,
-      a[1] + (b[1] - a[1]) * t
-  ];
-}
-
 // http://jsperf.com/id-dist-optimization
-function geoVecLength(a, b) {
+function geoVecLength(a: Coordinate, b: Coordinate) {
   var x = a[0] - b[0];
   var y = a[1] - b[1];
   return Math.sqrt((x * x) + (y * y));
