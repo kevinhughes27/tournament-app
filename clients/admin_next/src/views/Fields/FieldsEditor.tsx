@@ -13,7 +13,6 @@ import CreateFieldMutation from "../../mutations/CreateField";
 import { showNotice } from "../../components/Notice";
 import quadrilateralise from "./quadrilateralise";
 import { merge } from "lodash";
-import { ILayer } from "leaflet";
 
 interface Props {
   map: FieldsEditor_map;
@@ -121,7 +120,7 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({editing});
   }
 
-  squareOffField = () => {
+  squareFieldCorners = () => {
     const geoJson = JSON.parse(this.state.editing.geoJson);
     const orthGeoJson = quadrilateralise(geoJson, this.map!);
 
@@ -135,10 +134,9 @@ class FieldsEditor extends React.Component<Props, State> {
     });
 
     this.replaceLayer(layers, orthGeoJson);
-
   }
 
-  replaceLayer = (layers: Leaflet.LayerGroup<ILayer>, geoJson: any) => {
+  replaceLayer = (layers: Leaflet.LayerGroup<Leaflet.ILayer>, geoJson: any) => {
     layers.eachLayer((l) => this.map!.removeLayer(l));
 
     const newLayers = Leaflet.geoJson(geoJson, {style: () => FieldStyle}).addTo(this.map!);
@@ -259,7 +257,7 @@ class FieldsEditor extends React.Component<Props, State> {
         <FieldsEditorControls
           mode={this.state.mode}
           geojson={this.state.editing.geoJson}
-          squareOffField={this.squareOffField}
+          squareFieldCorners={this.squareFieldCorners}
         />
         <FieldsEditorActions
           mode={this.state.mode}
