@@ -123,9 +123,9 @@ class FieldsEditor extends React.Component<Props, State> {
 
   squareOffField = () => {
     const geoJson = JSON.parse(this.state.editing.geoJson);
-    const orthGeoJson = quadrilateralise(geoJson);
+    const orthGeoJson = quadrilateralise(geoJson, this.map!);
 
-    let layers = new Leaflet.LayerGroup();
+    const layers = new Leaflet.LayerGroup();
 
     this.map!.eachLayer((l) => {
       const p = l as Leaflet.Polygon;

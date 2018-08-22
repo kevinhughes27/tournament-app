@@ -5,7 +5,8 @@
  *
  */
 
-import { map, clone } from "lodash";
+import * as Leaflet from "leaflet";
+import { clone, uniqWith, isEqual } from "lodash";
 
 const threshold = 12; // degrees within right or straight to alter
 const lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
@@ -14,11 +15,11 @@ const corner = {i: 0, dotp: 1};
 const maxIterations = 1000;
 const epsilon = 1e-9;
 
-export default (geojson, t = 1) => {
-  const coords = geojson.geometry.coordinates[0];
+export default (geojson, map, t = 1) => {
+  const coordinates = uniqWith(geojson.geometry.coordinates[0], isEqual);
 
-  let points = map(coords, (v, _k) =>  [ v[1], v[0] ]);
-  let originalPoints = clone(points);
+  let points = coordinates.map((p) => project(p, map));
+
   let newPoints = [];
   let score = Infinity;
 
@@ -37,28 +38,32 @@ export default (geojson, t = 1) => {
     }
 
     if (score < epsilon) {
-      console.log(i);
       break;
     }
   }
 
-  points = newPoints;
-
-  // only move the points that actually moved
-  for (let i = 0; i < points.length; i++) {
-    if (originalPoints[i][0] !== points[i][0] || originalPoints[i][1] !== points[i][1] ) {
-      points[i] = geoInterp(originalPoints[i], points[i], t);
-    }
-  }
+  points = newPoints.map((p) => unproject(p, map));
 
   return {
     "type": "Feature",
     "properties": {},
     "geometry": {
       "type": "Polygon",
-      "coordinates": [map(points, (p) => [ p[1], p[0] ])]
+      "coordinates": [points.map((p) => [p[1], p[0]] )]
     }
   };
+}
+
+function project(coord, map) {
+  const latLng = new Leaflet.LatLng(coord[1], coord[0]);
+  const point = map.latLngToLayerPoint(latLng);
+  return [point.x, point.y];
+}
+
+function unproject(coord, map) {
+  const point = new Leaflet.Point(coord[0], coord[1]);
+  const latLng = map.layerPointToLatLng(point);
+  return [latLng.lat, latLng.lng];
 }
 
 function calcMotion(b, i, array) {
@@ -139,14 +144,17 @@ function filterDotProduct(dotp) {
   return 0;
 }
 
+// linear interpolation
+export function geoVecInterp(a, b, t) {
+  return [
+      a[0] + (b[0] - a[0]) * t,
+      a[1] + (b[1] - a[1]) * t
+  ];
+}
+
 // http://jsperf.com/id-dist-optimization
 function geoVecLength(a, b) {
   var x = a[0] - b[0];
   var y = a[1] - b[1];
   return Math.sqrt((x * x) + (y * y));
-}
-
-function geoInterp(p1, p2, t) {
-  return [p1[0] + (p2[0] - p1[0]) * t,
-          p1[1] + (p2[1] - p1[1]) * t];
 }
