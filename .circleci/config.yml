@@ -86,8 +86,13 @@ jobs:
             - tmp/cache/assets
 
       # Build admin_next
-      - run: cd clients/admin_next && npm run build
-      - run: cd clients/admin_next && yarn type-check
+      - run:
+          working_directory: clients/admin_next
+          command: NODE_DEBUG=process npm run build
+
+      - run:
+          working_directory: clients/admin_next
+          command: yarn type-check
 
       # Generate checksum for player_app
       - type: shell
@@ -99,7 +104,9 @@ jobs:
           key: player_app-{{ checksum "player_app-checksum.txt" }}
 
       # Build player_app
-      - run: cd clients/player_app && yarn build
+      - run:
+          working_directory: clients/player_app
+          command: yarn build
 
       # Store player_app cache
       - save_cache:
