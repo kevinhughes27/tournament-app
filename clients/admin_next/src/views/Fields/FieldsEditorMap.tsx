@@ -52,6 +52,7 @@ const FieldsEditorMap = React.forwardRef<Ref, Props>((props, ref) => (
         }}
       />
     ))}
+    {props.children}
   </Map>
 ));
 

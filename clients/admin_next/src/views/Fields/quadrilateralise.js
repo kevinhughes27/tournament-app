@@ -51,7 +51,6 @@ export default (geojson, t = 1) => {
     }
   }
 
-
   return {
     "type": "Feature",
     "properties": {},
