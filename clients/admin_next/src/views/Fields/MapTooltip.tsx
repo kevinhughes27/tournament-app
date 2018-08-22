@@ -9,7 +9,7 @@ const styles = (theme: Theme) => createStyles({
     boxShadow: theme.shadows[1],
     fontSize: 11,
   }
-})
+});
 
 interface Props extends WithStyles<typeof styles> {
   text: string;
