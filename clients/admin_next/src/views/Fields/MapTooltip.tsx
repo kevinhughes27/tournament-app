@@ -24,6 +24,8 @@ class MapTooltip extends React.Component<Props> {
       <Tooltip
         title={text}
         placement="right"
+        disableFocusListener
+        disableTouchListener
         classes={{ tooltip: classes.lightTooltip }}
       >
         {this.props.children}
