@@ -123,7 +123,12 @@ class FieldsEditor extends React.Component<Props, State> {
   squareFieldCorners = () => {
     const geoJson = JSON.parse(this.state.editing.geoJson);
     const orthGeoJson = quadrilateralise(geoJson, this.map!);
+    const layer = this.editingLayer();
 
+    this.replaceLayer(layer, orthGeoJson);
+  }
+
+  editingLayer = () => {
     const layers = new Leaflet.LayerGroup();
 
     this.map!.eachLayer((l) => {
@@ -133,7 +138,7 @@ class FieldsEditor extends React.Component<Props, State> {
       }
     });
 
-    this.replaceLayer(layers, orthGeoJson);
+    return layers;
   }
 
   replaceLayer = (layers: Leaflet.LayerGroup<Leaflet.ILayer>, geoJson: any) => {
