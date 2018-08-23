@@ -3,12 +3,15 @@ import * as Leaflet from "leaflet";
 import { Map } from "react-leaflet";
 import {createFragmentContainer, graphql} from "react-relay";
 import FieldsEditorMap from "./FieldsEditorMap";
+import FieldsEditorInputs from "./FieldsEditorInputs";
 import FieldsEditorControls from "./FieldsEditorControls";
 import FieldsEditorActions from "./FieldsEditorActions";
+import { FieldStyle } from "./FieldStyle";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
 import { showNotice } from "../../components/Notice";
+import quadrilateralise from "./quadrilateralise";
 import { merge } from "lodash";
 
 interface Props {
@@ -109,12 +112,44 @@ class FieldsEditor extends React.Component<Props, State> {
     const polygon = event.layer as Leaflet.Polygon;
 
     const {lat, lng: long} = polygon.getBounds().getCenter();
-    const geoJson = JSON.stringify(polygon.toGeoJSON());
+    const geoJson = polygon.toGeoJSON();
 
     const editing = {...this.state.editing};
-    merge(editing, {lat, long, geoJson});
+    merge(editing, {lat, long, geoJson: JSON.stringify(geoJson)});
 
     this.setState({editing});
+  }
+
+  squareFieldCorners = () => {
+    const geoJson = JSON.parse(this.state.editing.geoJson);
+    const orthGeoJson = quadrilateralise(geoJson, this.map!);
+    const layer = this.editingLayer();
+
+    this.replaceLayer(layer, orthGeoJson);
+  }
+
+  editingLayer = () => {
+    const layers = new Leaflet.LayerGroup();
+
+    this.map!.eachLayer((l) => {
+      const p = l as Leaflet.Polygon;
+      if (p.editEnabled && p.editEnabled()) {
+        layers.addLayer(p);
+      }
+    });
+
+    return layers;
+  }
+
+  replaceLayer = (layers: Leaflet.LayerGroup<Leaflet.ILayer>, geoJson: any) => {
+    layers.eachLayer((l) => this.map!.removeLayer(l));
+
+    const newLayers = Leaflet.geoJson(geoJson, {style: () => FieldStyle}).addTo(this.map!);
+
+    newLayers.eachLayer((l) => {
+      const p = l as Leaflet.Polygon;
+      p.enableEdit();
+    });
   }
 
   // https://github.com/Leaflet/Leaflet.Editable/blob/master/src/Leaflet.Editable.js#L389
@@ -208,22 +243,26 @@ class FieldsEditor extends React.Component<Props, State> {
     const { fields } = this.props;
 
     return (
-      <div>
-        <FieldsEditorControls
+      <FieldsEditorMap
+        ref={this.mapRef}
+        lat={lat}
+        long={long}
+        zoom={zoom}
+        fields={fields}
+        updateMap={this.updateMap}
+        editField={this.editField}
+      >
+        <FieldsEditorInputs
           mode={this.state.mode}
           placeSelected={this.placeSelected}
           name={this.state.editing.name}
           updateName={this.updateName}
           nameError={this.state.nameError}
         />
-        <FieldsEditorMap
-          ref={this.mapRef}
-          lat={lat}
-          long={long}
-          zoom={zoom}
-          fields={fields}
-          updateMap={this.updateMap}
-          editField={this.editField}
+        <FieldsEditorControls
+          mode={this.state.mode}
+          geojson={this.state.editing.geoJson}
+          squareFieldCorners={this.squareFieldCorners}
         />
         <FieldsEditorActions
           mode={this.state.mode}
@@ -235,7 +274,7 @@ class FieldsEditor extends React.Component<Props, State> {
           createField={this.createField}
           saveField={this.saveField}
         />
-      </div>
+      </FieldsEditorMap>
     );
   }
 }

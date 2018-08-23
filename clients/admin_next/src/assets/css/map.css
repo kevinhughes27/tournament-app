@@ -81,6 +81,13 @@
   display: none;
 }
 
-.leaflet-draw-draw-polygon {
-  background-position: -210px -1px !important;
+.fields-editor-control {
+  margin-left: 2px;
+  height: 30px;
+  line-height: 26px;
+  font-size: 14px;
+  border-radius: 2px;
+  border-style: solid;
+  background-color: white;
+  border-color: white;
 }
