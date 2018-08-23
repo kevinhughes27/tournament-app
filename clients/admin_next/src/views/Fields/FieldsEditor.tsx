@@ -123,6 +123,13 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setEditingState(geoJson);
   }
 
+  squareFieldCorners = () => {
+    const geoJson = JSON.parse(this.state.editing.geoJson);
+    const orthGeoJson = quadrilateralise(geoJson, this.map!);
+
+    this.setEditingState(orthGeoJson);
+  }
+
   undoEdit = () => {
     if (this.historyBuffer.length > 1) {
       this.historyBuffer.pop();
@@ -133,11 +140,17 @@ class FieldsEditor extends React.Component<Props, State> {
     }
   }
 
-  squareFieldCorners = () => {
-    const geoJson = JSON.parse(this.state.editing.geoJson);
-    const orthGeoJson = quadrilateralise(geoJson, this.map!);
+  redrawField = () => {
+    const layers = this.editingLayer();
+    layers.eachLayer((l) => this.map!.removeLayer(l));
 
-    this.setEditingState(orthGeoJson);
+    const editing = {...this.state.editing};
+    merge(editing, {lat: 0, long: 0, geoJson: ""});
+    this.setState({editing});
+
+    this.map!.editTools.startPolygon();
+    this.map!.on("contextmenu", this.startDrawingMobile);
+    this.map!.on("editable:drawing:clicked", this.autoComplete);
   }
 
   setEditingState = (geojson: any) => {
@@ -163,6 +176,7 @@ class FieldsEditor extends React.Component<Props, State> {
 
     if (verticies.length === 4) {
       event.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
+      this.map!.off("contextmenu", this.startDrawingMobile); // cleanup
       this.map!.off("editable:drawing:clicked", this.autoComplete); // cleanup
     }
   }
@@ -292,6 +306,7 @@ class FieldsEditor extends React.Component<Props, State> {
           geojson={this.state.editing.geoJson}
           squareFieldCorners={this.squareFieldCorners}
           undoEdit={this.undoEdit}
+          redrawField={this.redrawField}
         />
         <FieldsEditorActions
           mode={this.state.mode}
