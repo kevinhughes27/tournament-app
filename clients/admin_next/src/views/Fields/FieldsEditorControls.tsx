@@ -6,7 +6,6 @@ import { faVectorSquare, faUndo, faTrash } from "@fortawesome/free-solid-svg-ico
 
 interface Props {
   mode: "none" | "view" | "editMap" | "addField" | "editField";
-  geojson: string;
   squareFieldCorners: () => void;
   undoEdit: () => void;
   redrawField: () => void;
@@ -14,9 +13,9 @@ interface Props {
 
 class FieldsEditorControls extends React.Component<Props> {
   render() {
-    const { mode, geojson } = this.props;
+    const { mode } = this.props;
 
-    if ((mode === "addField" || mode === "editField") && geojson !== "")  {
+    if ((mode === "addField" || mode === "editField"))  {
       return (
         <div>
           <Control position="topleft">

@@ -6,13 +6,13 @@ import FieldsEditorMap from "./FieldsEditorMap";
 import FieldsEditorInputs from "./FieldsEditorInputs";
 import FieldsEditorControls from "./FieldsEditorControls";
 import FieldsEditorActions from "./FieldsEditorActions";
-import { FieldStyle } from "./FieldStyle";
+import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
 import { showNotice } from "../../components/Notice";
 import quadrilateralise from "./quadrilateralise";
-import { merge, last } from "lodash";
+import { merge } from "lodash";
 
 interface Props {
   map: FieldsEditor_map;
@@ -28,7 +28,7 @@ interface State {
   zoom: number;
   submitting: boolean;
   editing: {
-    fieldId?: string;
+    id?: string;
     name: string;
     lat: number;
     long: number;
@@ -124,18 +124,18 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   squareFieldCorners = () => {
-    const geoJson = JSON.parse(this.state.editing.geoJson);
-    const orthGeoJson = quadrilateralise(geoJson, this.map!);
+    if (this.state.editing.geoJson) {
+      const geoJson = JSON.parse(this.state.editing.geoJson);
+      const orthGeoJson = quadrilateralise(geoJson, this.map!);
 
-    this.setEditingState(orthGeoJson);
+      this.setEditingState(orthGeoJson);
+    }
   }
 
   undoEdit = () => {
     if (this.historyBuffer.length > 1) {
       this.historyBuffer.pop();
-      const geoJson = last(this.historyBuffer);
-
-      this.historyBuffer.pop();
+      const geoJson = this.historyBuffer.pop();
       this.setEditingState(geoJson);
     }
   }
@@ -146,6 +146,8 @@ class FieldsEditor extends React.Component<Props, State> {
 
     const editing = {...this.state.editing};
     merge(editing, {lat: 0, long: 0, geoJson: ""});
+
+    this.historyBuffer.push(this.state.editing.geoJson);
     this.setState({editing});
 
     this.map!.editTools.startPolygon();
@@ -184,7 +186,6 @@ class FieldsEditor extends React.Component<Props, State> {
   /* Manage Leaflet state */
   replaceLayer = (geoJson: any) => {
     const layers = this.editingLayer();
-
     layers.eachLayer((l) => this.map!.removeLayer(l));
 
     const newLayers = Leaflet.geoJson(geoJson, {style: () => FieldStyle}).addTo(this.map!);
@@ -194,7 +195,17 @@ class FieldsEditor extends React.Component<Props, State> {
       p.enableEdit();
     });
 
-    return newLayers.getLayers()[0] as Leaflet.Polygon;
+    const mainLayer = newLayers.getLayers()[0] as Leaflet.Polygon;
+
+    const field = this.props.fields.find((f) => f.id === this.state.editing.id);
+
+    if (field) {
+      mainLayer.on("click", () => this.editField(field, mainLayer));
+      mainLayer.on("mouseover", () => mainLayer.setStyle(FieldHoverStyle));
+      mainLayer.on("mouseout", () => mainLayer.setStyle(FieldStyle));
+    }
+
+    return mainLayer;
   }
 
   editingLayer = () => {
@@ -244,7 +255,7 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   saveField = () => {
-    const payload = {id: this.state.editing.fieldId!, ...this.state.editing};
+    const payload = this.state.editing;
     this.runMutation(UpdateFieldMutation, payload);
   }
 
@@ -276,7 +287,6 @@ class FieldsEditor extends React.Component<Props, State> {
     const errorMessage = userError && userError.message || "";
 
     this.setState({nameError: errorMessage, submitting: false});
-    showNotice(result.message!);
   }
 
   /* Rendering */
@@ -303,7 +313,6 @@ class FieldsEditor extends React.Component<Props, State> {
         />
         <FieldsEditorControls
           mode={this.state.mode}
-          geojson={this.state.editing.geoJson}
           squareFieldCorners={this.squareFieldCorners}
           undoEdit={this.undoEdit}
           redrawField={this.redrawField}
