@@ -8048,9 +8048,9 @@ react-jss@^8.1.0:
     prop-types "^15.6.0"
     theming "^1.3.0"
 
-react-leaflet-control@^1.4.1:
+react-leaflet-control@kevinhughes27/react-leaflet-control#master:
   version "1.4.1"
-  resolved "https://registry.yarnpkg.com/react-leaflet-control/-/react-leaflet-control-1.4.1.tgz#5da234621682d9c50657b65af042398512bda0fb"
+  resolved "https://codeload.github.com/kevinhughes27/react-leaflet-control/tar.gz/14570e64363527bf9fd4a9318f65949332d4a4f3"
   dependencies:
     prop-types "^15.5.7"
 
