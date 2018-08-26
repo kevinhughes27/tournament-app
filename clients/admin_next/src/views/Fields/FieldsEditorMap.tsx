@@ -1,6 +1,7 @@
 import * as React from "react";
 import { LeafletGeoJSONEvent, Polygon } from "leaflet";
 import { Map, TileLayer, GeoJSON } from "react-leaflet";
+import MapLabel from "./MapLabel";
 import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
 import "leaflet-editable";
 
@@ -10,7 +11,7 @@ interface Props {
   zoom: number;
   fields: FieldsEditor_fields;
   updateMap: () => void;
-  editField: (field: FieldsEditor_fields[0], polygon: Polygon) => void;
+  editField: (field: FieldsEditor_fields[0]) => void;
 }
 
 type Ref = Map<any>;
@@ -46,12 +47,12 @@ const FieldsEditorMap = React.forwardRef<Ref, Props>((props, ref) => (
           const polygon = ev.layer as Polygon;
           polygon.setStyle(FieldStyle);
         }}
-        onClick={(ev: LeafletGeoJSONEvent) => {
-          const polygon = ev.layer as Polygon;
-          props.editField(field, polygon);
+        onClick={() => {
+          props.editField(field);
         }}
       />
     ))}
+    {props.fields.map(MapLabel)}
     {props.children}
   </Map>
 ));

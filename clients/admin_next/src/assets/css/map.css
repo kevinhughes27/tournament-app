@@ -6,6 +6,17 @@
   margin-bottom: -125px;
 }
 
+.map-label {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .leaflet-search {
   position: absolute;
   z-index: 1000;
