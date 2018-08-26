@@ -49,15 +49,12 @@ class Game extends React.Component<Props> {
 
   onMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
     const game = this.props.game;
-    const ref = this.gameRef.current;
+    const ref = this.gameRef.current!;
+    const bounds = ref.getBoundingClientRect();
 
-    if (ref) {
-      const bounds = ref.getBoundingClientRect();
-
-      if (bounds.bottom - ev.clientY < 10) {
-        this.props.startResize(game);
-        ev.preventDefault();
-      }
+    if (bounds.bottom - ev.clientY < 10) {
+      this.props.startResize(game);
+      ev.preventDefault();
     }
   }
 
@@ -74,17 +71,13 @@ class Game extends React.Component<Props> {
     let klass = "game";
     if (error) { klass += " error"; }
 
-    if (connectDragSource) {
-      return connectDragSource(
-        <div className={klass} style={style} onMouseDown={this.onMouseDown}>
-          <div ref={this.gameRef} className="body">
-            {GameText(game, gameLength)}
-          </div>
+    return connectDragSource!(
+      <div className={klass} style={style} onMouseDown={this.onMouseDown}>
+        <div ref={this.gameRef} className="body">
+          {GameText(game, gameLength)}
         </div>
-      );
-    } else {
-      return null;
-    }
+      </div>
+    );
   }
 }
 
