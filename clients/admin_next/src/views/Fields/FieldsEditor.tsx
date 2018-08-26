@@ -3,7 +3,7 @@ import * as Leaflet from "leaflet";
 import { Map } from "react-leaflet";
 import {createFragmentContainer, graphql} from "react-relay";
 import FieldsEditorMap from "./FieldsEditorMap";
-import FieldsEditorInputs from "./FieldsEditorInputs";
+import FieldsEditorInput from "./FieldsEditorInput";
 import FieldsEditorControls from "./FieldsEditorControls";
 import FieldsEditorActions from "./FieldsEditorActions";
 import EditableField from "./EditableField";
@@ -259,7 +259,7 @@ class FieldsEditor extends React.Component<Props, State> {
         updateMap={this.updateMap}
         editField={this.editField}
       >
-        <FieldsEditorInputs
+        <FieldsEditorInput
           mode={this.state.mode}
           name={this.state.editing.name}
           updateName={this.updateName}

@@ -17,7 +17,7 @@ const style = {
   paddingLeft: 10
 };
 
-class FieldsEditorInputs extends React.Component<Props> {
+class FieldsEditorInput extends React.Component<Props> {
   render() {
     const { mode, name, updateName } = this.props;
 
@@ -43,4 +43,4 @@ class FieldsEditorInputs extends React.Component<Props> {
   }
 }
 
-export default FieldsEditorInputs;
+export default FieldsEditorInput;
