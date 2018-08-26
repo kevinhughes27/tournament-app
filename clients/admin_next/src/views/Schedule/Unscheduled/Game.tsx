@@ -39,17 +39,13 @@ export class Game extends React.Component<Props> {
       cursor: "move"
     };
 
-    if (connectDragSource) {
-      return connectDragSource(
-        <div className="unscheduled-game" style={style}>
-          <div className="body">
-            {GameText(game, 90)}
-          </div>
+    return connectDragSource!(
+      <div className="unscheduled-game" style={style}>
+        <div className="body">
+          {GameText(game, 90)}
         </div>
-      );
-    } else {
-      return null;
-    }
+      </div>
+    );
   }
 }
 
