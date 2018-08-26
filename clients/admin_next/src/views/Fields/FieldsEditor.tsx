@@ -6,12 +6,12 @@ import FieldsEditorMap from "./FieldsEditorMap";
 import FieldsEditorInputs from "./FieldsEditorInputs";
 import FieldsEditorControls from "./FieldsEditorControls";
 import FieldsEditorActions from "./FieldsEditorActions";
-import { FieldStyle } from "./FieldStyle";
+import EditableField from "./EditableField";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
-import { showNotice } from "../../components/Notice";
 import quadrilateralise from "./quadrilateralise";
+import { showNotice } from "../../components/Notice";
 import { merge } from "lodash";
 
 interface Props {
@@ -47,7 +47,6 @@ const newField = {
 class FieldsEditor extends React.Component<Props, State> {
   mapRef = React.createRef<Map>();
   map?: Leaflet.Map;
-  editLayers?: Leaflet.LayerGroup<Leaflet.ILayer>;
   historyBuffer: any[] = [];
 
   constructor(props: Props) {
@@ -79,7 +78,7 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   addField = () => {
-    this.clearEditing();
+    EditableField.clear();
     this.historyBuffer = [];
     this.map!.editTools.startPolygon();
     this.map!.on("contextmenu", this.startDrawingMobile);
@@ -90,8 +89,8 @@ class FieldsEditor extends React.Component<Props, State> {
   editField = (field: FieldsEditor_fields[0]) => {
     const geoJson = JSON.parse(field.geoJson);
 
-    this.clearEditing();
-    this.enableEditing(geoJson);
+    EditableField.clear();
+    EditableField.update(this.map!, geoJson);
     this.historyBuffer = [];
     this.historyBuffer.push(geoJson);
     this.setState({mode: "editField", editing: field});
@@ -130,12 +129,13 @@ class FieldsEditor extends React.Component<Props, State> {
       this.map!.editTools.stopDrawing(); // in case un-doing a redraw
       this.historyBuffer.pop();
       const geoJson = this.historyBuffer.pop();
+
       this.setEditingState(geoJson);
     }
   }
 
   redrawField = () => {
-    this.clearEditing();
+    EditableField.clear();
 
     const editing = {...this.state.editing};
     merge(editing, {lat: 0, long: 0, geoJson: ""});
@@ -166,25 +166,11 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   /* Manage Leaflet state */
-  enableEditing = (geoJson: any) => {
-    this.editLayers = Leaflet.geoJson(geoJson, {style: () => FieldStyle}).addTo(this.map!);
-
-    this.editLayers!.eachLayer((layer) => {
-      const polygon = layer as Leaflet.Polygon;
-      polygon.enableEdit();
-    });
-  }
-
-  clearEditing = () => {
-    if (this.editLayers) { this.editLayers.clearLayers(); }
-  }
-
   setEditingState = (geoJson: any) => {
-    this.clearEditing();
-    this.enableEditing(geoJson);
+    EditableField.clear();
+    EditableField.update(this.map!, geoJson);
 
-    const editPolygon = this.editLayers!.getLayers()[0] as Leaflet.Polygon;
-    const {lat, lng: long} = editPolygon.getBounds().getCenter();
+    const {lat, lng: long} = EditableField.getCenter();
 
     const editing = {...this.state.editing};
     merge(editing, {lat, long, geoJson: JSON.stringify(geoJson)});
@@ -247,7 +233,7 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   mutationSuccess = (result: MutationResult) => {
-    this.clearEditing();
+    EditableField.clear();
     this.setState({mode: "none", submitting: false, editing: newField});
     showNotice(result.message!);
     setTimeout(() => this.setState({mode: "view"}), 1000);
