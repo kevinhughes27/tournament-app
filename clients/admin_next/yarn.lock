@@ -6309,6 +6309,14 @@ leaflet-editable@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/leaflet-editable/-/leaflet-editable-1.1.0.tgz#f777597a40a81a273f287b489fd0fe5ccd60c8d0"
 
+leaflet.locatecontrol@^0.62.0:
+  version "0.62.0"
+  resolved "https://registry.yarnpkg.com/leaflet.locatecontrol/-/leaflet.locatecontrol-0.62.0.tgz#cf0c65170a87f2ed4b1a59e3307b773cd268d27d"
+
+leaflet@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.1.tgz#86f336d2fb0e2d0ff446677049a5dc34cf0ea60e"
+
 leaflet@^1.3.2:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.3.tgz#5c8f2fd50e4a41ead93ab850dcd9e058811da9b9"
@@ -8060,6 +8068,15 @@ react-leaflet-div-icon@^1.1.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-leaflet-locate-control@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-leaflet-locate-control/-/react-leaflet-locate-control-0.1.5.tgz#9fa437085d8fadcd7ef90b0d2d3b4817bdc89370"
+  dependencies:
+    leaflet "1.3.1"
+    leaflet.locatecontrol "^0.62.0"
+    react "^16.4.1"
+    react-leaflet "^1.9.1"
+
 react-leaflet-search@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/react-leaflet-search/-/react-leaflet-search-0.4.2.tgz#195e5b74e09632ad898809407f00a5fca936afe7"
@@ -8188,6 +8205,15 @@ react-transition-group@^2.2.1:
 react@^16.4.0:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
+react@^16.4.1:
+  version "16.4.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"

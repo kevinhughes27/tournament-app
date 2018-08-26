@@ -68,6 +68,7 @@
     "react-leaflet": "^1.9.1",
     "react-leaflet-control": "kevinhughes27/react-leaflet-control#master",
     "react-leaflet-div-icon": "^1.1.0",
+    "react-leaflet-locate-control": "^0.1.5",
     "react-leaflet-search": "^0.4.2",
     "react-relay": "^1.7.0-rc.1",
     "react-router-dom": "^4.3.1",
