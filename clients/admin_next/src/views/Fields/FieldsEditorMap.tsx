@@ -10,7 +10,7 @@ interface Props {
   long: number;
   zoom: number;
   fields: FieldsEditor_fields;
-  updateMap: () => void;
+  updateMap: (ev: any) => void;
   editField: (field: FieldsEditor_fields[0]) => void;
 }
 

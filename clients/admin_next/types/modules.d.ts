@@ -14,3 +14,4 @@ declare module "csv";
 declare module "inflection";
 declare module "react-leaflet-control";
 declare module "react-leaflet-div-icon";
+declare module "react-leaflet-locate-control";
