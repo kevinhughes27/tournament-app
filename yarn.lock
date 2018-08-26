@@ -5760,6 +5760,12 @@ react-jss@^7.1.0:
     prop-types "^15.5.8"
     theming "^1.1.0"
 
+react-leaflet-div-icon@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-div-icon/-/react-leaflet-div-icon-1.1.0.tgz#a31b7ecf3aff66f780f23d7e96ba9420cf072c70"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-leaflet@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-1.5.0.tgz#d7a77e2f439fabddff745749a41df3ac57d873e7"
