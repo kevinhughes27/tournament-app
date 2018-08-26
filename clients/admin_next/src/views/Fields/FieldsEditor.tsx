@@ -102,7 +102,9 @@ class FieldsEditor extends React.Component<Props, State> {
     this.map!.off("contextmenu", this.startDrawingMobile);
   }
 
-  updateMap = () => {
+  updateMap = (ev: any) => {
+    if (ev.flyTo) { return; }
+
     const {lat, lng: long} = this.map!.getCenter();
     const zoom = this.map!.getZoom();
     this.setState({lat, long, zoom});
@@ -180,11 +182,6 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   /* Input event handlers */
-  placeSelected = (lat: number, long: number) => {
-    const defaultZoom = 15;
-    this.setState({lat, long, zoom: defaultZoom});
-  }
-
   updateName = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
 
@@ -264,7 +261,6 @@ class FieldsEditor extends React.Component<Props, State> {
       >
         <FieldsEditorInputs
           mode={this.state.mode}
-          placeSelected={this.placeSelected}
           name={this.state.editing.name}
           updateName={this.updateName}
           nameError={this.state.nameError}

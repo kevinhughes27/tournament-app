@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ReactLeafletSearch } from "react-leaflet-search";
 import Control from "react-leaflet-control";
 import MapTooltip from "./MapTooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +16,16 @@ class FieldsEditorControls extends React.Component<Props> {
   render() {
     const { mode } = this.props;
 
-    if ((mode === "addField" || mode === "editField"))  {
+    if (mode === "editMap") {
+      return (
+        <ReactLeafletSearch
+          position="topleft"
+          inputPlaceholder="Search Place or Lat, Lng"
+          zoom={15}
+          showMarker={false}
+        />
+      );
+    } else if ((mode === "addField" || mode === "editField"))  {
       return (
         <div>
           <Control position="topleft">
