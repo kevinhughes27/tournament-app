@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Map, TileLayer, GeoJSON, Popup } from 'react-leaflet';
+import MapLabel from './MapLabel';
 import gamesSearch from '../../helpers/gamesSearch';
 import moment from 'moment';
 import _filter from 'lodash/filter';
@@ -34,6 +35,7 @@ class MapView extends Component {
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
         {renderFields(filteredFields, nextFieldName)}
+        {renderFieldNames(filteredFields, nextFieldName)}
         {renderPopup(nextGame, nextField)}
       </Map>
     );
@@ -54,6 +56,12 @@ function renderFields(fields, nextFieldName) {
       <GeoJSON key={field.id} data={JSON.parse(field.geoJson)} style={style} />
     );
   });
+}
+
+function renderFieldNames(fields, nextFieldName) {
+  return fields
+    .filter(f => f.name !== nextFieldName)
+    .map(field => <MapLabel key={field.id} field={field} />);
 }
 
 function renderPopup(nextGame, nextField) {
