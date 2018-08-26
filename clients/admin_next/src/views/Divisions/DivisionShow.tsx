@@ -3,7 +3,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Structure from "./Structure";
-import ActionButton from "../../components/ActionButton";
+import ActionMenu from "../../components/ActionMenu";
 
 interface Props extends RouteComponentProps<{}> {
   division: DivisionShow_division;
@@ -23,7 +23,11 @@ class DivisionShow extends React.Component<Props> {
         />
         {this.renderDescription()}
         <Structure games={division.games} bracketTree={division.bracketTree} />
-        <ActionButton icon="edit" onClick={() => this.props.history.push(`/divisions/${division.id}/edit`)}/>
+        <ActionMenu
+          actions={[
+            {icon: "edit", name: "edit", handler: () => this.props.history.push(`/divisions/${division.id}/edit`)}
+          ]}
+        />
       </div>
     );
   }

@@ -10,7 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DivisionListItem from "./DivisionListItem";
-import ActionButton from "../../components/ActionButton";
+import ActionMenu from "../../components/ActionMenu";
 
 interface Props extends RouteComponentProps<{}> {
   divisions: DivisionList_divisions;
@@ -38,7 +38,11 @@ class DivisionList extends React.Component<Props> {
             </TableBody>
           </Table>
         </div>
-        <ActionButton icon="add" onClick={() => this.props.history.push("/divisions/new")}/>
+        <ActionMenu
+          actions={[
+            {icon: "add", name: "add", handler: () => this.props.history.push("/divisions/new")}
+          ]}
+        />
       </div>
     );
   }
