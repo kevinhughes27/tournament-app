@@ -155,13 +155,13 @@ class FieldsEditor extends React.Component<Props, State> {
     event.cancel();
   }
 
-  // getLatLngs returns [][]
-  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14809
-  autoComplete = (event: any) => {
-    const verticies = event.layer.getLatLngs()[0];
+  autoComplete = (event: Leaflet.LeafletLayerEvent) => {
+    const polygon = event.layer as Leaflet.MultiPolygon;
+    const verticies = polygon.getLatLngs()[0];
 
     if (verticies.length === 4) {
-      event.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
+      // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/28422
+      (this.map!.editTools as any).commitDrawing(); // auto complete the polygon on the 4th vertex
       this.map!.off("contextmenu", this.startDrawingMobile); // cleanup
       this.map!.off("editable:drawing:clicked", this.autoComplete); // cleanup
     }
