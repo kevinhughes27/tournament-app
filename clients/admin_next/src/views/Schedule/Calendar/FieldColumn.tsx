@@ -34,7 +34,7 @@ interface State {
 
 const target: DropTargetSpec<Props> = {
   hover({}, monitor, component: FieldColumn) {
-    component.hover(monitor!);
+    component.hover(monitor);
   },
 
   drop({}, monitor, component: FieldColumn) {
@@ -45,7 +45,12 @@ const target: DropTargetSpec<Props> = {
   }
 };
 
-const collect: DropTargetCollector = (connect, monitor) => {
+interface CollectedProps {
+  isOver: boolean;
+  connectDropTarget: ConnectDropTarget;
+}
+
+const collect: DropTargetCollector<CollectedProps> = (connect, monitor) => {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
@@ -72,7 +77,7 @@ class FieldColumn extends React.Component<Props, State> {
     const ref = this.columnRef.current!;
 
     const rect = ref.getBoundingClientRect();
-    const percentY = (monitor.getClientOffset().y - rect.top) / rect.height;
+    const percentY = (monitor.getClientOffset()!.y - rect.top) / rect.height;
     const hours = percentY * (Settings.scheduleLength()) + Settings.scheduleStart;
     const slot = Settings.scheduleInc * Math.round(hours * 60 / Settings.scheduleInc);
     const hoverTime = moment(this.props.date, "LL").minutes(slot);
@@ -108,8 +113,14 @@ class FieldColumn extends React.Component<Props, State> {
   }
 
   unschedule = (game: ScheduledGame | UnscheduledGame) => {
+    const variables = {
+      input: {
+        gameId: game.id,
+      }
+    };
+
     UnscheduleGameMutation.commit(
-      { gameId: game.id },
+      variables,
       this.mutationComplete,
       this.mutationError
     );

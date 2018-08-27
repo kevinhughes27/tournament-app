@@ -1,7 +1,7 @@
 class Mutations::UnscheduleGame < Mutations::BaseMutation
   graphql_name "UnscheduleGame"
 
-  argument :gameId, ID, required: true
+  argument :input, Inputs::UnscheduleGameInput, required: true
 
   field :game, Types::Game, null: false
   field :success, Boolean, null: false

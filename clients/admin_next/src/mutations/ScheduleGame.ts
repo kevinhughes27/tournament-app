@@ -22,7 +22,7 @@ function getOptimisticResponse(variables: ScheduleGameMutationVariables) {
   return {
     scheduleGame: {
       game: {
-        ...variables
+        ...variables.input
       }
     },
   };

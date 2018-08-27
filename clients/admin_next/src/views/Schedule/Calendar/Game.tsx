@@ -20,7 +20,7 @@ interface Props {
   isDragging?: boolean;
 }
 
-const gameSource: DragSourceSpec<Props> = {
+const gameSource: DragSourceSpec<Props, {}> = {
   beginDrag(props) {
     return props.game;
   },
@@ -32,7 +32,12 @@ const gameSource: DragSourceSpec<Props> = {
   }
 };
 
-const collect: DragSourceCollector = (connect, monitor) => {
+interface CollectedProps {
+  connectDragSource: ConnectDragSource;
+  isDragging: boolean;
+}
+
+const collect: DragSourceCollector<CollectedProps> = (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
