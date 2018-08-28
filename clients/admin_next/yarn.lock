@@ -1420,9 +1420,9 @@
     csstype "^2.0.0"
     indefinite-observable "^1.0.1"
 
-"@types/leaflet-editable@^0.7.32":
-  version "0.7.32"
-  resolved "https://registry.yarnpkg.com/@types/leaflet-editable/-/leaflet-editable-0.7.32.tgz#e1f9c284650f29940ef4f871da870913d7d525e6"
+"@types/leaflet-editable@^0.7.33":
+  version "0.7.33"
+  resolved "https://registry.yarnpkg.com/@types/leaflet-editable/-/leaflet-editable-0.7.33.tgz#3f1e7d1731fc4aac9ef135cbdd15c23639327fe3"
   dependencies:
     "@types/leaflet" "^0"
 

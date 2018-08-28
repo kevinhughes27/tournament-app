@@ -160,8 +160,7 @@ class FieldsEditor extends React.Component<Props, State> {
     const verticies = polygon.getLatLngs()[0];
 
     if (verticies.length === 4) {
-      // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/28422
-      (this.map!.editTools as any).commitDrawing(); // auto complete the polygon on the 4th vertex
+      this.map!.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
       this.map!.off("contextmenu", this.startDrawingMobile); // cleanup
       this.map!.off("editable:drawing:clicked", this.autoComplete); // cleanup
     }
