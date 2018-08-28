@@ -58,7 +58,7 @@ class TeamList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {teams.map((t) => <TeamListItem key={t.id} team={t as TeamListItem_team}/>)}
+            {teams.map((t) => <TeamListItem key={t.id} team={t}/>)}
           </TableBody>
         </Table>
         <ActionMenu actions={actions}/>
