@@ -1,22 +1,21 @@
 require 'test_helper'
 
 class UserQueryTest < ApiTest
-  test "email field is hidden to the public" do
-    user = FactoryBot.create(:staff)
+  test "viewer is null" do
+    user = FactoryBot.create(:user)
 
     query_graphql(
       "users {
       	name
         email
       }",
-      expect_error: "Field 'email' doesn't exist on type 'User'"
+      expect_error: "Field 'users' doesn't exist on type 'Query'"
     )
   end
 
   test "email field is present for authenticated requests" do
+    user = FactoryBot.create(:user)
     login_user
-    user = FactoryBot.create(:staff)
-
     query_graphql("
       users {
       	name
