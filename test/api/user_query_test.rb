@@ -2,26 +2,25 @@ require 'test_helper'
 
 class UserQueryTest < ApiTest
   test "viewer is null" do
-    user = FactoryBot.create(:user)
-
-    query_graphql(
-      "users {
+    viewer = FactoryBot.create(:user)
+    query_graphql("
+      viewer {
       	name
         email
       }",
-      expect_error: "Field 'users' doesn't exist on type 'Query'"
     )
+     assert_equal query_result["viewer"], nil
   end
 
   test "email field is present for authenticated requests" do
-    user = FactoryBot.create(:user)
-    login_user
+    viewer = FactoryBot.create(:user)
+    login_user(viewer)
     query_graphql("
-      users {
+      viewer {
       	name
         email
       }
     ")
-    assert_equal user.email,  query_result['users'].first['email']
+    assert_equal viewer.email,  query_result['viewer']['email']
   end
 end
