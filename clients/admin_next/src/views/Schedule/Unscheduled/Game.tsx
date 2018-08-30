@@ -15,13 +15,18 @@ interface Props {
   isDragging?: boolean;
 }
 
-const gameSource: DragSourceSpec<Props> = {
+const gameSource: DragSourceSpec<Props, {}> = {
   beginDrag(props: Props) {
     return props.game;
   }
 };
 
-const collect: DragSourceCollector = (connect, monitor) => {
+interface CollectedProps {
+  connectDragSource: ConnectDragSource;
+  isDragging: boolean;
+}
+
+const collect: DragSourceCollector<CollectedProps> = (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
@@ -39,17 +44,13 @@ export class Game extends React.Component<Props> {
       cursor: "move"
     };
 
-    if (connectDragSource) {
-      return connectDragSource(
-        <div className="unscheduled-game" style={style}>
-          <div className="body">
-            {GameText(game, 90)}
-          </div>
+    return connectDragSource!(
+      <div className="unscheduled-game" style={style}>
+        <div className="body">
+          {GameText(game, 90)}
         </div>
-      );
-    } else {
-      return null;
-    }
+      </div>
+    );
   }
 }
 

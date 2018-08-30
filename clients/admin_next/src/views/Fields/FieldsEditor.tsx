@@ -3,11 +3,14 @@ import * as Leaflet from "leaflet";
 import { Map } from "react-leaflet";
 import {createFragmentContainer, graphql} from "react-relay";
 import FieldsEditorMap from "./FieldsEditorMap";
+import FieldsEditorInput from "./FieldsEditorInput";
 import FieldsEditorControls from "./FieldsEditorControls";
 import FieldsEditorActions from "./FieldsEditorActions";
+import EditableField from "./EditableField";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
+import quadrilateralise from "./quadrilateralise";
 import { showNotice } from "../../components/Notice";
 import { merge } from "lodash";
 
@@ -25,7 +28,7 @@ interface State {
   zoom: number;
   submitting: boolean;
   editing: {
-    fieldId?: string;
+    id?: string;
     name: string;
     lat: number;
     long: number;
@@ -44,6 +47,7 @@ const newField = {
 class FieldsEditor extends React.Component<Props, State> {
   mapRef = React.createRef<Map>();
   map?: Leaflet.Map;
+  historyBuffer: any[] = [];
 
   constructor(props: Props) {
     super(props);
@@ -74,23 +78,22 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   addField = () => {
+    EditableField.clear();
+    this.historyBuffer = [];
     this.map!.editTools.startPolygon();
     this.map!.on("contextmenu", this.startDrawingMobile);
     this.map!.on("editable:drawing:clicked", this.autoComplete);
     this.setState({mode: "addField", editing: newField});
   }
 
-  editField = (field: FieldsEditor_fields[0], polygon: Leaflet.Polygon) => {
-    this.resetEditing();
-    polygon.enableEdit();
-    this.setState({mode: "editField", editing: field});
-  }
+  editField = (field: FieldsEditor_fields[0]) => {
+    const geoJson = JSON.parse(field.geoJson);
 
-  resetEditing = () => {
-    this.map!.eachLayer((layer: Leaflet.ILayer) => {
-      const polygon = layer as Leaflet.Polygon;
-      if (polygon.disableEdit) { polygon.disableEdit(); }
-    });
+    EditableField.clear();
+    EditableField.update(this.map!, geoJson);
+    this.historyBuffer = [];
+    this.historyBuffer.push(geoJson);
+    this.setState({mode: "editField", editing: field});
   }
 
   /* Leaflet event handlers */
@@ -99,7 +102,9 @@ class FieldsEditor extends React.Component<Props, State> {
     this.map!.off("contextmenu", this.startDrawingMobile);
   }
 
-  updateMap = () => {
+  updateMap = (ev: any) => {
+    if (ev.flyTo) { return; }
+
     const {lat, lng: long} = this.map!.getCenter();
     const zoom = this.map!.getZoom();
     this.setState({lat, long, zoom});
@@ -107,14 +112,42 @@ class FieldsEditor extends React.Component<Props, State> {
 
   updateField = (event: Leaflet.LeafletGeoJSONEvent) => {
     const polygon = event.layer as Leaflet.Polygon;
+    const geoJson = polygon.toGeoJSON();
 
-    const {lat, lng: long} = polygon.getBounds().getCenter();
-    const geoJson = JSON.stringify(polygon.toGeoJSON());
+    this.setEditingState(geoJson);
+  }
+
+  squareFieldCorners = () => {
+    if (this.state.editing.geoJson) {
+      const geoJson = JSON.parse(this.state.editing.geoJson);
+      const orthGeoJson = quadrilateralise(geoJson, this.map!);
+
+      this.setEditingState(orthGeoJson);
+    }
+  }
+
+  undoEdit = () => {
+    if (this.historyBuffer.length > 1) {
+      this.map!.editTools.stopDrawing(); // in case un-doing a redraw
+      this.historyBuffer.pop();
+      const geoJson = this.historyBuffer.pop();
+
+      this.setEditingState(geoJson);
+    }
+  }
+
+  redrawField = () => {
+    EditableField.clear();
 
     const editing = {...this.state.editing};
-    merge(editing, {lat, long, geoJson});
+    merge(editing, {lat: 0, long: 0, geoJson: ""});
 
+    this.historyBuffer.push(this.state.editing.geoJson);
     this.setState({editing});
+
+    this.map!.editTools.startPolygon();
+    this.map!.on("contextmenu", this.startDrawingMobile);
+    this.map!.on("editable:drawing:clicked", this.autoComplete);
   }
 
   // https://github.com/Leaflet/Leaflet.Editable/blob/master/src/Leaflet.Editable.js#L389
@@ -122,23 +155,32 @@ class FieldsEditor extends React.Component<Props, State> {
     event.cancel();
   }
 
-  // getLatLngs returns [][]
-  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14809
-  autoComplete = (event: any) => {
-    const verticies = event.layer.getLatLngs()[0];
+  autoComplete = (event: Leaflet.LeafletLayerEvent) => {
+    const polygon = event.layer as Leaflet.MultiPolygon;
+    const verticies = polygon.getLatLngs()[0];
 
     if (verticies.length === 4) {
-      event.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
+      this.map!.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
+      this.map!.off("contextmenu", this.startDrawingMobile); // cleanup
       this.map!.off("editable:drawing:clicked", this.autoComplete); // cleanup
     }
   }
 
-  /* Input event handlers */
-  placeSelected = (lat: number, long: number) => {
-    const defaultZoom = 15;
-    this.setState({lat, long, zoom: defaultZoom});
+  /* Manage Leaflet state */
+  setEditingState = (geoJson: any) => {
+    EditableField.clear();
+    EditableField.update(this.map!, geoJson);
+
+    const {lat, lng: long} = EditableField.getCenter();
+
+    const editing = {...this.state.editing};
+    merge(editing, {lat, long, geoJson: JSON.stringify(geoJson)});
+
+    this.historyBuffer.push(geoJson);
+    this.setState({editing});
   }
 
+  /* Input event handlers */
   updateName = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
 
@@ -167,7 +209,7 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   saveField = () => {
-    const payload = {id: this.state.editing.fieldId!, ...this.state.editing};
+    const payload = this.state.editing;
     this.runMutation(UpdateFieldMutation, payload);
   }
 
@@ -187,8 +229,8 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   mutationSuccess = (result: MutationResult) => {
-    this.resetEditing();
-    this.setState({mode: "none", submitting: false});
+    EditableField.clear();
+    this.setState({mode: "none", submitting: false, editing: newField});
     showNotice(result.message!);
     setTimeout(() => this.setState({mode: "view"}), 1000);
   }
@@ -199,31 +241,34 @@ class FieldsEditor extends React.Component<Props, State> {
     const errorMessage = userError && userError.message || "";
 
     this.setState({nameError: errorMessage, submitting: false});
-    showNotice(result.message!);
   }
 
   /* Rendering */
   render() {
-    const { lat, long, zoom, submitting } = this.state;
-    const { fields } = this.props;
+    const { lat, long, zoom, editing, submitting } = this.state;
+    const fields = this.props.fields.filter((f) => f.id !== editing.id);
 
     return (
-      <div>
-        <FieldsEditorControls
+      <FieldsEditorMap
+        ref={this.mapRef}
+        lat={lat}
+        long={long}
+        zoom={zoom}
+        fields={fields}
+        updateMap={this.updateMap}
+        editField={this.editField}
+      >
+        <FieldsEditorInput
           mode={this.state.mode}
-          placeSelected={this.placeSelected}
           name={this.state.editing.name}
           updateName={this.updateName}
           nameError={this.state.nameError}
         />
-        <FieldsEditorMap
-          ref={this.mapRef}
-          lat={lat}
-          long={long}
-          zoom={zoom}
-          fields={fields}
-          updateMap={this.updateMap}
-          editField={this.editField}
+        <FieldsEditorControls
+          mode={this.state.mode}
+          squareFieldCorners={this.squareFieldCorners}
+          undoEdit={this.undoEdit}
+          redrawField={this.redrawField}
         />
         <FieldsEditorActions
           mode={this.state.mode}
@@ -235,7 +280,7 @@ class FieldsEditor extends React.Component<Props, State> {
           createField={this.createField}
           saveField={this.saveField}
         />
-      </div>
+      </FieldsEditorMap>
     );
   }
 }

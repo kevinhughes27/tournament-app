@@ -1,62 +1,75 @@
 import * as React from "react";
-import Geosuggest, { Suggest } from "react-geosuggest";
-import TextField from "@material-ui/core/TextField";
+import { ReactLeafletSearch } from "react-leaflet-search";
+import LocateControl from "react-leaflet-locate-control";
+import Control from "react-leaflet-control";
+import MapTooltip from "./MapTooltip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVectorSquare, faUndo, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   mode: "none" | "view" | "editMap" | "addField" | "editField";
-  placeSelected: (lat: number, long: number) => void;
-  name: string;
-  updateName: (event: React.FormEvent<EventTarget>) => void;
-  nameError?: string;
+  squareFieldCorners: () => void;
+  undoEdit: () => void;
+  redrawField: () => void;
 }
 
-const style = {
-  position: "absolute" as "absolute",
-  zIndex: 1000,
-  backgroundColor: "white",
-  width: 240,
-  left: 60,
-  paddingLeft: 10
-};
-
 class FieldsEditorControls extends React.Component<Props> {
-  placeSelected = (suggest: Suggest) => {
-    const location = suggest.location;
-
-    const lat = parseFloat(location.lat);
-    const long = parseFloat(location.lng);
-
-    this.props.placeSelected(lat, long);
-  }
-
   render() {
-    const { mode, name, updateName } = this.props;
+    const { mode } = this.props;
 
     if (mode === "editMap") {
       return (
-        <Geosuggest
-          className="leaflet-search"
-          inputClassName="leaflet-search-input"
-          suggestsClassName="leaflet-search-results"
-          minLength={3}
-          onSuggestSelect={this.placeSelected}
-        />
+        <div>
+          <ReactLeafletSearch
+            position="topleft"
+            inputPlaceholder="Search Place or Lat, Lng"
+            zoom={15}
+            showMarker={false}
+          />
+          <LocateControl
+            options={{
+              position: "topleft",
+              flyTo: true,
+              drawCircle: false,
+              drawMarker: false,
+              icon: "material-icon-my-location",
+              iconLoading: "material-icon-my-location",
+              iconElementTag: "div",
+              strings: {
+                title: "Current location"
+              },
+              locateOptions: {
+                maxZoom: 15
+              }
+            }}
+          />
+        </div>
       );
-    } else if (mode === "addField" || mode === "editField") {
+    } else if ((mode === "addField" || mode === "editField"))  {
       return (
-        <TextField
-          name="name"
-          label="Name"
-          margin="normal"
-          autoComplete="off"
-          fullWidth
-          style={style}
-          InputProps={{disableUnderline: true}}
-          InputLabelProps={{style: {paddingLeft: 10}}}
-          value={name}
-          onChange={updateName}
-          helperText={this.props.nameError}
-        />
+        <div>
+          <Control position="topleft">
+            <MapTooltip text={"Square Corners"}>
+              <button className="fields-editor-control" onClick={this.props.squareFieldCorners}>
+                <FontAwesomeIcon icon={faVectorSquare} />
+              </button>
+            </MapTooltip>
+          </Control>
+          <Control position="topleft">
+            <MapTooltip text={"Undo"}>
+              <button className="fields-editor-control" onClick={this.props.undoEdit}>
+                <FontAwesomeIcon icon={faUndo} />
+              </button>
+            </MapTooltip>
+          </Control>
+          <Control position="topleft">
+            <MapTooltip text={"Redraw"}>
+              <button className="fields-editor-control" onClick={this.props.redrawField}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </MapTooltip>
+          </Control>
+        </div>
       );
     } else {
       return null;

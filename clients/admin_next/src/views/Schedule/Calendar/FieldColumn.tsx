@@ -45,7 +45,12 @@ const target: DropTargetSpec<Props> = {
   }
 };
 
-const collect: DropTargetCollector = (connect, monitor) => {
+interface CollectedProps {
+  isOver: boolean;
+  connectDropTarget: ConnectDropTarget;
+}
+
+const collect: DropTargetCollector<CollectedProps> = (connect, monitor) => {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
@@ -68,21 +73,19 @@ class FieldColumn extends React.Component<Props, State> {
     };
   }
 
-  hover = (monitor?: DropTargetMonitor) => {
-    const ref = this.columnRef.current;
+  hover = (monitor: DropTargetMonitor) => {
+    const ref = this.columnRef.current!;
 
-    if (ref && monitor) {
-      const rect = ref.getBoundingClientRect();
-      const percentY = (monitor.getClientOffset().y - rect.top) / rect.height;
-      const hours = percentY * (Settings.scheduleLength()) + Settings.scheduleStart;
-      const slot = Settings.scheduleInc * Math.round(hours * 60 / Settings.scheduleInc);
-      const hoverTime = moment(this.props.date, "LL").minutes(slot);
+    const rect = ref.getBoundingClientRect();
+    const percentY = (monitor.getClientOffset()!.y - rect.top) / rect.height;
+    const hours = percentY * (Settings.scheduleLength()) + Settings.scheduleStart;
+    const slot = Settings.scheduleInc * Math.round(hours * 60 / Settings.scheduleInc);
+    const hoverTime = moment(this.props.date, "LL").minutes(slot);
 
-      this.setState({
-        gameLength: Settings.defaultGameLength,
-        hoverTime
-      });
-    }
+    this.setState({
+      gameLength: Settings.defaultGameLength,
+      hoverTime
+    });
   }
 
   schedule = (game: ScheduledGame | UnscheduledGame) => {
@@ -110,8 +113,14 @@ class FieldColumn extends React.Component<Props, State> {
   }
 
   unschedule = (game: ScheduledGame | UnscheduledGame) => {
+    const variables = {
+      input: {
+        gameId: game.id,
+      }
+    };
+
     UnscheduleGameMutation.commit(
-      { gameId: game.id },
+      variables,
       this.mutationComplete,
       this.mutationError
     );
@@ -123,9 +132,9 @@ class FieldColumn extends React.Component<Props, State> {
 
   onMouseMove = (ev: React.MouseEvent<HTMLElement>) => {
     const game = this.state.resizingGame;
-    const column = this.columnRef.current;
+    const column = this.columnRef.current!;
 
-    if (game && column) {
+    if (game) {
       const rect = column.getBoundingClientRect();
       const percentY = (ev.clientY - rect.top) / rect.height;
       const hours = percentY * (Settings.scheduleLength()) + Settings.scheduleStart;
@@ -198,24 +207,20 @@ class FieldColumn extends React.Component<Props, State> {
     const filteredGames = filter(games, (g) => moment(date, "LL").isSame(g.startTime, "day"));
     const sortedGames = sortBy(filteredGames, (g) => moment(g.startTime));
 
-    if (connectDropTarget) {
-      return connectDropTarget(
-        <div className="field-column">
-          <div
-            className="games"
-            ref={this.columnRef}
-            onMouseMove={this.onMouseMove}
-            onMouseLeave={this.endResize}
-            onMouseUp={this.endResize}
-          >
-            {map(sortedGames, this.renderScheduledGame)}
-            {this.renderOverlay()}
-          </div>
+    return connectDropTarget!(
+      <div className="field-column">
+        <div
+          className="games"
+          ref={this.columnRef}
+          onMouseMove={this.onMouseMove}
+          onMouseLeave={this.endResize}
+          onMouseUp={this.endResize}
+        >
+          {map(sortedGames, this.renderScheduledGame)}
+          {this.renderOverlay()}
         </div>
-      );
-    } else {
-      return null;
-    }
+      </div>
+    );
   }
 
   renderScheduledGame = (game: ScheduledGame) => {

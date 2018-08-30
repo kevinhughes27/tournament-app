@@ -1,4 +1,4 @@
-class Resolvers::UscheduleGame < Resolvers::BaseResolver
+class Resolvers::UnscheduleGame < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @game = @tournament.games.find(inputs[:game_id])

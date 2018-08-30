@@ -2,8 +2,8 @@ import { commitMutation, graphql } from "react-relay";
 import environment from "../relay";
 
 const mutation = graphql`
-  mutation UnscheduleGameMutation($gameId: ID!) {
-    unscheduleGame(gameId:$gameId) {
+  mutation UnscheduleGameMutation($input: UnscheduleGameInput!) {
+    unscheduleGame(input:$input) {
       game {
         id
         startTime
@@ -22,7 +22,7 @@ function getOptimisticResponse(variables: UnscheduleGameMutationVariables) {
   return {
     unscheduleGame: {
       game: {
-        id: variables.gameId,
+        id: variables.input.gameId,
         startTime: null,
         endTime: null,
         field: null
