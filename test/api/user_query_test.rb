@@ -22,7 +22,6 @@ class UserQueryTest < ApiTest
         email
       }
     ")
-
     assert_equal user.email,  query_result['users'].first['email']
   end
 end
