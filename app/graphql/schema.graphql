@@ -207,6 +207,7 @@ type Query {
   settings: Settings
   team(id: ID!): Team
   teams: [Team!]
+  viewer: User
 }
 
 input ScheduleGameInput {
@@ -395,4 +396,11 @@ type UpdateTeamPayload {
   success: Boolean!
   team: Team!
   userErrors: [Error!]
+}
+
+# A User
+type User {
+  email: String!
+  id: ID!
+  name: String
 }
