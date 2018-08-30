@@ -107,9 +107,9 @@ class Types::Query < Types::BaseObject
     context[:tournament].score_reports.find(id)
   end
 
-  field :user, Types::User, null: true 
+  field :viewer, Types::User, null: true 
 
-  def user
+  def viewer
     context[:current_user]
   end
 

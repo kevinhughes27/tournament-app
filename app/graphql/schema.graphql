@@ -207,7 +207,7 @@ type Query {
   settings: Settings
   team(id: ID!): Team
   teams: [Team!]
-  viewer: User
+  viewer: User!
 }
 
 input ScheduleGameInput {
