@@ -36,12 +36,7 @@ class FormButtons extends React.Component<Props> {
         <div className={inline ? classes.inline : classes.fab}>
           {this.renderCancelButton()}
           {this.renderDeleteButton()}
-          <SubmitButton
-            icon={this.props.submitIcon}
-            disabled={this.props.submitDisabled}
-            submitting={this.props.submitting}
-            onClick={this.props.submit}
-          />
+          {this.renderSubmitButton()}
         </div>
       </Zoom>
     );
@@ -74,6 +69,15 @@ class FormButtons extends React.Component<Props> {
       return null;
     }
   }
+
+  renderSubmitButton = () => (
+    <SubmitButton
+      icon={this.props.submitIcon}
+      disabled={this.props.submitDisabled}
+      submitting={this.props.submitting}
+      onClick={this.props.submit}
+    />
+  )
 }
 
 export default withStyles(styles, {withTheme: true})(FormButtons);
