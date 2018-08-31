@@ -84,6 +84,7 @@ class ScoreForm extends Form<Props> {
         <FormButtons
           submitDisabled={!dirty || hasErrors}
           submitting={isSubmitting}
+          cancelLink={"/games"}
         />
       </form>
     );

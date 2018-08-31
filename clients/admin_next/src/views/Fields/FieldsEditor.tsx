@@ -96,6 +96,12 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({mode: "editField", editing: field});
   }
 
+  cancelMode = () => {
+    EditableField.clear();
+    this.historyBuffer = [];
+    this.setState({mode: "view", editing: newField});
+  }
+
   /* Leaflet event handlers */
   startDrawingMobile = (event: Leaflet.LeafletMouseEvent) => {
     this.map!.editTools.startPolygon(event.latlng);
@@ -155,12 +161,17 @@ class FieldsEditor extends React.Component<Props, State> {
     event.cancel();
   }
 
+  // auto complete the polygon on the 4th vertex
   autoComplete = (event: Leaflet.LeafletLayerEvent) => {
     const polygon = event.layer as Leaflet.MultiPolygon;
     const verticies = polygon.getLatLngs()[0];
 
     if (verticies.length === 4) {
-      this.map!.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
+      this.map!.editTools.stopDrawing();
+
+      this.setEditingState(polygon.toGeoJSON());
+      this.map!.removeLayer(polygon);
+
       this.map!.off("contextmenu", this.startDrawingMobile); // cleanup
       this.map!.off("editable:drawing:clicked", this.autoComplete); // cleanup
     }
@@ -279,6 +290,7 @@ class FieldsEditor extends React.Component<Props, State> {
           saveMap={this.saveMap}
           createField={this.createField}
           saveField={this.saveField}
+          cancel={this.cancelMode}
         />
       </FieldsEditorMap>
     );

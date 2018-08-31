@@ -12,6 +12,9 @@ interface Props extends WithStyles<typeof styles> {
   submitDisabled: boolean;
   submitting: boolean;
   submit?: () => void;
+  delete?: () => void;
+  cancel?: () => void;
+  cancelLink?: string;
 }
 
 class FormButtons extends React.Component<Props> {
@@ -31,13 +34,8 @@ class FormButtons extends React.Component<Props> {
         unmountOnExit
       >
         <div className={inline ? classes.inline : classes.fab}>
-          <CancelButton
-            disabled={false}
-          />
-          <DeleteButton
-            disabled={false}
-            submitting={false}
-          />
+          {this.renderCancelButton()}
+          {this.renderDeleteButton()}
           <SubmitButton
             icon={this.props.submitIcon}
             disabled={this.props.submitDisabled}
@@ -47,6 +45,34 @@ class FormButtons extends React.Component<Props> {
         </div>
       </Zoom>
     );
+  }
+
+  renderCancelButton = () => {
+    if (this.props.cancel || this.props.cancelLink) {
+      return (
+        <CancelButton
+          disabled={this.props.submitting}
+          onClick={this.props.cancel}
+          link={this.props.cancelLink}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderDeleteButton = () => {
+    if (this.props.delete) {
+      return (
+        <DeleteButton
+          disabled={false}
+          submitting={false}
+          onClick={this.props.delete}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 }
 

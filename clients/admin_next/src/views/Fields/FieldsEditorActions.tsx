@@ -13,6 +13,7 @@ interface Props {
   saveMap: () => void;
   createField: () => void;
   saveField: () => void;
+  cancel: () => void;
 }
 
 class FieldsEditorActions extends React.Component<Props> {
@@ -24,6 +25,7 @@ class FieldsEditorActions extends React.Component<Props> {
       saveMap,
       createField,
       saveField,
+      cancel,
     } = this.props;
 
     if (mode === "view") {
@@ -34,6 +36,7 @@ class FieldsEditorActions extends React.Component<Props> {
           submitDisabled={false}
           submitting={submitting}
           submit={saveMap}
+          cancel={cancel}
         />
       );
     } else if (mode === "addField") {
@@ -42,6 +45,7 @@ class FieldsEditorActions extends React.Component<Props> {
           submitDisabled={!valid}
           submitting={submitting}
           submit={createField}
+          cancel={cancel}
         />
       );
     } else if (mode === "editField") {
@@ -50,6 +54,7 @@ class FieldsEditorActions extends React.Component<Props> {
           submitDisabled={!valid}
           submitting={submitting}
           submit={saveField}
+          cancel={cancel}
         />
       );
     } else {

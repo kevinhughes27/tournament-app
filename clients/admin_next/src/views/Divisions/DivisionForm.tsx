@@ -107,6 +107,7 @@ class DivisionForm extends Form<Props> {
         <FormButtons
           submitDisabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
+          cancelLink={"/divisions"}
         />
       </form>
     );

@@ -11,6 +11,7 @@ const CSVHeader = ["Name", "Email", "Division", "Seed"];
 
 interface Props {
   startImport: (data: string[][]) => void;
+  closeModal: () => void;
 }
 
 interface State {
@@ -126,6 +127,7 @@ class TeamImportForm extends React.Component<Props, State> {
           submitIcon={<ImportIcon />}
           submitDisabled={!this.state.data}
           submitting={isSubmitting}
+          cancel={this.props.closeModal}
         />
       </form>
     );

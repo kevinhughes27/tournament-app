@@ -117,6 +117,7 @@ class SettingsModal extends React.Component<Props> {
           inline
           submitDisabled={!dirty}
           submitting={isSubmitting}
+          cancel={this.handleClose}
         />
       </form>
     );

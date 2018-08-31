@@ -115,6 +115,7 @@ class TeamForm extends Form<Props> {
         <FormButtons
           submitDisabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
+          cancelLink={"/teams"}
         />
       </form>
     );

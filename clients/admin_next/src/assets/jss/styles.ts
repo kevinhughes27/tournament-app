@@ -124,7 +124,13 @@ const FormButtons = (theme: Theme) => createStyles({
   },
   cancelButton: {
     lineHeight: "24px",
+    color: "white",
+    textDecoration: "none",
     marginRight: 10
+  },
+  cancelLink: {
+    color: "white",
+    textDecoration: "none",
   },
   deleteButton: {
     "backgroundColor": "#F44336",
