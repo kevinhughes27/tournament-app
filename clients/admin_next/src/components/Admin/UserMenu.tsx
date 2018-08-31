@@ -38,7 +38,6 @@ class UserMenu extends React.Component<Props, State> {
 
   render() {
     const { open, anchorEl } = this.state;
-
     return (
       <div>
         <IconButton onClick={this.handleOpen}>

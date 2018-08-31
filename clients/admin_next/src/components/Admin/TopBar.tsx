@@ -15,7 +15,7 @@ interface Props extends WithStyles<typeof styles> {
 
 class TopBar extends React.Component<Props> {
   render() {
-    const { classes } = this.props;
+    const { classes, viewer } = this.props;
 
     return (
       <AppBar position="static">
@@ -26,7 +26,7 @@ class TopBar extends React.Component<Props> {
           <Typography variant="title" className={classes.title}>
             Ultimate Tournament
           </Typography>
-          <UserMenu />
+          <UserMenu viewer={viewer} />
         </Toolbar>
       </AppBar>
     );
