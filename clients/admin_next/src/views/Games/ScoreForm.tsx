@@ -2,7 +2,7 @@ import * as React from "react";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 
 import TextField from "@material-ui/core/TextField";
-import SubmitButton from "../../components/SubmitButton";
+import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
 import UpdateScoreMutation from "../../mutations/UpdateScore";
@@ -81,7 +81,7 @@ class ScoreForm extends Form<Props> {
           onChange={handleChange}
           helperText={formProps.errors.awayScore && formProps.errors.awayScore}
         />
-        <SubmitButton
+        <FormButtons
           disabled={!dirty || hasErrors}
           submitting={isSubmitting}
         />

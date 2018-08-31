@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 
 import TextField from "@material-ui/core/TextField";
 import DivisionPicker from "./DivisionPicker";
-import SubmitButton from "../../components/SubmitButton";
+import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
@@ -112,7 +112,7 @@ class TeamForm extends Form<Props> {
           onChange={handleChange}
           helperText={formProps.errors.seed}
         />
-        <SubmitButton
+        <FormButtons
           disabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
         />

@@ -3,7 +3,7 @@ import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Modal from "../../../components/Modal";
-import SubmitButton from "../../../components/SubmitButton";
+import FormButtons from "../../../components/FormButtons";
 import Settings from "./Settings";
 
 interface Props {
@@ -113,7 +113,7 @@ class SettingsModal extends React.Component<Props> {
           value={values.defaultGameLength}
           onChange={handleChange}
         />
-        <SubmitButton
+        <FormButtons
           inline
           disabled={!dirty}
           submitting={isSubmitting}

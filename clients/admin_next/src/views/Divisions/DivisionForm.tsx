@@ -4,7 +4,7 @@ import { isEmpty } from "lodash";
 
 import TextField from "@material-ui/core/TextField";
 import BracketPicker from "./BracketPickerContainer";
-import SubmitButton from "../../components/SubmitButton";
+import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
 import CreateDivisionMutation from "../../mutations/CreateDivision";
@@ -104,7 +104,7 @@ class DivisionForm extends Form<Props> {
           setValue={setFieldValue}
           onChange={handleChange}
         />
-        <SubmitButton
+        <FormButtons
           disabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
         />

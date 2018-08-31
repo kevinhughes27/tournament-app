@@ -4,7 +4,7 @@ import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import { isEqual } from "lodash";
 import FileInput from "../../../components/FileInput";
 import fileDownload from "react-file-download";
-import SubmitButton from "../../../components/SubmitButton";
+import FormButtons from "../../../components/FormButtons";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
 const CSVHeader = ["Name", "Email", "Division", "Seed"];
@@ -121,7 +121,7 @@ class TeamImportForm extends React.Component<Props, State> {
           CSV template to see an example of the required format.
         </p>
 
-        <SubmitButton
+        <FormButtons
           inline
           icon={<ImportIcon />}
           disabled={!this.state.data}

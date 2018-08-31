@@ -1,6 +1,6 @@
 import * as React from "react";
 import ActionMenu from "../../components/ActionMenu";
-import SubmitButton from "../../components/SubmitButton";
+import FormButtons from "../../components/FormButtons";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -30,7 +30,7 @@ class FieldsEditorActions extends React.Component<Props> {
       return this.viewActions();
     } else if (mode === "editMap") {
       return (
-        <SubmitButton
+        <FormButtons
           disabled={false}
           submitting={submitting}
           onClick={saveMap}
@@ -38,7 +38,7 @@ class FieldsEditorActions extends React.Component<Props> {
       );
     } else if (mode === "addField") {
       return (
-        <SubmitButton
+        <FormButtons
           disabled={!valid}
           submitting={submitting}
           onClick={createField}
@@ -46,7 +46,7 @@ class FieldsEditorActions extends React.Component<Props> {
       );
     } else if (mode === "editField") {
       return (
-        <SubmitButton
+        <FormButtons
           disabled={!valid}
           submitting={submitting}
           onClick={saveField}
