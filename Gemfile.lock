@@ -310,7 +310,7 @@ GEM
     rollbar (2.16.3)
       multi_json
     ruby_dep (1.5.0)
-    rubyzip (1.2.1)
+    rubyzip (1.2.2)
     sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
