@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserQueryTest < ApiTest
+class ViewerQueryTest < ApiTest
   test "viewer is null" do
     viewer = FactoryBot.create(:user)
     query_graphql("
@@ -19,8 +19,8 @@ class UserQueryTest < ApiTest
       viewer {
       	name
         email
-      }
-    ")
+      }"
+    )
     assert_equal viewer.email,  query_result['viewer']['email']
   end
 end

@@ -4,8 +4,8 @@ class TeamQueryTest < ApiTest
   test "email field is hidden to the public" do
     team = FactoryBot.create(:team)
 
-    query_graphql(
-      "teams {
+    query_graphql("
+      teams {
       	name
         email
       }",
@@ -21,8 +21,8 @@ class TeamQueryTest < ApiTest
       teams {
       	name
         email
-      }
-    ")
+      }"
+    )
 
     assert_equal team.email, query_result['teams'].first['email']
   end
