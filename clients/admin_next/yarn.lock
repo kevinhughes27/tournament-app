@@ -8461,9 +8461,9 @@ relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
 
-relay-compiler-language-typescript@^0.9.0:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/relay-compiler-language-typescript/-/relay-compiler-language-typescript-0.9.1.tgz#aa9203292af526987e0368ee5205f06b586e2ec2"
+relay-compiler-language-typescript@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/relay-compiler-language-typescript/-/relay-compiler-language-typescript-1.1.0.tgz#c3c6770eb74035a0fede99761cc539e5f9b5c3af"
   dependencies:
     immutable "^3.7.6"
     invariant "^2.2.2"

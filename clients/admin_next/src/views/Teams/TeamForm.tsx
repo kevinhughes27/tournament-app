@@ -13,7 +13,7 @@ import CreateTeamMutation from "../../mutations/CreateTeam";
 
 interface Props {
   input: UpdateTeamMutationVariables["input"] & CreateTeamMutationVariables["input"];
-  divisions: DivisionPicker_divisions;
+  divisions: TeamShow_divisions | TeamNew_divisions;
 }
 
 class TeamForm extends Form<Props> {

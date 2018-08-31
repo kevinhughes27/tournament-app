@@ -8,7 +8,7 @@ class TeamNewContainer extends React.Component {
     const query = graphql`
       query TeamNewContainerQuery {
         divisions {
-          ...DivisionPicker_divisions
+          ...TeamNew_divisions
         }
       }
     `;

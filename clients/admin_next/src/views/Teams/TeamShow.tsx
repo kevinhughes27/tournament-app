@@ -5,7 +5,7 @@ import TeamForm from "./TeamForm";
 
 interface Props {
   team: TeamShow_team;
-  divisions: DivisionPicker_divisions;
+  divisions: TeamShow_divisions;
 }
 
 class TeamShow extends React.Component<Props> {
@@ -42,6 +42,11 @@ export default createFragmentContainer(TeamShow, {
         name
       }
       seed
+    }
+  `,
+  divisions: graphql`
+    fragment TeamShow_divisions on Division @relay(plural: true) {
+      ...DivisionPicker_divisions
     }
   `
 });

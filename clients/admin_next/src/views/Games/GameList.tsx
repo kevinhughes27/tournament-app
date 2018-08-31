@@ -31,7 +31,7 @@ class GameList extends React.Component<Props> {
             </TableRow>
           </TableHead>
           <TableBody>
-            {games.map((g) => <GameListItem key={g.id} game={g as GameListItem_game}/>)}
+            {games.map((g) => <GameListItem key={g.id} game={g}/>)}
           </TableBody>
         </Table>
       </div>

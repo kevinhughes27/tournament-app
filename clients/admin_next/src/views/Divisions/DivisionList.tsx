@@ -34,7 +34,7 @@ class DivisionList extends React.Component<Props> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {divisions.map((d) => <DivisionListItem key={d.id} division={d as DivisionListItem_division}/>)}
+              {divisions.map((d) => <DivisionListItem key={d.id} division={d}/>)}
             </TableBody>
           </Table>
         </div>
