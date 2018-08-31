@@ -1,9 +1,10 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamForm from "./TeamForm";
 
 interface Props {
-  divisions: DivisionPicker_divisions;
+  divisions: TeamNew_divisions;
 }
 
 class TeamNew extends React.Component<Props> {
@@ -32,4 +33,10 @@ class TeamNew extends React.Component<Props> {
   }
 }
 
-export default TeamNew;
+export default createFragmentContainer(TeamNew, {
+  divisions: graphql`
+    fragment TeamNew_divisions on Division @relay(plural: true) {
+      ...DivisionPicker_divisions
+    }
+  `
+});

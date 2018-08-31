@@ -18,7 +18,7 @@ import ImportIcon from "@material-ui/icons/GroupAdd";
 
 interface Props extends RouteComponentProps<{}> {
   teams: TeamList_teams;
-  divisions: TeamImport_divisions;
+  divisions: TeamList_divisions;
 }
 
 class TeamList extends React.Component<Props> {
@@ -77,6 +77,11 @@ export default createFragmentContainer(withRouter(TeamList), {
     fragment TeamList_teams on Team @relay(plural: true) {
       id
       ...TeamListItem_team
+    }
+  `,
+  divisions: graphql`
+    fragment TeamList_divisions on Division @relay(plural: true) {
+      ...TeamImport_divisions
     }
   `
 });
