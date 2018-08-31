@@ -115,7 +115,7 @@ class SettingsModal extends React.Component<Props> {
         />
         <FormButtons
           inline
-          disabled={!dirty}
+          submitDisabled={!dirty}
           submitting={isSubmitting}
         />
       </form>

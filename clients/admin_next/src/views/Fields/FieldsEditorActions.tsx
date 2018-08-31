@@ -31,25 +31,25 @@ class FieldsEditorActions extends React.Component<Props> {
     } else if (mode === "editMap") {
       return (
         <FormButtons
-          disabled={false}
+          submitDisabled={false}
           submitting={submitting}
-          onClick={saveMap}
+          submit={saveMap}
         />
       );
     } else if (mode === "addField") {
       return (
         <FormButtons
-          disabled={!valid}
+          submitDisabled={!valid}
           submitting={submitting}
-          onClick={createField}
+          submit={createField}
         />
       );
     } else if (mode === "editField") {
       return (
         <FormButtons
-          disabled={!valid}
+          submitDisabled={!valid}
           submitting={submitting}
-          onClick={saveField}
+          submit={saveField}
         />
       );
     } else {

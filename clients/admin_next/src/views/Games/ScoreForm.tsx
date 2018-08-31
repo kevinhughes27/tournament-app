@@ -82,7 +82,7 @@ class ScoreForm extends Form<Props> {
           helperText={formProps.errors.awayScore && formProps.errors.awayScore}
         />
         <FormButtons
-          disabled={!dirty || hasErrors}
+          submitDisabled={!dirty || hasErrors}
           submitting={isSubmitting}
         />
       </form>

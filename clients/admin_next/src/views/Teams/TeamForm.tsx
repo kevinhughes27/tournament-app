@@ -113,7 +113,7 @@ class TeamForm extends Form<Props> {
           helperText={formProps.errors.seed}
         />
         <FormButtons
-          disabled={!dirty || !isEmpty(errors)}
+          submitDisabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
         />
       </form>

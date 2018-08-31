@@ -123,8 +123,8 @@ class TeamImportForm extends React.Component<Props, State> {
 
         <FormButtons
           inline
-          icon={<ImportIcon />}
-          disabled={!this.state.data}
+          submitIcon={<ImportIcon />}
+          submitDisabled={!this.state.data}
           submitting={isSubmitting}
         />
       </form>
