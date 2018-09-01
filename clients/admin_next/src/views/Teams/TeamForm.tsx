@@ -1,4 +1,5 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 import * as EmailValidator from "email-validator";
 import { isEmpty } from "lodash";
@@ -10,8 +11,11 @@ import FormButtons from "../../components/FormButtons";
 import Form from "../../components/Form";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 import CreateTeamMutation from "../../mutations/CreateTeam";
+import DeleteTeamMutation from "../../mutations/DeleteTeam";
+import { showNotice } from "../../components/Notice";
+import { showErrors } from "../../components/ErrorBanner";
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
   input: UpdateTeamMutationVariables["input"] & CreateTeamMutationVariables["input"];
   divisions: TeamShow_divisions | TeamNew_divisions;
 }
@@ -60,6 +64,43 @@ class TeamForm extends Form<Props> {
     } else {
       return CreateTeamMutation.commit({input: values});
     }
+  }
+
+  delete = () => {
+    const teamId = this.props.input.id;
+
+    if (!teamId) {
+      return undefined;
+    } else {
+      return () => {
+        DeleteTeamMutation.commit({input: {id: teamId}}).then((result: MutationResult) => {
+          this.deleteComplete(result);
+        }, (error: Error | undefined) => {
+          this.deleteError(error);
+        });
+      };
+    }
+  }
+
+  deleteComplete = (result: MutationResult) => {
+    if (result.success) {
+      this.deleteSuccess(result);
+    } else {
+      this.deleteFailed(result);
+    }
+  }
+
+  deleteSuccess = (result: MutationResult) => {
+    showNotice(result.message);
+    this.props.history.push("/teams");
+  }
+
+  deleteFailed = (result: MutationResult) => {
+    showErrors(result.message);
+  }
+
+  deleteError = (error: Error | undefined) => {
+    showErrors(error && error.message || "Something went wrong.");
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
@@ -116,10 +157,11 @@ class TeamForm extends Form<Props> {
           submitDisabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
           cancelLink={"/teams"}
+          delete={this.delete()}
         />
       </form>
     );
   }
 }
 
-export default TeamForm;
+export default withRouter(TeamForm);

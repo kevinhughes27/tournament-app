@@ -60,7 +60,7 @@ class FormButtons extends React.Component<Props> {
     if (this.props.delete) {
       return (
         <DeleteButton
-          disabled={false}
+          disabled={this.props.submitting}
           submitting={false}
           onClick={this.props.delete}
         />
