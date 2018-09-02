@@ -9,11 +9,10 @@ import DivisionPicker from "./DivisionPicker";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
+import Delete from "../../helpers/deleteHelper";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 import CreateTeamMutation from "../../mutations/CreateTeam";
 import DeleteTeamMutation from "../../mutations/DeleteTeam";
-import { showNotice } from "../../components/Notice";
-import { showErrors } from "../../components/ErrorBanner";
 
 interface Props extends RouteComponentProps<any> {
   input: UpdateTeamMutationVariables["input"] & CreateTeamMutationVariables["input"];
@@ -72,35 +71,12 @@ class TeamForm extends Form<Props> {
     if (!teamId) {
       return undefined;
     } else {
-      return () => {
-        DeleteTeamMutation.commit({input: {id: teamId}}).then((result: MutationResult) => {
-          this.deleteComplete(result);
-        }, (error: Error | undefined) => {
-          this.deleteError(error);
-        });
-      };
+      return Delete(
+        DeleteTeamMutation,
+        {input: {id: teamId}},
+        () => this.props.history.push("/teams"),
+      );
     }
-  }
-
-  deleteComplete = (result: MutationResult) => {
-    if (result.success) {
-      this.deleteSuccess(result);
-    } else {
-      this.deleteFailed(result);
-    }
-  }
-
-  deleteSuccess = (result: MutationResult) => {
-    showNotice(result.message);
-    this.props.history.push("/teams");
-  }
-
-  deleteFailed = (result: MutationResult) => {
-    showErrors(result.message);
-  }
-
-  deleteError = (error: Error | undefined) => {
-    showErrors(error && error.message || "Something went wrong.");
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
