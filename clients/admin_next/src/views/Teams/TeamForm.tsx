@@ -68,14 +68,14 @@ class TeamForm extends Form<Props> {
   delete = () => {
     const teamId = this.props.input.id;
 
-    if (!teamId) {
-      return undefined;
-    } else {
+    if (teamId) {
       return Delete(
         DeleteTeamMutation,
         {input: {id: teamId}},
         () => this.props.history.push("/teams"),
       );
+    } else {
+      return undefined;
     }
   }
 

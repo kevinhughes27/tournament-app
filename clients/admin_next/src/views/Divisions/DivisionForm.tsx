@@ -1,4 +1,5 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 import { isEmpty } from "lodash";
 
@@ -7,10 +8,12 @@ import BracketPicker from "./BracketPickerContainer";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
+import Delete from "../../helpers/deleteHelper";
 import CreateDivisionMutation from "../../mutations/CreateDivision";
 import UpdateDivisionMutation from "../../mutations/UpdateDivision";
+import DeleteDivisionMutation from "../../mutations/DeleteDivision";
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
   input: UpdateDivisionMutationVariables["input"] & CreateDivisionMutationVariables["input"];
 }
 
@@ -49,6 +52,20 @@ class DivisionForm extends Form<Props> {
       return UpdateDivisionMutation.commit({input: {id: divisionId, ...values}});
     } else {
       return CreateDivisionMutation.commit({input: {...values}});
+    }
+  }
+
+  delete = () => {
+    const divisionId = this.props.input.id;
+
+    if (divisionId) {
+      return Delete(
+        DeleteDivisionMutation,
+        {input: {id: divisionId}},
+        () => this.props.history.push("/divisions")
+      );
+    } else {
+      return undefined;
     }
   }
 
@@ -108,10 +125,11 @@ class DivisionForm extends Form<Props> {
           submitDisabled={!dirty || !isEmpty(errors)}
           submitting={isSubmitting}
           cancelLink={"/divisions"}
+          delete={this.delete()}
         />
       </form>
     );
   }
 }
 
-export default DivisionForm;
+export default withRouter(DivisionForm);

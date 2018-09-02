@@ -10,7 +10,9 @@ import EditableField from "./EditableField";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
+import DeleteFieldMutation from "../../mutations/DeleteField";
 import quadrilateralise from "./quadrilateralise";
+import Delete from "../../helpers/deleteHelper";
 import { showNotice } from "../../components/Notice";
 import { merge } from "lodash";
 
@@ -224,6 +226,14 @@ class FieldsEditor extends React.Component<Props, State> {
     this.runMutation(UpdateFieldMutation, payload);
   }
 
+  deleteField = () => {
+    return Delete(
+      DeleteFieldMutation,
+      {input: {id: this.state.editing.id}},
+      () => this.setState({mode: "view", editing: newField})
+    );
+  }
+
   /* Mutations */
   runMutation = async (mutation: any, payload: any) => {
     this.setState({submitting: true});
@@ -290,6 +300,7 @@ class FieldsEditor extends React.Component<Props, State> {
           saveMap={this.saveMap}
           createField={this.createField}
           saveField={this.saveField}
+          deleteField={this.deleteField()}
           cancel={this.cancelMode}
         />
       </FieldsEditorMap>

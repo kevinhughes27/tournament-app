@@ -13,6 +13,7 @@ interface Props {
   saveMap: () => void;
   createField: () => void;
   saveField: () => void;
+  deleteField: () => void;
   cancel: () => void;
 }
 
@@ -25,6 +26,7 @@ class FieldsEditorActions extends React.Component<Props> {
       saveMap,
       createField,
       saveField,
+      deleteField,
       cancel,
     } = this.props;
 
@@ -54,6 +56,7 @@ class FieldsEditorActions extends React.Component<Props> {
           submitDisabled={!valid}
           submitting={submitting}
           submit={saveField}
+          delete={deleteField}
           cancel={cancel}
         />
       );
