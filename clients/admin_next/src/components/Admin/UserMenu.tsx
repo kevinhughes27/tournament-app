@@ -1,4 +1,5 @@
 import * as React from "react";
+import Gravatar from 'react-gravatar';
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { UserMenu as styles } from "../../assets/jss/styles";
@@ -37,11 +38,15 @@ class UserMenu extends React.Component<Props, State> {
   }
 
   render() {
+    const { viewer } = this.props;
     const { open, anchorEl } = this.state;
+    const email = viewer && viewer.email
+    console.log('1111',email)
+
     return (
       <div>
         <IconButton onClick={this.handleOpen}>
-          <Avatar alt="Kevin Hughes" src="https://www.gravatar.com/avatar/a14e0880b9ef8720734a7db6b6c4ade0" />
+          <Gravatar email={email} />
         </IconButton>
         <Menu
           id="user-menu"
