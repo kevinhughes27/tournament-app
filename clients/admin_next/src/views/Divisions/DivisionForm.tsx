@@ -90,7 +90,7 @@ class DivisionForm extends Form<Props> {
           fullWidth
           value={values.name}
           onChange={handleChange}
-          helperText={formProps.errors.name}
+          helperText={errors.name}
         />
         <TextField
           name="numTeams"
@@ -101,7 +101,7 @@ class DivisionForm extends Form<Props> {
           fullWidth
           value={values.numTeams}
           onChange={handleChange}
-          helperText={formProps.errors.numTeams}
+          helperText={errors.numTeams}
         />
         <TextField
           name="numDays"
@@ -112,7 +112,7 @@ class DivisionForm extends Form<Props> {
           fullWidth
           value={values.numDays}
           onChange={handleChange}
-          helperText={formProps.errors.numDays}
+          helperText={errors.numDays}
         />
         <BracketPicker
           numTeams={values.numTeams}
@@ -122,7 +122,8 @@ class DivisionForm extends Form<Props> {
           onChange={handleChange}
         />
         <FormButtons
-          submitDisabled={!dirty || !isEmpty(errors)}
+          formDirty={dirty}
+          formValid={isEmpty(errors)}
           submitting={isSubmitting}
           cancelLink={"/divisions"}
           delete={this.delete()}

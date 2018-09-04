@@ -100,7 +100,7 @@ class TeamForm extends Form<Props> {
           fullWidth
           value={values.name}
           onChange={handleChange}
-          helperText={formProps.errors.name}
+          helperText={errors.name}
         />
         <TextField
           name="email"
@@ -110,13 +110,13 @@ class TeamForm extends Form<Props> {
           fullWidth
           value={values.email}
           onChange={handleChange}
-          helperText={formProps.errors.email}
+          helperText={errors.email}
         />
         <DivisionPicker
           divisionId={values.divisionId}
           divisions={divisions}
           onChange={handleChange}
-          helperText={formProps.errors.divisionId}
+          helperText={errors.divisionId}
         />
         <TextField
           name="seed"
@@ -127,10 +127,11 @@ class TeamForm extends Form<Props> {
           fullWidth
           value={values.seed}
           onChange={handleChange}
-          helperText={formProps.errors.seed}
+          helperText={errors.seed}
         />
         <FormButtons
-          submitDisabled={!dirty || !isEmpty(errors)}
+          formDirty={dirty}
+          formValid={isEmpty(errors)}
           submitting={isSubmitting}
           cancelLink={"/teams"}
           delete={this.delete()}

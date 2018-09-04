@@ -9,7 +9,8 @@ import CancelButton from "./CancelButton";
 interface Props extends WithStyles<typeof styles> {
   inline?: boolean;
   submitIcon?: JSX.Element;
-  submitDisabled: boolean;
+  formValid: boolean;
+  formDirty: boolean;
   submitting: boolean;
   submit?: () => void;
   delete?: () => void;
@@ -73,7 +74,7 @@ class FormButtons extends React.Component<Props> {
   renderSubmitButton = () => (
     <SubmitButton
       icon={this.props.submitIcon}
-      disabled={this.props.submitDisabled}
+      disabled={!this.props.formDirty || !this.props.formValid}
       submitting={this.props.submitting}
       onClick={this.props.submit}
     />

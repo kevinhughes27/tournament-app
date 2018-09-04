@@ -35,7 +35,8 @@ class FieldsEditorActions extends React.Component<Props> {
     } else if (mode === "editMap") {
       return (
         <FormButtons
-          submitDisabled={false}
+          formDirty={true}
+          formValid={true}
           submitting={submitting}
           submit={saveMap}
           cancel={cancel}
@@ -44,7 +45,8 @@ class FieldsEditorActions extends React.Component<Props> {
     } else if (mode === "addField") {
       return (
         <FormButtons
-          submitDisabled={!valid}
+          formDirty={true}
+          formValid={valid}
           submitting={submitting}
           submit={createField}
           cancel={cancel}
@@ -53,7 +55,8 @@ class FieldsEditorActions extends React.Component<Props> {
     } else if (mode === "editField") {
       return (
         <FormButtons
-          submitDisabled={!valid}
+          formDirty={true}
+          formValid={valid}
           submitting={submitting}
           submit={saveField}
           delete={deleteField}

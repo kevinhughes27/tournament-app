@@ -125,7 +125,8 @@ class TeamImportForm extends React.Component<Props, State> {
         <FormButtons
           inline
           submitIcon={<ImportIcon />}
-          submitDisabled={!this.state.data}
+          formDirty={true}
+          formValid={!!this.state.data}
           submitting={isSubmitting}
           cancel={this.props.closeModal}
         />

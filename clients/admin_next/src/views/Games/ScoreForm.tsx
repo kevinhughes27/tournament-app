@@ -1,5 +1,6 @@
 import * as React from "react";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
+import { isEmpty } from "lodash";
 
 import TextField from "@material-ui/core/TextField";
 import FormButtons from "../../components/FormButtons";
@@ -55,8 +56,6 @@ class ScoreForm extends Form<Props> {
       isSubmitting
     } = formProps;
 
-    const hasErrors = Object.keys(errors).length !== 0;
-
     return (
       <form onSubmit={handleSubmit}>
         <TextField
@@ -68,7 +67,7 @@ class ScoreForm extends Form<Props> {
           fullWidth
           value={values.homeScore}
           onChange={handleChange}
-          helperText={formProps.errors.homeScore && formProps.errors.homeScore}
+          helperText={errors.homeScore}
         />
         <TextField
           name="awayScore"
@@ -79,10 +78,11 @@ class ScoreForm extends Form<Props> {
           fullWidth
           value={values.awayScore}
           onChange={handleChange}
-          helperText={formProps.errors.awayScore && formProps.errors.awayScore}
+          helperText={errors.awayScore}
         />
         <FormButtons
-          submitDisabled={!dirty || hasErrors}
+          formDirty={dirty}
+          formValid={isEmpty(errors)}
           submitting={isSubmitting}
           cancelLink={"/games"}
         />

@@ -1,5 +1,7 @@
 import * as React from "react";
-import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
+import { Formik, FormikValues, FormikProps, FormikErrors, FormikActions } from "formik";
+import { isEmpty } from "lodash";
+
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Modal from "../../../components/Modal";
@@ -32,6 +34,36 @@ class SettingsModal extends React.Component<Props> {
     };
   }
 
+  validate = (values: FormikValues) => {
+    const errors: FormikErrors<FormikValues> = {};
+
+    if (!values.scheduleStart) {
+      errors.scheduleStart = "Required";
+    } else if (values.scheduleStart <= 0) {
+      errors.scheduleStart = "Invalid Entry";
+    }
+
+    if (!values.scheduleEnd) {
+      errors.scheduleEnd = "Required";
+    } else if (values.scheduleEnd <= 0) {
+      errors.scheduleEnd = "Invalid Entry";
+    }
+
+    if (!values.scheduleInc) {
+      errors.scheduleInc = "Required";
+    } else if (values.scheduleInc <= 0) {
+      errors.scheduleInc = "Invalid Entry";
+    }
+
+    if (!values.defaultGameLength) {
+      errors.defaultGameLength = "Required";
+    } else if (values.defaultGameLength <= 0) {
+      errors.defaultGameLength = "Invalid Entry";
+    }
+
+    return errors;
+  }
+
   onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
     Settings.update(values);
     Settings.save();
@@ -54,6 +86,7 @@ class SettingsModal extends React.Component<Props> {
         >
           <Formik
             initialValues={this.initialValues()}
+            validate={this.validate}
             onSubmit={this.onSubmit}
             render={this.renderForm}
           />
@@ -66,6 +99,7 @@ class SettingsModal extends React.Component<Props> {
     const {
       dirty,
       values,
+      errors,
       handleChange,
       handleSubmit,
       isSubmitting,
@@ -82,6 +116,7 @@ class SettingsModal extends React.Component<Props> {
           fullWidth
           value={values.scheduleStart}
           onChange={handleChange}
+          helperText={errors.scheduleStart}
         />
         <TextField
           name="scheduleEnd"
@@ -92,6 +127,7 @@ class SettingsModal extends React.Component<Props> {
           fullWidth
           value={values.scheduleEnd}
           onChange={handleChange}
+          helperText={errors.scheduleEnd}
         />
         <TextField
           name="scheduleInc"
@@ -102,6 +138,7 @@ class SettingsModal extends React.Component<Props> {
           fullWidth
           value={values.scheduleInc}
           onChange={handleChange}
+          helperText={errors.scheduleInc}
         />
         <TextField
           name="defaultGameLength"
@@ -112,10 +149,12 @@ class SettingsModal extends React.Component<Props> {
           fullWidth
           value={values.defaultGameLength}
           onChange={handleChange}
+          helperText={errors.defaultGameLength}
         />
         <FormButtons
           inline
-          submitDisabled={!dirty}
+          formDirty={dirty}
+          formValid={isEmpty(errors)}
           submitting={isSubmitting}
           cancel={this.handleClose}
         />
