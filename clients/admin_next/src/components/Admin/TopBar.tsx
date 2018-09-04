@@ -11,11 +11,12 @@ import UserMenu from "./UserMenu";
 
 interface Props extends WithStyles<typeof styles> {
   openNav: (event: React.SyntheticEvent<{}>) => void;
+  viewer: (event: React.SyntheticEvent<{}>) => void;
 }
 
 class TopBar extends React.Component<Props> {
   render() {
-    const { classes, viewer } = this.props;
+    const { classes } = this.props;
 
     return (
       <AppBar position="static">
@@ -26,7 +27,7 @@ class TopBar extends React.Component<Props> {
           <Typography variant="title" className={classes.title}>
             Ultimate Tournament
           </Typography>
-          <UserMenu viewer={viewer} />
+          <UserMenu viewer={this.props.viewer} />
         </Toolbar>
       </AppBar>
     );

@@ -60,6 +60,7 @@
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.4.0",
     "react-file-download": "^0.3.5",
+    "react-gravatar": "^2.6.3",
     "react-join": "^1.1.4",
     "react-leaflet": "^1.9.1",
     "react-leaflet-control": "kevinhughes27/react-leaflet-control#master",
