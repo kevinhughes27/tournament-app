@@ -230,7 +230,10 @@ class FieldsEditor extends React.Component<Props, State> {
     return Delete(
       DeleteFieldMutation,
       {input: {id: this.state.editing.id}},
-      () => this.setState({mode: "view", editing: newField})
+      () => {
+        EditableField.clear();
+        this.setState({mode: "view", editing: newField});
+      }
     );
   }
 
