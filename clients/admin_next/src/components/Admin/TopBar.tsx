@@ -11,7 +11,8 @@ import UserMenu from "./UserMenu";
 
 interface Props extends WithStyles<typeof styles> {
   openNav: (event: React.SyntheticEvent<{}>) => void;
-  viewer: (event: React.SyntheticEvent<{}>) => void;
+  viewer: UserMenu_viewer;
+
 }
 
 class TopBar extends React.Component<Props> {

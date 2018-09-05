@@ -21,6 +21,7 @@
   "cacheDirectories": [
     "node_modules",
     "client/node_modules",
+    "clients/player_app/node_modules",
     "clients/admin_next/node_modules"
   ]
 }
