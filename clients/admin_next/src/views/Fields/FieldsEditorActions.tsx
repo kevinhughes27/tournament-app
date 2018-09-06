@@ -1,6 +1,6 @@
 import * as React from "react";
 import ActionMenu from "../../components/ActionMenu";
-import SubmitButton from "../../components/SubmitButton";
+import FormButtons from "../../components/FormButtons";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -13,6 +13,8 @@ interface Props {
   saveMap: () => void;
   createField: () => void;
   saveField: () => void;
+  deleteField: () => void;
+  cancel: () => void;
 }
 
 class FieldsEditorActions extends React.Component<Props> {
@@ -24,32 +26,37 @@ class FieldsEditorActions extends React.Component<Props> {
       saveMap,
       createField,
       saveField,
+      deleteField,
+      cancel,
     } = this.props;
 
     if (mode === "view") {
       return this.viewActions();
     } else if (mode === "editMap") {
       return (
-        <SubmitButton
-          disabled={false}
+        <FormButtons
           submitting={submitting}
-          onClick={saveMap}
+          submit={saveMap}
+          cancel={cancel}
         />
       );
     } else if (mode === "addField") {
       return (
-        <SubmitButton
-          disabled={!valid}
+        <FormButtons
+          formValid={valid}
           submitting={submitting}
-          onClick={createField}
+          submit={createField}
+          cancel={cancel}
         />
       );
     } else if (mode === "editField") {
       return (
-        <SubmitButton
-          disabled={!valid}
+        <FormButtons
+          formValid={valid}
           submitting={submitting}
-          onClick={saveField}
+          submit={saveField}
+          delete={deleteField}
+          cancel={cancel}
         />
       );
     } else {

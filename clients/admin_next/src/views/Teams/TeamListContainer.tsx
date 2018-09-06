@@ -9,7 +9,7 @@ const query = graphql`
       ...TeamList_teams
     },
     divisions {
-      ...TeamImport_divisions
+      ...TeamList_divisions
     }
   }
 `;

@@ -111,7 +111,7 @@ const ActionMenu = (theme: Theme) => createStyles({
   }
 });
 
-const SubmitButton = (theme: Theme) => createStyles({
+const FormButtons = (theme: Theme) => createStyles({
   fab: {
     position: "fixed",
     bottom: theme.spacing.unit * 2,
@@ -121,6 +121,23 @@ const SubmitButton = (theme: Theme) => createStyles({
   inline: {
     marginTop: 20,
     float: "right"
+  },
+  cancelButton: {
+    lineHeight: "24px",
+    color: "white",
+    textDecoration: "none",
+    marginRight: 10
+  },
+  cancelLink: {
+    color: "white",
+    textDecoration: "none",
+  },
+  deleteButton: {
+    "backgroundColor": "#F44336",
+    "marginRight": 10,
+    "&:hover": {
+      backgroundColor: "#E53935"
+    }
   },
   disabled: {
     backgroundColor: "rgba(189, 189, 189, 0.8) !important"
@@ -154,6 +171,6 @@ export {
   BlankSlate,
   Breadcrumbs,
   ActionMenu,
-  SubmitButton,
+  FormButtons,
   ErrorBanner
 };

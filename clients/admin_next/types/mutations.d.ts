@@ -13,7 +13,7 @@ interface SchedulingResult {
 
 interface MutationResult {
   readonly success: boolean;
-  readonly message: string | null;
+  readonly message: string;
   readonly userErrors: ReadonlyArray<{
       readonly field: string;
       readonly message: string;

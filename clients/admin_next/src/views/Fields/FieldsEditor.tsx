@@ -10,7 +10,9 @@ import EditableField from "./EditableField";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
+import DeleteFieldMutation from "../../mutations/DeleteField";
 import quadrilateralise from "./quadrilateralise";
+import Delete from "../../helpers/deleteHelper";
 import { showNotice } from "../../components/Notice";
 import { merge } from "lodash";
 
@@ -96,6 +98,12 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({mode: "editField", editing: field});
   }
 
+  cancelMode = () => {
+    EditableField.clear();
+    this.historyBuffer = [];
+    this.setState({mode: "view", editing: newField});
+  }
+
   /* Leaflet event handlers */
   startDrawingMobile = (event: Leaflet.LeafletMouseEvent) => {
     this.map!.editTools.startPolygon(event.latlng);
@@ -155,12 +163,17 @@ class FieldsEditor extends React.Component<Props, State> {
     event.cancel();
   }
 
+  // auto complete the polygon on the 4th vertex
   autoComplete = (event: Leaflet.LeafletLayerEvent) => {
     const polygon = event.layer as Leaflet.MultiPolygon;
     const verticies = polygon.getLatLngs()[0];
 
     if (verticies.length === 4) {
-      this.map!.editTools.commitDrawing(); // auto complete the polygon on the 4th vertex
+      this.map!.editTools.stopDrawing();
+
+      this.setEditingState(polygon.toGeoJSON());
+      this.map!.removeLayer(polygon);
+
       this.map!.off("contextmenu", this.startDrawingMobile); // cleanup
       this.map!.off("editable:drawing:clicked", this.autoComplete); // cleanup
     }
@@ -211,6 +224,17 @@ class FieldsEditor extends React.Component<Props, State> {
   saveField = () => {
     const payload = this.state.editing;
     this.runMutation(UpdateFieldMutation, payload);
+  }
+
+  deleteField = () => {
+    return Delete(
+      DeleteFieldMutation,
+      {input: {id: this.state.editing.id}},
+      () => {
+        EditableField.clear();
+        this.setState({mode: "view", editing: newField});
+      }
+    );
   }
 
   /* Mutations */
@@ -279,6 +303,8 @@ class FieldsEditor extends React.Component<Props, State> {
           saveMap={this.saveMap}
           createField={this.createField}
           saveField={this.saveField}
+          deleteField={this.deleteField()}
+          cancel={this.cancelMode}
         />
       </FieldsEditorMap>
     );

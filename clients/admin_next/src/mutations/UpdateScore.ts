@@ -24,20 +24,16 @@ function getOptimisticResponse(variables: UpdateScoreMutationVariables) {
 function blindTrustUpdater(store: RecordSourceSelectorProxy) {
   const payload = store.getRootField("updateScore");
 
-  if (payload) {
-    const input = JSON.parse(
-      payload.getDataID()
-        .replace("client:root:updateScore(input:", "")
-        .replace(")", "")
-    );
+  const input = JSON.parse(
+    payload!.getDataID()
+      .replace("client:root:updateScore(input:", "")
+      .replace(")", "")
+  );
 
-    const game = store.get(input.gameId);
+  const game = store.get(input.gameId);
 
-    if (game) {
-      game.setValue(input.homeScore, "homeScore");
-      game.setValue(input.awayScore, "awayScore");
-    }
-  }
+  game!.setValue(input.homeScore, "homeScore");
+  game!.setValue(input.awayScore, "awayScore");
 }
 
 function commit(

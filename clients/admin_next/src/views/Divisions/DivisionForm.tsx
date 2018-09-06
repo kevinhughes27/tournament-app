@@ -1,16 +1,19 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 import { isEmpty } from "lodash";
 
 import TextField from "@material-ui/core/TextField";
 import BracketPicker from "./BracketPickerContainer";
-import SubmitButton from "../../components/SubmitButton";
+import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
+import Delete from "../../helpers/deleteHelper";
 import CreateDivisionMutation from "../../mutations/CreateDivision";
 import UpdateDivisionMutation from "../../mutations/UpdateDivision";
+import DeleteDivisionMutation from "../../mutations/DeleteDivision";
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
   input: UpdateDivisionMutationVariables["input"] & CreateDivisionMutationVariables["input"];
 }
 
@@ -52,6 +55,20 @@ class DivisionForm extends Form<Props> {
     }
   }
 
+  delete = () => {
+    const divisionId = this.props.input.id;
+
+    if (divisionId) {
+      return Delete(
+        DeleteDivisionMutation,
+        {input: {id: divisionId}},
+        () => this.props.history.push("/divisions")
+      );
+    } else {
+      return undefined;
+    }
+  }
+
   renderForm = (formProps: FormikProps<FormikValues>) => {
     const {
       values,
@@ -73,7 +90,7 @@ class DivisionForm extends Form<Props> {
           fullWidth
           value={values.name}
           onChange={handleChange}
-          helperText={formProps.errors.name}
+          helperText={errors.name}
         />
         <TextField
           name="numTeams"
@@ -84,7 +101,7 @@ class DivisionForm extends Form<Props> {
           fullWidth
           value={values.numTeams}
           onChange={handleChange}
-          helperText={formProps.errors.numTeams}
+          helperText={errors.numTeams}
         />
         <TextField
           name="numDays"
@@ -95,7 +112,7 @@ class DivisionForm extends Form<Props> {
           fullWidth
           value={values.numDays}
           onChange={handleChange}
-          helperText={formProps.errors.numDays}
+          helperText={errors.numDays}
         />
         <BracketPicker
           numTeams={values.numTeams}
@@ -104,13 +121,16 @@ class DivisionForm extends Form<Props> {
           setValue={setFieldValue}
           onChange={handleChange}
         />
-        <SubmitButton
-          disabled={!dirty || !isEmpty(errors)}
+        <FormButtons
+          formDirty={dirty}
+          formValid={isEmpty(errors)}
           submitting={isSubmitting}
+          cancelLink={"/divisions"}
+          delete={this.delete()}
         />
       </form>
     );
   }
 }
 
-export default DivisionForm;
+export default withRouter(DivisionForm);
