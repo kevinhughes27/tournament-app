@@ -9,8 +9,8 @@ import CancelButton from "./CancelButton";
 interface Props extends WithStyles<typeof styles> {
   inline?: boolean;
   submitIcon?: JSX.Element;
-  formValid: boolean;
-  formDirty: boolean;
+  formValid?: boolean;
+  formDirty?: boolean;
   submitting: boolean;
   submit?: () => void;
   delete?: () => void;
@@ -19,6 +19,12 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 class FormButtons extends React.Component<Props> {
+  static defaultProps = {
+    inline: false,
+    formDirty: true,
+    formValid: true
+  };
+
   render() {
     const { inline, classes, theme } = this.props;
 
