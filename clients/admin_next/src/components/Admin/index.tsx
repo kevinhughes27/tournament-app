@@ -1,19 +1,14 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Admin as styles } from "../../assets/jss/styles";
-
-import TopBar from "./TopBar";
-import SideBar from "./SideBar";
 import Notice from "../Notice";
+import SideBar from "./SideBar";
+import TopBar from "./TopBar";
 import Routes from "../../views/routes";
-
-interface Props extends WithStyles<typeof styles> {}
 
 interface State {
   navOpen: boolean;
 }
 
-class Admin extends React.Component<Props, State> {
+class Admin extends React.Component<{}, State> {
   state = {
     navOpen: false,
   };
@@ -27,21 +22,19 @@ class Admin extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.root}>
+      <div>
         <TopBar openNav={this.openNav} />
         <SideBar
           open={this.state.navOpen}
           handleOpen={this.openNav}
           handleClose={this.closeNave}
         />
-        <Notice />
+        <Notice/>
         <Routes/>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(Admin);
+export default Admin;

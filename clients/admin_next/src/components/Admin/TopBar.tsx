@@ -1,13 +1,12 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { TopBar as styles } from "../../assets/jss/styles";
-
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import UserMenu from "./UserMenu";
+import UserMenuContainer from "./UserMenuContainer";
 
 interface Props extends WithStyles<typeof styles> {
   openNav: (event: React.SyntheticEvent<{}>) => void;
@@ -26,7 +25,7 @@ class TopBar extends React.Component<Props> {
           <Typography variant="title" className={classes.title}>
             Ultimate Tournament
           </Typography>
-          <UserMenu />
+          <UserMenuContainer />
         </Toolbar>
       </AppBar>
     );

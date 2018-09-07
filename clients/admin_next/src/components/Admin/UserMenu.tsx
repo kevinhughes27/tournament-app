@@ -1,16 +1,16 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { UserMenu as styles } from "../../assets/jss/styles";
-
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-
+import gravatarUrl from "gravatar-url";
 import auth from "../../auth";
 
-type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {};
+interface Props extends RouteComponentProps<{}> {
+  viewer: UserMenu_viewer;
+}
 
 interface State {
   open: boolean;
@@ -38,11 +38,13 @@ class UserMenu extends React.Component<Props, State> {
 
   render() {
     const { open, anchorEl } = this.state;
+    const email = this.props.viewer && this.props.viewer.email;
+    const avatarUrl = gravatarUrl(email, {size: 50});
 
     return (
       <div>
         <IconButton onClick={this.handleOpen}>
-          <Avatar alt="Kevin Hughes" src="https://www.gravatar.com/avatar/a14e0880b9ef8720734a7db6b6c4ade0" />
+        <Avatar alt={email} src={avatarUrl} />
         </IconButton>
         <Menu
           id="user-menu"
@@ -61,4 +63,12 @@ class UserMenu extends React.Component<Props, State> {
   }
 }
 
-export default withRouter(withStyles(styles)(UserMenu));
+export default createFragmentContainer(withRouter(UserMenu), {
+  viewer: graphql`
+    fragment UserMenu_viewer on User {
+      id
+      name
+      email
+    }
+  `
+});

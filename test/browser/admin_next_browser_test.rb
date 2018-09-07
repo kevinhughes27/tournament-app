@@ -63,8 +63,7 @@ class AdminNextBrowserTest < BrowserTest
   end
 
   def logout
-    username = 'Kevin Hughes'
-    find("img[alt='#{username}']").click
+    find("img[alt='#{@user.email}']").click
     click_text('Logout')
     assert_text 'Log in to manage your tournament'
   end
