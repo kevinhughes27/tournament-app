@@ -1,5 +1,5 @@
 import * as React from "react";
-import  * as Gravatar from "react-gravatar";
+import * as Gravatar from "react-gravatar";
 import {createFragmentContainer, graphql} from "react-relay";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
