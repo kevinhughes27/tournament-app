@@ -12,6 +12,10 @@ import auth from "../../auth";
 
 type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {};
 
+interface Props extends WithStyles<typeof styles> {
+  viewer: UserMenu_viewer;
+}
+
 interface State {
   open: boolean;
   anchorEl: any;
