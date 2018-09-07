@@ -1,7 +1,7 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { TopBar as styles } from "../../assets/jss/styles";
-
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,7 +11,7 @@ import UserMenu from "./UserMenu";
 
 interface Props extends WithStyles<typeof styles> {
   openNav: (event: React.SyntheticEvent<{}>) => void;
-  viewer: UserMenu_viewer;
+  viewer: TopBar_viewer;
 }
 
 class TopBar extends React.Component<Props> {
@@ -34,4 +34,12 @@ class TopBar extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(TopBar);
+const StyledTopBar = withStyles(styles)(TopBar);
+
+export default createFragmentContainer(StyledTopBar,  {
+  viewer: graphql`
+    fragment TopBar_viewer on User {
+      ...UserMenu_viewer
+    }
+  `
+});

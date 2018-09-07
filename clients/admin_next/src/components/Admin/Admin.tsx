@@ -1,15 +1,15 @@
 import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { RouteComponentProps } from "react-router-dom";
 import { Admin as styles } from "../../assets/jss/styles";
 import Notice from "../Notice";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
 import Routes from "../../views/routes";
 
-type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {
-  viewer: UserMenu_viewer;
-};
+interface Props extends WithStyles<typeof styles> {
+  viewer: Admin_viewer;
+}
 
 interface State {
   navOpen: boolean;
@@ -30,7 +30,8 @@ class Admin extends React.Component<Props, State> {
 
   render() {
     const {classes} = this.props;
-    return(
+
+    return (
       <div className={classes.root}>
         <TopBar
           openNav={this.openNav}
@@ -48,4 +49,12 @@ class Admin extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(Admin);
+const StyledAdmin = withStyles(styles)(Admin);
+
+export default createFragmentContainer(StyledAdmin, {
+  viewer: graphql`
+    fragment Admin_viewer on User {
+      ...TopBar_viewer
+    }
+  `
+});
