@@ -20,12 +20,6 @@ const Login = {
   }
 };
 
-const Admin = {
-  root: {
-    flexGrow: 1
-  }
-};
-
 const TopBar = {
   title: {
     flex: 1,
@@ -37,10 +31,6 @@ const TopBar = {
     marginRight: 20,
   },
 };
-
-const UserMenu = {};
-
-const SideBar = {};
 
 const NavItems = {
   list: {
@@ -161,10 +151,7 @@ const ErrorBanner = {
 
 export {
   Login,
-  Admin,
   TopBar,
-  UserMenu,
-  SideBar,
   NavItems,
   Loader,
   Modal,

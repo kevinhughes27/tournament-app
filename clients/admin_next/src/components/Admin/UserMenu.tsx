@@ -1,8 +1,6 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { UserMenu as styles } from "../../assets/jss/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
@@ -10,9 +8,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import gravatarUrl from "gravatar-url";
 import auth from "../../auth";
 
-type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {
+interface Props extends RouteComponentProps<{}> {
   viewer: UserMenu_viewer;
-};
+}
 
 interface State {
   open: boolean;
@@ -65,9 +63,7 @@ class UserMenu extends React.Component<Props, State> {
   }
 }
 
-const StyledUserMenu = withStyles(styles)(UserMenu);
-
-export default createFragmentContainer(withRouter(StyledUserMenu), {
+export default createFragmentContainer(withRouter(UserMenu), {
   viewer: graphql`
     fragment UserMenu_viewer on User {
       id

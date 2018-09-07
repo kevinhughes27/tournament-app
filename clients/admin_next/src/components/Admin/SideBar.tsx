@@ -1,11 +1,8 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { SideBar as styles } from "../../assets/jss/styles";
-
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import NavItems from "./NavItems";
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   open: boolean;
   handleOpen: (event: React.SyntheticEvent<{}>) => void;
   handleClose: (event: React.SyntheticEvent<{}>) => void;
@@ -32,4 +29,4 @@ class SideBar extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(SideBar);
+export default SideBar;
