@@ -1,20 +1,17 @@
 import * as React from "react";
-import Gravatar from "react-gravatar";
+import  * as Gravatar from "react-gravatar";
 import {createFragmentContainer, graphql} from "react-relay";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { UserMenu as styles } from "../../assets/jss/styles";
 import IconButton from "@material-ui/core/IconButton";
-import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import auth from "../../auth";
 
-type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {};
-
-interface Props extends WithStyles<typeof styles> {
+type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {
   viewer: UserMenu_viewer;
-}
+};
 
 interface State {
   open: boolean;
@@ -41,9 +38,8 @@ class UserMenu extends React.Component<Props, State> {
   }
 
   render() {
-    const { viewer } = this.props;
     const { open, anchorEl } = this.state;
-    const email = viewer && viewer.email;
+    const email = this.props.viewer && this.props.viewer.email;
     return (
       <div>
         <IconButton onClick={this.handleOpen}>

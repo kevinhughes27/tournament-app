@@ -1,15 +1,15 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
+import { RouteComponentProps } from "react-router-dom";
 import { Admin as styles } from "../../assets/jss/styles";
 import Notice from "../Notice";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
-import UserMenu from "./UserMenu";
 import Routes from "../../views/routes";
 
-interface Props extends WithStyles<typeof styles> {
+type Props = RouteComponentProps<{}> & WithStyles<typeof styles> & {
   viewer: UserMenu_viewer;
-}
+};
 
 interface State {
   navOpen: boolean;
