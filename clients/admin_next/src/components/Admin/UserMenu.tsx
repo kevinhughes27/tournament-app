@@ -71,4 +71,3 @@ export default createFragmentContainer(withRouter(withStyles(styles)(UserMenu)),
     }
   `
 });
-
