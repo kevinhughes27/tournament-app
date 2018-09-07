@@ -71,14 +71,19 @@ function exportTypes() {
   function endings(starts, code) {
     let a=[];
     starts.forEach(function(start) {
-      let searchString = code.substring(start);
+      const searchString = code.substring(start);
 
-      let oneLiner = searchString.search(/= {};/g);
+      const oneLiner = searchString.search(/= {};/g);
+      const refType = searchString.search(/typeof/g);
+
       if (oneLiner !== -1) {
         a.push(start + oneLiner + 6);
+      } else if(refType !== -1) {
+        const endLineIdx = searchString.search(";\n");
+        a.push(start + endLineIdx + 1);
       } else {
-        let closeBraceIdx = searchString.search(/^}/gm)
-        let endLineIdx = searchString.substring(closeBraceIdx).indexOf("\n");
+        const closeBraceIdx = searchString.search(/^}/gm)
+        const endLineIdx = searchString.substring(closeBraceIdx).indexOf("\n");
         a.push(start + closeBraceIdx + endLineIdx + 1);
       }
     });

@@ -1,19 +1,22 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 import * as EmailValidator from "email-validator";
 import { isEmpty } from "lodash";
 
 import TextField from "@material-ui/core/TextField";
 import DivisionPicker from "./DivisionPicker";
-import SubmitButton from "../../components/SubmitButton";
+import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
+import Delete from "../../helpers/deleteHelper";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 import CreateTeamMutation from "../../mutations/CreateTeam";
+import DeleteTeamMutation from "../../mutations/DeleteTeam";
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
   input: UpdateTeamMutationVariables["input"] & CreateTeamMutationVariables["input"];
-  divisions: DivisionPicker_divisions;
+  divisions: TeamShow_divisions | TeamNew_divisions;
 }
 
 class TeamForm extends Form<Props> {
@@ -62,6 +65,20 @@ class TeamForm extends Form<Props> {
     }
   }
 
+  delete = () => {
+    const teamId = this.props.input.id;
+
+    if (teamId) {
+      return Delete(
+        DeleteTeamMutation,
+        {input: {id: teamId}},
+        () => this.props.history.push("/teams"),
+      );
+    } else {
+      return undefined;
+    }
+  }
+
   renderForm = (formProps: FormikProps<FormikValues>) => {
     const { divisions } = this.props;
     const {
@@ -83,7 +100,7 @@ class TeamForm extends Form<Props> {
           fullWidth
           value={values.name}
           onChange={handleChange}
-          helperText={formProps.errors.name}
+          helperText={errors.name}
         />
         <TextField
           name="email"
@@ -93,13 +110,13 @@ class TeamForm extends Form<Props> {
           fullWidth
           value={values.email}
           onChange={handleChange}
-          helperText={formProps.errors.email}
+          helperText={errors.email}
         />
         <DivisionPicker
           divisionId={values.divisionId}
           divisions={divisions}
           onChange={handleChange}
-          helperText={formProps.errors.divisionId}
+          helperText={errors.divisionId}
         />
         <TextField
           name="seed"
@@ -110,15 +127,18 @@ class TeamForm extends Form<Props> {
           fullWidth
           value={values.seed}
           onChange={handleChange}
-          helperText={formProps.errors.seed}
+          helperText={errors.seed}
         />
-        <SubmitButton
-          disabled={!dirty || !isEmpty(errors)}
+        <FormButtons
+          formDirty={dirty}
+          formValid={isEmpty(errors)}
           submitting={isSubmitting}
+          cancelLink={"/teams"}
+          delete={this.delete()}
         />
       </form>
     );
   }
 }
 
-export default TeamForm;
+export default withRouter(TeamForm);

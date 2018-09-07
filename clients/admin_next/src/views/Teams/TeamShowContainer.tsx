@@ -16,7 +16,7 @@ class TeamShowContainer extends React.Component<Props> {
           ...TeamShow_team
         }
         divisions {
-          ...DivisionPicker_divisions
+          ...TeamShow_divisions
         }
       }
     `;

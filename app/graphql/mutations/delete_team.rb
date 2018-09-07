@@ -6,6 +6,6 @@ class Mutations::DeleteTeam < Mutations::BaseMutation
   field :success, Boolean, null: false
   field :confirm, Boolean, null: true
   field :not_allowed, Boolean, null: true
-  field :message, String, null: true
+  field :message, String, null: false
   field :userErrors, [Types::Error], null: true
 end

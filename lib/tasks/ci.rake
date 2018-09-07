@@ -8,7 +8,7 @@ namespace :ci do
 
   task :bundle_audit do
     puts Rainbow("Running security audit on gems (bundle_audit)").green
-    sh "bundle exec bundle-audit update && bundle exec bundle-audit check --ignore CVE-2018-1000544"
+    sh "bundle exec bundle-audit update && bundle exec bundle-audit check"
   end
 
   task :nsp_check do

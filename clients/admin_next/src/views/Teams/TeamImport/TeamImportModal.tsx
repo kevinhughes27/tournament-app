@@ -56,7 +56,7 @@ class TeamImportModal extends React.Component<Props> {
     } else if (this.importer.started) {
       return <TeamImportStatus progress={this.importer.progress} errors={this.importer.errors} />;
     } else {
-      return <TeamImportForm startImport={this.startImport} />;
+      return <TeamImportForm startImport={this.startImport} closeModal={this.onClose} />;
     }
   }
 }
