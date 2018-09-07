@@ -11,6 +11,10 @@ interface State {
   navOpen: boolean;
 }
 
+interface Props extends WithStyles<typeof styles> {
+  viewer: UserMenu_viewer;
+}
+
 class Admin extends React.Component<Props, State> {
   state = {
     navOpen: false,
@@ -30,7 +34,7 @@ class Admin extends React.Component<Props, State> {
         <div className={classes.root}>
           <TopBar
             openNav={this.openNav}
-            viewer={this.props && this.props.viewer}
+            viewer={this.props.viewer}
           />
           <SideBar
             open={this.state.navOpen}
