@@ -1,12 +1,11 @@
 import * as React from "react";
-import * as moment from "moment";
 import Input from "./Input";
 import ReactDatePicker from "react-datepicker";
 
 interface Props {
-  selected: moment.Moment;
-  highlightDates: moment.Moment[];
-  onChange: (date: moment.Moment) => void;
+  selected: Date;
+  highlightDates: Date[];
+  onChange: (date: Date) => void;
 }
 
 class DatePicker extends React.Component<Props> {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as moment from "moment";
+import { parse, format, addMinutes, setMinutes, differenceInMinutes, isSameDay } from "date-fns";
 import { sortBy, filter, map } from "lodash";
 import {
   DropTarget,
@@ -18,7 +18,7 @@ import ScheduleGameMutation from "../../../mutations/ScheduleGame";
 import UnscheduleGameMutation from "../../../mutations/UnscheduleGame";
 
 interface Props {
-  date: string;
+  date: Date;
   fieldId: string;
   games: ScheduledGame[];
   isOver?: boolean;
@@ -26,7 +26,7 @@ interface Props {
 }
 
 interface State {
-  hoverTime: moment.Moment | null;
+  hoverTime: Date | null;
   resizingGame: ScheduledGame | null;
   gameLength: number;
   gameErrors: Set<string>;
@@ -80,7 +80,7 @@ class FieldColumn extends React.Component<Props, State> {
     const percentY = (monitor.getClientOffset()!.y - rect.top) / rect.height;
     const hours = percentY * (Settings.scheduleLength()) + Settings.scheduleStart;
     const slot = Settings.scheduleInc * Math.round(hours * 60 / Settings.scheduleInc);
-    const hoverTime = moment(this.props.date, "LL").minutes(slot);
+    const hoverTime = setMinutes(this.props.date, slot);
 
     this.setState({
       gameLength: Settings.defaultGameLength,
@@ -94,8 +94,8 @@ class FieldColumn extends React.Component<Props, State> {
     if (hoverTime) {
       const gameId = game.id;
       const fieldId = this.props.fieldId;
-      const startTime = hoverTime.format("YYYY-MM-DDTHH:mm");
-      const endTime = hoverTime.add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
+      const startTime = format(hoverTime, "YYYY-MM-DDTHH:mm");
+      const endTime = format(addMinutes(hoverTime, gameLength), "YYYY-MM-DDTHH:mm");
 
       runMutation(
         ScheduleGameMutation,
@@ -125,14 +125,14 @@ class FieldColumn extends React.Component<Props, State> {
       const percentY = (ev.clientY - rect.top) / rect.height;
       const hours = percentY * (Settings.scheduleLength()) + Settings.scheduleStart;
       const slot = Settings.scheduleInc * Math.round(hours * 60 / Settings.scheduleInc);
-      const endTime = moment(this.props.date, "LL").minutes(slot);
-      const startTime = moment.parseZone(game.startTime).format("YYYY-MM-DDTHH:mm");
+      const endTime = setMinutes(this.props.date, slot);
+      const startTime = format(parse(game.startTime, "LL", new Date()), "YYYY-MM-DDTHH:mm");
 
-      if (moment.duration(endTime.diff(startTime)).asMinutes() < Settings.scheduleInc) {
+      const gameLength = differenceInMinutes(startTime, endTime);
+
+      if (gameLength < Settings.scheduleInc) {
         return;
       }
-
-      const gameLength = moment.duration(endTime.diff(startTime)).asMinutes();
 
       this.setState({gameLength});
     }
@@ -145,8 +145,8 @@ class FieldColumn extends React.Component<Props, State> {
       const gameId = game.id;
       const fieldId = game.field.id;
       const { gameLength } = this.state;
-      const startTime = moment.parseZone(game.startTime).format("YYYY-MM-DDTHH:mm");
-      const endTime = moment.parseZone(game.startTime).add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
+      const startTime = format(new Date(game.startTime), "YYYY-MM-DDTHH:mm");
+      const endTime = format(addMinutes(new Date(game.startTime), gameLength), "YYYY-MM-DDTHH:mm");
 
       runMutation(
         ScheduleGameMutation,
@@ -176,8 +176,8 @@ class FieldColumn extends React.Component<Props, State> {
 
   render() {
     const { connectDropTarget, date, games } = this.props;
-    const filteredGames = filter(games, (g) => moment(date, "LL").isSame(g.startTime, "day"));
-    const sortedGames = sortBy(filteredGames, (g) => moment(g.startTime));
+    const filteredGames = filter(games, (g) => isSameDay(date, g.startTime));
+    const sortedGames = sortBy(filteredGames, (g) => new Date(g.startTime));
 
     return connectDropTarget!(
       <div className="field-column">
@@ -199,7 +199,7 @@ class FieldColumn extends React.Component<Props, State> {
     const hasError = this.state.gameErrors.has(game.id);
     const gameLength = (game === this.state.resizingGame)
       ? this.state.gameLength
-      : moment.duration(moment(game.endTime).diff(game.startTime)).asMinutes();
+      : differenceInMinutes(game.startTime, game.endTime);
 
     return (
       <Game
@@ -215,7 +215,7 @@ class FieldColumn extends React.Component<Props, State> {
 
   renderOverlay() {
     if (this.props.isOver && this.state.hoverTime) {
-      const start = this.state.hoverTime.format();
+      const start = format(this.state.hoverTime, "LL");
       const length = this.state.gameLength;
       return <DropOverlay startTime={start} length={length}/>;
     } else {
