@@ -5,7 +5,7 @@ interface Props {
   mode: "none" | "view" | "editMap" | "addField" | "editField";
   name: string;
   updateName: (event: React.FormEvent<EventTarget>) => void;
-  nameError?: string;
+  nameError?: UserError;
 }
 
 const style = {
@@ -34,7 +34,7 @@ class FieldsEditorInput extends React.Component<Props> {
           InputLabelProps={{style: {paddingLeft: 10}}}
           value={name}
           onChange={updateName}
-          helperText={this.props.nameError}
+          helperText={this.props.nameError && this.props.nameError.message}
         />
       );
     } else {

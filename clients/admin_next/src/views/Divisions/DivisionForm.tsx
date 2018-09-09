@@ -63,12 +63,16 @@ class DivisionForm extends Form<Props> {
           runMutation(
           DeleteDivisionMutation,
           {input: {id: divisionId}},
-          () => this.props.history.push("/divisions")
+          {complete: this.deleteComplete}
         );
       };
     } else {
       return undefined;
     }
+  }
+
+  deleteComplete = () => {
+    this.props.history.push("/divisions");
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {

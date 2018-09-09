@@ -73,12 +73,16 @@ class TeamForm extends Form<Props> {
         runMutation(
           DeleteTeamMutation,
           {input: {id: teamId}},
-          () => this.props.history.push("/teams"),
+          {complete: this.deleteComplete}
         );
       };
     } else {
       return undefined;
     }
+  }
+
+  deleteComplete = () => {
+    this.props.history.push("/teams");
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {

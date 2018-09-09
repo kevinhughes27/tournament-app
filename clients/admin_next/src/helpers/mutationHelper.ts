@@ -1,37 +1,54 @@
 import { showNotice } from "../components/Notice";
 import { showErrors } from "../components/ErrorBanner";
 
-const runMutation = (
-  mutation: any,
-  input: any,
-  done: () => void
-) => {
-  mutation.commit(input).then((result: MutationResult) => {
-    mutationComplete(result, done);
-  }, (error: Error | undefined) => {
-    mutationError(error);
-  });
-};
+type Mutation = any;
 
-const mutationComplete = (result: MutationResult, done: () => void) => {
-  if (result.success) {
-    mutationSuccess(result, done);
-  } else {
-    mutationFailed(result);
+interface MutationInput {
+  input: any;
+}
+
+type MutationCallback = (result: MutationResult) => void;
+
+interface Options {
+  complete?: MutationCallback;
+  failed?: MutationCallback;
+}
+
+const runMutation = async (
+  mutation: Mutation,
+  input: MutationInput,
+  options: Options = {}
+) => {
+  try {
+    const result = await mutation.commit(input);
+
+    if (result.success) {
+      mutationSuccess(result, options.complete);
+    } else {
+      mutationFailed(result, options.failed);
+    }
+
+  } catch (error) {
+    mutationError(error, options.failed);
   }
 };
 
-const mutationSuccess = (result: MutationResult, done: () => void) => {
+const mutationSuccess = (result: MutationResult, complete?: MutationCallback) => {
   showNotice(result.message);
-  done();
+  if (complete) { complete(result); }
 };
 
-const mutationFailed = (result: MutationResult) => {
+const mutationFailed = (result: MutationResult, failed?: MutationCallback) => {
   showErrors(result.message);
+  if (failed) { failed(result); }
 };
 
-const mutationError = (error: Error | undefined) => {
-  showErrors(error && error.message || "Something went wrong.");
+const mutationError = (error: Error, failed?: MutationCallback) => {
+  const message = error.message || "Something went wrong.";
+  const result = {success: false, message, userErrors: []};
+
+  showErrors(message);
+  if (failed) { failed(result); }
 };
 
 export default runMutation;

@@ -13,7 +13,6 @@ import CreateFieldMutation from "../../mutations/CreateField";
 import DeleteFieldMutation from "../../mutations/DeleteField";
 import quadrilateralise from "./quadrilateralise";
 import runMutation from "../../helpers/mutationHelper";
-import { showNotice } from "../../components/Notice";
 import { merge } from "lodash";
 
 interface Props {
@@ -36,7 +35,7 @@ interface State {
     long: number;
     geoJson: string;
   };
-  nameError?: string;
+  nameError?: UserError;
 }
 
 const newField = {
@@ -209,21 +208,31 @@ class FieldsEditor extends React.Component<Props, State> {
     return namePresent && geoJsonPresent;
   }
 
-  /* Save actions */
+  /* Actions */
   saveMap = () => {
     const { lat, long, zoom } = this.state;
-    const payload = { lat, long, zoom };
-    this.runMutation(UpdateMapMutation, payload);
+
+    runMutation(
+      UpdateMapMutation,
+      {input: { lat, long, zoom }},
+      {complete: this.mutationComplete, failed: this.mutationFailed}
+    );
   }
 
   createField = () => {
-    const payload = this.state.editing;
-    this.runMutation(CreateFieldMutation, payload);
+    runMutation(
+      CreateFieldMutation,
+      {input: this.state.editing},
+      {complete: this.mutationComplete, failed: this.mutationFailed}
+    );
   }
 
   saveField = () => {
-    const payload = this.state.editing;
-    this.runMutation(UpdateFieldMutation, payload);
+    runMutation(
+      UpdateFieldMutation,
+      {input: this.state.editing},
+      {complete: this.mutationComplete, failed: this.mutationFailed}
+    );
   }
 
   deleteField = () => {
@@ -231,42 +240,28 @@ class FieldsEditor extends React.Component<Props, State> {
       runMutation(
         DeleteFieldMutation,
         {input: {id: this.state.editing.id}},
-        () => {
-          EditableField.clear();
-          this.setState({mode: "view", editing: newField});
-        }
+        {complete: this.deleteComplete}
       );
     };
   }
 
-  /* Mutations */
-  runMutation = async (mutation: any, payload: any) => {
-    this.setState({submitting: true});
-
-    try {
-      const result = await mutation.commit({input: payload});
-      result.success
-        ? this.mutationSuccess(result)
-        : this.mutationFailed(result);
-    } catch (e) {
-      this.setState({submitting: false});
-      showNotice(e.message);
-    }
-  }
-
-  mutationSuccess = (result: MutationResult) => {
+  /* Mutation handlers */
+  mutationComplete = () => {
     EditableField.clear();
     this.setState({mode: "none", submitting: false, editing: newField});
-    showNotice(result.message!);
     setTimeout(() => this.setState({mode: "view"}), 1000);
   }
 
   mutationFailed = (result: MutationResult) => {
     const userErrors = result.userErrors || [];
-    const userError = userErrors.filter((e) => e.field === "name")[0];
-    const errorMessage = userError && userError.message || "";
+    const nameError = userErrors.filter((e) => e.field === "name")[0];
 
-    this.setState({nameError: errorMessage, submitting: false});
+    this.setState({nameError, submitting: false});
+  }
+
+  deleteComplete = () => {
+    EditableField.clear();
+    this.setState({mode: "view", editing: newField});
   }
 
   /* Rendering */
