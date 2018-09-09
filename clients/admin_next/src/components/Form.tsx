@@ -1,6 +1,7 @@
 import * as React from "react";
+import Confirm from "./Confirm";
 import ErrorBanner, { hideErrors } from "./ErrorBanner";
-import { onComplete, onError } from "../helpers/formHelpers";
+import runMutation from "../helpers/mutationHelper";
 import {
   Formik,
   FormikProps,
@@ -19,13 +20,18 @@ class Form<T> extends React.Component<T> {
     return errors;
   }
 
-  submit: any = ({}: FormikValues, {}: FormikActions<FormikValues>) => {
-    throw new Error("You have to implement submit");
+  mutation: any = () => {
+    throw new Error("You have to implement mutation");
+  }
+
+  mutationInput: any = ({}: FormikValues) => {
+    throw new Error("You have to implement mutationInput");
   }
 
   render() {
     return (
       <div style={{padding: 20}}>
+        <Confirm />
         <ErrorBanner />
         <Formik
           initialValues={this.initialValues()}
@@ -43,12 +49,33 @@ class Form<T> extends React.Component<T> {
 
   private onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
     hideErrors();
-    this.submit(values, actions).then((result: any) => {
-      onComplete(result, actions);
-    }, (error: Error | undefined) => {
-      onError(error);
-    });
+
+    runMutation(
+      this.mutation(),
+      this.mutationInput(values),
+      {
+        complete: () => {
+          actions.setSubmitting(false);
+          actions.resetForm();
+        },
+        failed: (result: MutationResult) => {
+          actions.setSubmitting(false);
+          setFieldErrors(actions, result.userErrors);
+        }
+      }
+    );
   }
 }
+
+const setFieldErrors = (
+  actions: FormikActions<FormikValues>,
+  userErrors: ReadonlyArray<UserError> | null
+) => {
+  const errors = userErrors || [];
+
+  errors.forEach((error) => {
+    actions.setFieldError(error.field, error.message);
+  });
+};
 
 export default Form;

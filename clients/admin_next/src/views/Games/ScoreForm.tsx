@@ -36,14 +36,18 @@ class ScoreForm extends Form<Props> {
     return errors;
   }
 
-  submit = (values: FormikValues) => {
-    return UpdateScoreMutation.commit({
+  mutation = () => {
+    return UpdateScoreMutation;
+  }
+
+  mutationInput = (values: FormikValues) => {
+    return {
       input: {
         gameId: this.props.input.gameId,
         homeScore: values.homeScore,
         awayScore: values.awayScore
       }
-    });
+    };
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {

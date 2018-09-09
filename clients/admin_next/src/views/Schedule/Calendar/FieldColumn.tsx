@@ -12,8 +12,8 @@ import {
 import Settings from "./Settings";
 import Game from "./Game";
 import DropOverlay from "./DropOverlay";
-import { showNotice } from "../../../components/Notice";
 
+import runMutation from "../../../helpers/mutationHelper";
 import ScheduleGameMutation from "../../../mutations/ScheduleGame";
 import UnscheduleGameMutation from "../../../mutations/UnscheduleGame";
 
@@ -92,37 +92,23 @@ class FieldColumn extends React.Component<Props, State> {
     const { hoverTime, gameLength } = this.state;
 
     if (hoverTime) {
+      const gameId = game.id;
+      const fieldId = this.props.fieldId;
       const startTime = hoverTime.format("YYYY-MM-DDTHH:mm");
       const endTime = hoverTime.add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
 
-      const variables = {
-        input: {
-          gameId: game.id,
-          fieldId: this.props.fieldId,
-          startTime,
-          endTime
-        }
-      };
-
-      ScheduleGameMutation.commit(
-        variables,
-        this.mutationComplete,
-        this.mutationError
+      runMutation(
+        ScheduleGameMutation,
+        {input: {gameId, fieldId, startTime, endTime}},
+        {failed: this.mutationFailed}
       );
     }
   }
 
   unschedule = (game: ScheduledGame | UnscheduledGame) => {
-    const variables = {
-      input: {
-        gameId: game.id,
-      }
-    };
-
-    UnscheduleGameMutation.commit(
-      variables,
-      this.mutationComplete,
-      this.mutationError
+    runMutation(
+      UnscheduleGameMutation,
+      {input: {gameId: game.id}}
     );
   }
 
@@ -156,23 +142,16 @@ class FieldColumn extends React.Component<Props, State> {
     const game = this.state.resizingGame;
 
     if (game) {
+      const gameId = game.id;
+      const fieldId = game.field.id;
       const { gameLength } = this.state;
       const startTime = moment.parseZone(game.startTime).format("YYYY-MM-DDTHH:mm");
       const endTime = moment.parseZone(game.startTime).add(gameLength, "minutes").format("YYYY-MM-DDTHH:mm");
 
-      const variables = {
-        input: {
-          gameId: game.id,
-          fieldId: game.field.id,
-          startTime,
-          endTime,
-        }
-      };
-
-      ScheduleGameMutation.commit(
-        variables,
-        this.mutationComplete,
-        this.mutationError
+      runMutation(
+        ScheduleGameMutation,
+        {input: {gameId, fieldId, startTime, endTime}},
+        {failed: this.mutationFailed}
       );
 
       Settings.update({defaultGameLength: this.state.gameLength});
@@ -182,7 +161,8 @@ class FieldColumn extends React.Component<Props, State> {
     this.setState({resizingGame: null});
   }
 
-  mutationComplete = (result: SchedulingResult) => {
+  mutationFailed = (r: MutationResult) => {
+    const result = r as any as SchedulingResult;
     const errors = this.state.gameErrors;
 
     if (result.success) {
@@ -192,14 +172,6 @@ class FieldColumn extends React.Component<Props, State> {
     }
 
     this.setState({gameErrors: errors});
-
-    if (result.message) {
-      showNotice(result.message);
-    }
-  }
-
-  mutationError = (error: Error | undefined) => {
-    showNotice(error && error.message || "Something went wrong");
   }
 
   render() {

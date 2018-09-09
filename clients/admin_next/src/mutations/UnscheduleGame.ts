@@ -14,6 +14,10 @@ const mutation = graphql`
       }
       success
       message
+      userErrors {
+        field
+        message
+      }
     }
   }
 `;
@@ -33,22 +37,27 @@ function getOptimisticResponse(variables: UnscheduleGameMutationVariables) {
 
 function commit(
   variables: UnscheduleGameMutationVariables,
-  success: (result: SchedulingResult) => void,
-  failure: (error: Error | undefined) => void
 ) {
-  return commitMutation(
-    environment,
-    {
-      mutation,
-      variables,
-      optimisticResponse: getOptimisticResponse(variables),
-      onCompleted: (response) => {
-        success(response.unscheduleGame as SchedulingResult);
-      },
-      onError: (error) => {
-        failure(error);
-      }
-    },
+  return new Promise(
+    (
+      resolve: (result: MutationResult) => void,
+      reject: (error: Error | undefined) => void
+    ) => {
+      return commitMutation(
+        environment,
+        {
+          mutation,
+          variables,
+          optimisticResponse: getOptimisticResponse(variables),
+          onCompleted: (response: UnscheduleGameMutationResponse) => {
+            resolve(response.unscheduleGame as MutationResult);
+          },
+          onError: (error) => {
+            reject(error);
+          }
+        },
+      );
+    }
   );
 }
 

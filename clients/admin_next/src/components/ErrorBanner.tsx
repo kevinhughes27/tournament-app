@@ -26,10 +26,12 @@ class Warning extends React.Component<Props, State> {
   }
 
   handleShow = (message: string) => {
-    this.setState({
-      show: true,
-      message
-    });
+    if (message) {
+      this.setState({
+        show: true,
+        message
+      });
+    }
   }
 
   handleHide = () => {

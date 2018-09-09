@@ -9,7 +9,7 @@ import DivisionPicker from "./DivisionPicker";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
-import Delete from "../../helpers/deleteHelper";
+import runMutation from "../../helpers/mutationHelper";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 import CreateTeamMutation from "../../mutations/CreateTeam";
 import DeleteTeamMutation from "../../mutations/DeleteTeam";
@@ -55,13 +55,23 @@ class TeamForm extends Form<Props> {
     return errors;
   }
 
-  submit = (values: FormikValues) => {
+  mutation = () => {
     const teamId = this.props.input.id;
 
     if (teamId) {
-      return UpdateTeamMutation.commit({input: {id: teamId, ...values}});
+      return UpdateTeamMutation;
     } else {
-      return CreateTeamMutation.commit({input: values});
+      return CreateTeamMutation;
+    }
+  }
+
+  mutationInput = (values: FormikValues) => {
+    const teamId = this.props.input.id;
+
+    if (teamId) {
+      return {input: {id: teamId, ...values}};
+    } else {
+      return {input: values};
     }
   }
 
@@ -69,14 +79,20 @@ class TeamForm extends Form<Props> {
     const teamId = this.props.input.id;
 
     if (teamId) {
-      return Delete(
-        DeleteTeamMutation,
-        {input: {id: teamId}},
-        () => this.props.history.push("/teams"),
-      );
+      return () => {
+        runMutation(
+          DeleteTeamMutation,
+          {input: {id: teamId}},
+          {complete: this.deleteComplete}
+        );
+      };
     } else {
       return undefined;
     }
+  }
+
+  deleteComplete = () => {
+    this.props.history.push("/teams");
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {

@@ -8,7 +8,7 @@ import BracketPicker from "./BracketPickerContainer";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
-import Delete from "../../helpers/deleteHelper";
+import runMutation from "../../helpers/mutationHelper";
 import CreateDivisionMutation from "../../mutations/CreateDivision";
 import UpdateDivisionMutation from "../../mutations/UpdateDivision";
 import DeleteDivisionMutation from "../../mutations/DeleteDivision";
@@ -45,13 +45,23 @@ class DivisionForm extends Form<Props> {
     return errors;
   }
 
-  submit = (values: FormikValues) => {
+  mutation = () => {
     const divisionId = this.props.input.id;
 
     if (divisionId) {
-      return UpdateDivisionMutation.commit({input: {id: divisionId, ...values}});
+      return UpdateDivisionMutation;
     } else {
-      return CreateDivisionMutation.commit({input: {...values}});
+      return CreateDivisionMutation;
+    }
+  }
+
+  mutationInput = (values: FormikValues) => {
+    const divisionId = this.props.input.id;
+
+    if (divisionId) {
+      return {input: {id: divisionId, ...values}};
+    } else {
+      return {input: {...values}};
     }
   }
 
@@ -59,14 +69,20 @@ class DivisionForm extends Form<Props> {
     const divisionId = this.props.input.id;
 
     if (divisionId) {
-      return Delete(
-        DeleteDivisionMutation,
-        {input: {id: divisionId}},
-        () => this.props.history.push("/divisions")
-      );
+      return () => {
+          runMutation(
+          DeleteDivisionMutation,
+          {input: {id: divisionId}},
+          {complete: this.deleteComplete}
+        );
+      };
     } else {
       return undefined;
     }
+  }
+
+  deleteComplete = () => {
+    this.props.history.push("/divisions");
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
