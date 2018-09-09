@@ -6,13 +6,11 @@ const runMutation = (
   input: any,
   done: () => void
 ) => {
-  return () => {
-    mutation.commit(input).then((result: MutationResult) => {
-      mutationComplete(result, done);
-    }, (error: Error | undefined) => {
-      mutationError(error);
-    });
-  };
+  mutation.commit(input).then((result: MutationResult) => {
+    mutationComplete(result, done);
+  }, (error: Error | undefined) => {
+    mutationError(error);
+  });
 };
 
 const mutationComplete = (result: MutationResult, done: () => void) => {

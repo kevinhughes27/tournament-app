@@ -227,14 +227,16 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   deleteField = () => {
-    return runMutation(
-      DeleteFieldMutation,
-      {input: {id: this.state.editing.id}},
-      () => {
-        EditableField.clear();
-        this.setState({mode: "view", editing: newField});
-      }
-    );
+    return () => {
+      runMutation(
+        DeleteFieldMutation,
+        {input: {id: this.state.editing.id}},
+        () => {
+          EditableField.clear();
+          this.setState({mode: "view", editing: newField});
+        }
+      );
+    };
   }
 
   /* Mutations */

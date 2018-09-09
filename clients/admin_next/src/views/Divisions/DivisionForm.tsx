@@ -59,11 +59,13 @@ class DivisionForm extends Form<Props> {
     const divisionId = this.props.input.id;
 
     if (divisionId) {
-      return runMutation(
-        DeleteDivisionMutation,
-        {input: {id: divisionId}},
-        () => this.props.history.push("/divisions")
-      );
+      return () => {
+          runMutation(
+          DeleteDivisionMutation,
+          {input: {id: divisionId}},
+          () => this.props.history.push("/divisions")
+        );
+      };
     } else {
       return undefined;
     }
