@@ -39,7 +39,16 @@ const mutationSuccess = (result: MutationResult, complete?: MutationCallback) =>
 };
 
 const mutationFailed = (result: MutationResult, failed?: MutationCallback) => {
-  showErrors(result.message);
+  /*
+   * Try and show page errors if possible
+   * otherwise fallback to notice.
+   */
+  try {
+    showErrors(result.message);
+  } catch (error) {
+    showNotice(result.message);
+  }
+
   if (failed) { failed(result); }
 };
 
