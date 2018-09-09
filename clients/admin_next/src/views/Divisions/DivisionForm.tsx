@@ -8,7 +8,7 @@ import BracketPicker from "./BracketPickerContainer";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
-import Delete from "../../helpers/deleteHelper";
+import runMutation from "../../helpers/mutationHelper";
 import CreateDivisionMutation from "../../mutations/CreateDivision";
 import UpdateDivisionMutation from "../../mutations/UpdateDivision";
 import DeleteDivisionMutation from "../../mutations/DeleteDivision";
@@ -59,7 +59,7 @@ class DivisionForm extends Form<Props> {
     const divisionId = this.props.input.id;
 
     if (divisionId) {
-      return Delete(
+      return runMutation(
         DeleteDivisionMutation,
         {input: {id: divisionId}},
         () => this.props.history.push("/divisions")

@@ -9,7 +9,7 @@ import DivisionPicker from "./DivisionPicker";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
-import Delete from "../../helpers/deleteHelper";
+import runMutation from "../../helpers/mutationHelper";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 import CreateTeamMutation from "../../mutations/CreateTeam";
 import DeleteTeamMutation from "../../mutations/DeleteTeam";
@@ -69,7 +69,7 @@ class TeamForm extends Form<Props> {
     const teamId = this.props.input.id;
 
     if (teamId) {
-      return Delete(
+      return runMutation(
         DeleteTeamMutation,
         {input: {id: teamId}},
         () => this.props.history.push("/teams"),

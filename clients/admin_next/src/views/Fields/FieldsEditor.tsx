@@ -12,7 +12,7 @@ import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
 import DeleteFieldMutation from "../../mutations/DeleteField";
 import quadrilateralise from "./quadrilateralise";
-import Delete from "../../helpers/deleteHelper";
+import runMutation from "../../helpers/mutationHelper";
 import { showNotice } from "../../components/Notice";
 import { merge } from "lodash";
 
@@ -227,7 +227,7 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 
   deleteField = () => {
-    return Delete(
+    return runMutation(
       DeleteFieldMutation,
       {input: {id: this.state.editing.id}},
       () => {
