@@ -12,7 +12,11 @@ class Login extends React.Component<Props> {
   }
 
   render() {
-    return auth.loggedIn() ? this.props.children : <LoginForm onComplete={this.handleLogin} />;
+    const component = auth.loggedIn()
+      ? this.props.children
+      : <LoginForm onComplete={this.handleLogin} />;
+
+    return component;
   }
 }
 

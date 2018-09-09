@@ -5,7 +5,6 @@ import blue from "@material-ui/core/colors/blue";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 // A theme with custom primary and secondary color.
-// It's optional.
 const theme = createMuiTheme({
   palette: {
     primary: teal,
