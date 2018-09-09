@@ -1,5 +1,7 @@
 import { showNotice } from "../components/Notice";
+import { showConfirm } from "../components/Confirm";
 import { showErrors } from "../components/ErrorBanner";
+import { merge } from "lodash";
 
 type Mutation = any;
 
@@ -24,6 +26,8 @@ const runMutation = async (
 
     if (result.success) {
       mutationSuccess(result, options.complete);
+    } else if (result.confirm) {
+      showConfirm(result.message, confirmMutation(mutation, input, options));
     } else {
       mutationFailed(result, options.failed);
     }
@@ -31,6 +35,17 @@ const runMutation = async (
   } catch (error) {
     mutationError(error, options.failed);
   }
+};
+
+const confirmMutation = (
+  mutation: Mutation,
+  input: MutationInput,
+  options: Options = {}
+) => {
+  return () => {
+    const confirmedInput = merge({}, {...input}, {input: {confirm: true}});
+    runMutation(mutation, confirmedInput, options);
+  };
 };
 
 const mutationSuccess = (result: MutationResult, complete?: MutationCallback) => {

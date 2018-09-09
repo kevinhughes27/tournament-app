@@ -1,4 +1,5 @@
 import * as React from "react";
+import Confirm from "./Confirm";
 import ErrorBanner, { hideErrors } from "./ErrorBanner";
 import runMutation from "../helpers/mutationHelper";
 import {
@@ -30,6 +31,7 @@ class Form<T> extends React.Component<T> {
   render() {
     return (
       <div style={{padding: 20}}>
+        <Confirm />
         <ErrorBanner />
         <Formik
           initialValues={this.initialValues()}
