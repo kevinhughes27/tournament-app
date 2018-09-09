@@ -1,5 +1,5 @@
 import { commitMutation, graphql } from "react-relay";
-import environment from "../relay";
+import environment from "../helpers/relay";
 
 const mutation = graphql`
   mutation DeleteTeamMutation($input: DeleteTeamInput!) {

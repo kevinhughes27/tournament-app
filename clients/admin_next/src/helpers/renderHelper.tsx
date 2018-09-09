@@ -1,7 +1,7 @@
 import * as React from "react";
 import { QueryRenderer } from "react-relay";
 import Loader from "../components/Loader";
-import environment from "../relay";
+import environment from "./relay";
 
 interface Options {
   props?: React.Props<any>;
