@@ -21,10 +21,12 @@ class Notice extends React.Component<{}, State> {
   }
 
   handleOpen = (message: string) => {
-    this.setState({
-      open: true,
-      message,
-    });
+    if (message) {
+      this.setState({
+        open: true,
+        message,
+      });
+    }
   }
 
   handleClose = () => {

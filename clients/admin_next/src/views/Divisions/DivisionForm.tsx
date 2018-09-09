@@ -45,13 +45,23 @@ class DivisionForm extends Form<Props> {
     return errors;
   }
 
-  submit = (values: FormikValues) => {
+  mutation = () => {
     const divisionId = this.props.input.id;
 
     if (divisionId) {
-      return UpdateDivisionMutation.commit({input: {id: divisionId, ...values}});
+      return UpdateDivisionMutation;
     } else {
-      return CreateDivisionMutation.commit({input: {...values}});
+      return CreateDivisionMutation;
+    }
+  }
+
+  mutationInput = (values: FormikValues) => {
+    const divisionId = this.props.input.id;
+
+    if (divisionId) {
+      return {input: {id: divisionId, ...values}};
+    } else {
+      return {input: {...values}};
     }
   }
 

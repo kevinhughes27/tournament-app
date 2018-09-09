@@ -55,13 +55,23 @@ class TeamForm extends Form<Props> {
     return errors;
   }
 
-  submit = (values: FormikValues) => {
+  mutation = () => {
     const teamId = this.props.input.id;
 
     if (teamId) {
-      return UpdateTeamMutation.commit({input: {id: teamId, ...values}});
+      return UpdateTeamMutation;
     } else {
-      return CreateTeamMutation.commit({input: values});
+      return CreateTeamMutation;
+    }
+  }
+
+  mutationInput = (values: FormikValues) => {
+    const teamId = this.props.input.id;
+
+    if (teamId) {
+      return {input: {id: teamId, ...values}};
+    } else {
+      return {input: values};
     }
   }
 
