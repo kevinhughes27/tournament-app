@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as moment from "moment";
+import { parse, format } from "date-fns";
 import { isEmpty, sortBy, map } from "lodash";
 
 import XLabels from "./XLabels";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 interface State {
-  date: moment.Moment;
+  date: Date;
 }
 
 class Calendar extends React.Component<Props, State> {
@@ -23,16 +23,16 @@ class Calendar extends React.Component<Props, State> {
     super(props);
 
     if (!isEmpty(this.props.games)) {
-      const firstGame = sortBy(this.props.games, (g) => moment(g.startTime))[0];
-      const firstDate = moment(firstGame.startTime);
+      const firstGame = sortBy(this.props.games, (g) => new Date(g.startTime))[0];
+      const firstDate = parse(firstGame.startTime, "LL", new Date());
       this.state = {date: firstDate};
     } else {
-      const today = moment();
+      const today = new Date();
       this.state = {date: today};
     }
   }
 
-  handleDateChange = (date: moment.Moment) => {
+  handleDateChange = (date: Date) => {
     this.setState({date});
   }
 
@@ -55,7 +55,7 @@ class Calendar extends React.Component<Props, State> {
 
   renderControls = () => {
     const { games } = this.props;
-    const dates = map(games, (g: any) => moment(g.startTime));
+    const dates = map(games, (g: any) => new Date(g.startTime));
     const date = this.state.date;
 
     const style = {
