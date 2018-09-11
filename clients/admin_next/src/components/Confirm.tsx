@@ -2,40 +2,46 @@ import * as React from "react";
 import Modal from "./Modal";
 import FormButtons from "./FormButtons";
 
-let showConfirmFn: (message: string, confirm: () => void) => void;
+let showConfirmFn: (message: string, confirm: () => void, cancel: () => void) => void;
 
 interface State {
   open: boolean;
   message: string;
-  confirm: any;
+  confirm: () => void;
+  cancel: () => void;
 }
 
 class Confirm extends React.Component<{}, State> {
   state = {
     open: false,
     message: "",
-    confirm: () => null
+    confirm: () => null,
+    cancel: () => null
   };
 
   componentDidMount() {
     showConfirmFn = this.handleOpen;
   }
 
-  handleOpen = (message: string, confirm: () => void) => {
+  handleOpen = (message: string, confirm: () => void, cancel: () => void) => {
     if (message) {
       this.setState({
         open: true,
         message,
-        confirm
+        confirm,
+        cancel
       });
     }
   }
 
   handleClose = () => {
+    this.state.cancel();
+
     this.setState({
       open: false,
       message: "",
       confirm: () => null,
+      cancel: () => null
     });
   }
 
@@ -66,8 +72,8 @@ class Confirm extends React.Component<{}, State> {
   }
 }
 
-export function showConfirm(message: string, confirm: () => void) {
-  showConfirmFn(message, confirm);
+export function showConfirm(message: string, confirm: () => void, cancel: () => void) {
+  showConfirmFn(message, confirm, cancel);
 }
 
 export default Confirm;
