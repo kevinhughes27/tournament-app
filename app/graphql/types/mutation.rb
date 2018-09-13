@@ -25,4 +25,6 @@ class Types::Mutation < Types::BaseObject
   field :updateScore,    mutation: Mutations::UpdateScore,    auth: :required
 
   field :updateSettings, mutation: Mutations::UpdateSettings, auth: :required
+
+  field :updateUser, mutation: Mutations::UpdateUser, auth: :required
 end

@@ -15,6 +15,7 @@ class AdminNextBrowserTest < BrowserTest
     navigate_to('Teams')
     open_team
     edit_team
+    settings
     logout
   end
 
@@ -56,6 +57,14 @@ class AdminNextBrowserTest < BrowserTest
     team = Team.last
     assert_equal 'Hug Machine', team.name
     assert_equal 1, team.seed
+  end
+
+  def settings
+    fill_in('email', with: '')
+    fill_in('email', with: 'test@gmail.com')
+    click_save
+    assert_text ('User Updated')
+    assert_equal 'test@gmail.com', @user.email
   end
 
   def click_save

@@ -54,7 +54,6 @@ class UserMenu extends React.Component<Props, State> {
           open={open}
           onClose={this.handleClose}
         >
-        
           <NavLink to="/settings">
             <MenuItem>Settings</MenuItem>
           </NavLink>
