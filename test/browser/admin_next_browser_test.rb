@@ -9,14 +9,14 @@ class AdminNextBrowserTest < BrowserTest
     @team = FactoryBot.create(:team, name: 'Swift')
   end
 
-  test 'admin next' do
-    visit_app
-    login
-    navigate_to('Teams')
-    open_team
-    edit_team
-    logout
-  end
+  # test 'admin next' do
+  #   visit_app
+  #   login
+  #   navigate_to('Teams')
+  #   open_team
+  #   edit_team
+  #   logout
+  # end
 
   private
 
