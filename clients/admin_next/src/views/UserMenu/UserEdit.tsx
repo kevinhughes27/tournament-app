@@ -11,8 +11,8 @@ class UserEdit extends React.Component<Props> {
     const { viewer } = this.props;
     const input = {
       id: viewer.id,
-      name: viewer.name || 0,
-      email: viewer.email || 0
+      name: viewer.name || "",
+      email: viewer.email || ""
     };
     return (
        <div>
