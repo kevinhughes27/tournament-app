@@ -61,8 +61,7 @@ class AdminNextBrowserTest < BrowserTest
   end
 
   def open_settings
-   find('#user-menu').click
-   click_on('Settings')
+   visit("http://#{@tournament.handle}.#{Settings.host}/settings")
   end
 
 
