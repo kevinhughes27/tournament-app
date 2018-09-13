@@ -87,6 +87,7 @@ class UserEditForm extends Form<Props> {
         />
 
         <FormButtons
+          name="save"
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
