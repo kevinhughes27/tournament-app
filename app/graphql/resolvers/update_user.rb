@@ -9,7 +9,7 @@ class Resolvers::UpdateUser < Resolvers::BaseResolver
     if @user.update(params)
       {
         success: true,
-        message: 'User Updated',
+        message: 'User updated',
         user: @user
       }
     else
