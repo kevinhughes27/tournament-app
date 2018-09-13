@@ -63,7 +63,6 @@ class AdminNextBrowserTest < BrowserTest
     fill_in('email', with: '')
     fill_in('email', with: 'test@gmail.com')
     click_save
-    assert_text ('User updated')
     assert_equal 'test@gmail.com', @user.email
   end
 
