@@ -1,6 +1,5 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
-import Breadcrumbs from "../../components/Breadcrumbs";
 import UserEditForm from "./UserEditForm";
 
 interface Props {
@@ -11,7 +10,7 @@ class UserEdit extends React.Component<Props> {
   render() {
     const { viewer } = this.props;
     const input = {
-      viewerId: viewer.id,
+      id: viewer.id,
       name: viewer.name || 0,
       email: viewer.email || 0
     };

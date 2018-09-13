@@ -46,7 +46,7 @@ class UserEditForm extends Form<Props> {
   mutationInput = (values: FormikValues) => {
     return {
       input: {
-        id: this.props.input.viewerId,
+        id: this.props.input.id,
         email: values.email,
       }
     };
