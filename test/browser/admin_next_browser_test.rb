@@ -61,8 +61,8 @@ class AdminNextBrowserTest < BrowserTest
   end
 
   def open_settings
-    click_text('Settings')
-    assert_equal find_field('email').value, @user.email
+   find('#user-menu').click
+   click_on('Settings')
   end
 
 
