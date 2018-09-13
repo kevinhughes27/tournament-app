@@ -15,6 +15,7 @@ class AdminNextBrowserTest < BrowserTest
     navigate_to('Teams')
     open_team
     edit_team
+    open_settings
     settings
     logout
   end
@@ -59,11 +60,17 @@ class AdminNextBrowserTest < BrowserTest
     assert_equal 1, team.seed
   end
 
+  def open_settings
+    click_text('Settings')
+    assert_equal find_field('email').value, @user.email
+  end
+
+
   def settings
     fill_in('email', with: '')
     fill_in('email', with: 'test@gmail.com')
     click_save
-    assert_equal 'test@gmail.com', @user.email
+    assert_text ('User updated')
   end
 
   def click_save
