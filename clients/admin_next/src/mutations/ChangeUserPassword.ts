@@ -10,7 +10,6 @@ const mutation = graphql`
         email
       }
       success
-      confirm
       message
       userErrors {
         field
