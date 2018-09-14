@@ -7,14 +7,13 @@ import { DivisionList, DivisionShow, DivisionEdit, DivisionNew } from "./Divisio
 import Fields from "./Fields";
 import Schedule from "./Schedule";
 import { GameList, GameShow } from "./Games";
-import { UserEditForm } from "./UserMenu";
+import { UserEditForm } from "./User";
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
 
-    <Route exact path="/settings" component={UserEditForm}/>
-
+    <Route exact path="/user" component={UserEditForm}/>
     <Route exact path="/teams" component={TeamList}/>
     <Route path="/teams/new" component={TeamNew}/>
     <Route path="/teams/:teamId" component={TeamShow}/>

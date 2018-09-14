@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as EmailValidator from "email-validator";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 import { isEmpty } from "lodash";
@@ -8,10 +7,10 @@ import TextField from "@material-ui/core/TextField";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
-import UpdateUserMutation from "../../mutations/UpdateUser";
+import ChangeUserPasswordMutation from "../../mutations/ChangeUserPassword";
 
 interface Props extends RouteComponentProps<any> {
-  input: UpdateUserMutationVariables["input"];
+  input: ChangeUserPasswordMutationVariables["input"];
 
 }
 
@@ -20,34 +19,33 @@ class UserEditForm extends Form<Props> {
   initialValues = () => {
     const { input } = this.props;
     return {
-      email: input.email || "",
-      name: input.name || ""
+      password: input.password || "",
     };
   }
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
 
-    if (!values.email) {
-      errors.email = "Required";
+    if (!values.password) {
+      errors.password = "Required";
     }
 
-    if (values.email && !EmailValidator.validate(values.email)) {
-      errors.email = "Invalid email address";
+    if (values.password.length < 6) {
+      errors.password = "Minimum 6 character Required";
     }
 
     return errors;
   }
 
   mutation = () => {
-    return UpdateUserMutation;
+    return ChangeUserPasswordMutation;
   }
 
   mutationInput = (values: FormikValues) => {
     return {
       input: {
         id: this.props.input.id,
-        email: values.email,
+        password: values.password,
       }
     };
   }
@@ -65,32 +63,19 @@ class UserEditForm extends Form<Props> {
     return (
       <form onSubmit={handleSubmit}>
         <TextField
-          name="name"
-          label="Name"
-          type="text"
+          name="password"
+          label="Change Password"
+          type="password"
           margin="normal"
           autoComplete="off"
           fullWidth
-          value={values.name}
+          value={values.password}
           onChange={handleChange}
         />
-
-        <TextField
-          name="email"
-          label="Email"
-          margin="normal"
-          autoComplete="off"
-          fullWidth
-          value={values.email}
-          onChange={handleChange}
-          helperText={errors.email}
-        />
-
         <FormButtons
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
-          cancelLink={"/games"}
         />
       </form>
     );

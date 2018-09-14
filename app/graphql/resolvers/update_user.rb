@@ -20,7 +20,4 @@ class Resolvers::UpdateUser < Resolvers::BaseResolver
       }
     end
   end
-
- 
-
 end

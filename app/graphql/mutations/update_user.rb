@@ -5,7 +5,6 @@ class Mutations::UpdateUser < Mutations::BaseMutation
 
   field :user, Types::User, null: false
   field :success, Boolean, null: false
-  field :confirm, Boolean, null: true
   field :message, String, null: true
   field :userErrors, [Types::Error], null: true
 end
