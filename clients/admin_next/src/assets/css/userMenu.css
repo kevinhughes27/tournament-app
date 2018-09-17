@@ -37,6 +37,12 @@ ul li a{
     padding: 2px;
     color: #fff;
 }
+
+.user-email .user-image span a{
+  color: #fff;
+  text-decoration: none;
+}
+
 .user-email span  div {
 	height: 80px;
     width: 80px;

@@ -23,7 +23,11 @@ class UserEdit extends React.Component<Props> {
         <div className="col-md-6 col-md-offset-3">
           <div className="user-email">
             <span className="user-image"><Avatar alt={viewer.email} src={avatarUrl} />
-            <span><FontAwesomeIcon icon={faEdit} /></span>
+              <span>
+                <a href="https://example.com" target="blank">
+                  <FontAwesomeIcon icon={faEdit} />
+                </a>
+              </span>
             </span>
             <div className="extra-wrap">
               <div>{viewer.name}</div>

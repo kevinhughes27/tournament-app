@@ -6,7 +6,7 @@ class SettingBrowserTest < BrowserTest
   end
   test 'settings' do
     visit("http://#{@tournament.handle}.#{Settings.host}/user")
-    fill_in('password', with: "12345678")
+    fill_in('user_password', with: "12345678")
     find('button[type="submit"]').click
     click_button 
     assert_text 'User updated'
