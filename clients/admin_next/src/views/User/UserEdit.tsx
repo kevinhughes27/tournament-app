@@ -24,7 +24,7 @@ class UserEdit extends React.Component<Props> {
           <div className="user-email">
             <span className="user-image"><Avatar alt={viewer.email} src={avatarUrl} />
               <span>
-                <a href="https://example.com" target="blank">
+                <a href="https://en.gravatar.com/ " target="blank">
                   <FontAwesomeIcon icon={faEdit} />
                 </a>
               </span>
