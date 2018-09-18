@@ -9,7 +9,7 @@ class SettingBrowserTest < BrowserTest
   test 'user change password' do
     visit_app
     login
-    navigate_to('Profile')
+    navigate_to_profile
     change_user_password
     logout
   end
@@ -30,9 +30,8 @@ class SettingBrowserTest < BrowserTest
     assert_text('Home')
   end
 
-  def navigate_to(nav_item)
-    find('#user-menu').click
-    click_on(nav_item)
+  def navigate_to_profile
+    visit("http://#{@tournament.handle}.#{Settings.host}/user")
   end
 
   def change_user_password
