@@ -33,6 +33,7 @@ class SettingBrowserTest < BrowserTest
   def navigate_to_profile
     find("img[alt='#{@user.email}']").click
     click_text('Profile')
+    assert_text '#{@user.email}'
   end
 
   def change_user_password
