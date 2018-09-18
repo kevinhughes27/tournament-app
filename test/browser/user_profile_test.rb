@@ -10,7 +10,6 @@ class SettingBrowserTest < BrowserTest
     visit_app
     login
     navigate_to_profile
-    check_email_present
     logout
   end
 
@@ -35,9 +34,6 @@ class SettingBrowserTest < BrowserTest
     click_text('Profile')
   end
 
-  def check_email_present
-    assert_text '#{@user.email}'
-  end
 
   def logout
     find("img[alt='#{@user.email}']").click
