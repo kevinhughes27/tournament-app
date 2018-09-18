@@ -1,7 +1,7 @@
-class Mutations::UpdateUser < Mutations::BaseMutation
-  graphql_name "UpdateUser"
+class Mutations::ChangeUserPassword < Mutations::BaseMutation
+  graphql_name "ChangeUserPassword"
 
-  argument :input, Inputs::UpdateUserInput, required: true
+  argument :input, Inputs::ChangeUserPasswordInput, required: true
 
   field :user, Types::User, null: false
   field :success, Boolean, null: false

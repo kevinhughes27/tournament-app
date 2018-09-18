@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import gravatarUrl from "gravatar-url";
-import UserEditForm from "./UserEditForm";
+import ChangePasswordForm from "./ChangePasswordForm";
 
 interface Props {
   viewer: UserEdit_viewer;
@@ -14,10 +14,12 @@ class UserEdit extends React.Component<Props> {
   render() {
     const { viewer } = this.props;
     const avatarUrl = gravatarUrl(viewer.email, {size: 100});
+
     const input = {
       id: viewer.id,
       password: ""
     };
+
     return (
        <div className="user_info">
         <div className="col-md-6 col-md-offset-3">
@@ -34,7 +36,7 @@ class UserEdit extends React.Component<Props> {
               <div>{viewer.email}</div>
             </div>
           </div>
-           <UserEditForm input={input} />
+           <ChangePasswordForm input={input} />
         </div>
       </div>
     );

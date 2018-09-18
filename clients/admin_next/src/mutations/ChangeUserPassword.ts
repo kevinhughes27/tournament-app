@@ -2,13 +2,8 @@ import { commitMutation, graphql } from "react-relay";
 import environment from "../helpers/relay";
 
 const mutation = graphql`
-  mutation ChangeUserPasswordMutation($input: UpdateUserInput!) {
-    updateUser(input:$input) {
-      user {
-        id
-        name
-        email
-      }
+  mutation ChangeUserPasswordMutation($input: ChangeUserPasswordInput!) {
+    changeUserPassword(input:$input) {
       success
       message
       userErrors {
@@ -18,16 +13,6 @@ const mutation = graphql`
     }
   }
 `;
-
-function getOptimisticResponse(variables: ChangeUserPasswordMutationVariables) {
-  return {
-    updateUser: {
-      user: {
-        ...variables
-      }
-    },
-  };
-}
 
 function commit(
   variables: ChangeUserPasswordMutationVariables,
@@ -42,9 +27,8 @@ function commit(
         {
           mutation,
           variables,
-          optimisticResponse: getOptimisticResponse(variables),
           onCompleted: (response: ChangeUserPasswordMutationResponse) => {
-            resolve(response.updateUser as MutationResult);
+            resolve(response.changeUserPassword as MutationResult);
           },
           onError: (error) => {
             reject(error);

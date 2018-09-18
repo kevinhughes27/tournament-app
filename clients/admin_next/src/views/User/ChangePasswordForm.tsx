@@ -14,12 +14,13 @@ interface Props extends RouteComponentProps<any> {
 
 }
 
-class UserEditForm extends Form<Props> {
+class ChangePasswordForm extends Form<Props> {
 
   initialValues = () => {
     const { input } = this.props;
     return {
       password: input.password || "",
+      password_confirmation: "",
     };
   }
 
@@ -32,6 +33,10 @@ class UserEditForm extends Form<Props> {
 
     if (values.password.length < 6) {
       errors.password = "Minimum 6 character Required";
+    }
+
+    if (values.password !== values.password_confirmation ) {
+      errors.password = "Required";
     }
 
     return errors;
@@ -64,12 +69,22 @@ class UserEditForm extends Form<Props> {
       <form onSubmit={handleSubmit}>
         <TextField
           name="password"
-          label="Change Password"
+          label="Password"
           type="password"
           margin="normal"
           autoComplete="off"
           fullWidth
           value={values.password}
+          onChange={handleChange}
+        />
+        <TextField
+          name="password_confirmation"
+          label="Confirm Password"
+          type="password"
+          margin="normal"
+          autoComplete="off"
+          fullWidth
+          value={values.password_confirmation}
           onChange={handleChange}
         />
         <FormButtons
@@ -82,4 +97,4 @@ class UserEditForm extends Form<Props> {
   }
 }
 
-export default withRouter(UserEditForm);
+export default withRouter(ChangePasswordForm);

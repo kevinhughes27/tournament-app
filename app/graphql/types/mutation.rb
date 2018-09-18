@@ -26,5 +26,5 @@ class Types::Mutation < Types::BaseObject
 
   field :updateSettings, mutation: Mutations::UpdateSettings, auth: :required
 
-  field :updateUser, mutation: Mutations::UpdateUser, auth: :required
+  field :changeUserPassword, mutation: Mutations::ChangeUserPassword, auth: :required
 end

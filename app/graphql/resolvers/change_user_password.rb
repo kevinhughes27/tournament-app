@@ -1,4 +1,4 @@
-class Resolvers::UpdateUser < Resolvers::BaseResolver
+class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @user = @tournament.users.find(inputs[:id])
@@ -9,7 +9,7 @@ class Resolvers::UpdateUser < Resolvers::BaseResolver
     if @user.update(params)
       {
         success: true,
-        message: 'User updated',
+        message: 'Password changed',
         user: @user
       }
     else
