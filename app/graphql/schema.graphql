@@ -11,9 +11,7 @@ type Bracket {
 }
 
 input ChangeUserPasswordInput {
-  email: String
   id: ID!
-  name: String
   password: String
 }
 
@@ -419,5 +417,4 @@ type User {
   email: String!
   id: ID!
   name: String
-  password: String!
 }
