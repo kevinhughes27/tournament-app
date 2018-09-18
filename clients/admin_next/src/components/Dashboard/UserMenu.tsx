@@ -43,11 +43,10 @@ class UserMenu extends React.Component<Props, State> {
 
     return (
       <div>
-        <IconButton onClick={this.handleOpen}>
+        <IconButton id="user-menu" onClick={this.handleOpen}>
         <Avatar alt={email} src={avatarUrl} />
         </IconButton>
         <Menu
-          id="user-menu"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: "top", horizontal: "right"}}
           transformOrigin={{vertical: "top", horizontal: "right"}}
