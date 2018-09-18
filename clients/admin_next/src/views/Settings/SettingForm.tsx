@@ -1,12 +1,16 @@
 import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { FormikValues, FormikProps, FormikErrors } from "formik";
+import { withRouter } from "react-router-dom";
+import { FormikValues, FormikProps } from "formik";
 import { isEmpty } from "lodash";
 
 import TextField from "@material-ui/core/TextField";
 import FormButtons from "../../components/FormButtons";
 import Form from "../../components/Form";
 import UpdateSettingsMutation from "../../mutations/UpdateSettings";
+
+interface Props extends RouteComponentProps<any> {
+  input: UpdateSettingsMutationVariables["input"];
+}
 
 class SettingForm extends Form<Props> {
 
