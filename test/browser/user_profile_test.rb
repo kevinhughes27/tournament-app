@@ -10,6 +10,7 @@ class SettingBrowserTest < BrowserTest
     visit_app
     login
     navigate_to_profile
+    change_user_password
     logout
   end
 
@@ -34,6 +35,13 @@ class SettingBrowserTest < BrowserTest
     click_text('Profile')
   end
 
+  def change_user_password
+    fill_in('password', with: "12345678")
+    fill_in('password_confirmation', with: "12345678")
+    find('button[type="submit"]').click
+    click_button 
+    assert_text 'Password changed'
+  end
 
   def logout
     find("img[alt='#{@user.email}']").click
