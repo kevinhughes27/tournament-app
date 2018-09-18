@@ -271,7 +271,11 @@ type SeedDivisionPayload {
 
 # Tourgraphql_nament Settings
 type Settings {
-  protectScoreSubmit: Boolean!
+  gameConfirmSetting: Boolean!
+  handle: String!
+  name: String
+  protectScoreSubmit: Boolean
+  timezone: String
 }
 
 input SubmitScoreInput {

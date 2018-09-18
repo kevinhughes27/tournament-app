@@ -8,12 +8,14 @@ import Fields from "./Fields";
 import Schedule from "./Schedule";
 import { GameList, GameShow } from "./Games";
 import { UserEditForm } from "./User";
+import { SettingForm } from "./Settings";
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
 
     <Route exact path="/user" component={UserEditForm}/>
+    <Route exact path="/settings" component={SettingForm}/>
     <Route exact path="/teams" component={TeamList}/>
     <Route path="/teams/new" component={TeamNew}/>
     <Route path="/teams/:teamId" component={TeamShow}/>
