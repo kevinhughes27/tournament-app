@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FormikValues, FormikProps } from "formik";
 import { isEmpty } from "lodash";
 
