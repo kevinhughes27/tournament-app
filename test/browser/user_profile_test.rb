@@ -37,6 +37,7 @@ class SettingBrowserTest < BrowserTest
 
   def change_user_password
     fill_in('password', with: "12345678")
+    fill_in('password_confirmation', with: "12345678")
     find('button[type="submit"]').click
     click_button 
     assert_text 'Password changed'
