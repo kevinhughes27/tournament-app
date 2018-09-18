@@ -49,4 +49,8 @@ class SettingBrowserTest < BrowserTest
     assert_text 'Log in to manage your tournament'
   end
 
+  def click_text(text)
+    page.find(:xpath,"//*[text()='#{text}']").click
+  end
+
 end
