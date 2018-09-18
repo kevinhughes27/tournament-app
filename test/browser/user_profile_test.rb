@@ -31,7 +31,8 @@ class SettingBrowserTest < BrowserTest
   end
 
   def navigate_to_profile
-    visit("http://#{@tournament.handle}.#{Settings.host}/user")
+    find("img[alt='#{@user.email}']").click
+    click_text('Profile')
   end
 
   def change_user_password
