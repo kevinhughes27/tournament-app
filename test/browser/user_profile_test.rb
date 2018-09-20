@@ -4,6 +4,7 @@ class SettingBrowserTest < BrowserTest
   setup do
     @tournament = FactoryBot.create(:tournament, handle: 'no-borders')
     @user = FactoryBot.create(:user)
+    FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
   test 'user change password' do
