@@ -95,6 +95,7 @@ group :test do
   gem 'simplecov', :require => false
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem "chromedriver-helper"
   gem 'launchy'
   gem 'json-schema', '~> 2.6.0'
 end
