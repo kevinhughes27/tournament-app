@@ -12,7 +12,7 @@ class SettingBrowserTest < BrowserTest
   test 'admin next' do
     visit_app
     login
-    navigate_to('Profile')
+    navigate_to_profile
     change_password
     logout
   end
@@ -33,21 +33,19 @@ class SettingBrowserTest < BrowserTest
     assert_text('Home')
   end
 
-  def navigate_to(nav_item)
+  def navigate_to_profile
     find('#user-menu').click
-    click_on(nav_item)
+    click_on('Profile')
   end
 
-
   def change_password
-    # byebug
-    assert_text @user.name
-    assert_text @user.email
-    fill_in('password', with: 'password')  
+    assert_text 'Confirm Password'
+
+    fill_in('password', with: 'password')
     fill_in('password_confirmation', with: 'password')
-  
+
     click_save
-    assert_text('Password updated')
+    assert_text('Password changed')
   end
 
   def click_save
@@ -55,7 +53,7 @@ class SettingBrowserTest < BrowserTest
   end
 
   def logout
-    find("img[alt='#{@user.email}']").click
+    find('#user-menu').click
     click_text('Logout')
     assert_text 'Log in to manage your tournament'
   end

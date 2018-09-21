@@ -54,7 +54,7 @@ class UserMenu extends React.Component<Props, State> {
           onClose={this.handleClose}
         >
           <MenuItem>
-            <NavLink to="/user">Profile</NavLink>
+            <NavLink to="/user" onClick={this.handleClose}>Profile</NavLink>
           </MenuItem>
           <MenuItem onClick={this.handleClose}>Settings</MenuItem>
           <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
