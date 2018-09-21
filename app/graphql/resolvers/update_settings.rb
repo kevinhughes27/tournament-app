@@ -14,7 +14,6 @@ class Resolvers::UpdateSettings < Resolvers::BaseResolver
         message: SETTINGS_UPDATE_CONFIRM_MSG
       }
     end
-
     if tournament.update(params)
       {
         success: true,

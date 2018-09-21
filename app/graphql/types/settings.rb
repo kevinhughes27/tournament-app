@@ -4,15 +4,15 @@ class Types::Settings < Types::BaseObject
   field :name, String, null: true
   field :handle, String, null: false
   field :timezone, String, null: true
-  field :protectScoreSubmit, Boolean, null: true
-  field :gameConfirmSetting, Boolean, null: false
+  field :scoreSubmitPin, String, null: true
+  field :gameConfirmSetting, String, null: false
 
-  def protect_score_submit
-    context[:tournament].score_submit_pin.present?
+  def score_submit_pin
+    context[:tournament].score_submit_pin
   end
 
   def game_confirm_setting
-    context[:tournament].game_confirm_setting.present?
+    context[:tournament].game_confirm_setting
   end
 
 end
