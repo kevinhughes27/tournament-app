@@ -68,6 +68,7 @@ class ChangePasswordForm extends Form<Props> {
     return (
       <form onSubmit={handleSubmit}>
         <TextField
+          id="user_password"
           name="password"
           label="Password"
           type="password"
@@ -76,8 +77,10 @@ class ChangePasswordForm extends Form<Props> {
           fullWidth
           value={values.password}
           onChange={handleChange}
+          helperText={errors.password}
         />
         <TextField
+          id="user_password_confirmation"
           name="password_confirmation"
           label="Confirm Password"
           type="password"
@@ -86,6 +89,7 @@ class ChangePasswordForm extends Form<Props> {
           fullWidth
           value={values.password_confirmation}
           onChange={handleChange}
+          helperText={errors.password}
         />
         <FormButtons
           formDirty={dirty}
