@@ -4,8 +4,6 @@ import { FormikValues, FormikProps } from "formik";
 import { isEmpty } from "lodash";
 
 import Radio from "@material-ui/core/Radio";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
@@ -18,7 +16,7 @@ interface Props extends RouteComponentProps<any> {
   input: UpdateSettingsMutationVariables["input"];
 }
 
-class SettingForm extends Form<Props> {
+class SettingsForm extends Form<Props> {
 
   initialValues = () => {
     const { input } = this.props;
@@ -29,6 +27,24 @@ class SettingForm extends Form<Props> {
       scoreSubmitPin: input.scoreSubmitPin || "",
       gameConfirmSetting: input.gameConfirmSetting || ""
     };
+  }
+
+  validate = (values: FormikValues) => {
+    const errors: FormikErrors<FormikValues> = {};
+
+    if (!values.name) {
+      errors.name = "Required";
+    }
+
+    if (!values.handle) {
+      errors.handle = "Required";
+    }
+
+    if (values.scoreSubmitPin.length !== 4 ) {
+      errors.scoreSubmitPin = "Invalid Pin Length it should be 4";
+    }
+
+    return errors;
   }
 
   mutation = () => {
@@ -60,6 +76,7 @@ class SettingForm extends Form<Props> {
           fullWidth
           value={values.name}
           onChange={handleChange}
+          helperText={errors.name}
         />
         <TextField
           name="handle"
@@ -70,6 +87,7 @@ class SettingForm extends Form<Props> {
           fullWidth
           value={values.handle}
           onChange={handleChange}
+          helperText={errors.handle}
         />
         <TextField
           name="timezone"
@@ -90,6 +108,7 @@ class SettingForm extends Form<Props> {
           fullWidth
           value={values.scoreSubmitPin}
           onChange={handleChange}
+          helperText={errors.scoreSubmitPin}
         />
         <label>Score Confirmation Settings</label>
         <RadioGroup
@@ -111,4 +130,4 @@ class SettingForm extends Form<Props> {
   }
 }
 
-export default withRouter(SettingForm);
+export default withRouter(SettingsForm);

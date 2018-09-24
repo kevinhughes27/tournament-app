@@ -1,6 +1,6 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
-import SettingForm from "./SettingForm";
+import SettingsForm from "./SettingsForm";
 
 interface Props {
   settings: Setting_settings;
@@ -21,7 +21,7 @@ class Setting extends React.Component<Props> {
     return (
        <div className="user_info">
         <div className="col-md-6 col-md-offset-3">
-           <SettingForm input={input} />
+           <SettingsForm input={input} />
         </div>
       </div>
     );

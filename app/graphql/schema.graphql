@@ -267,7 +267,7 @@ type SeedDivisionPayload {
   success: Boolean!
 }
 
-# Tourgraphql_nament Settings
+# Tournament Settings
 type Settings {
   gameConfirmSetting: Boolean!
   handle: String!
