@@ -1,10 +1,12 @@
 class User < ApplicationRecord
   include Staff
-
+  attr_accessor  :password, :password_confirmation
   has_many :user_authentications, dependent: :destroy
   has_many :tournament_users, dependent: :destroy
   has_many :tournaments, through: :tournament_users
-
+  validates :password, :presence =>true,
+                    :length => { :minimum => 6, :maximum => 20 },
+                    :confirmation =>true
   devise :omniauthable,
          :database_authenticatable,
          :registerable,

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SettingBrowserTest < BrowserTest
+class UserProfileBrowserTest < BrowserTest
   setup do
     @tournament = FactoryBot.create(:tournament, handle: 'no-borders')
     @user = FactoryBot.create(:user)

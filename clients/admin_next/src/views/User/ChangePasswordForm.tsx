@@ -36,7 +36,7 @@ class ChangePasswordForm extends Form<Props> {
     }
 
     if (values.password !== values.password_confirmation ) {
-      errors.password = "Required";
+      errors.password = "Passwords don't match";
     }
 
     return errors;

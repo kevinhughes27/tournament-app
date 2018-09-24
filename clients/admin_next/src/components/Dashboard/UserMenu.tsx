@@ -43,8 +43,14 @@ class UserMenu extends React.Component<Props, State> {
 
     return (
       <div>
-        <IconButton id="user-menu" onClick={this.handleOpen}>
-        <Avatar alt={email} src={avatarUrl} />
+        <IconButton
+          id="user-menu"
+          onClick={this.handleOpen}
+        >
+        <Avatar
+          alt={email}
+          src={avatarUrl}
+        />
         </IconButton>
         <Menu
           anchorEl={anchorEl}

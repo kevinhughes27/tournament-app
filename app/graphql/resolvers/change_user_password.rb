@@ -2,11 +2,8 @@ class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @user = @tournament.users.find(inputs[:id])
-    params = inputs.to_h.except(:user_id, :confirm)
   
-    @user.assign_attributes(params)
-
-    if @user.update(params)
+    if @user.update(password: inputs[:password])
       {
         success: true,
         message: 'Password changed',
