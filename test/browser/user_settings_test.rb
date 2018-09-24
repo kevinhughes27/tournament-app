@@ -10,7 +10,7 @@ class SettingsBrowserTest < BrowserTest
   test 'admin next' do
     visit_app
     login
-    navigate_to_profile
+    navigate_to_settings
     edit_settings
     logout
   end
@@ -31,9 +31,9 @@ class SettingsBrowserTest < BrowserTest
     assert_text('Home')
   end
 
-  def navigate_to_profile
+  def navigate_to_settings
     find('#user-menu').click
-    click_on('Profile')
+    click_on('Settings')
   end
 
   def edit_settings
