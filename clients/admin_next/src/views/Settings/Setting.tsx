@@ -14,7 +14,7 @@ class Setting extends React.Component<Props> {
       name: settings.name,
       handle: settings.handle,
       timezone: settings.timezone,
-      scoreSubmitPin: settings.scoreSubmitPin,
+      protectScoreSubmit: settings.protectScoreSubmit,
       gameConfirmSetting: settings.gameConfirmSetting
     };
 
@@ -34,7 +34,7 @@ export default createFragmentContainer(Setting, {
       name
       handle
       timezone
-      scoreSubmitPin
+      protectScoreSubmit
       gameConfirmSetting
     }
   `

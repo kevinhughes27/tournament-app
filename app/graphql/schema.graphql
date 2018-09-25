@@ -205,6 +205,8 @@ type Mutation {
 
 scalar NullableInt
 
+scalar PinCode
+
 type Query {
   bracket(handle: String!): Bracket
   brackets(numDays: Int!, numTeams: Int!): [Bracket!]
@@ -272,7 +274,7 @@ type Settings {
   gameConfirmSetting: String!
   handle: String!
   name: String
-  scoreSubmitPin: String
+  protectScoreSubmit: String!
   timezone: String
 }
 
@@ -383,7 +385,7 @@ input UpdateSettingsInput {
   gameConfirmSetting: String
   handle: String
   name: String
-  scoreSubmitPin: String
+  scoreSubmitPin: PinCode
   timezone: String
 }
 

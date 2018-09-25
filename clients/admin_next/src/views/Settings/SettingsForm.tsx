@@ -24,7 +24,7 @@ class SettingsForm extends Form<Props> {
       name: input.name || "",
       handle: input.handle || "",
       timezone: input.timezone || "",
-      scoreSubmitPin: input.scoreSubmitPin || "",
+      protectScoreSubmit: input.protectScoreSubmit || "",
       gameConfirmSetting: input.gameConfirmSetting || ""
     };
   }
@@ -40,8 +40,8 @@ class SettingsForm extends Form<Props> {
       errors.handle = "Required";
     }
 
-    if (values.scoreSubmitPin.length !== 4 ) {
-      errors.scoreSubmitPin = "Invalid Pin Length it should be 4";
+    if (values.protectScoreSubmit.length !== 4 ) {
+      errors.protectScoreSubmit = "Invalid Pin Length it should be 4";
     }
 
     return errors;
@@ -100,15 +100,15 @@ class SettingsForm extends Form<Props> {
           onChange={handleChange}
         />
         <TextField
-          name="scoreSubmitPin"
+          name="protectScoreSubmit"
           label="Score Submit Pin Code"
           type="name"
           margin="normal"
           autoComplete="off"
           fullWidth
-          value={values.scoreSubmitPin}
+          value={values.protectScoreSubmit}
           onChange={handleChange}
-          helperText={errors.scoreSubmitPin}
+          helperText={errors.protectScoreSubmit}
         />
         <label>Score Confirmation Settings</label>
         <RadioGroup

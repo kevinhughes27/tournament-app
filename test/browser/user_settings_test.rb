@@ -33,12 +33,10 @@ class SettingsBrowserTest < BrowserTest
 
   def navigate_to_settings
     find('#user-menu').click
-    click_on('Settings')
+    click_text('Settings')
   end
 
   def edit_settings
-    assert_text 'Name'
-
     fill_in('name', with: 'no-borders')
     fill_in('handle', with: 'no-borders')
     fill_in('scoreSubmitPin', with: '1111')
@@ -59,7 +57,4 @@ class SettingsBrowserTest < BrowserTest
   def click_text(text)
     page.find(:xpath,"//*[text()='#{text}']").click
   end
-
-
-
 end

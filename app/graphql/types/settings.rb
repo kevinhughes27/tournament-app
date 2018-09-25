@@ -4,10 +4,15 @@ class Types::Settings < Types::BaseObject
   field :name, String, null: true
   field :handle, String, null: false
   field :timezone, String, null: true
-  field :scoreSubmitPin, String, null: true
+  # field :scoreSubmitPin, String, null: true
+  field :protectScoreSubmit, String, null: false
   field :gameConfirmSetting, String, null: false
 
-  def score_submit_pin
+  # def score_submit_pin
+  #   context[:tournament].score_submit_pin
+  # end
+
+   def protect_score_submit
     context[:tournament].score_submit_pin
   end
 
