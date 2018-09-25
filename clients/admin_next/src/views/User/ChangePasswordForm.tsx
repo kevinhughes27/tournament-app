@@ -20,7 +20,6 @@ class ChangePasswordForm extends Form<Props> {
     const { input } = this.props;
     return {
       password: input.password || "",
-      password_confirmation: "",
     };
   }
 
@@ -51,6 +50,7 @@ class ChangePasswordForm extends Form<Props> {
       input: {
         id: this.props.input.id,
         password: values.password,
+        passwordConfirmation: values.password_confirmation,
       }
     };
   }

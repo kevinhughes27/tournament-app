@@ -17,7 +17,8 @@ class UserEdit extends React.Component<Props> {
 
     const input = {
       id: viewer.id,
-      password: ""
+      password: "",
+      password_confirmation: ""
     };
 
     return (

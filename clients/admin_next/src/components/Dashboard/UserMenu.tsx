@@ -47,10 +47,10 @@ class UserMenu extends React.Component<Props, State> {
           id="user-menu"
           onClick={this.handleOpen}
         >
-        <Avatar
-          alt={email}
-          src={avatarUrl}
-        />
+          <Avatar
+            alt={email}
+            src={avatarUrl}
+          />
         </IconButton>
         <Menu
           anchorEl={anchorEl}
