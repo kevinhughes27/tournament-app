@@ -385,7 +385,7 @@ input UpdateSettingsInput {
   gameConfirmSetting: String
   handle: String
   name: String
-  scoreSubmitPin: PinCode
+  protectScoreSubmit: PinCode
   timezone: String
 }
 
