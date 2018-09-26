@@ -37,7 +37,7 @@ class SettingsBrowserTest < BrowserTest
   end
 
   def edit_settings
-    assert_text 'name'
+    assert_text 'Name'
 
     fill_in('name', with: 'no-borders')
     fill_in('handle', with: 'no-borders')
