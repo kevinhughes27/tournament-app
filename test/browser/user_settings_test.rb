@@ -37,6 +37,8 @@ class SettingsBrowserTest < BrowserTest
   end
 
   def edit_settings
+    assert_text 'name'
+
     fill_in('name', with: 'no-borders')
     fill_in('handle', with: 'no-borders')
     fill_in('scoreSubmitPin', with: '1111')
