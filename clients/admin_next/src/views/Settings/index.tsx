@@ -1,5 +1,5 @@
-import SettingForm from "./SettingContainer";
+import SettingsForm from "./SettingsContainer";
 
 export {
-  SettingForm
+  SettingsForm
 };

@@ -3,10 +3,10 @@ import {createFragmentContainer, graphql} from "react-relay";
 import SettingsForm from "./SettingsForm";
 
 interface Props {
-  settings: Setting_settings;
+  settings: Settings_settings;
 }
 
-class Setting extends React.Component<Props> {
+class Settings extends React.Component<Props> {
   render() {
     const { settings } = this.props;
 
@@ -28,9 +28,9 @@ class Setting extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(Setting, {
+export default createFragmentContainer(Settings, {
   settings: graphql`
-    fragment Setting_settings on Settings {
+    fragment Settings_settings on Settings {
       name
       handle
       timezone
