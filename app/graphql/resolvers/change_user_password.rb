@@ -4,6 +4,7 @@ class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
     @user = @tournament.users.find(inputs[:id])
     @password = inputs[:password]
     @password_confirmation = inputs[:password_confirmation]
+
     if @password == @password_confirmation
       update_user
     else
@@ -16,6 +17,7 @@ class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
   end
 
   private
+  
    def update_user
      if @user.update(password: @password)
       {

@@ -61,7 +61,4 @@ class UserProfileBrowserTest < BrowserTest
   def click_text(text)
     page.find(:xpath,"//*[text()='#{text}']").click
   end
-
-
-
 end
