@@ -1,6 +1,6 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
@@ -43,18 +43,25 @@ class UserMenu extends React.Component<Props, State> {
 
     return (
       <div>
-        <IconButton onClick={this.handleOpen}>
-        <Avatar alt={email} src={avatarUrl} />
+        <IconButton
+          id="user-menu"
+          onClick={this.handleOpen}
+        >
+          <Avatar
+            alt={email}
+            src={avatarUrl}
+          />
         </IconButton>
         <Menu
-          id="user-menu"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: "top", horizontal: "right"}}
           transformOrigin={{vertical: "top", horizontal: "right"}}
           open={open}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+          <MenuItem>
+            <NavLink to="/user" onClick={this.handleClose}>Profile</NavLink>
+          </MenuItem>
           <MenuItem onClick={this.handleClose}>Settings</MenuItem>
           <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
         </Menu>
