@@ -43,16 +43,11 @@ class UserMenu extends React.Component<Props, State> {
 
     return (
       <div>
-        <IconButton
-          id="user-menu"
-          onClick={this.handleOpen}
-        >
-          <Avatar
-            alt={email}
-            src={avatarUrl}
-          />
+        <IconButton onClick={this.handleOpen}>
+          <Avatar alt={email} src={avatarUrl} />
         </IconButton>
         <Menu
+          id="user-menu"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: "top", horizontal: "right"}}
           transformOrigin={{vertical: "top", horizontal: "right"}}
@@ -60,12 +55,18 @@ class UserMenu extends React.Component<Props, State> {
           onClose={this.handleClose}
         >
           <MenuItem>
-            <NavLink to="/user" onClick={this.handleClose}>Profile</NavLink>
+            <NavLink to="/user" onClick={this.handleClose}>
+              Profile
+            </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink to="/settings">Settings</NavLink>
+            <NavLink to="/settings" onClick={this.handleClose}>
+              Settings
+            </NavLink>
           </MenuItem>
-          <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={this.handleLogout}>
+            Logout
+          </MenuItem>
         </Menu>
       </div>
     );

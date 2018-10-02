@@ -4,22 +4,16 @@ import Avatar from "@material-ui/core/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import gravatarUrl from "gravatar-url";
-import ChangePasswordForm from "./ChangePasswordForm";
+import PasswordForm from "./PasswordForm";
 
 interface Props {
-  viewer: UserEdit_viewer;
+  viewer: UserShow_viewer;
 }
 
-class UserEdit extends React.Component<Props> {
+class UserShow extends React.Component<Props> {
   render() {
     const { viewer } = this.props;
     const avatarUrl = gravatarUrl(viewer.email, {size: 100});
-
-    const input = {
-      id: viewer.id,
-      password: "",
-      password_confirmation: ""
-    };
 
     return (
        <div className="user_info">
@@ -27,7 +21,7 @@ class UserEdit extends React.Component<Props> {
           <div className="user-email">
             <span className="user-image"><Avatar alt={viewer.email} src={avatarUrl} />
               <span>
-                <a href="https://en.gravatar.com/ " target="blank">
+                <a href="https://en.gravatar.com/" target="blank">
                   <FontAwesomeIcon icon={faEdit} />
                 </a>
               </span>
@@ -37,17 +31,16 @@ class UserEdit extends React.Component<Props> {
               <div>{viewer.email}</div>
             </div>
           </div>
-           <ChangePasswordForm input={input} />
+          <PasswordForm />
         </div>
       </div>
     );
   }
 }
 
-export default createFragmentContainer(UserEdit, {
+export default createFragmentContainer(UserShow, {
   viewer: graphql`
-    fragment UserEdit_viewer on User {
-      id
+    fragment UserShow_viewer on User {
       name
       email
     }

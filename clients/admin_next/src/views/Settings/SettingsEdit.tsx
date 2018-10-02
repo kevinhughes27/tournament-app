@@ -3,10 +3,10 @@ import {createFragmentContainer, graphql} from "react-relay";
 import SettingsForm from "./SettingsForm";
 
 interface Props {
-  settings: Settings_settings;
+  settings: SettingsEdit_settings;
 }
 
-class Settings extends React.Component<Props> {
+class SettingsEdit extends React.Component<Props> {
   render() {
     const { settings } = this.props;
 
@@ -14,27 +14,23 @@ class Settings extends React.Component<Props> {
       name: settings.name,
       handle: settings.handle,
       timezone: settings.timezone,
-      protectScoreSubmit: settings.protectScoreSubmit,
+      scoreSubmitPin: settings.scoreSubmitPin,
       gameConfirmSetting: settings.gameConfirmSetting
     };
 
     return (
-       <div className="user_info">
-        <div className="col-md-6 col-md-offset-3">
-           <SettingsForm input={input} />
-        </div>
-      </div>
+      <SettingsForm input={input} />
     );
   }
 }
 
-export default createFragmentContainer(Settings, {
+export default createFragmentContainer(SettingsEdit, {
   settings: graphql`
-    fragment Settings_settings on Settings {
+    fragment SettingsEdit_settings on Settings {
       name
       handle
       timezone
-      protectScoreSubmit
+      scoreSubmitPin
       gameConfirmSetting
     }
   `

@@ -1,25 +1,16 @@
 import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 import { FormikValues, FormikProps, FormikErrors } from "formik";
 import { isEmpty } from "lodash";
-
 import TextField from "@material-ui/core/TextField";
-import FormButtons from "../../components/FormButtons";
-
 import Form from "../../components/Form";
+import FormButtons from "../../components/FormButtons";
 import ChangeUserPasswordMutation from "../../mutations/ChangeUserPassword";
 
-interface Props extends RouteComponentProps<any> {
-  input: ChangeUserPasswordMutationVariables["input"];
-
-}
-
-class ChangePasswordForm extends Form<Props> {
-
+class PasswordForm extends Form<{}> {
   initialValues = () => {
-    const { input } = this.props;
     return {
-      password: input.password || "",
+      password: "",
+      passwordConfirmation: ""
     };
   }
 
@@ -34,8 +25,8 @@ class ChangePasswordForm extends Form<Props> {
       errors.password = "Minimum 6 character Required";
     }
 
-    if (values.password !== values.password_confirmation ) {
-      errors.password = "Passwords don't match";
+    if (values.password !== values.passwordConfirmation) {
+      errors.passwordConfirmation = "Passwords don't match";
     }
 
     return errors;
@@ -48,9 +39,8 @@ class ChangePasswordForm extends Form<Props> {
   mutationInput = (values: FormikValues) => {
     return {
       input: {
-        id: this.props.input.id,
         password: values.password,
-        passwordConfirmation: values.password_confirmation,
+        passwordConfirmation: values.passwordConfirmation,
       }
     };
   }
@@ -69,7 +59,7 @@ class ChangePasswordForm extends Form<Props> {
       <form onSubmit={handleSubmit}>
         <TextField
           name="password"
-          label="Password"
+          label="Change Password"
           type="password"
           margin="normal"
           autoComplete="off"
@@ -79,17 +69,18 @@ class ChangePasswordForm extends Form<Props> {
           helperText={errors.password}
         />
         <TextField
-          name="password_confirmation"
+          name="passwordConfirmation"
           label="Confirm Password"
           type="password"
           margin="normal"
           autoComplete="off"
           fullWidth
-          value={values.password_confirmation}
+          value={values.passwordConfirmation}
           onChange={handleChange}
-          helperText={errors.password}
+          helperText={errors.passwordConfirmation}
         />
         <FormButtons
+          inline={true}
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
@@ -99,4 +90,4 @@ class ChangePasswordForm extends Form<Props> {
   }
 }
 
-export default withRouter(ChangePasswordForm);
+export default PasswordForm;

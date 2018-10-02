@@ -1,9 +1,17 @@
 import { commitMutation, graphql } from "react-relay";
+import { RecordSourceSelectorProxy } from "relay-runtime";
 import environment from "../helpers/relay";
 
 const mutation = graphql`
   mutation UpdateSettingsMutation($input: UpdateSettingsInput!) {
     updateSettings(input:$input) {
+      settings {
+        name
+        handle
+        timezone
+        scoreSubmitPin
+        gameConfirmSetting
+      }
       success
       confirm
       message
@@ -25,6 +33,13 @@ function getOptimisticResponse(variables: UpdateSettingsMutationVariables) {
   };
 }
 
+function updater(store: RecordSourceSelectorProxy) {
+  const root = store.getRoot();
+  const payload = store.getRootField("updateSettings");
+  const settings = payload!.getLinkedRecord("settings");
+  root.setLinkedRecord(settings!, "settings");
+}
+
 function commit(
   variables: UpdateSettingsMutationVariables,
 ) {
@@ -38,6 +53,7 @@ function commit(
         {
           mutation,
           variables,
+          updater,
           optimisticResponse: getOptimisticResponse(variables),
           onCompleted: (response: UpdateSettingsMutationResponse) => {
             resolve(response.updateSettings as MutationResult);

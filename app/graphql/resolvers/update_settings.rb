@@ -8,21 +8,27 @@ class Resolvers::UpdateSettings < Resolvers::BaseResolver
     protect_score_submit =  params[:protect_score_submit]
     params = inputs.to_h.except(:protect_score_submit)
     params = params.merge(score_submit_pin: protect_score_submit)
+
     if changing_handle?(tournament, params) && !inputs[:confirm]
       tournament.assign_attributes(params)
+
       return {
+        settings: tournament,
         success: false,
         confirm: true,
         message: SETTINGS_UPDATE_CONFIRM_MSG
       }
     end
+
     if tournament.update(params)
       {
+        settings: tournament,
         success: true,
         message: 'Settings updated'
       }
     else
       {
+        settings: tournament,
         success: false,
         user_errors: tournament.fields_errors
       }
