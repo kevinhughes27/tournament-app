@@ -23,9 +23,9 @@ class TeamsTest < AdminNextTestCase
   end
 
   def edit_team
-    fill_in('name', with: '')
+    fill_in('name', with: ' ')
     fill_in('name', with: 'Hug Machine')
-    fill_in('seed', with: '')
+    fill_in('seed', with: ' ')
     fill_in('seed', with: 1)
     click_save
     assert_text ('Team updated')

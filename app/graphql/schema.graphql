@@ -272,7 +272,7 @@ type SeedDivisionPayload {
 type Settings {
   gameConfirmSetting: String!
   handle: String!
-  name: String
+  name: String!
   protectScoreSubmit: Boolean!
   scoreSubmitPin: String
   timezone: String!

@@ -1,7 +1,7 @@
 class Types::Settings < Types::BaseObject
   graphql_name "Settings"
   description "Tournament Settings"
-  field :name, String, null: true
+  field :name, String, null: false
   field :handle, String, null: false
   field :timezone, String, null: false
   field :protectScoreSubmit, Boolean, null: false

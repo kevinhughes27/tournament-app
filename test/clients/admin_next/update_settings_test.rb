@@ -17,13 +17,17 @@ class SettingsBrowserTest < AdminNextTestCase
   end
 
   def edit_settings
-    assert_text @tournament.name
+    assert_text 'Score Confirmation Setting'
 
-    fill_in('name', with: 'no-borders')
-    fill_in('handle', with: 'no-borders')
+    fill_in('name', with: ' ')
+    fill_in('name', with: 'No Borders')
     fill_in('scoreSubmitPin', with: '1111')
 
     click_save
     assert_text('Settings updated')
+
+    @tournament.reload
+    assert_equal 'No Borders', @tournament.name
+    assert_equal '1111', @tournament.score_submit_pin
   end
 end
