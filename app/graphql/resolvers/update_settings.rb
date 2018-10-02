@@ -8,7 +8,9 @@ class Resolvers::UpdateSettings < Resolvers::BaseResolver
 
     if changing_handle?(tournament, params) && !inputs[:confirm]
       tournament.assign_attributes(params)
+
       return {
+        settings: tournament,
         success: false,
         confirm: true,
         message: SETTINGS_UPDATE_CONFIRM_MSG
@@ -17,11 +19,13 @@ class Resolvers::UpdateSettings < Resolvers::BaseResolver
 
     if tournament.update(params)
       {
+        settings: tournament,
         success: true,
         message: 'Settings updated'
       }
     else
       {
+        settings: tournament,
         success: false,
         user_errors: tournament.fields_errors
       }

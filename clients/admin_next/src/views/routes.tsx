@@ -2,18 +2,21 @@ import * as React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import Home from "./Home";
+import User from "./User";
+import Settings from "./Settings";
 import {TeamList, TeamShow, TeamNew } from "./Teams";
 import { DivisionList, DivisionShow, DivisionEdit, DivisionNew } from "./Divisions";
 import Fields from "./Fields";
 import Schedule from "./Schedule";
 import { GameList, GameShow } from "./Games";
-import { UserEditForm } from "./User";
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
 
-    <Route exact path="/user" component={UserEditForm}/>
+    <Route path="/user" component={User}/>
+    <Route path="/settings" component={Settings}/>
+
     <Route exact path="/teams" component={TeamList}/>
     <Route path="/teams/new" component={TeamNew}/>
     <Route path="/teams/:teamId" component={TeamShow}/>

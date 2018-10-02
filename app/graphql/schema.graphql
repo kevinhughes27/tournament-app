@@ -11,7 +11,6 @@ type Bracket {
 }
 
 input ChangeUserPasswordInput {
-  id: ID!
   password: String
   passwordConfirmation: String
 }
@@ -269,9 +268,14 @@ type SeedDivisionPayload {
   success: Boolean!
 }
 
-# Tourgraphql_nament Settings
+# Tournament Settings
 type Settings {
+  gameConfirmSetting: String!
+  handle: String!
+  name: String!
   protectScoreSubmit: Boolean!
+  scoreSubmitPin: String
+  timezone: String!
 }
 
 input SubmitScoreInput {
@@ -389,6 +393,7 @@ input UpdateSettingsInput {
 type UpdateSettingsPayload {
   confirm: Boolean
   message: String
+  settings: Settings!
   success: Boolean!
   userErrors: [Error!]
 }

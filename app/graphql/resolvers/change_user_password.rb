@@ -1,7 +1,6 @@
 class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
   def call(inputs, ctx)
-    @tournament = ctx[:tournament]
-    @user = @tournament.users.find(inputs[:id])
+    @user = ctx[:current_user]
     @password = inputs[:password]
     @password_confirmation = inputs[:password_confirmation]
 
@@ -11,15 +10,15 @@ class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
        {
         success: false,
         user: @user,
-        user_errors: @user.fields_errors
+        user_errors: [FieldError.new('password', "Passwords don't match")]
       }
     end
   end
 
   private
-  
-   def update_user
-     if @user.update(password: @password)
+
+  def update_user
+    if @user.update(password: @password)
       {
         success: true,
         message: 'Password changed',
@@ -29,8 +28,8 @@ class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
       {
         success: false,
         user: @user,
-        user_errors: "Password does not match Password Confirmation"
+        user_errors: @user.fields_errors
       }
     end
-   end
+  end
 end

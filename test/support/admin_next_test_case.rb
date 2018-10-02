@@ -1,21 +1,10 @@
-require "test_helper"
+require_relative 'browser_test_case'
 
-class AdminNextBrowserTest < BrowserTest
+class AdminNextTestCase < BrowserTestCase
   setup do
     @tournament = FactoryBot.create(:tournament, handle: 'no-borders')
     @user = FactoryBot.create(:user)
     FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
-
-    @team = FactoryBot.create(:team, name: 'Swift')
-  end
-
-  test 'admin next' do
-    visit_app
-    login
-    navigate_to('Teams')
-    open_team
-    edit_team
-    logout
   end
 
   private
@@ -39,31 +28,12 @@ class AdminNextBrowserTest < BrowserTest
     click_on(nav_item)
   end
 
-  def open_team
-    assert_text @team.name
-    click_text(@team.name)
-    assert_equal find_field('email').value, @team.email
-  end
-
-  def edit_team
-    fill_in('name', with: '')
-    fill_in('name', with: 'Hug Machine')
-    fill_in('seed', with: '')
-    fill_in('seed', with: 1)
-    click_save
-    assert_text ('Team updated')
-
-    team = Team.last
-    assert_equal 'Hug Machine', team.name
-    assert_equal 1, team.seed
-  end
-
   def click_save
     find('button[type="submit"]').click
   end
 
   def logout
-    find("img[alt='#{@user.email}']").click
+    find('#user-menu').click
     click_text('Logout')
     assert_text 'Log in to manage your tournament'
   end

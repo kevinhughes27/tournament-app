@@ -9,8 +9,7 @@ import "react-leaflet-search/src/react-leaflet-search.css";
 import "./assets/css/map.css";
 import "./assets/css/schedule.css";
 import "./assets/css/bracket.css";
-import "./assets/css/userMenu.css";
-import "./assets/css/userProfile.css";
+import "./assets/css/user.css";
 
 const ThemedApp = withTheme(App);
 
