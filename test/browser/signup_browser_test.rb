@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SignupBrowserTest < BrowserTest
+class SignupBrowserTest < BrowserTestCase
   test 'signup' do
     visit("http://www.#{Settings.host}")
     click_on('Get Started')

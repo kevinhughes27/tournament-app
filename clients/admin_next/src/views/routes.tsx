@@ -14,8 +14,9 @@ const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
 
-    <Route exact path="/user" component={User}/>
-    <Route exact path="/settings" component={Settings}/>
+    <Route path="/user" component={User}/>
+    <Route path="/settings" component={Settings}/>
+
     <Route exact path="/teams" component={TeamList}/>
     <Route path="/teams/new" component={TeamNew}/>
     <Route path="/teams/:teamId" component={TeamShow}/>

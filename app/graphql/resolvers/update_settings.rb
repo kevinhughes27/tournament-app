@@ -5,9 +5,6 @@ class Resolvers::UpdateSettings < Resolvers::BaseResolver
   def call(inputs, ctx)
     tournament = ctx[:tournament]
     params = inputs.to_h.except(:confirm)
-    protect_score_submit =  params[:protect_score_submit]
-    params = inputs.to_h.except(:protect_score_submit)
-    params = params.merge(score_submit_pin: protect_score_submit)
 
     if changing_handle?(tournament, params) && !inputs[:confirm]
       tournament.assign_attributes(params)

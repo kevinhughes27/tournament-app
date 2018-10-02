@@ -42,12 +42,11 @@ class UserMenu extends React.Component<Props, State> {
     const avatarUrl = gravatarUrl(email, {size: 50});
 
     return (
-      <div>
+      <div id="user-menu">
         <IconButton onClick={this.handleOpen}>
           <Avatar alt={email} src={avatarUrl} />
         </IconButton>
         <Menu
-          id="user-menu"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: "top", horizontal: "right"}}
           transformOrigin={{vertical: "top", horizontal: "right"}}
@@ -55,12 +54,12 @@ class UserMenu extends React.Component<Props, State> {
           onClose={this.handleClose}
         >
           <MenuItem>
-            <NavLink to="/user" onClick={this.handleClose}>
+            <NavLink to="/user" onClick={this.handleClose} style={{textDecoration: "none", color: "#000000de"}}>
               Profile
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink to="/settings" onClick={this.handleClose}>
+            <NavLink to="/settings" onClick={this.handleClose} style={{textDecoration: "none", color: "#000000de"}}>
               Settings
             </NavLink>
           </MenuItem>

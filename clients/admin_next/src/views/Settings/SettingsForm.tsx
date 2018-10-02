@@ -17,11 +17,11 @@ class SettingsForm extends Form<Props> {
     const { input } = this.props;
 
     return {
-      name: input.name || "",
-      handle: input.handle || "",
-      timezone: input.timezone || "",
+      name: input.name,
+      handle: input.handle,
+      timezone: input.timezone,
       scoreSubmitPin: input.scoreSubmitPin || "",
-      gameConfirmSetting: input.gameConfirmSetting || ""
+      gameConfirmSetting: input.gameConfirmSetting
     };
   }
 
@@ -66,7 +66,6 @@ class SettingsForm extends Form<Props> {
         <TextField
           name="name"
           label="Name"
-          type="name"
           margin="normal"
           autoComplete="off"
           fullWidth
@@ -77,7 +76,6 @@ class SettingsForm extends Form<Props> {
         <TextField
           name="handle"
           label="Handle"
-          type="name"
           margin="normal"
           autoComplete="off"
           fullWidth
@@ -92,7 +90,6 @@ class SettingsForm extends Form<Props> {
         <TextField
           name="scoreSubmitPin"
           label="Score Submit Pin Code"
-          type="name"
           margin="normal"
           autoComplete="off"
           fullWidth

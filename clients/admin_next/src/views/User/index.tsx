@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import renderQuery from "../../helpers/renderHelper";
 import UserShow from "./UserShow";
 
-class  User extends React.Component {
+class User extends React.Component {
   render() {
     const query = graphql`
       query UserQuery {
