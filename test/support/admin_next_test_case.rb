@@ -28,6 +28,23 @@ class AdminNextTestCase < BrowserTestCase
     click_on(nav_item)
   end
 
+  def action_button
+    find('#action-menu').click
+  end
+
+  def action_menu(action)
+    loop do
+      find('body').native.send_key("\t")
+
+      begin
+        click_on(action)
+        break
+      rescue
+        next
+      end
+    end
+  end
+
   def click_save
     find('button[type="submit"]').click
   end

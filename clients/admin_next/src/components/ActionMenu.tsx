@@ -65,6 +65,7 @@ class ActionMenu extends React.Component<Props, State> {
 
     return (
       <Zoom
+        id="action-menu"
         in={true}
         timeout={transitionDuration}
         style={{transitionDelay: `${transitionDuration.exit}ms`}}
