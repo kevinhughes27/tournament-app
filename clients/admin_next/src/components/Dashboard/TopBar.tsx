@@ -22,7 +22,7 @@ class TopBar extends React.Component<Props> {
           <IconButton id="side-bar" className={classes.menuButton} onClick={this.props.openNav}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="title" className={classes.title}>
+          <Typography variant="h6" className={classes.title}>
             Ultimate Tournament
           </Typography>
           <UserMenuContainer />

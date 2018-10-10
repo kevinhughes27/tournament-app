@@ -20,7 +20,7 @@ class Modal extends React.Component<Props> {
       <UiModal open={this.props.open} onClose={this.props.onClose}>
         <div className={classes.paper}>
           <div className={classes.title}>
-            <Typography variant="title">
+            <Typography variant="h6">
               {this.props.title}
             </Typography>
             <IconButton onClick={this.props.onClose}>
