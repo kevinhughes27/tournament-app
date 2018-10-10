@@ -15,6 +15,7 @@ import DeleteDivisionMutation from "../../mutations/DeleteDivision";
 
 interface Props extends RouteComponentProps<any> {
   input: UpdateDivisionMutationVariables["input"] & CreateDivisionMutationVariables["input"];
+  cancelPath: string;
 }
 
 class DivisionForm extends Form<Props> {
@@ -141,7 +142,7 @@ class DivisionForm extends Form<Props> {
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
-          cancelLink={"/divisions"}
+          cancelLink={this.props.cancelPath}
           delete={this.delete()}
         />
       </form>

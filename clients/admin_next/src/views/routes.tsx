@@ -5,7 +5,7 @@ import Home from "./Home";
 import User from "./User";
 import Settings from "./Settings";
 import {TeamList, TeamShow, TeamNew } from "./Teams";
-import { DivisionList, DivisionShow, DivisionEdit, DivisionNew } from "./Divisions";
+import { DivisionList, DivisionShow, DivisionSeed, DivisionEdit, DivisionNew } from "./Divisions";
 import Fields from "./Fields";
 import Schedule from "./Schedule";
 import { GameList, GameShow } from "./Games";
@@ -23,6 +23,7 @@ const Routes = () => (
 
     <Route exact path="/divisions" component={DivisionList}/>
     <Route path="/divisions/new" component={DivisionNew}/>
+    <Route path="/divisions/:divisionId/seed" component={DivisionSeed}/>
     <Route path="/divisions/:divisionId/edit" component={DivisionEdit}/>
     <Route path="/divisions/:divisionId" component={DivisionShow}/>
 

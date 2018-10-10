@@ -20,7 +20,7 @@ class TeamNew extends React.Component {
             {text: "New"}
           ]}
         />
-        <DivisionForm input={input}/>
+        <DivisionForm input={input} cancelPath="/divisions"/>
       </div>
     );
   }

@@ -131,6 +131,7 @@ type Division {
   needsSeed: Boolean!
   numDays: Int!
   numTeams: Int!
+  teams: [Team!]!
   teamsCount: Int!
 }
 

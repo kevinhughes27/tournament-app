@@ -4,6 +4,7 @@ import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Structure from "./Structure";
 import ActionMenu from "../../components/ActionMenu";
+import SeedIcon from "@material-ui/icons/FormatListNumberedRtl";
 
 interface Props extends RouteComponentProps<{}> {
   division: DivisionShow_division;
@@ -25,7 +26,16 @@ class DivisionShow extends React.Component<Props> {
         <Structure games={division.games} bracketTree={division.bracketTree} />
         <ActionMenu
           actions={[
-            {icon: "edit", name: "edit", handler: () => this.props.history.push(`/divisions/${division.id}/edit`)}
+            {
+              icon: <SeedIcon />,
+              name: "seed",
+              handler: () => this.props.history.push(`/divisions/${division.id}/seed`)
+            },
+            {
+              icon: "edit",
+              name: "edit",
+              handler: () => this.props.history.push(`/divisions/${division.id}/edit`)
+            }
           ]}
         />
       </div>
