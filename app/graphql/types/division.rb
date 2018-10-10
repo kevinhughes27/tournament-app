@@ -8,6 +8,7 @@ class Types::Division < Types::BaseObject
   field :numDays, Int, null: false
   field :teamsCount, Int, null: false
 
+  field :teams, [Types::Team], null: false
   field :bracket, Types::Bracket, null: false
   field :bracketTree, String, null: false
   field :games, [Types::Game], null: false

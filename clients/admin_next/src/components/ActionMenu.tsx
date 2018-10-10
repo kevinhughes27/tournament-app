@@ -83,6 +83,7 @@ class ActionMenu extends React.Component<Props, State> {
 
     return (
       <SpeedDial
+        id="action-menu"
         ariaLabel="Menu"
         className={classes.fab}
         icon={<SpeedDialIcon />}
@@ -111,6 +112,7 @@ class ActionMenu extends React.Component<Props, State> {
 
     return (
       <Button
+        id="action-menu"
         variant="fab"
         color="primary"
         className={classes.fab}

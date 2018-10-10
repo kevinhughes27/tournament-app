@@ -28,7 +28,7 @@ class DivisionEdit extends React.Component<Props> {
             {text: "Edit"}
           ]}
         />
-        <DivisionForm input={input}/>
+        <DivisionForm input={input} cancelPath={`/divisions/${division.id}`}/>
       </div>
     );
   }
