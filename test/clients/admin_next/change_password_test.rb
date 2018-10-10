@@ -17,7 +17,7 @@ class UserProfileBrowserTest < AdminNextTestCase
     fill_in('password', with: 'password')
     fill_in('passwordConfirmation', with: 'password')
 
-    click_save
+    submit
     assert_text('Password changed')
   end
 end

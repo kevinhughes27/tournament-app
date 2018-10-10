@@ -18,7 +18,7 @@ class SettingsBrowserTest < AdminNextTestCase
     fill_in('name', with: 'No Borders')
     fill_in('scoreSubmitPin', with: '1111')
 
-    click_save
+    submit
     assert_text('Settings updated')
 
     @tournament.reload

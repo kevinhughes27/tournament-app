@@ -38,7 +38,7 @@ class DivisionsTest < AdminNextTestCase
     assert_text('USAU 11.')
 
     assert_difference "Division.count" do
-      click_save
+      submit
       assert_text ('Division created')
     end
 
@@ -73,7 +73,7 @@ class DivisionsTest < AdminNextTestCase
     fill_in('numDays', with: '')
     fill_in('numDays', with: 2)
     assert_text('USAU 11.')
-    click_save
+    submit
     assert_text ('Division updated')
   end
 end
