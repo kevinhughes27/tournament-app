@@ -7,6 +7,10 @@ const mutation = graphql`
       success
       confirm
       message
+      userErrors {
+        field
+        message
+      }
     }
   }
 `;

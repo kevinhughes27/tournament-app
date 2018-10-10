@@ -33,8 +33,10 @@ class AdminNextTestCase < BrowserTestCase
   end
 
   def action_menu(action)
+    find('body').native.send_key(:tab) # sidebar
+
     loop do
-      find('body').native.send_key("\t")
+      find('body').native.send_key(:tab)
 
       begin
         click_on(action)
