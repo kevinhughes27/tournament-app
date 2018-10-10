@@ -1,6 +1,5 @@
 const {
   rewireWebpack: rewireTypescript,
-  rewireJest: rewireTypescriptJest,
   rewireTSLint
 } = require("react-app-rewire-typescript-babel-preset");
 const { injectBabelPlugin } = require("react-app-rewired");
@@ -22,8 +21,5 @@ module.exports = {
     }
 
     return config;
-  },
-  jest: function(config) {
-    return rewireTypescriptJest(config);
   }
 };

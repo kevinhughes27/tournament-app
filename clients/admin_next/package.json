@@ -3,16 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "/admin_next",
-  "proxy": {
-    "/graphql": {
-      "target": "http://no-borders.lvh.me:3000",
-      "changeOrigin": true
-    },
-    "/user_token": {
-      "target": "http://no-borders.lvh.me:3000",
-      "changeOrigin": true
-    }
-  },
   "scripts": {
     "start": "concurrently \"yarn compile --watch\" \"PORT=4000 react-app-rewired start\"",
     "build": "yarn compile && react-app-rewired build",
@@ -55,7 +45,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.18.1",
     "react": "^16.5.0",
-    "react-app-rewire-typescript-babel-preset": "^2.3.0",
+    "react-app-rewire-typescript-babel-preset": "^3.0.0",
     "react-app-rewired": "^2.0.0",
     "react-datepicker": "^0.51.0",
     "react-dnd": "^5.0.0",
@@ -70,7 +60,7 @@
     "react-leaflet-search": "^0.5.1",
     "react-relay": "^1.7.0-rc.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.0-next.a671462c",
+    "react-scripts": "^2.0.4",
     "relay-compiler": "^1.7.0-rc.1",
     "relay-compiler-language-typescript": "^1.1.1",
     "tslint": "^5.11.0",
