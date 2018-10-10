@@ -6,7 +6,7 @@ class TeamsTest < AdminNextTestCase
 
     visit_app
     login
-    navigate_to('Teams')
+    side_menu('Teams')
     action_menu('Add Team')
     create_team
     logout
@@ -26,7 +26,7 @@ class TeamsTest < AdminNextTestCase
   test 'import_teams' do
     visit_app
     login
-    navigate_to('Teams')
+    side_menu('Teams')
     action_menu('Import Teams')
     import_teams
     logout
