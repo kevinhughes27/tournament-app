@@ -9,7 +9,7 @@ if ENV['CI']
   Minitest::Ci.new.start
 
   require 'minitest/retry'
-  Minitest::Retry.use!(retry_count: 1)
+  Minitest::Retry.use!(retry_count: 2)
 end
 
 ActiveRecord::Migration.maintain_test_schema!

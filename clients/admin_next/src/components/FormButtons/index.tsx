@@ -6,7 +6,7 @@ import SubmitButton from "./SubmitButton";
 import DeleteButton from "./DeleteButton";
 import CancelButton from "./CancelButton";
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends WithStyles<typeof styles, true> {
   inline?: boolean;
   submitIcon?: JSX.Element;
   formValid?: boolean;

@@ -52,7 +52,7 @@ class LoginForm extends React.Component<Props, State> {
       <div>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="title" className={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               Ultimate Tournament
             </Typography>
           </Toolbar>
@@ -61,7 +61,7 @@ class LoginForm extends React.Component<Props, State> {
           <Card className={classes.card}>
             <form onSubmit={this.handleSubmit}>
               <CardContent>
-                <Typography variant="subheading">
+                <Typography variant="subtitle1">
                   Log in to manage your tournament
                 </Typography>
                 <TextField

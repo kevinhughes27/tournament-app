@@ -15,7 +15,7 @@ class Breadcrumbs extends React.Component<Props> {
 
     return (
       <div className={classes.container}>
-        <Typography variant="subheading">
+        <Typography variant="subtitle1">
           <ReactJoin separator={" / "}>
             {this.props.items.map((i) => BreadcrumbItem(i.link, i.text, classes.link))}
           </ReactJoin>

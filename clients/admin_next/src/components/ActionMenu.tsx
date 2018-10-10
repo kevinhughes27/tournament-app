@@ -30,7 +30,7 @@ interface Action {
   handler: () => void;
 }
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends WithStyles<typeof styles, true> {
   actions: ReadonlyArray<Action>;
 }
 
@@ -81,20 +81,17 @@ class ActionMenu extends React.Component<Props, State> {
   renderMenu = (actions: ReadonlyArray<Action>) => {
     const { classes } = this.props;
 
-    let isTouch;
-    if (typeof document !== "undefined") {
-      isTouch = "ontouchstart" in document.documentElement;
-    }
-
     return (
       <SpeedDial
         ariaLabel="Menu"
         className={classes.fab}
         icon={<SpeedDialIcon />}
+        onBlur={this.handleClose}
         onClick={this.handleClick}
         onClose={this.handleClose}
-        onMouseEnter={isTouch ? undefined : this.handleOpen}
-        onMouseLeave={isTouch ? undefined : this.handleClose}
+        onFocus={this.handleOpen}
+        onMouseEnter={this.handleOpen}
+        onMouseLeave={this.handleClose}
         open={this.state.open}
       >
         {actions.map((action) => (

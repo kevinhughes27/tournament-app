@@ -17,7 +17,7 @@ const epsilon = 1e-9;
 
 interface GeoJson {
   geometry: {
-    coordinates: Coordinate[]
+    coordinates: Coordinate[][]
   };
 }
 
