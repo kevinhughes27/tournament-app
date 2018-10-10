@@ -79,8 +79,8 @@ class TeamForm extends Form<Props> {
     const teamId = this.props.input.id;
 
     if (teamId) {
-      return () => {
-        runMutation(
+      return async () => {
+        await runMutation(
           DeleteTeamMutation,
           {input: {id: teamId}},
           {complete: this.deleteComplete}

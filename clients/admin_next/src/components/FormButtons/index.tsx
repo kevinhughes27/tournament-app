@@ -18,12 +18,26 @@ interface Props extends WithStyles<typeof styles, true> {
   cancelLink?: string;
 }
 
+interface State {
+  deleting: boolean;
+}
+
 class FormButtons extends React.Component<Props> {
   static defaultProps = {
     inline: false,
     formDirty: true,
     formValid: true
   };
+
+  state = {
+    deleting: false
+  };
+
+  delete = async () => {
+    this.setState({deleting: true});
+    await this.props.delete();
+    this.setState({deleting: false});
+  }
 
   render() {
     const { inline, classes, theme } = this.props;
@@ -53,7 +67,7 @@ class FormButtons extends React.Component<Props> {
     if (this.props.cancel || this.props.cancelLink) {
       return (
         <CancelButton
-          disabled={this.props.submitting}
+          disabled={this.props.submitting || this.state.deleting}
           onClick={this.props.cancel}
           link={this.props.cancelLink}
         />
@@ -67,9 +81,9 @@ class FormButtons extends React.Component<Props> {
     if (this.props.delete) {
       return (
         <DeleteButton
-          disabled={this.props.submitting}
-          submitting={false}
-          onClick={this.props.delete}
+          disabled={this.props.submitting || this.state.deleting}
+          deleting={this.state.deleting}
+          onClick={this.delete}
         />
       );
     } else {
@@ -80,7 +94,7 @@ class FormButtons extends React.Component<Props> {
   renderSubmitButton = () => (
     <SubmitButton
       icon={this.props.submitIcon}
-      disabled={!this.props.formDirty || !this.props.formValid}
+      disabled={!this.props.formDirty || !this.props.formValid || this.state.deleting}
       submitting={this.props.submitting}
       onClick={this.props.submit}
     />

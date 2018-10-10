@@ -8,12 +8,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 interface Props extends WithStyles<typeof styles> {
   onClick?: () => void;
   disabled: boolean;
-  submitting: boolean;
+  deleting: boolean;
 }
 
 class DeleteButton extends React.Component<Props> {
   render() {
-    const { disabled, submitting, classes } = this.props;
+    const { disabled, deleting, classes } = this.props;
 
     return (
       <Button
@@ -22,7 +22,7 @@ class DeleteButton extends React.Component<Props> {
         onClick={this.props.onClick}
         className={classes.deleteButton}
         classes={{disabled: classes.disabled}}
-        disabled={disabled || submitting}
+        disabled={disabled || deleting}
       >
         {this.buttonContent()}
       </Button>
@@ -30,9 +30,9 @@ class DeleteButton extends React.Component<Props> {
   }
 
   buttonContent = () => {
-    const { submitting } = this.props;
+    const { deleting } = this.props;
 
-    if (submitting) {
+    if (deleting) {
       return <CircularProgress size={20} />;
     } else {
       return <TrashIcon />;
