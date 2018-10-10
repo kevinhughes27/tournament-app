@@ -4,17 +4,12 @@ class UserProfileBrowserTest < AdminNextTestCase
   test 'change password' do
     visit_app
     login
-    navigate_to_profile
+    user_menu('Profile')
     change_password
     logout
   end
 
   private
-
-  def navigate_to_profile
-    find('#user-menu').click
-    click_on('Profile')
-  end
 
   def change_password
     assert_text 'Confirm Password'

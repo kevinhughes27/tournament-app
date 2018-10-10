@@ -8,7 +8,7 @@ class TeamsTest < AdminNextTestCase
   test 'update team' do
     visit_app
     login
-    navigate_to('Teams')
+    side_menu('Teams')
     open_team
     edit_team
     logout

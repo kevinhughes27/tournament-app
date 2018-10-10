@@ -4,7 +4,7 @@ class DivisionsTest < AdminNextTestCase
   test 'create and seed division' do
     visit_app
     login
-    navigate_to('Divisions')
+    side_menu('Divisions')
     action_button
     create_division
 
@@ -22,7 +22,7 @@ class DivisionsTest < AdminNextTestCase
 
     visit_app
     login
-    navigate_to('Divisions')
+    side_menu('Divisions')
     open_division
     action_menu('edit')
     edit_division

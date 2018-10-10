@@ -23,9 +23,15 @@ class AdminNextTestCase < BrowserTestCase
     assert_text('Home')
   end
 
-  def navigate_to(nav_item)
+  def side_menu(item)
     find('#side-bar').click
-    click_on(nav_item)
+    click_on(item)
+  end
+
+  def user_menu(item)
+    find('#user-menu').click
+    menu_item = page.find(:xpath,"//*[text()='#{item}']")
+    page.driver.browser.action.move_to(menu_item.native).click.perform
   end
 
   def action_button
@@ -52,8 +58,7 @@ class AdminNextTestCase < BrowserTestCase
   end
 
   def logout
-    find('#user-menu').click
-    click_text('Logout')
+    user_menu('Logout')
     assert_text 'Log in to manage your tournament'
   end
 

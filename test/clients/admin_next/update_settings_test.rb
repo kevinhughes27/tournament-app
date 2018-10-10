@@ -4,17 +4,12 @@ class SettingsBrowserTest < AdminNextTestCase
   test 'update settings' do
     visit_app
     login
-    navigate_to_settings
+    user_menu('Settings')
     edit_settings
     logout
   end
 
   private
-
-  def navigate_to_settings
-    find('#user-menu').click
-    click_on('Settings')
-  end
 
   def edit_settings
     assert_text 'Score Confirmation Setting'
