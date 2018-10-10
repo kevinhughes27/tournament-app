@@ -53,7 +53,7 @@ class AdminNextTestCase < BrowserTestCase
     end
   end
 
-  def click_save
+  def submit
     find('button[type="submit"]').click
   end
 
