@@ -5,9 +5,9 @@ import { isEqual } from "lodash";
 import FileInput from "./FileInput";
 import fileDownload from "react-file-download";
 import FormButtons from "../../../components/FormButtons";
-import ImportIcon from "@material-ui/icons/GroupAdd";
+import ImportIcon from "@material-ui/icons/AddToPhotos";
 
-const CSVHeader = ["Name", "Email", "Division", "Seed"];
+const CSVHeader = ["Name", "Latitude", "Longitude", "GeoJSON"];
 
 interface Props {
   startImport: (data: string[][]) => void;
@@ -24,7 +24,7 @@ const defaultState = {
   error: ""
 };
 
-class TeamImportForm extends React.Component<Props, State> {
+class FieldImportForm extends React.Component<Props, State> {
   state = defaultState;
 
   initialValues = () => {
@@ -82,7 +82,7 @@ class TeamImportForm extends React.Component<Props, State> {
   }
 
   downloadSampleCSV = () => {
-    fileDownload(CSVHeader, "teams.csv");
+    fileDownload(CSVHeader, "fields.csv");
   }
 
   render() {
@@ -125,7 +125,7 @@ class TeamImportForm extends React.Component<Props, State> {
         <FormButtons
           inline
           submitIcon={<ImportIcon />}
-          formValid={this.state.data.length > 0 && !this.state.error}
+          formValid={!!this.state.data && !this.state.error}
           submitting={isSubmitting}
           cancel={this.props.closeModal}
         />
@@ -134,4 +134,4 @@ class TeamImportForm extends React.Component<Props, State> {
   }
 }
 
-export default TeamImportForm;
+export default FieldImportForm;

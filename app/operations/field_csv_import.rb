@@ -39,7 +39,7 @@ class FieldCsvImport < ApplicationOperation
       'lat'
     when 'Longitude'
       'long'
-    when 'Geo JSON'
+    when 'GeoJSON'
       'geo_json'
     else
       header.try(:downcase).strip

@@ -3,6 +3,7 @@ import ActionMenu from "../../components/ActionMenu";
 import FormButtons from "../../components/FormButtons";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
+import ImportIcon from "@material-ui/icons/AddToPhotos";
 
 interface Props {
   mode: "none" | "view" | "editMap" | "addField" | "editField";
@@ -14,6 +15,7 @@ interface Props {
   createField: () => void;
   saveField: () => void;
   deleteField: () => void;
+  importFields: () => void;
   cancel: () => void;
 }
 
@@ -65,11 +67,12 @@ class FieldsEditorActions extends React.Component<Props> {
   }
 
   viewActions = () => {
-    const { editMap, addField } = this.props;
+    const { editMap, addField, importFields } = this.props;
 
     const actions = [
       {icon: <EditIcon/>, name: "Edit Map", handler: editMap },
       {icon: <AddIcon/>, name: "Add Field", handler: addField },
+      {icon: <ImportIcon/>, name: "Import Fields", handler: importFields},
     ];
 
     return <ActionMenu actions={actions}/>;
