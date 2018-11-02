@@ -33,7 +33,7 @@ class DivisionsTest < AdminNextTestCase
 
   def create_division
     fill_in('name', with: 'Open')
-    fill_in('numTeams', with: '')
+    fill_in('numTeams', with: ' ')
     fill_in('numTeams', with: 11)
     assert_text('USAU 11.')
 
@@ -68,9 +68,9 @@ class DivisionsTest < AdminNextTestCase
 
   def edit_division
     assert_text('Edit')
-    fill_in('numTeams', with: '')
+    fill_in('numTeams', with: ' ')
     fill_in('numTeams', with: 11)
-    fill_in('numDays', with: '')
+    fill_in('numDays', with: ' ')
     fill_in('numDays', with: 2)
     assert_text('USAU 11.')
     submit
