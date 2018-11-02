@@ -6,20 +6,16 @@ class TeamImporter {
   divisions: TeamImport_divisions;
 
   started: boolean;
-
   progress: number;
   total: number;
   completed: number;
-  errors: {
-    [key: number]: string;
-  };
+  errors: { [key: number]: string; };
 
   constructor(component: React.Component, divisions: TeamImport_divisions) {
     this.component = component;
     this.divisions = divisions;
 
     this.started = false;
-
     this.progress = 0;
     this.total = 1;
     this.completed = 0;

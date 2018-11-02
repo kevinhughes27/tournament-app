@@ -7,7 +7,7 @@ interface Props {
   };
 }
 
-class TeamImportErrors extends React.Component<Props> {
+class ImportErrors extends React.Component<Props> {
   render() {
     const rowNumbers = keys(this.props.errors).map((k) => parseInt(k, 10));
 
@@ -27,4 +27,4 @@ class TeamImportErrors extends React.Component<Props> {
   }
 }
 
-export default TeamImportErrors;
+export default ImportErrors;

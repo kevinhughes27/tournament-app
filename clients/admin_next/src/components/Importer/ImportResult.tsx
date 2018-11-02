@@ -1,23 +1,24 @@
 import * as React from "react";
 import { Button } from "@material-ui/core";
-import TeamImportErrors from "./TeamImportErrors";
+import ImportErrors from "./ImportErrors";
 
 interface Props {
   completed: number;
   errors: {
     [key: number]: string;
   };
+  object: string;
   onClose: () => void;
 }
 
-class TeamImportResult extends React.Component<Props> {
+class ImportResult extends React.Component<Props> {
   render() {
-    const { completed, errors } = this.props;
+    const { completed, errors, object } = this.props;
 
     return (
       <div>
-        <p>Imported {completed} teams</p>
-        <TeamImportErrors errors={errors} />
+        <p>Imported {completed} {object}</p>
+        <ImportErrors errors={errors} />
         <Button
           variant="contained"
           color="primary"
@@ -31,4 +32,4 @@ class TeamImportResult extends React.Component<Props> {
   }
 }
 
-export default TeamImportResult;
+export default ImportResult;

@@ -5,19 +5,15 @@ class FieldImporter {
   component: React.Component;
 
   started: boolean;
-
   progress: number;
   total: number;
   completed: number;
-  errors: {
-    [key: number]: string;
-  };
+  errors: { [key: number]: string; };
 
   constructor(component: React.Component) {
     this.component = component;
 
     this.started = false;
-
     this.progress = 0;
     this.total = 1;
     this.completed = 0;
