@@ -2,8 +2,8 @@ import * as React from "react";
 import csv from "csv";
 import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import { isEqual } from "lodash";
-import FileInput from "./FileInput";
 import fileDownload from "react-file-download";
+import FileInput from "../../../components/FileInput";
 import FormButtons from "../../../components/FormButtons";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
