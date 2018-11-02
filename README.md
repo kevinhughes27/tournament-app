@@ -68,6 +68,8 @@ In production database access is protected by a password however for development
 
 [This gist](https://gist.github.com/p1nox/4953113) outlines the process. You only need to follow the `Configuration` instructions.
 
+Afterwards you need to run `bundle exec rails db:setup` to have Rails create the database.
+
 ### Dependencies
 
 With all the system requirements taken care of we can install the project specific dependencies for both Ruby and Javascript. In the project directory run:
