@@ -5,7 +5,7 @@ class FieldCsvExport < ApplicationOperation
 
   def execute
     csv = CSV.generate do |csv|
-      csv << ['Name', 'Latitude', 'Longitude', 'Geo JSON']
+      csv << ['Name', 'Latitude', 'Longitude', 'GeoJSON']
       fields.each do |field|
         csv << [field.name, field.lat, field.long, field.geo_json]
       end

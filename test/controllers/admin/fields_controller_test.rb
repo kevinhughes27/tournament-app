@@ -108,7 +108,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "import csv" do
-    assert_difference "Field.count", +15 do
+    assert_difference "Field.count", +19 do
       post :import_csv, params: {
         csv_file: fixture_file_upload('files/fields.csv','text/csv'),
         match_behaviour: 'ignore'
@@ -119,7 +119,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
   end
 
   test "import csv (ignore matches)" do
-    assert_difference "Field.count", +15 do
+    assert_difference "Field.count", +19 do
       post :import_csv, params: {
         csv_file: fixture_file_upload('files/fields.csv','text/csv'),
         match_behaviour: 'ignore'
@@ -141,7 +141,7 @@ class Admin::FieldsControllerTest < AdminControllerTest
   test "import csv (update matches)" do
     field = FactoryBot.create(:field, name: 'UPI5')
 
-    assert_difference "Field.count", +14 do
+    assert_difference "Field.count", +18 do
       post :import_csv, params: {
         csv_file: fixture_file_upload('files/fields.csv','text/csv'),
         match_behaviour: 'update'

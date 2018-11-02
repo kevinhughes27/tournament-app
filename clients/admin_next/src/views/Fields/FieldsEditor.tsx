@@ -6,6 +6,7 @@ import FieldsEditorMap from "./FieldsEditorMap";
 import FieldsEditorInput from "./FieldsEditorInput";
 import FieldsEditorControls from "./FieldsEditorControls";
 import FieldsEditorActions from "./FieldsEditorActions";
+import FieldImport from "./FieldImport";
 import EditableField from "./EditableField";
 import UpdateMapMutation from "../../mutations/UpdateMap";
 import UpdateFieldMutation from "../../mutations/UpdateField";
@@ -27,6 +28,7 @@ interface State {
   lat: number;
   long: number;
   zoom: number;
+  modalOpen: boolean;
   submitting: boolean;
   editing: {
     id?: string;
@@ -60,6 +62,7 @@ class FieldsEditor extends React.Component<Props, State> {
       lat,
       long,
       zoom,
+      modalOpen: false,
       submitting: false,
       editing: newField
     };
@@ -245,6 +248,14 @@ class FieldsEditor extends React.Component<Props, State> {
     };
   }
 
+  openImportModal = () => {
+    this.setState({modalOpen: true});
+  }
+
+  closeImportModal = () => {
+    this.setState({modalOpen: false});
+  }
+
   /* Mutation handlers */
   mutationComplete = () => {
     EditableField.clear();
@@ -301,7 +312,12 @@ class FieldsEditor extends React.Component<Props, State> {
           createField={this.createField}
           saveField={this.saveField}
           deleteField={this.deleteField()}
+          importFields={this.openImportModal}
           cancel={this.cancelMode}
+        />
+        <FieldImport
+          open={this.state.modalOpen}
+          onClose={this.closeImportModal}
         />
       </FieldsEditorMap>
     );

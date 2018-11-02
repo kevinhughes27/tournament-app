@@ -1,9 +1,8 @@
 import { keys } from "lodash";
-import CreateTeamMutation from "../../../mutations/CreateTeam";
+import CreateFieldMutation from "../../../mutations/CreateField";
 
-class TeamImporter {
+class FieldImporter {
   component: React.Component;
-  divisions: TeamImport_divisions;
 
   started: boolean;
   progress: number;
@@ -11,9 +10,8 @@ class TeamImporter {
   completed: number;
   errors: { [key: number]: string; };
 
-  constructor(component: React.Component, divisions: TeamImport_divisions) {
+  constructor(component: React.Component) {
     this.component = component;
-    this.divisions = divisions;
 
     this.started = false;
     this.progress = 0;
@@ -31,21 +29,20 @@ class TeamImporter {
 
   private import = async (rows: any[]) => {
     for (const [i, row] of rows.entries()) {
-      await this.importTeam(row, i);
+      await this.importField(row, i);
     }
   }
 
-  private importTeam = async (row: any[], rowIdx: number) => {
-    const division = this.divisions.find((d) => d.name === row[2]);
+  private importField = async (row: any[], rowIdx: number) => {
 
     const variables = {
       name: row[0],
-      email: row[1],
-      divisionId: division && division.id,
-      seed: parseInt(row[3], 10)
+      lat: parseFloat(row[1]),
+      long: parseFloat(row[2]),
+      geoJson: row[3]
     };
 
-    const result = await CreateTeamMutation.commit({input: variables});
+    const result = await CreateFieldMutation.commit({input: variables});
 
     if (result.success) {
       this.completed += 1;
@@ -65,4 +62,4 @@ class TeamImporter {
   }
 }
 
-export default TeamImporter;
+export default FieldImporter;
