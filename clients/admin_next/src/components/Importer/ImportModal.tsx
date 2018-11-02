@@ -1,5 +1,6 @@
 import * as React from "react";
 import Modal from "../Modal";
+import ImportForm from "./ImportForm";
 import ImportStatus from "./ImportStatus";
 import ImportResult from "./ImportResult";
 
@@ -7,9 +8,10 @@ interface Props {
   open: boolean;
   onClose: () => void;
   object: string;
+  csvHeader: string[];
+  icon: JSX.Element;
   importerClass: any;
   importerData?: any;
-  formComponent: any;
 }
 
 class ImportModal extends React.Component<Props> {
@@ -66,7 +68,15 @@ class ImportModal extends React.Component<Props> {
     } else if (this.importer.started) {
       return <ImportStatus progress={this.importer.progress} errors={this.importer.errors} />;
     } else {
-      return <this.props.formComponent startImport={this.startImport} closeModal={this.onClose} />;
+      return (
+        <ImportForm
+          csvHeader={this.props.csvHeader}
+          object={this.props.object}
+          icon={this.props.icon}
+          startImport={this.startImport}
+          closeModal={this.onClose}
+        />
+      );
     }
   }
 }

@@ -1,7 +1,9 @@
 import * as React from "react";
+import ImportIcon from "@material-ui/icons/GroupAdd";
 import ImportModal from "../../../components/Importer/ImportModal";
-import TeamImportForm from "./TeamImportForm";
 import TeamImporter from "./TeamImporter";
+
+const CSVHeader = ["Name", "Email", "Division", "Seed"];
 
 interface Props {
   divisions: TeamImport_divisions;
@@ -13,10 +15,11 @@ class TeamImportModal extends React.Component<Props> {
   render() {
     return(
       <ImportModal
-        formComponent={TeamImportForm}
+        icon={<ImportIcon />}
+        object="teams"
+        csvHeader={CSVHeader}
         importerClass={TeamImporter}
         importerData={this.props.divisions}
-        object="teams"
         open={this.props.open}
         onClose={this.props.onClose}
       />

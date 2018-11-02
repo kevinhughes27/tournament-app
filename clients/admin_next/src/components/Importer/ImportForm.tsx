@@ -3,13 +3,13 @@ import csv from "csv";
 import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import { isEqual } from "lodash";
 import fileDownload from "react-file-download";
-import FileInput from "../../../components/FileInput";
-import FormButtons from "../../../components/FormButtons";
-import ImportIcon from "@material-ui/icons/AddToPhotos";
-
-const CSVHeader = ["Name", "Latitude", "Longitude", "GeoJSON"];
+import FileInput from "../FileInput";
+import FormButtons from "../FormButtons";
 
 interface Props {
+  csvHeader: string[];
+  object: string;
+  icon: JSX.Element;
   startImport: (data: string[][]) => void;
   closeModal: () => void;
 }
@@ -24,7 +24,7 @@ const defaultState = {
   error: ""
 };
 
-class FieldImportForm extends React.Component<Props, State> {
+class ImportForm extends React.Component<Props, State> {
   state = defaultState;
 
   initialValues = () => {
@@ -67,7 +67,7 @@ class FieldImportForm extends React.Component<Props, State> {
       const header = data[0];
       const rows = data.slice(1);
 
-      if (!isEqual(header, CSVHeader)) {
+      if (!isEqual(header, this.props.csvHeader)) {
         this.setState({error: "Invalid CSV Columns"});
         return;
       }
@@ -82,7 +82,7 @@ class FieldImportForm extends React.Component<Props, State> {
   }
 
   downloadSampleCSV = () => {
-    fileDownload(CSVHeader, "fields.csv");
+    fileDownload(this.props.csvHeader, `${this.props.object}.csv`);
   }
 
   render() {
@@ -124,7 +124,7 @@ class FieldImportForm extends React.Component<Props, State> {
 
         <FormButtons
           inline
-          submitIcon={<ImportIcon />}
+          submitIcon={this.props.icon}
           formValid={!!this.state.data && !this.state.error}
           submitting={isSubmitting}
           cancel={this.props.closeModal}
@@ -134,4 +134,4 @@ class FieldImportForm extends React.Component<Props, State> {
   }
 }
 
-export default FieldImportForm;
+export default ImportForm;

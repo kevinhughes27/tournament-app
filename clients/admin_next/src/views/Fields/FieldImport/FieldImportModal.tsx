@@ -1,7 +1,9 @@
 import * as React from "react";
+import ImportIcon from "@material-ui/icons/AddToPhotos";
 import ImportModal from "../../../components/Importer/ImportModal";
 import FieldImporter from "./FieldImporter";
-import FieldImportForm from "./FieldImportForm";
+
+const CSVHeader = ["Name", "Latitude", "Longitude", "GeoJSON"];
 
 interface Props {
   open: boolean;
@@ -12,9 +14,10 @@ class FieldImportModal extends React.Component<Props> {
   render() {
     return(
       <ImportModal
-        formComponent={FieldImportForm}
-        importerClass={FieldImporter}
+        icon={<ImportIcon />}
         object="fields"
+        csvHeader={CSVHeader}
+        importerClass={FieldImporter}
         open={this.props.open}
         onClose={this.props.onClose}
       />
