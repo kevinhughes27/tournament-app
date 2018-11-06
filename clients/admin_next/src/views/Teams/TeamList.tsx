@@ -7,6 +7,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import BlankSlate from "../../components/BlankSlate";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamListItem from "./TeamListItem";
@@ -38,9 +39,39 @@ class TeamList extends React.Component<Props> {
     this.setState({modalOpen: false});
   }
 
-  render() {
+  renderContent = () => {
     const { teams } = this.props;
 
+    if (teams.length > 0) {
+      return (
+        <div>
+          <Breadcrumbs items={[{text: "Teams"}]} />
+
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Division</TableCell>
+                <TableCell>Seed</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {teams.map((t) => <TeamListItem key={t.id} team={t}/>)}
+            </TableBody>
+          </Table>
+        </div>
+      );
+    } else {
+      return (
+        <BlankSlate>
+          <h3>Manage Your Teams</h3>
+          <p>You can add teams manually or import from a CSV file.</p>
+        </BlankSlate>
+      );
+    }
+  }
+
+  render() {
     const actions = [
       {icon: <AddIcon/>, name: "Add Team", handler: this.openTeamNew },
       {icon: <ImportIcon/>, name: "Import Teams", handler: this.openImportModal}
@@ -48,19 +79,7 @@ class TeamList extends React.Component<Props> {
 
     return (
       <div>
-        <Breadcrumbs items={[{text: "Teams"}]} />
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Division</TableCell>
-              <TableCell>Seed</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {teams.map((t) => <TeamListItem key={t.id} team={t}/>)}
-          </TableBody>
-        </Table>
+        {this.renderContent()}
         <ActionMenu actions={actions}/>
         <TeamImport
           divisions={this.props.divisions}

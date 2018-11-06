@@ -7,6 +7,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import BlankSlate from "../../components/BlankSlate";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DivisionListItem from "./DivisionListItem";
@@ -17,27 +18,44 @@ interface Props extends RouteComponentProps<{}> {
 }
 
 class DivisionList extends React.Component<Props> {
-  render() {
+  renderContent = () => {
     const { divisions } = this.props;
 
-    return (
-      <div style={{maxWidth: "100%"}}>
-        <Breadcrumbs items={[{text: "Divisions"}]} />
-        <div style={{maxWidth: "100%", overflowX: "scroll"}}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Bracket</TableCell>
-                <TableCell>Teams</TableCell>
-                <TableCell>Seeded</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {divisions.map((d) => <DivisionListItem key={d.id} division={d}/>)}
-            </TableBody>
-          </Table>
+    if (divisions.length > 0) {
+      return (
+        <div style={{maxWidth: "100%"}}>
+          <Breadcrumbs items={[{text: "Divisions"}]} />
+          <div style={{maxWidth: "100%", overflowX: "scroll"}}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Bracket</TableCell>
+                  <TableCell>Teams</TableCell>
+                  <TableCell>Seeded</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {divisions.map((d) => <DivisionListItem key={d.id} division={d}/>)}
+              </TableBody>
+            </Table>
+          </div>
         </div>
+      );
+    } else {
+      return (
+        <BlankSlate>
+          <h3>Create Divisions and Brackets</h3>
+          <p>Divisions control your tournament, choose a bracket and all the games get create automatically.</p>
+        </BlankSlate>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderContent()}
         <ActionMenu
           actions={[
             {icon: "add", name: "add", handler: () => this.props.history.push("/divisions/new")}
