@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
-    "jsx": "react",
-    "baseUrl": "./src",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "jsx": "preserve",
     "noEmit": true,
     "skipLibCheck": true,
     "pretty": true,
@@ -13,6 +15,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  }
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src",
+    "types"
+  ]
 }

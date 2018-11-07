@@ -1,6 +1,6 @@
 import * as React from "react";
 import Settings from "./Settings";
-import * as moment from "moment";
+import moment from "moment";
 import { each, range } from "lodash";
 
 class YLabels extends React.Component {
