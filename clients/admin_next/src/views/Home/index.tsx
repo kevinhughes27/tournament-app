@@ -1,19 +1,12 @@
 import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { BlankSlate as styles } from "../../assets/jss/styles";
+import BlankSlate from "../../components/BlankSlate";
 
-interface Props extends WithStyles<typeof styles> {}
-
-class Home extends React.Component<Props> {
+class Home extends React.Component {
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.container}>
-        <span>Home</span>
-      </div>
+      <BlankSlate>Home</BlankSlate>
     );
   }
 }
 
-export default withStyles(styles)(Home);
+export default Home;

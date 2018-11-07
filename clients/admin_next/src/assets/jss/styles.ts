@@ -73,7 +73,8 @@ const BlankSlate = {
     display: "flex",
     height: "92vh",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    textAlign: "center" as "center"
   }
 };
 

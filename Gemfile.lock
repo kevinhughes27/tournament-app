@@ -255,7 +255,7 @@ GEM
     pg (0.21.0)
     phonelib (0.6.23)
     puma (3.12.0)
-    rack (2.0.5)
+    rack (2.0.6)
     rack-protection (2.0.3)
       rack
     rack-proxy (0.6.4)
