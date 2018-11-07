@@ -10,6 +10,7 @@ import "./assets/css/map.css";
 import "./assets/css/schedule.css";
 import "./assets/css/bracket.css";
 import "./assets/css/user.css";
+import "./assets/css/device.css";
 
 const ThemedApp = withTheme(App);
 

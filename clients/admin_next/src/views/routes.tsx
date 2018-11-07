@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import User from "./User";
 import Settings from "./Settings";
+import App from "./App";
 import {TeamList, TeamShow, TeamNew } from "./Teams";
 import { DivisionList, DivisionShow, DivisionSeed, DivisionEdit, DivisionNew } from "./Divisions";
 import Fields from "./Fields";
@@ -16,6 +17,7 @@ const Routes = () => (
 
     <Route path="/user" component={User}/>
     <Route path="/settings" component={Settings}/>
+    <Route path="/app" component={App}/>
 
     <Route exact path="/teams" component={TeamList}/>
     <Route path="/teams/new" component={TeamNew}/>

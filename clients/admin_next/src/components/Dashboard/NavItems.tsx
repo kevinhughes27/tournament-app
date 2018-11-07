@@ -17,7 +17,8 @@ import {
   faSitemap,
   faMapSigns,
   faCalendar,
-  faList
+  faList,
+  faMobile
 } from "@fortawesome/free-solid-svg-icons";
 
 interface Props extends WithStyles<typeof styles> {}
@@ -31,7 +32,8 @@ const primaryItems = [
 ];
 
 const secondaryItems = [
-  { path: "/games", icon: faList, text: "Games" }
+  { path: "/games", icon: faList, text: "Games" },
+  { path: "/app", icon: faMobile, text: "App" }
 ];
 
 const NavItem = (path: string, icon: any, text: string) => (
