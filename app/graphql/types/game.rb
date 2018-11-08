@@ -18,6 +18,7 @@ class Types::Game < Types::BaseObject
   field :field, Types::Field, null: true
   field :startTime, Types::DateTime, null: true
   field :endTime, Types::DateTime, null: true
+  field :scheduled, Boolean, null: false
 
   field :homeScore, Int, null: true
   field :awayScore, Int, null: true
@@ -26,5 +27,9 @@ class Types::Game < Types::BaseObject
      accepted by the tournament as confirmed according to its rules.
      Some tournament require a submission from both teams or a validated
      confirmation.")
+  end
+
+  def scheduled
+    object.scheduled?
   end
 end

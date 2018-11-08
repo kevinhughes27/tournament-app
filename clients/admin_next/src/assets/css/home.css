@@ -1,0 +1,21 @@
+.home-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 85px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.home-card .icon {
+  position: absolute;
+  margin-top: -35px;
+  margin-left: 20px;
+  font-size: 60px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.home-card:hover .icon {
+  font-size: 66px;
+  transition: font-size 0.3s linear;
+}

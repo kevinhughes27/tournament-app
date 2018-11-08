@@ -8,6 +8,7 @@ declare module "local-storage";
 declare module "d3";
 declare module "csv";
 declare module "inflection";
+declare module "pluralize";
 declare module "gravatar-url";
 declare module "react-datepicker";
 declare module "react-file-download";

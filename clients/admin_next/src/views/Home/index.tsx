@@ -1,11 +1,28 @@
 import * as React from "react";
-import BlankSlate from "../../components/BlankSlate";
+import { graphql } from "react-relay";
+import renderQuery from "../../helpers/renderHelper";
+import Checklist from "./Checklist";
+
+const query = graphql`
+  query HomeQuery {
+    fields {
+      ...Checklist_fields
+    }
+    teams {
+      ...Checklist_teams
+    }
+    divisions {
+      ...Checklist_divisions
+    }
+    games {
+      ...Checklist_games
+    }
+  }
+`;
 
 class Home extends React.Component {
   render() {
-    return (
-      <BlankSlate>Home</BlankSlate>
-    );
+    return renderQuery(query, {}, Checklist);
   }
 }
 
