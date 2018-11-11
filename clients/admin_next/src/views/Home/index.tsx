@@ -17,6 +17,9 @@ const query = graphql`
     games {
       ...Checklist_games
     }
+    scoreDisputes {
+      ...Checklist_scoreDisputes
+    }
   }
 `;
 

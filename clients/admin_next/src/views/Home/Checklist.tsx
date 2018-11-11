@@ -14,7 +14,7 @@ interface Props {
   teams: Checklist_teams;
   divisions: Checklist_divisions;
   games: Checklist_games;
-  disputes: Checklist_disputes;
+  scoreDisputes: Checklist_scoreDisputes;
 }
 
 interface State {
@@ -22,8 +22,29 @@ interface State {
 }
 
 class Checklist extends React.Component<Props, State> {
-  state = {
-    activeStep: 0
+  constructor(props: Props) {
+    super(props);
+
+    const { fields, teams, divisions, games } = this.props;
+
+    const divisionsAndFields = divisions.length > 0 && fields.length > 0;
+    const enoughTeams = sumBy(divisions, "numTeams") === teams.length;
+
+    let step = 0;
+
+    if (divisionsAndFields && enoughTeams) {
+      step = 1;
+    }
+
+    const scheduleBuilt = games.filter((g) => g.scheduled).length === games.length;
+
+    if (step === 1 && scheduleBuilt) {
+      step = 2;
+    }
+
+    this.state = {
+      activeStep: step
+    }
   }
 
   handleStep = (step: number) => () => {
@@ -34,9 +55,11 @@ class Checklist extends React.Component<Props, State> {
 
   render() {
     const { activeStep } = this.state;
-    const { fields, teams, divisions, games, disputes } = this.props;
+    const { fields, teams, divisions, games, scoreDisputes } = this.props;
 
     const maxTeams = sumBy(divisions, "numTeams");
+
+    const scheduledGames = games.filter((g) => g.scheduled);
 
     const missingScores = games.filter((g) => {
       const finished = g.endTime && new Date(g.endTime) < new Date();
@@ -73,7 +96,7 @@ class Checklist extends React.Component<Props, State> {
             <StepContent>
               <Schedule
                 games={games.length}
-                scheduled={games.filter((g) => g.scheduled).length}
+                scheduled={scheduledGames.length}
               />
             </StepContent>
           </Step>
@@ -90,7 +113,7 @@ class Checklist extends React.Component<Props, State> {
                 games={games.length}
                 scored={games.filter((g) => g.scoreConfirmed).length}
                 missing={missingScores.length}
-                disputes={disputes.length}
+                disputes={scoreDisputes.length}
               />
             </StepContent>
           </Step>
@@ -125,8 +148,8 @@ export default createFragmentContainer(Checklist, {
       scoreConfirmed
     }
   `,
-  disputes: graphql`
-    fragment Checklist_disputes on ScoreDispute @relay(plural: true) {
+  scoreDisputes: graphql`
+    fragment Checklist_scoreDisputes on ScoreDispute @relay(plural: true) {
       id
     }
   `,
