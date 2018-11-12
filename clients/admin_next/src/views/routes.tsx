@@ -11,6 +11,8 @@ import Fields from "./Fields";
 import Schedule from "./Schedule";
 import { GameList, GameShow } from "./Games";
 
+import NotFound from "./NotFound";
+
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home}/>
@@ -34,6 +36,7 @@ const Routes = () => (
 
     <Route exact path="/games" component={GameList}/>
     <Route path="/games/:gameId" component={GameShow}/>
+    <Route component={NotFound}/>
   </Switch>
 );
 
