@@ -1,6 +1,6 @@
 class Types::ScoreReport < Types::BaseObject
   graphql_name "ScoreReport"
-  description "A ScoreReport"
+  description "A Score Report"
 
   field :id, ID, null: false
   field :team, Types::Team, null: false

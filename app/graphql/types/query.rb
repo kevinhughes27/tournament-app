@@ -1,4 +1,10 @@
 class Types::Query < Types::BaseObject
+  field :viewer, Types::User, null: true
+
+  def viewer
+    context[:current_user]
+  end
+
   field :settings, Types::Settings, null: true
 
   def settings
@@ -107,10 +113,9 @@ class Types::Query < Types::BaseObject
     context[:tournament].score_reports.find(id)
   end
 
-  field :viewer, Types::User, null: true 
+  field :score_disputes, [Types::ScoreDispute], auth: :required, null: true
 
-  def viewer
-    context[:current_user]
+  def score_disputes
+    context[:tournament].score_disputes.all
   end
-
 end

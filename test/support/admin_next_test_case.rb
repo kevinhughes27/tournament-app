@@ -20,7 +20,7 @@ class AdminNextTestCase < BrowserTestCase
     fill_in('password', with: 'password')
     click_on('Log in')
 
-    assert_text('Home')
+    assert_text('Plan')
   end
 
   def side_menu(item)

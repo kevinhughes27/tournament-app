@@ -166,6 +166,7 @@ type Game {
   id: ID!
   pool: String
   round: Int!
+  scheduled: Boolean!
 
   # True when a score has been submitted and
   #      accepted by the tournament as confirmed according to its rules.
@@ -217,6 +218,7 @@ type Query {
   game(id: ID!): Game
   games(hasTeam: Boolean, scheduled: Boolean): [Game!]
   map: Map
+  scoreDisputes: [ScoreDispute!]
   scoreReport(id: ID!): ScoreReport
   scoreReports: [ScoreReport!]
   settings: Settings
@@ -240,7 +242,13 @@ type ScheduleGamePayload {
   userErrors: [Error!]
 }
 
-# A ScoreReport
+# A Score Dispute
+type ScoreDispute {
+  gameId: Int!
+  id: ID!
+}
+
+# A Score Report
 type ScoreReport {
   attitude: Int!
   awayScore: Int!
