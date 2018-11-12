@@ -19,6 +19,7 @@ interface Props {
 
 interface State {
   activeStep: number;
+  completed: Set<number>;
 }
 
 class Checklist extends React.Component<Props, State> {
@@ -30,21 +31,24 @@ class Checklist extends React.Component<Props, State> {
     const divisionsAndFields = divisions.length > 0 && fields.length > 0;
     const enoughTeams = sumBy(divisions, "numTeams") === teams.length;
 
-    let step = 0;
+    const completed = new Set();
 
     if (divisionsAndFields && enoughTeams) {
-      step = 1;
+      completed.add(0);
     }
 
     const scheduleBuilt = games.filter((g) => g.scheduled).length === games.length;
 
-    if (step === 1 && scheduleBuilt) {
-      step = 2;
+    if (completed.has(0) && scheduleBuilt) {
+      completed.add(1);
     }
 
+    const activeStep = Math.max(...completed.values()) + 1;
+
     this.state = {
-      activeStep: step
-    }
+      activeStep,
+      completed
+    };
   }
 
   handleStep = (step: number) => () => {
@@ -72,7 +76,7 @@ class Checklist extends React.Component<Props, State> {
           <Step key="plan">
             <StepButton
               onClick={this.handleStep(0)}
-              completed={false}
+              completed={this.state.completed.has(0)}
             >
               Plan
             </StepButton>
@@ -89,7 +93,7 @@ class Checklist extends React.Component<Props, State> {
           <Step key="schedule">
             <StepButton
               onClick={this.handleStep(1)}
-              completed={false}
+              completed={this.state.completed.has(1)}
             >
               Schedule
             </StepButton>
