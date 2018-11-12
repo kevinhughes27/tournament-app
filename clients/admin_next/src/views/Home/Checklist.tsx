@@ -37,9 +37,10 @@ class Checklist extends React.Component<Props, State> {
       completed.add(0);
     }
 
+    const divisionsSeeded = divisions.filter((d) => d.isSeeded).length === divisions.length
     const scheduleBuilt = games.filter((g) => g.scheduled).length === games.length;
 
-    if (completed.has(0) && scheduleBuilt) {
+    if (completed.has(0) && divisionsSeeded && scheduleBuilt) {
       completed.add(1);
     }
 
@@ -142,6 +143,7 @@ export default createFragmentContainer(Checklist, {
     fragment Checklist_divisions on Division @relay(plural: true) {
       id
       numTeams
+      isSeeded
     }
   `,
   games: graphql`
