@@ -13,7 +13,7 @@ class Schedule extends React.Component<Props> {
     return (
       <div>
         <p>
-          Seed divisions and assign games to fields and times with the schedule editor.
+          Assign games to fields and times with the schedule editor.
         </p>
         <LinearProgress variant="determinate" value={progress} />
         <p style={{marginTop: 15}}>{this.props.scheduled} / {this.props.games} scheduled</p>

@@ -7,6 +7,7 @@ import StepContent from "@material-ui/core/StepContent";
 import { sumBy } from "lodash";
 import Plan from "./Plan";
 import Schedule from "./Schedule";
+import Seed from "./Seed";
 import Play from "./Play";
 
 interface Props {
@@ -37,11 +38,16 @@ class Checklist extends React.Component<Props, State> {
       completed.add(0);
     }
 
-    const divisionsSeeded = divisions.filter((d) => d.isSeeded).length === divisions.length
     const scheduleBuilt = games.filter((g) => g.scheduled).length === games.length;
 
-    if (completed.has(0) && divisionsSeeded && scheduleBuilt) {
+    if (completed.has(0) && scheduleBuilt) {
       completed.add(1);
+    }
+
+    const divisionsSeeded = divisions.filter((d) => d.isSeeded).length === divisions.length
+
+    if (completed.has(1) && divisionsSeeded) {
+      completed.add(2);
     }
 
     const activeStep = Math.max(...completed.values()) + 1;
@@ -65,6 +71,8 @@ class Checklist extends React.Component<Props, State> {
     const maxTeams = sumBy(divisions, "numTeams");
 
     const scheduledGames = games.filter((g) => g.scheduled);
+
+    const seededDivisions = divisions.filter((d) => d.isSeeded)
 
     const missingScores = games.filter((g) => {
       const finished = g.endTime && new Date(g.endTime) < new Date();
@@ -106,9 +114,24 @@ class Checklist extends React.Component<Props, State> {
             </StepContent>
           </Step>
 
-          <Step key="play">
+          <Step key="seed">
             <StepButton
               onClick={this.handleStep(2)}
+              completed={this.state.completed.has(2)}
+            >
+              Seed
+            </StepButton>
+            <StepContent>
+              <Seed
+                divisions={divisions.length}
+                seeded={seededDivisions.length}
+              />
+            </StepContent>
+          </Step>
+
+          <Step key="play">
+            <StepButton
+              onClick={this.handleStep(3)}
               completed={false}
             >
               Play
