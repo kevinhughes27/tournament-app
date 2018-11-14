@@ -23,7 +23,7 @@ class Game < ApplicationRecord
   validates_numericality_of :home_score, :away_score, allow_blank: true, greater_than_or_equal_to: 0
 
   before_save :set_confirmed
-  after_save :broadcast
+  after_commit :broadcast, on: :update
 
   scope :bracket_game, -> { where.not(bracket_uid: nil) }
 
@@ -131,6 +131,9 @@ class Game < ApplicationRecord
   private
 
   def broadcast
+    # Schema.subscriptions.trigger("gameUpdated", {}, self, scope: tournament_id)
+    Schema.subscriptions.trigger("gameUpdated", {}, self)
+
     ActionCable.server.broadcast(
       "games_#{tournament_id}",
       Admin::GamesController.render(

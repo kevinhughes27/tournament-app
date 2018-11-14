@@ -909,6 +909,11 @@
     "@svgr/core" "^2.4.1"
     loader-utils "^1.1.0"
 
+"@types/actioncable@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@types/actioncable/-/actioncable-5.2.0.tgz#2d10187560be76e5b4d9ae6743d26a5f34ebf0a5"
+  integrity sha512-fsXlob3/mPO7z8iaTo0Li6QF9q4XY57kUsuL7ijxvLG/9v57K5vsAjULPyCUzWesVgwzmWqiTI+ATJC0+o7x2w==
+
 "@types/geojson@*":
   version "7946.0.4"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.4.tgz#4e049756383c3f055dd8f3d24e63fb543e98eb07"
@@ -1201,6 +1206,11 @@ acorn@^6.0.1, acorn@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.0.2.tgz#6a459041c320ab17592c6317abbfdf4bbaa98ca4"
 
+actioncable@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.2.1.tgz#615428a8a302cec55117d9049f0fd7952011c962"
+  integrity sha512-z/YnsgKYUC0E28Pr8YGaq8sZXNQLTZNa8PAJGmqj5qODiGHTyaCVy/DkP1+xpJtAX/UaHSGHobIemoDY/x5SbQ==
+
 address@1.0.3, address@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/address/-/address-1.0.3.tgz#b5f50631f8d6cec8bd20c963963afb55e06cbce9"
@@ -1271,6 +1281,21 @@ anymatch@^2.0.0:
   dependencies:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
+
+apollo-link@^1.0.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.3.tgz#9bd8d5fe1d88d31dc91dae9ecc22474d451fb70d"
+  integrity sha512-iL9yS2OfxYhigme5bpTbmRyC+Htt6tyo2fRMHT3K1XRL/C5IQDDz37OjpPy4ndx7WInSvfSZaaOTKFja9VWqSw==
+  dependencies:
+    apollo-utilities "^1.0.0"
+    zen-observable-ts "^0.8.10"
+
+apollo-utilities@^1.0.0:
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.25.tgz#899b00f5f990fb451675adf84cb3de82eb6372ea"
+  integrity sha512-AXvqkhni3Ir1ffm4SA1QzXn8k8I5BBl4PVKEyak734i4jFdp+xgfUyi2VCqF64TJlFTA/B73TRDUvO2D+tKtZg==
+  dependencies:
+    fast-json-stable-stringify "^2.0.0"
 
 append-transform@^0.4.0:
   version "0.4.0"
@@ -4338,6 +4363,23 @@ graphql-compiler@1.7.0-rc.1, graphql-compiler@^1.7.0-rc.1:
     fb-watchman "^2.0.0"
     immutable "~3.7.6"
 
+graphql-ruby-client@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/graphql-ruby-client/-/graphql-ruby-client-1.5.0.tgz#eb3adc09af6cca3d2032860474c21056dbb7c44c"
+  integrity sha512-EbTMPjZhkBSEPQKGXYPt40ei/hHAl7YgCbBhHEMUR7iJGmjL2VHCHvGvnsvOT4uKboE/yZMd4QYxRcuXi1cEug==
+  dependencies:
+    apollo-link "^1.0.3"
+    glob "^7.1.2"
+    graphql "^0.10.5"
+    minimist "^1.2.0"
+
+graphql@^0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.10.5.tgz#c9be17ca2bdfdbd134077ffd9bbaa48b8becd298"
+  integrity sha512-Q7cx22DiLhwHsEfUnUip1Ww/Vfx7FS0w6+iHItNuN61+XpegHSa3k5U0+6M5BcpavQImBwFiy0z3uYwY7cXMLQ==
+  dependencies:
+    iterall "^1.1.0"
+
 graphql@^14.0.2:
   version "14.0.2"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.0.2.tgz#7dded337a4c3fd2d075692323384034b357f5650"
@@ -5248,7 +5290,7 @@ istanbul-reports@^1.5.1:
   dependencies:
     handlebars "^4.0.3"
 
-iterall@^1.2.2:
+iterall@^1.1.0, iterall@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
 
@@ -10005,3 +10047,15 @@ yargs@^9.0.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
+
+zen-observable-ts@^0.8.10:
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-0.8.10.tgz#18e2ce1c89fe026e9621fd83cc05168228fce829"
+  integrity sha512-5vqMtRggU/2GhePC9OU4sYEWOdvmayp2k3gjPf4F0mXwB3CSbbNznfDUvDJx9O2ZTa1EIXdJhPchQveFKwNXPQ==
+  dependencies:
+    zen-observable "^0.8.0"
+
+zen-observable@^0.8.0:
+  version "0.8.11"
+  resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.11.tgz#d3415885eeeb42ee5abb9821c95bb518fcd6d199"
+  integrity sha512-N3xXQVr4L61rZvGMpWe8XoCGX8vhU35dPyQ4fm5CY/KDlG0F75un14hjbckPXTDuKUY6V0dqR2giT6xN8Y4GEQ==

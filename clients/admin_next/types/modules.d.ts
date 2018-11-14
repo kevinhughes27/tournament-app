@@ -17,3 +17,4 @@ declare module "react-leaflet-control";
 declare module "react-leaflet-div-icon";
 declare module "react-leaflet-locate-control";
 declare module "relay-runtime/lib/RelayQueryResponseCache";
+declare module "graphql-ruby-client/subscriptions/createHandler";
