@@ -9,7 +9,7 @@ import DivisionPicker from "./DivisionPicker";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
-import runMutation from "../../helpers/mutationHelper";
+import runMutation from "../../helpers/runMutation";
 import UpdateTeamMutation from "../../mutations/UpdateTeam";
 import CreateTeamMutation from "../../mutations/CreateTeam";
 import DeleteTeamMutation from "../../mutations/DeleteTeam";

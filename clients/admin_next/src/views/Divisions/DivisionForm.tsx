@@ -8,7 +8,7 @@ import BracketPicker from "./BracketPickerContainer";
 import FormButtons from "../../components/FormButtons";
 
 import Form from "../../components/Form";
-import runMutation from "../../helpers/mutationHelper";
+import runMutation from "../../helpers/runMutation";
 import CreateDivisionMutation from "../../mutations/CreateDivision";
 import UpdateDivisionMutation from "../../mutations/UpdateDivision";
 import DeleteDivisionMutation from "../../mutations/DeleteDivision";

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { graphql } from "react-relay";
 import { RecordSourceSelectorProxy } from "relay-runtime";
-import renderQuery from "../../helpers/renderHelper";
-import requestSubscription from "../../helpers/subscription";
+import renderQuery from "../../helpers/renderQuery";
+import requestSubscription from "../../helpers/requestSubscription";
 import GameList from "./GameList";
 
 const query = graphql`

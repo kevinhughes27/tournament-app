@@ -4,7 +4,7 @@ import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import FormButtons from "../../components/FormButtons";
 import Seeds from "./Seeds";
-import runMutation from "../../helpers/mutationHelper";
+import runMutation from "../../helpers/runMutation";
 import SeedDivision from "../../mutations/SeedDivision";
 
 interface Props extends RouteComponentProps<{}> {

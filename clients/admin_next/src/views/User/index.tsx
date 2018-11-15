@@ -1,6 +1,6 @@
 import * as React from "react";
 import { graphql } from "react-relay";
-import renderQuery from "../../helpers/renderHelper";
+import renderQuery from "../../helpers/renderQuery";
 import UserShow from "./UserShow";
 
 class User extends React.Component {

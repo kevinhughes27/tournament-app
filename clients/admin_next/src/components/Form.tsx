@@ -1,7 +1,7 @@
 import * as React from "react";
 import Confirm from "./Confirm";
 import ErrorBanner, { hideErrors } from "./ErrorBanner";
-import runMutation from "../helpers/mutationHelper";
+import runMutation from "../helpers/runMutation";
 import {
   Formik,
   FormikProps,

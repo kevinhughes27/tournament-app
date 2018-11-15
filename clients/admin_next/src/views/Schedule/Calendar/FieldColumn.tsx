@@ -13,7 +13,7 @@ import Settings from "./Settings";
 import Game from "./Game";
 import DropOverlay from "./DropOverlay";
 
-import runMutation from "../../../helpers/mutationHelper";
+import runMutation from "../../../helpers/runMutation";
 import ScheduleGameMutation from "../../../mutations/ScheduleGame";
 import UnscheduleGameMutation from "../../../mutations/UnscheduleGame";
 

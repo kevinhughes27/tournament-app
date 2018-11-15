@@ -13,7 +13,7 @@ import UpdateFieldMutation from "../../mutations/UpdateField";
 import CreateFieldMutation from "../../mutations/CreateField";
 import DeleteFieldMutation from "../../mutations/DeleteField";
 import quadrilateralise from "./quadrilateralise";
-import runMutation from "../../helpers/mutationHelper";
+import runMutation from "../../helpers/runMutation";
 import { merge } from "lodash";
 
 interface Props {

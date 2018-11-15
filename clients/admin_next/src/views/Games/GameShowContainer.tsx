@@ -1,7 +1,7 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { graphql } from "react-relay";
-import renderQuery from "../../helpers/renderHelper";
+import renderQuery from "../../helpers/renderQuery";
 import GameShow from "./GameShow";
 
 interface Props extends RouteComponentProps<any> {}
