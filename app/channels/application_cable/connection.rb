@@ -9,8 +9,7 @@ module ApplicationCable
     protected
 
     def find_verified_tournament
-      verified_tournament = Tournament.find_by(id: cookies.signed['tournament.id'])
-      if verified_tournament && cookies.signed['tournament.expires_at'] > Time.now
+      if verified_tournament = Tournament.find_by(handle: request.subdomain)
         verified_tournament
       else
         reject_unauthorized_connection

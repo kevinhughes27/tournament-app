@@ -307,6 +307,11 @@ type SubmitScorePayload {
   success: Boolean!
 }
 
+type Subscription {
+  # Game updated
+  gameUpdated: Game!
+}
+
 # A Team
 type Team {
   division: Division

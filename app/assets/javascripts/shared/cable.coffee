@@ -2,4 +2,4 @@
 
 window.UT ||= {}
 
-UT.cable = ActionCable.createConsumer('/cable')
+UT.cable = ActionCable.createConsumer('/subscriptions')

@@ -33,7 +33,7 @@ class SaveScoreTest < OperationTest
 
   test "updating scores broadcasts changes" do
     game = FactoryBot.create(:game)
-    ActionCable.server.expects(:broadcast)
+    ActionCable.server.expects(:broadcast).twice
     SaveScore.perform(game: game, home_score: 15, away_score: 13)
   end
 end

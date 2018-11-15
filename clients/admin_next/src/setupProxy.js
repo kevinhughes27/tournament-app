@@ -1,10 +1,16 @@
 const proxy = require('http-proxy-middleware');
 
-const options = {target: 'http://no-borders.lvh.me:3000', changeOrigin: true};
+const handle = 'no-borders';
+const domain = 'lvh.me';
+const port = 3000;
+
+const httpOptions = {target: `http://${handle}.${domain}:${port}`, changeOrigin: true};
+const wsOptions = {target: `ws://${handle}.${domain}:${port}`, changeOrigin: true, ws: true}
 
 module.exports = function(app) {
   app.use(
-    proxy('/graphql', options),
-    proxy('/user_token', options)
+    proxy('/graphql', httpOptions),
+    proxy('/user_token', httpOptions),
+    proxy('/subscriptions', wsOptions),
   );
 };

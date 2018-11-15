@@ -1,5 +1,7 @@
 import { Environment, Network, RecordSource, Store, CacheConfig, Variables, RequestNode } from "relay-runtime";
 import RelayQueryResponseCache from "relay-runtime/lib/RelayQueryResponseCache";
+import createHandler from "graphql-ruby-client/subscriptions/createHandler";
+import ActionCable from "actioncable";
 import auth from "./auth";
 
 const cache = new RelayQueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 });
@@ -48,9 +50,12 @@ const fetchQuery = (
   });
 };
 
-const modernEnvironment = new Environment({
-  network: Network.create(fetchQuery),
-  store: new Store(new RecordSource()),
-});
+const cable = ActionCable.createConsumer('/subscriptions');
+const subscriptionHandler = createHandler({cable});
+
+const network = Network.create(fetchQuery, subscriptionHandler);
+const store = new Store(new RecordSource())
+
+const modernEnvironment = new Environment({network, store});
 
 export default modernEnvironment;
