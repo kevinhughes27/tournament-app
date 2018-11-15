@@ -12,6 +12,4 @@ Rails.application.routes.draw do
   end
 
   draw :brochure
-
-  mount ActionCable.server => '/subscriptions'
 end

@@ -1,6 +1,5 @@
 class AdminController < ApplicationController
   include TournamentController
-  include TournamentCable
 
   abstract!
 

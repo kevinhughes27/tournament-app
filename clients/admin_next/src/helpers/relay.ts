@@ -50,7 +50,7 @@ const fetchQuery = (
   });
 };
 
-const cable = ActionCable.createConsumer('ws://lvh.me:3000/subscriptions?handle=no-borders');
+const cable = ActionCable.createConsumer('/subscriptions');
 const subscriptionHandler = createHandler({cable});
 
 const network = Network.create(fetchQuery, subscriptionHandler);
