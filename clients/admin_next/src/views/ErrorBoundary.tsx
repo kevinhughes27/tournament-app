@@ -1,7 +1,17 @@
 import * as React from "react";
 import BlankSlate from "../components/BlankSlate";
+import rollbar from "rollbar";
 
-declare var Rollbar: any;
+const rollbarConfig = {
+  accessToken: "c4f09f39edb74bc58f2f29bccd539acf",
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: process.env.NODE_ENV
+  }
+};
+
+const Rollbar = rollbar.init(rollbarConfig);
 
 class ErrorBoundary extends React.Component {
   state = {
@@ -9,7 +19,6 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error: Error) {
-    debugger
     this.setState({ hasError: true });
     Rollbar.error(error);
   }
