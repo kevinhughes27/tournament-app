@@ -1,7 +1,7 @@
 class Types::Subscription < Types::BaseObject
   field :gameUpdated, Types::Game, null: false,
-    subscription_scope: :current_tournament,
-    description: "Game updated"
+    description: "Game updated",
+    subscription_scope: :tournament_id
 
   def game_updated
   end

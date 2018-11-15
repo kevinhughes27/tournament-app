@@ -8,9 +8,9 @@ class GraphqlChannel < ApplicationCable::Channel
     variables = data["variables"]
     operation_name = data["operationName"]
 
-    # Make sure the channel is in the context
     context = {
       tournament: current_tournament,
+      tournament_id: current_tournament.id,
       channel: self,
     }
 
@@ -26,13 +26,14 @@ class GraphqlChannel < ApplicationCable::Channel
       more: result.subscription?,
     }
 
-    # Track the subscription here so we can remove it
-    # on unsubscribe.
+    register_ids(result)
+    transmit(payload)
+  end
+
+  def register_ids(result)
     if result.context[:subscription_id]
       @subscription_ids << result.context[:subscription_id]
     end
-
-    transmit(payload)
   end
 
   def unsubscribed

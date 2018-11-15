@@ -131,8 +131,7 @@ class Game < ApplicationRecord
   private
 
   def broadcast
-    # Schema.subscriptions.trigger("gameUpdated", {}, self, scope: tournament_id)
-    Schema.subscriptions.trigger("gameUpdated", {}, self)
+    Schema.subscriptions.trigger("gameUpdated", {}, self, scope: tournament_id)
 
     ActionCable.server.broadcast(
       "games_#{tournament_id}",
