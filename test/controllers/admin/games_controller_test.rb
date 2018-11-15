@@ -63,7 +63,7 @@ class Admin::GamesControllerTest < AdminControllerTest
   test "updating scores broadcasts changes" do
     game = FactoryBot.create(:game)
 
-    ActionCable.server.expects(:broadcast)
+    ActionCable.server.expects(:broadcast).twice
 
     put :update, params: {
       id: game.id,
