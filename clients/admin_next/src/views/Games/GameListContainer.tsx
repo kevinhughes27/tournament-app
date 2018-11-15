@@ -1,8 +1,8 @@
 import * as React from "react";
-import { requestSubscription, graphql } from "react-relay";
+import { graphql } from "react-relay";
 import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../../helpers/relay";
 import renderQuery from "../../helpers/renderHelper";
+import requestSubscription from "../../helpers/subscription";
 import GameList from "./GameList";
 
 const query = graphql`
@@ -39,16 +39,7 @@ function updater(store: RecordSourceSelectorProxy) {
 
 class GameListContainer extends React.Component {
   componentDidMount() {
-    requestSubscription(
-      environment,
-      {
-        subscription,
-        variables: {},
-        updater,
-        onCompleted: () => {/* server closed the subscription */},
-        onError: error => console.error(error),
-      }
-    )
+    requestSubscription(subscription, updater);
   }
 
   render() {
