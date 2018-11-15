@@ -1,6 +1,6 @@
 import { commitMutation, graphql } from "react-relay";
 import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../helpers/relay";
+import environment from "../modules/relay";
 
 const mutation = graphql`
   mutation CreateFieldMutation($input: CreateFieldInput!) {

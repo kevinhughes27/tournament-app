@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import gravatarUrl from "gravatar-url";
-import auth from "../../helpers/auth";
+import auth from "../../modules/auth";
 
 interface Props extends RouteComponentProps<{}> {
   viewer: UserMenu_viewer;

@@ -1,5 +1,5 @@
 import { requestSubscription, GraphQLTaggedNode  } from "react-relay";
-import environment from "../helpers/relay";
+import environment from "../modules/relay";
 
 export default (
   subscription: GraphQLTaggedNode,
