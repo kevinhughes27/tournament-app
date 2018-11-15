@@ -1,7 +1,7 @@
 import * as React from "react";
-import Notice from "../Notice";
-import SideBar from "./SideBar";
 import TopBar from "./TopBar";
+import SideBar from "./SideBar";
+import Notice from "../../components/Notice";
 import Routes from "../../views/routes";
 
 interface State {
