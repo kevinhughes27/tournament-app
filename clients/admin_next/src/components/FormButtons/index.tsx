@@ -29,8 +29,8 @@ class FormButtons extends React.Component<Props> {
     const { inline, classes, theme } = this.props;
 
     const transitionDuration = {
-      enter: theme!.transitions.duration.enteringScreen,
-      exit: theme!.transitions.duration.leavingScreen,
+      enter: theme.transitions.duration.enteringScreen,
+      exit: theme.transitions.duration.leavingScreen,
     };
 
     return (
