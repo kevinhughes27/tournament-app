@@ -76,7 +76,7 @@ class Checklist extends React.Component<Props, State> {
 
     const missingScores = games.filter((g) => {
       const finished = g.endTime && new Date(g.endTime) < new Date();
-      return finished && !g.scoreConfirmed
+      return finished && !g.scoreConfirmed;
     });
 
     return (
