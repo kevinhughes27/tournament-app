@@ -18,7 +18,7 @@ class Modal extends React.Component<Props> {
 
     return (
       <UiModal open={this.props.open} onClose={this.props.onClose}>
-        <div className={classes.paper}>
+        <div className={classes.paper} style={{maxWidth: "90%", width: 540}}>
           <div className={classes.title}>
             <Typography variant="h6">
               {this.props.title}
