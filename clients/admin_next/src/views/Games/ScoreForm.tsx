@@ -90,7 +90,6 @@ class ScoreForm extends Form<Props> {
           />
         </div>
         <FormButtons
-          inline
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}

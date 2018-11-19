@@ -1,0 +1,12 @@
+.score-card {
+  min-width: 60px;
+  height: 30px;
+  background-color: #03a9f4 !important;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: white;
+  font-weight: bolder;
+  font-size: 18px;
+  transform: scale(1, 1.5);
+}

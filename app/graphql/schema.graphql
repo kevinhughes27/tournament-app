@@ -173,6 +173,7 @@ type Game {
   #      Some tournament require a submission from both teams or a validated
   #      confirmation.
   scoreConfirmed: Boolean!
+  scoreReports: [ScoreReport!]
   startTime: DateTime
 }
 
@@ -252,15 +253,15 @@ type ScoreDispute {
 type ScoreReport {
   attitude: Int!
   awayScore: Int!
-  comment: String
+  comments: String
   communication: Int!
   fairness: Int!
   fouls: Int!
   homeScore: Int!
   id: ID!
   rulesKnowledge: Int!
+  submittedBy: String!
   submitterFingerprint: String!
-  team: Team!
 }
 
 input SeedDivisionInput {

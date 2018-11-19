@@ -2,8 +2,11 @@ import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import Badge from "@material-ui/core/Badge";
+import List from "@material-ui/core/List";
 import Modal from "../../components/Modal";
 import ScoreForm from "./ScoreForm";
+import ScoreReport from "./ScoreReport";
 
 interface Props {
   game: GameListItem_game;
@@ -39,13 +42,24 @@ class GameListItem extends React.Component<Props> {
         <TableCell>{gameName}</TableCell>
         <TableCell>{game.division.name}</TableCell>
         <TableCell>{game.pool}</TableCell>
-        <TableCell>{game.homeScore} - {game.awayScore}</TableCell>
+        <TableCell>
+          <Badge
+            color="primary"
+            style={{paddingTop: 0, paddingRight: 15}}
+            badgeContent={game.scoreReports!.length}
+          >
+            {game.homeScore} - {game.awayScore}
+          </Badge>
+        </TableCell>
         <Modal
           open={this.state.open}
           onClose={this.handleClose}
           title={gameName}
         >
           <ScoreForm input={input} cancel={this.handleClose} />
+          <List style={{paddingBottom: 30}}>
+            {game.scoreReports!.map((r) => <ScoreReport report={r}/>)}
+          </List>
         </Modal>
       </TableRow>
     );
@@ -64,6 +78,10 @@ export default createFragmentContainer(GameListItem, {
       division {
         id
         name
+      }
+      scoreReports {
+        id
+        ...ScoreReport_report
       }
     }
   `

@@ -9,6 +9,7 @@ import "react-leaflet-search/src/react-leaflet-search.css";
 import "./assets/css/map.css";
 import "./assets/css/home.css";
 import "./assets/css/user.css";
+import "./assets/css/games.css";
 import "./assets/css/device.css";
 import "./assets/css/bracket.css";
 import "./assets/css/schedule.css";

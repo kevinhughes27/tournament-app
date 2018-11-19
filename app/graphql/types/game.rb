@@ -28,6 +28,7 @@ class Types::Game < Types::BaseObject
      Some tournament require a submission from both teams or a validated
      confirmation.")
   end
+  field :scoreReports, [Types::ScoreReport], null: true
 
   def scheduled
     object.scheduled?
