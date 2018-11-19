@@ -24,10 +24,10 @@ class SpiritScore extends React.Component<Props> {
     return(
       <div className="spirit-score">
         <Tooltip
-          placement="top-start"
+          placement="right-end"
           disableFocusListener
           title={
-            <div style={{fontSize: 14}}>
+            <div style={{fontSize: 16, lineHeight: 1.2}}>
               <strong>Spirit Score:</strong>
               <ul style={{listStyleType: "none", padding: 0, margin: 0}}>
                 <li>Rules Knowledge: {report.rulesKnowledge}</li>

@@ -12,18 +12,20 @@ class ScoreReport extends React.Component<Props> {
   render() {
     const report = this.props.report;
     const comments = report.comments && `"${report.comments}"`
-    const submittedBy = `Submitted by: ${report.submittedBy} ${report.submitterFingerprint}`
 
     return(
       <div className="score-report">
-        <Paper className="score-card">
-          {report.homeScore}-{report.awayScore}
-        </Paper>
-        <div style={{flexBasis: "60%"}}>
-          <Typography variant="subtitle2">{comments}</Typography>
-          <Typography variant="caption">{submittedBy}</Typography>
+        <div>
+          <Paper className="score-card">
+            {report.homeScore}-{report.awayScore}
+          </Paper>
+          <SpiritScore report={report} />
         </div>
-        <SpiritScore report={report} />
+        <div>
+          <Typography variant="subtitle2">{comments}</Typography>
+          <Typography variant="caption">{`Submitted by: ${report.submittedBy}`}</Typography>
+          <Typography variant="caption">{`Device ID: ${report.submitterFingerprint}`}</Typography>
+        </div>
       </div>
     )
   }
