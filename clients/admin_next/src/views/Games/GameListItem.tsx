@@ -3,7 +3,6 @@ import {createFragmentContainer, graphql} from "react-relay";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Badge from "@material-ui/core/Badge";
-import List from "@material-ui/core/List";
 import Modal from "../../components/Modal";
 import ScoreForm from "./ScoreForm";
 import ScoreReport from "./ScoreReport";
@@ -57,9 +56,9 @@ class GameListItem extends React.Component<Props> {
           title={gameName}
         >
           <ScoreForm input={input} cancel={this.handleClose} />
-          <List style={{paddingBottom: 30}}>
-            {game.scoreReports!.map((r) => <ScoreReport report={r}/>)}
-          </List>
+          <div style={{paddingBottom: 24}}>
+            {game.scoreReports!.map((r) => <ScoreReport key={r.id} report={r}/>)}
+          </div>
         </Modal>
       </TableRow>
     );

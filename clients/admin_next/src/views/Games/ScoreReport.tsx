@@ -1,14 +1,8 @@
 import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import Paper from "@material-ui/core/Paper";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Rating from "react-star-rating-lite";
-import Tooltip from "@material-ui/core/Tooltip";
-import Button from "@material-ui/core/Button";
-import { sum } from "lodash";
+import Typography from "@material-ui/core/Typography";
+import SpiritScore from "./SpiritScore";
 
 interface Props {
   report: ScoreReport_report;
@@ -19,47 +13,18 @@ class ScoreReport extends React.Component<Props> {
     const report = this.props.report;
     const comments = report.comments && `"${report.comments}"`
     const submittedBy = `Submitted by: ${report.submittedBy} ${report.submitterFingerprint}`
-    const avgSpirit = sum([
-      report.fairness,
-      report.fouls,
-      report.attitude,
-       report.rulesKnowledge,
-      report.communication
-    ]) / 5.0;
 
     return(
-      <ListItem>
-        <ListItemIcon>
-          <Paper className="score-card">
-            {report.homeScore}-{report.awayScore}
-          </Paper>
-        </ListItemIcon>
-        <ListItemText primary={comments} secondary={submittedBy} />
-        <ListItemSecondaryAction>
-          <div style={{paddingTop: 5}}>
-            <Tooltip
-              placement="top-start"
-              disableFocusListener
-              title={
-                <div style={{fontSize: 14}}>
-                  <strong>Spirit Score:</strong>
-                  <ul style={{listStyleType: "none", padding: 0, margin: 0}}>
-                    <li>Rules Knowledge: {report.rulesKnowledge}</li>
-                    <li>Fouls: {report.fouls}</li>
-                    <li>Fairness: {report.fairness}</li>
-                    <li>Attitude: {report.attitude}</li>
-                    <li>Communication: {report.communication}</li>
-                  </ul>
-                </div>
-              }
-            >
-              <Button>
-                <Rating value={avgSpirit} weight="14" readonly />
-              </Button>
-            </Tooltip>
-          </div>
-        </ListItemSecondaryAction>
-      </ListItem>
+      <div className="score-report">
+        <Paper className="score-card">
+          {report.homeScore}-{report.awayScore}
+        </Paper>
+        <div style={{flexBasis: "60%"}}>
+          <Typography variant="subtitle2">{comments}</Typography>
+          <Typography variant="caption">{submittedBy}</Typography>
+        </div>
+        <SpiritScore report={report} />
+      </div>
     )
   }
 }
@@ -72,12 +37,8 @@ export default createFragmentContainer(ScoreReport, {
       submitterFingerprint
       homeScore
       awayScore
-      rulesKnowledge
-      fouls
-      fairness
-      attitude
-      communication
       comments
+      ...SpiritScore_report
     }
   `
 });

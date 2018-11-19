@@ -1,0 +1,68 @@
+import * as React from "react";
+import {createFragmentContainer, graphql} from "react-relay";
+import ReactStars from "react-stars";
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
+import { sum } from "lodash";
+
+interface Props {
+  report: SpiritScore_report;
+}
+
+class SpiritScore extends React.Component<Props> {
+  render() {
+    const report = this.props.report;
+
+    const avgSpirit = sum([
+      report.fairness,
+      report.fouls,
+      report.attitude,
+       report.rulesKnowledge,
+      report.communication
+    ]) / 5.0;
+
+    return(
+      <div className="spirit-score">
+        <Tooltip
+          placement="top-start"
+          disableFocusListener
+          title={
+            <div style={{fontSize: 14}}>
+              <strong>Spirit Score:</strong>
+              <ul style={{listStyleType: "none", padding: 0, margin: 0}}>
+                <li>Rules Knowledge: {report.rulesKnowledge}</li>
+                <li>Fouls: {report.fouls}</li>
+                <li>Fairness: {report.fairness}</li>
+                <li>Attitude: {report.attitude}</li>
+                <li>Communication: {report.communication}</li>
+              </ul>
+            </div>
+          }
+        >
+          <div>
+            <Typography variant="caption">Spirit score</Typography>
+            <ReactStars
+              value={avgSpirit}
+              count={4}
+              size={18}
+              edit={false}
+            />
+          </div>
+        </Tooltip>
+      </div>
+    );
+  }
+}
+
+export default createFragmentContainer(SpiritScore, {
+  report: graphql`
+    fragment SpiritScore_report on ScoreReport {
+      id
+      rulesKnowledge
+      fouls
+      fairness
+      attitude
+      communication
+    }
+  `
+});
