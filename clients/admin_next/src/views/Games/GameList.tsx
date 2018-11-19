@@ -53,9 +53,14 @@ class GameList extends React.Component<Props> {
 
     if (games.length > 0) {
       return (
-        <div>
+        <div style={{maxWidth: "100%"}}>
           <AppBar position="static" color="default" style={{paddingTop: 5}}>
-            <Tabs value={tab} onChange={this.handleTab}>
+            <Tabs
+              value={tab}
+              onChange={this.handleTab}
+              scrollable
+              scrollButtons="auto"
+            >
               {this.renderTab("On Now", currentGames.length, "secondary")}
               {this.renderTab("Need Scores", missingScores.length, "error")}
               {this.renderTab("Upcoming", upcomingGames.length, "secondary")}
@@ -94,19 +99,21 @@ class GameList extends React.Component<Props> {
   renderList = (games: GameList_games, blankCopy: string) => {
     if (games.length > 0) {
       return (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Division</TableCell>
-              <TableCell>Pool</TableCell>
-              <TableCell>Score</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {games.map((g) => <GameListItem key={g.id} game={g}/>)}
-          </TableBody>
-        </Table>
+        <div style={{maxWidth: "100%", overflowX: "scroll"}}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Division</TableCell>
+                <TableCell>Pool</TableCell>
+                <TableCell>Score</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {games.map((g) => <GameListItem key={g.id} game={g}/>)}
+            </TableBody>
+          </Table>
+        </div>
       )
     } else {
       return (
