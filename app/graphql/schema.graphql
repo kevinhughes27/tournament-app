@@ -173,6 +173,7 @@ type Game {
   #      Some tournament require a submission from both teams or a validated
   #      confirmation.
   scoreConfirmed: Boolean!
+  scoreDisputed: Boolean!
   scoreReports: [ScoreReport!]
   startTime: DateTime
 }

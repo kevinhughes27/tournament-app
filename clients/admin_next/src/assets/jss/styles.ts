@@ -68,6 +68,15 @@ const Modal = (theme: Theme) => createStyles({
   }
 });
 
+const ReportsBadge = {
+  badge: {
+    fontSize: 10,
+    height: 18,
+    width: 18,
+    right: -20,
+  }
+};
+
 const BlankSlate = {
   container: {
     display: "flex",
@@ -156,6 +165,7 @@ export {
   NavItems,
   Loader,
   Modal,
+  ReportsBadge,
   BlankSlate,
   Breadcrumbs,
   ActionMenu,

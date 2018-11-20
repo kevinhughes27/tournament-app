@@ -39,16 +39,16 @@ class GameList extends React.Component<Props> {
 
     const missingScores = games.filter((g) => {
       const finished = g.endTime && new Date(g.endTime) < new Date();
-      return finished && !g.scoreConfirmed;
-    });
-
-    const finishedGames = games.filter((g) => {
-      return g.scoreConfirmed;
+      return (finished && !g.scoreConfirmed) || g.scoreDisputed;
     });
 
     const upcomingGames = games.filter((g) => {
       const future = g.startTime && new Date(g.startTime) > new Date();
       return future;
+    });
+
+    const finishedGames = games.filter((g) => {
+      return g.scoreConfirmed;
     });
 
     if (games.length > 0) {
@@ -136,6 +136,7 @@ export default createFragmentContainer(GameList, {
       startTime
       endTime
       scoreConfirmed
+      scoreDisputed
       ...GameListItem_game
     }
   `

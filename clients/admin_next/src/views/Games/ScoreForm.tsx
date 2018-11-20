@@ -74,7 +74,7 @@ class ScoreForm extends Form<Props> {
             value={values.homeScore}
             onChange={handleChange}
             helperText={errors.homeScore}
-            style={{ flexBasis: "35%" }}
+            style={{ flexBasis: "40%" }}
           />
           <TextField
             name="awayScore"
@@ -86,7 +86,7 @@ class ScoreForm extends Form<Props> {
             value={values.awayScore}
             onChange={handleChange}
             helperText={errors.awayScore}
-            style={{ flexBasis: "35%" }}
+            style={{ flexBasis: "40%" }}
           />
         </div>
         <FormButtons

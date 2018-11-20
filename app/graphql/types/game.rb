@@ -29,6 +29,7 @@ class Types::Game < Types::BaseObject
      confirmation.")
   end
   field :scoreReports, [Types::ScoreReport], null: true
+  field :scoreDisputed, Boolean, null: false
 
   def scheduled
     object.scheduled?

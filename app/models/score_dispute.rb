@@ -9,6 +9,7 @@ class ScoreDispute < ApplicationRecord
   validates :status, inclusion: { in: STATES }
 
   default_scope { where(status: 'open') }
+  scope :open, -> { where(status: 'open') }
 
   after_initialize do
     self.status ||= 'open'

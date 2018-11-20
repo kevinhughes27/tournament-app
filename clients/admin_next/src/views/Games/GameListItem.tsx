@@ -2,10 +2,10 @@ import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import Badge from "@material-ui/core/Badge";
 import Modal from "../../components/Modal";
 import ScoreForm from "./ScoreForm";
 import ScoreReport from "./ScoreReport";
+import ReportsBadge from "./ReportsBadge";
 
 interface Props {
   game: GameListItem_game;
@@ -41,15 +41,7 @@ class GameListItem extends React.Component<Props> {
         <TableCell>{gameName}</TableCell>
         <TableCell>{game.division.name}</TableCell>
         <TableCell>{game.pool}</TableCell>
-        <TableCell>
-          <Badge
-            color="primary"
-            style={{paddingTop: 0, paddingRight: 15}}
-            badgeContent={game.scoreReports!.length}
-          >
-            {game.homeScore} - {game.awayScore}
-          </Badge>
-        </TableCell>
+        {this.renderScoreCell()}
         <Modal
           open={this.state.open}
           onClose={this.handleClose}
@@ -62,6 +54,23 @@ class GameListItem extends React.Component<Props> {
         </Modal>
       </TableRow>
     );
+  }
+
+  renderScoreCell = () => {
+    const { game } = this.props;
+    const reportCount = (game.scoreReports || []).length;
+
+    if (game.homeScore && game.awayScore) {
+      return(
+        <TableCell>
+          <ReportsBadge count={reportCount} disputed={game.scoreDisputed}>
+            {game.homeScore} - {game.awayScore}
+          </ReportsBadge>
+        </TableCell>
+      );
+    } else {
+      return <TableCell></TableCell>
+    }
   }
 }
 
@@ -82,6 +91,7 @@ export default createFragmentContainer(GameListItem, {
         id
         ...ScoreReport_report
       }
+      scoreDisputed
     }
   `
 });

@@ -123,6 +123,10 @@ class Game < ApplicationRecord
     ].compact
   end
 
+  def score_disputed
+    score_disputes.open.exists?
+  end
+
   def resolve_disputes!
     score_disputes.map(&:resolve!)
     score_disputes.reload
