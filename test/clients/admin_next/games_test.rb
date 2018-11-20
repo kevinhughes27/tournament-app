@@ -4,6 +4,8 @@ class DivisionsTest < AdminNextTestCase
   test 'game tabs' do
     on_now = FactoryBot.create(:game, :on_now)
     missing_score = FactoryBot.create(:game, :missing_score)
+    disputed_score = FactoryBot.create(:game, :missing_score)
+    FactoryBot.create(:score_dispute, game: disputed_score)
     upcoming = FactoryBot.create(:game, :upcoming)
     finished = FactoryBot.create(:game, :finished)
 
@@ -13,19 +15,20 @@ class DivisionsTest < AdminNextTestCase
 
     click_tab('On Now')
     assert_game(on_now)
-    refute_games([missing_score, upcoming, finished])
+    refute_games([missing_score, disputed_score, upcoming, finished])
 
     click_tab('Need Scores')
     assert_game(missing_score)
+    assert_game(disputed_score)
     refute_games([on_now, upcoming, finished])
 
     click_tab('Upcoming')
     assert_game(upcoming)
-    refute_games([on_now, missing_score, finished])
+    refute_games([on_now, missing_score, disputed_score, finished])
 
     click_tab('Finished')
     assert_game(finished)
-    refute_games([on_now, missing_score, upcoming])
+    refute_games([on_now, missing_score, disputed_score, upcoming])
   end
 
   test 'update score' do
