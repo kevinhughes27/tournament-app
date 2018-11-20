@@ -30,28 +30,13 @@ class GameListItem extends React.Component<Props> {
     const { game } = this.props;
     const gameName = `${game.homeName} vs ${game.awayName}`
 
-    const input = {
-      gameId: game.id,
-      homeScore: game.homeScore || 0,
-      awayScore: game.awayScore || 0
-    };
-
     return (
       <TableRow hover onClick={this.handleClick}>
         <TableCell>{gameName}</TableCell>
         <TableCell>{game.division.name}</TableCell>
         <TableCell>{game.pool}</TableCell>
         {this.renderScoreCell()}
-        <Modal
-          open={this.state.open}
-          onClose={this.handleClose}
-          title={gameName}
-        >
-          <ScoreForm input={input} cancel={this.handleClose} />
-          <div style={{paddingBottom: 24}}>
-            {game.scoreReports!.map((r) => <ScoreReport key={r.id} report={r}/>)}
-          </div>
-        </Modal>
+        {this.renderModal()}
       </TableRow>
     );
   }
@@ -72,6 +57,34 @@ class GameListItem extends React.Component<Props> {
       return <TableCell></TableCell>
     }
   }
+
+  renderModal = () => {
+    const { game } = this.props;
+    const gameName = `${game.homeName} vs ${game.awayName}`
+
+    const input = {
+      gameId: game.id,
+      homeScore: game.homeScore || 0,
+      awayScore: game.awayScore || 0
+    };
+
+    if (game.hasTeams) {
+      return(
+        <Modal
+          open={this.state.open}
+          onClose={this.handleClose}
+          title={gameName}
+        >
+          <ScoreForm input={input} cancel={this.handleClose} />
+          <div style={{paddingBottom: 24}}>
+            {game.scoreReports!.map((r) => <ScoreReport key={r.id} report={r}/>)}
+          </div>
+        </Modal>
+      );
+    } else {
+      return null;
+    }
+  }
 }
 
 export default createFragmentContainer(GameListItem, {
@@ -81,6 +94,7 @@ export default createFragmentContainer(GameListItem, {
       pool
       homeName
       awayName
+      hasTeams
       homeScore
       awayScore
       division {

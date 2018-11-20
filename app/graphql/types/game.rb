@@ -14,6 +14,7 @@ class Types::Game < Types::BaseObject
   field :awayPrereq, String, null: false
   field :homePoolSeed, Int, null: true
   field :awayPoolSeed, Int, null: true
+  field :hasTeams, Boolean, null: false
 
   field :field, Types::Field, null: true
   field :startTime, Types::DateTime, null: true
@@ -30,6 +31,10 @@ class Types::Game < Types::BaseObject
   end
   field :scoreReports, [Types::ScoreReport], null: true
   field :scoreDisputed, Boolean, null: false
+
+  def has_teams
+    object.teams_present?
+  end
 
   def scheduled
     object.scheduled?

@@ -159,6 +159,7 @@ type Game {
   division: Division!
   endTime: DateTime
   field: Field
+  hasTeams: Boolean!
   homeName: String
   homePoolSeed: Int
   homePrereq: String!
