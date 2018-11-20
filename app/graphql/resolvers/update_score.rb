@@ -1,4 +1,8 @@
 class Resolvers::UpdateScore < Resolvers::BaseResolver
+  CONFIRM_MSG = """This update will change the teams in games that come after it\
+  and some of those games have been scored. If you update this\
+  score those games will be reset. This cannot be undone."""
+
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @user = ctx[:current_user]
@@ -21,10 +25,13 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
       }
     end
 
-    if (!inputs[:force] && !safe_to_update_score?)
+    confirm = inputs[:confirm] || inputs[:force]
+
+    if (!confirm && !safe_to_update_score?)
       return {
         success: false,
-        message: "unsafe score update"
+        confirm: true,
+        message: CONFIRM_MSG
       }
     end
 

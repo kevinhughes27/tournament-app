@@ -30,5 +30,23 @@ FactoryBot.define do
       start_time { '2015-06-06 12:06:53 UTC' }
       end_time { '2015-06-06 13:36:53 UTC' }
     end
+
+    trait :on_now do
+      field { FactoryBot.create(:field, tournament: tournament) }
+      start_time { Time.now - 30.minutes }
+      end_time { Time.now + 30.minutes }
+    end
+
+    trait :missing_score do
+      field { FactoryBot.create(:field, tournament: tournament) }
+      start_time { Time.now - 120.minutes }
+      end_time { Time.now - 30.minutes }
+    end
+
+    trait :upcoming do
+      field { FactoryBot.create(:field, tournament: tournament) }
+      start_time { Time.now + 30.minutes }
+      end_time { Time.now + 120.minutes }
+    end
   end
 end
