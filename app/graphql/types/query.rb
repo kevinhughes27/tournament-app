@@ -87,7 +87,15 @@ class Types::Query < Types::BaseObject
     scope = scope.scheduled if scheduled
     scope = scope.has_team if has_team
 
-    scope = scope.includes(:home, :away, :field)
+    scope = scope.includes(
+      :home,
+      :away,
+      :division,
+      :field,
+      :score_disputes,
+      score_reports: [:team]
+    )
+
     scope
   end
 

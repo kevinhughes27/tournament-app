@@ -124,7 +124,7 @@ class Game < ApplicationRecord
   end
 
   def score_disputed
-    score_disputes.open.exists?
+    score_disputes.present?
   end
 
   def resolve_disputes!
