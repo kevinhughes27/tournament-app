@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateScoreTest < ApiTest
   setup do
     login_user
-    @output = '{ success message }'
+    @output = '{ success confirm message }'
   end
 
   test "update a games score" do
