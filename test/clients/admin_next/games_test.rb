@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DivisionsTest < AdminNextTestCase
+class GamesTest < AdminNextTestCase
   test 'game tabs' do
     on_now = FactoryBot.create(:game, :on_now)
     missing_score = FactoryBot.create(:game, :missing_score)
