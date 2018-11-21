@@ -56,7 +56,8 @@ const Modal = (theme: Theme) => createStyles({
     top: "50%",
     left: "50%",
     transform: `translate(-50%, -50%)`,
-    width: theme.spacing.unit * 50,
+    width: 540,
+    maxWidth: "90%",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
@@ -67,6 +68,15 @@ const Modal = (theme: Theme) => createStyles({
     alignItems: "center"
   }
 });
+
+const ReportsBadge = {
+  badge: {
+    fontSize: 10,
+    height: 18,
+    width: 18,
+    right: -20,
+  }
+};
 
 const BlankSlate = {
   container: {
@@ -156,6 +166,7 @@ export {
   NavItems,
   Loader,
   Modal,
+  ReportsBadge,
   BlankSlate,
   Breadcrumbs,
   ActionMenu,

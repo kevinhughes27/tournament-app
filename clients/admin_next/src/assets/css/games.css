@@ -1,0 +1,25 @@
+.score-report {
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 20px;
+}
+
+.score-card {
+  width: 65px;
+  height: 30px;
+  margin-top: 10px;
+  margin-right: 18px;
+  background-color: #03a9f4 !important;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: white;
+  font-weight: bolder;
+  font-size: 18px;
+  transform: scale(1, 1.5);
+}
+
+.spirit-score {
+  padding-top: 15px;
+  width: 70px;
+}

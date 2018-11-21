@@ -10,6 +10,7 @@ import UpdateScoreMutation from "../../mutations/UpdateScore";
 
 interface Props {
   input: UpdateScoreMutationVariables["input"];
+  cancel: () => void;
 }
 
 class ScoreForm extends Form<Props> {
@@ -62,33 +63,37 @@ class ScoreForm extends Form<Props> {
 
     return (
       <form onSubmit={handleSubmit}>
-        <TextField
-          name="homeScore"
-          label="Home Score"
-          type="number"
-          margin="normal"
-          autoComplete="off"
-          fullWidth
-          value={values.homeScore}
-          onChange={handleChange}
-          helperText={errors.homeScore}
-        />
-        <TextField
-          name="awayScore"
-          label="Away Score"
-          type="number"
-          margin="normal"
-          autoComplete="off"
-          fullWidth
-          value={values.awayScore}
-          onChange={handleChange}
-          helperText={errors.awayScore}
-        />
+        <div style={{display: "flex", justifyContent: "space-around"}}>
+          <TextField
+            name="homeScore"
+            label="Home Score"
+            type="number"
+            margin="normal"
+            autoComplete="off"
+            fullWidth
+            value={values.homeScore}
+            onChange={handleChange}
+            helperText={errors.homeScore}
+            style={{ flexBasis: "40%" }}
+          />
+          <TextField
+            name="awayScore"
+            label="Away Score"
+            type="number"
+            margin="normal"
+            autoComplete="off"
+            fullWidth
+            value={values.awayScore}
+            onChange={handleChange}
+            helperText={errors.awayScore}
+            style={{ flexBasis: "40%" }}
+          />
+        </div>
         <FormButtons
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
-          cancelLink={"/games"}
+          cancel={this.props.cancel}
         />
       </form>
     );

@@ -8,7 +8,7 @@ import {TeamList, TeamShow, TeamNew } from "./Teams";
 import { DivisionList, DivisionShow, DivisionSeed, DivisionEdit, DivisionNew } from "./Divisions";
 import Fields from "./Fields";
 import Schedule from "./Schedule";
-import { GameList, GameShow } from "./Games";
+import Games from "./Games";
 import App from "./App";
 
 import NotFound from "./NotFound";
@@ -35,8 +35,7 @@ const Routes = () => (
       <Route path="/fields" component={Fields}/>
       <Route path="/schedule" component={Schedule}/>
 
-      <Route exact path="/games" component={GameList}/>
-      <Route path="/games/:gameId" component={GameShow}/>
+      <Route exact path="/games" component={Games}/>
       <Route path="/app" component={App}/>
 
       <Route component={NotFound}/>

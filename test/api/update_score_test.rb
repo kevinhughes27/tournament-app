@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateScoreTest < ApiTest
   setup do
     login_user
-    @output = '{ success message }'
+    @output = '{ success confirm message }'
   end
 
   test "update a games score" do
@@ -22,7 +22,7 @@ class UpdateScoreTest < ApiTest
     input = {game_id: game.id, home_score: 14, away_score: 12}
 
     execute_graphql("updateScore", "UpdateScoreInput", input, @output)
-    assert_failure "unsafe score update"
+    assert_confirmation_required("This update will change the teams in games that come after it and some of those games have been scored. If you update this score those games will be reset. This cannot be undone.")
   end
 
   test "can't update score if not safe" do
@@ -32,7 +32,7 @@ class UpdateScoreTest < ApiTest
     input = {game_id: game1.id, home_score: game1.away_score, away_score: game1.home_score}
 
     execute_graphql("updateScore", "UpdateScoreInput", input, @output)
-    assert_failure "unsafe score update"
+    assert_confirmation_required("This update will change the teams in games that come after it and some of those games have been scored. If you update this score those games will be reset. This cannot be undone.")
   end
 
   test "force unsafe update (mock)" do

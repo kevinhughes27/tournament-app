@@ -3,7 +3,7 @@ class Types::ScoreReport < Types::BaseObject
   description "A Score Report"
 
   field :id, ID, null: false
-  field :team, Types::Team, null: false
+  field :submittedBy, String, null: false
   field :submitterFingerprint, String, null: false
   field :homeScore, Int, null: false
   field :awayScore, Int, null: false
@@ -12,5 +12,5 @@ class Types::ScoreReport < Types::BaseObject
   field :fairness, Int, null: false
   field :attitude, Int, null: false
   field :communication, Int, null: false
-  field :comment, String, null: true
+  field :comments, String, null: true
 end

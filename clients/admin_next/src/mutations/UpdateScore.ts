@@ -6,7 +6,12 @@ const mutation = graphql`
   mutation UpdateScoreMutation($input: UpdateScoreInput!) {
     updateScore(input:$input) {
       success
+      confirm
       message
+      userErrors {
+        field
+        message
+      }
     }
   }
 `;
