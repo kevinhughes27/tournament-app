@@ -1,1 +1,0 @@
-window.Admin = window.Admin || {};

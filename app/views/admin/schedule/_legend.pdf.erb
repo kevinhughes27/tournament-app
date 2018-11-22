@@ -1,5 +1,0 @@
-<% @games.map{ |g| g.division }.uniq.each do |division| %>
-  <h3>
-    <div class="legend" style="<%= background_color_for_division(division) %>"></div> <%= division.name %>
-  </h3>
-<% end %>

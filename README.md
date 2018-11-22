@@ -18,7 +18,6 @@ Contents
   * [**Production Check**](#production-check)
 * **Clients**
   * [**Admin**](#admin)
-  * [**Admin Next**](#admin-next)
   * [**Player App**](#player-app)
 * [**Operating**](#operating)
 
@@ -163,34 +162,20 @@ This will build all the clients and start both a web process and worker process
 
 ### Admin
 
-[[Deprecated]](https://github.com/kevinhughes27/ultimate-tournament/issues/750)
-
-There should be no new development on the old admin client unless it is to maintain a minor compatibility for the API as the new admin client is developed.
-
-This client does not have a development server (anymore) so you'll need to run `yarn build` after making any changes.
-
-Some of the config here might not make much sense since a) React on Rails is more complicated than it needs to be and b) I removed a bunch of the config since we're not developing on it anymore and I hate clutter.
-
-Note - Any new react component needs to be added to clientRegistration.js and registered for use with React On Rails.
-
-### Admin Next
-
-New Admin client under development. See main issue [here](https://github.com/kevinhughes27/ultimate-tournament/issues/750).
-
-To work on the new admin locally you need to run 2 processes: the webpack development server and the Rails server for the GraphQL API.
+To work on the admin locally you need to run 2 processes: the webpack development server and the Rails server for the GraphQL API.
 
 ```
 # webpack development server
-cd clients/admin_next
+cd clients/admin
 yarn start
 
 # rails server
 bundle exec rails server
 ```
 
-The webpack development server proxies all requests to `no-borders.lvh.me:/3000` which is the default development tournament. The proxy is configurable in the admin_next `package.json`.
+The webpack development server proxies all requests to `no-borders.lvh.me:/3000` which is the default development tournament. The proxy is configurable in the admin `package.json`.
 
-Admin Next uses Relay to make queries to the GraphQL API. Relay has a compile step which consumes the entire schema. To dump the schema run this rake task: `bundle exec rake dump_schema`. There is a test to ensure the commited schema file is up to  date so this is only neccessary if you make a change to the schema. Relay will recompile if you change a query in the client but the process needs to be restarted if you dump a new version of the schema.
+Admin uses Relay to make queries to the GraphQL API. Relay has a compile step which consumes the entire schema. To dump the schema run this rake task: `bundle exec rake dump_schema`. There is a test to ensure the committed schema file is up to  date so this is only necessary if you make a change to the schema. Relay will recompile if you change a query in the client but the process needs to be restarted if you dump a new version of the schema.
 
 `yarn start` runs the development server and the relay compiler in parallel. However if relay fails to compile it is easier to debug on its own using `yarn compile-relay`.
 

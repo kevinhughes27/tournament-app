@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlayerAppBrowserTest < BrowserTestCase
+class PlayerAppBrowserTest < BrowserTest
   setup do
     @tournament = FactoryBot.create(:tournament, handle: 'no-borders')
     @map = FactoryBot.create(:map, tournament: @tournament)

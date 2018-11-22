@@ -6,7 +6,6 @@ gem 'rails', '5.2.1.1'
 gem 'bootsnap'
 gem 'puma'
 gem 'config'
-gem 'jbuilder'
 gem 'tzinfo-data'
 gem 'active_operation'
 
@@ -50,22 +49,17 @@ gem 'rollbar'
 # utils
 gem 'wicked_pdf'
 
-# asset gems
-gem 'react_on_rails', '11.0.9'
-gem 'webpacker'
+# assets
+gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'materialize-sass'
 gem 'font-awesome-rails'
-gem 'uglifier', '~> 3.2.0'
-gem 'sassc-rails'
+gem 'uglifier'
 
-# javascript gems
-gem 'coffee-rails'
+# javascript
 gem 'jquery-rails'
 gem 'js_cookie_rails'
 gem 'jstz-rails3-plus'
-gem 'twine-rails'
-gem 'turbolinks', '~> 5.0.0'
 
 group :production do
   gem 'rails_12factor'

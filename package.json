@@ -6,9 +6,8 @@
     "yarn": ">= 0.24.5"
   },
   "subPackages": [
-    "client",
     "clients/player_app",
-    "clients/admin_next"
+    "clients/admin"
   ],
   "scripts": {
     "postinstall": "subpkg install",
@@ -21,8 +20,7 @@
   },
   "cacheDirectories": [
     "node_modules",
-    "client/node_modules",
     "clients/player_app/node_modules",
-    "clients/admin_next/node_modules"
+    "clients/admin/node_modules"
   ]
 }

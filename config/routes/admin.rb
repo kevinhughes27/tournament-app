@@ -1,60 +1,7 @@
-namespace :admin do
-  get "/" => "home#show"
+scope :admin do
+  get '/', to: 'admin#index'
 
-  get '/map', to: 'map#show'
-  put '/map', to: 'map#update'
+  get '/static/*dir/*file', to: 'admin#static'
 
-  resources :fields do
-    collection do
-      get :sample_csv
-      post :import_csv
-      get :export_csv
-    end
-  end
-
-  resources :divisions do
-    member do
-      get :seed
-      post :seed
-    end
-  end
-
-  get '/brackets', to: 'bracket_db#index'
-  get '/bracket', to: 'bracket_db#show'
-
-  resources :teams do
-    collection do
-      get :sample_csv
-      post :import_csv
-      put :set_division
-    end
-    member do
-      get :spirit_scores
-    end
-  end
-
-  get '/schedule', to: 'schedule#index'
-  post '/schedule', to: 'schedule#update'
-  delete '/schedule', to: 'schedule#destroy'
-
-  resources :games, only: [:index, :update]
-
-  resources :score_reports, only: [:index, :destroy] do
-    collection do
-      get :export_csv
-    end
-  end
-
-  get '/settings', to: 'settings#show'
-  put '/settings', to: 'settings#update'
-  post '/reset', to: 'settings#reset_data'
-
-  resources :users, only: [:index, :new, :create]
-
-  get '/account', to: 'account#show'
-  put '/account', to: 'account#update'
-
-  get '/player_app', to: 'player_app#show'
-
-  get '/*a', to: 'errors#not_found'
+  get '/*path', to: 'admin#index'
 end

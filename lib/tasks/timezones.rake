@@ -1,5 +1,5 @@
 task dump_timezones: :environment do
-  path = "clients/admin_next/src/views/Settings/Timezones.ts"
+  path = "clients/admin/src/views/Settings/Timezones.ts"
 
   zones = ActiveSupport::TimeZone.all.map do |zone|
     [zone.to_s, zone.tzinfo.name]

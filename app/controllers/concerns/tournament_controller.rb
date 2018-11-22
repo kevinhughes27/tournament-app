@@ -17,7 +17,10 @@ module TournamentController
       .includes(:map)
       .find_by!(handle: request.subdomain)
   rescue ActiveRecord::RecordNotFound
-    render_404
+    respond_to do |format|
+      format.html { render 'login/404', layout: 'login', status: :not_found }
+      format.any  { head :not_found }
+    end
   end
 
   def set_time_zone(&action)
