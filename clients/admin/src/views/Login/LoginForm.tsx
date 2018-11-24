@@ -10,6 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ForgotPassword from "./ForgotPassword";
 import GoogleLogin from "./GoogleLogin";
 import FacebookLogin from "./FacebookLogin";
 import auth from "../../modules/auth";
@@ -85,6 +86,7 @@ class LoginForm extends React.Component<Props, State> {
                   value={this.state.password}
                   onChange={this.handleChange}
                 />
+                <ForgotPassword />
               </CardContent>
               <CardActions className={classes.actions}>
                 <Button color="primary" variant="contained" type="submit">

@@ -16,6 +16,12 @@ const Login = {
   card: {
     maxWidth: 380
   },
+  forgotLink: {
+    color: "#039be5",
+    textDecoration: "none",
+    display: "block",
+    paddingTop: 20
+  },
   actions: {
     paddingBottom: 15,
     paddingLeft: 20,

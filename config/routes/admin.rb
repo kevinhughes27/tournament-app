@@ -1,5 +1,5 @@
 scope :admin do
-  get '/', to: 'admin#index'
+  get '/', to: 'admin#index', as: 'admin'
 
   get '/static/*dir/*file', to: 'admin#static'
 

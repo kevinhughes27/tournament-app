@@ -1,56 +1,42 @@
-<div class="register-box animated <%= login_animation %>">
+<div class="login-container">
+  <div class="card-panel">
+    <span class="login-form-copy">
+      Log in to manage your tournament
+    </span>
 
-  <% if @tournament %>
-    <div class="register-logo">
-      <%= @tournament.name %>
-    </div>
-  <% end %>
-
-  <div class="register-subtext">
-    <p>Log in to manage your tournament</p>
-  </div>
-
-  <%= render 'errors' %>
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="register-box-body">
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
-          <%= f.text_field :email, placeholder: 'Email', class: 'form-control', autofocus: true %>
-        </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="input-field">
+        <%= f.text_field :email, autocomplete: 'off' %>
+        <label for="user_email">Email</label>
+        <% if flash[:alert].present? %>
+          <span class="helper-text">
+            <%= flash[:alert] %>
+          </span>
+        <% end %>
       </div>
 
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
-          <%= f.password_field :password, placeholder: '********', class: 'form-control', autocomplete: 'off' %>
-        </div>
+      <div class="input-field">
+        <%= f.password_field :password, autocomplete: 'off' %>
+        <label for="user_password">Password</label>
       </div>
 
       <%= f.hidden_field :remember_me, value: true %>
 
-      <div class="form-group text-center" style="margin-bottom: 0px">
-        <%= f.submit "Log in", class: 'btn btn-lg btn-block btn-primary' %>
+      <div class="row">
+        <%= link_to "Forgot your password?", new_user_password_path %>
       </div>
-    </div>
-  <% end %>
 
-  <br>
-  <div class="text-center">
-    <p style="margin-bottom: 15px;">or</p>
-  </div>
+      <%= f.submit "Log in", class: 'btn btn-login right' %>
+    <% end %>
 
-  <div class="social-auth-links text-center">
-    <div style="width: 55%; margin: auto;">
-      <%= link_to user_google_oauth2_omniauth_authorize_url(subdomain: 'www'),
-            class: "btn btn-block btn-social btn-google btn-flat", style: 'margin-bottom: 10px;' do %>
-        <span class="fa fa-google"></span> Sign in with Google
-      <% end %>
+    <%= link_to user_google_oauth2_omniauth_authorize_url(subdomain: 'www'),
+      class: "waves-effect waves-light btn social google" do %>
+      <i class="fa fa-google"></i> Sign in with Google
+    <% end %>
 
-      <%= link_to user_facebook_omniauth_authorize_path(subdomain: 'www'),
-            class: "btn btn-block btn-social btn-facebook btn-flat", style: "margin-bottom: 5px;" do %>
-        <span class="fa fa-facebook"></span> Sign in with Facebook
-      <% end %>
-    </div>
+    <%= link_to user_facebook_omniauth_authorize_path(subdomain: 'www'),
+          class: "\waves-effect waves-light btn social facebook" do %>
+      <i class="fa fa-facebook"></i> Sign in with Facebook
+    <% end %>
   </div>
 </div>

@@ -1,18 +1,16 @@
-<div class="register-box animated <%= login_animation %>">
-  <div class="register-logo">
-    Ultimate Tournament
-  </div>
+<div class="login-container">
+  <div class="card-panel">
+    <span class="login-form-copy">
+      Choose tournament:
+    </span>
 
-  <div class="register-subtext">
-    <p>Choose tournament</p>
-  </div>
-
-  <div class="register-box-body" style="padding-bottom: 5px;">
-    <% current_user.tournaments.each do |tournament| %>
-      <%= form_tag choose_tournament_path, class: 'form-group' do |f| %>
-        <%= hidden_field_tag :tournament, tournament.handle %>
-        <%= submit_tag tournament.name, class: 'btn btn-block' %>
+    <div style="padding-top: 10px">
+      <% current_user.tournaments.each do |tournament| %>
+        <%= form_tag choose_tournament_path do |f| %>
+          <%= hidden_field_tag :tournament, tournament.handle %>
+          <%= submit_tag tournament.name, class: 'btn btn-flat' %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>

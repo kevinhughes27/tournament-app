@@ -4,18 +4,23 @@
   <title>Ultimate Tournament</title>
   <meta charset="utf-8">
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-  <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => 'reload' %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+  <%= stylesheet_link_tag 'login', media: 'all' %>
   <%= render 'shared/rollbar' %>
   <%= csrf_meta_tags %>
 </head>
 
-<body class="register-page">
-  <div id="closebt-container">
-    <%= link_to root_url(subdomain: 'www') do %>
-      <%= image_tag "brochure/closebt.svg", class: "closebt" %>
-    <% end %>
-  </div>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <span class="title">
+        Ultimate Tournament
+      </span>
+    </div>
+  </nav>
 
   <%= yield %>
+  <%= javascript_include_tag 'login' %>
+  <%= yield :javascript %>
 </body>
 </html>

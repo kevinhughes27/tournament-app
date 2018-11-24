@@ -1,0 +1,61 @@
+@import "font-awesome";
+@import "materialize";
+@import "login/materialize-social";
+
+.nav-wrapper {
+  background-color: #009688;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.title {
+  padding-left: 24px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+}
+
+.login-container {
+  display: flex;
+  height: 75vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-panel {
+  width: 380px;
+  max-width: 380px;
+}
+
+.login-form-copy {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.00938em;
+}
+
+.input-field label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.btn-login {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: rgb(0, 150, 136);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  &:hover {
+    background-color: #00796b;
+  }
+}
+
+.btn-flat {
+  background-color: white;
+  box-shadow: none;
+  &:hover {
+    background-color: #eeeeee;
+  }
+}
