@@ -12,7 +12,6 @@ Rails.application.config.assets.paths << Rails.root.join('client', 'node_modules
 Rails.application.config.assets.precompile += [
   'brochure.css',
   'brochure.js',
-  'brochure/vendor.js',
   'admin.css',
   'admin.js',
   'admin/vendor.js',
