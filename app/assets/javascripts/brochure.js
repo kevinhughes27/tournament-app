@@ -9,5 +9,4 @@
 //= require vendor/jquery.scrollTo
 //= require vendor/animatedModal
 
-//= require ./shared/google_analytics
 //= require_tree ./brochure
