@@ -47,6 +47,7 @@ class BrowserTestCase < ActiveSupport::TestCase
     begin
       super
     rescue Capybara::ExpectationNotMet => e
+      text = args[0]
       message = "Unable to find text \"#{text}\" check the saved screenshot/html to see what went wrong"
       raise message
     end
