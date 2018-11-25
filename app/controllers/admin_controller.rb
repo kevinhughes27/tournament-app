@@ -18,15 +18,6 @@ class AdminController < ApplicationController
     end
   end
 
-  def set_jwt_cookie
-    token = Knock::AuthToken.new(payload: { sub: current_user.id }).token
-
-    cookies['jwt'] = {
-      value: token,
-      domain: :all
-    }
-  end
-
   def execute_graphql(mutation, input_type, input, output)
     query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) #{output}}"
     query_variables = {"input" => input.deep_transform_keys { |key| key.to_s.camelize(:lower) }}
