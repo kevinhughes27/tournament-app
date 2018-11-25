@@ -5,8 +5,8 @@
       <%= form.text_field :name,
                           placeholder: 'Tournament name',
                           class: 'form-control input-lg',
-                          autofocus: true,
-                          autocomplete: false %>
+                          autocomplete: 'off',
+                          autofocus: true %>
       <% if @tournament.errors.present? %>
         <span class="error_message help-block">
           <%= @tournament.errors.full_messages.first %>
