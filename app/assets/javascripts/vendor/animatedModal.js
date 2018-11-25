@@ -3,41 +3,41 @@
  * author: João Pereira
  * website: http://www.joaopereira.pt
  * email: joaopereirawd@gmail.com
- * Licensed MIT 
+ * Licensed MIT
 =========================================*/
 
 (function ($) {
- 
+
     $.fn.animatedModal = function(options) {
         var modal = $(this);
-        
+
         //Defaults
         var settings = $.extend({
-            modalTarget:'animatedModal', 
-            position:'fixed', 
-            width:'100%', 
-            height:'100%', 
-            top:'0px', 
-            left:'0px', 
-            zIndexIn: '9999',  
-            zIndexOut: '-9999',  
-            color: '#39BEB9', 
-            opacityIn:'1',  
-            opacityOut:'0', 
+            modalTarget:'animatedModal',
+            position:'fixed',
+            width:'100%',
+            height:'100%',
+            top:'0px',
+            left:'0px',
+            zIndexIn: '9999',
+            zIndexOut: '-9999',
+            color: '#39BEB9',
+            opacityIn:'1',
+            opacityOut:'0',
             animatedIn:'zoomIn',
             animatedOut:'zoomOut',
-            animationDuration:'.6s', 
-            overflow:'auto', 
+            animationDuration:'.6s',
+            overflow:'auto',
             // Callbacks
-            beforeOpen: function() {},           
-            afterOpen: function() {}, 
-            beforeClose: function() {}, 
+            beforeOpen: function() {},
+            afterOpen: function() {},
+            beforeClose: function() {},
             afterClose: function() {}
- 
-            
+
+
 
         }, options);
-        
+
         var closeBt = $('.close-'+settings.modalTarget);
 
         //console.log(closeBt)
@@ -69,7 +69,7 @@
         //Apply stles
         id.css(initStyles);
 
-        modal.click(function(event) {       
+        modal.click(function(event) {
             event.preventDefault();
             $('body, html').css({'overflow':'hidden'});
             if (href == idConc) {
@@ -77,28 +77,29 @@
                     id.removeClass(settings.animatedOut);
                     id.removeClass(settings.modalTarget+'-off');
                     id.addClass(settings.modalTarget+'-on');
-                } 
+                }
 
                  if (id.hasClass(settings.modalTarget+'-on')) {
                     settings.beforeOpen();
                     id.css({'opacity':settings.opacityIn,'z-index':settings.zIndexIn});
-                    id.addClass(settings.animatedIn);  
+                    id.addClass(settings.animatedIn);
                     id.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', afterOpen);
-                };  
-            } 
+                };
+            }
         });
 
 
 
         closeBt.click(function(event) {
             event.preventDefault();
-            $('body, html').css({'overflow':'auto'});
+            // $('body, html').css({'overflow':'auto'});
+            $('body, html').removeAttr('style');
 
             settings.beforeClose(); //beforeClose
             if (id.hasClass(settings.modalTarget+'-on')) {
                 id.removeClass(settings.modalTarget+'-on');
                 id.addClass(settings.modalTarget+'-off');
-            } 
+            }
 
             if (id.hasClass(settings.modalTarget+'-off')) {
                 id.removeClass(settings.animatedIn);
@@ -108,19 +109,15 @@
 
         });
 
-        function afterClose () {       
+        function afterClose () {
             id.css({'z-index':settings.zIndexOut});
             settings.afterClose(); //afterClose
         }
 
-        function afterOpen () {       
+        function afterOpen () {
             settings.afterOpen(); //afterOpen
         }
 
     }; // End animatedModal.js
 
 }(jQuery));
-
-
-
-        
