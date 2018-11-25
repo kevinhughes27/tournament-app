@@ -1,49 +1,42 @@
-<% content_for :top_bar_left do %>
-  <i class="fa fa-trophy"></i>
-  Tournaments
-<% end %>
+<div style="padding: 10px;">
+  <%= form_tag(internal_tournaments_path, id: 'search-form', method: :get, remote: true) do %>
+    <input type="text"
+           name="search"
+           id="search"
+           placeholder="Search..."
+           class="form-control"
+           value="<%= params[:search] %>"/>
+  <% end %>
+</div>
 
-<%= ui_box do %>
-  <div class="filter-container" style="padding-bottom: 10px;">
-    <%= form_tag(internal_tournaments_path, id: 'search-form', method: :get, remote: true) do %>
-      <input type="text"
-             name="search"
-             id="search"
-             placeholder="Search..."
-             class="form-control"
-             value="<%= params[:search] %>"/>
-    <% end %>
-  </div>
+<table class="table table-striped table-hover" style="margin: 10px; width: '98.5%';">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th class="hide-on-small-only">Created At</th>
+      <th class="hide-on-small-only">Teams</th>
+      <th class="hide-on-small-only">Fields</th>
+      <th class="hide-on-small-only">Divisions</th>
+      <th class="hide-on-small-only">Score Reports</th>
+    </tr>
+  </thead>
 
-  <table class="table table-striped table-hover">
-    <thead>
+  <tbody>
+    <% @tournaments.each do |tournament| %>
       <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th class="hidden-xs">Created At</th>
-        <th class="hidden-xs">Teams</th>
-        <th class="hidden-xs">Fields</th>
-        <th class="hidden-xs">Divisions</th>
-        <th class="hidden-xs">Score Reports</th>
+        <td><%= link_to tournament.handle, "#{tournament.domain}/admin" %></td>
+        <td><%= tournament.users.first.email %></td>
+        <td class="hide-on-small-only"><%= tournament.created_at.strftime("%d/%m/%Y") %></td>
+        <td class="hide-on-small-only"><%= tournament.teams.count %></td>
+        <td class="hide-on-small-only"><%= tournament.fields.count %></td>
+        <td class="hide-on-small-only"><%= tournament.divisions.count %></td>
+        <td class="hide-on-small-only"><%= tournament.score_reports.with_deleted.count %></td>
       </tr>
-    </thead>
+    <% end %>
+  </tbody>
+</table>
 
-    <tbody>
-      <% @tournaments.each do |tournament| %>
-        <tr>
-          <td><%= link_to tournament.handle, "#{tournament.domain}/admin" %></td>
-          <td><%= tournament.users.first.email %></td>
-          <td class="hidden-xs"><%= tournament.created_at.strftime("%d/%m/%Y") %></td>
-          <td class="hidden-xs"><%= tournament.teams.count %></td>
-          <td class="hidden-xs"><%= tournament.fields.count %></td>
-          <td class="hidden-xs"><%= tournament.divisions.count %></td>
-          <td class="hidden-xs"><%= tournament.score_reports.with_deleted.count %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <div class="text-center">
-    <%= paginate @tournaments %>
-  </div>
-<% end %>
+<div class="center" style="padding-top: 10px;">
+  <%= paginate @tournaments, views_prefix: 'internal' %>
+</div>

@@ -1,83 +1,64 @@
-<% content_for :top_bar_left do %>
-  <i class="fa fa-tachometer"></i>
-  Dashboard
-<% end %>
-
-<div class="row">
-  <div class="col-md-3">
-    <div class="info-box">
-      <span class="info-box-icon bg-purple"><i class="fa fa-trophy"></i></span>
-      <div class="info-box-content">
-        <span class="info-box-text">Tournaments</span>
-        <span class="info-box-number"><%= Tournament.count %></span>
-        <span class="info-box-text"><%= Tournament.where('created_at > ?', Time.now - 1.day).count %> (in the last day)</span>
-      </div>
+<div class="row" style="padding-top: 10px;">
+  <div class="col m4">
+    <div class="card-panel">
+      <i class="fa fa-trophy"></i>
+      <span>Tournaments</span>
+      <p><%= Tournament.count %> total</p>
+      <p><%= Tournament.where('created_at > ?', Time.now - 1.day).count %> in the last day</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="info-box">
-      <span class="info-box-icon bg-purple"><i class="fa fa-user"></i></span>
-      <div class="info-box-content">
-        <span class="info-box-text">User Logins</span>
-        <span class="info-box-number"><%= User.where('last_sign_in_at > ?', Time.now - 1.week).count %></span>
-        <span class="info-box-text">(in the last week)</span>
-      </div>
+  <div class="col m4">
+    <div class="card-panel">
+      <i class="fa fa-user"></i>
+      <span>User Logins</span>
+      <p><%= User.where('last_sign_in_at > ?', Time.now - 1.week).count %> in the last week</p>
+      <p><%= User.where('last_sign_in_at > ?', Time.now - 1.month).count %> in the last month</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="info-box">
-      <span class="info-box-icon bg-purple"><i class="fa fa-users"></i></span>
-      <div class="info-box-content">
-        <span class="info-box-text">Teams</span>
-        <span class="info-box-number"><%= Team.count %></span>
-        <span class="info-box-text"><%= Team.where('created_at > ?', Time.now - 1.day).count %> (in the last day)</span>
-      </div>
+  <div class="col m4">
+    <div class="card-panel">
+      <i class="fa fa-users"></i>
+      <span>Teams</span>
+      <p><%= Team.count %> total</p>
+      <p><%= Team.where('created_at > ?', Time.now - 1.day).count %> in the last day</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="info-box">
-      <span class="info-box-icon bg-purple"><i class="fa fa-map-signs"></i></span>
-      <div class="info-box-content">
-        <span class="info-box-text">Fields</span>
-        <span class="info-box-number"><%= Field.count %></span>
-        <span class="info-box-text"><%= Field.where('created_at > ?', Time.now - 1.day).count %> (in the last day)</span>
-      </div>
+  <div class="col m4">
+    <div class="card-panel">
+      <i class="fa fa-map-signs"></i>
+      <span>Fields</span>
+      <p><%= Field.count %> total</p>
+      <p><%= Field.where('created_at > ?', Time.now - 1.day).count %> in the last day</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="info-box">
-      <span class="info-box-icon bg-purple"><i class="fa fa-sitemap"></i></span>
-      <div class="info-box-content">
-        <span class="info-box-text">Divisions</span>
-        <span class="info-box-number"><%= Division.count %></span>
-        <span class="info-box-text"><%= Division.where('created_at > ?', Time.now - 1.day).count %> (in the last day)</span>
-      </div>
+  <div class="col m4">
+    <div class="card-panel">
+      <i class="fa fa-sitemap"></i>
+      <span>Divisions</span>
+      <p><%= Division.count %> total</p>
+      <p><%= Division.where('created_at > ?', Time.now - 1.day).count %> in the last day</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="info-box">
-      <span class="info-box-icon bg-purple"><i class="fa fa-list"></i></span>
-      <div class="info-box-content">
-        <span class="info-box-text">Games</span>
-        <span class="info-box-number"><%= Game.count %></span>
-        <span class="info-box-text"><%= Game.where('created_at > ?', Time.now - 1.day).count %> (in the last day)</span>
-      </div>
+  <div class="col m4">
+    <div class="card-panel">
+      <i class="fa fa-list"></i>
+      <span>Games</span>
+      <p><%= Game.count %> total</p>
+      <p><%= Game.where('created_at > ?', Time.now - 1.day).count %> in the last day</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="info-box">
-      <span class="info-box-icon bg-purple"><i class="fa fa-file-o"></i></span>
-      <div class="info-box-content">
-        <span class="info-box-text">Score Reports</span>
-        <span class="info-box-number"><%= ScoreReport.with_deleted.count %></span>
-        <span class="info-box-text"><%= ScoreReport.where('created_at > ?', Time.now - 1.day).count %> (in the last day)</span>
-      </div>
+  <div class="col m4">
+    <div class="card-panel">
+      <i class="fa fa-file-o"></i>
+      <span>Score Reports</span>
+      <p><%= ScoreReport.with_deleted.count %> total</p>
+      <p><%= ScoreReport.where('created_at > ?', Time.now - 1.day).count %> in the last day</p>
     </div>
   </div>
 </div>

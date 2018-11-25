@@ -1,0 +1,37 @@
+<nav>
+  <div class="nav-wrapper">
+    <a href="#!" data-target="sidebar" class="sidenav-trigger show-on-large">
+      <i class="material-icons">menu</i>
+    </a>
+
+    <div class="brand-logo center hide-on-small-and-down">Ultimate Tournament</div>
+
+    <ul class="right">
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="usermenu">
+          <div style="display: flex; flex-direction: row; height: 64px; align-items: center;">
+            <span><%= current_user.name %></span>
+            <%= image_tag gravatar(current_user.email), class: 'circle responsive-img', style: "padding-left: 5px; height: 50px" %>
+          </div>
+        </a>
+    </li>
+    </ul>
+  </div>
+</nav>
+
+<ul id="sidebar" class="sidenav">
+  <%= sidebar_link "fa fa-tachometer", "Dashboard", internal_path %>
+  <%= sidebar_link "fa fa-trophy", "Tournaments", internal_tournaments_path %>
+  <%= sidebar_link "fa fa-database", "Heroku", 'https://dashboard.heroku.com/apps/ultimate-tournament', target: '_blank' %>
+  <%= sidebar_link "fa fa-github", "Github", 'https://github.com/kevinhughes27/ultimate-tournament', target: '_blank' %>
+  <%= sidebar_link "fa fa-circle-o-notch", "CircleCI", 'https://circleci.com/gh/kevinhughes27/ultimate-tournament', target: '_blank' %>
+  <%= sidebar_link "fa fa-bomb", "Exceptions", 'https://rollbar.com/ultimate-tournament/ultimate-tournament/', target: '_blank' %>
+  <%= sidebar_link "fa fa-area-chart", "New Relic", 'https://rpm.newrelic.com/accounts/1045852/applications/9539779', target: '_blank' %>
+  <%= sidebar_link "fa fa-line-chart", "Google Analytics", 'https://analytics.google.com/analytics/web/?authuser=0#report/defaultid/a76316112w115588846p120842155/', target: '_blank' %>
+  <%= sidebar_link "fa fa-money", "Google Adwords", 'https://adwords.google.com', target: '_blank' %>
+  <%= sidebar_link "fa fa-google", "Google Developer", 'https://console.developers.google.com/home/dashboard?project=ultimate-tournament', target: '_blank' %>
+</ul>
+
+<ul id="usermenu" class="dropdown-content">
+  <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+</ul>
