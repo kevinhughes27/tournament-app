@@ -5,14 +5,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-  <%= stylesheet_link_tag 'brochure', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'brochure', media: 'all' %>
+  <%= render 'shared/google_analytics' %>
   <%= render 'shared/rollbar' %>
   <%= csrf_meta_tags %>
 </head>
 
 <body class="landing-page">
   <%= yield %>
-  <%= javascript_include_tag 'brochure/vendor', 'data-turbolinks-track' => 'reload' %>
-  <%= javascript_include_tag 'brochure', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'brochure' %>
 </body>
 </html>

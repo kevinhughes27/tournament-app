@@ -1,5 +1,5 @@
 <div id="animatedModal">
-  <div id="closebt-container" class="close-animatedModal" track-click="{category: 'Signup.Close', action: 'close'}">
+  <div id="closebt-container" class="close-animatedModal">
     <%= image_tag "brochure/closebt.svg", class: "closebt" %>
   </div>
 
@@ -20,23 +20,19 @@
       </div>
 
       <div class="form-group text-center">
-        <%= f.submit "Sign up",
-            class: 'btn btn-lg btn-block btn-primary',
-            "track-click" => "{category: 'Signup.NewUser', action: 'click'}" %>
+        <%= f.submit "Sign up", class: 'btn btn-lg btn-block btn-primary' %>
       </div>
 
       <div class="form-group text-center">or</div>
 
       <div class="social-auth-links text-center">
         <%= link_to user_google_oauth2_omniauth_authorize_url(subdomain: 'www'),
-              class: "btn btn-block btn-social btn-google btn-flat",
-              "track-click" => "{category: 'Signup.Google', action: 'click'}" do %>
+              class: "btn btn-block btn-social btn-google btn-flat" do %>
           <span class="fa fa-google"></span> Sign up with Google
         <% end %>
 
         <%= link_to user_facebook_omniauth_authorize_url(subdomain: 'www'),
-              class: "btn btn-block btn-social btn-facebook btn-flat", style: "margin-bottom: 5px;",
-              "track-click" => "{category: 'Signup.Facebook', action: 'click'}" do %>
+              class: "btn btn-block btn-social btn-facebook btn-flat", style: "margin-bottom: 5px;" do %>
           <span class="fa fa-facebook"></span> Sign up with Facebook
         <% end %>
       </div>

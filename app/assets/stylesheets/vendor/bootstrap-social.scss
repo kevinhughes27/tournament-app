@@ -22,7 +22,7 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
   > :first-child {
     position: absolute;
     left: 0;
-    top: -3px;
+    top: 1px;
     bottom: 0;
     width: $bs-height-base;
     line-height: ($bs-height-base + 2);

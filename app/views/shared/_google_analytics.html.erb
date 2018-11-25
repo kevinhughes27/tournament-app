@@ -1,0 +1,18 @@
+<% if Rails.env.production? %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-76316112-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-76316112-2');
+
+    document.addEventListener('turbolinks:load', function (event) {
+      if (typeof gtag === 'function') {
+        gtag('js', new Date());
+        gtag('config', 'UA-76316112-2', {
+          'page_location': event.data.url
+        });
+      }
+    });
+  </script>
+<% end %>
