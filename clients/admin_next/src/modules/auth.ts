@@ -1,4 +1,15 @@
+import cookies from "browser-cookies";
 import decode from "jwt-decode";
+
+const domain = () => {
+  const hostname = window.location.hostname;
+   if (hostname === "localhost") {
+    return hostname;
+  } else {
+    const subdomainIdx = hostname.indexOf(".");
+    return hostname.slice(subdomainIdx)
+  }
+}
 
 class Auth {
   login = (email: string, password: string) => {
@@ -46,16 +57,16 @@ class Auth {
     }
   }
 
-  setToken = (idToken: string) => {
-    localStorage.setItem("id_token", idToken);
+  setToken = (jwt: string) => {
+    cookies.set('jwt', jwt, { domain: domain() });
   }
 
   getToken = () => {
-    return localStorage.getItem("id_token");
+    return cookies.get("jwt");
   }
 
   logout = () => {
-    localStorage.removeItem("id_token");
+    cookies.erase('jwt', { domain: domain() });
   }
 }
 
