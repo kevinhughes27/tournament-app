@@ -39,15 +39,37 @@ class BrowserTestCase < ActiveSupport::TestCase
   end
 
   teardown do
-    path = screenshot_path(method_name)
-    page.save_screenshot(path) unless passed?
+    save_artifacts(method_name) unless passed?
+    clear_local_storage
+  end
 
-    page.execute_script('window.localStorage.clear();')
-    Capybara.reset_sessions!
+  def assert_text(*args)
+    begin
+      super
+    rescue Capybara::ExpectationNotMet => e
+      message = "Unable to find text \"#{text}\" check the saved screenshot/html to see what went wrong"
+      raise message
+    end
+  end
+
+  private
+
+  def save_artifacts(name)
+    page.save_page html_path(name)
+    page.save_screenshot screenshot_path(name)
+  end
+
+  def html_path(name)
+    html_file = "#{name}.html"
+    File.join(Rails.root, 'tmp', 'capybara', html_file)
   end
 
   def screenshot_path(name)
     screenshot_file = "#{name}.png"
     File.join(Rails.root, 'tmp', 'capybara', screenshot_file)
+  end
+
+  def clear_local_storage
+    page.execute_script('window.localStorage.clear();')
   end
 end

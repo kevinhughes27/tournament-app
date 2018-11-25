@@ -422,7 +422,6 @@ DEPENDENCIES
   jstz-rails3-plus
   kaminari!
   knock
-  launchy
   letter_opener
   listen
   minitest-ci
