@@ -40,7 +40,7 @@ class BrowserTestCase < ActiveSupport::TestCase
 
   teardown do
     save_artifacts(method_name) unless passed?
-    clear_local_storage
+    clear_application_storage
   end
 
   def assert_text(*args)
@@ -70,7 +70,8 @@ class BrowserTestCase < ActiveSupport::TestCase
     File.join(Rails.root, 'tmp', 'capybara', screenshot_file)
   end
 
-  def clear_local_storage
+  def clear_application_storage
+    page.driver.browser.manage.delete_all_cookies
     page.execute_script('window.localStorage.clear();')
   end
 end
