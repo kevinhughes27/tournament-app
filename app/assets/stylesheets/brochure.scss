@@ -4,6 +4,9 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
+@import 'vendor/bootstrap-social';
+@import 'vendor/animate';
+
 @import 'brochure/nav';
 @import 'brochure/page';
 @import 'brochure/typography';
@@ -11,9 +14,5 @@
 @import 'brochure/features';
 @import 'brochure/footer';
 @import 'brochure/errors';
-
 @import 'brochure/modal';
 @import 'brochure/signup';
-
-@import 'vendor/bootstrap-social';
-@import 'vendor/animate';
