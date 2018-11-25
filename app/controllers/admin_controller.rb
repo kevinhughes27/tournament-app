@@ -8,7 +8,7 @@ class AdminController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
-  before_action :set_jwt_cookie
+  before_action -> { set_jwt_cookie(current_user) }
 
   rescue_from(ActiveRecord::RecordNotFound, with: :render_admin_404)
 
@@ -16,15 +16,6 @@ class AdminController < ApplicationController
     unless current_user.is_tournament_user?(@tournament.id) || current_user.staff?
       redirect_to new_user_session_path
     end
-  end
-
-  def set_jwt_cookie
-    token = Knock::AuthToken.new(payload: { sub: current_user.id }).token
-
-    cookies['jwt'] = {
-      value: token,
-      domain: :all
-    }
   end
 
   def execute_graphql(mutation, input_type, input, output)
