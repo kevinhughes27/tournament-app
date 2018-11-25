@@ -4,7 +4,7 @@ import createHandler from "graphql-ruby-client/subscriptions/createHandler";
 import ActionCable from "actioncable";
 import auth from "./auth";
 
-const cache = new RelayQueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 });
+export const cache = new RelayQueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 });
 
 const fetchQuery = (
   operation: RequestNode,

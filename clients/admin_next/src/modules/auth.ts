@@ -1,5 +1,6 @@
 import cookies from "browser-cookies";
 import decode from "jwt-decode";
+import { cache } from "./relay";
 
 const domain = () => {
   const hostname = window.location.hostname;
@@ -67,6 +68,7 @@ class Auth {
 
   logout = () => {
     cookies.erase('jwt', { domain: domain() });
+    cache.clear();
   }
 }
 
