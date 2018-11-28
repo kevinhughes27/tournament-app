@@ -21,7 +21,7 @@ class LoginController < Devise::SessionsController
 
   def create
     user = warden.authenticate!(auth_options)
-    return redirect_to setup_path if (!user.staff? && user.tournaments.blank?)
+    return redirect_to setup_path if user_has_no_tournaments?(user)
 
     if @tournament.nil?
       login_no_tournament_id(user)
@@ -39,6 +39,10 @@ class LoginController < Devise::SessionsController
   end
 
   private
+
+  def user_has_no_tournaments?(user)
+    !user.staff? && user.tournaments.blank?
+  end
 
   def login_no_tournament_id(user)
     if user_has_multiple_tournaments?(user)
