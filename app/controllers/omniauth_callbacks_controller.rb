@@ -3,6 +3,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback
     user = User.from_omniauth(auth_hash)
     sign_in(:user, user)
+    set_jwt_cookie(user)
 
     if for_internal_area?
       sign_in(:internal_user, user)
