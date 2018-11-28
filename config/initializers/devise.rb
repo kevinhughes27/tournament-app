@@ -253,7 +253,11 @@ Devise.setup do |config|
       redirect_uri: "#{protocol}://www.#{Settings.host}/auth/google_oauth2/callback",
     }
 
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email'
+  config.omniauth :facebook,
+    Settings.facebook_app_id,
+    Settings.facebook_app_secret,
+    scope: 'email',
+    callback_url: "#{protocol}://www.#{Settings.host}/auth/facebook/callback"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
