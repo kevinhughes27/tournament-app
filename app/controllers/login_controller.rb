@@ -69,7 +69,7 @@ class LoginController < Devise::SessionsController
   end
 
   def load_tournament
-    return unless request.subdomain.present?
+    return unless request.subdomain.present? && request.subdomain != 'www'
     @tournament = Tournament.find_by!(handle: request.subdomain)
   rescue ActiveRecord::RecordNotFound
     nil
