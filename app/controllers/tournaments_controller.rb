@@ -15,6 +15,7 @@ class TournamentsController < ApplicationController
       create_map
     end
 
+    set_jwt_cookie(current_user)
     redirect_to admin_url(subdomain: @tournament.handle)
   rescue ActiveRecord::RecordInvalid => e
     render :new

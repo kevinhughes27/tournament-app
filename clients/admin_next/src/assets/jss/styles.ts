@@ -4,6 +4,7 @@ import { Theme, createStyles } from "@material-ui/core/styles";
 const Login = {
   container: {
     display: "flex",
+    flexDirection: "column" as "column",
     height: "75vh",
     justifyContent: "center",
     alignItems: "center"
@@ -16,8 +17,34 @@ const Login = {
     maxWidth: 380
   },
   actions: {
-    justifyContent: "flex-end"
-  }
+    paddingBottom: 15,
+    paddingLeft: 20,
+    float: "right" as "right"
+  },
+  social: {
+    display: "flex",
+    flexDirection: "column" as "column",
+    justifyContent: "space-around",
+    paddingTop: 20,
+    height: 115,
+    maxWidth: 380,
+    width: "100%"
+  },
+  google: {
+    color: "white",
+    paddingRight: 30,
+    backgroundColor: "#dd4b39",
+    "&:hover": {
+      backgroundColor: "#e47365"
+    }
+  },
+  facebook: {
+    color: "white",
+    backgroundColor: "#3b5998",
+    "&:hover": {
+      backgroundColor: "#4c70ba"
+    }
+  },
 };
 
 const TopBar = {

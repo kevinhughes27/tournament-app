@@ -1,3 +1,7 @@
 host: lvh.me:3000
 cable_redis_url: ''
 job_redis_url: ''
+google_client_id: 371066507036-mprcadj24j5c7st28cma354hnlns3ssu.apps.googleusercontent.com
+google_client_secret: Ik1G6M52BVErT2m4ATW4R93r
+facebook_app_id: <%= ENV['FACEBOOK_APP_ID'] %>
+facebook_app_secret: <%= ENV['FACEBOOK_APP_SECRET'] %>

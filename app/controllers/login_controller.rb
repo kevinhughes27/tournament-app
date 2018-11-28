@@ -21,7 +21,7 @@ class LoginController < Devise::SessionsController
 
   def create
     user = warden.authenticate!(auth_options)
-    return redirect_to setup_path if (!user.staff? && user.tournaments.blank?)
+    return redirect_to setup_path if user_has_no_tournaments?(user)
 
     if @tournament.nil?
       login_no_tournament_id(user)
@@ -40,6 +40,10 @@ class LoginController < Devise::SessionsController
 
   private
 
+  def user_has_no_tournaments?(user)
+    !user.staff? && user.tournaments.blank?
+  end
+
   def login_no_tournament_id(user)
     if user_has_multiple_tournaments?(user)
       redirect_to choose_tournament_path
@@ -55,6 +59,7 @@ class LoginController < Devise::SessionsController
 
   def login(user)
     flash[:animate] = "fadeIn"
+    set_jwt_cookie(user)
     redirect_to after_login_in_path
   end
 
@@ -64,7 +69,7 @@ class LoginController < Devise::SessionsController
   end
 
   def load_tournament
-    return unless request.subdomain.present?
+    return unless request.subdomain.present? && request.subdomain != 'www'
     @tournament = Tournament.find_by!(handle: request.subdomain)
   rescue ActiveRecord::RecordNotFound
     nil

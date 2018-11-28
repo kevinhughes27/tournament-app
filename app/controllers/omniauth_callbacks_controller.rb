@@ -3,6 +3,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback
     user = User.from_omniauth(auth_hash)
     sign_in(:user, user)
+    set_jwt_cookie(user)
 
     if for_internal_area?
       sign_in(:internal_user, user)
@@ -23,7 +24,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def after_sign_in_path(user)
-    if for_tournament_subdomain?
+    if admin_next?
+      return omniauth_origin
+    elsif for_tournament_subdomain?
       return admin_url(subdomain: subdomain) + stored_path
     end
 
@@ -45,6 +48,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def for_internal_area?
     omniauth_origin.include?(new_internal_user_session_path) && current_user.staff?
+  end
+
+  def admin_next?
+    omniauth_origin.include?('/admin_next')
   end
 
   def for_tournament_subdomain?

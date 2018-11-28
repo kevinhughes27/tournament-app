@@ -10,7 +10,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+import GoogleLogin from "./GoogleLogin";
+import FacebookLogin from "./FacebookLogin";
 import auth from "../../modules/auth";
 
 interface Props extends WithStyles<typeof styles> {
@@ -66,7 +67,7 @@ class LoginForm extends React.Component<Props, State> {
                 </Typography>
                 <TextField
                   name="email"
-                  label="Username"
+                  label="Email"
                   margin="normal"
                   fullWidth
                   value={this.state.email}
@@ -92,6 +93,10 @@ class LoginForm extends React.Component<Props, State> {
               </CardActions>
             </form>
           </Card>
+          <div className={classes.social}>
+            <GoogleLogin />
+            <FacebookLogin />
+          </div>
         </div>
       </div>
     );
