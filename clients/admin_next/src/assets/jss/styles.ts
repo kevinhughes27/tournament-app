@@ -15,8 +15,23 @@ const Login = {
   card: {
     maxWidth: 380
   },
+  forgotLink: {
+    color: "#039be5",
+    textDecoration: "none",
+    display: "block",
+    paddingTop: 20
+  },
+  google: {
+    marginRight: 5,
+    color: "#fff",
+    backgroundColor: "#dd4b39",
+    "&:hover": {
+      backgroundColor: "#e47365"
+    }
+  },
   actions: {
-    justifyContent: "flex-end"
+    paddingBottom: 15,
+    paddingLeft: 20
   }
 };
 
