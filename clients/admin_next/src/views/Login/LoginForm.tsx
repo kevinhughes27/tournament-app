@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import GoogleLogin from "./GoogleLogin";
+import FacebookLogin from "./FacebookLogin";
 import auth from "../../modules/auth";
 
 interface Props extends WithStyles<typeof styles> {
@@ -86,13 +87,16 @@ class LoginForm extends React.Component<Props, State> {
                 />
               </CardContent>
               <CardActions className={classes.actions}>
-                <GoogleLogin />
                 <Button color="primary" variant="contained" type="submit">
                   Log in
                 </Button>
               </CardActions>
             </form>
           </Card>
+          <div className={classes.social}>
+            <GoogleLogin />
+            <FacebookLogin />
+          </div>
         </div>
       </div>
     );
