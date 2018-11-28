@@ -1,3 +1,5 @@
 host: ultimate-tournament.io
 cable_redis_url: <%= ENV['REDIS_URL'] %>
 job_redis_url: <%= ENV['HEROKU_REDIS_WHITE_URL'] %>
+google_client_id: <%= ENV['GOOGLE_CLIENT_ID'] %>
+google_client_secret: <%= ENV['GOOGLE_CLIENT_SECRET'] %>

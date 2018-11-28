@@ -240,7 +240,19 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET']
+  protocol = if Rails.application.config.force_ssl
+    'https'
+  else
+    'http'
+  end
+
+  config.omniauth :google_oauth2,
+    Settings.google_client_id,
+    Settings.google_client_secret,
+    {
+      redirect_uri: "#{protocol}://www.#{Settings.host}/auth/google_oauth2/callback",
+    }
+
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email'
 
   # ==> Warden configuration
