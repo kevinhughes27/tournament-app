@@ -8,7 +8,6 @@ class AdminController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_tournament_user!
-  before_action -> { set_jwt_cookie(current_user) }
 
   rescue_from(ActiveRecord::RecordNotFound, with: :render_admin_404)
 

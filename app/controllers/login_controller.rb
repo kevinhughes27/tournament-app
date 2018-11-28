@@ -59,6 +59,7 @@ class LoginController < Devise::SessionsController
 
   def login(user)
     flash[:animate] = "fadeIn"
+    set_jwt_cookie(user)
     redirect_to after_login_in_path
   end
 
