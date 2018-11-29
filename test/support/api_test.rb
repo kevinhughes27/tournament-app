@@ -21,6 +21,10 @@ class ApiTest < ActionDispatch::IntegrationTest
     @authenticated_header = {'Authorization' => "Bearer #{jwt}"}
   end
 
+  def relay_id(type_name, id)
+    GraphQL::Schema::UniqueWithinType.encode(type_name, id)
+  end
+
   # filter is default true since fields are only hidden not protected
   def query_graphql(query, filter: true, expect_error: nil)
     url = "http://#{@tournament.handle}.lvh.me/graphql"

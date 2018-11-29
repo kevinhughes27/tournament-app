@@ -56,7 +56,7 @@ class ScoreReport < ApplicationRecord
   def build_confirm_link
     params = {
       teamName: other_team.name,
-      gameId: game_id,
+      gameId: game_global_id,
       homeScore: home_score,
       awayScore: away_score
     }
@@ -67,9 +67,13 @@ class ScoreReport < ApplicationRecord
   def build_dispute_link
     params = {
       teamName: other_team.name,
-      gameId: game_id
+      gameId: game_global_id
     }
 
     "#{tournament.domain}/submit?#{params.to_query}"
+  end
+
+  def game_global_id
+    GraphQL::Schema::UniqueWithinType.encode("Game", game_id)
   end
 end

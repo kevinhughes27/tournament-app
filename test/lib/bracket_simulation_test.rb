@@ -35,7 +35,7 @@ class BracketSimulationTest < OperationTest
   end
 
   def seed_division
-    execute_graphql("seedDivision", "SeedDivisionInput", {division_id: @division.id})
+    execute_graphql("seedDivision", "SeedDivisionInput", {division_id: relay_id('Division', @division.id)})
     assert @division.reload.seeded?, 'Seeding failed'
   end
 

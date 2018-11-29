@@ -61,7 +61,7 @@ class ScoreReportTest < ActiveSupport::TestCase
     link = URI(report.build_confirm_link)
     params = Rack::Utils.parse_query(link.query)
 
-    assert_equal params['gameId'], report.game_id.to_s
+    assert_equal params['gameId'], game_relay_id(report.game_id)
     assert_equal params['teamName'], report.other_team.name
     assert_equal params['homeScore'], report.home_score.to_s
     assert_equal params['awayScore'], report.away_score.to_s
@@ -72,7 +72,13 @@ class ScoreReportTest < ActiveSupport::TestCase
     link = URI(report.build_dispute_link)
     params = Rack::Utils.parse_query(link.query)
 
-    assert_equal params['gameId'], report.game_id.to_s
+    assert_equal params['gameId'], game_relay_id(report.game_id)
     assert_equal params['teamName'], report.other_team.name
+  end
+
+  private
+
+  def game_relay_id(id)
+    GraphQL::Schema::UniqueWithinType.encode('Game', id)
   end
 end

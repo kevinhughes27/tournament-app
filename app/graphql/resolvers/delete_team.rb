@@ -8,7 +8,8 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
  division_name division first."""
 
   def call(inputs, ctx)
-    team = ctx[:tournament].teams.find(inputs[:id])
+    id = database_id(inputs[:id])
+    team = ctx[:tournament].teams.find(id)
 
     if !team.allow_delete?
       return {

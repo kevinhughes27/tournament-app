@@ -1,8 +1,10 @@
 class Resolvers::UpdateField < Resolvers::BaseResolver
   def call(inputs, ctx)
-    field = ctx[:tournament].fields.find(inputs[:id])
+    id = database_id(inputs[:id])
 
-    params = inputs.to_h.except(:field_id)
+    field = ctx[:tournament].fields.find(id)
+
+    params = inputs.to_h.except(:id)
 
     if field.update(params)
       {

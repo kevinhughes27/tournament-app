@@ -8,8 +8,10 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
  the division_name division first."""
 
   def call(inputs, ctx)
-    team = ctx[:tournament].teams.find(inputs[:id])
-    params = inputs.to_h.except(:team_id, :confirm)
+    id = database_id(inputs[:id])
+
+    team = ctx[:tournament].teams.find(id)
+    params = inputs.to_h.except(:id, :confirm)
 
     team.assign_attributes(params)
     update_unsafe = team.division_id_changed? || team.seed_changed?

@@ -11,7 +11,7 @@ class SeedDivisionTest < ApiTest
     division = create_division(params)
     teams = create_teams(division, 4)
 
-    input = {division_id: division.id}
+    input = {division_id: relay_id('Division', division.id)}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_success
   end
@@ -29,7 +29,7 @@ class SeedDivisionTest < ApiTest
     team2 = division.teams.last
 
     input = {
-      division_id: division.id,
+      division_id: relay_id('Division', division.id),
       team_ids: [team1.id, team2.id],
       seeds: [team2.seed, team1.seed]
     }
@@ -43,7 +43,7 @@ class SeedDivisionTest < ApiTest
     division = create_division(params)
     teams = create_teams(division, 8)
 
-    input = {division_id: division.id}
+    input = {division_id: relay_id('Division', division.id)}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_failure '4 seats but 8 teams present'
   end
@@ -53,7 +53,7 @@ class SeedDivisionTest < ApiTest
     division = create_division(params)
     teams = create_teams(division, 8)
 
-    input = {division_id: division.id}
+    input = {division_id: relay_id('Division', division.id)}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_success
 
@@ -70,7 +70,7 @@ class SeedDivisionTest < ApiTest
     division = create_division(params)
     teams = create_teams(division, 8)
 
-    input = {division_id: division.id}
+    input = {division_id: relay_id('Division', division.id)}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_success
 
@@ -84,7 +84,7 @@ class SeedDivisionTest < ApiTest
     round2_games.reload
     assert round2_games.all?{ |g| g.teams_present? }
 
-    input = {division_id: division.id, confirm: true}
+    input = {division_id: relay_id('Division', division.id), confirm: true}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_success
 
@@ -98,7 +98,7 @@ class SeedDivisionTest < ApiTest
     division = create_division(params)
     teams = create_teams(division, 5)
 
-    input = {division_id: division.id}
+    input = {division_id: relay_id('Division', division.id)}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_success
 
@@ -114,7 +114,7 @@ class SeedDivisionTest < ApiTest
 
     refute division.seeded?
 
-    input = {division_id: division.id}
+    input = {division_id: relay_id('Division', division.id)}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_success
 
@@ -137,7 +137,7 @@ class SeedDivisionTest < ApiTest
   end
 
   def update_game_score(game)
-    input = {game_id: game.id, home_score: 15, away_score: 13}
+    input = {game_id: relay_id('Game', game.id), home_score: 15, away_score: 13}
     execute_graphql("updateScore", "UpdateScoreInput", input)
     assert_success
   end

@@ -7,6 +7,10 @@ class OperationTest < ActiveSupport::TestCase
     FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
+  def relay_id(type_name, id)
+    GraphQL::Schema::UniqueWithinType.encode(type_name, id)
+  end
+
   def execute_graphql(mutation, input_type, input)
     query_string = "mutation #{mutation}($input: #{input_type}!) {#{mutation}(input: $input) { success }}"
     query_variables = {"input" => input.deep_transform_keys { |key| key.to_s.camelize(:lower) }}

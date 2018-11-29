@@ -4,9 +4,11 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
  score those games will be reset. This cannot be undone."""
 
   def call(inputs, ctx)
+    game_id = database_id(inputs[:game_id])
+
     @tournament = ctx[:tournament]
     @user = ctx[:current_user]
-    @game = @tournament.games.find(inputs[:game_id])
+    @game = @tournament.games.find(game_id)
 
     @home_score = inputs[:home_score]
     @away_score = inputs[:away_score]

@@ -8,7 +8,7 @@ class DeleteDivisionTest < ApiTest
 
   test "delete a division" do
     division = FactoryBot.create(:division)
-    input = {id: division.id}
+    input = {id: relay_id('Division', division.id)}
 
     assert_difference "Division.count", -1 do
       execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)
@@ -19,7 +19,7 @@ class DeleteDivisionTest < ApiTest
   test "unsafe delete a division needs confirm" do
     division = FactoryBot.create(:division)
     game = FactoryBot.create(:game, :finished, division: division)
-    input = {id: division.id}
+    input = {id: relay_id('Division', division.id)}
 
     assert_no_difference "Division.count" do
       execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)
@@ -30,7 +30,7 @@ class DeleteDivisionTest < ApiTest
   test "confirm delete a division" do
     division = FactoryBot.create(:division)
     game = FactoryBot.create(:game, :finished, division: division)
-    input = {id: division.id, confirm: true}
+    input = {id: relay_id('Division', division.id), confirm: true}
 
     assert_difference "Division.count", -1 do
       execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)
@@ -41,7 +41,7 @@ class DeleteDivisionTest < ApiTest
   test "deleting a division deletes games" do
     division = FactoryBot.create(:division)
     game = FactoryBot.create(:game, :scheduled, division: division)
-    input = {id: division.id}
+    input = {id: relay_id('Division', division.id)}
 
     assert_difference "Division.count", -1 do
       execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)

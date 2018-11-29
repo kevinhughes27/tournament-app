@@ -1,8 +1,10 @@
 class Resolvers::UpdateDivision < Resolvers::BaseResolver
   def call(inputs, ctx)
+    id = database_id(inputs[:id])
+
     @tournament = ctx[:tournament]
-    @division = @tournament.divisions.find(inputs[:id])
-    params = inputs.to_h.except(:division_id, :confirm)
+    @division = @tournament.divisions.find(id)
+    params = inputs.to_h.except(:id, :confirm)
 
     @division.assign_attributes(params)
     bracket_type_changed = @division.bracket_type_changed?

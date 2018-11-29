@@ -12,8 +12,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -27,8 +27,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, away_prereq: game.home_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -42,8 +42,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -57,8 +57,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, away_prereq: game.away_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -72,8 +72,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, home_prereq: game.away_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -87,8 +87,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, away_prereq: game.away_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -102,8 +102,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time - 60.minutes,
       end_time: game.end_time - 60.minutes
     }
@@ -117,8 +117,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time + 60.minutes,
       end_time: game.end_time + 60.minutes
     }
@@ -132,8 +132,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq, division: FactoryBot.create(:division))
 
     input = {
-      game_id: new_game.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -147,8 +147,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
     input = {
-      game_id: new_game.id,
-      field_id: game.field_id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', game.field_id),
       start_time: game.start_time,
       end_time: game.end_time
     }
@@ -162,8 +162,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
     input = {
-      game_id: new_game.id,
-      field_id: game.field_id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', game.field_id),
       start_time: game.start_time - 30.minutes,
       end_time: game.end_time - 30.minutes
     }
@@ -177,8 +177,8 @@ class ScheduleGameTest < ApiTest
     new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
     input = {
-      game_id: new_game.id,
-      field_id: game.field_id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', game.field_id),
       start_time: game.start_time + 30.minutes,
       end_time: game.end_time + 30.minutes
     }
@@ -193,8 +193,8 @@ class ScheduleGameTest < ApiTest
     start_time = game.end_time
 
     input = {
-      game_id: new_game.id,
-      field_id: game.field_id,
+      game_id: relay_id('Game', new_game.id),
+      field_id: relay_id('Field', game.field_id),
       start_time: start_time,
       end_time: start_time + 90.minutes
     }
@@ -208,8 +208,8 @@ class ScheduleGameTest < ApiTest
     game2 = FactoryBot.create(:game, :scheduled, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
 
     input = {
-      game_id: game1.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', game1.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game2.start_time,
       end_time: game2.end_time
     }
@@ -223,8 +223,8 @@ class ScheduleGameTest < ApiTest
     game2 = FactoryBot.create(:game, bracket_uid: 'c', home_prereq: 'Wa', away_prereq: 'Wb')
 
     input = {
-      game_id: game2.id,
-      field_id: @free_field.id,
+      game_id: relay_id('Game', game2.id),
+      field_id: relay_id('Field', @free_field.id),
       start_time: game1.start_time,
       end_time: game1.end_time
     }

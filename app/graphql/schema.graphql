@@ -247,7 +247,7 @@ type ScheduleGamePayload {
 
 # A Score Dispute
 type ScoreDispute {
-  gameId: Int!
+  gameId: ID!
   id: ID!
 }
 

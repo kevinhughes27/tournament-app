@@ -5,8 +5,11 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
  Are you sure this is what you want to do?"""
 
   def call(inputs, ctx)
+    division_id = database_id(inputs[:division_id])
+    team_ids = inputs[:team_ids] && inputs[:team_ids].map { |id| database_id(id) }
+
     @tournament = ctx[:tournament]
-    @division = @tournament.divisions.find(inputs[:division_id])
+    @division = @tournament.divisions.find(division_id)
 
     if !(inputs[:confirm] || @division.safe_to_seed?)
       return {
@@ -16,7 +19,7 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
       }
     end
 
-    update_teams(inputs[:team_ids], inputs[:seeds])
+    update_teams(team_ids, inputs[:seeds])
 
     if ambiguous_seeds(inputs[:seeds])
       return {

@@ -11,7 +11,7 @@ class ViewerQueryTest < ApiTest
       }",
     )
 
-     assert_nil query_result["viewer"]
+    assert_nil query_result["viewer"]
   end
 
   test "email field is present for authenticated requests" do

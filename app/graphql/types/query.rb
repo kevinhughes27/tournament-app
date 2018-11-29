@@ -28,6 +28,7 @@ class Types::Query < Types::BaseObject
   end
 
   def field(id:)
+    id = database_id(id)
     context[:tournament].fields.where.not(lat: nil, long: nil, geo_json: nil).find(id)
   end
 
@@ -42,6 +43,7 @@ class Types::Query < Types::BaseObject
   end
 
   def team(id:)
+    id = database_id(id)
     context[:tournament].teams.find(id)
   end
 
@@ -56,6 +58,7 @@ class Types::Query < Types::BaseObject
   end
 
   def division(id:)
+    id = database_id(id)
     context[:tournament].divisions.find(id)
   end
 
@@ -104,6 +107,7 @@ class Types::Query < Types::BaseObject
   end
 
   def game(id:)
+    id = database_id(id)
     context[:tournament].games.find(id)
   end
 
@@ -118,6 +122,7 @@ class Types::Query < Types::BaseObject
   end
 
   def score_report(id:)
+    id = database_id(id)
     context[:tournament].score_reports.find(id)
   end
 

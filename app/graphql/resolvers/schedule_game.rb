@@ -1,9 +1,11 @@
 class Resolvers::ScheduleGame < Resolvers::BaseResolver
   def call(inputs, ctx)
-    @tournament = ctx[:tournament]
-    @game = load_game(inputs[:game_id])
+    game_id = database_id(inputs[:game_id])
+    field_id = database_id(inputs[:field_id])
 
-    @game.schedule(inputs[:field_id], inputs[:start_time], inputs[:end_time])
+    @tournament = ctx[:tournament]
+    @game = load_game(game_id)
+    @game.schedule(field_id, inputs[:start_time], inputs[:end_time])
 
     if @game.invalid?
       return {

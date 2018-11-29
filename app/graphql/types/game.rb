@@ -2,7 +2,8 @@ class Types::Game < Types::BaseObject
   graphql_name "Game"
   description "A Game"
 
-  field :id, ID, null: false
+  global_id_field :id
+
   field :division, Types::Division, null: false
   field :pool, String, null: true
   field :bracketUid, String, null: true

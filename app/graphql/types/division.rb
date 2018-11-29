@@ -2,7 +2,8 @@ class Types::Division < Types::BaseObject
   graphql_name "Division"
   description "A Division"
 
-  field :id, ID, null: false
+  global_id_field :id
+
   field :name, String, null: false
   field :numTeams, Int, null: false
   field :numDays, Int, null: false

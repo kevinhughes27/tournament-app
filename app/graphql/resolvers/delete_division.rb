@@ -4,7 +4,8 @@ class Resolvers::DeleteDivision < Resolvers::BaseResolver
  Are you sure this is what you want to do?"""
 
   def call(inputs, ctx)
-    division = ctx[:tournament].divisions.find(inputs[:id])
+    id = database_id(inputs[:id])
+    division = ctx[:tournament].divisions.find(id)
 
     if !(inputs[:confirm] || division.safe_to_delete?)
       {

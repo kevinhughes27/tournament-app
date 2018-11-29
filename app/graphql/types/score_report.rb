@@ -2,7 +2,8 @@ class Types::ScoreReport < Types::BaseObject
   graphql_name "ScoreReport"
   description "A Score Report"
 
-  field :id, ID, null: false
+  global_id_field :id
+
   field :submittedBy, String, null: false
   field :submitterFingerprint, String, null: false
   field :homeScore, Int, null: false

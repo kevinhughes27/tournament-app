@@ -8,7 +8,7 @@ class DeleteTeamTest < ApiTest
 
   test "delete a team" do
     team = FactoryBot.create(:team)
-    input = {id: team.id}
+    input = {id: relay_id('Team', team.id)}
 
     assert_difference "Team.count", -1 do
       execute_graphql("deleteTeam", "DeleteTeamInput", input, @output)
@@ -21,7 +21,7 @@ class DeleteTeamTest < ApiTest
     team = FactoryBot.create(:team, division: division)
     FactoryBot.create(:game, division: division, home: team)
 
-    input = {id: team.id}
+    input = {id: relay_id('Team', team.id)}
 
     assert_no_difference "Team.count" do
       execute_graphql("deleteTeam", "DeleteTeamInput", input, @output)
@@ -34,7 +34,7 @@ class DeleteTeamTest < ApiTest
     team = FactoryBot.create(:team, division: division)
     FactoryBot.create(:game, division: division, home: team)
 
-    input = {id: team.id, confirm: true}
+    input = {id: relay_id('Team', team.id), confirm: true}
 
     assert_difference "Team.count", -1 do
       execute_graphql("deleteTeam", "DeleteTeamInput", input, @output)
@@ -45,7 +45,7 @@ class DeleteTeamTest < ApiTest
   test "deleting a team removes it from any games" do
     team = FactoryBot.create(:team)
     game = FactoryBot.create(:game, :scheduled, home: team)
-    input = {id: team.id, confirm: true}
+    input = {id: relay_id('Team', team.id), confirm: true}
 
     assert_difference "Team.count", -1 do
       execute_graphql("deleteTeam", "DeleteTeamInput", input, @output)
@@ -60,7 +60,7 @@ class DeleteTeamTest < ApiTest
     team = FactoryBot.create(:team, division: division)
     FactoryBot.create(:game, :finished, division: division, home: team)
 
-    input = {id: team.id}
+    input = {id: relay_id('Team', team.id)}
 
     assert_no_difference "Team.count" do
       execute_graphql("deleteTeam", "DeleteTeamInput", input, @output)

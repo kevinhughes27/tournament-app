@@ -8,7 +8,7 @@ class UpdateDivisionTest < ApiTest
 
   test "update a division" do
     division = FactoryBot.create(:division)
-    input = {id: division.id, name: 'Junior Open', bracket_type: 'single_elimination_8'}
+    input = {id: relay_id('Division', division.id), name: 'Junior Open', bracket_type: 'single_elimination_8'}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
 
@@ -19,7 +19,7 @@ class UpdateDivisionTest < ApiTest
   test "update a division (unsafe scheduled)" do
     division = FactoryBot.create(:division)
     game = FactoryBot.create(:game, :scheduled, division: division)
-    input = {id: division.id, bracket_type: 'single_elimination_4'}
+    input = {id: relay_id('Division', division.id), bracket_type: 'single_elimination_4'}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
     assert_confirmation_required "This division has games that have been scheduled. Changing the bracket might reset some of those games. Are you sure this is what you want to do?"
@@ -28,7 +28,7 @@ class UpdateDivisionTest < ApiTest
   test "update a division (unsafe scored)" do
     division = FactoryBot.create(:division)
     game = FactoryBot.create(:game, :finished, division: division)
-    input = {id: division.id, bracket_type: 'single_elimination_4'}
+    input = {id: relay_id('Division', division.id), bracket_type: 'single_elimination_4'}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
     assert_confirmation_required "This division has games that have been scored. Changing the bracket will reset those games. Are you sure this is what you want to do?"
@@ -36,7 +36,7 @@ class UpdateDivisionTest < ApiTest
 
   test "update a division (unsafe) + confirm" do
     division = FactoryBot.create(:division)
-    input = {id: division.id, bracket_type: 'single_elimination_4', confirm: true}
+    input = {id: relay_id('Division', division.id), bracket_type: 'single_elimination_4', confirm: true}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
 
@@ -46,7 +46,7 @@ class UpdateDivisionTest < ApiTest
 
   test "update a division with errors" do
     division = FactoryBot.create(:division)
-    input = {id: division.id, name: ''}
+    input = {id: relay_id('Division', division.id), name: ''}
 
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
     assert_failure({'field' => 'name', 'message' => "can't be blank"})
@@ -57,7 +57,7 @@ class UpdateDivisionTest < ApiTest
     division = create_division(params)
     assert_equal 12, division.games.count
 
-    input = {id: division.id, bracket_type: 'single_elimination_4'}
+    input = {id: relay_id('Division', division.id), bracket_type: 'single_elimination_4'}
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
 
     assert_success
@@ -75,7 +75,7 @@ class UpdateDivisionTest < ApiTest
     seed_division(division)
     assert division.reload.seeded?
 
-    input = {id: division.id, bracket_type: 'single_elimination_4'}
+    input = {id: relay_id('Division', division.id), bracket_type: 'single_elimination_4'}
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
 
     assert_success
@@ -87,7 +87,7 @@ class UpdateDivisionTest < ApiTest
     division = create_division(params)
     assert_equal 8, division.places.count
 
-    input = {id: division.id, bracket_type: 'single_elimination_4'}
+    input = {id: relay_id('Division', division.id), bracket_type: 'single_elimination_4'}
     execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
 
     assert_success
@@ -104,7 +104,7 @@ class UpdateDivisionTest < ApiTest
   end
 
   def seed_division(division)
-    execute_graphql("seedDivision", "SeedDivisionInput", {division_id: division.id})
+    execute_graphql("seedDivision", "SeedDivisionInput", {division_id: relay_id('Division', division.id)})
     assert_success
   end
 end

@@ -29,9 +29,10 @@ class ScoreReportQueryTest < ApiTest
 
   test "scoreReport are hidden to public" do
     report = FactoryBot.create(:score_report)
+    report_id = relay_id('ScoreReport', report.id)
 
     query_graphql(
-      "scoreReport(id: #{report.id}) {
+      "scoreReport(id: #{report_id}) {
       	homeScore
         awayScore
       }",
@@ -42,9 +43,10 @@ class ScoreReportQueryTest < ApiTest
   test "scoreReport" do
     login_user
     report = FactoryBot.create(:score_report)
+    report_id = relay_id('ScoreReport', report.id)
 
     query_graphql("
-      scoreReport(id: #{report.id}) {
+      scoreReport(id: #{report_id}) {
       	homeScore
         awayScore
       }
