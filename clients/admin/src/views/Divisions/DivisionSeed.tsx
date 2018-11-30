@@ -6,6 +6,7 @@ import FormButtons from "../../components/FormButtons";
 import Seeds from "./Seeds";
 import runMutation from "../../helpers/runMutation";
 import SeedDivision from "../../mutations/SeedDivision";
+import { decodeId } from "../../helpers/relay";
 
 interface Props extends RouteComponentProps<{}> {
   division: DivisionSeed_division;
@@ -46,7 +47,8 @@ class DivisionSeed extends React.Component<Props, State> {
   }
 
   seedComplete = () => {
-    this.props.history.push(`/divisions/${this.props.division.id}`);
+    const divisionId = decodeId(this.props.division.id);
+    this.props.history.push(`/divisions/${divisionId}`);
   }
 
   seedFailed = () => {
@@ -55,13 +57,14 @@ class DivisionSeed extends React.Component<Props, State> {
 
   render() {
     const division = this.props.division;
+    const divisionId = decodeId(this.props.division.id);
 
     return (
       <div>
         <Breadcrumbs
           items={[
             {link: "/divisions", text: "Divisions"},
-            {link: `/divisions/${division.id}`, text: division.name},
+            {link: `/divisions/${divisionId}`, text: division.name},
             {text: "Seed"}
           ]}
         />
@@ -70,7 +73,7 @@ class DivisionSeed extends React.Component<Props, State> {
           submit={this.submit}
           submitIcon={<span>Seed</span>}
           submitting={this.state.submitting}
-          cancelLink={`/divisions/${division.id}`}
+          cancelLink={`/divisions/${divisionId}`}
         />
       </div>
     );

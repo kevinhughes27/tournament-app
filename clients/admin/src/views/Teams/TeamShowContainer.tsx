@@ -2,13 +2,14 @@ import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { graphql } from "react-relay";
 import renderQuery from "../../helpers/renderQuery";
+import { encodeId } from "../../helpers/relay";
 import TeamShow from "./TeamShow";
 
 interface Props extends RouteComponentProps<any> {}
 
 class TeamShowContainer extends React.Component<Props> {
   render() {
-    const teamId = this.props.match.params.teamId;
+    const teamId = encodeId("Team", this.props.match.params.teamId);
 
     const query = graphql`
       query TeamShowContainerQuery($teamId: ID!) {

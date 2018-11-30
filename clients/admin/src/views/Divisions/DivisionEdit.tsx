@@ -2,6 +2,7 @@ import * as React from "react";
 import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DivisionForm from "./DivisionForm";
+import { decodeId } from "../../helpers/relay";
 
 interface Props {
   division: DivisionEdit_division;
@@ -10,6 +11,7 @@ interface Props {
 class DivisionEdit extends React.Component<Props> {
   render() {
     const division = this.props.division;
+    const divisionId = decodeId(this.props.division.id);
 
     const input = {
       id: division.id,
@@ -24,11 +26,11 @@ class DivisionEdit extends React.Component<Props> {
         <Breadcrumbs
           items={[
             {link: "/divisions", text: "Divisions"},
-            {link: `/divisions/${division.id}`, text: division.name},
+            {link: `/divisions/${divisionId}`, text: division.name},
             {text: "Edit"}
           ]}
         />
-        <DivisionForm input={input} cancelPath={`/divisions/${division.id}`}/>
+        <DivisionForm input={input} cancelPath={`/divisions/${divisionId}`}/>
       </div>
     );
   }

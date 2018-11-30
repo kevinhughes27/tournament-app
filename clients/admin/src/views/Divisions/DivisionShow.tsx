@@ -5,6 +5,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import Structure from "./Structure";
 import ActionMenu from "../../components/ActionMenu";
 import SeedIcon from "@material-ui/icons/FormatListNumberedRtl";
+import { decodeId } from "../../helpers/relay";
 
 interface Props extends RouteComponentProps<{}> {
   division: DivisionShow_division;
@@ -13,6 +14,7 @@ interface Props extends RouteComponentProps<{}> {
 class DivisionShow extends React.Component<Props> {
   render() {
     const division = this.props.division;
+    const divisionId = decodeId(this.props.division.id);
 
     return (
       <div>
@@ -29,12 +31,12 @@ class DivisionShow extends React.Component<Props> {
             {
               icon: <SeedIcon />,
               name: "seed",
-              handler: () => this.props.history.push(`/divisions/${division.id}/seed`)
+              handler: () => this.props.history.push(`/divisions/${divisionId}/seed`)
             },
             {
               icon: "edit",
               name: "edit",
-              handler: () => this.props.history.push(`/divisions/${division.id}/edit`)
+              handler: () => this.props.history.push(`/divisions/${divisionId}/edit`)
             }
           ]}
         />

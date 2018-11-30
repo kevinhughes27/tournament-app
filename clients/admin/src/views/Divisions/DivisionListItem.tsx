@@ -5,6 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TeamsCell from "./TeamsCell";
 import SeededCell from "./SeededCell";
+import { decodeId } from "../../helpers/relay";
 
 interface Props extends RouteComponentProps<any> {
   division: DivisionListItem_division;
@@ -12,7 +13,8 @@ interface Props extends RouteComponentProps<any> {
 
 class DivisionListItem extends React.Component<Props> {
   handleClick = () => {
-    this.props.history.push(`/divisions/${this.props.division.id}`);
+    const divisionId = decodeId(this.props.division.id);
+    this.props.history.push(`/divisions/${divisionId}`);
   }
 
   render() {

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import {createFragmentContainer, graphql} from "react-relay";
-
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import { decodeId } from "../../helpers/relay";
 
 interface Props extends RouteComponentProps<any> {
   team: TeamListItem_team;
@@ -11,7 +11,8 @@ interface Props extends RouteComponentProps<any> {
 
 class TeamListItem extends React.Component<Props> {
   handleClick = () => {
-    this.props.history.push(`/teams/${this.props.team.id}`);
+    const teamId = decodeId(this.props.team.id);
+    this.props.history.push(`/teams/${teamId}`);
   }
 
   render() {
