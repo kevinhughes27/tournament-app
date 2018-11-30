@@ -3,7 +3,7 @@ import { ActionMenu as styles } from "../assets/jss/styles";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Zoom from "@material-ui/core/Zoom";
 
-import Button from "@material-ui/core/Button";
+import Fab from '@material-ui/core/Fab';
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -111,15 +111,15 @@ class ActionMenu extends React.Component<Props, State> {
     const { classes } = this.props;
 
     return (
-      <Button
+      <Fab
         id="action-menu"
-        variant="fab"
+        variant="round"
         color="primary"
         className={classes.fab}
         onClick={action.handler}
       >
         {icon(action.icon)}
-      </Button>
+      </Fab>
     );
   }
 }
