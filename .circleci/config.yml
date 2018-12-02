@@ -54,7 +54,7 @@ jobs:
 
       ## restore admin cache
       - restore_cache:
-          key: admin-{{ checksum "admin-checksum.txt" }}
+          key: Admin-{{ checksum "admin-checksum.txt" }}
 
       ## build admin
       - run:
@@ -63,8 +63,9 @@ jobs:
 
       ## store admin cache
       - save_cache:
-          key: admin-{{ checksum "admin-checksum.txt" }}
+          key: Admin-{{ checksum "admin-checksum.txt" }}
           paths:
+            - clients/admin/src/generated
             - clients/admin/build
 
       ## typecheck the admin
