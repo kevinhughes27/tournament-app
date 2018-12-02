@@ -35,11 +35,11 @@ class UpdateScoreTest < ApiTest
     assert_confirmation_required("This update will change the teams in games that come after it and some of those games have been scored. If you update this score those games will be reset. This cannot be undone.")
   end
 
-  test "force unsafe update (mock)" do
+  test "confirm unsafe update (mock)" do
     game = FactoryBot.create(:game)
     SafeToUpdateScoreCheck.expects(:perform).never
 
-    input = {game_id: game.id, home_score: 14, away_score: 12, force: true}
+    input = {game_id: game.id, home_score: 14, away_score: 12, confirm: true}
 
     execute_graphql("updateScore", "UpdateScoreInput", input, @output)
 
@@ -48,13 +48,13 @@ class UpdateScoreTest < ApiTest
     assert_equal 12, game.away_score
   end
 
-  test "force unsafe update" do
+  test "confirm unsafe update" do
     game1 = FactoryBot.create(:game, :finished)
     game2 = FactoryBot.create(:game, :finished, home_prereq: "W#{game1.bracket_uid}")
 
     new_home_score = game1.away_score
     new_away_score = game1.home_score
-    input = {game_id: game1.id, home_score: new_home_score, away_score: new_away_score, force: true}
+    input = {game_id: game1.id, home_score: new_home_score, away_score: new_away_score, confirm: true}
 
     execute_graphql("updateScore", "UpdateScoreInput", input, @output)
 

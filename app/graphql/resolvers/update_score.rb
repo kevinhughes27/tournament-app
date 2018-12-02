@@ -25,9 +25,7 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
       }
     end
 
-    confirm = inputs[:confirm] || inputs[:force]
-
-    if (!confirm && !safe_to_update_score?)
+    if (!inputs[:confirm] && !safe_to_update_score?)
       return {
         success: false,
         confirm: true,
