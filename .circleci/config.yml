@@ -50,8 +50,7 @@ jobs:
       # Admin
       ## generate checksum for admin
       - type: shell
-        command: |
-          find clients/admin/* -not -path "*node_modules*" -type f 2>/dev/null -exec md5sum {} \; > admin-checksum.txt
+        command: ./.circleci/admin_checksum.sh > admin-checksum.txt
 
       ## restore admin cache
       - restore_cache:
@@ -74,7 +73,7 @@ jobs:
           command: yarn type-check
 
 
-      # Player Appp
+      # Player App
       ## generate checksum for player_app
       - type: shell
         command: |
@@ -99,8 +98,7 @@ jobs:
       # Assets
       ## generate checksum for assets
       - type: shell
-        command: |
-          find app/assets/* -type f 2>/dev/null -exec md5sum {} \; > assets-checksum.txt
+        command: ./.circleci/assets_checksum.sh > assets-checksum.txt
 
       ## restore assets cache
       - restore_cache:
@@ -113,7 +111,6 @@ jobs:
       - save_cache:
           key: assets-{{ checksum "assets-checksum.txt" }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - public/assets
             - tmp/cache/assets
 
 
