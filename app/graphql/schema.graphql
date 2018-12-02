@@ -318,7 +318,6 @@ type Subscription {
 # A Team
 type Team {
   division: Division
-  divisionId: Int
   email: String
   id: ID!
   name: String!
@@ -387,7 +386,6 @@ type UpdateMapPayload {
 input UpdateScoreInput {
   awayScore: Int!
   confirm: Boolean
-  force: Boolean
   gameId: ID!
   homeScore: Int!
   resolve: Boolean

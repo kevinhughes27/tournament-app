@@ -9,7 +9,10 @@ const mutation = graphql`
         id
         name
         email
-        divisionId
+        division {
+          id
+          name
+        }
         seed
       }
       success
