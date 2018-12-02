@@ -53,7 +53,7 @@ jobs:
       ## generate checksum for admin
       - type: shell
         command: |
-          find clients/admin/* -type f 2>/dev/null -exec md5sum {} \; > admin-checksum.txt
+          find clients/admin/* -not -path "*node_modules*" -type f 2>/dev/null -exec md5sum {} \; > admin-checksum.txt
 
       ## restore admin cache
       - restore_cache:
