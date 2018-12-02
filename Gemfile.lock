@@ -94,13 +94,6 @@ GEM
       xpath (~> 3.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.3)
     config (1.7.0)
       activesupport (>= 3.0)
@@ -176,9 +169,6 @@ GEM
     hashie (3.5.7)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
-    jbuilder (2.7.0)
-      activesupport (>= 4.2.0)
-      multi_json (>= 1.2)
     jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -260,8 +250,6 @@ GEM
     rack (2.0.6)
     rack-protection (2.0.3)
       rack
-    rack-proxy (0.6.4)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack-timeout (0.5.1)
@@ -299,12 +287,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    react_on_rails (11.0.9)
-      addressable
-      connection_pool
-      execjs (~> 2.5)
-      rails (>= 3.2)
-      rainbow (~> 3.0)
     redis (3.3.5)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -318,16 +300,12 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sassc (1.12.1)
-      ffi (~> 1.9.6)
-      sass (>= 3.3.0)
-    sassc-rails (1.3.0)
-      railties (>= 4.0.0)
-      sass
-      sassc (~> 1.9)
-      sprockets (> 2.11)
-      sprockets-rails
-      tilt
+    sass-rails (5.0.7)
+      railties (>= 4.0.0, < 6)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (>= 1.1, < 3)
     selenium-webdriver (3.13.1)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -359,12 +337,6 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    turbolinks (5.0.1)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.1.0)
-    twine-rails (1.2.1)
-      coffee-rails
-      railties
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     tzinfo-data (1.2018.5)
@@ -379,10 +351,6 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webpacker (3.5.5)
-      activesupport (>= 4.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -406,7 +374,6 @@ DEPENDENCIES
   bundler-audit
   byebug (~> 9.0.6)
   capybara
-  coffee-rails
   config
   date_validator
   devise
@@ -417,7 +384,6 @@ DEPENDENCIES
   gibbon
   graphiql-rails
   graphql
-  jbuilder
   jquery-rails
   js_cookie_rails
   json-schema (~> 2.6.0)
@@ -441,21 +407,17 @@ DEPENDENCIES
   rails (= 5.2.1.1)
   rails_12factor
   rainbow
-  react_on_rails (= 11.0.9)
   redis (~> 3.0)
   rollbar
-  sassc-rails
+  sass-rails
   selenium-webdriver
   sidekiq
   simplecov
   sinatra
   spring
-  turbolinks (~> 5.0.0)
-  twine-rails
   tzinfo-data
-  uglifier (~> 3.2.0)
+  uglifier
   web-console
-  webpacker
   wicked_pdf
   wkhtmltopdf-binary-edge (~> 0.12.3.0)
   wkhtmltopdf-heroku

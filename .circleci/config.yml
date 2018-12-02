@@ -36,8 +36,7 @@ jobs:
           key: |
             yarn
             {{ checksum "yarn.lock" }}
-            {{ checksum "client/yarn.lock" }}
-            {{ checksum "clients/admin_next/yarn.lock" }}
+            {{ checksum "clients/admin/yarn.lock" }}
             {{ checksum "clients/player_app/yarn.lock" }}
 
       # Yarn install dependencies
@@ -48,14 +47,12 @@ jobs:
           key: |
             yarn
             {{ checksum "yarn.lock" }}
-            {{ checksum "client/yarn.lock" }}
-            {{ checksum "clients/admin_next/yarn.lock" }}
+            {{ checksum "clients/admin/yarn.lock" }}
             {{ checksum "clients/player_app/yarn.lock" }}
           paths:
             - ./node_modules
-            - ./client/node_modules
+            - ./clients/admin/node_modules
             - ./clients/player_app/node_modules
-            - ./clients/admin_next/node_modules
 
       # Generate checksum for assets
       - type: shell
@@ -68,7 +65,6 @@ jobs:
             assets
             {{ checksum "assets-checksum.txt" }}
             {{ checksum "Gemfile.lock" }}
-            {{ checksum "client/yarn.lock" }}
 
       # Compile assets
       - run: bundle exec rake assets:precompile
@@ -79,19 +75,17 @@ jobs:
             assets
             {{ checksum "assets-checksum.txt" }}
             {{ checksum "Gemfile.lock" }}
-            {{ checksum "client/yarn.lock" }}
           paths:
             - public/assets
-            - public/webpack
             - tmp/cache/assets
 
-      # Build admin_next
+      # Build admin
       - run:
-          working_directory: clients/admin_next
+          working_directory: clients/admin
           command: yarn build
 
       - run:
-          working_directory: clients/admin_next
+          working_directory: clients/admin
           command: yarn type-check
 
       # Generate checksum for player_app

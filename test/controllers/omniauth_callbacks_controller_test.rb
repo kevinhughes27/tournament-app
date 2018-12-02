@@ -8,7 +8,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
 
     set_tournament(@tournament)
 
-    @request.env["omniauth.origin"] = "http://#{@tournament.handle}.ultimate-tournament.io"
+    @request.env["omniauth.origin"] = "http://#{@tournament.handle}.#{Settings.host}/admin"
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
@@ -48,7 +48,7 @@ class OmniauthCallbacksControllerTest < ActionController::TestCase
 
     assert_equal 2, @user.tournaments.count
 
-    @request.env["omniauth.origin"] = "http://www.ultimate-tournament.io"
+    @request.env["omniauth.origin"] = "http://www.#{Settings.host}/"
     @request.env["omniauth.auth"] = OmniAuth.config.add_mock(:google_oauth2, {
       provider: 'google',
       uid: '12345',

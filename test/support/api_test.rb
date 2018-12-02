@@ -5,7 +5,6 @@ class ApiTest < ActionDispatch::IntegrationTest
     @user = FactoryBot.create(:user)
     @tournament = FactoryBot.create(:tournament)
     FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
-    ReactOnRails::TestHelper.ensure_assets_compiled
   end
 
   protected

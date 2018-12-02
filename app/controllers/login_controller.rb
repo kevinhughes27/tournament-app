@@ -9,6 +9,7 @@ class LoginController < Devise::SessionsController
   def self.controller_path
     'login'
   end
+
   layout 'login'
 
   def choose_tournament
@@ -46,6 +47,7 @@ class LoginController < Devise::SessionsController
 
   def login_no_tournament_id(user)
     if user_has_multiple_tournaments?(user)
+      set_jwt_cookie(user)
       redirect_to choose_tournament_path
     else
       @tournament = user.tournaments.first
@@ -58,13 +60,13 @@ class LoginController < Devise::SessionsController
   end
 
   def login(user)
-    flash[:animate] = "fadeIn"
     set_jwt_cookie(user)
     redirect_to after_login_in_path
   end
 
   def sign_out_user
     return unless current_user
+    cookies.delete('jwt', domain: :all, tld_length: 2)
     sign_out(current_user)
   end
 

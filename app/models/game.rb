@@ -136,15 +136,6 @@ class Game < ApplicationRecord
 
   def broadcast
     Schema.subscriptions.trigger("gameUpdated", {}, self, scope: tournament_id)
-
-    ActionCable.server.broadcast(
-      "games_#{tournament_id}",
-      Admin::GamesController.render(
-        template: 'admin/games/_game.json.jbuilder',
-        layout: false,
-        locals: {game: self}
-      )
-    )
   end
 
   def set_confirmed

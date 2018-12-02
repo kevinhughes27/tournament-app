@@ -41,8 +41,6 @@ class Resolvers::UpdateTeam < Resolvers::BaseResolver
         team: team
       }
     else
-      # remove after admin_next ships
-      team.name ||= ""
       {
         success: false,
         user_errors: team.fields_errors,
