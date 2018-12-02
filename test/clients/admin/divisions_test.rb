@@ -61,6 +61,7 @@ class DivisionsTest < AdminTest
   def seed_division
     assert_text(@teams[0].name)
     click_on 'Seed'
+    sleep(0.1)
     assert_text('Division seeded')
     @division.reload
     assert @division.seeded
