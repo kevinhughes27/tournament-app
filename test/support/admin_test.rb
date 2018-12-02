@@ -7,7 +7,7 @@ class AdminTest < BrowserTest
     FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
-  private
+  protected
 
   def visit_app
     visit("http://#{@tournament.handle}.#{Settings.host}/admin")
@@ -30,6 +30,7 @@ class AdminTest < BrowserTest
 
   def user_menu(item)
     find('#user-menu').click
+    sleep(0.1)
     menu_item = page.find(:xpath,"//*[text()='#{item}']")
     page.driver.browser.action.move_to(menu_item.native).click.perform
   end
@@ -39,22 +40,16 @@ class AdminTest < BrowserTest
   end
 
   def action_menu(action)
-    find('body').native.send_key(:tab) # sidebar
-
-    loop do
-      find('body').native.send_key(:tab)
-
-      begin
-        click_on(action)
-        break
-      rescue
-        next
-      end
-    end
+    button = find('#action-menu > button')
+    wait_for_button(button)
+    button.hover
+    click_on(action)
   end
 
   def submit
-    find('button[type="submit"]').click
+    button = find('button[type="submit"]')
+    wait_for_button(button)
+    button.click
   end
 
   def logout
@@ -64,5 +59,16 @@ class AdminTest < BrowserTest
 
   def click_text(text)
     page.find(:xpath,"//*[text()='#{text}']").click
+  end
+
+  private
+
+  def wait_for_button(button)
+    loop do
+      break if button.visible?
+      sleep(0.1)
+    end
+
+    sleep(0.1)
   end
 end
