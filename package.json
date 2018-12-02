@@ -10,7 +10,7 @@
     "clients/admin"
   ],
   "scripts": {
-    "postinstall": "subpkg install",
+    "postinstall": "subpkg install --frozen-lockfile",
     "build": "subpkg build",
     "heroku-postbuild": "yarn build"
   },

@@ -18,20 +18,22 @@ jobs:
       - checkout
       - run: git submodule update --init
 
-      # Restore bundle cache
+      # Bundler
+      ## restore bundle cache
       - type: cache-restore
         key: Gemfile-{{ checksum "Gemfile.lock" }}
 
-      # Bundle install dependencies
+      ## bundle install dependencies
       - run: bundle install --with ci --without production --without development --path vendor/bundle
 
-      # Store bundle cache
+      ## store bundle cache
       - type: cache-save
         key: Gemfile-{{ checksum "Gemfile.lock" }}
         paths:
           - vendor/bundle
 
-      # Restore yarn cache
+      # Yarn
+      ## restore yarn cache
       - restore_cache:
           key: |
             yarn
@@ -39,10 +41,10 @@ jobs:
             {{ checksum "clients/admin/yarn.lock" }}
             {{ checksum "clients/player_app/yarn.lock" }}
 
-      # Yarn install dependencies
-      - run: yarn install
+      ## yarn install dependencies
+      - run: yarn install --frozen-lockfile
 
-      # Store yarn cache
+      ## store yarn cache
       - save_cache:
           key: |
             yarn
@@ -50,63 +52,77 @@ jobs:
             {{ checksum "clients/admin/yarn.lock" }}
             {{ checksum "clients/player_app/yarn.lock" }}
           paths:
-            - ./node_modules
-            - ./clients/admin/node_modules
-            - ./clients/player_app/node_modules
+            - ~/.cache/yarn
 
-      # Generate checksum for assets
+
+      # Admin
+      ## generate checksum for admin
       - type: shell
-        command: |
-          find app/assets/* -type f 2>/dev/null -exec md5sum {} \; > assets-checksum.txt
+        command: ./.circleci/admin_checksum.sh > admin-checksum.txt
 
-      # Restore assets cache
+      ## restore admin cache
       - restore_cache:
-          key: |
-            assets
-            {{ checksum "assets-checksum.txt" }}
-            {{ checksum "Gemfile.lock" }}
+          key: admin-{{ checksum "admin-checksum.txt" }}-v4
 
-      # Compile assets
-      - run: bundle exec rake assets:precompile
-
-      # Store assets cache
-      - save_cache:
-          key: |
-            assets
-            {{ checksum "assets-checksum.txt" }}
-            {{ checksum "Gemfile.lock" }}
-          paths:
-            - public/assets
-            - tmp/cache/assets
-
-      # Build admin
+      ## build admin
       - run:
           working_directory: clients/admin
-          command: yarn build
+          command: if [ ! -d "build" ]; then yarn build; fi
 
+      ## store admin cache
+      - save_cache:
+          key: admin-{{ checksum "admin-checksum.txt" }}-v4
+          paths:
+            - clients/admin/src/generated
+            - clients/admin/types/generated.d.ts
+            - clients/admin/build
+
+      ## typecheck the admin
       - run:
           working_directory: clients/admin
           command: yarn type-check
 
-      # Generate checksum for player_app
+
+      # Player App
+      ## generate checksum for player_app
       - type: shell
         command: |
           git submodule status > player_app-checksum.txt
 
-      # Restore player_app cache
+      ## restore player_app cache
       - restore_cache:
           key: player_app-{{ checksum "player_app-checksum.txt" }}
 
-      # Build player_app
+      ## build player_app
       - run:
           working_directory: clients/player_app
-          command: yarn build
+          command: if [ ! -d "build" ]; then yarn build; fi
 
-      # Store player_app cache
+      ## store player_app cache
       - save_cache:
           key: player_app-{{ checksum "player_app-checksum.txt" }}
           paths:
             - clients/player_app/build
+
+
+      # Assets
+      ## generate checksum for assets
+      - type: shell
+        command: ./.circleci/assets_checksum.sh > assets-checksum.txt
+
+      ## restore assets cache
+      - restore_cache:
+          key: assets-{{ checksum "assets-checksum.txt" }}-{{ checksum "Gemfile.lock" }}
+
+      ## compile assets
+      - run: bundle exec rake assets:precompile
+
+      ## store assets cache
+      - save_cache:
+          key: assets-{{ checksum "assets-checksum.txt" }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - tmp/cache/assets
+
 
       # Database setup
       - run: bundle exec rake db:create
@@ -123,7 +139,3 @@ jobs:
       - store_artifacts:
           path: ~/project/tmp/capybara
           destination: capybara
-
-      - store_artifacts:
-          path: /home/circleci/.npm/_logs
-          destination: npm
