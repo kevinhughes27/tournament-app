@@ -35,18 +35,16 @@ jobs:
       # Yarn
       ## restore yarn cache
       - restore_cache:
-          key: yarn2-{{ checksum "yarn.lock" }}-{{ checksum "clients/admin/yarn.lock" }}-{{ checksum "clients/player_app/yarn.lock" }}
+          key: yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "clients/admin/yarn.lock" }}-{{ checksum "clients/player_app/yarn.lock" }}
 
       ## yarn install dependencies
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
 
       ## store yarn cache
       - save_cache:
-          key: yarn2-{{ checksum "yarn.lock" }}-{{ checksum "clients/admin/yarn.lock" }}-{{ checksum "clients/player_app/yarn.lock" }}
+          key: yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "clients/admin/yarn.lock" }}-{{ checksum "clients/player_app/yarn.lock" }}
           paths:
-            - node_modules
-            - clients/admin/node_modules
-            - clients/player_app/node_modules
+            - ~/.cache/yarn
 
 
       # Admin
