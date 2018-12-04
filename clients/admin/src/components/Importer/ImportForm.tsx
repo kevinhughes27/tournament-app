@@ -1,5 +1,5 @@
 import * as React from "react";
-import csv from "csv";
+import csv from "neat-csv";
 import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
 import { isEqual } from "lodash";
 import fileDownload from "react-file-download";
@@ -58,12 +58,7 @@ class ImportForm extends React.Component<Props, State> {
   }
 
   validateCSV = (csvData: string) => {
-    csv.parse(csvData, (err: string, data: string[][]) => {
-      if (err) {
-        this.setState({error: "Invalid CSV file"});
-        return;
-      }
-
+    csv(csvData).then((data: string[][]) => {
       const header = data[0];
       const rows = data.slice(1);
 
@@ -73,6 +68,9 @@ class ImportForm extends React.Component<Props, State> {
       }
 
       this.setState({data: rows});
+    }).catch((_error: string) => {
+      this.setState({error: "Invalid CSV file"});
+        return;
     });
   }
 
