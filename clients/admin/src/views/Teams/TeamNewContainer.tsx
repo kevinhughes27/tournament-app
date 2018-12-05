@@ -1,14 +1,15 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import TeamNew from "./TeamNew";
 
 class TeamNewContainer extends React.Component {
   render() {
-    const query = graphql`
-      query TeamNewContainerQuery {
+    const query = gql`
+      query TeamNewQuery {
         divisions {
-          ...TeamNew_divisions
+          id
+          name
         }
       }
     `;

@@ -5,13 +5,13 @@ class Types::Query < Types::BaseObject
     context[:current_user]
   end
 
-  field :settings, Types::Settings, null: true
+  field :settings, Types::Settings, null: false
 
   def settings
     context[:tournament]
   end
 
-  field :map, Types::Map, null: true
+  field :map, Types::Map, null: false
 
   def map
     context[:tournament].map
@@ -23,7 +23,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].fields.where.not(lat: nil, long: nil, geo_json: nil).all
   end
 
-  field :field, Types::Field, null: true do
+  field :field, Types::Field, null: false do
     argument :id, ID, required: true
   end
 
@@ -37,7 +37,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].teams.includes(:division).all
   end
 
-  field :team, Types::Team, null: true do
+  field :team, Types::Team, null: false do
     argument :id, ID, required: true
   end
 
@@ -51,7 +51,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].divisions.all
   end
 
-  field :division, Types::Division, null: true do
+  field :division, Types::Division, null: false do
     argument :id, ID, required: true
   end
 
@@ -59,7 +59,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].divisions.find(id)
   end
 
-  field :bracket, Types::Bracket, null: true do
+  field :bracket, Types::Bracket, null: false do
     argument :handle, String, required: true
   end
 
@@ -99,7 +99,7 @@ class Types::Query < Types::BaseObject
     scope
   end
 
-  field :game, Types::Game, null: true do
+  field :game, Types::Game, null: false do
     argument :id, ID, required: true
   end
 
@@ -113,7 +113,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].score_reports.all
   end
 
-  field :score_report, Types::ScoreReport, auth: :required, null: true do
+  field :score_report, Types::ScoreReport, auth: :required, null: false do
     argument :id, ID, required: true
   end
 

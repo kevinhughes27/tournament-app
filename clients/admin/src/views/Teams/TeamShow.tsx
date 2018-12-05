@@ -1,11 +1,10 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TeamForm from "./TeamForm";
 
 interface Props {
-  team: TeamShow_team;
-  divisions: TeamShow_divisions;
+  team: TeamShowQuery['team'];
+  divisions: TeamShowQuery['divisions'];
 }
 
 class TeamShow extends React.Component<Props> {
@@ -31,22 +30,4 @@ class TeamShow extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(TeamShow, {
-  team: graphql`
-    fragment TeamShow_team on Team {
-      id
-      name
-      email
-      division {
-        id
-        name
-      }
-      seed
-    }
-  `,
-  divisions: graphql`
-    fragment TeamShow_divisions on Division @relay(plural: true) {
-      ...DivisionPicker_divisions
-    }
-  `
-});
+export default TeamShow;

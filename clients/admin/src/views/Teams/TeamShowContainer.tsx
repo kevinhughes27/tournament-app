@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import TeamShow from "./TeamShow";
 
@@ -10,13 +10,21 @@ class TeamShowContainer extends React.Component<Props> {
   render() {
     const teamId = this.props.match.params.teamId;
 
-    const query = graphql`
-      query TeamShowContainerQuery($teamId: ID!) {
+    const query = gql`
+      query TeamShowQuery($teamId: ID!) {
         team(id: $teamId) {
-          ...TeamShow_team
+          id
+          name
+          email
+          division {
+            id
+            name
+          }
+          seed
         }
         divisions {
-          ...TeamShow_divisions
+          id
+          name
         }
       }
     `;

@@ -6,7 +6,7 @@ import TeamImporter from "./TeamImporter";
 const CSVHeader = ["Name", "Email", "Division", "Seed"];
 
 interface Props {
-  divisions: TeamImport_divisions;
+  divisions: TeamListQuery['divisions'];
   open: boolean;
   onClose: () => void;
 }

@@ -1,12 +1,14 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import UserMenu from "./UserMenu";
 
-const query = graphql`
-  query UserMenuContainerQuery {
+const query = gql`
+  query UserMenuQuery {
     viewer {
-      ...UserMenu_viewer
+      id
+      name
+      email
     }
   }
 `;

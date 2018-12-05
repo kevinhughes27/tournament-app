@@ -1,15 +1,23 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import TeamList from "./TeamList";
 
-const query = graphql`
-  query TeamListContainerQuery {
+const query = gql`
+  query TeamListQuery {
     teams {
-      ...TeamList_teams
+      id
+      name
+      email
+      division {
+        id
+        name
+      }
+      seed
     },
     divisions {
-      ...TeamList_divisions
+      id
+      name
     }
   }
 `;

@@ -16,7 +16,7 @@ import DeleteTeamMutation from "../../mutations/DeleteTeam";
 
 interface Props extends RouteComponentProps<any> {
   input: UpdateTeamMutationVariables["input"] & CreateTeamMutationVariables["input"];
-  divisions: TeamShow_divisions | TeamNew_divisions;
+  divisions: TeamShowQuery['divisions'] | TeamNewQuery['divisions'];
 }
 
 class TeamForm extends Form<Props> {

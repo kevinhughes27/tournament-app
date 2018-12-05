@@ -1,5 +1,4 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import { withRouter, RouteComponentProps, NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
@@ -9,7 +8,7 @@ import gravatarUrl from "gravatar-url";
 import auth from "../../modules/auth";
 
 interface Props extends RouteComponentProps<{}> {
-  viewer: UserMenu_viewer;
+  viewer: UserMenuQuery['viewer'];
 }
 
 interface State {
@@ -38,7 +37,7 @@ class UserMenu extends React.Component<Props, State> {
 
   render() {
     const { open, anchorEl } = this.state;
-    const email = this.props.viewer && this.props.viewer.email;
+    const email = this.props.viewer && this.props.viewer.email || '';
     const avatarUrl = gravatarUrl(email, {size: 50});
 
     return (
@@ -72,12 +71,4 @@ class UserMenu extends React.Component<Props, State> {
   }
 }
 
-export default createFragmentContainer(withRouter(UserMenu), {
-  viewer: graphql`
-    fragment UserMenu_viewer on User {
-      id
-      name
-      email
-    }
-  `
-});
+export default withRouter(UserMenu);
