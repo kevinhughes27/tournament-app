@@ -20,15 +20,21 @@ const generator = spawn('node_modules/apollo/bin/run',
   ]
 );
 
-generator.stdout.on('data', data => {
-  const finished = /wrote \d+ files \[completed\]/.test(data.toString());
+if (args[0] == '--watch') {
+  generator.stdout.on('data', data => {
+    const finished = /wrote \d+ files \[completed\]/.test(data.toString());
 
-  if (finished) {
-    fs.watchFile(artifactPath, function(curr, prev){
-      exportTypes();
-    });
-  }
-})
+    if (finished) {
+      fs.watchFile(artifactPath, function(curr, prev){
+        exportTypes();
+      });
+    }
+  });
+} else {
+  generator.on('close', code => {
+    exportTypes();
+  });
+}
 
 /* Export Types Globally */
 function exportTypes() {
