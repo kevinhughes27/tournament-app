@@ -1,7 +1,7 @@
 module.exports = {
   babel: {
     plugins: [
-      ["relay", { "artifactDirectory": "./src/generated" }]
+      ["relay", { "artifactDirectory": "./src/relay" }]
     ]
   }
 };

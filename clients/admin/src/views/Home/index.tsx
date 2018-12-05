@@ -1,31 +1,46 @@
 import * as React from "react";
-import { graphql } from "react-relay";
-import renderQuery from "../../helpers/renderQuery";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+import Loader from "../../components/Loader";
 import Checklist from "./Checklist";
 
-const query = graphql`
+const query = gql`
   query HomeQuery {
     fields {
-      ...Checklist_fields
+      id
     }
     teams {
-      ...Checklist_teams
+      id
     }
     divisions {
-      ...Checklist_divisions
+      id
+      numTeams
+      isSeeded
     }
     games {
-      ...Checklist_games
+      id
+      scheduled
+      endTime
+      scoreConfirmed
     }
     scoreDisputes {
-      ...Checklist_scoreDisputes
+      id
     }
   }
 `;
 
 class Home extends React.Component {
   render() {
-    return renderQuery(query, {}, Checklist);
+    return (
+      <Query query={query}>
+        {({ loading, error, data }) => {
+          if (loading) return <Loader />;
+          if (error) return <div>{error.message}</div>;
+
+          return <Checklist {...data} />;
+        }}
+      </Query>
+    )
   }
 }
 

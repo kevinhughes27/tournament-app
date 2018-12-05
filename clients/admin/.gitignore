@@ -10,7 +10,9 @@
 /build
 
 # relay
-/src/generated
+/src/relay
+/types/relay.d.ts
+/src/generated.ts
 /types/generated.d.ts
 
 # misc

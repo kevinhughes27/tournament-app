@@ -3,7 +3,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 const args = process.argv.slice(2);
-const artifactDirectory = './src/generated';
+const artifactDirectory = './src/relay';
 
 /* Compile Relay Queries */
 const compiler = spawn('relay-compiler',
@@ -32,7 +32,7 @@ compiler.on('close', code => {
 
 /* Export Relay Types Globally */
 function exportTypes() {
-  console.log("Exporting types to ./types/generated.d.ts\n");
+  console.log("Exporting types to ./types/relay.d.ts\n");
 
   fs.readdir(artifactDirectory, function(err, files) {
     if (err) {
@@ -59,7 +59,7 @@ function exportTypes() {
       }
     });
 
-    fs.writeFileSync('./types/generated.d.ts', types.join("\n"));
+    fs.writeFileSync('./types/relay.d.ts', types.join("\n"));
   });
 
   function locations(code){

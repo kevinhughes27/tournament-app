@@ -1,5 +1,4 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import Stepper from '@material-ui/core/Stepper';
 import Step from "@material-ui/core/Step";
 import StepButton from "@material-ui/core/StepButton";
@@ -11,11 +10,11 @@ import Seed from "./Seed";
 import Play from "./Play";
 
 interface Props {
-  fields: Checklist_fields;
-  teams: Checklist_teams;
-  divisions: Checklist_divisions;
-  games: Checklist_games;
-  scoreDisputes: Checklist_scoreDisputes;
+  fields: HomeQuery['fields'];
+  teams: HomeQuery['teams'];
+  divisions: HomeQuery['divisions'];
+  games:HomeQuery['games'];
+  scoreDisputes: HomeQuery['scoreDisputes'];
 }
 
 interface State {
@@ -158,35 +157,4 @@ class Checklist extends React.Component<Props, State> {
   }
 }
 
-export default createFragmentContainer(Checklist, {
-  fields: graphql`
-    fragment Checklist_fields on Field @relay(plural: true) {
-      id
-    }
-  `,
-  teams: graphql`
-    fragment Checklist_teams on Team @relay(plural: true) {
-      id
-    }
-  `,
-  divisions: graphql`
-    fragment Checklist_divisions on Division @relay(plural: true) {
-      id
-      numTeams
-      isSeeded
-    }
-  `,
-  games: graphql`
-    fragment Checklist_games on Game @relay(plural: true) {
-      id
-      scheduled
-      endTime
-      scoreConfirmed
-    }
-  `,
-  scoreDisputes: graphql`
-    fragment Checklist_scoreDisputes on ScoreDispute @relay(plural: true) {
-      id
-    }
-  `,
-});
+export default Checklist;
