@@ -26,12 +26,14 @@ const runMutation = async (
 
     if (result.success) {
       mutationSuccess(result, options.complete);
+
     } else if (result.confirm) {
       showConfirm(
         result.message,
         confirmMutation(mutation, input, options),
         () => { if (options.failed) { options.failed(result); } }
       );
+
     } else {
       mutationFailed(result, options.failed);
     }

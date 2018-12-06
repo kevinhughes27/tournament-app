@@ -1,8 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query } from "../views/Teams/TeamListContainer";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation CreateTeamMutation($input: CreateTeamInput!) {
     createTeam(input:$input) {
       team {
@@ -25,52 +25,47 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: CreateTeamMutationVariables) {
-  return {
+function commit(variables: CreateTeamMutationVariables) {
+  const optimisticResponse = {
     createTeam: {
+      __typename: "CreateTeamPayload",
       team: {
-        ...variables
-      }
-    },
+        __typename: "Team",
+        id: Math.round(Math.random() * -1000000),
+        ...variables.input,
+        division: {
+          __typename: "Division",
+          id: variables.input.divisionId,
+          name: ""
+        }
+      },
+      success: true,
+      message: "",
+      userErrors: []
+    }
   };
-}
 
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const payload = store.getRootField("createTeam");
-
-  if (root && payload) {
-    const teams = root.getLinkedRecords("teams") || [];
-    const newTeam = payload.getLinkedRecord("team");
-    const newTeams = [...teams, newTeam];
-
-    root.setLinkedRecords(newTeams, "teams");
-  }
-}
-
-function commit(
-  variables: CreateTeamMutationVariables
-) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          updater,
-          onCompleted: (response: CreateTeamMutationResponse) => {
-            resolve(response.createTeam as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        optimisticResponse,
+        update: (store, { data: { createTeam } }) => {
+          try {
+            const data = store.readQuery({query}) as any;
+            data.teams.push(createTeam.team);
+            store.writeQuery({ query, data });
+          } catch {}
+        }
+      }).then(({ data: { createTeam } }) => {
+        resolve(createTeam as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }

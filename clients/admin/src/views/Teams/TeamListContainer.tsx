@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import TeamList from "./TeamList";
 
-const query = gql`
+export const query = gql`
   query TeamListQuery {
     teams {
       id
