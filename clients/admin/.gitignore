@@ -12,6 +12,7 @@
 # relay
 /src/relay
 /types/relay.d.ts
+/src/generated
 /src/generated.ts
 /types/generated.d.ts
 

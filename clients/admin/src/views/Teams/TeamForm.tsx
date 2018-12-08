@@ -15,7 +15,7 @@ import CreateTeamMutation from "../../mutations/CreateTeam";
 import DeleteTeamMutation from "../../mutations/DeleteTeam";
 
 interface Props extends RouteComponentProps<any> {
-  input: UpdateTeamMutationVariables["input"] & CreateTeamInput;
+  input: UpdateTeamInput & CreateTeamInput;
   divisions: TeamShowQuery['divisions'] | TeamNewQuery['divisions'];
 }
 

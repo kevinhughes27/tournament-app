@@ -1,7 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query } from "../views/Teams/TeamShowContainer";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateTeamMutation($input: UpdateTeamInput!) {
     updateTeam(input:$input) {
       team {
@@ -25,38 +26,27 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateTeamMutationVariables) {
-  return {
-    updateTeam: {
-      team: {
-        ...variables
-      }
-    },
-  };
-}
-
-function commit(
-  variables: UpdateTeamMutationVariables,
-) {
+function commit(variables: UpdateTeamMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UpdateTeamMutationResponse) => {
-            resolve(response.updateTeam as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        update: (store, { data: { updateTeam } }) => {
+          try {
+            const data = store.readQuery({ query }) as any;
+            data.teams.push(updateTeam.team);
+            store.writeQuery({ query, data });
+          } catch {}
+        }
+      }).then(({ data: { updateTeam } }) => {
+        resolve(updateTeam as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }
