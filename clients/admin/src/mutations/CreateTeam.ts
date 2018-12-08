@@ -26,25 +26,6 @@ const mutation = gql`
 `;
 
 function commit(variables: CreateTeamMutationVariables) {
-  const optimisticResponse = {
-    createTeam: {
-      __typename: "CreateTeamPayload",
-      team: {
-        __typename: "Team",
-        id: Math.round(Math.random() * -1000000),
-        ...variables.input,
-        division: {
-          __typename: "Division",
-          id: variables.input.divisionId,
-          name: ""
-        }
-      },
-      success: true,
-      message: "",
-      userErrors: []
-    }
-  };
-
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
@@ -53,7 +34,6 @@ function commit(variables: CreateTeamMutationVariables) {
       client.mutate({
         mutation,
         variables,
-        optimisticResponse,
         update: (store, { data: { createTeam } }) => {
           try {
             const data = store.readQuery({query}) as any;
