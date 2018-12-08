@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as Leaflet from "leaflet";
 import { Map } from "react-leaflet";
-import {createFragmentContainer, graphql} from "react-relay";
 import FieldsEditorMap from "./FieldsEditorMap";
 import FieldsEditorInput from "./FieldsEditorInput";
 import FieldsEditorControls from "./FieldsEditorControls";
@@ -14,11 +13,11 @@ import CreateFieldMutation from "../../mutations/CreateField";
 import DeleteFieldMutation from "../../mutations/DeleteField";
 import quadrilateralise from "./quadrilateralise";
 import runMutation from "../../helpers/runMutation";
-import { merge } from "lodash";
+import { merge, omit } from "lodash";
 
 interface Props {
-  map: FieldsEditor_map;
-  fields: FieldsEditor_fields;
+  map: FieldsEditorQuery_map;
+  fields: FieldsEditorQuery["fields"];
 }
 
 type Mode = "none" | "view" | "editMap" | "addField" | "editField";
@@ -90,14 +89,15 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({mode: "addField", editing: newField});
   }
 
-  editField = (field: FieldsEditor_fields[0]) => {
+  editField = (field: FieldsEditorQuery_fields) => {
     const geoJson = JSON.parse(field.geoJson);
+    const editing = omit(field, '__typename');
 
     EditableField.clear();
     EditableField.update(this.map!, geoJson);
     this.historyBuffer = [];
     this.historyBuffer.push(geoJson);
-    this.setState({mode: "editField", editing: field});
+    this.setState({mode: "editField", editing});
   }
 
   cancelMode = () => {
@@ -278,7 +278,7 @@ class FieldsEditor extends React.Component<Props, State> {
   /* Rendering */
   render() {
     const { lat, long, zoom, editing, submitting } = this.state;
-    const fields = this.props.fields.filter((f) => f.id !== editing.id);
+    const fields = (this.props.fields || []).filter((f) => f.id !== editing.id);
 
     return (
       <FieldsEditorMap
@@ -324,21 +324,4 @@ class FieldsEditor extends React.Component<Props, State> {
   }
 }
 
-export default createFragmentContainer(FieldsEditor, {
-  map: graphql`
-    fragment FieldsEditor_map on Map {
-      lat
-      long
-      zoom
-    }
-  `,
-  fields: graphql`
-    fragment FieldsEditor_fields on Field @relay(plural: true) {
-      id
-      name
-      lat
-      long
-      geoJson
-    }
-  `
-});
+export default FieldsEditor;

@@ -9,9 +9,9 @@ interface Props {
   lat: number;
   long: number;
   zoom: number;
-  fields: FieldsEditor_fields;
+  fields: FieldsEditorQuery["fields"];
   updateMap: (ev: any) => void;
-  editField: (field: FieldsEditor_fields[0]) => void;
+  editField: (field: FieldsEditorQuery_fields) => void;
 }
 
 type Ref = Map<any>;
@@ -34,7 +34,7 @@ const FieldsEditorMap = React.forwardRef<Ref, Props>((props, ref) => (
       url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
       subdomains={["mt0", "mt1", "mt2", "mt3"]}
     />
-    {props.fields.map((field) => (
+    {(props.fields || []).map((field) => (
       <GeoJSON
         key={field.id}
         data={JSON.parse(field.geoJson)}
@@ -52,7 +52,7 @@ const FieldsEditorMap = React.forwardRef<Ref, Props>((props, ref) => (
         }}
       />
     ))}
-    {props.fields.map(MapLabel)}
+    {(props.fields || []).map(MapLabel)}
     {props.children}
   </Map>
 ));

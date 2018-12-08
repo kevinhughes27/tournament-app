@@ -1,8 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query } from "../views/Fields";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation DeleteFieldMutation($input: DeleteFieldInput!) {
     deleteField(input:$input) {
       success
@@ -16,44 +16,25 @@ const mutation = graphql`
   }
 `;
 
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const payload = store.getRootField("deleteField");
-
-  const input = JSON.parse(
-    payload!.getDataID()
-      .replace("client:root:deleteField(input:", "")
-      .replace(")", "")
-  );
-
-  const fields = root.getLinkedRecords("fields") || [];
-  const newFields = fields.filter((f) => f!.getDataID() !== input.id);
-
-  root.setLinkedRecords(newFields, "fields");
-}
-
-function commit(
-  variables: DeleteFieldMutationVariables,
-) {
+function commit(variables: DeleteFieldMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          updater,
-          onCompleted: (response: DeleteFieldMutationResponse) => {
-            resolve(response.deleteField as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        update: (store) => {
+          const data = store.readQuery({ query }) as any;
+          data.fields = data.fields.filter((f: any) => f.id !== variables.input.id);
+          store.writeQuery({ query, data });
+        }
+      }).then(({ data: { deleteField } }) => {
+        resolve(deleteField as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }

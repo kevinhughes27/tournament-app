@@ -1,7 +1,7 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateMapMutation($input: UpdateMapInput!) {
     updateMap(input:$input) {
       success
@@ -10,36 +10,20 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateMapMutationVariables) {
-  return {
-    updateMap: {
-      ...variables
-    },
-  };
-}
-
-function commit(
-  variables: UpdateMapMutationVariables
-) {
+function commit(variables: UpdateMapMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UpdateMapMutationResponse) => {
-            resolve(response.updateMap as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables
+      }).then(({ data: { updateMap } }) => {
+        resolve(updateMap as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }

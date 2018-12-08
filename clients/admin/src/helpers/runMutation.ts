@@ -77,7 +77,16 @@ const mutationError = (error: Error, failed?: MutationCallback) => {
   const message = error.message || "Something went wrong.";
   const result = {success: false, message, userErrors: []};
 
-  showErrors(message);
+    /*
+   * Try and show page errors if possible
+   * otherwise fallback to notice.
+   */
+  try {
+    showErrors(message);
+  } catch (error) {
+    showNotice(message);
+  }
+
   if (failed) { failed(result); }
 };
 

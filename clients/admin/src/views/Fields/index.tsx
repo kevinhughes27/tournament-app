@@ -1,15 +1,21 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import FieldsEditor from "./FieldsEditor";
 
-const query = graphql`
-  query FieldsEditorContainerQuery {
+export const query = gql`
+  query FieldsEditorQuery {
     map {
-     ...FieldsEditor_map
+      lat
+      long
+      zoom
     }
     fields {
-      ...FieldsEditor_fields
+      id
+      name
+      lat
+      long
+      geoJson
     }
   }
 `;

@@ -1,7 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query } from "../views/Fields";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateFieldMutation($input: UpdateFieldInput!) {
     updateField(input:$input) {
       field {
@@ -21,36 +22,30 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateFieldMutationVariables) {
-  return {
-    updateField: {
-      ...variables
-    },
-  };
-}
-
-function commit(
-  variables: UpdateFieldMutationVariables
-) {
+function commit(variables: UpdateFieldMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UpdateFieldMutationResponse) => {
-            resolve(response.updateField as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        update: (store, { data: { updateField } }) => {
+          const data = store.readQuery({ query }) as any;
+          const fieldIdx = data.fields.findIndex((f: any) => {
+            return f.id === variables.input.id
+          });
+
+          Object.assign(data.fields[fieldIdx], updateField.field);
+
+          store.writeQuery({ query, data });
+        }
+      }).then(({ data: { updateField } }) => {
+        resolve(updateField as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }
