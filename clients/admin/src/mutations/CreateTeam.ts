@@ -36,7 +36,7 @@ function commit(variables: CreateTeamMutationVariables) {
         variables,
         update: (store, { data: { createTeam } }) => {
           try {
-            const data = store.readQuery({query}) as any;
+            const data = store.readQuery({ query }) as any;
             data.teams.push(createTeam.team);
             store.writeQuery({ query, data });
           } catch {}

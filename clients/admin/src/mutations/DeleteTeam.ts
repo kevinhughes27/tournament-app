@@ -1,7 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query as TeamListContainer } from "../views/Teams/TeamListContainer";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation DeleteTeamMutation($input: DeleteTeamInput!) {
     deleteTeam(input:$input) {
       success
@@ -15,27 +16,21 @@ const mutation = graphql`
   }
 `;
 
-function commit(
-  variables: DeleteTeamMutationVariables,
-) {
+function commit(variables: DeleteTeamMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          onCompleted: (response: DeleteTeamMutationResponse) => {
-            resolve(response.deleteTeam as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        refetchQueries: [{ query: TeamListContainer }],
+      }).then(({ data: { deleteTeam } }) => {
+        resolve(deleteTeam as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }
