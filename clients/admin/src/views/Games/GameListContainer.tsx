@@ -1,47 +1,45 @@
 import * as React from "react";
-import { graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
-import requestSubscription from "../../helpers/requestSubscription";
 import GameList from "./GameList";
 
-const query = graphql`
-  query GameListContainerQuery {
+export const query = gql`
+  query GameListQuery {
     games {
-      ...GameList_games
+      id
+      division {
+        id
+        name
+      }
+      pool
+      startTime
+      endTime
+      hasTeams
+      homeName
+      awayName
+      homeScore
+      awayScore
+      scoreReports {
+        id
+        id
+        submittedBy
+        submitterFingerprint
+        homeScore
+        awayScore
+        rulesKnowledge
+        fouls
+        fairness
+        attitude
+        communication
+        comments
+      }
+      scoreConfirmed
+      scoreDisputed
     }
   }
 `;
-
-const subscription = graphql`
-  subscription GameListContainerSubscription {
-    gameUpdated {
-      ...GameListItem_game
-    }
-  }
-`;
-
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const games = root.getLinkedRecords("games") || [];
-  const updatedGame = store.getRootField("gameUpdated");
-
-  const newGames = games.map((game) => {
-    if (game && game.getDataID() === updatedGame!.getValue("id")) {
-      return updatedGame
-    } else {
-      return game;
-    }
-  });
-
-  root.setLinkedRecords(newGames, "games");
-}
 
 class GameListContainer extends React.Component {
-  componentDidMount() {
-    requestSubscription(subscription, updater);
-  }
-
   render() {
     return renderQuery(query, {}, GameList);
   }

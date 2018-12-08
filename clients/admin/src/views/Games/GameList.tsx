@@ -1,5 +1,5 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
+import gql from "graphql-tag";
 
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
@@ -14,8 +14,37 @@ import TableRow from "@material-ui/core/TableRow";
 import GameListItem from "./GameListItem";
 import BlankSlate from "../../components/BlankSlate";
 
+const subscription = gql`
+  subscription GameListSubscription {
+    gameUpdated {
+      id
+      hasTeams
+      homeName
+      awayName
+      homeScore
+      awayScore
+      scoreReports {
+        id
+        submittedBy
+        submitterFingerprint
+        homeScore
+        awayScore
+        rulesKnowledge
+        fouls
+        fairness
+        attitude
+        communication
+        comments
+      }
+      scoreConfirmed
+      scoreDisputed
+    }
+  }
+`;
+
 interface Props {
-  games: GameList_games;
+  games: GameListQuery['games'];
+  subscribeToMore: any,
 }
 
 class GameList extends React.Component<Props> {
@@ -23,13 +52,33 @@ class GameList extends React.Component<Props> {
     tab: 0,
   };
 
+  componentDidMount() {
+    this.props.subscribeToMore({
+      document: subscription,
+      updateQuery: (prev: any, { subscriptionData }: any) => {
+        if (!subscriptionData.data) return prev;
+
+        const updatedGame = subscriptionData.data.gameUpdated;
+        const gameIdx = prev.games.findIndex((g: GameListQuery_games) => {
+          return g.id === updatedGame.id
+        });
+
+        Object.assign(prev.games[gameIdx], updatedGame);
+
+        return {
+          games: prev.games
+        };
+      },
+    });
+  }
+
   handleTab = (_event: any, tab: number) => {
     this.setState({ tab });
   }
 
   renderContent = () => {
     const tab = this.state.tab;
-    const { games } = this.props;
+    const games = this.props.games || [];
 
     const currentGames = games.filter((g) => {
       const started = g.startTime && new Date(g.startTime) < new Date();
@@ -96,8 +145,8 @@ class GameList extends React.Component<Props> {
     />
   )
 
-  renderList = (games: GameList_games, blankCopy: string) => {
-    if (games.length > 0) {
+  renderList = (games: GameListQuery['games'], blankCopy: string) => {
+    if (games && games.length > 0) {
       return (
         <div style={{maxWidth: "100%", overflowX: "scroll"}}>
           <Table>
@@ -129,15 +178,4 @@ class GameList extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(GameList, {
-  games: graphql`
-    fragment GameList_games on Game @relay(plural: true) {
-      id
-      startTime
-      endTime
-      scoreConfirmed
-      scoreDisputed
-      ...GameListItem_game
-    }
-  `
-});
+export default GameList;

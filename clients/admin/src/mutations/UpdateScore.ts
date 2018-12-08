@@ -1,8 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query } from "../views/Games/GameListContainer";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateScoreMutation($input: UpdateScoreInput!) {
     updateScore(input:$input) {
       success
@@ -16,54 +16,31 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateScoreMutationVariables) {
-  return {
-    updateScore: {
-      game: {
-        ...variables
-      }
-    },
-  };
-}
-
-function blindTrustUpdater(store: RecordSourceSelectorProxy) {
-  const payload = store.getRootField("updateScore");
-
-  const input = JSON.parse(
-    payload!.getDataID()
-      .replace("client:root:updateScore(input:", "")
-      .replace(")", "")
-  );
-
-  const game = store.get(input.gameId);
-
-  game!.setValue(input.homeScore, "homeScore");
-  game!.setValue(input.awayScore, "awayScore");
-}
-
-function commit(
-  variables: UpdateScoreMutationVariables
-) {
+function commit(variables: UpdateScoreMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          updater: blindTrustUpdater,
-          onCompleted: (response: UpdateScoreMutationResponse) => {
-            resolve(response.updateScore as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        update: (store) => {
+          const data = store.readQuery({ query }) as any;
+          const gameIdx = data.games.findIndex((g: GameListQuery_games) => {
+            return g.id === variables.input.gameId
+          });
+
+          data.games[gameIdx].homeScore = variables.input.homeScore;
+          data.games[gameIdx].awayScore = variables.input.awayScore;
+
+          store.writeQuery({ query, data });
+        }
+      }).then(({ data: { updateScore } }) => {
+        resolve(updateScore as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }
