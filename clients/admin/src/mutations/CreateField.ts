@@ -1,4 +1,5 @@
 import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
 import { query } from "../views/Fields";
 import gql from "graphql-tag";
 
@@ -23,29 +24,24 @@ const mutation = gql`
 `;
 
 function commit(variables: CreateFieldMutationVariables) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      client.mutate({
-        mutation,
-        variables,
-        update: (store, { data: { createField } }) => {
-          const data = store.readQuery({ query }) as any;
-          const newField = createField.field;
-          if (newField) {
-            data.fields.push(newField);
-            store.writeQuery({ query, data });
-          }
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update: (store, { data: { createField } }) => {
+        const data = store.readQuery({ query }) as any;
+        const newField = createField.field;
+        if (newField) {
+          data.fields.push(newField);
+          store.writeQuery({ query, data });
         }
-      }).then(({ data: { createField } }) => {
-        resolve(createField as MutationResult);
-      }).catch((error) => {
-        reject(error);
-      });
-    }
-  );
+      }
+    }).then(({ data: { createField } }) => {
+      resolve(createField as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

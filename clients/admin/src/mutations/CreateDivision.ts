@@ -1,4 +1,5 @@
 import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
 import gql from "graphql-tag";
 
 const mutation = gql`
@@ -24,24 +25,19 @@ const mutation = gql`
 `;
 
 function commit(variables: CreateDivisionMutationVariables) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      client.mutate({
-        mutation,
-        variables,
-        update: () => {
-          client.resetStore();
-        }
-      }).then(({ data: { createDivision } }) => {
-        resolve(createDivision as MutationResult);
-      }).catch((error) => {
-        reject(error);
-      });
-    }
-  );
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update: () => {
+        client.resetStore();
+      }
+    }).then(({ data: { createDivision } }) => {
+      resolve(createDivision as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

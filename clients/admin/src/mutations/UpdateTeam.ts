@@ -1,4 +1,5 @@
 import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise"
 import { query } from "../views/Teams/TeamShowContainer";
 import gql from "graphql-tag";
 
@@ -27,28 +28,23 @@ const mutation = gql`
 `;
 
 function commit(variables: UpdateTeamMutationVariables) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      client.mutate({
-        mutation,
-        variables,
-        update: (store, { data: { updateTeam } }) => {
-          try {
-            const data = store.readQuery({ query }) as any;
-            data.teams.push(updateTeam.team);
-            store.writeQuery({ query, data });
-          } catch {}
-        }
-      }).then(({ data: { updateTeam } }) => {
-        resolve(updateTeam as MutationResult);
-      }).catch((error) => {
-        reject(error);
-      });
-    }
-  );
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update: (store, { data: { updateTeam } }) => {
+        try {
+          const data = store.readQuery({ query }) as any;
+          data.teams.push(updateTeam.team);
+          store.writeQuery({ query, data });
+        } catch {}
+      }
+    }).then(({ data: { updateTeam } }) => {
+      resolve(updateTeam as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };
