@@ -33,12 +33,16 @@ function commit(variables: CreateTeamMutationVariables) {
     ) => {
       client.mutate({
         mutation,
+
         variables,
         update: (store, { data: { createTeam } }) => {
           try {
             const data = store.readQuery({ query }) as any;
-            data.teams.push(createTeam.team);
-            store.writeQuery({ query, data });
+            const newTeam = createTeam.team;
+            if (newTeam) {
+              data.teams.push(createTeam.team);
+              store.writeQuery({ query, data });
+            }
           } catch {}
         }
       }).then(({ data: { createTeam } }) => {

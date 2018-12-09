@@ -36,8 +36,8 @@ function commit(variables: CreateFieldMutationVariables) {
           const newField = createField.field;
           if (newField) {
             data.fields.push(newField);
+            store.writeQuery({ query, data });
           }
-          store.writeQuery({ query, data });
         }
       }).then(({ data: { createField } }) => {
         resolve(createField as MutationResult);
