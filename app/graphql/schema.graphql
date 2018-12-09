@@ -213,20 +213,20 @@ scalar PinCode
 
 type Query {
   bracket(handle: String!): Bracket!
-  brackets(numDays: Int!, numTeams: Int!): [Bracket!]
+  brackets(numDays: Int!, numTeams: Int!): [Bracket!]!
   division(id: ID!): Division!
-  divisions: [Division!]
+  divisions: [Division!]!
   field(id: ID!): Field!
-  fields: [Field!]
+  fields: [Field!]!
   game(id: ID!): Game!
-  games(hasTeam: Boolean, scheduled: Boolean): [Game!]
+  games(hasTeam: Boolean, scheduled: Boolean): [Game!]!
   map: Map!
-  scoreDisputes: [ScoreDispute!]
+  scoreDisputes: [ScoreDispute!]!
   scoreReport(id: ID!): ScoreReport!
-  scoreReports: [ScoreReport!]
+  scoreReports: [ScoreReport!]!
   settings: Settings!
   team(id: ID!): Team!
-  teams: [Team!]
+  teams: [Team!]!
   viewer: User
 }
 

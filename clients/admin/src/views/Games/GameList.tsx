@@ -78,7 +78,7 @@ class GameList extends React.Component<Props> {
 
   renderContent = () => {
     const tab = this.state.tab;
-    const games = this.props.games || [];
+    const games = this.props.games;
 
     const currentGames = games.filter((g) => {
       const started = g.startTime && new Date(g.startTime) < new Date();
@@ -146,7 +146,7 @@ class GameList extends React.Component<Props> {
   )
 
   renderList = (games: GameListQuery['games'], blankCopy: string) => {
-    if (games && games.length > 0) {
+    if (games.length > 0) {
       return (
         <div style={{maxWidth: "100%", overflowX: "scroll"}}>
           <Table>

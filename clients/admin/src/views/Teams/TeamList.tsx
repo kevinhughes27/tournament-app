@@ -41,7 +41,7 @@ class TeamList extends React.Component<Props> {
   renderContent = () => {
     const { teams } = this.props;
 
-    if (teams && teams.length > 0) {
+    if (teams.length > 0) {
       return (
         <div>
           <Breadcrumbs items={[{text: "Teams"}]} />

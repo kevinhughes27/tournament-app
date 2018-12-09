@@ -278,7 +278,7 @@ class FieldsEditor extends React.Component<Props, State> {
   /* Rendering */
   render() {
     const { lat, long, zoom, editing, submitting } = this.state;
-    const fields = (this.props.fields || []).filter((f) => f.id !== editing.id);
+    const fields = this.props.fields.filter((f) => f.id !== editing.id);
 
     return (
       <FieldsEditorMap

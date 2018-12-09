@@ -16,7 +16,7 @@ interface DivisionOption {
 
 class DivisionPicker extends React.Component<Props> {
   render() {
-    const options = this.props.divisions || [];
+    const options = this.props.divisions;
 
     return (
       <TextField

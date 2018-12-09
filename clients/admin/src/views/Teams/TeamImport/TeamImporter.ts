@@ -36,7 +36,7 @@ class TeamImporter {
   }
 
   private importTeam = async (row: any[], rowIdx: number) => {
-    const division = this.divisions && this.divisions.find((d) => d.name === row[2]);
+    const division = this.divisions.find((d) => d.name === row[2]);
 
     const variables = {
       name: row[0],

@@ -17,7 +17,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].map
   end
 
-  field :fields, [Types::Field], null: true
+  field :fields, [Types::Field], null: false
 
   def fields
     context[:tournament].fields.where.not(lat: nil, long: nil, geo_json: nil).all
@@ -31,7 +31,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].fields.where.not(lat: nil, long: nil, geo_json: nil).find(id)
   end
 
-  field :teams, [Types::Team], null: true
+  field :teams, [Types::Team], null: false
 
   def teams
     context[:tournament].teams.includes(:division).all
@@ -45,7 +45,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].teams.find(id)
   end
 
-  field :divisions, [Types::Division], null: true
+  field :divisions, [Types::Division], null: false
 
   def divisions
     context[:tournament].divisions.all
@@ -67,7 +67,7 @@ class Types::Query < Types::BaseObject
     BracketDb.find(handle: handle)
   end
 
-  field :brackets, [Types::Bracket], null: true do
+  field :brackets, [Types::Bracket], null: false do
     argument :numTeams, Int, required: true
     argument :numDays, Int, required: true
   end
@@ -76,7 +76,7 @@ class Types::Query < Types::BaseObject
     BracketDb.where(teams: num_teams, days: num_days)
   end
 
-  field :games, [Types::Game], null: true do
+  field :games, [Types::Game], null: false do
     argument :scheduled, Boolean, required: false
     argument :hasTeam, Boolean, required: false
   end
@@ -107,7 +107,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].games.find(id)
   end
 
-  field :score_reports, [Types::ScoreReport], auth: :required, null: true
+  field :score_reports, [Types::ScoreReport], auth: :required, null: false
 
   def score_reports
     context[:tournament].score_reports.all
@@ -121,7 +121,7 @@ class Types::Query < Types::BaseObject
     context[:tournament].score_reports.find(id)
   end
 
-  field :score_disputes, [Types::ScoreDispute], auth: :required, null: true
+  field :score_disputes, [Types::ScoreDispute], auth: :required, null: false
 
   def score_disputes
     context[:tournament].score_disputes.all
