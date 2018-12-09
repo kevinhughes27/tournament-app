@@ -1,7 +1,9 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query } from "../views/Schedule";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+
+const mutation = gql`
   mutation ScheduleGameMutation($input: ScheduleGameInput!) {
     scheduleGame(input:$input) {
       game {
@@ -10,6 +12,7 @@ const mutation = graphql`
         endTime
         field {
           id
+          name
         }
       }
       success
@@ -22,38 +25,30 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: ScheduleGameMutationVariables) {
-  return {
-    scheduleGame: {
-      game: {
-        ...variables.input
-      }
-    },
-  };
-}
-
-function commit(
-  variables: ScheduleGameMutationVariables,
-) {
+function commit(variables: ScheduleGameMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: ScheduleGameMutationResponse) => {
-            resolve(response.scheduleGame as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        update: (store, { data: { scheduleGame } }) => {
+          const data = store.readQuery({ query }) as any;
+          const gameIdx = data.games.findIndex((g: any) => {
+            return g.id === variables.input.gameId;
+          });
+
+          Object.assign(data.games[gameIdx], scheduleGame.game);
+
+          store.writeQuery({ query, data });
+        }
+      }).then(({ data: { scheduleGame } }) => {
+        resolve(scheduleGame as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }

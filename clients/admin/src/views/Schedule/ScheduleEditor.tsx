@@ -1,5 +1,4 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -10,8 +9,8 @@ import Unscheduled from "./Unscheduled";
 import Legend from "./Legend";
 
 interface Props {
-  fields: ScheduleEditor_fields;
-  games: ScheduleEditor_games;
+  fields: ScheduleEditorQuery["fields"];
+  games: ScheduleEditorQuery["games"];
 }
 
 class ScheduleEditor extends React.Component<Props> {
@@ -54,35 +53,4 @@ class ScheduleEditor extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(
-  DragDropContext(HTML5Backend)(ScheduleEditor), {
-    fields: graphql`
-      fragment ScheduleEditor_fields on Field @relay(plural: true) {
-        id
-        name
-      }
-    `,
-    games: graphql`
-      fragment ScheduleEditor_games on Game @relay(plural: true) {
-        id
-        homePrereq
-        awayPrereq
-        homePoolSeed
-        awayPoolSeed
-        pool
-        bracketUid
-        round
-        startTime
-        endTime
-        field {
-          id
-          name
-        }
-        division {
-          id
-          name
-        }
-      }
-    `
-  }
-);
+export default DragDropContext(HTML5Backend)(ScheduleEditor);

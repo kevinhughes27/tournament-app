@@ -10,7 +10,7 @@ import DatePicker from "./DatePicker";
 import SettingsModal from "./SettingsModal";
 
 interface Props {
-  fields: ScheduleEditor_fields;
+  fields: ScheduleEditorQuery["fields"];
   games: ScheduledGame[];
 }
 

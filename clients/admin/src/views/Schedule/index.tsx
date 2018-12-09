@@ -1,15 +1,33 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import ScheduleEditor from "./ScheduleEditor";
 
-const query = graphql`
-  query ScheduleQuery {
+export const query = gql`
+  query ScheduleEditorQuery {
     fields {
-      ...ScheduleEditor_fields
+      id
+      name
     }
     games {
-      ...ScheduleEditor_games
+      id
+      homePrereq
+      awayPrereq
+      homePoolSeed
+      awayPoolSeed
+      pool
+      bracketUid
+      round
+      startTime
+      endTime
+      field {
+        id
+        name
+      }
+      division {
+        id
+        name
+      }
     }
   }
 `;

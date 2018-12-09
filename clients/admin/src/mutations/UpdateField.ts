@@ -34,7 +34,7 @@ function commit(variables: UpdateFieldMutationVariables) {
         update: (store, { data: { updateField } }) => {
           const data = store.readQuery({ query }) as any;
           const fieldIdx = data.fields.findIndex((f: any) => {
-            return f.id === variables.input.id
+            return f.id === variables.input.id;
           });
 
           Object.assign(data.fields[fieldIdx], updateField.field);
