@@ -9,9 +9,7 @@
 # production
 /build
 
-# relay
-/src/relay
-/types/relay.d.ts
+# generated types
 /src/generated
 /src/generated.ts
 /types/generated.d.ts

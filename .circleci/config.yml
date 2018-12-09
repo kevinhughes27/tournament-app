@@ -73,8 +73,6 @@ jobs:
       - save_cache:
           key: admin-{{ checksum "admin-checksum.txt" }}-v5
           paths:
-            - clients/admin/src/relay
-            - clients/admin/types/relay.d.ts
             - clients/admin/src/generated.ts
             - clients/admin/types/generated.d.ts
             - clients/admin/build
