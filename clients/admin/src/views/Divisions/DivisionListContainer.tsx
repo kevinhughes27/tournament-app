@@ -1,12 +1,19 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import DivisionList from "./DivisionList";
 
-const query = graphql`
-  query DivisionListContainerQuery {
+const query = gql`
+  query DivisionListQuery {
     divisions {
-      ...DivisionList_divisions
+      id
+      name
+      bracket {
+        handle
+      }
+      teamsCount
+      numTeams
+      isSeeded
     }
   }
 `;
