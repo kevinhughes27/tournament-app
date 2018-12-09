@@ -30,8 +30,8 @@ function commit(variables: UpdateSettingsMutationVariables) {
       mutation,
       variables,
       refetchQueries:[{ query: SettingsQuery }]
-    }).then(({ data: { createDivision } }) => {
-      resolve(createDivision as MutationResult);
+    }).then(({ data: { updateSettings } }) => {
+      resolve(updateSettings as MutationResult);
     }).catch((error) => {
       reject(error);
     });
