@@ -1,6 +1,6 @@
 import client from "../modules/apollo";
 import mutationPromise from "../helpers/mutationPromise"
-import { query } from "../views/Schedule";
+import { query } from "../queries/ScheduleEditorQuery";
 import gql from "graphql-tag";
 
 const mutation = gql`

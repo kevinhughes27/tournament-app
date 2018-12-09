@@ -1,22 +1,7 @@
 import * as React from "react";
-import gql from "graphql-tag";
+import { query } from "../../queries/DivisionListQuery";
 import renderQuery from "../../helpers/renderQuery";
 import DivisionList from "./DivisionList";
-
-export const query = gql`
-  query DivisionListQuery {
-    divisions {
-      id
-      name
-      bracket {
-        handle
-      }
-      teamsCount
-      numTeams
-      isSeeded
-    }
-  }
-`;
 
 class DivisionListContainer extends React.Component {
   render() {

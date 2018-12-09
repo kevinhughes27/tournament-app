@@ -1,5 +1,5 @@
 import * as React from "react";
-import gql from "graphql-tag";
+import { subscription } from "../../queries/GamesListQuery";
 
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
@@ -13,34 +13,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import GameListItem from "./GameListItem";
 import BlankSlate from "../../components/BlankSlate";
-
-const subscription = gql`
-  subscription GameListSubscription {
-    gameUpdated {
-      id
-      hasTeams
-      homeName
-      awayName
-      homeScore
-      awayScore
-      scoreReports {
-        id
-        submittedBy
-        submitterFingerprint
-        homeScore
-        awayScore
-        rulesKnowledge
-        fouls
-        fairness
-        attitude
-        communication
-        comments
-      }
-      scoreConfirmed
-      scoreDisputed
-    }
-  }
-`;
 
 interface Props {
   games: GameListQuery['games'];

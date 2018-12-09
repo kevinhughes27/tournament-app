@@ -1,27 +1,8 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import gql from "graphql-tag";
+import { query } from "../../queries/TeamShowQuery";
 import renderQuery from "../../helpers/renderQuery";
 import TeamShow from "./TeamShow";
-
-export const query = gql`
-  query TeamShowQuery($teamId: ID!) {
-    team(id: $teamId) {
-      id
-      name
-      email
-      division {
-        id
-        name
-      }
-      seed
-    }
-    divisions {
-      id
-      name
-    }
-  }
-`;
 
 interface Props extends RouteComponentProps<any> {}
 

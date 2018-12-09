@@ -1,19 +1,7 @@
 import * as React from "react";
-import gql from "graphql-tag";
+import { query } from "../../queries/SettingsQuery";
 import renderQuery from "../../helpers/renderQuery";
-import SettingsEdit from "./SettingsEdit";
-
-export const query = gql`
-  query SettingsQuery {
-    settings {
-      name
-      handle
-      timezone
-      scoreSubmitPin
-      gameConfirmSetting
-    }
-  }
-`;
+import SettingsEdit from "./SettingsEdit"
 
 class Settings extends React.Component {
   render() {

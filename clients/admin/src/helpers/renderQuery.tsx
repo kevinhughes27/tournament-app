@@ -18,6 +18,7 @@ const renderQuery = (
   return (
     <Query query={query} variables={variables}>
       {({ loading, error, data, subscribeToMore }) => {
+
         if (loading) return loader;
 
         if (error) return <div>{error.message}</div>;

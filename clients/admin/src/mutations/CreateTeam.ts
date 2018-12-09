@@ -1,6 +1,6 @@
 import client from "../modules/apollo";
 import mutationPromise from "../helpers/mutationPromise"
-import { query } from "../views/Teams/TeamListContainer";
+import { query } from "../queries/TeamListQuery";
 import gql from "graphql-tag";
 
 const mutation = gql`

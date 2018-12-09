@@ -1,6 +1,6 @@
 import client from "../modules/apollo";
 import mutationPromise from "../helpers/mutationPromise"
-import { query as SettingsQuery } from "../views/Settings";
+import { query as SettingsQuery } from "../queries/SettingsQuery";
 import gql from "graphql-tag";
 
 const mutation = gql`

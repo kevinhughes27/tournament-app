@@ -1,32 +1,10 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import gql from "graphql-tag";
+import { query } from "../../queries/DivisionEditQuery";
 import renderQuery from "../../helpers/renderQuery";
 import DivisionEdit from "./DivisionEdit";
 
-const query = gql`
-  query DivisionEditQuery($divisionId: ID!) {
-    division(id: $divisionId) {
-      id
-      name
-      numTeams
-      numDays
-      games {
-        pool
-        homePrereq
-        homeName
-        awayPrereq
-        awayName
-      }
-      bracketTree
-      bracket {
-        name
-        handle
-        description
-      }
-    }
-  }
-`;
+
 
 interface Props extends RouteComponentProps<any> {}
 
