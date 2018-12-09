@@ -1,7 +1,7 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation CreateDivisionMutation($input: CreateDivisionInput!) {
     createDivision(input:$input) {
       division {
@@ -23,38 +23,23 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: CreateDivisionMutationVariables) {
-  return {
-    createDivision: {
-      division: {
-        ...variables
-      }
-    },
-  };
-}
-
-function commit(
-  variables: CreateDivisionMutationVariables
-) {
+function commit(variables: CreateDivisionMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: CreateDivisionMutationResponse) => {
-            resolve(response.createDivision as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        update: () => {
+          client.resetStore();
+        }
+      }).then(({ data: { createDivision } }) => {
+        resolve(createDivision as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }

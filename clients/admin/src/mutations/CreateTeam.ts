@@ -33,7 +33,6 @@ function commit(variables: CreateTeamMutationVariables) {
     ) => {
       client.mutate({
         mutation,
-
         variables,
         update: (store, { data: { createTeam } }) => {
           try {

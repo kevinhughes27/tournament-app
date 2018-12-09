@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import DivisionList from "./DivisionList";
 
-const query = gql`
+export const query = gql`
   query DivisionListQuery {
     divisions {
       id
