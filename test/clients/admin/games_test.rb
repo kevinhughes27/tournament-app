@@ -53,9 +53,9 @@ class GamesTest < AdminTest
   end
 
   test 'update score unsafe' do
-    game1 = FactoryBot.create(:game, :finished)
+    game1 = FactoryBot.create(:game, :scheduled, :finished)
     winner = game1.winner
-    game2 = FactoryBot.create(:game, :finished, home: winner, home_prereq: "W#{game1.bracket_uid}")
+    game2 = FactoryBot.create(:game, :scheduled, :finished, home: winner, home_prereq: "W#{game1.bracket_uid}")
 
     visit_app
     login
@@ -85,7 +85,11 @@ class GamesTest < AdminTest
 
     assert_not_equal winner, new_winner
     assert_equal new_winner, game2.home
-    assert_text(new_winner.name, count: 2) # this tests graphql subscriptions over websockets with action cable
+
+    # this tests graphql subscriptions over websockets with action cable
+    assert_text(new_winner.name)
+    click_tab('Need Scores')
+    assert_text(new_winner.name)
   end
 
   private
