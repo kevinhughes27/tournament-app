@@ -1,8 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query as SettingsQuery } from "../views/Settings";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateSettingsMutation($input: UpdateSettingsInput!) {
     updateSettings(input:$input) {
       settings {
@@ -23,46 +23,21 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateSettingsMutationVariables) {
-  return {
-    updateSettings: {
-      settings: {
-        ...variables
-      }
-    },
-  };
-}
-
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const payload = store.getRootField("updateSettings");
-  const settings = payload!.getLinkedRecord("settings");
-  root.setLinkedRecord(settings!, "settings");
-}
-
-function commit(
-  variables: UpdateSettingsMutationVariables,
-) {
+function commit(variables: UpdateSettingsMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          updater,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UpdateSettingsMutationResponse) => {
-            resolve(response.updateSettings as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        refetchQueries:[{ query: SettingsQuery }]
+      }).then(({ data: { createDivision } }) => {
+        resolve(createDivision as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }

@@ -1,12 +1,16 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import SettingsEdit from "./SettingsEdit";
 
-const query = graphql`
+export const query = gql`
   query SettingsQuery {
     settings {
-      ...SettingsEdit_settings
+      name
+      handle
+      timezone
+      scoreSubmitPin
+      gameConfirmSetting
     }
   }
 `;
