@@ -1,8 +1,20 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import gql from "graphql-tag";
 import renderQuery from "../../helpers/renderQuery";
 import BracketPicker from "./BracketPicker";
 import BracketLoader from "./BracketLoader";
+
+const query = gql`
+  query BracketPickerQuery($numTeams: Int!, $numDays: Int!) {
+    brackets(numTeams: $numTeams, numDays: $numDays) {
+      handle
+      name
+      description
+      games
+      tree
+    }
+  }
+`;
 
 interface Props {
   numTeams: number;
@@ -14,14 +26,6 @@ interface Props {
 
 class BracketPickerContainer extends React.Component<Props> {
   render() {
-    const query = graphql`
-      query BracketPickerContainerQuery($numTeams: Int!, $numDays: Int!) {
-        brackets(numTeams: $numTeams, numDays: $numDays) {
-          ...BracketPicker_brackets
-        }
-      }
-    `;
-
     const variables = {
       numTeams: this.props.numTeams,
       numDays: this.props.numDays

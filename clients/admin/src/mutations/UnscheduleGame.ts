@@ -1,7 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import { query } from "../views/Schedule";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UnscheduleGameMutation($input: UnscheduleGameInput!) {
     unscheduleGame(input:$input) {
       game {
@@ -22,41 +23,30 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UnscheduleGameMutationVariables) {
-  return {
-    unscheduleGame: {
-      game: {
-        id: variables.input.gameId,
-        startTime: null,
-        endTime: null,
-        field: null
-      }
-    },
-  };
-}
-
-function commit(
-  variables: UnscheduleGameMutationVariables,
-) {
+function commit(variables: UnscheduleGameMutationVariables) {
   return new Promise(
     (
       resolve: (result: MutationResult) => void,
       reject: (error: Error | undefined) => void
     ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UnscheduleGameMutationResponse) => {
-            resolve(response.unscheduleGame as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
+      client.mutate({
+        mutation,
+        variables,
+        update: (store, { data: { scheduleGame } }) => {
+          const data = store.readQuery({ query }) as any;
+          const gameIdx = data.games.findIndex((g: any) => {
+            return g.id === variables.input.gameId;
+          });
+
+          Object.assign(data.games[gameIdx], scheduleGame.game);
+
+          store.writeQuery({ query, data });
+        }
+      }).then(({ data: { unscheduleGame } }) => {
+        resolve(unscheduleGame as MutationResult);
+      }).catch((error) => {
+        reject(error);
+      });
     }
   );
 }
