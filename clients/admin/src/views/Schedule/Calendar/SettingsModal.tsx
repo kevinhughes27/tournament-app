@@ -77,7 +77,7 @@ class SettingsModal extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <>
         <Button onClick={this.handleOpen}>Settings</Button>
         <Modal
           title="Settings"
@@ -91,7 +91,7 @@ class SettingsModal extends React.Component<Props> {
             render={this.renderForm}
           />
         </Modal>
-      </div>
+      </>
     );
   }
 

@@ -16,7 +16,7 @@ interface Props {
 class Play extends React.Component<Props> {
   render() {
     return (
-      <div>
+      <>
         <p>
           Players can now submit scores. Review score reports and make sure everyone has submitted their scores.
         </p>
@@ -25,7 +25,7 @@ class Play extends React.Component<Props> {
           <Card icon={faQuestionCircle} text={`${this.props.missing} missing scores`} />
           <Card icon={faExclamationTriangle} text={`${this.props.disputes} score disputes`} />
         </div>
-      </div>
+      </>
     )
   }
 }

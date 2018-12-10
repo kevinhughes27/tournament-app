@@ -35,7 +35,7 @@ class BracketPicker extends React.Component<Props> {
 
     if (options.length > 0) {
       return (
-        <div>
+        <>
           <TextField
             name="bracketType"
             label="Bracket"
@@ -48,7 +48,7 @@ class BracketPicker extends React.Component<Props> {
             {options.map((option) => Option(option))}
           </TextField>
           {this.renderBracket()}
-        </div>
+        </>
       );
     } else {
       return <DisabledInput />;
@@ -61,10 +61,10 @@ class BracketPicker extends React.Component<Props> {
 
     if (bracket) {
       return (
-        <div>
+        <>
           <p>{bracket.description}</p>
           <Structure games={bracket.games} bracketTree={bracket.tree} />
-        </div>
+        </>
       );
     } else {
       return null;

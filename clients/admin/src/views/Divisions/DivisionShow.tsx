@@ -14,7 +14,7 @@ class DivisionShow extends React.Component<Props> {
     const division = this.props.division;
 
     return (
-      <div>
+      <>
         <Breadcrumbs
           items={[
             {link: "/divisions", text: "Divisions"},
@@ -37,7 +37,7 @@ class DivisionShow extends React.Component<Props> {
             }
           ]}
         />
-      </div>
+      </>
     );
   }
 

@@ -13,7 +13,7 @@ class TeamNew extends React.Component {
     };
 
     return (
-      <div>
+      <>
         <Breadcrumbs
           items={[
             {link: "/divisions", text: "Divisions"},
@@ -21,7 +21,7 @@ class TeamNew extends React.Component {
           ]}
         />
         <DivisionForm input={input} cancelPath="/divisions"/>
-      </div>
+      </>
     );
   }
 }

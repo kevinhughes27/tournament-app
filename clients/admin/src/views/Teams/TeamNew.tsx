@@ -19,7 +19,7 @@ class TeamNew extends React.Component<Props> {
     };
 
     return (
-      <div>
+      <>
         <Breadcrumbs
           items={[
             {link: "/teams", text: "Teams"},
@@ -27,7 +27,7 @@ class TeamNew extends React.Component<Props> {
           ]}
         />
         <TeamForm input={input} divisions={divisions}/>
-      </div>
+      </>
     );
   }
 }

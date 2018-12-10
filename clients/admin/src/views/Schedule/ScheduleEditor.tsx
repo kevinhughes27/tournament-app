@@ -35,11 +35,11 @@ class ScheduleEditor extends React.Component<Props> {
       );
     } else {
       return (
-        <div>
+        <>
           {this.renderTop(unscheduledGames)}
           <hr/>
           <Calendar games={scheduledGames} fields={fields}/>
-        </div>
+        </>
       );
     }
   }
