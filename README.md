@@ -175,9 +175,9 @@ bundle exec rails server
 
 The webpack development server proxies all requests to `no-borders.lvh.me:/3000` which is the default development tournament. The proxy is configurable in the admin `package.json`.
 
-Admin uses Relay to make queries to the GraphQL API. Relay has a compile step which consumes the entire schema. To dump the schema run this rake task: `bundle exec rake dump_schema`. There is a test to ensure the committed schema file is up to  date so this is only necessary if you make a change to the schema. Relay will recompile if you change a query in the client but the process needs to be restarted if you dump a new version of the schema.
+Admin uses Apollo to make queries to the GraphQL API. There is a compile step in order to generate types which consumes the entire schema. To dump the schema run this rake task: `bundle exec rake dump_schema`. There is a test to ensure the committed schema file is up to  date so this is only necessary if you make a change to the schema. Types will be regenerated if you change a query in the client code but the process needs to be restarted if you dump a new version of the schema.
 
-`yarn start` runs the development server and the relay compiler in parallel. However if relay fails to compile it is easier to debug on its own using `yarn compile-relay`.
+`yarn start` runs the development server and the type generator in parallel. However if the generator fails it may be easier to debug on its own using `yarn generate-types`.
 
 ### Player App
 
