@@ -18,9 +18,7 @@ interface BracketOption {
 }
 
 class BracketPicker extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
+  componentDidUpdate() {
     const value = this.props.bracketType;
     const options = this.props.brackets;
 
