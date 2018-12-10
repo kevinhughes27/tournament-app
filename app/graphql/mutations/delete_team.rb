@@ -3,6 +3,7 @@ class Mutations::DeleteTeam < Mutations::BaseMutation
 
   argument :input, Inputs::DeleteTeamInput, required: true
 
+  field :team, Types::Team, null: false
   field :success, Boolean, null: false
   field :confirm, Boolean, null: true
   field :not_allowed, Boolean, null: true

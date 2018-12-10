@@ -9,6 +9,7 @@ class Resolvers::DeleteField < Resolvers::BaseResolver
 
     if !(inputs[:confirm] || field.safe_to_delete?)
       return {
+        field: field,
         success: false,
         confirm: true,
         message: FIELD_DELETE_CONFIRM_MSG
@@ -22,11 +23,13 @@ class Resolvers::DeleteField < Resolvers::BaseResolver
 
     if deleted
       {
+        field: field,
         success: true,
         message: 'Field deleted'
       }
     else
       {
+        field: field,
         success: false,
         message: 'Delete failed'
       }
@@ -36,6 +39,6 @@ class Resolvers::DeleteField < Resolvers::BaseResolver
   private
 
   def unschedule_games(field_id)
-    Game.where(field_id: field_id).update_all(field_id: nil, start_time: nil)
+    Game.where(field_id: field_id).update_all(field_id: nil, start_time: nil, end_time: nil)
   end
 end

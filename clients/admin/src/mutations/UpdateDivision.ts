@@ -25,14 +25,16 @@ const mutation = gql`
   }
 `;
 
+const update = () => {
+  client.resetStore();
+};
+
 function commit(variables: UpdateDivisionMutationVariables) {
   return mutationPromise((resolve, reject) => {
     client.mutate({
       mutation,
       variables,
-      update: () => {
-        client.resetStore();
-      }
+      update
     }).then(({ data: { updateDivision } }) => {
       resolve(updateDivision as MutationResult);
     }).catch((error) => {

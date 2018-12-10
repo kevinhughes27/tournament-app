@@ -16,14 +16,16 @@ const mutation = gql`
   }
 `;
 
+const update = () => {
+  client.resetStore();
+};
+
 function commit(variables: SeedDivisionMutationVariables) {
   return mutationPromise((resolve, reject) => {
     client.mutate({
       mutation,
       variables,
-      update: () => {
-        client.resetStore();
-      }
+      update
     }).then(({ data: { seedDivision } }) => {
       resolve(seedDivision as MutationResult);
     }).catch((error) => {

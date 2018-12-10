@@ -1,5 +1,6 @@
 import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise"
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
 import { query } from "../queries/ScheduleEditorQuery";
 import gql from "graphql-tag";
 
@@ -26,21 +27,27 @@ const mutation = gql`
   }
 `;
 
+const update = mutationUpdater<ScheduleGameMutation>((store, payload) => {
+  if (payload.scheduleGame) {
+    const data = store.readQuery({ query }) as any;
+    const scheduledGame = payload.scheduleGame.game;
+
+    const gameIdx = data.games.findIndex((g: any) => {
+      return g.id === scheduledGame.id;
+    });
+
+    Object.assign(data.games[gameIdx], scheduledGame);
+
+    store.writeQuery({ query, data });
+  }
+});
+
 function commit(variables: ScheduleGameMutationVariables) {
   return mutationPromise((resolve, reject) => {
     client.mutate({
       mutation,
       variables,
-      update: (store, { data: { scheduleGame } }) => {
-        const data = store.readQuery({ query }) as any;
-        const gameIdx = data.games.findIndex((g: any) => {
-          return g.id === variables.input.gameId;
-        });
-
-        Object.assign(data.games[gameIdx], scheduleGame.game);
-
-        store.writeQuery({ query, data });
-      }
+      update
     }).then(({ data: { scheduleGame } }) => {
       resolve(scheduleGame as MutationResult);
     }).catch((error) => {

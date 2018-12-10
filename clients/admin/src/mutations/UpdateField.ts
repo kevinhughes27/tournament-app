@@ -1,5 +1,6 @@
 import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise"
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
 import { query } from "../queries/FieldsEditorQuery";
 import gql from "graphql-tag";
 
@@ -23,21 +24,27 @@ const mutation = gql`
   }
 `;
 
+const update = mutationUpdater<UpdateFieldMutation>((store, payload) => {
+  if (payload.updateField && payload.updateField.success) {
+    const data = store.readQuery({ query }) as any;
+    const updatedField = payload.updateField.field;
+
+    const fieldIdx = data.fields.findIndex((f: any) => {
+      return f.id === updatedField.id;
+    });
+
+    Object.assign(data.fields[fieldIdx], updatedField);
+
+    store.writeQuery({ query, data });
+  }
+});
+
 function commit(variables: UpdateFieldMutationVariables) {
   return mutationPromise((resolve, reject) => {
     client.mutate({
       mutation,
       variables,
-      update: (store, { data: { updateField } }) => {
-        const data = store.readQuery({ query }) as any;
-        const fieldIdx = data.fields.findIndex((f: any) => {
-          return f.id === variables.input.id;
-        });
-
-        Object.assign(data.fields[fieldIdx], updateField.field);
-
-        store.writeQuery({ query, data });
-      }
+      update
     }).then(({ data: { updateField } }) => {
       resolve(updateField as MutationResult);
     }).catch((error) => {

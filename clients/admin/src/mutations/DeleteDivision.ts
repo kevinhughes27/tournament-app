@@ -5,6 +5,9 @@ import gql from "graphql-tag";
 const mutation = gql`
   mutation DeleteDivisionMutation($input: DeleteDivisionInput!) {
     deleteDivision(input:$input) {
+      division {
+        id
+      }
       success
       confirm
       message
@@ -16,14 +19,16 @@ const mutation = gql`
   }
 `;
 
+const update = () => {
+  client.resetStore();
+}
+
 function commit(variables: DeleteDivisionMutationVariables) {
   return mutationPromise((resolve, reject) => {
     client.mutate({
       mutation,
       variables,
-      update: () => {
-        client.resetStore();
-      }
+      update
     }).then(({ data: { deleteDivision } }) => {
       resolve(deleteDivision as MutationResult);
     }).catch((error) => {

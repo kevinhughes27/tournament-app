@@ -1,5 +1,6 @@
 import client from "../modules/apollo";
 import mutationPromise from "../helpers/mutationPromise"
+import mutationUpdater from "../helpers/mutationUpdater";
 import { query } from "../queries/TeamListQuery";
 import gql from "graphql-tag";
 
@@ -26,21 +27,30 @@ const mutation = gql`
   }
 `;
 
+const safeReadQuery = (store: any, query: any) => {
+  try {
+    return store.readQuery({ query })
+  } catch {
+    return null
+  }
+}
+
+const update = mutationUpdater<CreateTeamMutation>((store, payload) => {
+  const data = safeReadQuery(store, query);
+
+  if (data && payload.createTeam && payload.createTeam.success) {
+    const newTeam = payload.createTeam.team;
+    data.teams.push(newTeam);
+    store.writeQuery({ query, data });
+  }
+});
+
 function commit(variables: CreateTeamMutationVariables) {
   return mutationPromise((resolve, reject) => {
     client.mutate({
       mutation,
       variables,
-      update: (store, { data: { createTeam } }) => {
-        try {
-          const data = store.readQuery({ query }) as any;
-          const newTeam = createTeam.team;
-          if (newTeam) {
-            data.teams.push(createTeam.team);
-            store.writeQuery({ query, data });
-          }
-        } catch {}
-      }
+      update
     }).then(({ data: { createTeam } }) => {
       resolve(createTeam as MutationResult);
     }).catch((error) => {
