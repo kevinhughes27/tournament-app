@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Button } from "@material-ui/core";
-import ImportErrors from "./ImportErrors";
+import * as React from 'react';
+import { Button } from '@material-ui/core';
+import ImportErrors from './ImportErrors';
 
 interface Props {
   completed: number;
@@ -17,12 +17,14 @@ class ImportResult extends React.Component<Props> {
 
     return (
       <>
-        <p>Imported {completed} {object}</p>
+        <p>
+          Imported {completed} {object}
+        </p>
         <ImportErrors errors={errors} />
         <Button
           variant="contained"
           color="primary"
-          style={{marginTop: 20, float: "right"}}
+          style={{ marginTop: 20, float: 'right' }}
           onClick={this.props.onClose}
         >
           Done

@@ -1,7 +1,7 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
+import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 
 interface Props extends RouteComponentProps<any> {
   team: TeamListQuery_teams;
@@ -10,7 +10,7 @@ interface Props extends RouteComponentProps<any> {
 class TeamListItem extends React.Component<Props> {
   handleClick = () => {
     this.props.history.push(`/teams/${this.props.team.id}`);
-  }
+  };
 
   render() {
     const { team } = this.props;

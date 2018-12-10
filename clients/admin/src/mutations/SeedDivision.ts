@@ -1,10 +1,10 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise"
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation SeedDivisionMutation($input: SeedDivisionInput!) {
-    seedDivision(input:$input) {
+    seedDivision(input: $input) {
       success
       confirm
       message
@@ -22,15 +22,18 @@ const update = () => {
 
 function commit(variables: SeedDivisionMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables,
-      update
-    }).then(({ data: { seedDivision } }) => {
-      resolve(seedDivision as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables,
+        update
+      })
+      .then(({ data: { seedDivision } }) => {
+        resolve(seedDivision as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

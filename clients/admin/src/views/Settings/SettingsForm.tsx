@@ -1,15 +1,15 @@
-import * as React from "react";
-import { FormikValues, FormikProps, FormikErrors } from "formik";
-import { isEmpty } from "lodash";
-import TextField from "@material-ui/core/TextField";
-import TimezonePicker from "./TimezonePicker";
-import ConfirmOptions from "./ConfirmOptions";
-import Form from "../../components/Form";
-import FormButtons from "../../components/FormButtons";
-import UpdateSettingsMutation from "../../mutations/UpdateSettings";
+import * as React from 'react';
+import { FormikValues, FormikProps, FormikErrors } from 'formik';
+import { isEmpty } from 'lodash';
+import TextField from '@material-ui/core/TextField';
+import TimezonePicker from './TimezonePicker';
+import ConfirmOptions from './ConfirmOptions';
+import Form from '../../components/Form';
+import FormButtons from '../../components/FormButtons';
+import UpdateSettingsMutation from '../../mutations/UpdateSettings';
 
 interface Props {
-  input: UpdateSettingsMutationVariables["input"];
+  input: UpdateSettingsMutationVariables['input'];
 }
 
 class SettingsForm extends Form<Props> {
@@ -20,36 +20,36 @@ class SettingsForm extends Form<Props> {
       name: input.name,
       handle: input.handle,
       timezone: input.timezone,
-      scoreSubmitPin: input.scoreSubmitPin || "",
+      scoreSubmitPin: input.scoreSubmitPin || '',
       gameConfirmSetting: input.gameConfirmSetting
     };
-  }
+  };
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
 
     if (!values.name) {
-      errors.name = "Required";
+      errors.name = 'Required';
     }
 
     if (!values.handle) {
-      errors.handle = "Required";
+      errors.handle = 'Required';
     }
 
-    if (values.scoreSubmitPin !== "" && values.scoreSubmitPin.length !== 4 ) {
-      errors.scoreSubmitPin = "Invalid Pin Length it should be 4";
+    if (values.scoreSubmitPin !== '' && values.scoreSubmitPin.length !== 4) {
+      errors.scoreSubmitPin = 'Invalid Pin Length it should be 4';
     }
 
     return errors;
-  }
+  };
 
   mutation = () => {
     return UpdateSettingsMutation;
-  }
+  };
 
   mutationInput = (values: FormikValues) => {
-    return {input: values};
-  }
+    return { input: values };
+  };
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
     const {
@@ -83,10 +83,7 @@ class SettingsForm extends Form<Props> {
           onChange={handleChange}
           helperText={errors.handle}
         />
-        <TimezonePicker
-          timezone={values.timezone}
-          onChange={handleChange}
-        />
+        <TimezonePicker timezone={values.timezone} onChange={handleChange} />
         <TextField
           name="scoreSubmitPin"
           label="Score Submit Pin Code"
@@ -108,7 +105,7 @@ class SettingsForm extends Form<Props> {
         />
       </form>
     );
-  }
+  };
 }
 
 export default SettingsForm;

@@ -1,15 +1,15 @@
-import * as React from "react";
-import { LeafletGeoJSONEvent, Polygon } from "leaflet";
-import { Map, TileLayer, GeoJSON } from "react-leaflet";
-import MapLabel from "./MapLabel";
-import { FieldStyle, FieldHoverStyle } from "./FieldStyle";
-import "leaflet-editable";
+import * as React from 'react';
+import { LeafletGeoJSONEvent, Polygon } from 'leaflet';
+import { Map, TileLayer, GeoJSON } from 'react-leaflet';
+import MapLabel from './MapLabel';
+import { FieldStyle, FieldHoverStyle } from './FieldStyle';
+import 'leaflet-editable';
 
 interface Props {
   lat: number;
   long: number;
   zoom: number;
-  fields: FieldsEditorQuery["fields"];
+  fields: FieldsEditorQuery['fields'];
   updateMap: (ev: any) => void;
   editField: (field: FieldsEditorQuery_fields) => void;
 }
@@ -32,9 +32,9 @@ const FieldsEditorMap = React.forwardRef<Ref, Props>((props, ref) => (
   >
     <TileLayer
       url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-      subdomains={["mt0", "mt1", "mt2", "mt3"]}
+      subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
     />
-    {props.fields.map((field) => (
+    {props.fields.map(field => (
       <GeoJSON
         key={field.id}
         data={JSON.parse(field.geoJson)}

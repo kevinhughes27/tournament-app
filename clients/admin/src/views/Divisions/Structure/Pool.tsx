@@ -1,9 +1,9 @@
-import * as React from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import * as React from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 interface Seed {
   seed: string;
@@ -20,12 +20,12 @@ class Pool extends React.Component<Props> {
     const { pool, teams } = this.props;
 
     return (
-      <div style={{minWidth: "140px", marginLeft: "20px", marginRight: "20px"}}>
+      <div
+        style={{ minWidth: '140px', marginLeft: '20px', marginRight: '20px' }}
+      >
         <Table>
           {this.renderHeader(pool)}
-          <TableBody>
-            {teams.map(this.renderRow)}
-          </TableBody>
+          <TableBody>{teams.map(this.renderRow)}</TableBody>
         </Table>
       </div>
     );
@@ -35,13 +35,11 @@ class Pool extends React.Component<Props> {
     return (
       <TableHead>
         <TableRow>
-          <TableCell>
-            Pool {pool}
-          </TableCell>
+          <TableCell>Pool {pool}</TableCell>
         </TableRow>
       </TableHead>
     );
-  }
+  };
 
   renderRow = (team: Seed) => {
     let text = `${team.seed}`;
@@ -54,7 +52,7 @@ class Pool extends React.Component<Props> {
         <TableCell>{text}</TableCell>
       </TableRow>
     );
-  }
+  };
 }
 
 export default Pool;

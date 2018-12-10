@@ -1,5 +1,5 @@
-import ls from "local-storage";
-const lsKey = "ScheduleEditorSettings";
+import ls from 'local-storage';
+const lsKey = 'ScheduleEditorSettings';
 
 interface UpdateSettings {
   scheduleStart?: number;

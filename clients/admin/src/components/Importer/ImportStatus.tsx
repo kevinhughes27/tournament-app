@@ -1,7 +1,7 @@
-import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ImportErrors from "./ImportErrors";
+import * as React from 'react';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import ImportErrors from './ImportErrors';
 
 const styles = {};
 

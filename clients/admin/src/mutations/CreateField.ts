@@ -1,12 +1,12 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise";
-import mutationUpdater from "../helpers/mutationUpdater";
-import { query } from "../queries/FieldsEditorQuery";
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import mutationUpdater from '../helpers/mutationUpdater';
+import { query } from '../queries/FieldsEditorQuery';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation CreateFieldMutation($input: CreateFieldInput!) {
-    createField(input:$input) {
+    createField(input: $input) {
       field {
         id
         name
@@ -35,15 +35,18 @@ const update = mutationUpdater<CreateFieldMutation>((store, payload) => {
 
 function commit(variables: CreateFieldMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables,
-      update
-    }).then(({ data: { createField } }) => {
-      resolve(createField as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables,
+        update
+      })
+      .then(({ data: { createField } }) => {
+        resolve(createField as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

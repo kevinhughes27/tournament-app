@@ -1,14 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
 
 interface Props {
-  fields: ScheduleEditorQuery["fields"];
+  fields: ScheduleEditorQuery['fields'];
 }
 
 class XLabels extends React.Component<Props> {
   render() {
     const fields = this.props.fields;
 
-    const labels = fields.map((field) => {
+    const labels = fields.map(field => {
       return (
         <div key={field.name} className="x-label">
           {field.name}
@@ -16,11 +16,7 @@ class XLabels extends React.Component<Props> {
       );
     });
 
-    return (
-      <div className="x-labels">
-        {labels}
-      </div>
-    );
+    return <div className="x-labels">{labels}</div>;
   }
 }
 

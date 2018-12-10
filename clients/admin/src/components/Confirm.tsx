@@ -1,8 +1,12 @@
-import * as React from "react";
-import Modal from "./Modal";
-import FormButtons from "./FormButtons";
+import * as React from 'react';
+import Modal from './Modal';
+import FormButtons from './FormButtons';
 
-let showConfirmFn: (message: string, confirm: () => void, cancel: () => void) => void;
+let showConfirmFn: (
+  message: string,
+  confirm: () => void,
+  cancel: () => void
+) => void;
 
 interface State {
   open: boolean;
@@ -14,7 +18,7 @@ interface State {
 class Confirm extends React.Component<{}, State> {
   state = {
     open: false,
-    message: "",
+    message: '',
     confirm: () => null,
     cancel: () => null
   };
@@ -32,23 +36,23 @@ class Confirm extends React.Component<{}, State> {
         cancel
       });
     }
-  }
+  };
 
   handleClose = () => {
     this.state.cancel();
 
     this.setState({
       open: false,
-      message: "",
+      message: '',
       confirm: () => null,
       cancel: () => null
     });
-  }
+  };
 
   submit = () => {
     this.state.confirm();
     this.handleClose();
-  }
+  };
 
   render() {
     return (
@@ -57,9 +61,7 @@ class Confirm extends React.Component<{}, State> {
         open={this.state.open}
         onClose={this.handleClose}
       >
-        <p>
-          {this.state.message}
-        </p>
+        <p>{this.state.message}</p>
         <FormButtons
           inline={true}
           submitIcon={<span>Confirm</span>}
@@ -72,7 +74,11 @@ class Confirm extends React.Component<{}, State> {
   }
 }
 
-export function showConfirm(message: string, confirm: () => void, cancel: () => void) {
+export function showConfirm(
+  message: string,
+  confirm: () => void,
+  cancel: () => void
+) {
   showConfirmFn(message, confirm, cancel);
 }
 

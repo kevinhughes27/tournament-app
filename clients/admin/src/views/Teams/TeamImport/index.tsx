@@ -1,2 +1,2 @@
-import TeamImportModal from "./TeamImportModal";
-export default TeamImportModal
+import TeamImportModal from './TeamImportModal';
+export default TeamImportModal;

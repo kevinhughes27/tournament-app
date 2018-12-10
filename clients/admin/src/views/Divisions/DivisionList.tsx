@@ -1,19 +1,19 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import BlankSlate from "../../components/BlankSlate";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import BlankSlate from '../../components/BlankSlate';
 
-import Breadcrumbs from "../../components/Breadcrumbs";
-import DivisionListItem from "./DivisionListItem";
-import ActionMenu from "../../components/ActionMenu";
+import Breadcrumbs from '../../components/Breadcrumbs';
+import DivisionListItem from './DivisionListItem';
+import ActionMenu from '../../components/ActionMenu';
 
 interface Props extends RouteComponentProps<{}> {
-  divisions: DivisionListQuery["divisions"];
+  divisions: DivisionListQuery['divisions'];
 }
 
 class DivisionList extends React.Component<Props> {
@@ -22,9 +22,9 @@ class DivisionList extends React.Component<Props> {
 
     if (divisions.length > 0) {
       return (
-        <div style={{maxWidth: "100%"}}>
-          <Breadcrumbs items={[{text: "Divisions"}]} />
-          <div style={{maxWidth: "100%", overflowX: "scroll"}}>
+        <div style={{ maxWidth: '100%' }}>
+          <Breadcrumbs items={[{ text: 'Divisions' }]} />
+          <div style={{ maxWidth: '100%', overflowX: 'scroll' }}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -35,7 +35,9 @@ class DivisionList extends React.Component<Props> {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {divisions.map((d) => <DivisionListItem key={d.id} division={d}/>)}
+                {divisions.map(d => (
+                  <DivisionListItem key={d.id} division={d} />
+                ))}
               </TableBody>
             </Table>
           </div>
@@ -45,11 +47,14 @@ class DivisionList extends React.Component<Props> {
       return (
         <BlankSlate>
           <h3>Create Divisions and Brackets</h3>
-          <p>Divisions control your tournament, choose a bracket and all the games get create automatically.</p>
+          <p>
+            Divisions control your tournament, choose a bracket and all the
+            games get create automatically.
+          </p>
         </BlankSlate>
       );
     }
-  }
+  };
 
   render() {
     return (
@@ -57,7 +62,11 @@ class DivisionList extends React.Component<Props> {
         {this.renderContent()}
         <ActionMenu
           actions={[
-            {icon: "add", name: "add", handler: () => this.props.history.push("/divisions/new")}
+            {
+              icon: 'add',
+              name: 'add',
+              handler: () => this.props.history.push('/divisions/new')
+            }
           ]}
         />
       </>

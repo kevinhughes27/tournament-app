@@ -1,7 +1,7 @@
-import * as React from "react";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Timezones from "./Timezones";
+import * as React from 'react';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Timezones from './Timezones';
 
 interface Props {
   timezone: string;
@@ -20,7 +20,7 @@ class TimezonePicker extends React.Component<Props> {
         value={this.props.timezone}
         onChange={this.props.onChange}
       >
-        {Timezones.map((zone) => Option(zone[0], zone[1]))}
+        {Timezones.map(zone => Option(zone[0], zone[1]))}
       </TextField>
     );
   }

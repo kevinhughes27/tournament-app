@@ -1,10 +1,10 @@
-import * as React from "react";
-import { FormButtons as styles } from "../../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Zoom from "@material-ui/core/Zoom";
-import SubmitButton from "./SubmitButton";
-import DeleteButton from "./DeleteButton";
-import CancelButton from "./CancelButton";
+import * as React from 'react';
+import { FormButtons as styles } from '../../assets/jss/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import Zoom from '@material-ui/core/Zoom';
+import SubmitButton from './SubmitButton';
+import DeleteButton from './DeleteButton';
+import CancelButton from './CancelButton';
 
 interface Props extends WithStyles<typeof styles, true> {
   inline?: boolean;
@@ -30,14 +30,14 @@ class FormButtons extends React.Component<Props> {
 
     const transitionDuration = {
       enter: theme.transitions.duration.enteringScreen,
-      exit: theme.transitions.duration.leavingScreen,
+      exit: theme.transitions.duration.leavingScreen
     };
 
     return (
       <Zoom
         in={true}
         timeout={transitionDuration}
-        style={{transitionDelay: `${transitionDuration.exit}ms`}}
+        style={{ transitionDelay: `${transitionDuration.exit}ms` }}
         unmountOnExit
       >
         <div className={inline ? classes.inline : classes.fab}>
@@ -61,7 +61,7 @@ class FormButtons extends React.Component<Props> {
     } else {
       return null;
     }
-  }
+  };
 
   renderDeleteButton = () => {
     if (this.props.delete) {
@@ -75,7 +75,7 @@ class FormButtons extends React.Component<Props> {
     } else {
       return null;
     }
-  }
+  };
 
   renderSubmitButton = () => (
     <SubmitButton
@@ -84,7 +84,7 @@ class FormButtons extends React.Component<Props> {
       submitting={this.props.submitting}
       onClick={this.props.submit}
     />
-  )
+  );
 }
 
-export default withStyles(styles, {withTheme: true})(FormButtons);
+export default withStyles(styles, { withTheme: true })(FormButtons);

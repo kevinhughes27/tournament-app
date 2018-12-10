@@ -1,9 +1,9 @@
-import * as React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import gravatarUrl from "gravatar-url";
-import PasswordForm from "./PasswordForm";
+import * as React from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import gravatarUrl from 'gravatar-url';
+import PasswordForm from './PasswordForm';
 
 interface Props {
   viewer: UserQuery_viewer;
@@ -12,13 +12,14 @@ interface Props {
 class UserShow extends React.Component<Props> {
   render() {
     const { viewer } = this.props;
-    const avatarUrl = gravatarUrl(viewer.email, {size: 100});
+    const avatarUrl = gravatarUrl(viewer.email, { size: 100 });
 
     return (
-       <div className="user_info">
+      <div className="user_info">
         <div className="col-md-6 col-md-offset-3">
           <div className="user-email">
-            <span className="user-image"><Avatar alt={viewer.email} src={avatarUrl} />
+            <span className="user-image">
+              <Avatar alt={viewer.email} src={avatarUrl} />
               <span>
                 <a href="https://en.gravatar.com/" target="blank">
                   <FontAwesomeIcon icon={faEdit} />

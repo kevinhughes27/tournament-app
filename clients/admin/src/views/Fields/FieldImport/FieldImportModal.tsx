@@ -1,9 +1,9 @@
-import * as React from "react";
-import ImportIcon from "@material-ui/icons/AddToPhotos";
-import ImportModal from "../../../components/Importer/ImportModal";
-import FieldImporter from "./FieldImporter";
+import * as React from 'react';
+import ImportIcon from '@material-ui/icons/AddToPhotos';
+import ImportModal from '../../../components/Importer/ImportModal';
+import FieldImporter from './FieldImporter';
 
-const CSVHeader = ["Name", "Latitude", "Longitude", "GeoJSON"];
+const CSVHeader = ['Name', 'Latitude', 'Longitude', 'GeoJSON'];
 
 interface Props {
   open: boolean;
@@ -12,7 +12,7 @@ interface Props {
 
 class FieldImportModal extends React.Component<Props> {
   render() {
-    return(
+    return (
       <ImportModal
         icon={<ImportIcon />}
         object="fields"

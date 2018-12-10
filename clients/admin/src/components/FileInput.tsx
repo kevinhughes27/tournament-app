@@ -1,5 +1,5 @@
-import * as React from "react";
-import Button from "@material-ui/core/Button";
+import * as React from 'react';
+import Button from '@material-ui/core/Button';
 
 interface Props {
   name: string;
@@ -11,7 +11,7 @@ interface Props {
 
 class FileInput extends React.Component<Props> {
   render() {
-    const prettyFileName = this.props.value.replace("C:\\fakepath\\", "");
+    const prettyFileName = this.props.value.replace('C:\\fakepath\\', '');
 
     return (
       <>
@@ -19,7 +19,7 @@ class FileInput extends React.Component<Props> {
           id={this.props.name}
           name={this.props.name}
           accept={this.props.accept}
-          style={{display: "none"}}
+          style={{ display: 'none' }}
           type="file"
           value={this.props.value}
           onChange={this.props.onChange}
@@ -29,9 +29,7 @@ class FileInput extends React.Component<Props> {
             {this.props.buttonText}
           </Button>
         </label>
-        <span style={{paddingLeft: 20}}>
-          {prettyFileName}
-        </span>
+        <span style={{ paddingLeft: 20 }}>{prettyFileName}</span>
       </>
     );
   }

@@ -1,14 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   DragSource,
   DragSourceSpec,
   ConnectDragSource,
   DragSourceCollector
-} from "react-dnd";
+} from 'react-dnd';
 
-import GameColor from "../GameColor";
-import Position from "./Position";
-import GameText from "../GameText";
+import GameColor from '../GameColor';
+import Position from './Position';
+import GameText from '../GameText';
 
 interface Props {
   game: ScheduledGame;
@@ -61,10 +61,16 @@ class Game extends React.Component<Props> {
       this.props.startResize(game);
       ev.preventDefault();
     }
-  }
+  };
 
   render() {
-    const { connectDragSource, isDragging, game, error, gameLength } = this.props;
+    const {
+      connectDragSource,
+      isDragging,
+      game,
+      error,
+      gameLength
+    } = this.props;
     const position = new Position(game.startTime, gameLength);
     const color = GameColor(game);
     const style = {
@@ -73,8 +79,10 @@ class Game extends React.Component<Props> {
       ...position.inlineStyles()
     };
 
-    let klass = "game";
-    if (error) { klass += " error"; }
+    let klass = 'game';
+    if (error) {
+      klass += ' error';
+    }
 
     return connectDragSource!(
       <div className={klass} style={style} onMouseDown={this.onMouseDown}>
@@ -86,4 +94,4 @@ class Game extends React.Component<Props> {
   }
 }
 
-export default DragSource("game", gameSource, collect)(Game);
+export default DragSource('game', gameSource, collect)(Game);

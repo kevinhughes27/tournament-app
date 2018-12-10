@@ -1,7 +1,7 @@
-import { showNotice } from "../components/Notice";
-import { showConfirm } from "../components/Confirm";
-import { showErrors } from "../components/ErrorBanner";
-import { merge } from "lodash";
+import { showNotice } from '../components/Notice';
+import { showConfirm } from '../components/Confirm';
+import { showErrors } from '../components/ErrorBanner';
+import { merge } from 'lodash';
 
 type Mutation = any;
 
@@ -26,18 +26,19 @@ const runMutation = async (
 
     if (result.success) {
       mutationSuccess(result, options.complete);
-
     } else if (result.confirm) {
       showConfirm(
         result.message,
         confirmMutation(mutation, input, options),
-        () => { if (options.failed) { options.failed(result); } }
+        () => {
+          if (options.failed) {
+            options.failed(result);
+          }
+        }
       );
-
     } else {
       mutationFailed(result, options.failed);
     }
-
   } catch (error) {
     mutationError(error, options.failed);
   }
@@ -49,14 +50,23 @@ const confirmMutation = (
   options: Options = {}
 ) => {
   return () => {
-    const confirmedInput = merge({}, {...input}, {input: {confirm: true}});
+    const confirmedInput = merge(
+      {},
+      { ...input },
+      { input: { confirm: true } }
+    );
     runMutation(mutation, confirmedInput, options);
   };
 };
 
-const mutationSuccess = (result: MutationResult, complete?: MutationCallback) => {
+const mutationSuccess = (
+  result: MutationResult,
+  complete?: MutationCallback
+) => {
   showNotice(result.message);
-  if (complete) { complete(result); }
+  if (complete) {
+    complete(result);
+  }
 };
 
 const mutationFailed = (result: MutationResult, failed?: MutationCallback) => {
@@ -70,14 +80,16 @@ const mutationFailed = (result: MutationResult, failed?: MutationCallback) => {
     showNotice(result.message);
   }
 
-  if (failed) { failed(result); }
+  if (failed) {
+    failed(result);
+  }
 };
 
 const mutationError = (error: Error, failed?: MutationCallback) => {
-  const message = error.message || "Something went wrong.";
-  const result = {success: false, message, userErrors: []};
+  const message = error.message || 'Something went wrong.';
+  const result = { success: false, message, userErrors: [] };
 
-    /*
+  /*
    * Try and show page errors if possible
    * otherwise fallback to notice.
    */
@@ -87,7 +99,9 @@ const mutationError = (error: Error, failed?: MutationCallback) => {
     showNotice(message);
   }
 
-  if (failed) { failed(result); }
+  if (failed) {
+    failed(result);
+  }
 };
 
 export default runMutation;

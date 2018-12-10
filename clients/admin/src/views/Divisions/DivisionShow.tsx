@@ -1,9 +1,9 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import Structure from "./Structure";
-import ActionMenu from "../../components/ActionMenu";
-import SeedIcon from "@material-ui/icons/FormatListNumberedRtl";
+import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import Structure from './Structure';
+import ActionMenu from '../../components/ActionMenu';
+import SeedIcon from '@material-ui/icons/FormatListNumberedRtl';
 
 interface Props extends RouteComponentProps<{}> {
   division: DivisionShowQuery_division;
@@ -17,8 +17,8 @@ class DivisionShow extends React.Component<Props> {
       <>
         <Breadcrumbs
           items={[
-            {link: "/divisions", text: "Divisions"},
-            {text: division.name}
+            { link: '/divisions', text: 'Divisions' },
+            { text: division.name }
           ]}
         />
         {this.renderDescription()}
@@ -27,13 +27,15 @@ class DivisionShow extends React.Component<Props> {
           actions={[
             {
               icon: <SeedIcon />,
-              name: "seed",
-              handler: () => this.props.history.push(`/divisions/${division.id}/seed`)
+              name: 'seed',
+              handler: () =>
+                this.props.history.push(`/divisions/${division.id}/seed`)
             },
             {
-              icon: "edit",
-              name: "edit",
-              handler: () => this.props.history.push(`/divisions/${division.id}/edit`)
+              icon: 'edit',
+              name: 'edit',
+              handler: () =>
+                this.props.history.push(`/divisions/${division.id}/edit`)
             }
           ]}
         />
@@ -46,12 +48,12 @@ class DivisionShow extends React.Component<Props> {
     const bracket = division.bracket;
 
     return (
-      <div style={{paddingLeft: 20}}>
+      <div style={{ paddingLeft: 20 }}>
         <p>{bracket.name}</p>
         <p>{bracket.description}</p>
       </div>
     );
-  }
+  };
 }
 
 export default withRouter(DivisionShow);

@@ -1,13 +1,13 @@
-import * as React from "react";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Structure from "./Structure";
+import * as React from 'react';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Structure from './Structure';
 
 interface Props {
   numTeams: number;
   numDays: number;
   bracketType: string;
-  brackets: BracketPickerQuery["brackets"];
+  brackets: BracketPickerQuery['brackets'];
   setValue: (field: string, value: string) => void;
   onChange: (event: React.ChangeEvent<{}>) => void;
 }
@@ -22,11 +22,11 @@ class BracketPicker extends React.Component<Props> {
     const value = this.props.bracketType;
     const options = this.props.brackets;
 
-    const valueInOptions = options.find((b) => b.handle === value);
+    const valueInOptions = options.find(b => b.handle === value);
 
     if (!valueInOptions && options.length > 0) {
       const newValue = options[0].handle;
-      this.props.setValue("bracketType", newValue);
+      this.props.setValue('bracketType', newValue);
     }
   }
 
@@ -45,7 +45,7 @@ class BracketPicker extends React.Component<Props> {
             value={this.props.bracketType}
             onChange={this.props.onChange}
           >
-            {options.map((option) => Option(option))}
+            {options.map(option => Option(option))}
           </TextField>
           {this.renderBracket()}
         </>
@@ -56,8 +56,8 @@ class BracketPicker extends React.Component<Props> {
   }
 
   renderBracket = () => {
-    const value  = this.props.bracketType;
-    const bracket = this.props.brackets.find((b) => b.handle === value);
+    const value = this.props.bracketType;
+    const bracket = this.props.brackets.find(b => b.handle === value);
 
     if (bracket) {
       return (
@@ -69,7 +69,7 @@ class BracketPicker extends React.Component<Props> {
     } else {
       return null;
     }
-  }
+  };
 }
 
 const Option = (option: BracketOption) => (
@@ -80,11 +80,11 @@ const Option = (option: BracketOption) => (
 
 const DisabledInput = () => (
   <TextField
-      name="bracketType"
-      label="No Brackets"
-      margin="normal"
-      fullWidth
-      disabled={true}
+    name="bracketType"
+    label="No Brackets"
+    margin="normal"
+    fullWidth
+    disabled={true}
   />
 );
 

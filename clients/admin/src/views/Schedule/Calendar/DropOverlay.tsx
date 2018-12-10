@@ -1,5 +1,5 @@
-import * as React from "react";
-import Position from "./Position";
+import * as React from 'react';
+import Position from './Position';
 
 interface Props {
   startTime: string;
@@ -12,7 +12,7 @@ class DropOverlay extends React.Component<Props> {
     const position = new Position(startTime, length);
     const styles = {
       opacity: 0.5,
-      backgroundColor: "black",
+      backgroundColor: 'black',
       ...position.inlineStyles()
     };
 

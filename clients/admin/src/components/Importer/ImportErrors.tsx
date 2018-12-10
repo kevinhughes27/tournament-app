@@ -1,5 +1,5 @@
-import * as React from "react";
-import { keys } from "lodash";
+import * as React from 'react';
+import { keys } from 'lodash';
 
 interface Props {
   errors: {
@@ -9,11 +9,11 @@ interface Props {
 
 class ImportErrors extends React.Component<Props> {
   render() {
-    const rowNumbers = keys(this.props.errors).map((k) => parseInt(k, 10));
+    const rowNumbers = keys(this.props.errors).map(k => parseInt(k, 10));
 
     return (
-      <ul style={{listStyleType: "none"}}>
-        {rowNumbers.map((num) => this.renderError(num, this.props.errors[num]))}
+      <ul style={{ listStyleType: 'none' }}>
+        {rowNumbers.map(num => this.renderError(num, this.props.errors[num]))}
       </ul>
     );
   }
@@ -24,7 +24,7 @@ class ImportErrors extends React.Component<Props> {
         row {rowNumber + 2}: {error}
       </li>
     );
-  }
+  };
 }
 
 export default ImportErrors;

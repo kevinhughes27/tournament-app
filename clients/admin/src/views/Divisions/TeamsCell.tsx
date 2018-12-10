@@ -1,18 +1,18 @@
-import * as React from "react";
+import * as React from 'react';
 
-const TeamsCell = ({teamsCount, numTeams}: any) => {
+const TeamsCell = ({ teamsCount, numTeams }: any) => {
   let color;
 
   if (teamsCount === numTeams) {
-    color = "green";
+    color = 'green';
   } else if (teamsCount > numTeams) {
-    color = "orange";
+    color = 'orange';
   } else {
-    color = "inherit";
+    color = 'inherit';
   }
 
   return (
-    <span style={{color}}>
+    <span style={{ color }}>
       {teamsCount} / {numTeams}
     </span>
   );

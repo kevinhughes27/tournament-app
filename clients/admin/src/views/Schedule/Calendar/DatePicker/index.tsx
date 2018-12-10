@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as moment from "moment";
-import Input from "./Input";
-import ReactDatePicker from "react-datepicker";
+import * as React from 'react';
+import * as moment from 'moment';
+import Input from './Input';
+import ReactDatePicker from 'react-datepicker';
 
 interface Props {
   selected: moment.Moment;
@@ -12,7 +12,7 @@ interface Props {
 class DatePicker extends React.Component<Props> {
   render() {
     return (
-      <div style={{width: "160px"}}>
+      <div style={{ width: '160px' }}>
         <ReactDatePicker
           selected={this.props.selected}
           onChange={this.props.onChange}

@@ -1,2 +1,2 @@
-import FieldImportModal from "./FieldImportModal";
+import FieldImportModal from './FieldImportModal';
 export default FieldImportModal;

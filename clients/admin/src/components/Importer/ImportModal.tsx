@@ -1,8 +1,8 @@
-import * as React from "react";
-import Modal from "../Modal";
-import ImportForm from "./ImportForm";
-import ImportStatus from "./ImportStatus";
-import ImportResult from "./ImportResult";
+import * as React from 'react';
+import Modal from '../Modal';
+import ImportForm from './ImportForm';
+import ImportStatus from './ImportStatus';
+import ImportResult from './ImportResult';
 
 interface Props {
   open: boolean;
@@ -28,11 +28,11 @@ class ImportModal extends React.Component<Props> {
     } else {
       return new this.props.importerClass(this);
     }
-  }
+  };
 
   startImport = (data: string[][]) => {
     this.importer.start(data);
-  }
+  };
 
   onClose = () => {
     if (this.importer.progress === 100) {
@@ -41,7 +41,7 @@ class ImportModal extends React.Component<Props> {
     } else if (!this.importer.started) {
       this.props.onClose();
     }
-  }
+  };
 
   render() {
     return (
@@ -66,7 +66,12 @@ class ImportModal extends React.Component<Props> {
         />
       );
     } else if (this.importer.started) {
-      return <ImportStatus progress={this.importer.progress} errors={this.importer.errors} />;
+      return (
+        <ImportStatus
+          progress={this.importer.progress}
+          errors={this.importer.errors}
+        />
+      );
     } else {
       return (
         <ImportForm
@@ -78,7 +83,7 @@ class ImportModal extends React.Component<Props> {
         />
       );
     }
-  }
+  };
 }
 
 export default ImportModal;

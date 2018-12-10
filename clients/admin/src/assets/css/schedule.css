@@ -74,7 +74,7 @@
   cursor: move;
 }
 .schedule .game:after {
-  content: " ";
+  content: ' ';
   bottom: -2px;
   height: 3px;
   border: 1px solid black;

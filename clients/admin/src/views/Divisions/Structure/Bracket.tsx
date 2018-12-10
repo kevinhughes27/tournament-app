@@ -1,6 +1,6 @@
-import * as React from "react";
-import Paper from "@material-ui/core/Paper";
-import renderBracketGraph from "./BracketGraph";
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import renderBracketGraph from './BracketGraph';
 
 interface Props {
   bracketTree: string;
@@ -35,7 +35,7 @@ class Bracket extends React.Component<Props> {
   render() {
     return (
       <Paper className="bracketContainer" elevation={1}>
-        <div id="bracketGraph" ref={this.bracketRef}/>
+        <div id="bracketGraph" ref={this.bracketRef} />
       </Paper>
     );
   }

@@ -1,20 +1,20 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import BlankSlate from "../../components/BlankSlate";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import BlankSlate from '../../components/BlankSlate';
 
-import Breadcrumbs from "../../components/Breadcrumbs";
-import TeamListItem from "./TeamListItem";
-import TeamImport from "./TeamImport";
+import Breadcrumbs from '../../components/Breadcrumbs';
+import TeamListItem from './TeamListItem';
+import TeamImport from './TeamImport';
 
-import ActionMenu from "../../components/ActionMenu";
-import AddIcon from "@material-ui/icons/Add";
-import ImportIcon from "@material-ui/icons/GroupAdd";
+import ActionMenu from '../../components/ActionMenu';
+import AddIcon from '@material-ui/icons/Add';
+import ImportIcon from '@material-ui/icons/GroupAdd';
 
 interface Props extends RouteComponentProps<{}> {
   teams: TeamListQuery['teams'];
@@ -27,16 +27,16 @@ class TeamList extends React.Component<Props> {
   };
 
   openTeamNew = () => {
-    this.props.history.push("/teams/new");
-  }
+    this.props.history.push('/teams/new');
+  };
 
   openImportModal = () => {
-    this.setState({modalOpen: true});
-  }
+    this.setState({ modalOpen: true });
+  };
 
   closeImportModal = () => {
-    this.setState({modalOpen: false});
-  }
+    this.setState({ modalOpen: false });
+  };
 
   renderContent = () => {
     const { teams } = this.props;
@@ -44,8 +44,7 @@ class TeamList extends React.Component<Props> {
     if (teams.length > 0) {
       return (
         <>
-          <Breadcrumbs items={[{text: "Teams"}]} />
-
+          <Breadcrumbs items={[{ text: 'Teams' }]} />
           <Table>
             <TableHead>
               <TableRow>
@@ -55,7 +54,9 @@ class TeamList extends React.Component<Props> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {teams.map((t) => <TeamListItem key={t.id} team={t}/>)}
+              {teams.map(t => (
+                <TeamListItem key={t.id} team={t} />
+              ))}
             </TableBody>
           </Table>
         </>
@@ -68,18 +69,22 @@ class TeamList extends React.Component<Props> {
         </BlankSlate>
       );
     }
-  }
+  };
 
   render() {
     const actions = [
-      {icon: <AddIcon/>, name: "Add Team", handler: this.openTeamNew },
-      {icon: <ImportIcon/>, name: "Import Teams", handler: this.openImportModal}
+      { icon: <AddIcon />, name: 'Add Team', handler: this.openTeamNew },
+      {
+        icon: <ImportIcon />,
+        name: 'Import Teams',
+        handler: this.openImportModal
+      }
     ];
 
     return (
       <>
         {this.renderContent()}
-        <ActionMenu actions={actions}/>
+        <ActionMenu actions={actions} />
         <TeamImport
           divisions={this.props.divisions}
           open={this.state.modalOpen}

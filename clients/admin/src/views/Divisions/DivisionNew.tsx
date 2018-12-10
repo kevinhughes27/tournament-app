@@ -1,26 +1,23 @@
-import * as React from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import DivisionForm from "./DivisionForm";
+import * as React from 'react';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import DivisionForm from './DivisionForm';
 
 class TeamNew extends React.Component {
   render() {
     const input = {
-      id: "",
-      name: "",
+      id: '',
+      name: '',
       numTeams: 8,
       numDays: 2,
-      bracketType: "USAU 8.1"
+      bracketType: 'USAU 8.1'
     };
 
     return (
       <>
         <Breadcrumbs
-          items={[
-            {link: "/divisions", text: "Divisions"},
-            {text: "New"}
-          ]}
+          items={[{ link: '/divisions', text: 'Divisions' }, { text: 'New' }]}
         />
-        <DivisionForm input={input} cancelPath="/divisions"/>
+        <DivisionForm input={input} cancelPath="/divisions" />
       </>
     );
   }

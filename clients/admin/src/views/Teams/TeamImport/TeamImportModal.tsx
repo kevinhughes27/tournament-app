@@ -1,9 +1,9 @@
-import * as React from "react";
-import ImportIcon from "@material-ui/icons/GroupAdd";
-import ImportModal from "../../../components/Importer/ImportModal";
-import TeamImporter from "./TeamImporter";
+import * as React from 'react';
+import ImportIcon from '@material-ui/icons/GroupAdd';
+import ImportModal from '../../../components/Importer/ImportModal';
+import TeamImporter from './TeamImporter';
 
-const CSVHeader = ["Name", "Email", "Division", "Seed"];
+const CSVHeader = ['Name', 'Email', 'Division', 'Seed'];
 
 interface Props {
   divisions: TeamListQuery['divisions'];
@@ -13,7 +13,7 @@ interface Props {
 
 class TeamImportModal extends React.Component<Props> {
   render() {
-    return(
+    return (
       <ImportModal
         icon={<ImportIcon />}
         object="teams"

@@ -1,12 +1,12 @@
-import * as React from "react";
-import ReactJoin from "react-join";
-import { Link } from "react-router-dom";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Breadcrumbs as styles } from "../assets/jss/styles";
-import Typography from "@material-ui/core/Typography";
+import * as React from 'react';
+import ReactJoin from 'react-join';
+import { Link } from 'react-router-dom';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { Breadcrumbs as styles } from '../assets/jss/styles';
+import Typography from '@material-ui/core/Typography';
 
 interface Props extends WithStyles<typeof styles> {
-  items: Array<{link?: string, text: string}>;
+  items: Array<{ link?: string; text: string }>;
 }
 
 class Breadcrumbs extends React.Component<Props> {
@@ -16,8 +16,10 @@ class Breadcrumbs extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <Typography variant="subtitle1">
-          <ReactJoin separator={" / "}>
-            {this.props.items.map((i) => BreadcrumbItem(i.link, i.text, classes.link))}
+          <ReactJoin separator={' / '}>
+            {this.props.items.map(i =>
+              BreadcrumbItem(i.link, i.text, classes.link)
+            )}
           </ReactJoin>
         </Typography>
       </div>
@@ -25,7 +27,11 @@ class Breadcrumbs extends React.Component<Props> {
   }
 }
 
-const BreadcrumbItem = (link: string | undefined, text: string, linkClass: string) => {
+const BreadcrumbItem = (
+  link: string | undefined,
+  text: string,
+  linkClass: string
+) => {
   if (link) {
     return (
       <Link key={text} to={link} className={linkClass}>
