@@ -1,6 +1,6 @@
 import client from "../modules/apollo";
 import mutationPromise from "../helpers/mutationPromise";
-import { query as TeamListQuery } from "../queries/TeamListQuery";
+import { query } from "../queries/TeamListQuery";
 import gql from "graphql-tag";
 
 const mutation = gql`
@@ -22,7 +22,11 @@ function commit(variables: DeleteTeamMutationVariables) {
     client.mutate({
       mutation,
       variables,
-      refetchQueries: [{ query: TeamListQuery }],
+      update: (store) => {
+        const data = store.readQuery({ query }) as any;
+        data.teams = data.teams.filter((t: any) => t.id !== variables.input.id);
+        store.writeQuery({ query, data });
+      }
     }).then(({ data: { deleteTeam } }) => {
       resolve(deleteTeam as MutationResult);
     }).catch((error) => {

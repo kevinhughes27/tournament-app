@@ -34,6 +34,7 @@
     "apollo-boost": "^0.1.22",
     "apollo-client": "^2.4.7",
     "apollo-link-context": "^1.0.10",
+    "apollo-link-logger": "^1.2.3",
     "browser-cookies": "^1.2.0",
     "concurrently": "^4.1.0",
     "csv": "^5.0.0",

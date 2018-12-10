@@ -5,7 +5,7 @@ import ScheduleEditor from "./ScheduleEditor";
 
 class Schedule extends React.Component {
   render() {
-    return renderQuery(query, {}, ScheduleEditor);
+    return renderQuery(query, {}, ScheduleEditor, {fetchPolicy: "cache-and-network"});
   }
 }
 

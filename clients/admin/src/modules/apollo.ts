@@ -4,6 +4,7 @@ import { HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { getMainDefinition } from "apollo-utilities";
+import apolloLogger from "apollo-link-logger";
 import ActionCable from "actioncable";
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 import auth from "./auth";
@@ -32,10 +33,12 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
+const apiLink = authLink.concat(apolloLogger).concat(httpLink);
+
 const link = ApolloLink.split(
   hasSubscriptionOperation,
   cableLink,
-  authLink.concat(httpLink)
+  apiLink
 );
 
 const cache = new InMemoryCache();
