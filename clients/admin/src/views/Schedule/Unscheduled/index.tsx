@@ -32,12 +32,12 @@ class UnscheduledGames extends React.Component<Props, State> {
     const division = divisions[this.state.tab];
 
     return (
-      <div>
+      <>
         <Tabs value={this.state.tab} onChange={this.handleChange}>
           {map(gamesByDivision, this.renderTab)}
         </Tabs>
         {this.renderTabContent(gamesByDivision[division])}
-      </div>
+      </>
     );
   }
 

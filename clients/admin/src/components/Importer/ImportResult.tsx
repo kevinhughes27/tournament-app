@@ -16,7 +16,7 @@ class ImportResult extends React.Component<Props> {
     const { completed, errors, object } = this.props;
 
     return (
-      <div>
+      <>
         <p>Imported {completed} {object}</p>
         <ImportErrors errors={errors} />
         <Button
@@ -27,7 +27,7 @@ class ImportResult extends React.Component<Props> {
         >
           Done
         </Button>
-      </div>
+      </>
     );
   }
 }

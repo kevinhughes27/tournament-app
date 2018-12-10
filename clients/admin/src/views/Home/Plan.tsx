@@ -19,7 +19,7 @@ class Plan extends React.Component<Props> {
     const { fields, teams, maxTeams, divisions } = this.props;
 
     return (
-      <div>
+      <>
         <p>
           Create your Field Map, Add/Import Teams and make Divisions in any order.
         </p>
@@ -28,7 +28,7 @@ class Plan extends React.Component<Props> {
           <Card icon={faUsers} text={`${teams} / ${maxTeams} ${pluralize('Team', teams)}`} />
           <Card icon={faSitemap} text={`${divisions} ${pluralize('Division', divisions)}`} />
         </div>
-      </div>
+      </>
     )
   }
 }

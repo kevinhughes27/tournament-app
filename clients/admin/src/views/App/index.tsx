@@ -15,7 +15,7 @@ const tournamentDomain = getTournamentDomain();
 class App extends React.Component {
   renderCopy = () => {
     return (
-      <div>
+      <>
         <p>
           Your app is available at <a href={tournamentDomain} target="_blank">{tournamentDomain}</a> (its the same as your admin url without the <mark>/admin</mark> part).
         </p>
@@ -31,7 +31,7 @@ class App extends React.Component {
         <p>
           Before your tournament starts you should send the link to the app to all teams in your tournament.
         </p>
-      </div>
+      </>
     );
   }
 

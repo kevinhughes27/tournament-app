@@ -53,14 +53,14 @@ class DivisionList extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <>
         {this.renderContent()}
         <ActionMenu
           actions={[
             {icon: "add", name: "add", handler: () => this.props.history.push("/divisions/new")}
           ]}
         />
-      </div>
+      </>
     );
   }
 }

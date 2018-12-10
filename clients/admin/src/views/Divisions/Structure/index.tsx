@@ -17,10 +17,10 @@ class Structure extends React.Component<Props> {
     }
 
     return (
-      <div>
+      <>
         <Pools games={games} />
         <Bracket bracketTree={bracketTree} />
-      </div>
+      </>
     );
   }
 }

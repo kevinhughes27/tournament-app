@@ -19,7 +19,7 @@ class DivisionEdit extends React.Component<Props> {
     };
 
     return (
-      <div>
+      <>
         <Breadcrumbs
           items={[
             {link: "/divisions", text: "Divisions"},
@@ -28,7 +28,7 @@ class DivisionEdit extends React.Component<Props> {
           ]}
         />
         <DivisionForm input={input} cancelPath={`/divisions/${division.id}`}/>
-      </div>
+      </>
     );
   }
 }

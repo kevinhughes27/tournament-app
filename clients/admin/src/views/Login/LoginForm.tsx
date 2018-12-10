@@ -51,7 +51,7 @@ class LoginForm extends React.Component<Props, State> {
     const { classes } = this.props;
 
     return (
-      <div>
+      <>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
@@ -100,7 +100,7 @@ class LoginForm extends React.Component<Props, State> {
             <FacebookLogin />
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

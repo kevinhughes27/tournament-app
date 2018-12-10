@@ -11,13 +11,13 @@ class Seed extends React.Component<Props> {
     const progress = this.props.seeded / this.props.divisions * 100;
 
     return (
-      <div>
+      <>
         <p>
           Finalize rankings and seed divisions.
         </p>
         <LinearProgress variant="determinate" value={progress} />
         <p style={{marginTop: 15}}>{this.props.seeded} / {this.props.divisions} seeded</p>
-      </div>
+      </>
     )
   }
 }

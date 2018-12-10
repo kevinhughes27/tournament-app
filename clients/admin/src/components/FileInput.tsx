@@ -14,7 +14,7 @@ class FileInput extends React.Component<Props> {
     const prettyFileName = this.props.value.replace("C:\\fakepath\\", "");
 
     return (
-      <div>
+      <>
         <input
           id={this.props.name}
           name={this.props.name}
@@ -32,7 +32,7 @@ class FileInput extends React.Component<Props> {
         <span style={{paddingLeft: 20}}>
           {prettyFileName}
         </span>
-      </div>
+      </>
     );
   }
 }

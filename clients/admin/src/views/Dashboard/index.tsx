@@ -24,7 +24,7 @@ class Admin extends React.Component<{}, State> {
 
   render() {
     return (
-      <div>
+      <>
         <TopBar openNav={this.openNav} />
         <SideBar
           open={this.state.navOpen}
@@ -34,7 +34,7 @@ class Admin extends React.Component<{}, State> {
         <Confirm />
         <Notice/>
         <Routes/>
-      </div>
+      </>
     );
   }
 }

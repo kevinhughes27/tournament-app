@@ -43,7 +43,7 @@ class TeamList extends React.Component<Props> {
 
     if (teams.length > 0) {
       return (
-        <div>
+        <>
           <Breadcrumbs items={[{text: "Teams"}]} />
 
           <Table>
@@ -58,7 +58,7 @@ class TeamList extends React.Component<Props> {
               {teams.map((t) => <TeamListItem key={t.id} team={t}/>)}
             </TableBody>
           </Table>
-        </div>
+        </>
       );
     } else {
       return (
@@ -77,7 +77,7 @@ class TeamList extends React.Component<Props> {
     ];
 
     return (
-      <div>
+      <>
         {this.renderContent()}
         <ActionMenu actions={actions}/>
         <TeamImport
@@ -85,7 +85,7 @@ class TeamList extends React.Component<Props> {
           open={this.state.modalOpen}
           onClose={this.closeImportModal}
         />
-      </div>
+      </>
     );
   }
 }

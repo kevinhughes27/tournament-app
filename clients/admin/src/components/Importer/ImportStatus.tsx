@@ -17,10 +17,10 @@ class ImportStatus extends React.Component<Props> {
     const { progress, errors } = this.props;
 
     return (
-      <div>
+      <>
         <LinearProgress variant="determinate" value={progress} />
         <ImportErrors errors={errors} />
-      </div>
+      </>
     );
   }
 }

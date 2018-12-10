@@ -56,7 +56,7 @@ class DivisionSeed extends React.Component<Props, State> {
     const division = this.props.division;
 
     return (
-      <div>
+      <>
         <Breadcrumbs
           items={[
             {link: "/divisions", text: "Divisions"},
@@ -71,7 +71,7 @@ class DivisionSeed extends React.Component<Props, State> {
           submitting={this.state.submitting}
           cancelLink={`/divisions/${division.id}`}
         />
-      </div>
+      </>
     );
   }
 }
