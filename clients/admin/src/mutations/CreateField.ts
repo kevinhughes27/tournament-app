@@ -1,8 +1,10 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/FieldsEditorQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation CreateFieldMutation($input: CreateFieldInput!) {
     createField(input:$input) {
       field {
@@ -22,52 +24,27 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: CreateFieldMutationVariables) {
-  return {
-    createField: {
-      ...variables
-    },
-  };
-}
-
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const payload = store.getRootField("createField");
-
-  if (root && payload) {
-    const fields = root.getLinkedRecords("fields") || [];
-    const newField = payload.getLinkedRecord("field");
-    const newFields = [...fields, newField];
-
-    root.setLinkedRecords(newFields, "fields");
+const update = mutationUpdater<CreateFieldMutation>((store, payload) => {
+  if (payload.createField && payload.createField.success) {
+    const data = store.readQuery({ query }) as any;
+    const newField = payload.createField.field;
+    data.fields.push(newField);
+    store.writeQuery({ query, data });
   }
-}
+});
 
-function commit(
-  variables: CreateFieldMutationVariables
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          updater,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: CreateFieldMutationResponse) => {
-            resolve(response.createField as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+function commit(variables: CreateFieldMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { createField } }) => {
+      resolve(createField as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

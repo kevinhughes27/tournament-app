@@ -2,6 +2,7 @@ import * as React from "react";
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
 import Notice from "../../components/Notice";
+import Confirm from "../../components/Confirm";
 import Routes from "../../views/routes";
 
 interface State {
@@ -30,6 +31,7 @@ class Admin extends React.Component<{}, State> {
           handleOpen={this.openNav}
           handleClose={this.closeNave}
         />
+        <Confirm />
         <Notice/>
         <Routes/>
       </div>

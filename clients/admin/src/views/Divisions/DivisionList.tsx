@@ -1,6 +1,5 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {createFragmentContainer, graphql} from "react-relay";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,7 +13,7 @@ import DivisionListItem from "./DivisionListItem";
 import ActionMenu from "../../components/ActionMenu";
 
 interface Props extends RouteComponentProps<{}> {
-  divisions: DivisionList_divisions;
+  divisions: DivisionListQuery["divisions"];
 }
 
 class DivisionList extends React.Component<Props> {
@@ -66,11 +65,4 @@ class DivisionList extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(withRouter(DivisionList), {
-  divisions: graphql`
-    fragment DivisionList_divisions on Division @relay(plural: true) {
-      id
-      ...DivisionListItem_division
-    }
-  `
-});
+export default withRouter(DivisionList);

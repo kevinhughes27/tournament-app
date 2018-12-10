@@ -9,9 +9,9 @@ interface Props {
   lat: number;
   long: number;
   zoom: number;
-  fields: FieldsEditor_fields;
+  fields: FieldsEditorQuery["fields"];
   updateMap: (ev: any) => void;
-  editField: (field: FieldsEditor_fields[0]) => void;
+  editField: (field: FieldsEditorQuery_fields) => void;
 }
 
 type Ref = Map<any>;

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import FormButtons from "../../components/FormButtons";
 import Seeds from "./Seeds";
@@ -8,7 +7,7 @@ import runMutation from "../../helpers/runMutation";
 import SeedDivision from "../../mutations/SeedDivision";
 
 interface Props extends RouteComponentProps<{}> {
-  division: DivisionSeed_division;
+  division: DivisionSeedQuery_division;
 }
 
 interface State {
@@ -77,16 +76,4 @@ class DivisionSeed extends React.Component<Props, State> {
   }
 }
 
-export default createFragmentContainer(withRouter(DivisionSeed), {
-  division: graphql`
-    fragment DivisionSeed_division on Division {
-      id
-      name
-      teams {
-        id
-        name
-        seed
-      }
-    }
-  `
-});
+export default withRouter(DivisionSeed);

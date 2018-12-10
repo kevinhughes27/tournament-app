@@ -13,6 +13,7 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
 
     if !(@game.home && @game.away)
       return {
+        game: @game,
         success: false,
         message: "teams not present"
       }
@@ -20,6 +21,7 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
 
     if (!ties_allowed? && tie?)
       return {
+        game: @game,
         success: false,
         message: "ties not allowed for this game"
       }
@@ -27,6 +29,7 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
 
     if (!inputs[:confirm] && !safe_to_update_score?)
       return {
+        game: @game,
         success: false,
         confirm: true,
         message: CONFIRM_MSG
@@ -42,6 +45,7 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
     end
 
     return {
+      game: @game,
       success: true,
       message: 'Score updated'
     }

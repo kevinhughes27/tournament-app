@@ -1,9 +1,13 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise"
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation DeleteDivisionMutation($input: DeleteDivisionInput!) {
     deleteDivision(input:$input) {
+      division {
+        id
+      }
       success
       confirm
       message
@@ -15,29 +19,22 @@ const mutation = graphql`
   }
 `;
 
-function commit(
-  variables: DeleteDivisionMutationVariables,
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          onCompleted: (response: DeleteDivisionMutationResponse) => {
-            resolve(response.deleteDivision as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+const update = () => {
+  client.resetStore();
+}
+
+function commit(variables: DeleteDivisionMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { deleteDivision } }) => {
+      resolve(deleteDivision as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

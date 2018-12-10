@@ -1,22 +1,11 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import { query } from "../../queries/ScheduleEditorQuery";
 import renderQuery from "../../helpers/renderQuery";
 import ScheduleEditor from "./ScheduleEditor";
 
-const query = graphql`
-  query ScheduleQuery {
-    fields {
-      ...ScheduleEditor_fields
-    }
-    games {
-      ...ScheduleEditor_games
-    }
-  }
-`;
-
 class Schedule extends React.Component {
   render() {
-    return renderQuery(query, {}, ScheduleEditor);
+    return renderQuery(query, {}, ScheduleEditor, {fetchPolicy: "cache-and-network"});
   }
 }
 

@@ -1,10 +1,9 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DivisionForm from "./DivisionForm";
 
 interface Props {
-  division: DivisionEdit_division;
+  division: DivisionEditQuery_division;
 }
 
 class DivisionEdit extends React.Component<Props> {
@@ -34,26 +33,4 @@ class DivisionEdit extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(DivisionEdit, {
-  division: graphql`
-    fragment DivisionEdit_division on Division {
-      id
-      name
-      numTeams
-      numDays
-      games {
-        pool
-        homePrereq
-        homeName
-        awayPrereq
-        awayName
-      }
-      bracketTree
-      bracket {
-        name
-        handle
-        description
-      }
-    }
-  `
-});
+export default DivisionEdit;

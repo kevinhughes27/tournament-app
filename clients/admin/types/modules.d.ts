@@ -16,6 +16,6 @@ declare module "react-join";
 declare module "react-leaflet-control";
 declare module "react-leaflet-div-icon";
 declare module "react-leaflet-locate-control";
-declare module "relay-runtime/lib/RelayQueryResponseCache";
-declare module "graphql-ruby-client/subscriptions/createHandler";
+declare module "graphql-ruby-client/subscriptions/ActionCableLink"
 declare module "react-stars";
+declare module "apollo-link-logger";

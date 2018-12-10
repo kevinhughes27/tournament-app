@@ -1,18 +1,7 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import { query } from "../../queries/TeamListQuery";
 import renderQuery from "../../helpers/renderQuery";
 import TeamList from "./TeamList";
-
-const query = graphql`
-  query TeamListContainerQuery {
-    teams {
-      ...TeamList_teams
-    },
-    divisions {
-      ...TeamList_divisions
-    }
-  }
-`;
 
 class TeamListContainer extends React.Component {
   render() {

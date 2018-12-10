@@ -19,7 +19,7 @@ class FieldsEditorControls extends React.Component<Props> {
 
     if (mode === "editMap") {
       return (
-        <div>
+        <>
           <ReactLeafletSearch
             position="topleft"
             inputPlaceholder="Search Place or Lat, Lng"
@@ -43,11 +43,11 @@ class FieldsEditorControls extends React.Component<Props> {
               }
             }}
           />
-        </div>
+        </>
       );
     } else if ((mode === "addField" || mode === "editField"))  {
       return (
-        <div>
+        <>
           <Control position="topleft">
             <MapTooltip text={"Square Corners"}>
               <button className="fields-editor-control" onClick={this.props.squareFieldCorners}>
@@ -69,7 +69,7 @@ class FieldsEditorControls extends React.Component<Props> {
               </button>
             </MapTooltip>
           </Control>
-        </div>
+        </>
       );
     } else {
       return null;

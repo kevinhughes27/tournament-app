@@ -3,7 +3,7 @@ import CreateTeamMutation from "../../../mutations/CreateTeam";
 
 class TeamImporter {
   component: React.Component;
-  divisions: TeamImport_divisions;
+  divisions: TeamListQuery['divisions'];
 
   started: boolean;
   progress: number;
@@ -11,7 +11,7 @@ class TeamImporter {
   completed: number;
   errors: { [key: number]: string; };
 
-  constructor(component: React.Component, divisions: TeamImport_divisions) {
+  constructor(component: React.Component, divisions: TeamListQuery['divisions']) {
     this.component = component;
     this.divisions = divisions;
 

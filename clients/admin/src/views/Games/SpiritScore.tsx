@@ -1,12 +1,11 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import ReactStars from "react-stars";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { sum } from "lodash";
 
 interface Props {
-  report: SpiritScore_report;
+  report: GameListQuery_games_scoreReports;
 }
 
 class SpiritScore extends React.Component<Props> {
@@ -54,15 +53,4 @@ class SpiritScore extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(SpiritScore, {
-  report: graphql`
-    fragment SpiritScore_report on ScoreReport {
-      id
-      rulesKnowledge
-      fouls
-      fairness
-      attitude
-      communication
-    }
-  `
-});
+export default SpiritScore;

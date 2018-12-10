@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :field do
     tournament { Tournament.first || FactoryBot.build(:tournament) }
-    name { Faker::Team.state }
+    name { Faker::Team.unique.state }
     lat 45.2442971314328
     long -75.6138271093369
     geo_json '{

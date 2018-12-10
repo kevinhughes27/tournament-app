@@ -1,10 +1,17 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/GamesListQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateScoreMutation($input: UpdateScoreInput!) {
     updateScore(input:$input) {
+      game {
+        id
+        homeScore
+        awayScore
+      }
       success
       confirm
       message
@@ -16,56 +23,33 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateScoreMutationVariables) {
-  return {
-    updateScore: {
-      game: {
-        ...variables
-      }
-    },
-  };
-}
+const update = mutationUpdater<UpdateScoreMutation>((store, payload) => {
+  if (payload.updateScore && payload.updateScore.success) {
+    const data = store.readQuery({ query }) as any;
+    const updatedGame = payload.updateScore.game;
 
-function blindTrustUpdater(store: RecordSourceSelectorProxy) {
-  const payload = store.getRootField("updateScore");
+    const gameIdx = data.games.findIndex((g: any) => {
+      return g.id === updatedGame.id;
+    });
 
-  const input = JSON.parse(
-    payload!.getDataID()
-      .replace("client:root:updateScore(input:", "")
-      .replace(")", "")
-  );
+    Object.assign(data.games[gameIdx], updatedGame);
 
-  const game = store.get(input.gameId);
+    store.writeQuery({ query, data });
+  }
+});
 
-  game!.setValue(input.homeScore, "homeScore");
-  game!.setValue(input.awayScore, "awayScore");
-}
-
-function commit(
-  variables: UpdateScoreMutationVariables
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          updater: blindTrustUpdater,
-          onCompleted: (response: UpdateScoreMutationResponse) => {
-            resolve(response.updateScore as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+function commit(variables: UpdateScoreMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { updateScore } }) => {
+      resolve(updateScore as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

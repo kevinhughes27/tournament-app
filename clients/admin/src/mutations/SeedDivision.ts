@@ -1,7 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise"
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation SeedDivisionMutation($input: SeedDivisionInput!) {
     seedDivision(input:$input) {
       success
@@ -15,29 +16,22 @@ const mutation = graphql`
   }
 `;
 
-function commit(
-  variables: SeedDivisionMutationVariables,
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          onCompleted: (response: SeedDivisionMutationResponse) => {
-            resolve(response.seedDivision as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+const update = () => {
+  client.resetStore();
+};
+
+function commit(variables: SeedDivisionMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { seedDivision } }) => {
+      resolve(seedDivision as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

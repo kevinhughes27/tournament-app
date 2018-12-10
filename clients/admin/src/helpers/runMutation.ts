@@ -26,12 +26,14 @@ const runMutation = async (
 
     if (result.success) {
       mutationSuccess(result, options.complete);
+
     } else if (result.confirm) {
       showConfirm(
         result.message,
         confirmMutation(mutation, input, options),
         () => { if (options.failed) { options.failed(result); } }
       );
+
     } else {
       mutationFailed(result, options.failed);
     }
@@ -75,7 +77,16 @@ const mutationError = (error: Error, failed?: MutationCallback) => {
   const message = error.message || "Something went wrong.";
   const result = {success: false, message, userErrors: []};
 
-  showErrors(message);
+    /*
+   * Try and show page errors if possible
+   * otherwise fallback to notice.
+   */
+  try {
+    showErrors(message);
+  } catch (error) {
+    showNotice(message);
+  }
+
   if (failed) { failed(result); }
 };
 

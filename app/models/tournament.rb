@@ -43,6 +43,8 @@ class Tournament < ApplicationRecord
     pool_results.destroy_all
     places.destroy_all
     score_reports.destroy_all
+    score_entries.destroy_all
+    score_disputes.destroy_all
   end
 
   def downcase_handle

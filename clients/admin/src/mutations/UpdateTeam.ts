@@ -1,7 +1,10 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/TeamShowQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateTeamMutation($input: UpdateTeamInput!) {
     updateTeam(input:$input) {
       team {
@@ -25,40 +28,42 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateTeamMutationVariables) {
-  return {
-    updateTeam: {
-      team: {
-        ...variables
-      }
-    },
-  };
+const safeReadQuery = (store: any, query: any) => {
+  try {
+    return store.readQuery({ query })
+  } catch {
+    return null
+  }
 }
 
-function commit(
-  variables: UpdateTeamMutationVariables,
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UpdateTeamMutationResponse) => {
-            resolve(response.updateTeam as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+const update = mutationUpdater<UpdateTeamMutation>((store, payload) => {
+  const data = safeReadQuery(store, query);
+
+  if (data && payload.updateTeam && payload.updateTeam.success) {
+    const updatedTeam = payload.updateTeam.team;
+
+    const teamIdx = data.teams.findIndex((t: any) => {
+      return t.id === updatedTeam.id;
+    });
+
+    Object.assign(data.teams[teamIdx], updatedTeam);
+
+    store.writeQuery({ query, data });
+  }
+});
+
+function commit(variables: UpdateTeamMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { updateTeam } }) => {
+      resolve(updateTeam as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

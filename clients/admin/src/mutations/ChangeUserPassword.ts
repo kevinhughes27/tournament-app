@@ -1,7 +1,8 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation ChangeUserPasswordMutation($input: ChangeUserPasswordInput!) {
     changeUserPassword(input:$input) {
       success
@@ -14,29 +15,17 @@ const mutation = graphql`
   }
 `;
 
-function commit(
-  variables: ChangeUserPasswordMutationVariables,
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          onCompleted: (response: ChangeUserPasswordMutationResponse) => {
-            resolve(response.changeUserPassword as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+function commit(variables: ChangeUserPasswordMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables
+    }).then(({ data: { changeUserPassword } }) => {
+      resolve(changeUserPassword as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

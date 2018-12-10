@@ -1,9 +1,15 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/TeamListQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation DeleteTeamMutation($input: DeleteTeamInput!) {
     deleteTeam(input:$input) {
+      team {
+        id
+      }
       success
       confirm
       message
@@ -15,29 +21,28 @@ const mutation = graphql`
   }
 `;
 
-function commit(
-  variables: DeleteTeamMutationVariables,
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          onCompleted: (response: DeleteTeamMutationResponse) => {
-            resolve(response.deleteTeam as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+const update = mutationUpdater<DeleteTeamMutation>((store, payload) => {
+  if (payload.deleteTeam && payload.deleteTeam.success) {
+    const data = store.readQuery({ query }) as any;
+    const deletedTeam = payload.deleteTeam.team;
+
+    data.teams = data.teams.filter((t: any) => t.id !== deletedTeam.id);
+    store.writeQuery({ query, data });
+  }
+});
+
+function commit(variables: DeleteTeamMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { deleteTeam } }) => {
+      resolve(deleteTeam as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

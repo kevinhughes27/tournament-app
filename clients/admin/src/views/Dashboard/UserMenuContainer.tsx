@@ -1,15 +1,7 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import { query } from "../../queries/UserMenuQuery";
 import renderQuery from "../../helpers/renderQuery";
 import UserMenu from "./UserMenu";
-
-const query = graphql`
-  query UserMenuContainerQuery {
-    viewer {
-      ...UserMenu_viewer
-    }
-  }
-`;
 
 const loader = () => (<span/>);
 

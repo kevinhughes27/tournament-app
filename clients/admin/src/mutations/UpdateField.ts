@@ -1,7 +1,10 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/FieldsEditorQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UpdateFieldMutation($input: UpdateFieldInput!) {
     updateField(input:$input) {
       field {
@@ -21,38 +24,33 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UpdateFieldMutationVariables) {
-  return {
-    updateField: {
-      ...variables
-    },
-  };
-}
+const update = mutationUpdater<UpdateFieldMutation>((store, payload) => {
+  if (payload.updateField && payload.updateField.success) {
+    const data = store.readQuery({ query }) as any;
+    const updatedField = payload.updateField.field;
 
-function commit(
-  variables: UpdateFieldMutationVariables
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UpdateFieldMutationResponse) => {
-            resolve(response.updateField as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+    const fieldIdx = data.fields.findIndex((f: any) => {
+      return f.id === updatedField.id;
+    });
+
+    Object.assign(data.fields[fieldIdx], updatedField);
+
+    store.writeQuery({ query, data });
+  }
+});
+
+function commit(variables: UpdateFieldMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { updateField } }) => {
+      resolve(updateField as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

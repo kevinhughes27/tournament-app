@@ -1,5 +1,4 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Modal from "../../components/Modal";
@@ -8,13 +7,17 @@ import ScoreReport from "./ScoreReport";
 import ReportsBadge from "./ReportsBadge";
 
 interface Props {
-  game: GameListItem_game;
+  game: GameListQuery_games;
 }
 
 class GameListItem extends React.Component<Props> {
   state = {
     open: false
   };
+
+  componentWillUnmount() {
+    this.setState({ open: false });
+  }
 
   handleClick = () => {
     if (!this.state.open) {
@@ -23,7 +26,9 @@ class GameListItem extends React.Component<Props> {
   }
 
   handleClose = () => {
-    this.setState({open: false});
+    if (this.state.open) {
+      this.setState({open: false});
+    }
   }
 
   render() {
@@ -87,25 +92,4 @@ class GameListItem extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(GameListItem, {
-  game: graphql`
-    fragment GameListItem_game on Game {
-      id
-      pool
-      homeName
-      awayName
-      hasTeams
-      homeScore
-      awayScore
-      division {
-        id
-        name
-      }
-      scoreReports {
-        id
-        ...ScoreReport_report
-      }
-      scoreDisputed
-    }
-  `
-});
+export default GameListItem;

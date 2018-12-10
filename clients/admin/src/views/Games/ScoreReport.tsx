@@ -1,11 +1,10 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import SpiritScore from "./SpiritScore";
 
 interface Props {
-  report: ScoreReport_report;
+  report: GameListQuery_games_scoreReports;
 }
 
 class ScoreReport extends React.Component<Props> {
@@ -31,16 +30,4 @@ class ScoreReport extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(ScoreReport, {
-  report: graphql`
-    fragment ScoreReport_report on ScoreReport {
-      id
-      submittedBy
-      submitterFingerprint
-      homeScore
-      awayScore
-      comments
-      ...SpiritScore_report
-    }
-  `
-});
+export default ScoreReport;

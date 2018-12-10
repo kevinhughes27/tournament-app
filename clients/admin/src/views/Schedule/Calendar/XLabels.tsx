@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface Props {
-  fields: ScheduleEditor_fields;
+  fields: ScheduleEditorQuery["fields"];
 }
 
 class XLabels extends React.Component<Props> {

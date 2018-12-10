@@ -1,5 +1,4 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import Avatar from "@material-ui/core/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +6,7 @@ import gravatarUrl from "gravatar-url";
 import PasswordForm from "./PasswordForm";
 
 interface Props {
-  viewer: UserShow_viewer;
+  viewer: UserQuery_viewer;
 }
 
 class UserShow extends React.Component<Props> {
@@ -38,11 +37,4 @@ class UserShow extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(UserShow, {
-  viewer: graphql`
-    fragment UserShow_viewer on User {
-      name
-      email
-    }
-  `
-});
+export default UserShow;

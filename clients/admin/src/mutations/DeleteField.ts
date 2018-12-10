@@ -1,10 +1,15 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise"
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/FieldsEditorQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation DeleteFieldMutation($input: DeleteFieldInput!) {
     deleteField(input:$input) {
+      field {
+        id
+      }
       success
       confirm
       message
@@ -16,46 +21,28 @@ const mutation = graphql`
   }
 `;
 
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const payload = store.getRootField("deleteField");
+const update = mutationUpdater<DeleteFieldMutation>((store, payload) => {
+  if (payload.deleteField && payload.deleteField.success) {
+    const data = store.readQuery({ query }) as any;
+    const deletedField = payload.deleteField.field;
 
-  const input = JSON.parse(
-    payload!.getDataID()
-      .replace("client:root:deleteField(input:", "")
-      .replace(")", "")
-  );
+    data.fields = data.fields.filter((f: any) => f.id !== deletedField.id);
+    store.writeQuery({ query, data });
+  }
+});
 
-  const fields = root.getLinkedRecords("fields") || [];
-  const newFields = fields.filter((f) => f!.getDataID() !== input.id);
-
-  root.setLinkedRecords(newFields, "fields");
-}
-
-function commit(
-  variables: DeleteFieldMutationVariables,
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          updater,
-          onCompleted: (response: DeleteFieldMutationResponse) => {
-            resolve(response.deleteField as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+function commit(variables: DeleteFieldMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { deleteField } }) => {
+      resolve(deleteField as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

@@ -1,15 +1,7 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import { query } from "../../queries/DivisionListQuery";
 import renderQuery from "../../helpers/renderQuery";
 import DivisionList from "./DivisionList";
-
-const query = graphql`
-  query DivisionListContainerQuery {
-    divisions {
-      ...DivisionList_divisions
-    }
-  }
-`;
 
 class DivisionListContainer extends React.Component {
   render() {

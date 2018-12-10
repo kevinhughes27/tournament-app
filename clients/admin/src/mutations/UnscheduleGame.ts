@@ -1,7 +1,10 @@
-import { commitMutation, graphql } from "react-relay";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise";
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/ScheduleEditorQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation UnscheduleGameMutation($input: UnscheduleGameInput!) {
     unscheduleGame(input:$input) {
       game {
@@ -22,43 +25,33 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: UnscheduleGameMutationVariables) {
-  return {
-    unscheduleGame: {
-      game: {
-        id: variables.input.gameId,
-        startTime: null,
-        endTime: null,
-        field: null
-      }
-    },
-  };
-}
+const update = mutationUpdater<ScheduleGameMutation>((store, payload) => {
+  if (payload.scheduleGame) {
+    const data = store.readQuery({ query }) as any;
+    const scheduledGame = payload.scheduleGame.game;
 
-function commit(
-  variables: UnscheduleGameMutationVariables,
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          onCompleted: (response: UnscheduleGameMutationResponse) => {
-            resolve(response.unscheduleGame as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+    const gameIdx = data.games.findIndex((g: any) => {
+      return g.id === scheduledGame.id;
+    });
+
+    Object.assign(data.games[gameIdx], scheduledGame);
+
+    store.writeQuery({ query, data });
+  }
+});
+
+function commit(variables: UnscheduleGameMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { unscheduleGame } }) => {
+      resolve(unscheduleGame as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

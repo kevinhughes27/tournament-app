@@ -1,5 +1,5 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
+import subscription from "./subscription";
 
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
@@ -15,7 +15,8 @@ import GameListItem from "./GameListItem";
 import BlankSlate from "../../components/BlankSlate";
 
 interface Props {
-  games: GameList_games;
+  games: GameListQuery['games'];
+  subscribeToMore: any,
 }
 
 class GameList extends React.Component<Props> {
@@ -23,13 +24,17 @@ class GameList extends React.Component<Props> {
     tab: 0,
   };
 
+  componentDidMount() {
+    this.props.subscribeToMore(subscription);
+  }
+
   handleTab = (_event: any, tab: number) => {
     this.setState({ tab });
   }
 
   renderContent = () => {
     const tab = this.state.tab;
-    const { games } = this.props;
+    const games = this.props.games;
 
     const currentGames = games.filter((g) => {
       const started = g.startTime && new Date(g.startTime) < new Date();
@@ -96,7 +101,7 @@ class GameList extends React.Component<Props> {
     />
   )
 
-  renderList = (games: GameList_games, blankCopy: string) => {
+  renderList = (games: GameListQuery['games'], blankCopy: string) => {
     if (games.length > 0) {
       return (
         <div style={{maxWidth: "100%", overflowX: "scroll"}}>
@@ -129,15 +134,4 @@ class GameList extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(GameList, {
-  games: graphql`
-    fragment GameList_games on Game @relay(plural: true) {
-      id
-      startTime
-      endTime
-      scoreConfirmed
-      scoreDisputed
-      ...GameListItem_game
-    }
-  `
-});
+export default GameList;

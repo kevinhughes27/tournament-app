@@ -1,9 +1,8 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import SettingsForm from "./SettingsForm";
 
 interface Props {
-  settings: SettingsEdit_settings;
+  settings: SettingsQuery_settings;
 }
 
 class SettingsEdit extends React.Component<Props> {
@@ -24,14 +23,4 @@ class SettingsEdit extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(SettingsEdit, {
-  settings: graphql`
-    fragment SettingsEdit_settings on Settings {
-      name
-      handle
-      timezone
-      scoreSubmitPin
-      gameConfirmSetting
-    }
-  `
-});
+export default SettingsEdit;

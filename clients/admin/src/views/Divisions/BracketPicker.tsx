@@ -1,5 +1,4 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Structure from "./Structure";
@@ -8,7 +7,7 @@ interface Props {
   numTeams: number;
   numDays: number;
   bracketType: string;
-  brackets: BracketPicker_brackets;
+  brackets: BracketPickerQuery["brackets"];
   setValue: (field: string, value: string) => void;
   onChange: (event: React.ChangeEvent<{}>) => void;
 }
@@ -19,9 +18,7 @@ interface BracketOption {
 }
 
 class BracketPicker extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
+  componentDidUpdate() {
     const value = this.props.bracketType;
     const options = this.props.brackets;
 
@@ -91,14 +88,4 @@ const DisabledInput = () => (
   />
 );
 
-export default createFragmentContainer(BracketPicker, {
-  brackets: graphql`
-    fragment BracketPicker_brackets on Bracket @relay(plural: true) {
-      handle
-      name
-      description
-      games
-      tree
-    }
-  `,
-});
+export default BracketPicker;

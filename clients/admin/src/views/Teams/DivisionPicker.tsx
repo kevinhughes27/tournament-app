@@ -1,12 +1,10 @@
 import * as React from "react";
-import {createFragmentContainer, graphql} from "react-relay";
-
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 interface Props {
   divisionId: string;
-  divisions: DivisionPicker_divisions;
+  divisions: TeamShowQuery['divisions'];
   onChange: (event: React.ChangeEvent<{}>) => void;
   helperText: any;
 }
@@ -43,11 +41,4 @@ const Option = (option: DivisionOption) => (
   </MenuItem>
 );
 
-export default createFragmentContainer(DivisionPicker, {
-  divisions: graphql`
-    fragment DivisionPicker_divisions on Division @relay(plural: true) {
-      id
-      name
-    }
-  `,
-});
+export default DivisionPicker;

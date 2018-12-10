@@ -1,13 +1,12 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {createFragmentContainer, graphql} from "react-relay";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Structure from "./Structure";
 import ActionMenu from "../../components/ActionMenu";
 import SeedIcon from "@material-ui/icons/FormatListNumberedRtl";
 
 interface Props extends RouteComponentProps<{}> {
-  division: DivisionShow_division;
+  division: DivisionShowQuery_division;
 }
 
 class DivisionShow extends React.Component<Props> {
@@ -55,23 +54,4 @@ class DivisionShow extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(withRouter(DivisionShow), {
-  division: graphql`
-    fragment DivisionShow_division on Division {
-      id
-      name
-      games {
-        pool
-        homePrereq
-        homeName
-        awayPrereq
-        awayName
-      }
-      bracketTree
-      bracket {
-        name
-        description
-      }
-    }
-  `
-});
+export default withRouter(DivisionShow);

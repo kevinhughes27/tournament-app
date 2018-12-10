@@ -1,8 +1,10 @@
-import { commitMutation, graphql } from "react-relay";
-import { RecordSourceSelectorProxy } from "relay-runtime";
-import environment from "../modules/relay";
+import client from "../modules/apollo";
+import mutationPromise from "../helpers/mutationPromise"
+import mutationUpdater from "../helpers/mutationUpdater";
+import { query } from "../queries/TeamListQuery";
+import gql from "graphql-tag";
 
-const mutation = graphql`
+const mutation = gql`
   mutation CreateTeamMutation($input: CreateTeamInput!) {
     createTeam(input:$input) {
       team {
@@ -25,54 +27,36 @@ const mutation = graphql`
   }
 `;
 
-function getOptimisticResponse(variables: CreateTeamMutationVariables) {
-  return {
-    createTeam: {
-      team: {
-        ...variables
-      }
-    },
-  };
-}
-
-function updater(store: RecordSourceSelectorProxy) {
-  const root = store.getRoot();
-  const payload = store.getRootField("createTeam");
-
-  if (root && payload) {
-    const teams = root.getLinkedRecords("teams") || [];
-    const newTeam = payload.getLinkedRecord("team");
-    const newTeams = [...teams, newTeam];
-
-    root.setLinkedRecords(newTeams, "teams");
+const safeReadQuery = (store: any, query: any) => {
+  try {
+    return store.readQuery({ query })
+  } catch {
+    return null
   }
 }
 
-function commit(
-  variables: CreateTeamMutationVariables
-) {
-  return new Promise(
-    (
-      resolve: (result: MutationResult) => void,
-      reject: (error: Error | undefined) => void
-    ) => {
-      return commitMutation(
-        environment,
-        {
-          mutation,
-          variables,
-          optimisticResponse: getOptimisticResponse(variables),
-          updater,
-          onCompleted: (response: CreateTeamMutationResponse) => {
-            resolve(response.createTeam as MutationResult);
-          },
-          onError: (error) => {
-            reject(error);
-          }
-        },
-      );
-    }
-  );
+const update = mutationUpdater<CreateTeamMutation>((store, payload) => {
+  const data = safeReadQuery(store, query);
+
+  if (data && payload.createTeam && payload.createTeam.success) {
+    const newTeam = payload.createTeam.team;
+    data.teams.push(newTeam);
+    store.writeQuery({ query, data });
+  }
+});
+
+function commit(variables: CreateTeamMutationVariables) {
+  return mutationPromise((resolve, reject) => {
+    client.mutate({
+      mutation,
+      variables,
+      update
+    }).then(({ data: { createTeam } }) => {
+      resolve(createTeam as MutationResult);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 export default { commit };

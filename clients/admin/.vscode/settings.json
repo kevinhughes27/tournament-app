@@ -2,7 +2,8 @@
   "files.exclude": {
     "coverage": true,
     "build": true,
-    "**/*__generated__": true,
+    "src/generated*": true,
+    "src/react-app-env.d.ts" : true,
     "**/.DS_Store": true,
     "**/.env.local": true,
     "**/.env.development.local": true,

@@ -1,13 +1,12 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {createFragmentContainer, graphql} from "react-relay";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TeamsCell from "./TeamsCell";
 import SeededCell from "./SeededCell";
 
 interface Props extends RouteComponentProps<any> {
-  division: DivisionListItem_division;
+  division: DivisionListQuery_divisions;
 }
 
 class DivisionListItem extends React.Component<Props> {
@@ -29,17 +28,4 @@ class DivisionListItem extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(withRouter(DivisionListItem), {
-  division: graphql`
-    fragment DivisionListItem_division on Division {
-      id
-      name
-      bracket {
-        handle
-      }
-      teamsCount
-      numTeams
-      isSeeded
-    }
-  `
-});
+export default withRouter(DivisionListItem)

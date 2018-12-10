@@ -1,15 +1,7 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import { query } from "../../queries/SettingsQuery";
 import renderQuery from "../../helpers/renderQuery";
-import SettingsEdit from "./SettingsEdit";
-
-const query = graphql`
-  query SettingsQuery {
-    settings {
-      ...SettingsEdit_settings
-    }
-  }
-`;
+import SettingsEdit from "./SettingsEdit"
 
 class Settings extends React.Component {
   render() {

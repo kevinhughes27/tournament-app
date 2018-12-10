@@ -1,12 +1,10 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {createFragmentContainer, graphql} from "react-relay";
-
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
 interface Props extends RouteComponentProps<any> {
-  team: TeamListItem_team;
+  team: TeamListQuery_teams;
 }
 
 class TeamListItem extends React.Component<Props> {
@@ -27,17 +25,4 @@ class TeamListItem extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(withRouter(TeamListItem), {
-  team: graphql`
-    fragment TeamListItem_team on Team {
-      id
-      name
-      email
-      division {
-        id
-        name
-      }
-      seed
-    }
-  `
-});
+export default withRouter(TeamListItem);

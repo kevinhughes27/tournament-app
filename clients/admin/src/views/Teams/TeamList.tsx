@@ -1,6 +1,5 @@
 import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {createFragmentContainer, graphql} from "react-relay";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -18,8 +17,8 @@ import AddIcon from "@material-ui/icons/Add";
 import ImportIcon from "@material-ui/icons/GroupAdd";
 
 interface Props extends RouteComponentProps<{}> {
-  teams: TeamList_teams;
-  divisions: TeamList_divisions;
+  teams: TeamListQuery['teams'];
+  divisions: TeamListQuery['divisions'];
 }
 
 class TeamList extends React.Component<Props> {
@@ -91,16 +90,4 @@ class TeamList extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(withRouter(TeamList), {
-  teams: graphql`
-    fragment TeamList_teams on Team @relay(plural: true) {
-      id
-      ...TeamListItem_team
-    }
-  `,
-  divisions: graphql`
-    fragment TeamList_divisions on Division @relay(plural: true) {
-      ...TeamImport_divisions
-    }
-  `
-});
+export default withRouter(TeamList);
