@@ -1,9 +1,9 @@
-import * as React from "react";
-import { FormButtons as styles } from "../../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import * as React from 'react';
+import { FormButtons as styles } from '../../assets/jss/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface Props extends WithStyles<typeof styles> {
   icon?: JSX.Element;
@@ -22,7 +22,7 @@ class SubmitButton extends React.Component<Props> {
         color="primary"
         type="submit"
         onClick={this.props.onClick}
-        classes={{disabled: classes.disabled}}
+        classes={{ disabled: classes.disabled }}
         disabled={disabled || submitting}
       >
         {this.buttonContent()}
@@ -40,7 +40,7 @@ class SubmitButton extends React.Component<Props> {
     } else {
       return <SaveIcon />;
     }
-  }
+  };
 }
 
 export default withStyles(styles)(SubmitButton);

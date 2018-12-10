@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const query = gql`
   query TeamListQuery {
@@ -11,7 +11,7 @@ export const query = gql`
         name
       }
       seed
-    },
+    }
     divisions {
       id
       name

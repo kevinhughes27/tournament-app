@@ -1,7 +1,7 @@
-import * as React from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import * as React from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 let showNoticeFn: (message: string) => void;
 
@@ -13,7 +13,7 @@ interface State {
 class Notice extends React.Component<{}, State> {
   state = {
     open: false,
-    message: "",
+    message: ''
   };
 
   componentDidMount() {
@@ -24,26 +24,26 @@ class Notice extends React.Component<{}, State> {
     if (message) {
       this.setState({
         open: true,
-        message,
+        message
       });
     }
-  }
+  };
 
   handleClose = () => {
     this.setState({
       open: false,
-      message: "",
+      message: ''
     });
-  }
+  };
 
   render() {
     return (
       <Snackbar
-        anchorOrigin={{vertical: "bottom", horizontal: "left"}}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={this.state.open}
         autoHideDuration={1500}
         onClose={this.handleClose}
-        ContentProps={{"aria-describedby": "message-id"}}
+        ContentProps={{ 'aria-describedby': 'message-id' }}
         message={<span id="message-id">{this.state.message}</span>}
         action={[
           <IconButton

@@ -1,19 +1,19 @@
-import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Login as styles } from "../../assets/jss/styles";
+import * as React from 'react';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { Login as styles } from '../../assets/jss/styles';
 
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import ForgotPassword from "./ForgotPassword";
-import GoogleLogin from "./GoogleLogin";
-import FacebookLogin from "./FacebookLogin";
-import auth from "../../modules/auth";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import ForgotPassword from './ForgotPassword';
+import GoogleLogin from './GoogleLogin';
+import FacebookLogin from './FacebookLogin';
+import auth from '../../modules/auth';
 
 interface Props extends WithStyles<typeof styles> {
   onComplete: () => void;
@@ -27,25 +27,28 @@ interface State {
 
 class LoginForm extends React.Component<Props, State> {
   state = {
-    email: "",
-    password: "",
-    error: ""
+    email: '',
+    password: '',
+    error: ''
   };
 
   handleChange = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
-    this.setState({[target.name]: target.value} as any);
-  }
+    this.setState({ [target.name]: target.value } as any);
+  };
 
   handleSubmit = (ev: React.FormEvent<EventTarget>) => {
     ev.preventDefault();
 
-    auth.login(this.state.email, this.state.password).then(() => {
-      this.props.onComplete();
-    }).catch((error) => {
-      this.setState({error});
-    });
-  }
+    auth
+      .login(this.state.email, this.state.password)
+      .then(() => {
+        this.props.onComplete();
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  };
 
   render() {
     const { classes } = this.props;

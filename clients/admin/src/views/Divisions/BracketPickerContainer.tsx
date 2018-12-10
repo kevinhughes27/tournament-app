@@ -1,8 +1,8 @@
-import * as React from "react";
-import { query } from "../../queries/BracketPickerQuery";
-import renderQuery from "../../helpers/renderQuery";
-import BracketPicker from "./BracketPicker";
-import BracketLoader from "./BracketLoader";
+import * as React from 'react';
+import { query } from '../../queries/BracketPickerQuery';
+import renderQuery from '../../helpers/renderQuery';
+import BracketPicker from './BracketPicker';
+import BracketLoader from './BracketLoader';
 
 interface Props {
   numTeams: number;
@@ -20,7 +20,10 @@ class BracketPickerContainer extends React.Component<Props> {
     };
 
     if (variables.numTeams && variables.numDays) {
-      return renderQuery(query, variables, BracketPicker, {loader: BracketLoader, props: this.props});
+      return renderQuery(query, variables, BracketPicker, {
+        loader: BracketLoader,
+        props: this.props
+      });
     } else {
       return <BracketLoader />;
     }

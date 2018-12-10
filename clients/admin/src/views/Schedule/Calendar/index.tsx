@@ -1,16 +1,16 @@
-import * as React from "react";
-import moment from "moment";
-import { isEmpty, sortBy, map } from "lodash";
+import * as React from 'react';
+import moment from 'moment';
+import { isEmpty, sortBy, map } from 'lodash';
 
-import XLabels from "./XLabels";
-import YLabels from "./YLabels";
-import FieldColumn from "./FieldColumn";
+import XLabels from './XLabels';
+import YLabels from './YLabels';
+import FieldColumn from './FieldColumn';
 
-import DatePicker from "./DatePicker";
-import SettingsModal from "./SettingsModal";
+import DatePicker from './DatePicker';
+import SettingsModal from './SettingsModal';
 
 interface Props {
-  fields: ScheduleEditorQuery["fields"];
+  fields: ScheduleEditorQuery['fields'];
   games: ScheduledGame[];
 }
 
@@ -23,18 +23,18 @@ class Calendar extends React.Component<Props, State> {
     super(props);
 
     if (!isEmpty(this.props.games)) {
-      const firstGame = sortBy(this.props.games, (g) => moment(g.startTime))[0];
+      const firstGame = sortBy(this.props.games, g => moment(g.startTime))[0];
       const firstDate = moment(firstGame.startTime);
-      this.state = {date: firstDate};
+      this.state = { date: firstDate };
     } else {
       const today = moment();
-      this.state = {date: today};
+      this.state = { date: today };
     }
   }
 
   handleDateChange = (date: moment.Moment) => {
-    this.setState({date});
-  }
+    this.setState({ date });
+  };
 
   render() {
     const fields = this.props.fields;
@@ -45,9 +45,7 @@ class Calendar extends React.Component<Props, State> {
         <XLabels fields={fields} />
         <div className="body">
           <YLabels />
-          <div className="grid">
-            {map(fields, this.renderColumn)}
-          </div>
+          <div className="grid">{map(fields, this.renderColumn)}</div>
         </div>
       </div>
     );
@@ -59,9 +57,9 @@ class Calendar extends React.Component<Props, State> {
     const date = this.state.date;
 
     const style = {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
     };
 
     return (
@@ -74,12 +72,14 @@ class Calendar extends React.Component<Props, State> {
         <SettingsModal onUpdate={() => this.forceUpdate()} />
       </div>
     );
-  }
+  };
 
   renderColumn = (field: any) => {
     const date = this.state.date;
-    const dateStr = date.format("LL");
-    const games = this.props.games.filter((g) => g.field && g.field.id === field.id);
+    const dateStr = date.format('LL');
+    const games = this.props.games.filter(
+      g => g.field && g.field.id === field.id
+    );
 
     return (
       <FieldColumn
@@ -89,7 +89,7 @@ class Calendar extends React.Component<Props, State> {
         games={games}
       />
     );
-  }
+  };
 }
 
 export default Calendar;

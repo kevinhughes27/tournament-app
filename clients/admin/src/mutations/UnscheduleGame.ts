@@ -1,12 +1,12 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise";
-import mutationUpdater from "../helpers/mutationUpdater";
-import { query } from "../queries/ScheduleEditorQuery";
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import mutationUpdater from '../helpers/mutationUpdater';
+import { query } from '../queries/ScheduleEditorQuery';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation UnscheduleGameMutation($input: UnscheduleGameInput!) {
-    unscheduleGame(input:$input) {
+    unscheduleGame(input: $input) {
       game {
         id
         startTime
@@ -42,15 +42,18 @@ const update = mutationUpdater<ScheduleGameMutation>((store, payload) => {
 
 function commit(variables: UnscheduleGameMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables,
-      update
-    }).then(({ data: { unscheduleGame } }) => {
-      resolve(unscheduleGame as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables,
+        update
+      })
+      .then(({ data: { unscheduleGame } }) => {
+        resolve(unscheduleGame as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

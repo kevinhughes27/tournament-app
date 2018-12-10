@@ -5,19 +5,19 @@
  *
  */
 
-import * as Leaflet from "leaflet";
-import { clone, uniqWith, isEqual } from "lodash";
+import * as Leaflet from 'leaflet';
+import { clone, uniqWith, isEqual } from 'lodash';
 
 const threshold = 12; // degrees within right or straight to alter
-const lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
-const upperThreshold = Math.cos(threshold * Math.PI / 180);
-const corner = {i: 0, dotp: 1};
+const lowerThreshold = Math.cos(((90 - threshold) * Math.PI) / 180);
+const upperThreshold = Math.cos((threshold * Math.PI) / 180);
+const corner = { i: 0, dotp: 1 };
 const maxIterations = 1000;
 const epsilon = 1e-9;
 
 interface GeoJson {
   geometry: {
-    coordinates: Coordinate[][]
+    coordinates: Coordinate[][];
   };
 }
 
@@ -26,7 +26,7 @@ type Coordinate = number[];
 export default (geojson: GeoJson, map: Leaflet.Map) => {
   const coordinates = uniqWith(geojson.geometry.coordinates[0], isEqual);
 
-  const points = coordinates.map((p) => project(p, map));
+  const points = coordinates.map(p => project(p, map));
 
   let newPoints = clone(points);
   let score = Infinity;
@@ -50,13 +50,13 @@ export default (geojson: GeoJson, map: Leaflet.Map) => {
     }
   }
 
-  const newCoordinates = newPoints.map((p) => unproject(p, map));
+  const newCoordinates = newPoints.map(p => unproject(p, map));
 
   return {
-    type: "Feature",
+    type: 'Feature',
     properties: {},
     geometry: {
-      type: "Polygon",
+      type: 'Polygon',
       coordinates: [newCoordinates]
     }
   };
@@ -106,7 +106,14 @@ function squareness(points: Coordinate[]) {
     let dotp = normalizedDotProduct(i, array);
 
     dotp = filterDotProduct(dotp);
-    return sum + 2.0 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1)));
+    return (
+      sum +
+      2.0 *
+        Math.min(
+          Math.abs(dotp - 1.0),
+          Math.min(Math.abs(dotp), Math.abs(dotp + 1))
+        )
+    );
   }, 0);
 }
 
@@ -158,5 +165,5 @@ function filterDotProduct(dotp: number) {
 function geoVecLength(a: Coordinate, b: Coordinate) {
   const x = a[0] - b[0];
   const y = a[1] - b[1];
-  return Math.sqrt((x * x) + (y * y));
+  return Math.sqrt(x * x + y * y);
 }

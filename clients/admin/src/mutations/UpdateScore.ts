@@ -1,12 +1,12 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise";
-import mutationUpdater from "../helpers/mutationUpdater";
-import { query } from "../queries/GamesListQuery";
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import mutationUpdater from '../helpers/mutationUpdater';
+import { query } from '../queries/GamesListQuery';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation UpdateScoreMutation($input: UpdateScoreInput!) {
-    updateScore(input:$input) {
+    updateScore(input: $input) {
       game {
         id
         homeScore
@@ -40,15 +40,18 @@ const update = mutationUpdater<UpdateScoreMutation>((store, payload) => {
 
 function commit(variables: UpdateScoreMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables,
-      update
-    }).then(({ data: { updateScore } }) => {
-      resolve(updateScore as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables,
+        update
+      })
+      .then(({ data: { updateScore } }) => {
+        resolve(updateScore as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

@@ -1,7 +1,7 @@
-import * as React from "react";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import SpiritScore from "./SpiritScore";
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import SpiritScore from './SpiritScore';
 
 interface Props {
   report: GameListQuery_games_scoreReports;
@@ -10,9 +10,9 @@ interface Props {
 class ScoreReport extends React.Component<Props> {
   render() {
     const report = this.props.report;
-    const comments = report.comments && `"${report.comments}"`
+    const comments = report.comments && `"${report.comments}"`;
 
-    return(
+    return (
       <div className="score-report">
         <div>
           <Paper className="score-card">
@@ -22,11 +22,15 @@ class ScoreReport extends React.Component<Props> {
         </div>
         <div>
           <Typography variant="subtitle2">{comments}</Typography>
-          <Typography variant="caption">{`Submitted by: ${report.submittedBy}`}</Typography>
-          <Typography variant="caption">{`Device ID: ${report.submitterFingerprint}`}</Typography>
+          <Typography variant="caption">{`Submitted by: ${
+            report.submittedBy
+          }`}</Typography>
+          <Typography variant="caption">{`Device ID: ${
+            report.submitterFingerprint
+          }`}</Typography>
         </div>
       </div>
-    )
+    );
   }
 }
 

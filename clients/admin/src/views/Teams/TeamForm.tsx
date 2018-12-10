@@ -1,18 +1,18 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { FormikValues, FormikProps, FormikErrors } from "formik";
-import * as EmailValidator from "email-validator";
-import { isEmpty } from "lodash";
+import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { FormikValues, FormikProps, FormikErrors } from 'formik';
+import * as EmailValidator from 'email-validator';
+import { isEmpty } from 'lodash';
 
-import TextField from "@material-ui/core/TextField";
-import DivisionPicker from "./DivisionPicker";
-import FormButtons from "../../components/FormButtons";
+import TextField from '@material-ui/core/TextField';
+import DivisionPicker from './DivisionPicker';
+import FormButtons from '../../components/FormButtons';
 
-import Form from "../../components/Form";
-import runMutation from "../../helpers/runMutation";
-import UpdateTeamMutation from "../../mutations/UpdateTeam";
-import CreateTeamMutation from "../../mutations/CreateTeam";
-import DeleteTeamMutation from "../../mutations/DeleteTeam";
+import Form from '../../components/Form';
+import runMutation from '../../helpers/runMutation';
+import UpdateTeamMutation from '../../mutations/UpdateTeam';
+import CreateTeamMutation from '../../mutations/CreateTeam';
+import DeleteTeamMutation from '../../mutations/DeleteTeam';
 
 interface Props extends RouteComponentProps<any> {
   input: UpdateTeamInput & CreateTeamInput;
@@ -25,35 +25,35 @@ class TeamForm extends Form<Props> {
 
     return {
       name: input.name,
-      email: input.email || "",
-      divisionId: input.divisionId || "",
-      seed: input.seed || ""
+      email: input.email || '',
+      divisionId: input.divisionId || '',
+      seed: input.seed || ''
     };
-  }
+  };
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
 
     if (!values.name) {
-      errors.name = "Required";
+      errors.name = 'Required';
     }
 
     if (values.email && !EmailValidator.validate(values.email)) {
-      errors.email = "Invalid email address";
+      errors.email = 'Invalid email address';
     }
 
     if (!values.divisionId) {
-      errors.divisionId = "Required";
+      errors.divisionId = 'Required';
     }
 
     if (!values.seed) {
-      errors.seed = "Required";
+      errors.seed = 'Required';
     } else if (values.seed <= 0) {
-      errors.seed = "Invalid seed";
+      errors.seed = 'Invalid seed';
     }
 
     return errors;
-  }
+  };
 
   mutation = () => {
     const teamId = this.props.input.id;
@@ -63,17 +63,17 @@ class TeamForm extends Form<Props> {
     } else {
       return CreateTeamMutation;
     }
-  }
+  };
 
   mutationInput = (values: FormikValues) => {
     const teamId = this.props.input.id;
 
     if (teamId) {
-      return {input: {id: teamId, ...values}};
+      return { input: { id: teamId, ...values } };
     } else {
-      return {input: values};
+      return { input: values };
     }
-  }
+  };
 
   delete = () => {
     const teamId = this.props.input.id;
@@ -82,18 +82,18 @@ class TeamForm extends Form<Props> {
       return () => {
         runMutation(
           DeleteTeamMutation,
-          {input: {id: teamId}},
-          {complete: this.deleteComplete}
+          { input: { id: teamId } },
+          { complete: this.deleteComplete }
         );
       };
     } else {
       return undefined;
     }
-  }
+  };
 
   deleteComplete = () => {
-    this.props.history.push("/teams");
-  }
+    this.props.history.push('/teams');
+  };
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
     const { divisions } = this.props;
@@ -149,12 +149,12 @@ class TeamForm extends Form<Props> {
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
-          cancelLink={"/teams"}
+          cancelLink={'/teams'}
           delete={this.delete()}
         />
       </form>
     );
-  }
+  };
 }
 
 export default withRouter(TeamForm);

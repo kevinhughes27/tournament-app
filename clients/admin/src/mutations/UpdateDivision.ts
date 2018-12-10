@@ -1,10 +1,10 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise"
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation UpdateDivisionMutation($input: UpdateDivisionInput!) {
-    updateDivision(input:$input) {
+    updateDivision(input: $input) {
       division {
         id
         name
@@ -31,15 +31,18 @@ const update = () => {
 
 function commit(variables: UpdateDivisionMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables,
-      update
-    }).then(({ data: { updateDivision } }) => {
-      resolve(updateDivision as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables,
+        update
+      })
+      .then(({ data: { updateDivision } }) => {
+        resolve(updateDivision as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

@@ -1,13 +1,13 @@
-import * as React from "react";
-import { withStyles, WithStyles } from "@material-ui/core";
-import { ErrorBanner as styles } from "../assets/jss/styles";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-import WarningIcon from "@material-ui/icons/Warning";
+import * as React from 'react';
+import { withStyles, WithStyles } from '@material-ui/core';
+import { ErrorBanner as styles } from '../assets/jss/styles';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import WarningIcon from '@material-ui/icons/Warning';
 
 let showErrorsFn: (message: string) => void;
 let hideErrorsFn: () => void;
 
-interface Props  extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {}
 
 interface State {
   show: boolean;
@@ -17,7 +17,7 @@ interface State {
 class Warning extends React.Component<Props, State> {
   state = {
     show: false,
-    message: ""
+    message: ''
   };
 
   componentDidMount() {
@@ -32,14 +32,14 @@ class Warning extends React.Component<Props, State> {
         message
       });
     }
-  }
+  };
 
   handleHide = () => {
     this.setState({
       show: false,
-      message: "",
+      message: ''
     });
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -49,10 +49,12 @@ class Warning extends React.Component<Props, State> {
       return (
         <SnackbarContent
           className={classes.warning}
-          message={<span className={classes.message}>
-            <WarningIcon className={classes.icon}/>
-            <span>{message}</span>
-          </span>}
+          message={
+            <span className={classes.message}>
+              <WarningIcon className={classes.icon} />
+              <span>{message}</span>
+            </span>
+          }
         />
       );
     } else {

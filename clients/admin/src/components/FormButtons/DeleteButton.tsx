@@ -1,9 +1,9 @@
-import * as React from "react";
-import { FormButtons as styles } from "../../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import TrashIcon from "@material-ui/icons/Delete";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import * as React from 'react';
+import { FormButtons as styles } from '../../assets/jss/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TrashIcon from '@material-ui/icons/Delete';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface Props extends WithStyles<typeof styles> {
   onClick?: () => void;
@@ -21,7 +21,7 @@ class DeleteButton extends React.Component<Props> {
         color="secondary"
         onClick={this.props.onClick}
         className={classes.deleteButton}
-        classes={{disabled: classes.disabled}}
+        classes={{ disabled: classes.disabled }}
         disabled={disabled || submitting}
       >
         {this.buttonContent()}
@@ -37,7 +37,7 @@ class DeleteButton extends React.Component<Props> {
     } else {
       return <TrashIcon />;
     }
-  }
+  };
 }
 
 export default withStyles(styles)(DeleteButton);

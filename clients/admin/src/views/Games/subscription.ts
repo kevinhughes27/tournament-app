@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export default {
   document: gql`
@@ -33,7 +33,7 @@ export default {
 
     const updatedGame = subscriptionData.data.gameUpdated;
     const gameIdx = prev.games.findIndex((g: GameListQuery_games) => {
-      return g.id === updatedGame.id
+      return g.id === updatedGame.id;
     });
 
     Object.assign(prev.games[gameIdx], updatedGame);
@@ -41,5 +41,5 @@ export default {
     return {
       games: prev.games
     };
-  },
-}
+  }
+};

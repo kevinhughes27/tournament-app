@@ -1,8 +1,8 @@
-import * as React from "react";
-import { FormButtons as styles } from "../../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import { FormButtons as styles } from '../../assets/jss/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 interface Props extends WithStyles<typeof styles> {
   onClick?: () => void;
@@ -21,7 +21,7 @@ class CancelButton extends React.Component<Props> {
           color="secondary"
           onClick={this.props.onClick}
           className={classes.cancelButton}
-          classes={{disabled: classes.disabled}}
+          classes={{ disabled: classes.disabled }}
           disabled={disabled}
         >
           Cancel
@@ -33,7 +33,7 @@ class CancelButton extends React.Component<Props> {
           variant="contained"
           color="secondary"
           className={classes.cancelButton}
-          classes={{disabled: classes.disabled}}
+          classes={{ disabled: classes.disabled }}
           disabled={disabled}
         >
           <Link to={this.props.link} className={classes.cancelLink}>

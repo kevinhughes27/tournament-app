@@ -1,12 +1,12 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise"
-import mutationUpdater from "../helpers/mutationUpdater";
-import { query } from "../queries/TeamListQuery";
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import mutationUpdater from '../helpers/mutationUpdater';
+import { query } from '../queries/TeamListQuery';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation CreateTeamMutation($input: CreateTeamInput!) {
-    createTeam(input:$input) {
+    createTeam(input: $input) {
       team {
         id
         name
@@ -29,11 +29,11 @@ const mutation = gql`
 
 const safeReadQuery = (store: any, query: any) => {
   try {
-    return store.readQuery({ query })
+    return store.readQuery({ query });
   } catch {
-    return null
+    return null;
   }
-}
+};
 
 const update = mutationUpdater<CreateTeamMutation>((store, payload) => {
   const data = safeReadQuery(store, query);
@@ -47,15 +47,18 @@ const update = mutationUpdater<CreateTeamMutation>((store, payload) => {
 
 function commit(variables: CreateTeamMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables,
-      update
-    }).then(({ data: { createTeam } }) => {
-      resolve(createTeam as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables,
+        update
+      })
+      .then(({ data: { createTeam } }) => {
+        resolve(createTeam as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

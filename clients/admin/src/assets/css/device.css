@@ -10,15 +10,15 @@
   display: block;
   width: 360px;
   height: 686px;
-  font-family: "Helvetica Neue", sans-serif;
-  background-image: url("../images/device-sprite.png");
+  font-family: 'Helvetica Neue', sans-serif;
+  background-image: url('../images/device-sprite.png');
   background-repeat: no-repeat;
   background-position: -720px -38px;
   -webkit-background-size: 300% 300%;
-    background-size: 300%;
-  -webkit-transition: background-image .1s linear;
-  -o-transition: background-image .1s linear;
-    transition: background-image .1s linear;
+  background-size: 300%;
+  -webkit-transition: background-image 0.1s linear;
+  -o-transition: background-image 0.1s linear;
+  transition: background-image 0.1s linear;
 }
 
 .device-content {

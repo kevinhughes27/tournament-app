@@ -1,10 +1,10 @@
-import * as React from "react";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import Modal from "../../components/Modal";
-import ScoreForm from "./ScoreForm";
-import ScoreReport from "./ScoreReport";
-import ReportsBadge from "./ReportsBadge";
+import * as React from 'react';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import Modal from '../../components/Modal';
+import ScoreForm from './ScoreForm';
+import ScoreReport from './ScoreReport';
+import ReportsBadge from './ReportsBadge';
 
 interface Props {
   game: GameListQuery_games;
@@ -21,19 +21,19 @@ class GameListItem extends React.Component<Props> {
 
   handleClick = () => {
     if (!this.state.open) {
-      this.setState({open: true});
+      this.setState({ open: true });
     }
-  }
+  };
 
   handleClose = () => {
     if (this.state.open) {
-      this.setState({open: false});
+      this.setState({ open: false });
     }
-  }
+  };
 
   render() {
     const { game } = this.props;
-    const gameName = `${game.homeName} vs ${game.awayName}`
+    const gameName = `${game.homeName} vs ${game.awayName}`;
 
     return (
       <TableRow hover onClick={this.handleClick}>
@@ -51,7 +51,7 @@ class GameListItem extends React.Component<Props> {
     const reportCount = (game.scoreReports || []).length;
 
     if (game.homeScore && game.awayScore) {
-      return(
+      return (
         <TableCell>
           <ReportsBadge count={reportCount} disputed={game.scoreDisputed}>
             {game.homeScore} - {game.awayScore}
@@ -59,13 +59,13 @@ class GameListItem extends React.Component<Props> {
         </TableCell>
       );
     } else {
-      return <TableCell></TableCell>
+      return <TableCell />;
     }
-  }
+  };
 
   renderModal = () => {
     const { game } = this.props;
-    const gameName = `${game.homeName} vs ${game.awayName}`
+    const gameName = `${game.homeName} vs ${game.awayName}`;
 
     const input = {
       gameId: game.id,
@@ -74,22 +74,24 @@ class GameListItem extends React.Component<Props> {
     };
 
     if (game.hasTeams) {
-      return(
+      return (
         <Modal
           open={this.state.open}
           onClose={this.handleClose}
           title={gameName}
         >
           <ScoreForm input={input} cancel={this.handleClose} />
-          <div style={{paddingBottom: 24}}>
-            {game.scoreReports!.map((r) => <ScoreReport key={r.id} report={r}/>)}
+          <div style={{ paddingBottom: 24 }}>
+            {game.scoreReports!.map(r => (
+              <ScoreReport key={r.id} report={r} />
+            ))}
           </div>
         </Modal>
       );
     } else {
       return null;
     }
-  }
+  };
 }
 
 export default GameListItem;

@@ -1,20 +1,21 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { FormikValues, FormikProps, FormikErrors } from "formik";
-import { isEmpty } from "lodash";
+import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { FormikValues, FormikProps, FormikErrors } from 'formik';
+import { isEmpty } from 'lodash';
 
-import TextField from "@material-ui/core/TextField";
-import BracketPicker from "./BracketPickerContainer";
-import FormButtons from "../../components/FormButtons";
+import TextField from '@material-ui/core/TextField';
+import BracketPicker from './BracketPickerContainer';
+import FormButtons from '../../components/FormButtons';
 
-import Form from "../../components/Form";
-import runMutation from "../../helpers/runMutation";
-import CreateDivisionMutation from "../../mutations/CreateDivision";
-import UpdateDivisionMutation from "../../mutations/UpdateDivision";
-import DeleteDivisionMutation from "../../mutations/DeleteDivision";
+import Form from '../../components/Form';
+import runMutation from '../../helpers/runMutation';
+import CreateDivisionMutation from '../../mutations/CreateDivision';
+import UpdateDivisionMutation from '../../mutations/UpdateDivision';
+import DeleteDivisionMutation from '../../mutations/DeleteDivision';
 
 interface Props extends RouteComponentProps<any> {
-  input: UpdateDivisionMutationVariables["input"] & CreateDivisionMutationVariables["input"];
+  input: UpdateDivisionMutationVariables['input'] &
+    CreateDivisionMutationVariables['input'];
   cancelPath: string;
 }
 
@@ -24,27 +25,27 @@ class DivisionForm extends Form<Props> {
       name: this.props.input.name,
       numTeams: this.props.input.numTeams,
       numDays: this.props.input.numDays,
-      bracketType: this.props.input.bracketType,
+      bracketType: this.props.input.bracketType
     };
-  }
+  };
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
 
     if (!values.name) {
-      errors.name = "Required";
+      errors.name = 'Required';
     }
 
     if (values.numTeams && values.numTeams <= 0) {
-      errors.numTeams = "Must be greater than 0";
+      errors.numTeams = 'Must be greater than 0';
     }
 
     if (values.numDays && values.numDays <= 0) {
-      errors.numDays = "Must be greater than 0";
+      errors.numDays = 'Must be greater than 0';
     }
 
     return errors;
-  }
+  };
 
   mutation = () => {
     const divisionId = this.props.input.id;
@@ -54,37 +55,37 @@ class DivisionForm extends Form<Props> {
     } else {
       return CreateDivisionMutation;
     }
-  }
+  };
 
   mutationInput = (values: FormikValues) => {
     const divisionId = this.props.input.id;
 
     if (divisionId) {
-      return {input: {id: divisionId, ...values}};
+      return { input: { id: divisionId, ...values } };
     } else {
-      return {input: {...values}};
+      return { input: { ...values } };
     }
-  }
+  };
 
   delete = () => {
     const divisionId = this.props.input.id;
 
     if (divisionId) {
       return () => {
-          runMutation(
+        runMutation(
           DeleteDivisionMutation,
-          {input: {id: divisionId}},
-          {complete: this.deleteComplete}
+          { input: { id: divisionId } },
+          { complete: this.deleteComplete }
         );
       };
     } else {
       return undefined;
     }
-  }
+  };
 
   deleteComplete = () => {
-    this.props.history.push("/divisions");
-  }
+    this.props.history.push('/divisions');
+  };
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
     const {
@@ -147,7 +148,7 @@ class DivisionForm extends Form<Props> {
         />
       </form>
     );
-  }
+  };
 }
 
 export default withRouter(DivisionForm);

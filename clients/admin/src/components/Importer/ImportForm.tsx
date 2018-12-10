@@ -1,10 +1,10 @@
-import * as React from "react";
-import csv from "csv";
-import { Formik, FormikValues, FormikProps, FormikActions } from "formik";
-import { isEqual } from "lodash";
-import fileDownload from "react-file-download";
-import FileInput from "../FileInput";
-import FormButtons from "../FormButtons";
+import * as React from 'react';
+import csv from 'csv';
+import { Formik, FormikValues, FormikProps, FormikActions } from 'formik';
+import { isEqual } from 'lodash';
+import fileDownload from 'react-file-download';
+import FileInput from '../FileInput';
+import FormButtons from '../FormButtons';
 
 interface Props {
   csvHeader: string[];
@@ -21,7 +21,7 @@ interface State {
 
 const defaultState = {
   data: [],
-  error: ""
+  error: ''
 };
 
 class ImportForm extends React.Component<Props, State> {
@@ -29,9 +29,9 @@ class ImportForm extends React.Component<Props, State> {
 
   initialValues = () => {
     return {
-      csvFile: ""
+      csvFile: ''
     };
-  }
+  };
 
   fileChanged = async (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState(defaultState);
@@ -43,24 +43,24 @@ class ImportForm extends React.Component<Props, State> {
       const csvData = await this.uploadCSV(file);
       this.validateCSV(csvData);
     }
-  }
+  };
 
   uploadCSV = (file: File) => {
     const reader = new FileReader();
 
-    return new Promise<string>((resolve) => {
+    return new Promise<string>(resolve => {
       reader.onload = () => {
         resolve(reader.result as string);
       };
 
       reader.readAsText(file);
     });
-  }
+  };
 
   validateCSV = (csvData: string) => {
     csv.parse(csvData, (err: string, data: string[][]) => {
       if (err) {
-        this.setState({error: "Invalid CSV file"});
+        this.setState({ error: 'Invalid CSV file' });
         return;
       }
 
@@ -68,22 +68,22 @@ class ImportForm extends React.Component<Props, State> {
       const rows = data.slice(1);
 
       if (!isEqual(header, this.props.csvHeader)) {
-        this.setState({error: "Invalid CSV Columns"});
+        this.setState({ error: 'Invalid CSV Columns' });
         return;
       }
 
-      this.setState({data: rows});
+      this.setState({ data: rows });
     });
-  }
+  };
 
-  onSubmit = ({}: FormikValues, actions: FormikActions<FormikValues>) => {
+  onSubmit = ({  }: FormikValues, actions: FormikActions<FormikValues>) => {
     actions.resetForm();
     this.props.startImport(this.state.data);
-  }
+  };
 
   downloadSampleCSV = () => {
     fileDownload(this.props.csvHeader, `${this.props.object}.csv`);
-  }
+  };
 
   render() {
     return (
@@ -96,12 +96,7 @@ class ImportForm extends React.Component<Props, State> {
   }
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
-    const {
-      values,
-      handleChange,
-      handleSubmit,
-      isSubmitting,
-    } = formProps;
+    const { values, handleChange, handleSubmit, isSubmitting } = formProps;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -110,7 +105,7 @@ class ImportForm extends React.Component<Props, State> {
           value={values.csvFile}
           accept=".csv"
           buttonText="CSV File"
-          onChange={(ev) => {
+          onChange={ev => {
             handleChange(ev);
             this.fileChanged(ev);
           }}
@@ -118,8 +113,10 @@ class ImportForm extends React.Component<Props, State> {
         <p>{this.state.error}</p>
 
         <p>
-          <a href="#" onClick={this.downloadSampleCSV}>Download</a> a sample
-          CSV template to see an example of the required format.
+          <a href="#" onClick={this.downloadSampleCSV}>
+            Download
+          </a>{' '}
+          a sample CSV template to see an example of the required format.
         </p>
 
         <FormButtons
@@ -131,7 +128,7 @@ class ImportForm extends React.Component<Props, State> {
         />
       </form>
     );
-  }
+  };
 }
 
 export default ImportForm;

@@ -1,6 +1,6 @@
-import * as React from "react";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import NavItems from "./NavItems";
+import * as React from 'react';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import NavItems from './NavItems';
 
 interface Props {
   open: boolean;

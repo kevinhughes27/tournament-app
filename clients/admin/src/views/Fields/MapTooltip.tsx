@@ -1,15 +1,21 @@
-import * as React from "react";
-import { Theme, createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
-import Tooltip from "@material-ui/core/Tooltip";
+import * as React from 'react';
+import {
+  Theme,
+  createStyles,
+  WithStyles,
+  withStyles
+} from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
-const styles = (theme: Theme) => createStyles({
-  lightTooltip: {
-    background: theme.palette.common.white,
-    color: theme.palette.text.primary,
-    boxShadow: theme.shadows[1],
-    fontSize: 11,
-  }
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    lightTooltip: {
+      background: theme.palette.common.white,
+      color: theme.palette.text.primary,
+      boxShadow: theme.shadows[1],
+      fontSize: 11
+    }
+  });
 
 interface Props extends WithStyles<typeof styles> {
   text: string;

@@ -1,6 +1,6 @@
-import * as React from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import DivisionForm from "./DivisionForm";
+import * as React from 'react';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import DivisionForm from './DivisionForm';
 
 interface Props {
   division: DivisionEditQuery_division;
@@ -22,12 +22,12 @@ class DivisionEdit extends React.Component<Props> {
       <>
         <Breadcrumbs
           items={[
-            {link: "/divisions", text: "Divisions"},
-            {link: `/divisions/${division.id}`, text: division.name},
-            {text: "Edit"}
+            { link: '/divisions', text: 'Divisions' },
+            { link: `/divisions/${division.id}`, text: division.name },
+            { text: 'Edit' }
           ]}
         />
-        <DivisionForm input={input} cancelPath={`/divisions/${division.id}`}/>
+        <DivisionForm input={input} cancelPath={`/divisions/${division.id}`} />
       </>
     );
   }

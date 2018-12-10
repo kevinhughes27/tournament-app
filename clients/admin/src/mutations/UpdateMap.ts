@@ -1,10 +1,10 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise"
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation UpdateMapMutation($input: UpdateMapInput!) {
-    updateMap(input:$input) {
+    updateMap(input: $input) {
       success
       message
     }
@@ -13,14 +13,17 @@ const mutation = gql`
 
 function commit(variables: UpdateMapMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables
-    }).then(({ data: { updateMap } }) => {
-      resolve(updateMap as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables
+      })
+      .then(({ data: { updateMap } }) => {
+        resolve(updateMap as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

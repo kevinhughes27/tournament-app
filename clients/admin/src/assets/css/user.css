@@ -19,7 +19,7 @@
 }
 .user-email .user-image span {
   position: absolute;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   display: block;
   width: 100%;
   left: 0;
@@ -39,7 +39,7 @@
 }
 .extra-wrap {
   overflow: hidden;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   padding-top: 20px;
 }
 .extra-wrap div {

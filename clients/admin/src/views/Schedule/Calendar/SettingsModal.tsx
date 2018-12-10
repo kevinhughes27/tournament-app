@@ -1,12 +1,18 @@
-import * as React from "react";
-import { Formik, FormikValues, FormikProps, FormikErrors, FormikActions } from "formik";
-import { isEmpty } from "lodash";
+import * as React from 'react';
+import {
+  Formik,
+  FormikValues,
+  FormikProps,
+  FormikErrors,
+  FormikActions
+} from 'formik';
+import { isEmpty } from 'lodash';
 
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Modal from "../../../components/Modal";
-import FormButtons from "../../../components/FormButtons";
-import Settings from "./Settings";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Modal from '../../../components/Modal';
+import FormButtons from '../../../components/FormButtons';
+import Settings from './Settings';
 
 interface Props {
   onUpdate: () => void;
@@ -14,16 +20,16 @@ interface Props {
 
 class SettingsModal extends React.Component<Props> {
   state = {
-    open: false,
+    open: false
   };
 
   handleOpen = () => {
     this.setState({ open: true });
-  }
+  };
 
   handleClose = () => {
     this.setState({ open: false });
-  }
+  };
 
   initialValues = () => {
     return {
@@ -32,37 +38,37 @@ class SettingsModal extends React.Component<Props> {
       scheduleInc: Settings.scheduleInc,
       defaultGameLength: Settings.defaultGameLength
     };
-  }
+  };
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
 
     if (!values.scheduleStart) {
-      errors.scheduleStart = "Required";
+      errors.scheduleStart = 'Required';
     } else if (values.scheduleStart <= 0) {
-      errors.scheduleStart = "Invalid Entry";
+      errors.scheduleStart = 'Invalid Entry';
     }
 
     if (!values.scheduleEnd) {
-      errors.scheduleEnd = "Required";
+      errors.scheduleEnd = 'Required';
     } else if (values.scheduleEnd <= 0) {
-      errors.scheduleEnd = "Invalid Entry";
+      errors.scheduleEnd = 'Invalid Entry';
     }
 
     if (!values.scheduleInc) {
-      errors.scheduleInc = "Required";
+      errors.scheduleInc = 'Required';
     } else if (values.scheduleInc <= 0) {
-      errors.scheduleInc = "Invalid Entry";
+      errors.scheduleInc = 'Invalid Entry';
     }
 
     if (!values.defaultGameLength) {
-      errors.defaultGameLength = "Required";
+      errors.defaultGameLength = 'Required';
     } else if (values.defaultGameLength <= 0) {
-      errors.defaultGameLength = "Invalid Entry";
+      errors.defaultGameLength = 'Invalid Entry';
     }
 
     return errors;
-  }
+  };
 
   onSubmit = (values: FormikValues, actions: FormikActions<FormikValues>) => {
     Settings.update(values);
@@ -73,7 +79,7 @@ class SettingsModal extends React.Component<Props> {
 
     actions.resetForm();
     actions.setSubmitting(false);
-  }
+  };
 
   render() {
     return (
@@ -102,7 +108,7 @@ class SettingsModal extends React.Component<Props> {
       errors,
       handleChange,
       handleSubmit,
-      isSubmitting,
+      isSubmitting
     } = formProps;
 
     return (
@@ -160,7 +166,7 @@ class SettingsModal extends React.Component<Props> {
         />
       </form>
     );
-  }
+  };
 }
 
 export default SettingsModal;

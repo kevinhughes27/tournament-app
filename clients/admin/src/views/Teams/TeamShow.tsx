@@ -1,6 +1,6 @@
-import * as React from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import TeamForm from "./TeamForm";
+import * as React from 'react';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import TeamForm from './TeamForm';
 
 interface Props {
   team: TeamShowQuery['team'];
@@ -19,12 +19,9 @@ class TeamShow extends React.Component<Props> {
     return (
       <>
         <Breadcrumbs
-          items={[
-            {link: "/teams", text: "Teams"},
-            {text: team.name}
-          ]}
+          items={[{ link: '/teams', text: 'Teams' }, { text: team.name }]}
         />
-        <TeamForm input={input} divisions={divisions}/>
+        <TeamForm input={input} divisions={divisions} />
       </>
     );
   }

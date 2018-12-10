@@ -1,10 +1,10 @@
-import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import FormButtons from "../../components/FormButtons";
-import Seeds from "./Seeds";
-import runMutation from "../../helpers/runMutation";
-import SeedDivision from "../../mutations/SeedDivision";
+import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import FormButtons from '../../components/FormButtons';
+import Seeds from './Seeds';
+import runMutation from '../../helpers/runMutation';
+import SeedDivision from '../../mutations/SeedDivision';
 
 interface Props extends RouteComponentProps<{}> {
   division: DivisionSeedQuery_division;
@@ -20,17 +20,13 @@ class DivisionSeed extends React.Component<Props, State> {
   };
 
   submit = () => {
-    this.setState({submitting: true});
+    this.setState({ submitting: true });
 
-    runMutation(
-      SeedDivision,
-      this.seedInput(),
-      {
-        complete: this.seedComplete,
-        failed: this.seedFailed
-      }
-    );
-  }
+    runMutation(SeedDivision, this.seedInput(), {
+      complete: this.seedComplete,
+      failed: this.seedFailed
+    });
+  };
 
   seedInput = () => {
     const division = this.props.division;
@@ -38,19 +34,19 @@ class DivisionSeed extends React.Component<Props, State> {
     return {
       input: {
         divisionId: division.id,
-        teamIds: division.teams.map((t) => t.id),
-        seeds: division.teams.map((t) => t.seed),
+        teamIds: division.teams.map(t => t.id),
+        seeds: division.teams.map(t => t.seed)
       }
     };
-  }
+  };
 
   seedComplete = () => {
     this.props.history.push(`/divisions/${this.props.division.id}`);
-  }
+  };
 
   seedFailed = () => {
-    this.setState({submitting: false});
-  }
+    this.setState({ submitting: false });
+  };
 
   render() {
     const division = this.props.division;
@@ -59,9 +55,9 @@ class DivisionSeed extends React.Component<Props, State> {
       <>
         <Breadcrumbs
           items={[
-            {link: "/divisions", text: "Divisions"},
-            {link: `/divisions/${division.id}`, text: division.name},
-            {text: "Seed"}
+            { link: '/divisions', text: 'Divisions' },
+            { link: `/divisions/${division.id}`, text: division.name },
+            { text: 'Seed' }
           ]}
         />
         <Seeds teams={division.teams} />

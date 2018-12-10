@@ -1,23 +1,23 @@
-import * as React from "react";
-import { ActionMenu as styles } from "../assets/jss/styles";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Zoom from "@material-ui/core/Zoom";
+import * as React from 'react';
+import { ActionMenu as styles } from '../assets/jss/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import Zoom from '@material-ui/core/Zoom';
 
 import Fab from '@material-ui/core/Fab';
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 
-import SpeedDial from "@material-ui/lab/SpeedDial";
-import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 
-const icon = (i: "add" | "edit" | JSX.Element) => {
+const icon = (i: 'add' | 'edit' | JSX.Element) => {
   const icons = {
     add: <AddIcon />,
     edit: <EditIcon />
   };
 
-  if (typeof(i) === "string") {
+  if (typeof i === 'string') {
     return icons[i];
   } else {
     return i;
@@ -25,7 +25,7 @@ const icon = (i: "add" | "edit" | JSX.Element) => {
 };
 
 interface Action {
-  icon: "add" | "edit" | JSX.Element;
+  icon: 'add' | 'edit' | JSX.Element;
   name: string;
   handler: () => void;
 }
@@ -44,36 +44,35 @@ class ActionMenu extends React.Component<Props, State> {
   };
 
   handleOpen = () => {
-    this.setState({open: true});
-  }
+    this.setState({ open: true });
+  };
 
   handleClose = () => {
-    this.setState({open: false});
-  }
+    this.setState({ open: false });
+  };
 
   handleClick = () => {
-    this.setState({open: !this.state.open});
-  }
+    this.setState({ open: !this.state.open });
+  };
 
   render() {
     const { theme, actions } = this.props;
 
     const transitionDuration = {
       enter: theme.transitions.duration.enteringScreen,
-      exit: theme.transitions.duration.leavingScreen,
+      exit: theme.transitions.duration.leavingScreen
     };
 
     return (
       <Zoom
         in={true}
         timeout={transitionDuration}
-        style={{transitionDelay: `${transitionDuration.exit}ms`}}
+        style={{ transitionDelay: `${transitionDuration.exit}ms` }}
         unmountOnExit
       >
         {actions.length > 1
           ? this.renderMenu(actions)
-          : this.renderButton(actions[0])
-        }
+          : this.renderButton(actions[0])}
       </Zoom>
     );
   }
@@ -95,7 +94,7 @@ class ActionMenu extends React.Component<Props, State> {
         onMouseLeave={this.handleClose}
         open={this.state.open}
       >
-        {actions.map((action) => (
+        {actions.map(action => (
           <SpeedDialAction
             key={action.name}
             icon={icon(action.icon)}
@@ -105,7 +104,7 @@ class ActionMenu extends React.Component<Props, State> {
         ))}
       </SpeedDial>
     );
-  }
+  };
 
   renderButton = (action: Action) => {
     const { classes } = this.props;
@@ -121,7 +120,7 @@ class ActionMenu extends React.Component<Props, State> {
         {icon(action.icon)}
       </Fab>
     );
-  }
+  };
 }
 
-export default withStyles(styles, {withTheme: true})(ActionMenu);
+export default withStyles(styles, { withTheme: true })(ActionMenu);

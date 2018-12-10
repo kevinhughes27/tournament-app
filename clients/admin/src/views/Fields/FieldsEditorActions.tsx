@@ -1,12 +1,12 @@
-import * as React from "react";
-import ActionMenu from "../../components/ActionMenu";
-import FormButtons from "../../components/FormButtons";
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
-import ImportIcon from "@material-ui/icons/AddToPhotos";
+import * as React from 'react';
+import ActionMenu from '../../components/ActionMenu';
+import FormButtons from '../../components/FormButtons';
+import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
+import ImportIcon from '@material-ui/icons/AddToPhotos';
 
 interface Props {
-  mode: "none" | "view" | "editMap" | "addField" | "editField";
+  mode: 'none' | 'view' | 'editMap' | 'addField' | 'editField';
   valid: boolean;
   submitting: boolean;
   editMap: () => void;
@@ -29,20 +29,16 @@ class FieldsEditorActions extends React.Component<Props> {
       createField,
       saveField,
       deleteField,
-      cancel,
+      cancel
     } = this.props;
 
-    if (mode === "view") {
+    if (mode === 'view') {
       return this.viewActions();
-    } else if (mode === "editMap") {
+    } else if (mode === 'editMap') {
       return (
-        <FormButtons
-          submitting={submitting}
-          submit={saveMap}
-          cancel={cancel}
-        />
+        <FormButtons submitting={submitting} submit={saveMap} cancel={cancel} />
       );
-    } else if (mode === "addField") {
+    } else if (mode === 'addField') {
       return (
         <FormButtons
           formValid={valid}
@@ -51,7 +47,7 @@ class FieldsEditorActions extends React.Component<Props> {
           cancel={cancel}
         />
       );
-    } else if (mode === "editField") {
+    } else if (mode === 'editField') {
       return (
         <FormButtons
           formValid={valid}
@@ -70,13 +66,13 @@ class FieldsEditorActions extends React.Component<Props> {
     const { editMap, addField, importFields } = this.props;
 
     const actions = [
-      {icon: <EditIcon/>, name: "Edit Map", handler: editMap },
-      {icon: <AddIcon/>, name: "Add Field", handler: addField },
-      {icon: <ImportIcon/>, name: "Import Fields", handler: importFields},
+      { icon: <EditIcon />, name: 'Edit Map', handler: editMap },
+      { icon: <AddIcon />, name: 'Add Field', handler: addField },
+      { icon: <ImportIcon />, name: 'Import Fields', handler: importFields }
     ];
 
-    return <ActionMenu actions={actions}/>;
-  }
+    return <ActionMenu actions={actions} />;
+  };
 }
 
 export default FieldsEditorActions;

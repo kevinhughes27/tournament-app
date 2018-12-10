@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 const GameText = (game: Game, length: number) => {
   if (!game.pool) {
@@ -19,7 +19,9 @@ const BracketText = (game: BracketGame, length: number) => {
     return (
       <div className="game-text-2">
         <strong>{game.bracketUid}</strong>
-        <span>{game.homePrereq} v {game.awayPrereq}</span>
+        <span>
+          {game.homePrereq} v {game.awayPrereq}
+        </span>
       </div>
     );
   }
@@ -36,7 +38,9 @@ const PoolText = (game: PoolGame, length: number) => {
     return (
       <div className="game-text-2">
         <strong>{game.pool}</strong>
-        <span>{game.homePoolSeed} v {game.awayPoolSeed}</span>
+        <span>
+          {game.homePoolSeed} v {game.awayPoolSeed}
+        </span>
       </div>
     );
   }

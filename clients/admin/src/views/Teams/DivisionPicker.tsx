@@ -1,6 +1,6 @@
-import * as React from "react";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
+import * as React from 'react';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 interface Props {
   divisionId: string;
@@ -29,7 +29,7 @@ class DivisionPicker extends React.Component<Props> {
         onChange={this.props.onChange}
         helperText={this.props.helperText}
       >
-        {options.map((option) => Option(option))}
+        {options.map(option => Option(option))}
       </TextField>
     );
   }

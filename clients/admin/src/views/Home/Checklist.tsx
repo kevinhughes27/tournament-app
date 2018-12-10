@@ -1,19 +1,19 @@
-import * as React from "react";
+import * as React from 'react';
 import Stepper from '@material-ui/core/Stepper';
-import Step from "@material-ui/core/Step";
-import StepButton from "@material-ui/core/StepButton";
-import StepContent from "@material-ui/core/StepContent";
-import { isEmpty, sumBy } from "lodash";
-import Plan from "./Plan";
-import Schedule from "./Schedule";
-import Seed from "./Seed";
-import Play from "./Play";
+import Step from '@material-ui/core/Step';
+import StepButton from '@material-ui/core/StepButton';
+import StepContent from '@material-ui/core/StepContent';
+import { isEmpty, sumBy } from 'lodash';
+import Plan from './Plan';
+import Schedule from './Schedule';
+import Seed from './Seed';
+import Play from './Play';
 
 interface Props {
   fields: HomeQuery['fields'];
   teams: HomeQuery['teams'];
   divisions: HomeQuery['divisions'];
-  games:HomeQuery['games'];
+  games: HomeQuery['games'];
   scoreDisputes: HomeQuery['scoreDisputes'];
 }
 
@@ -24,7 +24,7 @@ interface State {
 
 const count = (array: ReadonlyArray<any> | null) => {
   return (array || []).length;
-}
+};
 
 class Checklist extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -33,7 +33,8 @@ class Checklist extends React.Component<Props, State> {
     const { fields, teams, divisions, games } = this.props;
 
     const divisionsAndFields = !isEmpty(divisions) && !isEmpty(fields);
-    const enoughTeams = divisions && sumBy(divisions, "numTeams") === count(teams);
+    const enoughTeams =
+      divisions && sumBy(divisions, 'numTeams') === count(teams);
 
     const completed = new Set([-1]);
 
@@ -41,13 +42,16 @@ class Checklist extends React.Component<Props, State> {
       completed.add(0);
     }
 
-    const scheduleBuilt = games && games.filter((g) => g.scheduled).length === games.length;
+    const scheduleBuilt =
+      games && games.filter(g => g.scheduled).length === games.length;
 
     if (completed.has(0) && scheduleBuilt) {
       completed.add(1);
     }
 
-    const divisionsSeeded = divisions && divisions.filter((d) => d.isSeeded).length === divisions.length
+    const divisionsSeeded =
+      divisions &&
+      divisions.filter(d => d.isSeeded).length === divisions.length;
 
     if (completed.has(1) && divisionsSeeded) {
       completed.add(2);
@@ -64,29 +68,31 @@ class Checklist extends React.Component<Props, State> {
 
   handleStep = (step: number) => () => {
     this.setState({
-      activeStep: step,
+      activeStep: step
     });
-  }
+  };
 
   render() {
     const { activeStep } = this.state;
     const { fields, teams, divisions, games, scoreDisputes } = this.props;
 
-    const maxTeams = sumBy(divisions, "numTeams");
+    const maxTeams = sumBy(divisions, 'numTeams');
 
-    const scheduledGames = games && games.filter((g) => g.scheduled);
+    const scheduledGames = games && games.filter(g => g.scheduled);
 
-    const seededDivisions = divisions && divisions.filter((d) => d.isSeeded);
+    const seededDivisions = divisions && divisions.filter(d => d.isSeeded);
 
-    const scoredGames = games && games.filter((g) => g.scoreConfirmed);
+    const scoredGames = games && games.filter(g => g.scoreConfirmed);
 
-    const missingScores = games && games.filter((g) => {
-      const finished = g.endTime && new Date(g.endTime) < new Date();
-      return finished && !g.scoreConfirmed;
-    });
+    const missingScores =
+      games &&
+      games.filter(g => {
+        const finished = g.endTime && new Date(g.endTime) < new Date();
+        return finished && !g.scoreConfirmed;
+      });
 
     return (
-      <div style={{height: "100%"}}>
+      <div style={{ height: '100%' }}>
         <Stepper nonLinear activeStep={activeStep} orientation="vertical">
           <Step key="plan">
             <StepButton
@@ -136,10 +142,7 @@ class Checklist extends React.Component<Props, State> {
           </Step>
 
           <Step key="play">
-            <StepButton
-              onClick={this.handleStep(3)}
-              completed={false}
-            >
+            <StepButton onClick={this.handleStep(3)} completed={false}>
               Play
             </StepButton>
             <StepContent>

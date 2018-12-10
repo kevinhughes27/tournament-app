@@ -1,5 +1,5 @@
-import * as React from "react";
-import SettingsForm from "./SettingsForm";
+import * as React from 'react';
+import SettingsForm from './SettingsForm';
 
 interface Props {
   settings: SettingsQuery_settings;
@@ -17,9 +17,7 @@ class SettingsEdit extends React.Component<Props> {
       gameConfirmSetting: settings.gameConfirmSetting
     };
 
-    return (
-      <SettingsForm input={input} />
-    );
+    return <SettingsForm input={input} />;
   }
 }
 

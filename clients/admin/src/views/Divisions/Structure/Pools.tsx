@@ -1,6 +1,15 @@
-import * as React from "react";
-import { keys, map, each, filter, groupBy, sortBy, unionWith, isEqual } from "lodash";
-import Pool from "./Pool";
+import * as React from 'react';
+import {
+  keys,
+  map,
+  each,
+  filter,
+  groupBy,
+  sortBy,
+  unionWith,
+  isEqual
+} from 'lodash';
+import Pool from './Pool';
 
 interface Props {
   games: any;
@@ -13,14 +22,16 @@ class Pools extends React.Component<Props> {
     const pools = keys(teams);
 
     return (
-      <div style={{display: "flex", flexWrap: "wrap", justifyContent: "flex-start"}}>
-        { pools.map((pool) =>
-          <Pool
-            key={pool}
-            pool={pool}
-            teams={teams[pool]}
-          />
-        )}
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'flex-start'
+        }}
+      >
+        {pools.map(pool => (
+          <Pool key={pool} pool={pool} teams={teams[pool]} />
+        ))}
       </div>
     );
   }
@@ -29,20 +40,20 @@ class Pools extends React.Component<Props> {
 const teamsByPool = (games: any) => {
   const byPool: any = {};
 
-  const allPoolGames = filter(games, "pool");
-  const gamesByPool = groupBy(allPoolGames, "pool");
+  const allPoolGames = filter(games, 'pool');
+  const gamesByPool = groupBy(allPoolGames, 'pool');
 
   each(gamesByPool, (poolGames, pool) => {
-    const homeTeams = map(poolGames, (g) => {
+    const homeTeams = map(poolGames, g => {
       return { seed: g.homePrereq, name: g.homeName };
     });
 
-    const awayTeams = map(poolGames, (g) => {
+    const awayTeams = map(poolGames, g => {
       return { seed: g.awayPrereq, name: g.awayName };
     });
 
     const teams = unionWith(homeTeams, awayTeams, isEqual);
-    byPool[pool] = sortBy(teams, (t) => t.seed );
+    byPool[pool] = sortBy(teams, t => t.seed);
   });
 
   return byPool;

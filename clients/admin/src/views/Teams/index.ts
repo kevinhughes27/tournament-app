@@ -1,9 +1,5 @@
-import TeamList from "./TeamListContainer";
-import TeamShow from "./TeamShowContainer";
-import TeamNew from "./TeamNewContainer";
+import TeamList from './TeamListContainer';
+import TeamShow from './TeamShowContainer';
+import TeamNew from './TeamNewContainer';
 
-export {
-  TeamList,
-  TeamShow,
-  TeamNew
-};
+export { TeamList, TeamShow, TeamNew };

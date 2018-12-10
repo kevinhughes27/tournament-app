@@ -1,10 +1,10 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise";
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation ChangeUserPasswordMutation($input: ChangeUserPasswordInput!) {
-    changeUserPassword(input:$input) {
+    changeUserPassword(input: $input) {
       success
       message
       userErrors {
@@ -17,14 +17,17 @@ const mutation = gql`
 
 function commit(variables: ChangeUserPasswordMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables
-    }).then(({ data: { changeUserPassword } }) => {
-      resolve(changeUserPassword as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables
+      })
+      .then(({ data: { changeUserPassword } }) => {
+        resolve(changeUserPassword as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

@@ -1,13 +1,13 @@
-import * as React from "react";
-import { query } from "../../queries/UserMenuQuery";
-import renderQuery from "../../helpers/renderQuery";
-import UserMenu from "./UserMenu";
+import * as React from 'react';
+import { query } from '../../queries/UserMenuQuery';
+import renderQuery from '../../helpers/renderQuery';
+import UserMenu from './UserMenu';
 
-const loader = () => (<span/>);
+const loader = () => <span />;
 
 class UserMenuContainer extends React.Component {
   render() {
-    return renderQuery(query, {}, UserMenu, {loader});
+    return renderQuery(query, {}, UserMenu, { loader });
   }
 }
 

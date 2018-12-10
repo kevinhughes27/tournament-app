@@ -1,28 +1,28 @@
-import * as React from "react";
-import { FormikValues, FormikProps, FormikErrors } from "formik";
-import { isEmpty } from "lodash";
-import TextField from "@material-ui/core/TextField";
-import Form from "../../components/Form";
-import FormButtons from "../../components/FormButtons";
-import ChangeUserPasswordMutation from "../../mutations/ChangeUserPassword";
+import * as React from 'react';
+import { FormikValues, FormikProps, FormikErrors } from 'formik';
+import { isEmpty } from 'lodash';
+import TextField from '@material-ui/core/TextField';
+import Form from '../../components/Form';
+import FormButtons from '../../components/FormButtons';
+import ChangeUserPasswordMutation from '../../mutations/ChangeUserPassword';
 
 class PasswordForm extends Form<{}> {
   initialValues = () => {
     return {
-      password: "",
-      passwordConfirmation: ""
+      password: '',
+      passwordConfirmation: ''
     };
-  }
+  };
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
 
     if (!values.password) {
-      errors.password = "Required";
+      errors.password = 'Required';
     }
 
     if (values.password.length < 6) {
-      errors.password = "Minimum 6 character Required";
+      errors.password = 'Minimum 6 character Required';
     }
 
     if (values.password !== values.passwordConfirmation) {
@@ -30,20 +30,20 @@ class PasswordForm extends Form<{}> {
     }
 
     return errors;
-  }
+  };
 
   mutation = () => {
     return ChangeUserPasswordMutation;
-  }
+  };
 
   mutationInput = (values: FormikValues) => {
     return {
       input: {
         password: values.password,
-        passwordConfirmation: values.passwordConfirmation,
+        passwordConfirmation: values.passwordConfirmation
       }
     };
-  }
+  };
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
     const {
@@ -87,7 +87,7 @@ class PasswordForm extends Form<{}> {
         />
       </form>
     );
-  }
+  };
 }
 
 export default PasswordForm;

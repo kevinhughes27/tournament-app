@@ -1,12 +1,12 @@
-import client from "../modules/apollo";
-import mutationPromise from "../helpers/mutationPromise";
-import mutationUpdater from "../helpers/mutationUpdater";
-import { query } from "../queries/TeamListQuery";
-import gql from "graphql-tag";
+import client from '../modules/apollo';
+import mutationPromise from '../helpers/mutationPromise';
+import mutationUpdater from '../helpers/mutationUpdater';
+import { query } from '../queries/TeamListQuery';
+import gql from 'graphql-tag';
 
 const mutation = gql`
   mutation DeleteTeamMutation($input: DeleteTeamInput!) {
-    deleteTeam(input:$input) {
+    deleteTeam(input: $input) {
       team {
         id
       }
@@ -33,15 +33,18 @@ const update = mutationUpdater<DeleteTeamMutation>((store, payload) => {
 
 function commit(variables: DeleteTeamMutationVariables) {
   return mutationPromise((resolve, reject) => {
-    client.mutate({
-      mutation,
-      variables,
-      update
-    }).then(({ data: { deleteTeam } }) => {
-      resolve(deleteTeam as MutationResult);
-    }).catch((error) => {
-      reject(error);
-    });
+    client
+      .mutate({
+        mutation,
+        variables,
+        update
+      })
+      .then(({ data: { deleteTeam } }) => {
+        resolve(deleteTeam as MutationResult);
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 

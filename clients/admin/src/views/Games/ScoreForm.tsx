@@ -1,15 +1,15 @@
-import * as React from "react";
-import { FormikValues, FormikProps, FormikErrors } from "formik";
-import { isEmpty } from "lodash";
+import * as React from 'react';
+import { FormikValues, FormikProps, FormikErrors } from 'formik';
+import { isEmpty } from 'lodash';
 
-import TextField from "@material-ui/core/TextField";
-import FormButtons from "../../components/FormButtons";
+import TextField from '@material-ui/core/TextField';
+import FormButtons from '../../components/FormButtons';
 
-import Form from "../../components/Form";
-import UpdateScoreMutation from "../../mutations/UpdateScore";
+import Form from '../../components/Form';
+import UpdateScoreMutation from '../../mutations/UpdateScore';
 
 interface Props {
-  input: UpdateScoreMutationVariables["input"];
+  input: UpdateScoreMutationVariables['input'];
   cancel: () => void;
 }
 
@@ -18,28 +18,28 @@ class ScoreForm extends Form<Props> {
     const { input } = this.props;
 
     return {
-      homeScore: input.homeScore || "",
-      awayScore: input.awayScore || ""
+      homeScore: input.homeScore || '',
+      awayScore: input.awayScore || ''
     };
-  }
+  };
 
   validate = (values: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
 
     if (values.homeScore && values.homeScore <= 0) {
-      errors.homeScore = "Invalid score";
+      errors.homeScore = 'Invalid score';
     }
 
     if (values.awayScore && values.awayScore <= 0) {
-      errors.awayScore = "Invalid score";
+      errors.awayScore = 'Invalid score';
     }
 
     return errors;
-  }
+  };
 
   mutation = () => {
     return UpdateScoreMutation;
-  }
+  };
 
   mutationInput = (values: FormikValues) => {
     return {
@@ -49,7 +49,7 @@ class ScoreForm extends Form<Props> {
         awayScore: values.awayScore
       }
     };
-  }
+  };
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
     const {
@@ -63,7 +63,7 @@ class ScoreForm extends Form<Props> {
 
     return (
       <form onSubmit={handleSubmit}>
-        <div style={{display: "flex", justifyContent: "space-around"}}>
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <TextField
             name="homeScore"
             label="Home Score"
@@ -74,7 +74,7 @@ class ScoreForm extends Form<Props> {
             value={values.homeScore}
             onChange={handleChange}
             helperText={errors.homeScore}
-            style={{ flexBasis: "40%" }}
+            style={{ flexBasis: '40%' }}
           />
           <TextField
             name="awayScore"
@@ -86,7 +86,7 @@ class ScoreForm extends Form<Props> {
             value={values.awayScore}
             onChange={handleChange}
             helperText={errors.awayScore}
-            style={{ flexBasis: "40%" }}
+            style={{ flexBasis: '40%' }}
           />
         </div>
         <FormButtons
@@ -97,7 +97,7 @@ class ScoreForm extends Form<Props> {
         />
       </form>
     );
-  }
+  };
 }
 
 export default ScoreForm;
