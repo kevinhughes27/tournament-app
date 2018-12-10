@@ -35,31 +35,3 @@ export const query = gql`
     }
   }
 `;
-
-export const subscription = gql`
-  subscription GameListSubscription {
-    gameUpdated {
-      id
-      hasTeams
-      homeName
-      awayName
-      homeScore
-      awayScore
-      scoreReports {
-        id
-        submittedBy
-        submitterFingerprint
-        homeScore
-        awayScore
-        rulesKnowledge
-        fouls
-        fairness
-        attitude
-        communication
-        comments
-      }
-      scoreConfirmed
-      scoreDisputed
-    }
-  }
-`;

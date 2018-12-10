@@ -1,5 +1,5 @@
 import * as React from "react";
-import { subscription } from "../../queries/GamesListQuery";
+import subscription from "./subscription";
 
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
@@ -25,23 +25,7 @@ class GameList extends React.Component<Props> {
   };
 
   componentDidMount() {
-    this.props.subscribeToMore({
-      document: subscription,
-      updateQuery: (prev: any, { subscriptionData }: any) => {
-        if (!subscriptionData.data) return prev;
-
-        const updatedGame = subscriptionData.data.gameUpdated;
-        const gameIdx = prev.games.findIndex((g: GameListQuery_games) => {
-          return g.id === updatedGame.id
-        });
-
-        Object.assign(prev.games[gameIdx], updatedGame);
-
-        return {
-          games: prev.games
-        };
-      },
-    });
+    this.props.subscribeToMore(subscription);
   }
 
   handleTab = (_event: any, tab: number) => {
