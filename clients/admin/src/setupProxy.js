@@ -12,6 +12,10 @@ module.exports = function(app) {
   app.use(
     proxy('/graphql', httpOptions),
     proxy('/user_token', httpOptions),
-    proxy('/subscriptions', wsOptions)
+    proxy('/subscriptions', wsOptions),
+
+    proxy('/fields.csv', httpOptions),
+    proxy('/score_reports.csv', httpOptions),
+    proxy('/schedule.pdf', httpOptions),
   );
 };

@@ -1,0 +1,20 @@
+<h3>
+  <strong><%= division.name %> Division</strong>
+</h3>
+
+<div class="container">
+  <div class="row">
+    <%= render 'seeding', division: division %>
+
+    <% division.games.group_by { |g| g.pool }.each do |pool, games| %>
+      <% next unless pool %>
+        <%= render 'pools', pool: pool, games: games %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <%= render 'games', games: division.games.order(:start_time) %>
+  </div>
+</div>
+
+<div class="page-break"></div>

@@ -1,0 +1,9 @@
+<h3>
+  <strong><%= games[0].start_time.strftime("%A") %> Schedule</strong>
+</h3>
+
+<%= render 'schedule_table', fields: fields, games: games %>
+
+<%= render 'legend' %>
+
+<div class="page-break"></div>

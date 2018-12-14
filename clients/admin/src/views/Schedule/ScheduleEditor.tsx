@@ -3,6 +3,8 @@ import * as React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+import ActionMenu from '../../components/ActionMenu';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
 import BlankSlate from '../../components/BlankSlate';
 import Calendar from './Calendar';
 import Unscheduled from './Unscheduled';
@@ -14,12 +16,17 @@ interface Props {
 }
 
 class ScheduleEditor extends React.Component<Props> {
+  handleDownload = () => {
+    const url = '/schedule.pdf';
+    window.open(url);
+  };
+
   render() {
     const { fields, games } = this.props;
+    const scheduledGames = games.filter(g => !!g.startTime) as ScheduledGame[];
     const unscheduledGames = games.filter(
       g => !g.startTime
     ) as UnscheduledGame[];
-    const scheduledGames = games.filter(g => !!g.startTime) as ScheduledGame[];
 
     if (fields.length === 0) {
       return (
@@ -44,6 +51,15 @@ class ScheduleEditor extends React.Component<Props> {
           {this.renderTop(unscheduledGames)}
           <hr />
           <Calendar games={scheduledGames} fields={fields} />
+          <ActionMenu
+            actions={[
+              {
+                icon: <DownloadIcon />,
+                name: 'Download PDF',
+                handler: this.handleDownload
+              }
+            ]}
+          />
         </>
       );
     }
