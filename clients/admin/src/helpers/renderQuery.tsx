@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import Loader from '../components/Loader';
+import NotFound from '../views/NotFound';
+import BlankSlate from '../components/BlankSlate';
 import { isEmpty } from 'lodash';
 
 interface Options {
@@ -21,8 +23,18 @@ const renderQuery = (
   return (
     <Query query={query} variables={variables} fetchPolicy={fetchPolicy}>
       {({ loading, error, data, subscribeToMore }) => {
-        if (error) return <div>{error.message}</div>;
+        if (error) {
+          if (
+            error.networkError &&
+            (error.networkError as any).response.status === 404
+          ) {
+            return <NotFound />;
+          } else {
+            return <BlankSlate>{error.message}</BlankSlate>;
+          }
+        }
 
+        // prefer showing stale data for a split second opposed to the loader
         if (loading && isEmpty(data)) return loader;
 
         return (
