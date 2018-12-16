@@ -1,3 +1,7 @@
+html {
+  background-color: white;
+}
+
 .home-card {
   display: flex;
   justify-content: space-between;
