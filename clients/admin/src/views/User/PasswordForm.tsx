@@ -21,8 +21,8 @@ class PasswordForm extends Form<{}> {
       errors.password = 'Required';
     }
 
-    if (values.password.length < 6) {
-      errors.password = 'Minimum 6 character Required';
+    if (values.password.length < 8) {
+      errors.password = 'Minimum 8 characters Required';
     }
 
     if (values.password !== values.passwordConfirmation) {
