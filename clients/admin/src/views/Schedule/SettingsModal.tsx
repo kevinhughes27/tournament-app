@@ -9,28 +9,17 @@ import {
 import { isEmpty } from 'lodash';
 
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Modal from '../../../components/Modal';
-import FormButtons from '../../../components/FormButtons';
+import Modal from '../../components/Modal';
+import FormButtons from '../../components/FormButtons';
 import Settings from './Settings';
 
 interface Props {
+  open: boolean;
+  handleClose: () => void;
   onUpdate: () => void;
 }
 
 class SettingsModal extends React.Component<Props> {
-  state = {
-    open: false
-  };
-
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   initialValues = () => {
     return {
       scheduleStart: Settings.scheduleStart,
@@ -83,21 +72,18 @@ class SettingsModal extends React.Component<Props> {
 
   render() {
     return (
-      <>
-        <Button onClick={this.handleOpen}>Settings</Button>
-        <Modal
-          title="Settings"
-          open={this.state.open}
-          onClose={this.handleClose}
-        >
-          <Formik
-            initialValues={this.initialValues()}
-            validate={this.validate}
-            onSubmit={this.onSubmit}
-            render={this.renderForm}
-          />
-        </Modal>
-      </>
+      <Modal
+        title="Settings"
+        open={this.props.open}
+        onClose={this.props.handleClose}
+      >
+        <Formik
+          initialValues={this.initialValues()}
+          validate={this.validate}
+          onSubmit={this.onSubmit}
+          render={this.renderForm}
+        />
+      </Modal>
     );
   }
 
@@ -162,7 +148,7 @@ class SettingsModal extends React.Component<Props> {
           formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
-          cancel={this.handleClose}
+          cancel={this.props.handleClose}
         />
       </form>
     );

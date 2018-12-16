@@ -1,13 +1,10 @@
 import * as React from 'react';
 import moment from 'moment';
 import { isEmpty, sortBy, map } from 'lodash';
-
 import XLabels from './XLabels';
 import YLabels from './YLabels';
 import FieldColumn from './FieldColumn';
-
 import DatePicker from './DatePicker';
-import SettingsModal from './SettingsModal';
 
 interface Props {
   fields: ScheduleEditorQuery['fields'];
@@ -38,10 +35,17 @@ class Calendar extends React.Component<Props, State> {
 
   render() {
     const fields = this.props.fields;
+    const { games } = this.props;
+    const dates = map(games, (g: any) => moment(g.startTime));
+    const date = this.state.date;
 
     return (
       <div className="schedule">
-        {this.renderControls()}
+        <DatePicker
+          selected={date}
+          highlightDates={dates}
+          onChange={this.handleDateChange}
+        />
         <XLabels fields={fields} />
         <div className="body">
           <YLabels />
@@ -50,29 +54,6 @@ class Calendar extends React.Component<Props, State> {
       </div>
     );
   }
-
-  renderControls = () => {
-    const { games } = this.props;
-    const dates = map(games, (g: any) => moment(g.startTime));
-    const date = this.state.date;
-
-    const style = {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-    };
-
-    return (
-      <div style={style}>
-        <DatePicker
-          selected={date}
-          highlightDates={dates}
-          onChange={this.handleDateChange}
-        />
-        <SettingsModal onUpdate={() => this.forceUpdate()} />
-      </div>
-    );
-  };
 
   renderColumn = (field: any) => {
     const date = this.state.date;

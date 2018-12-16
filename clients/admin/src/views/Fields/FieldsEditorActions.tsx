@@ -4,6 +4,7 @@ import FormButtons from '../../components/FormButtons';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import ImportIcon from '@material-ui/icons/AddToPhotos';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
 
 interface Props {
   mode: 'none' | 'view' | 'editMap' | 'addField' | 'editField';
@@ -20,6 +21,11 @@ interface Props {
 }
 
 class FieldsEditorActions extends React.Component<Props> {
+  exportFields = () => {
+    const url = '/fields.csv';
+    window.location.href = url;
+  };
+
   render() {
     const {
       mode,
@@ -68,7 +74,12 @@ class FieldsEditorActions extends React.Component<Props> {
     const actions = [
       { icon: <EditIcon />, name: 'Edit Map', handler: editMap },
       { icon: <AddIcon />, name: 'Add Field', handler: addField },
-      { icon: <ImportIcon />, name: 'Import Fields', handler: importFields }
+      { icon: <ImportIcon />, name: 'Import Fields', handler: importFields },
+      {
+        icon: <DownloadIcon />,
+        name: 'Export Fields',
+        handler: this.exportFields
+      }
     ];
 
     return <ActionMenu actions={actions} />;

@@ -3,10 +3,14 @@ import * as React from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+import ActionMenu from '../../components/ActionMenu';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
+import SettingsIcon from '@material-ui/icons/Settings';
 import BlankSlate from '../../components/BlankSlate';
 import Calendar from './Calendar';
 import Unscheduled from './Unscheduled';
 import Legend from './Legend';
+import SettingsModal from './SettingsModal';
 
 interface Props {
   fields: ScheduleEditorQuery['fields'];
@@ -14,12 +18,29 @@ interface Props {
 }
 
 class ScheduleEditor extends React.Component<Props> {
+  state = {
+    settingsOpen: false
+  };
+
+  handleDownload = () => {
+    const url = '/schedule.pdf';
+    window.open(url);
+  };
+
+  openSettings = () => {
+    this.setState({ settingsOpen: true });
+  };
+
+  closeSettings = () => {
+    this.setState({ settingsOpen: false });
+  };
+
   render() {
     const { fields, games } = this.props;
+    const scheduledGames = games.filter(g => !!g.startTime) as ScheduledGame[];
     const unscheduledGames = games.filter(
       g => !g.startTime
     ) as UnscheduledGame[];
-    const scheduledGames = games.filter(g => !!g.startTime) as ScheduledGame[];
 
     if (fields.length === 0) {
       return (
@@ -44,6 +65,25 @@ class ScheduleEditor extends React.Component<Props> {
           {this.renderTop(unscheduledGames)}
           <hr />
           <Calendar games={scheduledGames} fields={fields} />
+          <SettingsModal
+            open={this.state.settingsOpen}
+            handleClose={this.closeSettings}
+            onUpdate={() => this.forceUpdate()}
+          />
+          <ActionMenu
+            actions={[
+              {
+                icon: <SettingsIcon />,
+                name: 'Settings',
+                handler: this.openSettings
+              },
+              {
+                icon: <DownloadIcon />,
+                name: 'Download PDF',
+                handler: this.handleDownload
+              }
+            ]}
+          />
         </>
       );
     }

@@ -1,6 +1,4 @@
 class GraphqlController < ApiController
-  include TournamentController
-
   def execute
     result = Schema.execute(
       query_string,

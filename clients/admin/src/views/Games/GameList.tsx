@@ -14,6 +14,9 @@ import TableRow from '@material-ui/core/TableRow';
 import GameListItem from './GameListItem';
 import BlankSlate from '../../components/BlankSlate';
 
+import ActionMenu from '../../components/ActionMenu';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
+
 interface Props {
   games: GameListQuery['games'];
   subscribeToMore: any;
@@ -30,6 +33,11 @@ class GameList extends React.Component<Props> {
 
   handleTab = (_event: any, tab: number) => {
     this.setState({ tab });
+  };
+
+  exportReports = () => {
+    const url = '/score_reports.csv';
+    window.location.href = url;
   };
 
   renderContent = () => {
@@ -77,6 +85,7 @@ class GameList extends React.Component<Props> {
             this.renderList(missingScores, 'No Games missing scores')}
           {tab === 2 && this.renderList(upcomingGames, 'No Games coming up')}
           {tab === 3 && this.renderList(finishedGames, 'No Games finished')}
+          {this.renderActions()}
         </div>
       );
     } else {
@@ -138,6 +147,18 @@ class GameList extends React.Component<Props> {
         </BlankSlate>
       );
     }
+  };
+
+  renderActions = () => {
+    const actions = [
+      {
+        icon: <DownloadIcon />,
+        name: 'Export Fields',
+        handler: this.exportReports
+      }
+    ];
+
+    return <ActionMenu actions={actions} />;
   };
 
   render() {

@@ -1,4 +1,4 @@
-import Settings from './Settings';
+import Settings from '../Settings';
 import * as moment from 'moment';
 
 class Position {
