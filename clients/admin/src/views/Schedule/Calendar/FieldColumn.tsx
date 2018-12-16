@@ -9,7 +9,7 @@ import {
   DropTargetMonitor
 } from 'react-dnd';
 
-import Settings from './Settings';
+import Settings from '../Settings';
 import Game from './Game';
 import DropOverlay from './DropOverlay';
 
