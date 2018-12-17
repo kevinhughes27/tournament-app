@@ -10,6 +10,6 @@ class Types::Team < Types::BaseObject
   field :seed, Int, null: true
 
   def seed
-    object.seed && object.seed.seed
+    object.seed && object.seed.rank
   end
 end

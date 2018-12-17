@@ -29,8 +29,8 @@ class BracketSimulationTest < OperationTest
   def create_seeds
     n = @division.bracket.teams
 
-    (1..n).map do |seed|
-      FactoryBot.create(:seed, division: @division, seed: seed)
+    (1..n).map do |rank|
+      FactoryBot.create(:seed, division: @division, rank: rank)
     end
   end
 

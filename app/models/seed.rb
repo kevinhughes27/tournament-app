@@ -6,5 +6,5 @@ class Seed < ApplicationRecord
   validates :tournament, presence: true
   validates :division, presence: true
   validates :team, presence: true, uniqueness: true
-  validates :seed, presence: true, numericality: true
+  validates :rank, presence: true, numericality: true
 end

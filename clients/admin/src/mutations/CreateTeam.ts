@@ -11,6 +11,11 @@ const mutation = gql`
         id
         name
         email
+        division {
+          id
+          name
+        }
+        seed
       }
       success
       message

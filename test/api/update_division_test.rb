@@ -68,8 +68,8 @@ class UpdateDivisionTest < ApiTest
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
 
-    (1..8).map do |seed|
-      FactoryBot.create(:seed, division: division, seed: seed)
+    (1..8).map do |rank|
+      FactoryBot.create(:seed, division: division, rank: rank)
     end
 
     seed_division(division)

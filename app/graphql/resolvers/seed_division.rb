@@ -90,7 +90,7 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
   end
 
   def teams
-    @teams ||= @division.seeds.order(:seed).map(&:team)
+    @teams ||= @division.seeds.order(:rank).map(&:team)
   end
 
   def num_teams

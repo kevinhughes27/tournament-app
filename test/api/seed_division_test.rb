@@ -123,8 +123,8 @@ class SeedDivisionTest < ApiTest
   end
 
   def create_seeds(division, num)
-    (1..num).map do |seed|
-      FactoryBot.create(:seed, division: division, seed: seed)
+    (1..num).map do |rank|
+      FactoryBot.create(:seed, division: division, rank: rank)
     end
   end
 

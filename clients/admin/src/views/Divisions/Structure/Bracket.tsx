@@ -23,12 +23,14 @@ class Bracket extends React.Component<Props> {
     }
   }
 
-  componentDidUpdate() {
-    const node = this.bracketRef.current;
-    const bracketTree = this.props.bracketTree;
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.bracketTree !== this.props.bracketTree) {
+      const node = this.bracketRef.current;
+      const bracketTree = this.props.bracketTree;
 
-    if (node) {
-      renderBracketGraph(node, bracketTree);
+      if (node) {
+        renderBracketGraph(node, bracketTree);
+      }
     }
   }
 
