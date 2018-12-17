@@ -10,14 +10,11 @@ class Division < ApplicationRecord
   has_many :teams, through: :seeds
 
   has_many :games, dependent: :destroy
+  has_many :bracket_games, -> { bracket_game }, class_name: 'Game'
+  has_many :pool_games, -> (pool_uid) { pool_game(pool_uid) }, class_name: 'Game'
+
   has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy
-
-  has_many :bracket_games, -> { bracket_game }, class_name: 'Game'
-
-  def pool_games(pool_uid)
-    games.where(pool: pool_uid)
-  end
 
   auto_strip_attributes :name
 
