@@ -4,7 +4,7 @@ class DirtySeedCheckTest < OperationTest
   test "perform" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
-    teams = create_teams(division, 8)
+    seeds = create_seeds(division, 8)
 
     refute division.seeded?
     assert DirtySeedCheck.perform(division)
@@ -14,8 +14,8 @@ class DirtySeedCheckTest < OperationTest
     assert division.seeded?
     refute DirtySeedCheck.perform(division)
 
-    division.teams[0].update(seed: 2)
-    division.teams[1].update(seed: 1)
+    division.seeds[0].update(rank: 2)
+    division.seeds[1].update(rank: 1)
 
     assert DirtySeedCheck.perform(division)
   end
@@ -23,7 +23,7 @@ class DirtySeedCheckTest < OperationTest
   test "perform with pool" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'USAU 8.1')
     division = create_division(params)
-    teams = create_teams(division, 8)
+    seeds = create_seeds(division, 8)
 
     refute division.seeded?
     assert DirtySeedCheck.perform(division)
@@ -33,8 +33,8 @@ class DirtySeedCheckTest < OperationTest
     assert division.seeded?
     refute DirtySeedCheck.perform(division)
 
-    division.teams[0].update(seed: 2)
-    division.teams[1].update(seed: 1)
+    division.seeds[0].update(rank: 2)
+    division.seeds[1].update(rank: 1)
 
     assert DirtySeedCheck.perform(division)
   end
@@ -47,9 +47,9 @@ class DirtySeedCheckTest < OperationTest
     Division.last
   end
 
-  def create_teams(division, num)
-    (1..num).map do |seed|
-      FactoryBot.create(:team, division: division, seed: seed)
+  def create_seeds(division, num)
+    (1..num).map do |rank|
+      FactoryBot.create(:seed, division: division, rank: rank)
     end
   end
 
