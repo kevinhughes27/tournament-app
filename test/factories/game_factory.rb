@@ -7,8 +7,8 @@ FactoryBot.define do
     pool nil
     home_prereq '1'
     away_prereq '3'
-    home { FactoryBot.build(:team, tournament: tournament, division: division) }
-    away { FactoryBot.build(:team, tournament: tournament, division: division) }
+    home { FactoryBot.build(:seed, tournament: tournament, division: division).team }
+    away { FactoryBot.build(:seed, tournament: tournament, division: division).team }
 
     factory :pool_game do
       bracket_uid nil

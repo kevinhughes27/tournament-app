@@ -9,7 +9,7 @@ class SeedDivisionTest < ApiTest
   test "seed a division" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
-    teams = create_teams(division, 4)
+    seeds = create_seeds(division, 4)
 
     input = {division_id: division.id}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
@@ -19,21 +19,13 @@ class SeedDivisionTest < ApiTest
   test "seed (unsafe)" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
-    teams = create_teams(division, 4)
+    seeds = create_seeds(division, 4)
 
-    FactoryBot.create(:game, :finished, division: division, home: teams.first)
+    FactoryBot.create(:game, :finished, division: division, home: seeds.first.team)
 
-    assert division.teams.any?{ |t| !t.allow_change? }
+    assert division.teams.any?{ |t| !t.allow_delete? }
 
-    team1 = division.teams.first
-    team2 = division.teams.last
-
-    input = {
-      division_id: division.id,
-      team_ids: [team1.id, team2.id],
-      seeds: [team2.seed, team1.seed]
-    }
-
+    input = {division_id: division.id}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_confirmation_required "This division has games that have been scored. Seeding this division will reset those games. Are you sure this is what you want to do?"
   end
@@ -41,7 +33,7 @@ class SeedDivisionTest < ApiTest
   test "seed a division with an error" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)
-    teams = create_teams(division, 8)
+    seeds = create_seeds(division, 8)
 
     input = {division_id: division.id}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
@@ -51,7 +43,7 @@ class SeedDivisionTest < ApiTest
   test "initializes the first round" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
-    teams = create_teams(division, 8)
+    seeds = create_seeds(division, 8)
 
     input = {division_id: division.id}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
@@ -60,15 +52,15 @@ class SeedDivisionTest < ApiTest
     games = division.games.where(bracket_uid: ['q1', 'q2', 'q3', 'q4'])
 
     games.each do |game|
-      assert_equal game.home, teams[game.home_prereq.to_i - 1]
-      assert_equal game.away, teams[game.away_prereq.to_i - 1]
+      assert_equal game.home, seeds[game.home_prereq.to_i - 1].team
+      assert_equal game.away, seeds[game.away_prereq.to_i - 1].team
     end
   end
 
   test "resets any games past the seed round" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
-    teams = create_teams(division, 8)
+    seeds = create_seeds(division, 8)
 
     input = {division_id: division.id}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
@@ -96,7 +88,7 @@ class SeedDivisionTest < ApiTest
   test "round robin 5 (seeds into round 2 games)" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'round_robin_5')
     division = create_division(params)
-    teams = create_teams(division, 5)
+    seeds = create_seeds(division, 5)
 
     input = {division_id: division.id}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
@@ -104,13 +96,13 @@ class SeedDivisionTest < ApiTest
 
     game = division.games.find_by(bracket_uid: 'rr3')
     assert_nil game.home
-    assert_equal teams.first, game.away
+    assert_equal seeds.first.team, game.away
   end
 
   test "sets division seeded to true" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_8')
     division = create_division(params)
-    teams = create_teams(division, 8)
+    seeds = create_seeds(division, 8)
 
     refute division.seeded?
 
@@ -130,9 +122,9 @@ class SeedDivisionTest < ApiTest
     Division.last
   end
 
-  def create_teams(division, num)
+  def create_seeds(division, num)
     (1..num).map do |seed|
-      FactoryBot.create(:team, division: division, seed: seed)
+      FactoryBot.create(:seed, division: division, seed: seed)
     end
   end
 

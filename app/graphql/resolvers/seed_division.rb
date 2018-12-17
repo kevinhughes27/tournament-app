@@ -16,19 +16,17 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
       }
     end
 
-    update_teams(inputs[:team_ids], inputs[:seeds])
-
-    if ambiguous_seeds(inputs[:seeds])
-      return {
-        success: false,
-        message: 'Ambiguous seed list'
-      }
-    end
-
     if (num_seats != num_teams)
       return {
         success: false,
         message: "#{num_seats} seats but #{num_teams} teams present"
+      }
+    end
+
+    if ambiguous_seeds(inputs[:seeds])
+      return {
+        success: false,
+        message: 'Ambiguous seeding, check the rankings'
       }
     end
 
@@ -41,19 +39,6 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
   end
 
   private
-
-  def update_teams(team_ids, seeds)
-    return unless team_ids
-
-    Team.transaction do
-      team_ids.each_with_index do |team_id, idx|
-        team = teams.detect { |t| t.id == team_id.to_i}
-        next if team.seed == seeds[idx]
-        team.assign_attributes(seed: seeds[idx])
-        team.save!
-      end
-    end
-  end
 
   def ambiguous_seeds(seeds)
     return unless seeds.present?
@@ -105,7 +90,7 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
   end
 
   def teams
-    @teams ||= @division.teams.order(:seed)
+    @teams ||= @division.seeds.order(:seed).map(&:team)
   end
 
   def num_teams
