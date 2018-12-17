@@ -5,7 +5,6 @@ import * as EmailValidator from 'email-validator';
 import { isEmpty } from 'lodash';
 
 import TextField from '@material-ui/core/TextField';
-import DivisionPicker from './DivisionPicker';
 import FormButtons from '../../components/FormButtons';
 
 import Form from '../../components/Form';
@@ -16,7 +15,6 @@ import DeleteTeamMutation from '../../mutations/DeleteTeam';
 
 interface Props extends RouteComponentProps<any> {
   input: UpdateTeamInput & CreateTeamInput;
-  divisions: TeamShowQuery['divisions'] | TeamNewQuery['divisions'];
 }
 
 class TeamForm extends Form<Props> {
@@ -25,9 +23,7 @@ class TeamForm extends Form<Props> {
 
     return {
       name: input.name,
-      email: input.email || '',
-      divisionId: input.divisionId || '',
-      seed: input.seed || ''
+      email: input.email || ''
     };
   };
 
@@ -40,16 +36,6 @@ class TeamForm extends Form<Props> {
 
     if (values.email && !EmailValidator.validate(values.email)) {
       errors.email = 'Invalid email address';
-    }
-
-    if (!values.divisionId) {
-      errors.divisionId = 'Required';
-    }
-
-    if (!values.seed) {
-      errors.seed = 'Required';
-    } else if (values.seed <= 0) {
-      errors.seed = 'Invalid seed';
     }
 
     return errors;
@@ -96,7 +82,6 @@ class TeamForm extends Form<Props> {
   };
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
-    const { divisions } = this.props;
     const {
       values,
       dirty,
@@ -127,23 +112,6 @@ class TeamForm extends Form<Props> {
           value={values.email}
           onChange={handleChange}
           helperText={errors.email}
-        />
-        <DivisionPicker
-          divisionId={values.divisionId}
-          divisions={divisions}
-          onChange={handleChange}
-          helperText={errors.divisionId}
-        />
-        <TextField
-          name="seed"
-          label="Seed"
-          type="number"
-          margin="normal"
-          autoComplete="off"
-          fullWidth
-          value={values.seed}
-          onChange={handleChange}
-          helperText={errors.seed}
         />
         <FormButtons
           formDirty={dirty}

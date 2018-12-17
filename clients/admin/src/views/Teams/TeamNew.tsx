@@ -2,20 +2,12 @@ import * as React from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import TeamForm from './TeamForm';
 
-interface Props {
-  divisions: TeamNewQuery['divisions'];
-}
-
-class TeamNew extends React.Component<Props> {
+class TeamNew extends React.Component {
   render() {
-    const { divisions } = this.props;
-
     const input = {
       id: '',
       name: '',
-      email: '',
-      divisionId: '',
-      seed: 0
+      email: ''
     };
 
     return (
@@ -23,7 +15,7 @@ class TeamNew extends React.Component<Props> {
         <Breadcrumbs
           items={[{ link: '/teams', text: 'Teams' }, { text: 'New' }]}
         />
-        <TeamForm input={input} divisions={divisions} />
+        <TeamForm input={input} />
       </>
     );
   }

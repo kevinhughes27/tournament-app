@@ -7,12 +7,12 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
     team = ctx[:tournament].teams.find(inputs[:id])
 
     if !team.allow_delete?
-      return {
+      {
         team: team,
         success: false,
         message: TEAM_DELETE_NOT_ALLOWED.gsub('division_name', team.division.name)
       }
-    else if team.destroy
+    elsif team.destroy
       {
         team: team,
         success: true,

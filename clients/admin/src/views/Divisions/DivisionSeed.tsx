@@ -33,9 +33,7 @@ class DivisionSeed extends React.Component<Props, State> {
 
     return {
       input: {
-        divisionId: division.id,
-        teamIds: division.teams.map(t => t.id),
-        seeds: division.teams.map(t => t.seed)
+        divisionId: division.id
       }
     };
   };

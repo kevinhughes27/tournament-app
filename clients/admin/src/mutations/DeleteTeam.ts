@@ -11,7 +11,6 @@ const mutation = gql`
         id
       }
       success
-      confirm
       message
       userErrors {
         field

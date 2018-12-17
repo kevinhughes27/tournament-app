@@ -4,6 +4,7 @@ class Team < ApplicationRecord
 
   belongs_to :tournament
   has_one :seed, dependent: :destroy
+  has_one :division, through: :seed
   has_many :score_reports, dependent: :nullify
 
   auto_strip_attributes :name, :email, :phone

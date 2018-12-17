@@ -6,4 +6,10 @@ class Types::Team < Types::BaseObject
   field :name, String, null: false
   field :email, String, auth: :required, null: true
   field :phone, String, auth: :required, null: true
+  field :division, Types::Division, null: true
+  field :seed, Int, null: true
+
+  def seed
+    object.seed && object.seed.seed
+  end
 end
