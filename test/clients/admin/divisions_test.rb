@@ -8,11 +8,13 @@ class DivisionsTest < AdminTest
     action_button
     create_division
 
-    create_seeds(@division, 11)
+    create_seeds(@division, 10)
+    FactoryBot.create(:team, name: 'Team 11')
 
     click_on('Divisions')
     open_division
     action_menu('seed')
+    create_last_seed
     seed_division
     logout
   end
@@ -50,6 +52,14 @@ class DivisionsTest < AdminTest
     @seeds = (1..num).map do |rank|
       FactoryBot.create(:seed, division: division, rank: rank)
     end
+  end
+
+  def create_last_seed
+    input = page.all('input[name="teamId"]')[10]
+    node = input.find(:xpath, '..') # input is hidden so get the div above
+    page.driver.browser.action.move_to(node.native).click.perform
+    click_text('Team 11')
+    assert_text 'Seed created'
   end
 
   def open_division

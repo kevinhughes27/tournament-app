@@ -1,6 +1,6 @@
-require "test_helper"
+require_relative 'browser_test'
 
-class PlayerAppBrowserTest < BrowserTest
+class PlayerAppTest < BrowserTest
   setup do
     @tournament = FactoryBot.create(:tournament, handle: 'no-borders')
     @map = FactoryBot.create(:map, tournament: @tournament)
@@ -9,59 +9,7 @@ class PlayerAppBrowserTest < BrowserTest
     @game = FactoryBot.create(:game, :scheduled, home: @team, away: @opponent)
   end
 
-  test 'submit a score' do
-    visit_app
-    search_for_team('Swift')
-    navigate_to_submit
-    click_on_game(@game)
-    enter_score(15, 11)
-    submit_score
-
-    assert_submitted
-    assert_report('Swift', @game, 15, 11)
-  end
-
-  test 'submit a score (with pin)' do
-    @tournament.update_column(:score_submit_pin, '1234')
-
-    visit_app
-    search_for_team('Swift')
-    navigate_to_submit
-    enter_pin('1234')
-    click_on_game(@game)
-    enter_score(15, 11)
-    submit_score
-
-    assert_submitted
-    assert_report('Swift', @game, 15, 11)
-  end
-
-  test 'submit a score (lowercase search)' do
-    visit_app
-    search_for_team('swift')
-    navigate_to_submit
-    click_on_game(@game)
-    enter_score(15, 11)
-    submit_score
-
-    assert_submitted
-    assert_report('Swift', @game, 15, 11)
-  end
-
-  test 'deep link' do
-    report = FactoryBot.create(:score_report, game: @game, team: @team)
-
-    deep_link = report.build_confirm_link
-
-    visit(deep_link)
-    enter_comment('Yup thats the score')
-    submit_score
-
-    assert_submitted
-    assert_confirmed_report(report, comment: 'Yup thats the score')
-  end
-
-  private
+  protected
 
   def visit_app
     visit("http://#{@tournament.handle}.#{Settings.host}/")
