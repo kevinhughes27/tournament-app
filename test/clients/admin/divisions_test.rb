@@ -8,7 +8,7 @@ class DivisionsTest < AdminTest
     action_button
     create_division
 
-    create_teams(@division, 11)
+    create_seeds(@division, 11)
 
     click_on('Divisions')
     open_division
@@ -46,9 +46,9 @@ class DivisionsTest < AdminTest
     assert_equal 'Open', @division.name
   end
 
-  def create_teams(division, num)
-    @teams = (1..num).map do |seed|
-      FactoryBot.create(:team, division: division, seed: seed)
+  def create_seeds(division, num)
+    @seeds = (1..num).map do |rank|
+      FactoryBot.create(:seed, division: division, rank: rank)
     end
   end
 
@@ -59,7 +59,7 @@ class DivisionsTest < AdminTest
   end
 
   def seed_division
-    assert_text(@teams[0].name)
+    assert_text(@seeds.first.team.name)
     click_on 'Seed'
     sleep(0.1)
     assert_text('Division seeded')
