@@ -5,7 +5,10 @@ class Division < ApplicationRecord
   attr_reader :change_message
 
   belongs_to :tournament
-  has_many :teams, dependent: :nullify
+
+  has_many :seeds, dependent: :destroy
+  has_many :teams, through: :seeds
+
   has_many :games, dependent: :destroy
   has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy
