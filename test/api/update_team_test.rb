@@ -3,7 +3,7 @@ require 'test_helper'
 class UpdateTeamTest < ApiTest
   setup do
     login_user
-    @output = '{ success confirm message userErrors { field message } }'
+    @output = '{ success message userErrors { field message } }'
   end
 
   test "update a team" do

@@ -55,11 +55,12 @@ class DivisionsTest < AdminTest
   end
 
   def create_last_seed
+    assert_text('Team 10')
     input = page.all('input[name="teamId"]')[10]
-    node = input.find(:xpath, '..') # input is hidden so get the div above
+    node = input.find(:xpath, '..') # input is hidden so grab the div above
     page.driver.browser.action.move_to(node.native).click.perform
     click_text('Team 11')
-    assert_text 'Seed created'
+    assert_text('Seed created')
   end
 
   def open_division

@@ -42,7 +42,6 @@ class TeamsTest < AdminTest
 
     team = Team.last
     assert_equal 'Hug Machine', team.name
-    assert_equal 1, team.seed
   end
 
   def open_team
@@ -59,7 +58,6 @@ class TeamsTest < AdminTest
 
     team = Team.last
     assert_equal 'Hug Machine', team.name
-    assert_equal 1, team.seed
   end
 
   def import_teams

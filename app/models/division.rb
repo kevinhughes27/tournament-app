@@ -10,9 +10,6 @@ class Division < ApplicationRecord
   has_many :teams, through: :seeds
 
   has_many :games, dependent: :destroy
-  has_many :bracket_games, -> { bracket_game }, class_name: 'Game'
-  has_many :pool_games, -> (pool_uid) { pool_game(pool_uid) }, class_name: 'Game'
-
   has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy
 
@@ -22,8 +19,6 @@ class Division < ApplicationRecord
   validates :num_teams, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :num_days, presence: true, numericality: {greater_than_or_equal_to: 0}
   validate :validate_bracket_type
-
-  scope :un_seeded, -> { where(seeded: false) }
 
   def bracket
     @bracket ||= BracketDb.find(handle: self.bracket_type)

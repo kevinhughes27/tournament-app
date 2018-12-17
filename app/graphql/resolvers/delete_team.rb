@@ -1,5 +1,5 @@
 class Resolvers::DeleteTeam < Resolvers::BaseResolver
-  TEAM_DELETE_NOT_ALLOWED = """There are games scheduled for this team\
+  TEAM_DELETE_NOT_ALLOWED = """There are games scheduled for this team.\
  In order to delete this team you need to delete the\
  division_name division first."""
 

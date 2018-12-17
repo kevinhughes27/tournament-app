@@ -6,7 +6,7 @@ class FinishPoolTest < OperationTest
   setup do
     params = FactoryBot.attributes_for(:division, bracket_type: 'USAU 8.1')
     @division = create_division(params)
-    @teams = create_teams(@division, 8)
+    @seeds = create_seeds(@division, 8)
   end
 
   test "pool not finished" do
@@ -17,7 +17,7 @@ class FinishPoolTest < OperationTest
 
   test "records pool results" do
     seed_division(@division)
-    play_pool(@teams, @division, 'A')
+    play_pool(@division, 'A')
 
     assert_difference 'PoolResult.count', +4 do
       pool = Pool.new(@division, 'A')
@@ -27,14 +27,14 @@ class FinishPoolTest < OperationTest
 
   test "clears previous pool results" do
     seed_division(@division)
-    play_pool(@teams, @division, 'A')
+    play_pool(@division, 'A')
 
     result = PoolResult.create!(
       tournament_id: @tournament.id,
       division_id: @division.id,
       pool: 'A',
       position: 1,
-      team: @teams.first,
+      team: @seeds.first.team,
       wins: 1,
       points: 10
     )
@@ -51,7 +51,7 @@ class FinishPoolTest < OperationTest
 
   test "update pool" do
     seed_division(@division)
-    play_pool(@teams, @division, 'A')
+    play_pool(@division, 'A')
 
     pool = Pool.new(@division, 'A')
     FinishPool.perform(pool)
@@ -59,13 +59,13 @@ class FinishPoolTest < OperationTest
     game1 = @division.games.find_by(home_prereq: 'A1')
     game2 = @division.games.find_by(away_prereq: 'A4')
 
-    assert_equal @teams.first, game1.home
-    assert_equal @teams.last, game2.away
+    assert_equal @seeds.first.team, game1.home
+    assert_equal @seeds.last.team, game2.away
   end
 
   test "update pool using points_for for tie breaker" do
     division = FactoryBot.create(:division)
-    teams = create_teams(division, 4)
+    seeds = create_seeds(division, 4)
 
     FactoryBot.create(:game,
       division: division,
@@ -75,8 +75,8 @@ class FinishPoolTest < OperationTest
       away_prereq: 2,
       home_pool_seed: 1,
       away_pool_seed: 2,
-      home: teams[0],
-      away: teams[1],
+      home: seeds[0].team,
+      away: seeds[1].team,
       home_score: 5,
       away_score: 0
     )
@@ -89,8 +89,8 @@ class FinishPoolTest < OperationTest
       away_prereq: 4,
       home_pool_seed: 3,
       away_pool_seed: 4,
-      home: teams[2],
-      away: teams[3],
+      home: seeds[2].team,
+      away: seeds[3].team,
       home_score: 10,
       away_score: 2
     )
@@ -100,26 +100,26 @@ class FinishPoolTest < OperationTest
 
     results = division.pool_results.order(:position)
 
-    assert_equal teams[2], results[0].team
+    assert_equal seeds[2].team, results[0].team
     assert_equal 1, results[0].wins
     assert_equal 10, results[0].points
 
-    assert_equal teams[0], results[1].team
+    assert_equal seeds[0].team, results[1].team
     assert_equal 1, results[1].wins
     assert_equal 5, results[1].points
 
-    assert_equal teams[3], results[2].team
+    assert_equal seeds[3].team, results[2].team
     assert_equal 0, results[2].wins
     assert_equal 2, results[2].points
 
-    assert_equal teams[1], results[3].team
+    assert_equal seeds[1].team, results[3].team
     assert_equal 0, results[3].wins
     assert_equal 0, results[3].points
   end
 
   test "update pool using points_for for tie breaker with a tie game" do
     division = FactoryBot.create(:division)
-    teams = create_teams(division, 4)
+    seeds = create_seeds(division, 4)
 
     FactoryBot.create(:game,
       division: division,
@@ -129,8 +129,8 @@ class FinishPoolTest < OperationTest
       away_prereq: 2,
       home_pool_seed: 1,
       away_pool_seed: 2,
-      home: teams[0],
-      away: teams[1],
+      home: seeds[0].team,
+      away: seeds[1].team,
       home_score: 10,
       away_score: 0
     )
@@ -143,8 +143,8 @@ class FinishPoolTest < OperationTest
       away_prereq: 4,
       home_pool_seed: 3,
       away_pool_seed: 4,
-      home: teams[2],
-      away: teams[3],
+      home: seeds[2].team,
+      away: seeds[3].team,
       home_score: 5,
       away_score: 2
     )
@@ -157,8 +157,8 @@ class FinishPoolTest < OperationTest
       away_prereq: 3,
       home_pool_seed: 1,
       away_pool_seed: 3,
-      home: teams[0],
-      away: teams[2],
+      home: seeds[0].team,
+      away: seeds[2].team,
       home_score: 10,
       away_score: 10
     )
@@ -168,15 +168,15 @@ class FinishPoolTest < OperationTest
 
     results = division.pool_results.order(:position)
 
-    assert_equal teams[0], results[0].team
-    assert_equal teams[2], results[1].team
-    assert_equal teams[3], results[2].team
-    assert_equal teams[1], results[3].team
+    assert_equal seeds[0].team, results[0].team
+    assert_equal seeds[2].team, results[1].team
+    assert_equal seeds[3].team, results[2].team
+    assert_equal seeds[1].team, results[3].team
   end
 
   test "update pool resets dependent bracket games" do
     seed_division(@division)
-    play_pool(@teams, @division, 'A')
+    play_pool(@division, 'A')
 
     game1 = @division.games.find_by(home_prereq: 'A1')
     game2 = @division.games.find_by(away_prereq: 'A4')
@@ -186,8 +186,8 @@ class FinishPoolTest < OperationTest
       pool = Pool.new(@division, 'A')
       FinishPool.perform(pool)
 
-      assert_equal @teams.first, game1.reload.home
-      assert_equal @teams.last, game2.reload.away
+      assert_equal @seeds.first.team, game1.reload.home
+      assert_equal @seeds.last.team, game2.reload.away
     end
 
     # mark dependent games as confirmed
@@ -217,7 +217,7 @@ class FinishPoolTest < OperationTest
 
   test "update pool doesn't reset dependent bracket games if no change" do
     seed_division(@division)
-    play_pool(@teams, @division, 'A')
+    play_pool(@division, 'A')
 
     game1 = @division.games.find_by(home_prereq: 'A1')
     game2 = @division.games.find_by(away_prereq: 'A4')
@@ -227,8 +227,8 @@ class FinishPoolTest < OperationTest
       pool = Pool.new(@division, 'A')
       FinishPool.perform(pool)
 
-      assert_equal @teams.first, game1.reload.home
-      assert_equal @teams.last, game2.reload.away
+      assert_equal @seeds.first.team, game1.reload.home
+      assert_equal @seeds.last.team, game2.reload.away
     end
 
     game1.update_column(:score_confirmed, true)
@@ -255,9 +255,9 @@ class FinishPoolTest < OperationTest
     Division.last
   end
 
-  def create_teams(division, num)
-    (1..num).map do |seed|
-      FactoryBot.create(:team, division: division, seed: seed)
+  def create_seeds(division, num)
+    (1..num).map do |rank|
+      FactoryBot.create(:seed, division: division, rank: rank)
     end
   end
 
@@ -266,7 +266,7 @@ class FinishPoolTest < OperationTest
     division.reload
   end
 
-  def play_pool(teams, division, pool)
+  def play_pool(division, pool)
     division.games.where(pool: pool).each do |game|
       home_score = game.home_id < game.away_id ? 2 : 1
       away_score = game.home_id < game.away_id ? 1 : 2

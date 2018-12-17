@@ -16,10 +16,6 @@ const mutation = gql`
       }
       success
       message
-      userErrors {
-        field
-        message
-      }
     }
   }
 `;

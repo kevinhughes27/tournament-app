@@ -3,7 +3,7 @@ require 'test_helper'
 class DeleteTeamTest < ApiTest
   setup do
     login_user
-    @output = '{ success confirm message userErrors { field message } }'
+    @output = '{ success message userErrors { field message } }'
   end
 
   test "delete a team" do
@@ -19,6 +19,7 @@ class DeleteTeamTest < ApiTest
   test "delete a team not allowed if assigned to any games" do
     division = FactoryBot.create(:division)
     team = FactoryBot.create(:team, division: division)
+    FactoryBot.create(:seed, division: division, team: team)
     FactoryBot.create(:game, division: division, home: team)
 
     input = {id: team.id}
