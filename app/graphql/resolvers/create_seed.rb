@@ -15,14 +15,13 @@ class Resolvers::CreateSeed < Resolvers::BaseResolver
       {
         division: division,
         success: true,
-        message: 'Seed created',
+        message: 'Seed created'
       }
     else
       {
         division: division,
         success: false,
-        message: 'Seed create failed',
-        user_errors: seed.fields_errors,
+        message: 'Seed create failed'
       }
     end
   end
