@@ -1,18 +1,24 @@
-require 'rainbow'
+def green(str)
+  "\e[32m#{str}\e[0m"
+end
+
+def red(str)
+  "\e[31m#{str}\e[0m"
+end
 
 namespace :ci do
   task :rails_tests do
-    puts Rainbow("Running Rails tests").green
+    puts green("Running Rails tests")
     sh "bundle exec rails test"
   end
 
   task :bundle_audit do
-    puts Rainbow("Running security audit on gems (bundle_audit)").green
+    puts green("Running security audit on gems (bundle_audit)")
     sh "bundle exec bundle-audit update && bundle exec bundle-audit check"
   end
 
   task :nsp_check do
-    puts Rainbow("Running security audit on packages (nsp)").green
+    puts green("Running security audit on packages (nsp)")
     sh "./node_modules/nsp/bin/nsp check"
   end
 
@@ -24,11 +30,11 @@ namespace :ci do
   ] do
     begin
       puts "All CI tasks"
-      puts Rainbow("PASSED").green
+      puts green("PASSED")
       puts ""
     rescue Exception => e
       puts "#{e}"
-      puts Rainbow("FAILED").red
+      puts red("FAILED")
       puts ""
       raise(e)
     end

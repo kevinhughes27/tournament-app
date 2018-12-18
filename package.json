@@ -2,8 +2,7 @@
   "name": "ultimate-tournament",
   "private": true,
   "engines": {
-    "node": ">= 6.11.1",
-    "yarn": ">= 0.24.5"
+    "node": "10.14.2"
   },
   "subPackages": [
     "clients/player_app",

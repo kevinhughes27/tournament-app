@@ -6,7 +6,7 @@ const artifactPath = './src/generated.ts';
 
 /* Generate Types */
 console.log("Generating Graphql Types");
-const generator = spawn('node_modules/apollo/bin/run',
+const generator = spawn('./node_modules/apollo/bin/run',
   [
     'client:codegen',
     artifactPath,
@@ -19,6 +19,11 @@ const generator = spawn('node_modules/apollo/bin/run',
     ...args
   ]
 );
+
+// always print errors
+generator.stderr.on('data', data => {
+  console.log(data.toString())
+});
 
 if (args[0] == '--watch') {
   generator.stdout.on('data', data => {

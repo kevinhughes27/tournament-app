@@ -73,7 +73,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'spring'
-  gem 'rainbow'
   gem 'listen'
   gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
 end
