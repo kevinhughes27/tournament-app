@@ -26,7 +26,7 @@ const gameSource: DragSourceSpec<Props, {}> = {
   },
 
   endDrag(props, monitor) {
-    if (monitor && !monitor.didDrop()) {
+    if (monitor.didDrop()) {
       props.unschedule(props.game);
     }
   }

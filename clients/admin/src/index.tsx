@@ -16,4 +16,4 @@ import './assets/css/schedule.css';
 
 const ThemedApp = withTheme(App);
 
-ReactDOM.render(<ThemedApp />, document.getElementById('root'));
+ReactDOM.render(<ThemedApp /> as any, document.getElementById('root'));

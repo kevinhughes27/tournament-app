@@ -38,7 +38,7 @@ const FieldsEditorMap = React.forwardRef<Ref, Props>((props, ref) => (
       <GeoJSON
         key={field.id}
         data={JSON.parse(field.geoJson)}
-        style={FieldStyle}
+        style={() => FieldStyle}
         onMouseover={(ev: LeafletGeoJSONEvent) => {
           const polygon = ev.layer as Polygon;
           polygon.setStyle(FieldHoverStyle);

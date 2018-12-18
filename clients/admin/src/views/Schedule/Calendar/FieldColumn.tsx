@@ -38,10 +38,8 @@ const target: DropTargetSpec<Props> = {
   },
 
   drop({}, monitor, component: FieldColumn) {
-    if (monitor) {
-      const game = monitor.getItem() as ScheduledGame;
-      component.schedule(game);
-    }
+    const game = monitor.getItem() as ScheduledGame;
+    component.schedule(game);
   }
 };
 

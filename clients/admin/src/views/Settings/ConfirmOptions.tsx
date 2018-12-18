@@ -13,8 +13,10 @@ interface Props {
 class ConfirmOptions extends React.Component<Props> {
   render() {
     return (
-      <FormControl component="fieldset" style={{ marginTop: 20 }}>
-        <FormLabel component="legend">Score Confirmation Setting</FormLabel>
+      <FormControl component={'fieldset' as any} style={{ marginTop: 20 }}>
+        <FormLabel component={'legend' as any}>
+          Score Confirmation Setting
+        </FormLabel>
         <RadioGroup
           name="gameConfirmSetting"
           value={this.props.value}
