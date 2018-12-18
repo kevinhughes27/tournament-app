@@ -34,19 +34,6 @@ class Division < ApplicationRecord
     DirtySeedCheck.perform(self)
   end
 
-  def safe_to_change?
-    return true unless self.bracket_type_changed?
-    check = SafeToUpdateBracketCheck.new(self)
-    check.perform
-    @change_message = check.output
-    safe = check.succeeded?
-    safe
-  end
-
-  def safe_to_seed?
-    !games.scored.exists?
-  end
-
   def validate_bracket_type
     errors.add(:bracket_type, 'is invalid') unless bracket.present?
   end

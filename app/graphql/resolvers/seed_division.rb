@@ -8,7 +8,7 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
     @tournament = ctx[:tournament]
     @division = @tournament.divisions.find(inputs[:division_id])
 
-    if !(inputs[:confirm] || @division.safe_to_seed?)
+    if !(inputs[:confirm] || safe_to_seed?)
       return {
         success: false,
         confirm: true,
@@ -39,6 +39,10 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
   end
 
   private
+
+  def safe_to_seed?
+    !@division.games.scored.exists?
+  end
 
   def ambiguous_seeds(seeds)
     return unless seeds.present?
