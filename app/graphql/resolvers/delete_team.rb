@@ -1,7 +1,7 @@
 class Resolvers::DeleteTeam < Resolvers::BaseResolver
   TEAM_DELETE_NOT_ALLOWED = """There are games scheduled for this team.\
  In order to delete this team you need to delete the\
- division_name division first."""
+ DIVISION_NAME division first."""
 
   def call(inputs, ctx)
     @team = ctx[:tournament].teams.find(inputs[:id])
@@ -10,7 +10,7 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
       {
         team: @team,
         success: false,
-        message: TEAM_DELETE_NOT_ALLOWED.gsub('division_name', @team.division.name)
+        message: TEAM_DELETE_NOT_ALLOWED.gsub('DIVISION_NAME', @team.division.name)
       }
     elsif @team.destroy
       {
@@ -28,7 +28,7 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
   end
 
   def allow_delete?
-    Game.where(tournament_id: @team.tournament_id, home_id: @team.id).exists? ||
-    Game.where(tournament_id: @team.tournament_id, away_id: @team.id).exists?
+    !Game.where(tournament_id: @team.tournament_id, home_id: @team.id).exists? &&
+    !Game.where(tournament_id: @team.tournament_id, away_id: @team.id).exists?
   end
 end
