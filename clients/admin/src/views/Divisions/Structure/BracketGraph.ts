@@ -1,29 +1,30 @@
-import d3 from 'd3';
+import * as d3 from 'd3';
 import { max } from 'lodash';
 import inflection from 'inflection';
 
 const ordinalize = inflection.ordinalize;
 
 const HeightMultiplier = 120;
-const NodeSpacing = 20;
+const NodeSpacing = 40;
 
 interface Node {
   id: number;
-  uid: string;
   x: number;
   y: number;
-  root: boolean;
   parent: any;
-  home: string;
-  away: string;
-  round: number;
+  data: {
+    uid: string;
+    home: string;
+    away: string;
+    round: number;
+    root: boolean;
+  };
 }
 
 class BracketGraph {
   viewerWidth: number;
   viewerHeight: number;
   tree: any;
-  diagonal: any;
   zoomListener: any;
   baseSvg: any;
   svgGroup: any;
@@ -39,16 +40,15 @@ class BracketGraph {
     this.viewerHeight = container.clientHeight;
 
     // create the tree
-    this.tree = d3.layout.tree().size([this.viewerHeight, this.viewerWidth]);
-
-    // define a d3 diagonal projection for use by the node paths later on.
-    this.diagonal = d3.svg.diagonal().projection((d: Node) => [d.y, d.x]);
+    this.tree = d3.tree().size([this.viewerHeight, this.viewerWidth]);
 
     // attach zoomListener
-    this.zoomListener = d3.behavior
+    this.zoomListener = d3
       .zoom()
       .scaleExtent([0.1, 3])
-      .on('zoom', this.zoom.bind(this));
+      .on('zoom', () => {
+        this.svgGroup.attr('transform', d3.event.transform);
+      });
 
     // create the baseSvg
     this.baseSvg = d3
@@ -73,6 +73,7 @@ class BracketGraph {
     };
 
     const nodeWidth = this.update(treeData);
+
     this.position(nodeWidth);
   }
 
@@ -96,15 +97,15 @@ class BracketGraph {
     this.tree = this.tree.size([this.treeHeight, this.viewerWidth]);
 
     // Compute the new tree layout.
-    const nodes = this.tree.nodes(source).reverse();
-    const links = this.tree.links(nodes);
+    const hierarchy = d3.hierarchy(source);
+    const nodes = this.tree(hierarchy);
 
     // compute maxLabelLength
     this.maxLabelLength = 0;
-    nodes.forEach((d: Node) => {
+    nodes.descendants().forEach((d: Node) => {
       this.maxLabelLength = max([
-        d.home ? d.home.length : 0,
-        d.away ? d.away.length : 0,
+        d.data.home ? d.data.home.length : 0,
+        d.data.away ? d.data.away.length : 0,
         this.maxLabelLength
       ]);
     });
@@ -113,17 +114,17 @@ class BracketGraph {
     const nodeWidth = this.maxLabelLength * 5 + 20;
 
     // Set horizantal position for each node
-    nodes.forEach((d: Node) => {
-      d.y = d.round * (nodeWidth + NodeSpacing);
+    nodes.descendants().forEach((d: Node) => {
+      d.y = d.data.round * (nodeWidth + NodeSpacing);
     });
 
-    // Declare the nodes…
+    // Declare the nodes
     let i = 0;
     const node = this.svgGroup
-      .selectAll('g.node')
-      .data(nodes, (d: Node) => d.id || (d.id = ++i));
+      .selectAll('.node')
+      .data(nodes.descendants(), (d: Node) => d.id || (d.id = ++i));
 
-    // Enter the nodes.
+    // Enter the nodes
     const nodeEnter = node
       .enter()
       .append('g')
@@ -146,14 +147,14 @@ class BracketGraph {
       .attr('dy', 12)
       .attr('dx', 8)
       .attr('text-anchor', 'start')
-      .text((d: Node) => d.home);
+      .text((d: Node) => d.data.home);
 
     // away text
     nodeEnter
       .append('text')
       .attr('dy', 24)
       .attr('dx', 8)
-      .text((d: Node) => d.away);
+      .text((d: Node) => d.data.away);
 
     // place text
     nodeEnter
@@ -162,8 +163,8 @@ class BracketGraph {
       .attr('dx', nodeWidth + 10)
       .attr('font-weight', 'bold')
       .text((d: Node) => {
-        if (d.parent && d.parent.root) {
-          return ordinalize(d.uid);
+        if (d.parent && d.parent.data.root) {
+          return ordinalize(d.data.uid);
         }
       });
 
@@ -174,57 +175,69 @@ class BracketGraph {
       .attr('dx', nodeWidth / 2 - 4)
       .attr('font-weight', 'bold')
       .text((d: Node) => {
-        if (!(d.parent && d.parent.root)) {
-          return d.uid;
+        if (!(d.parent && d.parent.data.root)) {
+          return d.data.uid;
         } else {
           return '';
         }
       });
 
-    // Declare the links…
+    // Declare the links
     const link = this.svgGroup
       .selectAll('path.link')
-      .data(links, (d: any) => d.target.id);
+      .data(nodes.descendants().slice(1));
 
     // Enter the links.
     link
       .enter()
       .insert('path', 'g')
       .attr('class', 'link')
-      .attr('d', this.diagonal)
-      .attr('transform', ({  }: Node) => `translate(${nodeWidth / 2} , ${12})`)
-      .style('opacity', 0);
+      .style('opacity', 0)
+      .attr('transform', () => `translate(${nodeWidth / 2} , ${12})`)
+      .attr('d', (d: Node) => {
+        return (
+          'M' +
+          d.y +
+          ',' +
+          d.x +
+          'C' +
+          (d.y + d.parent.y) / 2 +
+          ',' +
+          d.x +
+          ' ' +
+          (d.y + d.parent.y) / 2 +
+          ',' +
+          d.parent.x +
+          ' ' +
+          d.parent.y +
+          ',' +
+          d.parent.x
+        );
+      });
 
     // unhide
-    node
+    const t = d3
       .transition()
-      .duration(750)
-      .style('opacity', (d: Node) => (d.root ? 0 : 1));
+      .delay(250)
+      .duration(500)
+      .ease(d3.easeLinear);
 
-    link
-      .transition()
-      .duration(750)
-      .style('opacity', (d: any) => (d.source.root ? 0 : 1));
+    d3.selectAll('.node')
+      .transition(t)
+      .style('opacity', (d: Node) => (d.data.root ? 0 : 1));
+
+    d3.selectAll('.link')
+      .transition(t)
+      .style('opacity', (d: any) => (d.parent.data.root ? 0 : 1));
 
     return nodeWidth;
-  }
-
-  zoom() {
-    const transformString = `translate(${d3.event.translate}) scale(${
-      d3.event.scale
-    })`;
-    this.svgGroup.attr('transform', transformString);
   }
 
   position(nodeWidth: number) {
     const x = -(nodeWidth + 10);
     const y = -30;
-    // const scale = this.viewerHeight / this.treeHeight
 
     this.svgGroup.transition().attr('transform', `translate(${x}, ${y})`);
-    // .attr("transform", `scale(${scale})`)
-
-    this.zoomListener.translate([x, y]);
   }
 }
 
