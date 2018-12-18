@@ -5,8 +5,8 @@ import { Login as styles } from '../../assets/jss/styles';
 import Button from '@material-ui/core/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-library.add(faFacebook as IconDefinition);
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
+library.add(faFacebookF as IconDefinition);
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -33,7 +33,7 @@ class FacebookLogin extends React.Component<Props> {
         onClick={this.redirect}
       >
         <FontAwesomeIcon
-          icon={['fab', 'facebook']}
+          icon={['fab', 'facebook-f']}
           size="lg"
           style={{ marginRight: 15 }}
         />

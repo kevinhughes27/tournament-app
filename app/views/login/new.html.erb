@@ -28,15 +28,19 @@
 
       <%= f.submit "Log in", class: 'btn btn-login right' %>
     <% end %>
+  </div>
 
+  <div class="social">
     <%= link_to user_google_oauth2_omniauth_authorize_url(subdomain: 'www'),
-      class: "waves-effect waves-light btn social google" do %>
-      <i class="fa fa-google"></i> Sign in with Google
+      class: "waves-effect waves-light btn google" do %>
+      <i class="fa fa-google" style="padding-right: 15px"></i>
+      <span style="padding-left: 15px; padding-right: 15px">Sign in with Google</span>
     <% end %>
 
     <%= link_to user_facebook_omniauth_authorize_path(subdomain: 'www'),
-          class: "\waves-effect waves-light btn social facebook" do %>
-      <i class="fa fa-facebook"></i> Sign in with Facebook
+          class: "waves-effect waves-light btn facebook" do %>
+      <i class="fa fa-facebook-f" style="padding-right: 15px"></i>
+      <span style="padding-left: 15px; padding-right: 15px">Sign in with Facebook</span>
     <% end %>
   </div>
 </div>
