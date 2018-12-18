@@ -5,31 +5,28 @@ import { query } from '../queries/DivisionSeedQuery';
 import gql from 'graphql-tag';
 
 const mutation = gql`
-  mutation CreateSeedMutation($input: CreateSeedInput!) {
-    createSeed(input: $input) {
-      division {
-        teams {
-          id
-          name
-          seed
-        }
-      }
+  mutation DeleteSeedMutation($input: DeleteSeedInput!) {
+    deleteSeed(input: $input) {
       success
+      confirm
       message
     }
   }
 `;
 
-function commit(variables: CreateSeedMutationVariables) {
-  const update = mutationUpdater<CreateSeedMutation>((store, payload) => {
-    const { teamId, divisionId, rank } = variables.input;
+function commit(variables: DeleteSeedMutationVariables) {
+  const update = mutationUpdater<DeleteSeedMutation>((store, payload) => {
+    const { teamId, divisionId } = variables.input;
     const data = store.readQuery({ query, variables: { divisionId } }) as any;
 
-    if (data && payload.createSeed && payload.createSeed.success) {
-      data.division.teams = payload.createSeed.division.teams;
-
+    if (data && payload.deleteSeed && payload.deleteSeed.success) {
       const teamIdx = data.teams.findIndex((t: any) => t.id === teamId);
-      Object.assign(data.teams[teamIdx], { seed: rank });
+      Object.assign(data.teams[teamIdx], { seed: null });
+
+      const dTeamIdx = data.division.teams.findIndex(
+        (t: any) => t.id === teamId
+      );
+      Object.assign(data.division.teams[dTeamIdx], { seed: null });
 
       store.writeQuery({ query, data });
     }
@@ -42,8 +39,8 @@ function commit(variables: CreateSeedMutationVariables) {
         variables,
         update
       })
-      .then(({ data: { createSeed } }) => {
-        resolve(createSeed as MutationResult);
+      .then(({ data: { deleteSeed } }) => {
+        resolve(deleteSeed as MutationResult);
       })
       .catch(error => {
         reject(error);

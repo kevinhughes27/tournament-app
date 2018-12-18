@@ -5,8 +5,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TeamPicker from './TeamPicker';
+import Seed from './Seed';
 import runMutation from '../../helpers/runMutation';
 import CreateSeed from '../../mutations/CreateSeed';
+import DeleteSeed from '../../mutations/DeleteSeed';
 import { range } from 'lodash';
 
 interface Props {
@@ -15,7 +17,7 @@ interface Props {
 }
 
 class Seeds extends React.Component<Props> {
-  updateSeed = (teamId: string, rank: number) => {
+  createSeed = (teamId: string, rank: number) => {
     const input = {
       input: {
         divisionId: this.props.division.id,
@@ -25,6 +27,18 @@ class Seeds extends React.Component<Props> {
     };
 
     runMutation(CreateSeed, input);
+  };
+
+  deleteSeed = (teamId: string, rank: number) => {
+    const input = {
+      input: {
+        divisionId: this.props.division.id,
+        teamId,
+        rank
+      }
+    };
+
+    runMutation(DeleteSeed, input);
   };
 
   render() {
@@ -55,21 +69,32 @@ class Seeds extends React.Component<Props> {
   };
 
   renderRow = (rank: number) => {
+    return (
+      <TableRow key={rank}>
+        <TableCell>{this.renderSeedCell(rank)}</TableCell>
+        <TableCell>
+          <strong>{rank}</strong>
+        </TableCell>
+      </TableRow>
+    );
+  };
+
+  renderSeedCell = (rank: number) => {
     const { division, teams } = this.props;
     const team = division.teams.find(t => t.seed === rank);
 
-    return (
-      <TableRow key={rank}>
-        <TableCell>
-          <TeamPicker
-            teamId={team && team.id}
-            teams={teams}
-            onChange={ev => this.updateSeed(ev.target.value, rank)}
-          />
-        </TableCell>
-        <TableCell>{rank}</TableCell>
-      </TableRow>
-    );
+    if (team) {
+      return (
+        <Seed team={team} onDelete={() => this.deleteSeed(team.id, rank)} />
+      );
+    } else {
+      return (
+        <TeamPicker
+          teams={teams}
+          onChange={ev => this.createSeed(ev.target.value, rank)}
+        />
+      );
+    }
   };
 }
 

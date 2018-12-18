@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
 interface Props {
-  teamId?: string;
   teams: DivisionSeedQuery['teams'];
   onChange: (event: React.ChangeEvent<{ value: string }>) => void;
 }
@@ -15,8 +14,8 @@ interface TeamOption {
 
 class TeamPicker extends React.Component<Props> {
   render() {
-    const { teamId, teams } = this.props;
-    const options = teams.filter(t => t.id === teamId || !t.seed);
+    const teams = this.props.teams;
+    const options = teams.filter(t => !t.seed);
 
     return (
       <TextField
@@ -25,7 +24,7 @@ class TeamPicker extends React.Component<Props> {
         variant="outlined"
         fullWidth
         select
-        value={this.props.teamId || ''}
+        value={''}
         onChange={this.props.onChange}
       >
         {options.map(option => Option(option))}

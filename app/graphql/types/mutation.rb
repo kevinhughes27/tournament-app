@@ -10,9 +10,10 @@ class Types::Mutation < Types::BaseObject
 
   field :createDivision, mutation: Mutations::CreateDivision, auth: :required
   field :updateDivision, mutation: Mutations::UpdateDivision, auth: :required
-  field :createSeed,     mutation: Mutations::CreateSeed,     auth: :required
-  field :seedDivision,   mutation: Mutations::SeedDivision,   auth: :required
   field :deleteDivision, mutation: Mutations::DeleteDivision, auth: :required
+  field :createSeed,     mutation: Mutations::CreateSeed,     auth: :required
+  field :deleteSeed,     mutation: Mutations::DeleteSeed,     auth: :required
+  field :seedDivision,   mutation: Mutations::SeedDivision,   auth: :required
 
   field :updateMap,      mutation: Mutations::UpdateMap,      auth: :required
   field :createField,    mutation: Mutations::CreateField,    auth: :required
