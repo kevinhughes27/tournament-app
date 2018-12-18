@@ -44,11 +44,7 @@ class Division < ApplicationRecord
   end
 
   def safe_to_seed?
-    !games.where(score_confirmed: true).exists?
-  end
-
-  def safe_to_delete?
-    !games.where(score_confirmed: true).exists?
+    !games.scored.exists?
   end
 
   def validate_bracket_type

@@ -28,6 +28,7 @@ class Game < ApplicationRecord
   scope :bracket_game, -> { where.not(bracket_uid: nil) }
   scope :has_team, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
   scope :with_teams, -> { where('home_id IS NOT NULL and away_id IS NOT NULL') }
+  scope :scored, -> { where(score_confirmed: true) }
 
   def self.from_template(tournament_id:, division_id:, template_game:)
     new(
