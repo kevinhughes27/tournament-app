@@ -101,14 +101,19 @@ class FieldsEditor extends React.Component<Props, State> {
   };
 
   cancelMode = () => {
-    EditableField.clear();
-    this.historyBuffer = [];
-    this.setState({ mode: 'view', editing: newField });
+    if (this.state.mode === 'editMap') {
+      const { lat, long, zoom } = this.props.map;
+      this.setState({ lat, long, zoom, mode: 'view' });
+    } else {
+      EditableField.clear();
+      this.historyBuffer = [];
+      this.setState({ mode: 'view', editing: newField });
+    }
   };
 
   /* Leaflet event handlers */
-  startDrawingMobile = (event: Leaflet.LeafletMouseEvent) => {
-    this.map!.editTools.startPolygon(event.latlng);
+  startDrawingMobile = (event: Leaflet.LeafletEvent) => {
+    this.map!.editTools.startPolygon((event as any).latlng);
     this.map!.off('contextmenu', this.startDrawingMobile);
   };
 
@@ -122,8 +127,8 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({ lat, long, zoom });
   };
 
-  updateField = (event: Leaflet.LeafletGeoJSONEvent) => {
-    const polygon = event.layer as Leaflet.Polygon;
+  updateField = (event: Leaflet.LeafletEvent) => {
+    const polygon = (event as any).layer as Leaflet.Polygon;
     const geoJson = polygon.toGeoJSON();
 
     this.setEditingState(geoJson);
@@ -163,13 +168,13 @@ class FieldsEditor extends React.Component<Props, State> {
   };
 
   // https://github.com/Leaflet/Leaflet.Editable/blob/master/src/Leaflet.Editable.js#L389
-  noOp = (event: { cancel: () => void }) => {
-    event.cancel();
+  noOp = (event: Leaflet.LeafletEvent) => {
+    (event as any).cancel();
   };
 
   // auto complete the polygon on the 4th vertex
-  autoComplete = (event: Leaflet.LeafletLayerEvent) => {
-    const polygon = event.layer as Leaflet.MultiPolygon;
+  autoComplete = (event: Leaflet.LeafletEvent) => {
+    const polygon = (event as any).layer as Leaflet.MultiPolygon;
     const verticies = polygon.getLatLngs()[0];
 
     if (verticies.length === 4) {

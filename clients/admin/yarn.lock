@@ -815,7 +815,7 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@7.2.0":
+"@babel/runtime@7.2.0", "@babel/runtime@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.2.0.tgz#b03e42eeddf5898e00646e4c840fa07ba8dcad7f"
   integrity sha512-oouEibCbHMVdZSDlJBO6bZmID/zA/G/Qx3H1d3rSNPTD+L8UNKvCat7aKWSJ74zYbm5zWGh0GQN0hKj8zYFTCg==
@@ -6907,14 +6907,6 @@ leaflet-editable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/leaflet-editable/-/leaflet-editable-1.2.0.tgz#a3a01001764ba58ea923381ee6a1c814708a0b84"
 
-leaflet.locatecontrol@^0.62.0:
-  version "0.62.0"
-  resolved "https://registry.yarnpkg.com/leaflet.locatecontrol/-/leaflet.locatecontrol-0.62.0.tgz#cf0c65170a87f2ed4b1a59e3307b773cd268d27d"
-
-leaflet@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.1.tgz#86f336d2fb0e2d0ff446677049a5dc34cf0ea60e"
-
 leaflet@^1.3.2:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.4.tgz#7f006ea5832603b53d7269ef5c595fd773060a40"
@@ -8912,7 +8904,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -9206,39 +9198,26 @@ react-join@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/react-join/-/react-join-1.1.4.tgz#77c9c69b75ea596c1782a5e61426a104fda556a2"
 
-react-leaflet-control@kevinhughes27/react-leaflet-control#master:
-  version "1.4.1"
-  resolved "https://codeload.github.com/kevinhughes27/react-leaflet-control/tar.gz/14570e64363527bf9fd4a9318f65949332d4a4f3"
-  dependencies:
-    prop-types "^15.5.7"
+react-leaflet-control@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-control/-/react-leaflet-control-2.0.0.tgz#3d9ac4c67e86032520bf581b7a1a0dc7b450f682"
+  integrity sha512-pUJsOJPfAvsI0PV9cjSV7Sj4DNKgaCmpBem9oC2qqyhH54d5HaQR90O45y1gGCX9ps8P1r4yR66TdDhWOlNDnw==
 
-react-leaflet-div-icon@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-leaflet-div-icon/-/react-leaflet-div-icon-1.1.0.tgz#a31b7ecf3aff66f780f23d7e96ba9420cf072c70"
-  dependencies:
-    prop-types "^15.5.10"
+react-leaflet-search@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-search/-/react-leaflet-search-0.6.0.tgz#fac831b000466615e1a748b7e3f6929389ab36ef"
+  integrity sha512-5kzE4Szqs8tf96qSNZqUcMaWVXIjHXsxMLrzeaf8M99PdCFs9e7bLQjGKBCyvsDdJvcv3iNni20DjrMkwHjLEA==
 
-react-leaflet-locate-control@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/react-leaflet-locate-control/-/react-leaflet-locate-control-0.1.6.tgz#abfc9aeb08d3a63756f568dd87464aa79213fd05"
+react-leaflet@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-2.1.3.tgz#c16b6e63a7b0f17d60636b96a34e017163b5384b"
+  integrity sha512-k7sizKruEyqbGVWcbZBfvkz3inrUtoV2Uxc5Iz+eRCYiepm74T+tk/KfLqTOEGoNTEd9UqHiJ2GtoM58K8z8HA==
   dependencies:
-    leaflet "1.3.1"
-    leaflet.locatecontrol "^0.62.0"
-    prop-types "^15.6.1"
-    react "^16.4.1"
-    react-leaflet "^1.9.1"
-
-react-leaflet-search@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/react-leaflet-search/-/react-leaflet-search-0.5.1.tgz#1f0b7bde1362af022837d436042eaf04d77a899f"
-
-react-leaflet@^1.9.1:
-  version "1.9.1"
-  resolved "http://registry.npmjs.org/react-leaflet/-/react-leaflet-1.9.1.tgz#0a282d8d26f66ea2d719ebb8f4a5fa156b33b8c8"
-  dependencies:
+    "@babel/runtime" "^7.2.0"
+    hoist-non-react-statics "^3.2.1"
     lodash "^4.0.0"
     lodash-es "^4.0.0"
-    warning "^3.0.0"
+    warning "^4.0.0"
 
 react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
@@ -9347,7 +9326,7 @@ react-transition-group@^2.2.1:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react@^16.4.1, react@^16.5.0:
+react@^16.5.0:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
   dependencies:
@@ -10821,10 +10800,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.6.tgz#b6543a83cfc8c2befb3f4c8fba6896f5b0c9be68"
-  integrity sha512-tDMYfVtvpb96msS1lDX9MEdHrW4yOuZ4Kdc4Him9oU796XldPYF/t2+uKoX0BBa0hXXwDlqYQbXY5Rzjzc5hBA==
+typescript@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.2.tgz#fe8101c46aa123f8353523ebdcf5730c2ae493e5"
+  integrity sha512-VCj5UiSyHBjwfYacmDuc/NOk4QQixbE+Wn7MFJuS0nRuPQbof132Pw4u53dm264O8LPc2MVsc7RJNml5szurkg==
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
@@ -11109,7 +11088,7 @@ warning@^3.0.0:
   dependencies:
     loose-envify "^1.0.0"
 
-warning@^4.0.1:
+warning@^4.0.0, warning@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.2.tgz#aa6876480872116fa3e11d434b0d0d8d91e44607"
   dependencies:

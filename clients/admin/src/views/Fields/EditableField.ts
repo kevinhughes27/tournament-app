@@ -10,7 +10,7 @@ class EditableField {
     this.layers = Leaflet.geoJson(geoJson, { style }).addTo(map);
 
     this.layers.eachLayer(layer => {
-      const polygon = layer as Leaflet.Polygon;
+      const polygon = (layer as unknown) as Leaflet.Polygon;
       polygon.enableEdit();
     });
   }
@@ -23,7 +23,7 @@ class EditableField {
 
   getCenter = () => {
     const mainLayer = this.layers!.getLayers()[0];
-    const editPolygon = mainLayer as Leaflet.Polygon;
+    const editPolygon = (mainLayer as unknown) as Leaflet.Polygon;
     return editPolygon.getBounds().getCenter();
   };
 }
