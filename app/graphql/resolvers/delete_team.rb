@@ -4,26 +4,31 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
  division_name division first."""
 
   def call(inputs, ctx)
-    team = ctx[:tournament].teams.find(inputs[:id])
+    @team = ctx[:tournament].teams.find(inputs[:id])
 
-    if !team.allow_delete?
+    if !allow_delete?
       {
-        team: team,
+        team: @team,
         success: false,
-        message: TEAM_DELETE_NOT_ALLOWED.gsub('division_name', team.division.name)
+        message: TEAM_DELETE_NOT_ALLOWED.gsub('division_name', @team.division.name)
       }
-    elsif team.destroy
+    elsif @team.destroy
       {
-        team: team,
+        team: @team,
         success: true,
         message: 'Team deleted'
       }
     else
       {
-        team: team,
+        team: @team,
         success: false,
         message: 'Delete failed'
       }
     end
+  end
+
+  def allow_delete?
+    Game.where(tournament_id: @team.tournament_id, home_id: @team.id).exists? ||
+    Game.where(tournament_id: @team.tournament_id, away_id: @team.id).exists?
   end
 end

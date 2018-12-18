@@ -9,18 +9,6 @@ class TeamTest < ActiveSupport::TestCase
     assert_nil report.reload.team
   end
 
-  test "allow_delete? is true for a team with no games" do
-    team = FactoryBot.create(:team)
-    assert team.allow_delete?
-  end
-
-  test "allow_delete? is false if team is assigned to games" do
-    team = FactoryBot.create(:team)
-    game = FactoryBot.create(:game, home: team)
-
-    refute team.allow_delete?
-  end
-
   test "limited number of teams per tournament" do
     tournament = FactoryBot.create(:tournament)
     FactoryBot.create(:team, tournament: tournament)

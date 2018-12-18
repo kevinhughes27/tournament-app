@@ -23,8 +23,6 @@ class SeedDivisionTest < ApiTest
 
     FactoryBot.create(:game, :finished, division: division, home: seeds.first.team)
 
-    assert division.teams.any?{ |t| !t.allow_delete? }
-
     input = {division_id: division.id}
     execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
     assert_confirmation_required "This division has games that have been scored. Seeding this division will reset those games. Are you sure this is what you want to do?"

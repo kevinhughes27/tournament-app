@@ -32,8 +32,4 @@ class Field < ApplicationRecord
       }
     }.to_json
   end
-
-  def safe_to_delete?
-    !Game.where(tournament_id: tournament_id, field_id: id).exists?
-  end
 end
