@@ -6,15 +6,6 @@ export const query = gql`
       id
       name
       email
-      division {
-        id
-        name
-      }
-      seed
-    }
-    divisions {
-      id
-      name
     }
   }
 `;

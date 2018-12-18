@@ -5,11 +5,17 @@ export const query = gql`
     division(id: $divisionId) {
       id
       name
+      numTeams
       teams {
         id
         name
         seed
       }
+    }
+    teams {
+      id
+      name
+      seed
     }
   }
 `;

@@ -4,11 +4,10 @@ class Tournament < ApplicationRecord
   validates_presence_of :tournament_users, on: :update
 
   has_one :map, dependent: :destroy
-  accepts_nested_attributes_for :map
-
-  has_many :fields, dependent: :destroy
   has_many :teams, dependent: :destroy
+  has_many :fields, dependent: :destroy
   has_many :divisions, dependent: :destroy
+  has_many :seeds, dependent: :destroy
   has_many :games, dependent: :destroy
   has_many :pool_results, dependent: :destroy
   has_many :places, dependent: :destroy

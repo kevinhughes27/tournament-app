@@ -33,11 +33,11 @@ class DirtySeedCheck < ApplicationOperation
   end
 
   def teams
-    @teams ||= division.teams.order(:seed)
+    @teams ||= division.seeds.order(:rank).map(&:team)
   end
 
   def seeds
-    @seeds ||= division.teams.pluck(:seed).map(&:to_i).sort
+    (1..division.num_teams+1).to_a
   end
 
   def seats

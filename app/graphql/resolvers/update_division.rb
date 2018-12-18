@@ -7,16 +7,14 @@ class Resolvers::UpdateDivision < Resolvers::BaseResolver
     @division.assign_attributes(params)
     bracket_type_changed = @division.bracket_type_changed?
 
-    if !(inputs[:confirm] || @division.safe_to_change?)
-      return {
+    if !(inputs[:confirm] || safe_change?)
+      {
         success: false,
         confirm: true,
         division: @division,
-        message: @division.change_message
+        message: @change_message
       }
-    end
-
-    if @division.update(params)
+    elsif @division.update(params)
       update_bracket if bracket_type_changed
       {
         success: true,
@@ -33,6 +31,15 @@ class Resolvers::UpdateDivision < Resolvers::BaseResolver
   end
 
   private
+
+  def safe_change?
+    return true unless @division.bracket_type_changed?
+    check = SafeToUpdateBracketCheck.new(@division)
+    check.perform
+    @change_message = check.output
+    safe = check.succeeded?
+    safe
+  end
 
   def update_bracket
     @division.update_column(:seeded, false)

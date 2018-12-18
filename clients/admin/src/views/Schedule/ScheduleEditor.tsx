@@ -45,14 +45,14 @@ class ScheduleEditor extends React.Component<Props> {
     if (fields.length === 0) {
       return (
         <BlankSlate>
-          <h3>Create the Schedule for Your Tournament</h3>
+          <h3>Create the Schedule for your Tournament</h3>
           <p>You need to create Fields before you can build your schedule.</p>
         </BlankSlate>
       );
     } else if (games.length === 0) {
       return (
         <BlankSlate>
-          <h3>Create the Schedule for Your Tournament</h3>
+          <h3>Create the Schedule for your Tournament</h3>
           <p>
             After you create Divisions you'll be able to make your schedule on
             this page.

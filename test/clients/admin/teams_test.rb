@@ -2,8 +2,6 @@ require "test_helper"
 
 class TeamsTest < AdminTest
   test 'create team' do
-    @division = FactoryBot.create(:division)
-
     visit_app
     login
     side_menu('Teams')
@@ -36,8 +34,6 @@ class TeamsTest < AdminTest
 
   def create_team
     fill_in('name', with: 'Hug Machine')
-    pick_division
-    fill_in('seed', with: 1)
 
     assert_difference 'Team.count' do
       submit
@@ -46,13 +42,6 @@ class TeamsTest < AdminTest
 
     team = Team.last
     assert_equal 'Hug Machine', team.name
-    assert_equal 1, team.seed
-  end
-
-  def pick_division
-    input = page.find(:xpath,"//*[text()='Division']")
-    page.driver.browser.action.move_to(input.native).click.perform
-    click_text(@division.name)
   end
 
   def open_team
@@ -64,14 +53,11 @@ class TeamsTest < AdminTest
   def edit_team
     fill_in('name', with: ' ')
     fill_in('name', with: 'Hug Machine')
-    fill_in('seed', with: ' ')
-    fill_in('seed', with: 1)
     submit
     assert_text ('Team updated')
 
     team = Team.last
     assert_equal 'Hug Machine', team.name
-    assert_equal 1, team.seed
   end
 
   def import_teams

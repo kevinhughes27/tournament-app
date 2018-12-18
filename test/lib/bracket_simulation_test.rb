@@ -7,7 +7,7 @@ class BracketSimulationTest < OperationTest
     test "play a division with bracket_type: #{handle}" do
       @division = create_division(bracket_type: handle)
 
-      create_teams
+      create_seeds
       seed_division
 
       play_games
@@ -26,11 +26,11 @@ class BracketSimulationTest < OperationTest
     Division.last
   end
 
-  def create_teams
+  def create_seeds
     n = @division.bracket.teams
 
-    (1..n).map do |seed|
-      FactoryBot.create(:team, division: @division, name: "Team #{seed}", seed: seed)
+    (1..n).map do |rank|
+      FactoryBot.create(:seed, division: @division, rank: rank)
     end
   end
 

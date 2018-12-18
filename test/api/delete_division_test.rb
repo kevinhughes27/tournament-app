@@ -16,7 +16,7 @@ class DeleteDivisionTest < ApiTest
     end
   end
 
-  test "unsafe delete a division needs confirm" do
+  test "delete a division with games scored needs confirm" do
     division = FactoryBot.create(:division)
     game = FactoryBot.create(:game, :finished, division: division)
     input = {id: division.id}
@@ -24,6 +24,27 @@ class DeleteDivisionTest < ApiTest
     assert_no_difference "Division.count" do
       execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)
       assert_confirmation_required "This division has games that have been scored. Deleting this division will delete all the games that belong to it. Are you sure this is what you want to do?"
+    end
+  end
+
+  test "delete a division with games scheduled needs confirm" do
+    division = FactoryBot.create(:division)
+    game = FactoryBot.create(:game, :scheduled, division: division)
+    input = {id: division.id}
+
+    assert_no_difference "Division.count" do
+      execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)
+      assert_confirmation_required "This division has games that have been scheduled. Deleting this division will delete all the games that belong to it. Are you sure this is what you want to do?"
+    end
+  end
+
+  test "delete a seeded division needs confirm" do
+    division = FactoryBot.create(:division, seeded: true)
+    input = {id: division.id}
+
+    assert_no_difference "Division.count" do
+      execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)
+      assert_confirmation_required "This division has been seeded. Deleting this division will remove all the seeds that belong to it. Are you sure this is what you want to do?"
     end
   end
 
@@ -40,7 +61,7 @@ class DeleteDivisionTest < ApiTest
 
   test "deleting a division deletes games" do
     division = FactoryBot.create(:division)
-    game = FactoryBot.create(:game, :scheduled, division: division)
+    game = FactoryBot.create(:game, division: division)
     input = {id: division.id}
 
     assert_difference "Division.count", -1 do

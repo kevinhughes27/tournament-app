@@ -8,4 +8,8 @@ class Types::Team < Types::BaseObject
   field :phone, String, auth: :required, null: true
   field :division, Types::Division, null: true
   field :seed, Int, null: true
+
+  def seed
+    object.seed && object.seed.rank
+  end
 end

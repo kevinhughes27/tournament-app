@@ -34,20 +34,6 @@ class DivisionTest < ActiveSupport::TestCase
     division.dirty_seed?
   end
 
-  test "safe_to_delete? is true for division with no games played" do
-    division = FactoryBot.create(:division)
-    FactoryBot.create(:game, division: division)
-
-    assert division.safe_to_delete?
-  end
-
-  test "safe_to_delete? is false for division with games played" do
-    division = FactoryBot.create(:division)
-    FactoryBot.create(:game, :finished, division: division)
-
-    refute division.safe_to_delete?
-  end
-
   test "limited number of divisions per tournament" do
     tournament = FactoryBot.create(:tournament)
     FactoryBot.create(:division, tournament: tournament)
@@ -61,21 +47,5 @@ class DivisionTest < ActiveSupport::TestCase
 
   test "limit is defined" do
     assert_equal 12, Division::LIMIT
-  end
-
-  test "bracket_games scope" do
-    division = FactoryBot.create(:division)
-    game = FactoryBot.create(:game, division: division)
-
-    bracket_games = division.bracket_games
-    assert bracket_games.first.bracket_uid
-  end
-
-  test "pool_games scope" do
-    division = FactoryBot.create(:division)
-    game = FactoryBot.create(:pool_game, division: division)
-
-    pool_games = division.pool_games('A')
-    assert_equal 'A', pool_games.first.pool
   end
 end

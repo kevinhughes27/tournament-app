@@ -26,10 +26,9 @@ class Game < ApplicationRecord
   after_commit :broadcast, on: :update
 
   scope :bracket_game, -> { where.not(bracket_uid: nil) }
-
   scope :has_team, -> { where('home_id IS NOT NULL or away_id IS NOT NULL') }
   scope :with_teams, -> { where('home_id IS NOT NULL and away_id IS NOT NULL') }
-  scope :reported_unconfirmed, -> { includes(:score_reports).where(score_confirmed: false).where.not(score_reports: {id: nil})}
+  scope :scored, -> { where(score_confirmed: true) }
 
   def self.from_template(tournament_id:, division_id:, template_game:)
     new(

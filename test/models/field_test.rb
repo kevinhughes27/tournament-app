@@ -1,19 +1,6 @@
 require 'test_helper'
 
 class FieldTest < ActiveSupport::TestCase
-  test "safe_to_delete? is true for field with no games" do
-    field = FactoryBot.create(:field)
-
-    assert field.safe_to_delete?
-  end
-
-  test "safe_to_delete? is false for field games" do
-    field = FactoryBot.create(:field)
-    game = FactoryBot.create(:game, :scheduled, field: field)
-
-    refute field.safe_to_delete?
-  end
-
   test "limited number of fields per tournament" do
     tournament = FactoryBot.create(:tournament)
     FactoryBot.create(:field, tournament: tournament)

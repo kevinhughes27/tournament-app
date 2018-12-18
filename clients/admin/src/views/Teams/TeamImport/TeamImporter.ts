@@ -39,13 +39,9 @@ class TeamImporter {
   };
 
   private importTeam = async (row: any[], rowIdx: number) => {
-    const division = this.divisions.find(d => d.name === row[2]);
-
     const variables = {
       name: row[0],
-      email: row[1],
-      divisionId: division && division.id,
-      seed: parseInt(row[3], 10)
+      email: row[1]
     };
 
     const result = await CreateTeamMutation.commit({ input: variables });
@@ -62,6 +58,11 @@ class TeamImporter {
 
     this.updateProgress();
   };
+
+  // probably pass team in as well
+  // private createSeed = async(row: any[], rowIdx: number) => {
+  //   const division = this.divisions.find(d => d.name === row[2]);
+  // }
 
   private updateProgress = () => {
     const errorCount = keys(this.errors).length;

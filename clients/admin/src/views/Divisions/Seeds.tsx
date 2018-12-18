@@ -4,20 +4,46 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { sortBy } from 'lodash';
-
-interface Seed {
-  seed: number | null;
-  name: string;
-}
+import TeamPicker from './TeamPicker';
+import Seed from './Seed';
+import runMutation from '../../helpers/runMutation';
+import CreateSeed from '../../mutations/CreateSeed';
+import DeleteSeed from '../../mutations/DeleteSeed';
+import { range } from 'lodash';
 
 interface Props {
-  teams: ReadonlyArray<Seed>;
+  division: DivisionSeedQuery_division;
+  teams: DivisionSeedQuery['teams'];
 }
 
 class Seeds extends React.Component<Props> {
+  createSeed = (teamId: string, rank: number) => {
+    const input = {
+      input: {
+        divisionId: this.props.division.id,
+        teamId,
+        rank
+      }
+    };
+
+    runMutation(CreateSeed, input);
+  };
+
+  deleteSeed = (teamId: string, rank: number) => {
+    const input = {
+      input: {
+        divisionId: this.props.division.id,
+        teamId,
+        rank
+      }
+    };
+
+    runMutation(DeleteSeed, input);
+  };
+
   render() {
-    const teams = sortBy(this.props.teams, t => t.seed);
+    const division = this.props.division;
+    const seeds = range(1, division.numTeams + 1);
 
     return (
       <div
@@ -25,7 +51,7 @@ class Seeds extends React.Component<Props> {
       >
         <Table>
           {this.renderHeader()}
-          <TableBody>{teams.map(this.renderRow)}</TableBody>
+          <TableBody>{seeds.map(rank => this.renderRow(rank))}</TableBody>
         </Table>
       </div>
     );
@@ -35,20 +61,40 @@ class Seeds extends React.Component<Props> {
     return (
       <TableHead>
         <TableRow>
-          <TableCell>Seed</TableCell>
           <TableCell>Team</TableCell>
+          <TableCell>Rank</TableCell>
         </TableRow>
       </TableHead>
     );
   };
 
-  renderRow = (team: Seed) => {
+  renderRow = (rank: number) => {
     return (
-      <TableRow key={team.name}>
-        <TableCell>{team.seed}</TableCell>
-        <TableCell>{team.name}</TableCell>
+      <TableRow key={rank}>
+        <TableCell>{this.renderSeedCell(rank)}</TableCell>
+        <TableCell>
+          <strong>{rank}</strong>
+        </TableCell>
       </TableRow>
     );
+  };
+
+  renderSeedCell = (rank: number) => {
+    const { division, teams } = this.props;
+    const team = division.teams.find(t => t.seed === rank);
+
+    if (team) {
+      return (
+        <Seed team={team} onDelete={() => this.deleteSeed(team.id, rank)} />
+      );
+    } else {
+      return (
+        <TeamPicker
+          teams={teams}
+          onChange={ev => this.createSeed(ev.target.value, rank)}
+        />
+      );
+    }
   };
 }
 
