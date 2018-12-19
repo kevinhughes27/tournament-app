@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import BottomNavigation, {
-  BottomNavigationButton
-} from 'material-ui/BottomNavigation';
-import EventIcon from 'material-ui-icons/Event';
-import LocationIcon from 'material-ui-icons/LocationOn';
-import InputIcon from 'material-ui-icons/Input';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import EventIcon from '@material-ui/icons/Event';
+import LocationIcon from '@material-ui/icons/LocationOn';
+import InputIcon from '@material-ui/icons/Input';
 
 class BottomNav extends Component {
   render() {
@@ -22,20 +21,20 @@ class BottomNav extends Component {
 
     return (
       <BottomNavigation value={value} showLabels>
-        <BottomNavigationButton
+        <BottomNavigationAction
           label="Schedule"
           icon={<EventIcon />}
-          onTouchTap={() => dispatch(push('/'))}
+          onClick={() => dispatch(push('/'))}
         />
-        <BottomNavigationButton
+        <BottomNavigationAction
           label="Map"
           icon={<LocationIcon />}
-          onTouchTap={() => dispatch(push('/map'))}
+          onClick={() => dispatch(push('/map'))}
         />
-        <BottomNavigationButton
+        <BottomNavigationAction
           label="Submit Scores"
           icon={<InputIcon />}
-          onTouchTap={() => dispatch(push('/submit'))}
+          onClick={() => dispatch(push('/submit'))}
         />
       </BottomNavigation>
     );

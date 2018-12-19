@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import TopBar from './TopBar';
 import BottomNav from './BottomNav';
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  }
+});
 
 class Layout extends Component {
   render() {

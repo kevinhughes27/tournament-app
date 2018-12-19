@@ -1,15 +1,12 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
-/* eslint-disable react/no-array-index-key */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
-import { MenuItem } from 'material-ui/Menu';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   container: {
@@ -141,13 +138,15 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
     <MenuItem selected={isHighlighted} component="div">
       <div>
         {parts.map((part, index) => {
-          return part.highlight
-            ? <span key={index} style={{ fontWeight: 300 }}>
-                {part.text}
-              </span>
-            : <strong key={index} style={{ fontWeight: 500 }}>
-                {part.text}
-              </strong>;
+          return part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 800 }}>
+              {part.text}
+            </span>
+          ) : (
+            <strong key={String(index)} style={{ fontWeight: 300 }}>
+              {part.text}
+            </strong>
+          );
         })}
       </div>
     </MenuItem>

@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import SearchIcon from 'material-ui-icons/Search';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
 import AutoComplete from './AutoComplete';
-import Typography from 'material-ui/Typography';
 
 class TopBar extends Component {
   componentDidMount() {
@@ -21,19 +20,17 @@ class TopBar extends Component {
     return (
       <AppBar>
         <Toolbar>
-          <IconButton color="contrast">
+          <IconButton color="inherit">
             <SearchIcon />
           </IconButton>
-          <Typography type="title" color="inherit">
-            <AutoComplete
-              value={search}
-              placeholder="Search Teams"
-              suggestions={teamNames}
-              onChange={search => {
-                dispatch({ type: 'SET_SEARCH', value: search });
-              }}
-            />
-          </Typography>
+          <AutoComplete
+            value={search}
+            placeholder="Search Teams"
+            suggestions={teamNames}
+            onChange={search => {
+              dispatch({ type: 'SET_SEARCH', value: search });
+            }}
+          />
         </Toolbar>
       </AppBar>
     );

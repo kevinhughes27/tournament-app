@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import List, { ListItem } from 'material-ui/List';
-import ListSubheader from 'material-ui/List/ListSubheader';
-import Divider from 'material-ui/Divider';
-import LocationIcon from 'material-ui-icons/LocationOn';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Divider from '@material-ui/core/Divider';
+import LocationIcon from '@material-ui/icons/LocationOn';
 import moment from 'moment';
-import _sortBy from 'lodash/sortBy';
-import _groupBy from 'lodash/groupBy';
+import { sortBy, groupBy} from 'lodash';
 import gamesSearch from '../../helpers/gamesSearch';
 
 class ScheduleView extends Component {
   render() {
     const { games, search } = this.props;
     const filteredGames = gamesSearch(search, games, { fuzzy: true });
-    const sortedGames = _sortBy(filteredGames, game =>
+    const sortedGames = sortBy(filteredGames, game =>
       moment.parseZone(game.startTime)
     );
-    const gamesByStartTime = _groupBy(sortedGames, game => game.startTime);
+    const gamesByStartTime = groupBy(sortedGames, game => game.startTime);
 
     return (
       <div>

@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Dialog from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import { Done, Cached, ReportProblem } from 'material-ui-icons';
-import Slide from 'material-ui/transitions/Slide';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
-import CloseIcon from 'material-ui-icons/Close';
+import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import Slide from '@material-ui/core/Slide';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Done from '@material-ui/icons/Done';
+import Cached from '@material-ui/icons/Cached';
+import ReportProblem from '@material-ui/icons/ReportProblem';
 import ScoreForm from './ScoreForm';
 
 const styles = {
@@ -23,6 +25,10 @@ const styles = {
     flex: 1
   }
 };
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 class SubmitModal extends React.Component {
   state = {
@@ -90,19 +96,19 @@ class SubmitModal extends React.Component {
         <Dialog
           fullScreen
           open={this.state.open}
-          onRequestClose={this.handleClose}
-          transition={<Slide direction="up" />}
+          onClose={this.handleClose}
+          TransitionComponent={Transition}
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton
-                color="contrast"
+                color="inherit"
                 onClick={this.handleClose}
                 aria-label="Close"
               >
                 <CloseIcon />
               </IconButton>
-              <Typography type="title" color="inherit" className={classes.flex}>
+              <Typography type="h6" color="inherit" className={classes.flex}>
                 {game.homeName} vs {game.awayName}
               </Typography>
             </Toolbar>
@@ -133,9 +139,9 @@ function renderReportStatus(report) {
   if (report) {
     const statusToIcon = {
       null: null,
-      pending: <Cached color="lightblue" />,
-      success: <Done color="green" />,
-      error: <ReportProblem color="orange" />
+      pending: <Cached style={{color: "lightblue"}} />,
+      success: <Done style={{color: "green"}} />,
+      error: <ReportProblem style={{color: "orange"}} />
     };
 
     return statusToIcon[report.status];
