@@ -9,10 +9,12 @@
     }
   },
   "dependencies": {
-    "apollo-client": "^1.9.2",
+    "apollo-boost": "^0.1.22",
+    "apollo-client": "^2.4.6",
     "autosuggest-highlight": "^3.1.1",
     "fingerprintjs2sync": "^1.5.5",
-    "graphql-tag": "^2.4.2",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
     "history": "^4.7.2",
     "husky": "^0.14.3",
     "leaflet": "^1.2.0",
