@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
