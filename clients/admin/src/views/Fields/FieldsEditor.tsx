@@ -83,10 +83,13 @@ class FieldsEditor extends React.Component<Props, State> {
   addField = () => {
     EditableField.clear();
     this.historyBuffer = [];
-    this.map!.editTools.startPolygon();
-    this.map!.on('contextmenu', this.startDrawingMobile);
-    this.map!.on('editable:drawing:clicked', this.autoComplete);
     this.setState({ mode: 'addField', editing: newField });
+
+    // quick pause so touch screen doesn't register a vertex immediately
+    setTimeout(() => {
+      this.map!.editTools.startPolygon();
+      this.map!.on('editable:drawing:clicked', this.autoComplete);
+    }, 100);
   };
 
   editField = (field: FieldsEditorQuery_fields) => {
@@ -112,11 +115,6 @@ class FieldsEditor extends React.Component<Props, State> {
   };
 
   /* Leaflet event handlers */
-  startDrawingMobile = (event: Leaflet.LeafletEvent) => {
-    this.map!.editTools.startPolygon((event as any).latlng);
-    this.map!.off('contextmenu', this.startDrawingMobile);
-  };
-
   updateMap = (ev: any) => {
     if (ev.flyTo) {
       return;
@@ -163,7 +161,6 @@ class FieldsEditor extends React.Component<Props, State> {
     this.setState({ editing });
 
     this.map!.editTools.startPolygon();
-    this.map!.on('contextmenu', this.startDrawingMobile);
     this.map!.on('editable:drawing:clicked', this.autoComplete);
   };
 
@@ -183,7 +180,6 @@ class FieldsEditor extends React.Component<Props, State> {
       this.setEditingState(polygon.toGeoJSON());
       this.map!.removeLayer(polygon);
 
-      this.map!.off('contextmenu', this.startDrawingMobile); // cleanup
       this.map!.off('editable:drawing:clicked', this.autoComplete); // cleanup
     }
   };
