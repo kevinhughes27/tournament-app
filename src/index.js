@@ -6,14 +6,12 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
 import './index.css';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './components/App';
 import store from './store';
 import history from './history';
 
 ReactGA.initialize('UA-76316112-3');
-injectTapEventPlugin();
 
 ReactDom.render(
   <Provider store={store}>
