@@ -11,6 +11,10 @@ const mutation = gql`
         teams {
           id
           name
+          division {
+            id
+            name
+          }
           seed
         }
       }
@@ -20,10 +24,18 @@ const mutation = gql`
   }
 `;
 
+const safeReadQuery = (store: any, query: any, variables: any) => {
+  try {
+    return store.readQuery({ query, variables });
+  } catch {
+    return null;
+  }
+};
+
 function commit(variables: CreateSeedMutationVariables) {
   const update = mutationUpdater<CreateSeedMutation>((store, payload) => {
     const { teamId, divisionId, rank } = variables.input;
-    const data = store.readQuery({ query, variables: { divisionId } }) as any;
+    const data = safeReadQuery(store, query, { divisionId });
 
     if (data && payload.createSeed && payload.createSeed.success) {
       data.division.teams = payload.createSeed.division.teams;

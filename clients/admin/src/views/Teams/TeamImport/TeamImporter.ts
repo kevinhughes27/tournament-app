@@ -1,5 +1,6 @@
 import { keys } from 'lodash';
 import CreateTeamMutation from '../../../mutations/CreateTeam';
+import CreateSeedMutation from '../../../mutations/CreateSeed';
 
 class TeamImporter {
   component: React.Component;
@@ -47,22 +48,46 @@ class TeamImporter {
     const result = await CreateTeamMutation.commit({ input: variables });
 
     if (result.success) {
-      this.completed += 1;
+      const teamId = (result as any).team.id;
+      await this.createSeed(teamId, row, rowIdx);
     } else {
-      const fieldErrors = result.userErrors || [];
-      const fullMessage = fieldErrors
-        .map(e => e.field + ' ' + e.message)
-        .join(', ');
-      this.errors[rowIdx] = fullMessage;
+      this.handleError(result, rowIdx);
     }
 
     this.updateProgress();
   };
 
-  // probably pass team in as well
-  // private createSeed = async(row: any[], rowIdx: number) => {
-  //   const division = this.divisions.find(d => d.name === row[2]);
-  // }
+  private createSeed = async (teamId: string, row: any[], rowIdx: number) => {
+    const division = this.divisions.find(d => d.name === row[2]);
+
+    if (division) {
+      const variables = {
+        divisionId: division.id,
+        teamId,
+        rank: Number(row[3])
+      };
+
+      const result = await CreateSeedMutation.commit({ input: variables });
+
+      if (result.success) {
+        this.completed += 1;
+      } else {
+        this.handleError(result, rowIdx);
+      }
+    } else {
+      this.completed += 1;
+    }
+  };
+
+  private handleError = (result: MutationResult, rowIdx: number) => {
+    const fieldErrors = result.userErrors || [];
+
+    const fullMessage = fieldErrors
+      .map(e => e.field + ' ' + e.message)
+      .join(', ');
+
+    this.errors[rowIdx] = fullMessage;
+  };
 
   private updateProgress = () => {
     const errorCount = keys(this.errors).length;
