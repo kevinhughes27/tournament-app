@@ -11,7 +11,7 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
     @home_score = inputs[:home_score]
     @away_score = inputs[:away_score]
 
-    if !(@game.home && @game.away)
+    if !(@game.teams_present?)
       return {
         game: @game,
         success: false,

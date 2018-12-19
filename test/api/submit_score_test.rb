@@ -16,6 +16,14 @@ class SubmitScoreTest < ApiTest
       expect_error: "Variable input of type SubmitScoreInput! was provided invalid value")
   end
 
+  test "can't submit score with only one team" do
+    game = FactoryBot.create(:game, home: @game.home, away: nil)
+    payload = input.merge({game_id: game.id})
+
+    execute_graphql("submitScore", "SubmitScoreInput", payload)
+    assert_failure
+  end
+
   test 'submitting a score report emails the other team' do
     execute_graphql("submitScore", "SubmitScoreInput", input)
     email = ActionMailer::Base.deliveries.last

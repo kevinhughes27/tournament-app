@@ -2,15 +2,14 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
     @game = @tournament.games.find(inputs[:game_id])
+
     @report = build_report(inputs)
 
-    if !valid_submitter?
-      return { success: false }
-    end
-
-    if @report.save
-      notify_other_team
-      confirm_game(ctx)
+    if !(@game.teams_present?)
+      { success: false }
+    elsif !valid_submitter?
+      { success: false }
+    elsif save_report
       { success: true }
     else
       { success: false }
@@ -18,6 +17,10 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
   end
 
   private
+
+  def valid_submitter?
+    @game.home == @report.team || @game.away == @report.team
+  end
 
   def build_report(inputs)
     ScoreReport.new(
@@ -36,15 +39,18 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
     )
   end
 
-  def valid_submitter?
-    @game.home == @report.team || @game.away == @report.team
+  def save_report
+    if @report.save
+      notify_other_team
+      confirm_game
+    end
   end
 
   def notify_other_team
     ScoreReportMailer.notify_team_email(@report).deliver_later
   end
 
-  def confirm_game(ctx)
+  def confirm_game
     return if confirm_setting == 'multiple' && @game.score_reports.size < 2
 
     if matches_other_reports?
