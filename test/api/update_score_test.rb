@@ -75,6 +75,18 @@ class UpdateScoreTest < ApiTest
     assert_nil game.away_score
   end
 
+  test "can't update score with only one team" do
+    game = FactoryBot.create(:game, home: nil)
+
+    input = {game_id: game.id, home_score: 10, away_score: 5}
+
+    execute_graphql("updateScore", "UpdateScoreInput", input, @output)
+
+    assert_failure "teams not present"
+    assert_nil game.home_score
+    assert_nil game.away_score
+  end
+
   test "can't submit a tie for a bracket game" do
     game = FactoryBot.create(:game)
 
