@@ -21,7 +21,8 @@ module ReactAppController
     if File.exist?(file)
       render file: file
     else
-      redirect_to_latest(params[:dir], params[:file], params[:format])
+      name = params[:file].split('.').first
+      redirect_to_latest(params[:dir], name, params[:format])
     end
   end
 
@@ -39,11 +40,15 @@ module ReactAppController
     Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, "#{file}.#{extension}")
   end
 
-  def redirect_to_latest(dir, file, extension)
-    file_glob = Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, '*')
-    file_path = Dir[file_glob].find{ |f| f.end_with?(".#{extension}") }
-    file = file_path.split('/').last
-    redirect_to "/static/#{dir}/#{file}"
+  def redirect_to_latest(dir, name, extension)
+    file_glob = Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, "*.#{extension}")
+
+    new_file = Dir[file_glob].find do |file|
+      full_file_name = file.split('/').last
+      full_file_name.starts_with?(name)
+    end
+
+    redirect_to "/static/#{dir}/#{new_file}"
   end
 
   def service_worker_file
