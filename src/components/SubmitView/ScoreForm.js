@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Button from 'material-ui/Button';
-import Input from 'material-ui/Input';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
 import ScoreInput from './ScoreInput';
 import SpiritQuestion from './SpiritQuestion';
 import { submitScore } from '../../actions/submitScore';

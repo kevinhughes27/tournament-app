@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import List, { ListItem } from 'material-ui/List';
-import ListSubheader from 'material-ui/List/ListSubheader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Lock from './Lock';
 import SubmitModal from './SubmitModal';
 import gamesSearch from '../../helpers/gamesSearch';

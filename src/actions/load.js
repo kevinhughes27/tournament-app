@@ -1,7 +1,5 @@
-import ApolloClient from 'apollo-client';
+import client from '../apollo';
 import gql from 'graphql-tag';
-
-const client = new ApolloClient();
 
 const query = gql`
   query {
