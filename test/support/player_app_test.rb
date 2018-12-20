@@ -46,7 +46,7 @@ class PlayerAppTest < BrowserTest
   end
 
   def assert_submitted
-    assert page.find("svg[color='green']")
+    assert page.find('svg[style="color: green;"]')
   end
 
   def assert_report(team, game, home, away)
