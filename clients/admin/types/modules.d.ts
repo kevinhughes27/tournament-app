@@ -17,3 +17,4 @@ declare module "react-leaflet-control";
 declare module "graphql-ruby-client/subscriptions/ActionCableLink"
 declare module "react-stars";
 declare module "apollo-link-logger";
+declare module "react-ga";
