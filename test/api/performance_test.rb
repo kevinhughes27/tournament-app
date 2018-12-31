@@ -44,10 +44,30 @@ class PerformanceTest < ApiTest
     create_score_reports
   end
 
+  ALLOWED_QUERIES = {
+    'DivisionListQuery.ts' => 4,
+    'TeamShowQuery.ts' => 4,
+    'FieldsEditorQuery.ts' => 4,
+    'GamesListQuery.ts' => 10,
+    'ScheduleEditorQuery.ts' => 11, # loads score_reports and score_disputes for no reason
+    'DivisionSeedQuery.ts'=> 15, # N+1 loads seeds through teams
+    'TeamListQuery.ts' => 15, # N+1 reloads the division through the team
+    'HomeQuery.ts' => 17, # some duplicate fetching but not terrible considering
+    'DivisionShowQuery.ts' => 28, # N+1 team
+    'DivisionEditQuery.ts' => 28, # N+1 team
+  }
+
+  # global issues
+  # teams are queried twice a lot since I preload home and away
+
   AdminQueries.all.each do |name, query|
-    test "test query #{name}" do
+    test "query #{name}" do
       variables = variables_for_query(query)
-      query_graphql(query, variables: variables)
+      query_count = ALLOWED_QUERIES.fetch(name, 2)
+
+      assert_queries(query_count) do
+        query_graphql(query, variables: variables)
+      end
     end
   end
 
@@ -132,5 +152,21 @@ class PerformanceTest < ApiTest
     end
 
     variables
+  end
+
+  def assert_queries(num, &block)
+    count = 0
+    queries = []
+
+    counter_f = -> (name, started, finished, unique_id, payload) {
+      count += 1
+      query = "#{payload[:name]} #{payload[:sql]} #{payload[:type_casted_binds]}"
+      queries.push(query)
+    }
+
+    ActiveSupport::Notifications.subscribed(counter_f, "sql.active_record", &block)
+  ensure
+    mesg = "#{count} instead of #{num} queries were executed.#{count == 0 ? '' : "\nQueries:\n#{queries.join("\n")}"}"
+    assert_equal num, count, mesg
   end
 end

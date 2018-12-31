@@ -42,7 +42,7 @@ class Types::Query < Types::BaseObject
   end
 
   def team(id:)
-    context[:tournament].teams.includes(seed: [:division]).find(id)
+    context[:tournament].teams.find(id)
   end
 
   field :divisions, [Types::Division], null: false
