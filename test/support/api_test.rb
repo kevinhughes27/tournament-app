@@ -22,11 +22,12 @@ class ApiTest < ActionDispatch::IntegrationTest
   end
 
   # filter is default true since fields are only hidden not protected
-  def query_graphql(query, filter: true, expect_error: nil)
+  def query_graphql(query, variables: {}, filter: true, expect_error: nil)
     url = "http://#{@tournament.handle}.lvh.me/graphql"
 
     params = {
-      "query" => "query { #{query} } ",
+      "query" => query,
+      "variables" => variables,
       "filter" => filter
     }
 

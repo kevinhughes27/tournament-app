@@ -5,9 +5,11 @@ class ViewerQueryTest < ApiTest
     viewer = FactoryBot.create(:user)
 
     query_graphql("
-      viewer {
-      	name
-        email
+      query {
+        viewer {
+        	name
+          email
+        }
       }",
     )
 
@@ -19,9 +21,11 @@ class ViewerQueryTest < ApiTest
     login_user(viewer)
 
     query_graphql("
-      viewer {
-      	name
-        email
+      query {
+        viewer {
+        	name
+          email
+        }
       }"
     )
 

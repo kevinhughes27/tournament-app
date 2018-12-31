@@ -5,9 +5,11 @@ class TeamQueryTest < ApiTest
     team = FactoryBot.create(:team)
 
     query_graphql("
-      teams {
-      	name
-        email
+      query {
+        teams {
+        	name
+          email
+        }
       }",
       expect_error: "Field 'email' doesn't exist on type 'Team'"
     )
@@ -18,9 +20,11 @@ class TeamQueryTest < ApiTest
     team = FactoryBot.create(:team)
 
     query_graphql("
-      teams {
-      	name
-        email
+      query {
+        teams {
+        	name
+          email
+        }
       }"
     )
 
