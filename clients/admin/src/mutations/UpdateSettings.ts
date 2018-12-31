@@ -1,6 +1,7 @@
 import client from '../modules/apollo';
 import mutationPromise from '../helpers/mutationPromise';
-import { query as SettingsQuery } from '../queries/SettingsQuery';
+import mutationUpdater from '../helpers/mutationUpdater';
+import { query } from '../queries/SettingsQuery';
 import gql from 'graphql-tag';
 
 const mutation = gql`
@@ -24,13 +25,23 @@ const mutation = gql`
   }
 `;
 
+const update = mutationUpdater<UpdateSettingsMutation>((store, payload) => {
+  if (payload.updateSettings && payload.updateSettings.success) {
+    const data = store.readQuery({ query }) as any;
+    const updatedSettings = payload.updateSettings.settings;
+
+    data.settings = updatedSettings;
+    store.writeQuery({ query, data });
+  }
+});
+
 function commit(variables: UpdateSettingsMutationVariables) {
   return mutationPromise((resolve, reject) => {
     client
       .mutate({
         mutation,
         variables,
-        refetchQueries: [{ query: SettingsQuery }]
+        update
       })
       .then(({ data: { updateSettings } }) => {
         resolve(updateSettings as MutationResult);
