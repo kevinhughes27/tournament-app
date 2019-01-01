@@ -89,6 +89,8 @@ group :test do
   gem 'simplecov', :require => false
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'hashdiff'
+  gem 'deepsort'
   gem 'json-schema', '~> 2.6.0'
 end
 

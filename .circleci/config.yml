@@ -137,5 +137,9 @@ jobs:
           destination: coverage
 
       - store_artifacts:
+          path: ~/project/tmp/perf
+          destination: performance
+
+      - store_artifacts:
           path: ~/project/tmp/capybara
           destination: capybara

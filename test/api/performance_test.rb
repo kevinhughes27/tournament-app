@@ -128,7 +128,7 @@ class PerformanceTest < ApiTest
   end
 
   def create_score_reports
-    games = Game.with_teams.all.limit(8)
+    games = Game.with_teams.order(:id).all.limit(8)
     games.each_with_index do |game, idx|
       FactoryBot.create(:score_report, game: game, team: game.home, submitter_fingerprint: "#{idx}")
     end
@@ -164,10 +164,26 @@ class PerformanceTest < ApiTest
       delete_key(expected_result, 'id')
       delete_key(result, 'id')
 
-      # File.write('expected.json', JSON.pretty_generate(expected_result))
-      # File.write('result.json', JSON.pretty_generate(result))
+      expected_result.deep_sort!
+      result.deep_sort!
 
-      assert expected_result == result, 'Query result changed'
+      diff = HashDiff.diff(expected_result, result)
+
+      if !diff.empty?
+        output_dir = File.join(Rails.root, 'tmp', 'perf')
+        Dir.mkdir(output_dir) unless Dir.exist?(output_dir)
+
+        File.write(
+          File.join(output_dir, "#{name.gsub('.ts', '')}_expected.json"),
+          JSON.pretty_generate(expected_result)
+        )
+        File.write(
+          File.join(output_dir, "#{name.gsub('.ts', '')}_result.json"),
+          JSON.pretty_generate(result)
+        )
+      end
+
+      assert_empty diff, 'Query result changed'
     else
       File.write(expected_result_path, result.to_json)
     end
