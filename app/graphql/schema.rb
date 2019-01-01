@@ -3,5 +3,6 @@ class Schema < GraphQL::Schema
   mutation Types::Mutation
   subscription Types::Subscription
 
+  use GraphQL::Batch
   use GraphQL::Subscriptions::ActionCableSubscriptions
 end

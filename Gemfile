@@ -11,6 +11,7 @@ gem 'active_operation'
 
 # api
 gem 'graphql'
+gem 'graphql-batch'
 gem 'graphiql-rails'
 
 # websockets
