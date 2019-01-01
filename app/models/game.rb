@@ -75,10 +75,6 @@ class Game < ApplicationRecord
     away.present? ? away.name : away_prereq
   end
 
-  def field_name
-    field.present? ? field.name : nil
-  end
-
   def one_team_present?
     home.present? || away.present?
   end

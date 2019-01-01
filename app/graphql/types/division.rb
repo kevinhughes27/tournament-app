@@ -16,6 +16,12 @@ class Types::Division < Types::BaseObject
   field :isSeeded, Boolean, null: false
   field :needsSeed, Boolean, null: false
 
+  def teams
+    AssociationLoader.for(Division, :teams).load(object).then do |teams|
+      teams
+    end
+  end
+
   def teams_count
     object.teams.count
   end

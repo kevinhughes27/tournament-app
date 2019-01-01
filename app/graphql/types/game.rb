@@ -32,11 +32,47 @@ class Types::Game < Types::BaseObject
   field :scoreReports, [Types::ScoreReport], null: true
   field :scoreDisputed, Boolean, null: false
 
-  def has_teams
-    object.teams_present?
-  end
-
   def scheduled
     object.scheduled?
+  end
+
+  def has_teams
+    RecordLoader.for(Team).load(object.home_id).then do |home|
+      RecordLoader.for(Team).load(object.away_id).then do |away|
+        home.present? && away.present?
+      end
+    end
+  end
+
+   def home_name
+     RecordLoader.for(Team).load(object.home_id).then do |home|
+       home.present? ? home.name : object.home_prereq
+     end
+  end
+
+  def away_name
+    RecordLoader.for(Team).load(object.away_id).then do |away|
+      away.present? ? away.name : object.away_prereq
+    end
+  end
+
+  def division
+    RecordLoader.for(Division).load(object.division_id)
+  end
+
+  def field
+    RecordLoader.for(Field).load(object.field_id)
+  end
+
+  def score_reports
+    AssociationLoader.for(Game, :score_reports).load(object).then do |reports|
+      reports
+    end
+  end
+
+  def score_disputed
+    AssociationLoader.for(Game, :score_disputes).load(object).then do |disputes|
+      disputes.present?
+    end
   end
 end

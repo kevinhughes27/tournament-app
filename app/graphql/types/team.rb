@@ -12,4 +12,8 @@ class Types::Team < Types::BaseObject
   def seed
     object.seed && object.seed.rank
   end
+
+  def division
+    RecordLoader.for(Division).load(object.seed.division_id)
+  end
 end

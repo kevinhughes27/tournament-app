@@ -45,20 +45,17 @@ class PerformanceTest < ApiTest
   end
 
   ALLOWED_QUERIES = {
-    'DivisionListQuery.ts' => 4,
     'TeamShowQuery.ts' => 4,
     'FieldsEditorQuery.ts' => 4,
-    'GamesListQuery.ts' => 10,
-    'ScheduleEditorQuery.ts' => 11, # loads score_reports and score_disputes for no reason
-    'DivisionSeedQuery.ts'=> 15, # N+1 loads seeds through teams
-    'TeamListQuery.ts' => 15, # N+1 reloads the division through the team
-    'HomeQuery.ts' => 17, # some duplicate fetching but not terrible considering
-    'DivisionShowQuery.ts' => 28, # N+1 team
-    'DivisionEditQuery.ts' => 28, # N+1 team
+    'DivisionListQuery.ts' => 4,
+    'DivisionShowQuery.ts' => 5,
+    'DivisionEditQuery.ts' => 5,
+    'ScheduleEditorQuery.ts' => 6,
+    'GamesListQuery.ts' => 7,
+    'TeamListQuery.ts' => 7,
+    'DivisionSeedQuery.ts'=> 7,
+    'HomeQuery.ts' => 9,
   }
-
-  # global issues
-  # teams are queried twice a lot since I preload home and away
 
   AdminQueries.all.each do |name, query|
     test "query #{name}" do

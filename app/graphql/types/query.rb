@@ -34,7 +34,7 @@ class Types::Query < Types::BaseObject
   field :teams, [Types::Team], null: false
 
   def teams
-    context[:tournament].teams.includes(seed: [:division]).all
+    context[:tournament].teams.includes(:seed).all
   end
 
   field :team, Types::Team, null: false do
@@ -82,19 +82,10 @@ class Types::Query < Types::BaseObject
   end
 
   def games(scheduled: false, has_team: false)
-    scope = context[:tournament].games.includes(:division)
+    scope = context[:tournament].games
 
     scope = scope.scheduled if scheduled
     scope = scope.has_team if has_team
-
-    scope = scope.includes(
-      :home,
-      :away,
-      :division,
-      :field,
-      :score_disputes,
-      score_reports: [:team]
-    )
 
     scope
   end
