@@ -67,6 +67,7 @@ class PerformanceTest < ApiTest
 
       assert_queries(query_count) do
         query_graphql(query, variables: variables)
+        assert_query_result(name, query_result)
       end
     end
   end
@@ -74,7 +75,7 @@ class PerformanceTest < ApiTest
   private
 
   def create_division
-    params = FactoryBot.attributes_for(:division, bracket_type: 'USAU 8.1')
+    params = FactoryBot.attributes_for(:division, name: 'Open', bracket_type: 'USAU 8.1')
     input = params.except(:tournament)
     execute_graphql("createDivision", "CreateDivisionInput", input)
     assert_success
@@ -99,14 +100,14 @@ class PerformanceTest < ApiTest
   end
 
   def create_fields
-    4.times do
-      FactoryBot.create(:field)
+    4.times do |i|
+      FactoryBot.create(:field, name: "Field #{i}")
     end
   end
 
   def schedule_games
-    games = Game.all.limit(12)
-    fields = Field.all
+    games = Game.all.order(:id).limit(12)
+    fields = Field.all.order(:id)
 
     times = [
       ["2018-06-06 8:30:00 UTC",  "2018-06-06 9:30:00 UTC"],
@@ -127,8 +128,8 @@ class PerformanceTest < ApiTest
 
   def create_score_reports
     games = Game.with_teams.all.limit(8)
-    games.each do |game|
-      FactoryBot.create(:score_report, game: game, team: game.home)
+    games.each_with_index do |game, idx|
+      FactoryBot.create(:score_report, game: game, team: game.home, submitter_fingerprint: "#{idx}")
     end
   end
 
@@ -168,5 +169,35 @@ class PerformanceTest < ApiTest
   ensure
     mesg = "#{count} instead of #{num} queries were executed.#{count == 0 ? '' : "\nQueries:\n#{queries.join("\n")}"}"
     assert_equal num, count, mesg
+  end
+
+  def assert_query_result(name, result)
+    expected_result_path = Rails.root.join('test/files/performance', name.gsub('.ts', '.json'))
+    if File.exist?(expected_result_path)
+      expected_result = JSON.parse(File.read(expected_result_path))
+
+      delete_key(expected_result, 'id')
+      delete_key(result, 'id')
+
+      # File.write('expected.json', JSON.pretty_generate(expected_result))
+      # File.write('result.json', JSON.pretty_generate(result))
+
+      assert_equal expected_result, result, 'Query result changed'
+    else
+      File.write(expected_result_path, result.to_json)
+    end
+  end
+
+  # delete all nested keys in a hash
+  def delete_key(hash, key)
+    hash.each do |k, v|
+      if k == key
+        hash.delete(k)
+      elsif v.instance_of?(Hash)
+        delete_key(v, key)
+      elsif v.instance_of?(Array)
+        v.each { |v| delete_key(v, key) }
+      end
+    end
   end
 end

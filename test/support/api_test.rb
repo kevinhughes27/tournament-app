@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ApiTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryBot.create(:user)
-    @tournament = FactoryBot.create(:tournament)
+    @user = FactoryBot.create(:user, email: 'api_test@example.com')
+    @tournament = FactoryBot.create(:tournament, name: 'API Test', handle: 'apitest')
     FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
