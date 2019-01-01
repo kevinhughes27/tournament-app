@@ -26,6 +26,12 @@ class Types::Division < Types::BaseObject
     object.teams.count
   end
 
+  def games
+    AssociationLoader.for(Division, :games).load(object).then do |games|
+      games
+    end
+  end
+
   def is_seeded
     object.seeded?
   end
