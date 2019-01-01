@@ -54,7 +54,7 @@ class PerformanceTest < ApiTest
     'GamesListQuery.ts' => 7,
     'TeamListQuery.ts' => 7,
     'DivisionSeedQuery.ts'=> 7,
-    'HomeQuery.ts' => 9,
+    'HomeQuery.ts' => 8,
   }
 
   AdminQueries.all.each do |name, query|

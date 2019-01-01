@@ -10,10 +10,14 @@ class Types::Team < Types::BaseObject
   field :seed, Int, null: true
 
   def seed
-    object.seed && object.seed.rank
+    AssociationLoader.for(Team, :seed).load(object).then do |seed|
+      seed && seed.rank
+    end
   end
 
   def division
-    RecordLoader.for(Division).load(object.seed.division_id)
+    AssociationLoader.for(Team, :seed).load(object).then do |seed|
+      RecordLoader.for(Division).load(seed.division_id) if seed
+    end
   end
 end

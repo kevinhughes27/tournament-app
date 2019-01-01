@@ -34,7 +34,7 @@ class Types::Query < Types::BaseObject
   field :teams, [Types::Team], null: false
 
   def teams
-    context[:tournament].teams.includes(:seed).all
+    context[:tournament].teams.all
   end
 
   field :team, Types::Team, null: false do
