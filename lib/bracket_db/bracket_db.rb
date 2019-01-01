@@ -22,6 +22,9 @@ module BracketDb
     def where(teams:, days:)
       @registry.values.select do |bracket|
         bracket.teams == teams && bracket.days == days
+      end.sort do |a, b|
+        # sort better
+        a.name <=> b.name
       end
     end
 
