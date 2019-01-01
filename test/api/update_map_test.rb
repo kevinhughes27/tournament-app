@@ -6,6 +6,16 @@ class UpdateMapTest < ApiTest
     @output = '{ success }'
   end
 
+  test "queries" do
+    map = FactoryBot.create(:map)
+    input = FactoryBot.attributes_for(:map).except(:tournament)
+
+    assert_queries(7) do
+      execute_graphql("updateMap", "UpdateMapInput", input, @output)
+      assert_success
+    end
+  end
+
   test "update map" do
     map = FactoryBot.create(:map)
     input = FactoryBot.attributes_for(:map).except(:tournament)

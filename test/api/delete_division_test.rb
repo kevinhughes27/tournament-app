@@ -6,6 +6,16 @@ class DeleteDivisionTest < ApiTest
     @output = '{ success confirm message userErrors { field message } }'
   end
 
+  test "queries" do
+    division = FactoryBot.create(:division)
+    input = {id: division.id}
+
+    assert_queries(13) do
+      execute_graphql("deleteDivision", "DeleteDivisionInput", input, @output)
+      assert_success
+    end
+  end
+
   test "delete a division" do
     division = FactoryBot.create(:division)
     input = {id: division.id}

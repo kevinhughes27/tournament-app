@@ -156,22 +156,6 @@ class PerformanceTest < ApiTest
     variables
   end
 
-  def assert_queries(num, &block)
-    count = 0
-    queries = []
-
-    counter_f = -> (name, started, finished, unique_id, payload) {
-      count += 1
-      query = "#{payload[:name]} #{payload[:sql]} #{payload[:type_casted_binds]}"
-      queries.push(query)
-    }
-
-    ActiveSupport::Notifications.subscribed(counter_f, "sql.active_record", &block)
-  ensure
-    mesg = "#{count} instead of #{num} queries were executed.#{count == 0 ? '' : "\nQueries:\n#{queries.join("\n")}"}"
-    assert_equal num, count, mesg
-  end
-
   def assert_query_result(name, result)
     expected_result_path = Rails.root.join('test/files/performance', name.gsub('.ts', '.json'))
     if File.exist?(expected_result_path)

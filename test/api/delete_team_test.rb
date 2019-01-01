@@ -6,6 +6,16 @@ class DeleteTeamTest < ApiTest
     @output = '{ success message userErrors { field message } }'
   end
 
+  test "queries" do
+    team = FactoryBot.create(:team)
+    input = {id: team.id}
+
+    assert_queries(11) do
+      execute_graphql("deleteTeam", "DeleteTeamInput", input, @output)
+      assert_success
+    end
+  end
+
   test "delete a team" do
     team = FactoryBot.create(:team)
     input = {id: team.id}

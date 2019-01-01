@@ -6,6 +6,15 @@ class UpdateSettingsTest < ApiTest
     @output = '{ success confirm message userErrors { field message } }'
   end
 
+  test "queries" do
+    input = {name: 'Updated Name', handle: @tournament.handle}
+
+    assert_queries(9) do
+      execute_graphql("updateSettings", "UpdateSettingsInput", input, @output)
+      assert_success
+    end
+  end
+
   test "update settings" do
     input = {name: 'Updated Name', handle: @tournament.handle}
     execute_graphql("updateSettings", "UpdateSettingsInput", input, @output)

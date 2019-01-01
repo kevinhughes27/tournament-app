@@ -5,6 +5,13 @@ class SubmitScoreTest < ApiTest
     @game = FactoryBot.create(:game)
   end
 
+  test "queries" do
+    assert_queries(32) do
+      execute_graphql("submitScore", "SubmitScoreInput", input)
+      assert_success
+    end
+  end
+
   test "success" do
     execute_graphql("submitScore", "SubmitScoreInput", input)
     assert_success

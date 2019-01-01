@@ -6,6 +6,17 @@ class UpdateTeamTest < ApiTest
     @output = '{ success message userErrors { field message } }'
   end
 
+  test "queries" do
+    team = FactoryBot.create(:team)
+    attributes = FactoryBot.attributes_for(:team).except(:tournament)
+    input = {id: team.id, **attributes}
+
+    assert_queries(9) do
+      execute_graphql("updateTeam", "UpdateTeamInput", input, @output)
+      assert_success
+    end
+  end
+
   test "update a team" do
     team = FactoryBot.create(:team)
     attributes = FactoryBot.attributes_for(:team).except(:tournament)
