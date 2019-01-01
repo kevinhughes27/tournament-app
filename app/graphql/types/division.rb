@@ -16,6 +16,14 @@ class Types::Division < Types::BaseObject
   field :isSeeded, Boolean, null: false
   field :needsSeed, Boolean, null: false
 
+  def teams
+    BatchLoader.for(object.id).batch(default_value: []) do |division_ids, loader|
+      Seed.includes(:team).where(division_id: division_ids).each do |seed|
+        loader.call(seed.division_id) { |teams| teams << seed.team }
+      end
+    end
+  end
+
   def teams_count
     object.teams.count
   end

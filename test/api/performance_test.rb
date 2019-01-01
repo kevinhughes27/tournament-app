@@ -46,15 +46,16 @@ class PerformanceTest < ApiTest
 
   ALLOWED_QUERIES = {
     'DivisionListQuery.ts' => 4,
+    'DivisionShowQuery.ts' => 4,
+    'DivisionEditQuery.ts' => 4,
     'TeamShowQuery.ts' => 4,
     'FieldsEditorQuery.ts' => 4,
-    'GamesListQuery.ts' => 10,
-    'ScheduleEditorQuery.ts' => 11, # loads score_reports and score_disputes for no reason
-    'DivisionSeedQuery.ts'=> 15, # N+1 loads seeds through teams
-    'TeamListQuery.ts' => 15, # N+1 reloads the division through the team
-    'HomeQuery.ts' => 17, # some duplicate fetching but not terrible considering
-    'DivisionShowQuery.ts' => 28, # N+1 team
-    'DivisionEditQuery.ts' => 28, # N+1 team
+    'ScheduleEditorQuery.ts' => 4,
+    'TeamListQuery.ts' => 7,
+    'DivisionSeedQuery.ts'=> 7,
+    'GamesListQuery.ts' => 3,
+    'HomeQuery.ts' => 9, # some duplicate fetching but not terrible considering
+
   }
 
   # global issues

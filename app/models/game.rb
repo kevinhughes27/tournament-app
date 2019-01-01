@@ -67,18 +67,6 @@ class Game < ApplicationRecord
     home_score < away_score ? home : away
   end
 
-  def home_name
-    home.present? ? home.name : home_prereq
-  end
-
-  def away_name
-    away.present? ? away.name : away_prereq
-  end
-
-  def field_name
-    field.present? ? field.name : nil
-  end
-
   def one_team_present?
     home.present? || away.present?
   end
@@ -120,10 +108,6 @@ class Game < ApplicationRecord
       Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq.to_s.gsub(/W|L/,'')),
       Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq.to_s.gsub(/W|L/,'')),
     ].compact
-  end
-
-  def score_disputed
-    score_disputes.present?
   end
 
   def resolve_disputes!

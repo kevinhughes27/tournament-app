@@ -63,8 +63,8 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
 
   def update_games
     games.each do |game|
-      game.home = seed_index_for_prereq(game.home_prereq)
-      game.away = seed_index_for_prereq(game.away_prereq)
+      game.home_id = seed_index_for_prereq(game.home_prereq).id
+      game.away_id = seed_index_for_prereq(game.away_prereq).id
       game.reset_score!
       game.save!
     end
@@ -80,8 +80,8 @@ class Resolvers::SeedDivision < Resolvers::BaseResolver
     )
 
     games.each do |game|
-      game.home = nil
-      game.away = nil
+      game.home_id = nil
+      game.away_id = nil
       game.home_score = nil
       game.away_score = nil
       game.save!

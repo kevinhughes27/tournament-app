@@ -12,6 +12,7 @@ gem 'active_operation'
 # api
 gem 'graphql'
 gem 'graphiql-rails'
+gem 'batch-loader'
 
 # websockets
 gem 'actioncable'
