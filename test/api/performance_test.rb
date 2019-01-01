@@ -33,7 +33,11 @@ class PerformanceTest < ApiTest
   setup do
     login_user
 
-    @division = create_division
+    @division = create_division(name: 'Open')
+    create_team_and_seeds
+    seed_division
+
+    @division = create_division(name: 'Mixed')
     create_team_and_seeds
     seed_division
 
@@ -47,7 +51,7 @@ class PerformanceTest < ApiTest
   ALLOWED_QUERIES = {
     'TeamShowQuery.ts' => 4,
     'FieldsEditorQuery.ts' => 4,
-    'DivisionListQuery.ts' => 4,
+    'DivisionListQuery.ts' => 5,
     'DivisionShowQuery.ts' => 5,
     'DivisionEditQuery.ts' => 5,
     'ScheduleEditorQuery.ts' => 6,
@@ -71,8 +75,8 @@ class PerformanceTest < ApiTest
 
   private
 
-  def create_division
-    params = FactoryBot.attributes_for(:division, name: 'Open', bracket_type: 'USAU 8.1')
+  def create_division(name:)
+    params = FactoryBot.attributes_for(:division, name: name, bracket_type: 'USAU 8.1')
     input = params.except(:tournament)
     execute_graphql("createDivision", "CreateDivisionInput", input)
     assert_success
