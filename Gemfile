@@ -80,7 +80,6 @@ end
 
 group :development do
   gem 'dotenv-rails'
-  gem 'bullet'
   gem 'letter_opener'
   gem 'web-console'
 end
