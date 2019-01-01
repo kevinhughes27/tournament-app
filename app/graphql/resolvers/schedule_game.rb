@@ -1,7 +1,7 @@
 class Resolvers::ScheduleGame < Resolvers::BaseResolver
   def call(inputs, ctx)
     @tournament = ctx[:tournament]
-    @game = load_game(inputs[:game_id])
+    @game = @tournament.games.find(inputs[:game_id])
 
     @game.schedule(inputs[:field_id], inputs[:start_time], inputs[:end_time])
 
@@ -35,12 +35,6 @@ class Resolvers::ScheduleGame < Resolvers::BaseResolver
   end
 
   private
-
-  def load_game(game_id)
-    @tournament.games
-      .includes(:division, :home, :away)
-      .find(game_id)
-  end
 
   def check_field_conflict
     check = FieldConflictCheck.new(@game)

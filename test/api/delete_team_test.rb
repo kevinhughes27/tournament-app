@@ -10,7 +10,7 @@ class DeleteTeamTest < ApiTest
     team = FactoryBot.create(:team)
     input = {id: team.id}
 
-    assert_queries(11) do
+    assert_queries(10) do
       execute_graphql("deleteTeam", "DeleteTeamInput", input, @output)
       assert_success
     end

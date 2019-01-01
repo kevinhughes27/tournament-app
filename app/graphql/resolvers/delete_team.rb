@@ -28,7 +28,8 @@ class Resolvers::DeleteTeam < Resolvers::BaseResolver
   end
 
   def allow_delete?
-    !Game.where(tournament_id: @team.tournament_id, home_id: @team.id).exists? &&
-    !Game.where(tournament_id: @team.tournament_id, away_id: @team.id).exists?
+    !Game.where(tournament_id: @team.tournament_id, home_id: @team.id).or(
+      Game.where(tournament_id: @team.tournament_id, away_id: @team.id)
+    ).exists?
   end
 end

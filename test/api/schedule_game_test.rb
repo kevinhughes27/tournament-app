@@ -19,7 +19,7 @@ class ScheduleGameTest < ApiTest
       end_time: start_time + 90.minutes
     }
 
-    assert_queries(24) do
+    assert_queries(20) do
       execute_graphql("scheduleGame", "ScheduleGameInput", input, @output)
       assert_success
     end

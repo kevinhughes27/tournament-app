@@ -32,11 +32,11 @@ class Pool
         team_pts[game.away_id] += game.away_score
       end
 
-      sorted_teams = teams.sort_by do |team|
-        [team_wins[team.id], team_pts[team.id]]
+      sorted_team_ids = team_ids.sort_by do |team_id|
+        [team_wins[team_id], team_pts[team_id]]
       end.reverse
 
-      sorted_teams
+      sorted_team_ids
     end
   end
 
@@ -44,23 +44,23 @@ class Pool
     old_results = persisted_results.order(position: :asc)
     new_results = results(updated_game: game, home_score: home_score, away_score: away_score)
 
-    new_results.each_with_index do |team, idx|
-      return true if old_results[idx].try(:team) != team
+    new_results.each_with_index do |team_id, idx|
+      return true if old_results[idx].try(:team_id) != team_id
     end
     false
   end
 
   def persist_results
-    results.each_with_index do |team, idx|
+    results.each_with_index do |team_id, idx|
       position = idx + 1
       PoolResult.create!(
         tournament_id: division.tournament_id,
         division_id: division.id,
         pool: uid,
         position: position,
-        team: team,
-        wins: team_wins[team.id],
-        points: team_pts[team.id]
+        team_id: team_id,
+        wins: team_wins[team_id],
+        points: team_pts[team_id]
       )
     end
   end
@@ -71,13 +71,11 @@ class Pool
 
   private
 
-  def teams
+  def team_ids
     team_ids = division.games
       .where(pool: uid)
       .pluck(:home_id, :away_id)
       .flatten.uniq
-
-    division.teams.where(id: team_ids)
   end
 
   def games

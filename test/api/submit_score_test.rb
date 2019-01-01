@@ -6,7 +6,7 @@ class SubmitScoreTest < ApiTest
   end
 
   test "queries" do
-    assert_queries(32) do
+    assert_queries(25) do
       execute_graphql("submitScore", "SubmitScoreInput", input)
       assert_success
     end

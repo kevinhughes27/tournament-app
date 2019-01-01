@@ -41,12 +41,23 @@ class BracketSimulationTest < OperationTest
 
   # loop until games are done
   def play_games
-    Timeout::timeout(MAX_SIMULATION_TIME) do
+    with_timeout do
       while games_to_be_played.present? do
         games_to_be_played.each do |game|
           play_game(game)
         end
       end
+    end
+
+  end
+
+  def with_timeout
+    if ENV['CI']
+      Timeout::timeout(MAX_SIMULATION_TIME) do
+        yield
+      end
+    else
+      yield
     end
   rescue Timeout::Error
     raise "Simulation took too long"

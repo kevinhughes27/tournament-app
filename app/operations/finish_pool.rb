@@ -17,15 +17,14 @@ class FinishPool < ApplicationOperation
 
   def reseed
     division.games.each do |game|
-
       if prereq_from_pool?(game.home_prereq)
-        team = team_for_prereq(game.home_prereq)
-        game.home = team
+        team_id = team_for_prereq(game.home_prereq)
+        game.home_id = team_id
       end
 
       if prereq_from_pool?(game.away_prereq)
-        team = team_for_prereq(game.away_prereq)
-        game.away = team
+        team_id = team_for_prereq(game.away_prereq)
+        game.away_id = team_id
       end
 
       next unless game.changed?
@@ -42,7 +41,7 @@ class FinishPool < ApplicationOperation
   def push_places
     division.places.each do |place|
       if prereq_from_pool?(place.prereq)
-        place.team = team_for_prereq(place.prereq)
+        place.team_id = team_for_prereq(place.prereq)
         place.save!
       end
     end

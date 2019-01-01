@@ -2,7 +2,7 @@ require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
   test "one_team_present? is true if home or away is present" do
-    game = FactoryBot.build(:game)
+    game = FactoryBot.create(:game)
 
     assert game.teams_present?
     assert game.one_team_present?
@@ -15,7 +15,7 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "teams_present? is true if both teams are present" do
-    game = FactoryBot.build(:game)
+    game = FactoryBot.create(:game)
 
     assert game.teams_present?
 
