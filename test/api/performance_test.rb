@@ -167,7 +167,7 @@ class PerformanceTest < ApiTest
       # File.write('expected.json', JSON.pretty_generate(expected_result))
       # File.write('result.json', JSON.pretty_generate(result))
 
-      assert_equal expected_result, result, 'Query result changed'
+      assert expected_result == result, 'Query result changed'
     else
       File.write(expected_result_path, result.to_json)
     end
