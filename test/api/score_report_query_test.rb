@@ -4,10 +4,12 @@ class ScoreReportQueryTest < ApiTest
   test "scoreReports are hidden to public" do
     report = FactoryBot.create(:score_report)
 
-    query_graphql(
-      "scoreReports {
-      	homeScore
-        awayScore
+    query_graphql("
+      query {
+        scoreReports {
+        	homeScore
+          awayScore
+        }
       }",
       expect_error: "Field 'scoreReports' doesn't exist on type 'Query'"
     )
@@ -18,9 +20,11 @@ class ScoreReportQueryTest < ApiTest
     report = FactoryBot.create(:score_report)
 
     query_graphql("
-      scoreReports {
-      	homeScore
-        awayScore
+      query {
+        scoreReports {
+        	homeScore
+          awayScore
+        }
       }
     ")
 
@@ -30,10 +34,12 @@ class ScoreReportQueryTest < ApiTest
   test "scoreReport are hidden to public" do
     report = FactoryBot.create(:score_report)
 
-    query_graphql(
-      "scoreReport(id: #{report.id}) {
-      	homeScore
-        awayScore
+    query_graphql("
+      query {
+        scoreReport(id: #{report.id}) {
+        	homeScore
+          awayScore
+        }
       }",
       expect_error: "Field 'scoreReport' doesn't exist on type 'Query'"
     )
@@ -44,9 +50,11 @@ class ScoreReportQueryTest < ApiTest
     report = FactoryBot.create(:score_report)
 
     query_graphql("
-      scoreReport(id: #{report.id}) {
-      	homeScore
-        awayScore
+      query {
+        scoreReport(id: #{report.id}) {
+        	homeScore
+          awayScore
+        }
       }
     ")
 
