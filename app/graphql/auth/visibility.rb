@@ -1,6 +1,9 @@
 class Auth::Visibility
   def self.proc(ctx)
-    ctx[:current_user] && ctx[:current_user].is_tournament_user?(ctx[:tournament])
+    user = ctx[:current_user]
+    tournament = ctx[:tournament]
+
+    user && (user.staff? || user.is_tournament_user?(tournament))
   end
 
   class Filter
