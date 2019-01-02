@@ -31,6 +31,24 @@ class ScoreReportQueryTest < ApiTest
     assert_equal report.home_score, query_result['scoreReports'].first['homeScore']
   end
 
+  test "scoreReports are visible for staff" do
+    staff = FactoryBot.create(:staff)
+    login_user(staff)
+
+    report = FactoryBot.create(:score_report)
+
+    query_graphql("
+      query {
+        scoreReports {
+        	homeScore
+          awayScore
+        }
+      }
+    ")
+
+    assert_equal report.home_score, query_result['scoreReports'].first['homeScore']
+  end
+
   test "scoreReport are hidden to public" do
     report = FactoryBot.create(:score_report)
 
