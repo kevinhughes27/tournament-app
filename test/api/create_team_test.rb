@@ -6,6 +6,17 @@ class CreateTeamTest < ApiTest
     @output = '{ success userErrors { field message } }'
   end
 
+  test "queries" do
+    assert_difference "Team.count" do
+      input = FactoryBot.attributes_for(:team).except(:tournament, :division)
+
+      assert_queries(8) do
+        execute_graphql("createTeam", "CreateTeamInput", input, @output)
+        assert_success
+      end
+    end
+  end
+
   test "create a team" do
     assert_difference "Team.count" do
       input = FactoryBot.attributes_for(:team).except(:tournament, :division)

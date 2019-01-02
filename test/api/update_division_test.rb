@@ -6,6 +6,16 @@ class UpdateDivisionTest < ApiTest
     @output = '{ success confirm message userErrors { field message } }'
   end
 
+  test "queries" do
+    division = FactoryBot.create(:division)
+    input = {id: division.id, name: 'Junior Open', bracket_type: 'single_elimination_8'}
+
+    assert_queries(9) do
+      execute_graphql("updateDivision", "UpdateDivisionInput", input, @output)
+      assert_success
+    end
+  end
+
   test "update a division" do
     division = FactoryBot.create(:division)
     input = {id: division.id, name: 'Junior Open', bracket_type: 'single_elimination_8'}

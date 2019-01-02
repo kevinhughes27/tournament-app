@@ -8,19 +8,23 @@ class AdvanceBracket < ApplicationOperation
 
   private
 
+  def dependent_games
+    @dependent_games ||= game.dependent_games
+  end
+
   def advanceWinner
     tournament_id = game.tournament_id
     division_id = game.division_id
     bracket_uid = game.bracket_uid
 
-    dependent_home_games = Game.where(tournament_id: tournament_id, division_id: division_id, home_prereq: "W#{bracket_uid}")
+    dependent_home_games = dependent_games.select { |g| g.home_prereq == "W#{bracket_uid}" }
     if dependent_home_games.present?
-      dependent_home_games.update_all(home_id: game.winner.id)
+      dependent_home_games.each { |g| g.update!(home_id: game.winner.id) }
     end
 
-    dependent_away_games = Game.where(tournament_id: tournament_id, division_id: division_id, away_prereq: "W#{bracket_uid}")
+    dependent_away_games = dependent_games.select { |g| g.away_prereq == "W#{bracket_uid}" }
     if dependent_away_games.present?
-      dependent_away_games.update_all(away_id: game.winner.id)
+      dependent_away_games.each { |g| g.update!(away_id: game.winner.id) }
     end
 
     dependent_games = dependent_home_games + dependent_away_games
@@ -40,14 +44,14 @@ class AdvanceBracket < ApplicationOperation
     division_id = game.division_id
     bracket_uid = game.bracket_uid
 
-    dependent_home_games = Game.where(tournament_id: tournament_id, division_id: division_id, home_prereq: "L#{bracket_uid}")
+    dependent_home_games = dependent_games.select { |g| g.home_prereq == "L#{bracket_uid}" }
     if dependent_home_games.present?
-      dependent_home_games.update_all(home_id: game.loser.id)
+      dependent_home_games.each { |g| g.update!(home_id: game.loser.id) }
     end
 
-    dependent_away_games = Game.where(tournament_id: tournament_id, division_id: division_id, away_prereq: "L#{bracket_uid}")
+    dependent_away_games = dependent_games.select { |g| g.away_prereq == "L#{bracket_uid}" }
     if dependent_away_games.present?
-      dependent_away_games.update_all(away_id: game.loser.id)
+      dependent_away_games.each { |g| g.update!(away_id: game.loser.id) }
     end
 
     dependent_games = dependent_home_games + dependent_away_games

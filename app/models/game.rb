@@ -75,16 +75,12 @@ class Game < ApplicationRecord
     away.present? ? away.name : away_prereq
   end
 
-  def field_name
-    field.present? ? field.name : nil
-  end
-
   def one_team_present?
-    home.present? || away.present?
+    home_id.present? || away_id.present?
   end
 
   def teams_present?
-    home.present? && away.present?
+    home_id.present? && away_id.present?
   end
 
   def confirmed?
@@ -107,19 +103,31 @@ class Game < ApplicationRecord
   end
 
   def dependent_games
-    [
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "W#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, home_prereq: "L#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "W#{bracket_uid}"),
-      Game.find_by(tournament_id: tournament_id, division_id: division_id, away_prereq: "L#{bracket_uid}")
-    ].compact
+    Game.where(
+      tournament_id: tournament_id,
+      division_id: division_id,
+      home_prereq: ["W#{bracket_uid}", "L#{bracket_uid}"]
+    ).or(
+      Game.where(
+        tournament_id: tournament_id,
+        division_id: division_id,
+        away_prereq: ["W#{bracket_uid}", "L#{bracket_uid}"]
+      )
+    )
   end
 
   def prerequisite_games
-    [
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: home_prereq.to_s.gsub(/W|L/,'')),
-      Game.bracket_game.find_by(tournament_id: tournament_id, division_id: division_id, bracket_uid: away_prereq.to_s.gsub(/W|L/,'')),
-    ].compact
+    Game.bracket_game.where(
+      tournament_id: tournament_id,
+      division_id: division_id,
+      bracket_uid: home_prereq.to_s.gsub(/W|L/,'')
+    ).or(
+      Game.bracket_game.where(
+        tournament_id: tournament_id,
+        division_id: division_id,
+        bracket_uid: away_prereq.to_s.gsub(/W|L/,'')
+      )
+    )
   end
 
   def score_disputed

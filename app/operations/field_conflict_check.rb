@@ -12,7 +12,7 @@ class FieldConflictCheck < ApplicationOperation
   private
 
   def conflicting_games
-    @conflicting_games ||= start_time_overlaps + end_time_overlaps
+    @conflicting_games ||= start_time_overlaps.or(end_time_overlaps)
   end
 
   def start_time_overlaps

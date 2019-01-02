@@ -34,13 +34,13 @@ class SafeToUpdateScoreCheck < ApplicationOperation
   end
 
   def bracket_games_played?
-    games = Game.where(
+    Game.where(
       tournament_id: game.tournament_id,
       division_id: game.division_id,
       round: 1,
-      pool: nil
-    )
-    games.any?{ |g| g.confirmed? }
+      pool: nil,
+      score_confirmed: true
+    ).exists?
   end
 
   def dependent_games_played?

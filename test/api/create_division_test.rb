@@ -6,6 +6,16 @@ class CreateDivisionTest < ApiTest
     @output = '{ success userErrors { field message } }'
   end
 
+  test "queries" do
+    type = 'single_elimination_4'
+    input = FactoryBot.attributes_for(:division, bracket_type: type).except(:tournament)
+
+    assert_queries(10) do
+      execute_graphql("createDivision", "CreateDivisionInput", input, @output)
+      assert_success
+    end
+  end
+
   test "division creates all required games" do
     type = 'single_elimination_4'
     input = FactoryBot.attributes_for(:division, bracket_type: type).except(:tournament)

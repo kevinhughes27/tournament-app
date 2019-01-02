@@ -6,6 +6,19 @@ class SeedDivisionTest < ApiTest
     @output = '{ success confirm message }'
   end
 
+  test "queries" do
+    params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
+    division = create_division(params)
+    seeds = create_seeds(division, 4)
+
+    input = {division_id: division.id}
+
+    assert_queries(30) do
+      execute_graphql("seedDivision", "SeedDivisionInput", input, @output)
+      assert_success
+    end
+  end
+
   test "seed a division" do
     params = FactoryBot.attributes_for(:division, bracket_type: 'single_elimination_4')
     division = create_division(params)

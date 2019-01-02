@@ -6,6 +6,16 @@ class UpdateScoreTest < ApiTest
     @output = '{ success confirm message }'
   end
 
+  test "queries" do
+    game = FactoryBot.create(:game)
+    input = {game_id: game.id, home_score: 15, away_score: 13}
+
+    assert_queries(18) do
+      execute_graphql("updateScore", "UpdateScoreInput", input, @output)
+      assert_success
+    end
+  end
+
   test "update a games score" do
     game = FactoryBot.create(:game)
     input = {game_id: game.id, home_score: 15, away_score: 13}

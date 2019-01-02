@@ -11,6 +11,7 @@ gem 'active_operation'
 
 # api
 gem 'graphql'
+gem 'graphql-batch'
 gem 'graphiql-rails'
 
 # websockets
@@ -79,7 +80,6 @@ end
 
 group :development do
   gem 'dotenv-rails'
-  gem 'bullet'
   gem 'letter_opener'
   gem 'web-console'
 end
@@ -89,6 +89,8 @@ group :test do
   gem 'simplecov', :require => false
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'hashdiff'
+  gem 'deepsort'
   gem 'json-schema', '~> 2.6.0'
 end
 

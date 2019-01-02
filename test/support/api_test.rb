@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ApiTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryBot.create(:user)
-    @tournament = FactoryBot.create(:tournament)
+    @user = FactoryBot.create(:user, email: 'api_test@example.com')
+    @tournament = FactoryBot.create(:tournament, name: 'API Test', handle: 'apitest')
     FactoryBot.create(:tournament_user, user: @user, tournament: @tournament)
   end
 
@@ -22,11 +22,12 @@ class ApiTest < ActionDispatch::IntegrationTest
   end
 
   # filter is default true since fields are only hidden not protected
-  def query_graphql(query, filter: true, expect_error: nil)
+  def query_graphql(query, variables: {}, filter: true, expect_error: nil)
     url = "http://#{@tournament.handle}.lvh.me/graphql"
 
     params = {
-      "query" => "query { #{query} } ",
+      "query" => query,
+      "variables" => variables,
       "filter" => filter
     }
 
@@ -81,6 +82,23 @@ class ApiTest < ActionDispatch::IntegrationTest
     elsif expectation
       assert_equal expectation, mutation_result['message']
     end
+  end
+
+  def assert_queries(num, &block)
+    queries = []
+
+    counter_f = -> (name, started, finished, unique_id, payload) {
+      if payload[:name] != 'SCHEMA'
+        query = "#{payload[:name]} #{payload[:sql]} #{payload[:type_casted_binds]}"
+        queries.push(query)
+      end
+    }
+
+    ActiveSupport::Notifications.subscribed(counter_f, "sql.active_record", &block)
+  ensure
+    count = queries.size
+    mesg = "#{count} instead of #{num} queries were executed.#{count == 0 ? '' : "\nQueries:\n#{queries.join("\n")}"}"
+    assert_equal num, count, mesg
   end
 
   private

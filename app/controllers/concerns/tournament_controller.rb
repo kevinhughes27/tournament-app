@@ -13,9 +13,7 @@ module TournamentController
   private
 
   def load_tournament
-    @tournament = Tournament
-      .includes(:map)
-      .find_by!(handle: request.subdomain)
+    @tournament = Tournament.find_by!(handle: request.subdomain)
   rescue ActiveRecord::RecordNotFound
     respond_to do |format|
       format.html { render 'login/404', layout: 'login', status: :not_found }

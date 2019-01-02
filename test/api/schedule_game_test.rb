@@ -7,6 +7,24 @@ class ScheduleGameTest < ApiTest
     @output = '{ success message }'
   end
 
+  test "queries" do
+    game = FactoryBot.create(:game, :scheduled, away: nil)
+    new_game = FactoryBot.create(:game)
+    start_time = game.end_time
+
+    input = {
+      game_id: new_game.id,
+      field_id: game.field_id,
+      start_time: start_time,
+      end_time: start_time + 90.minutes
+    }
+
+    assert_queries(20) do
+      execute_graphql("scheduleGame", "ScheduleGameInput", input, @output)
+      assert_success
+    end
+  end
+
   test "checks for home team time conflicts" do
     game = FactoryBot.create(:game, :scheduled)
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)

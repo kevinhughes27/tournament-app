@@ -19,7 +19,7 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
   private
 
   def valid_submitter?
-    @game.home == @report.team || @game.away == @report.team
+    @game.home_id == @report.team_id || @game.away_id == @report.team_id
   end
 
   def build_report(inputs)

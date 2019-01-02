@@ -35,13 +35,13 @@ class TeamConflictCheck < ApplicationOperation
 
   def conflicting_games
     return unless prereqs.present?
-    @conflicting_games ||= start_time_overlaps + end_time_overlaps
+    @conflicting_games ||= start_time_overlaps.or(end_time_overlaps)
   end
 
   def start_time_overlaps
     Game.where(
-      tournament: game.tournament,
-      division: game.division,
+      tournament_id: game.tournament_id,
+      division_id: game.division_id,
       start_time: (game.start_time)..(game.end_time - 1.minutes)
     ).where(
       "home_prereq IN (?) OR away_prereq IN (?)", prereqs, prereqs
@@ -50,8 +50,8 @@ class TeamConflictCheck < ApplicationOperation
 
   def end_time_overlaps
     Game.where(
-      tournament: game.tournament,
-      division: game.division,
+      tournament_id: game.tournament_id,
+      division_id: game.division_id,
       end_time: (game.start_time + 1.minutes)..(game.end_time)
     ).where(
       "home_prereq IN (?) OR away_prereq IN (?)", prereqs, prereqs

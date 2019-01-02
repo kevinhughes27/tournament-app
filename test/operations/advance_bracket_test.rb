@@ -3,7 +3,7 @@ require 'test_helper'
 class AdvanceBracketTest < OperationTest
   include ActiveJob::TestHelper
 
-  test "pushes winner through the bracket" do
+  test "pushes home winner through the bracket" do
     game1 = FactoryBot.create(:game,
       round: 1,
       bracket_uid: 'q1',
@@ -20,7 +20,41 @@ class AdvanceBracketTest < OperationTest
     assert_equal game1.home, game2.reload.home
   end
 
-  test "pushes loser through the bracket" do
+  test "pushes home loser through the bracket" do
+    game1 = FactoryBot.create(:game,
+      round: 1,
+      bracket_uid: 'q1',
+      home_score: 11,
+      away_score: 15
+    )
+
+    game2 = FactoryBot.create(:game,
+      round: 2,
+      home_prereq: 'Lq1',
+    )
+
+    AdvanceBracket.perform(game1)
+    assert_equal game1.home, game2.reload.home
+  end
+
+  test "pushes away winner through the bracket" do
+    game1 = FactoryBot.create(:game,
+      round: 1,
+      bracket_uid: 'q1',
+      home_score: 11,
+      away_score: 15
+    )
+
+    game2 = FactoryBot.create(:game,
+      round: 2,
+      away_prereq: 'Wq1'
+    )
+
+    AdvanceBracket.perform(game1)
+    assert_equal game1.away, game2.reload.away
+  end
+
+  test "pushes away loser through the bracket" do
     game1 = FactoryBot.create(:game,
       round: 1,
       bracket_uid: 'q1',

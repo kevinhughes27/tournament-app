@@ -6,6 +6,16 @@ class DeleteFieldTest < ApiTest
     @output = '{ success confirm message userErrors { field message } }'
   end
 
+  test "queries" do
+    field = FactoryBot.create(:field)
+    input = {id: field.id}
+
+    assert_queries(9) do
+      execute_graphql("deleteField", "DeleteFieldInput", input, @output)
+      assert_success
+    end
+  end
+
   test "delete a field" do
     field = FactoryBot.create(:field)
     input = {id: field.id}

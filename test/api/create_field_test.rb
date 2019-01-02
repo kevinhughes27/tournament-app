@@ -6,6 +6,17 @@ class CreateFieldTest < ApiTest
     @output = '{ success userErrors { field message } }'
   end
 
+  test "queries" do
+    assert_difference "Field.count" do
+      input = FactoryBot.attributes_for(:field).except(:tournament)
+
+      assert_queries(8) do
+        execute_graphql("createField", "CreateFieldInput", input, @output)
+        assert_success
+      end
+    end
+  end
+
   test "create a field" do
     assert_difference "Field.count" do
       input = FactoryBot.attributes_for(:field).except(:tournament)

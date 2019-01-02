@@ -24,8 +24,16 @@ class PlayerAppTest < BrowserTest
   end
 
   def enter_pin(pin)
-    input = first('input.pincode-input-text')
-    input.send_keys pin
+    # too fast on CI
+    # input = first('input.pincode-input-text')
+    # input.send_keys pin
+
+    inputs = page.all('input.pincode-input-text')
+
+    inputs[0].set pin[0]
+    inputs[1].set pin[1]
+    inputs[2].set pin[2]
+    inputs[3].set pin[3]
   end
 
   def click_on_game(game)
