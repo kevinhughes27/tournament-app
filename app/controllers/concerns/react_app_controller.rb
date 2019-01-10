@@ -19,7 +19,7 @@ module ReactAppController
   def static
     file = static_file(params[:dir], params[:file], params[:format])
     if File.exist?(file)
-      render file: file
+      send_file file
     else
       name = params[:file].split('.').first
       redirect_to_latest(params[:dir], name, params[:format])
@@ -27,7 +27,7 @@ module ReactAppController
   end
 
   def service_worker
-    render file: service_worker_file
+    send_file service_worker_file
   end
 
   private
