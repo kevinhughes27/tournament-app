@@ -17,7 +17,7 @@ class Types::Division < Types::BaseObject
   field :needsSeed, Boolean, null: false
 
   def teams
-    AssociationLoader.for(Division, :teams).load(object).then do |teams|
+    AssociationLoader.for(::Division, :teams).load(object).then do |teams|
       teams
     end
   end
@@ -27,7 +27,7 @@ class Types::Division < Types::BaseObject
   end
 
   def games
-    AssociationLoader.for(Division, :games).load(object).then do |games|
+    AssociationLoader.for(::Division, :games).load(object).then do |games|
       games
     end
   end
