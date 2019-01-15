@@ -9,7 +9,7 @@ Renewing SSL certificate
    again. To non-interactively renew *all* of your certificates, run
    "certbot-auto renew"
 
-1. Download latest `certbot-auto`. If you have an exisiting version it will auto-update itself when executed.
+1. Download latest `certbot-auto`. If you have an existing version it will auto-update itself when executed.
 
 2. Login to Namecheap and get ready to add a TXT record on the Advanced DNS tab for ultimate-tournament
 
@@ -25,6 +25,8 @@ Renewing SSL certificate
 
   ```
   dig -t txt _acme-challenge.ultimate-tournament.io
+
+  or use (http://www.ipvoid.com/txt-lookup/)[http://www.ipvoid.com/txt-lookup/]
   ```
 
   To confirm the response before continuing
