@@ -6,7 +6,7 @@ const getTournamentDomain = () => {
   if (window.location.host === 'localhost:4000') {
     return 'http://no-borders.lvh.me:3000';
   } else {
-    return window.location.host;
+    return window.location.protocol + '//' + window.location.host;
   }
 };
 
@@ -44,8 +44,6 @@ class App extends React.Component {
   };
 
   render() {
-    const tournamentDomain = 'http://no-borders.lvh.me:3000';
-
     return (
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <Hidden smDown>
