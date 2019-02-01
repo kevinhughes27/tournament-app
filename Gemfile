@@ -23,7 +23,7 @@ gem 'redis', '~> 3.0'
 
 # auth
 gem 'devise'
-gem 'knock', git: 'https://github.com/kevinhughes27/knock.git', ref: '06f6750780be42698e24ef30a46094f575de3e1b'
+gem 'knock', git: 'https://github.com/kevinhughes27/knock.git', ref: '706774922af163a032248d1d5bf88a833e8cd44b'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
