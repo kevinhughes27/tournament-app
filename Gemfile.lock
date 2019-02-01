@@ -17,8 +17,8 @@ GIT
 
 GIT
   remote: https://github.com/kevinhughes27/knock.git
-  revision: 706774922af163a032248d1d5bf88a833e8cd44b
-  ref: 706774922af163a032248d1d5bf88a833e8cd44b
+  revision: 110bf5556ff2d5a6371356e2d6f546c728722057
+  ref: 110bf5556ff2d5a6371356e2d6f546c728722057
   specs:
     knock (2.2.0)
       bcrypt (~> 3.1)
