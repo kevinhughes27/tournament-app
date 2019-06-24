@@ -349,7 +349,7 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2018.5)
+    tzinfo-data (1.2019.1)
       tzinfo (>= 1.0.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
