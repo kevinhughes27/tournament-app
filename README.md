@@ -23,6 +23,15 @@ Contents
 
 ## Setup
 
+
+### Submodules
+
+Make sure to clone the submodules:
+
+```
+git submodule update --init
+```
+
 ### Ruby
 
 You will need a new version of Ruby (system versions are always too old). You can see which version of Ruby a project is currently using by checking the Gemfile.
