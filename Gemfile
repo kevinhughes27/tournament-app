@@ -18,7 +18,7 @@ gem 'graphiql-rails'
 gem 'actioncable'
 
 # datastores
-gem 'pg', '~> 0.21.0'
+gem 'pg', '~> 1.1.4'
 gem 'redis', '~> 3.0'
 
 # auth
