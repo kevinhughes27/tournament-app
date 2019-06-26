@@ -31,7 +31,7 @@ class Mutations::BaseMutation < GraphQL::Schema::Mutation
     end
   end
 
-  def authorized?(context)
+  def authorized?(inputs)
     user = context[:current_user]
     tournament = context[:tournament]
 
