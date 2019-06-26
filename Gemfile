@@ -10,7 +10,7 @@ gem 'tzinfo-data'
 gem 'active_operation'
 
 # api
-gem 'graphql', '1.8.7'
+gem 'graphql'
 gem 'graphql-batch'
 gem 'graphiql-rails'
 

@@ -35,7 +35,7 @@ class User < ApplicationRecord
   end
 
   def is_tournament_user?(tournament)
-    tournaments.exists?(id: tournament.try(:id) || tournament)
+    tournaments.exists?(id: tournament.id)
   end
 
   private
