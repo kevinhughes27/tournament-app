@@ -62,7 +62,7 @@ class FilesController < ApplicationController
 
   def authenticate_tournament_user!
     return if current_user.staff?
-    head 401 unless current_user.is_tournament_user?(@tournament.id)
+    head 401 unless current_user.is_tournament_user?(@tournament)
   end
 
   def current_user
