@@ -20,7 +20,7 @@ class SubmitScoreTest < ApiTest
   test "error" do
     @input = input.except(:home_score)
     execute_graphql("submitScore", "SubmitScoreInput", @input,
-      expect_error: "Variable input of type SubmitScoreInput! was provided invalid value")
+      expect_error: "Variable input of type SubmitScoreInput! was provided invalid value for homeScore (Expected value to not be null)")
   end
 
   test "can't submit score with only one team" do
