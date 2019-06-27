@@ -70,7 +70,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'byebug', '~> 9.0.6'
+  gem 'byebug', '~> 11.0.1'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'spring'
