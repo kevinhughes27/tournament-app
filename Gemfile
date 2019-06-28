@@ -91,7 +91,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'hashdiff'
   gem 'deepsort'
-  gem 'json-schema', '~> 2.6.0'
+  gem 'json-schema', '~> 2.8.1'
 end
 
 group :ci do

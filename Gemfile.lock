@@ -74,7 +74,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.3.8)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     auto_strip_attributes (2.4.0)
       activerecord (>= 4.0)
@@ -194,8 +195,8 @@ GEM
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
     json (2.1.0)
-    json-schema (2.6.2)
-      addressable (~> 2.3.8)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     jstz-rails3-plus (1.0.5)
       railties (>= 3.1)
     jwt (2.2.1)
@@ -264,6 +265,7 @@ GEM
     pg (1.1.4)
     phonelib (0.6.23)
     promise.rb (0.7.4)
+    public_suffix (3.1.1)
     puma (3.12.0)
     rack (2.0.7)
     rack-protection (2.0.5)
@@ -421,7 +423,7 @@ DEPENDENCIES
   hashdiff
   jquery-rails
   js_cookie_rails
-  json-schema (~> 2.6.0)
+  json-schema (~> 2.8.1)
   jstz-rails3-plus
   kaminari!
   knock!
