@@ -19,7 +19,7 @@ gem 'actioncable'
 
 # datastores
 gem 'pg', '~> 1.1.4'
-gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.1'
 
 # auth
 gem 'devise'
