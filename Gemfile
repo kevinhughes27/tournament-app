@@ -29,7 +29,7 @@ gem 'omniauth-facebook'
 
 # model gems
 gem 'activerecord-import'
-gem 'paranoia', '~> 2.4.1'
+gem 'paranoia', '~> 2.4.2'
 gem 'auto_strip_attributes'
 gem 'date_validator'
 gem 'phonelib'
