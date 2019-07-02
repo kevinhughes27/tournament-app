@@ -167,7 +167,7 @@ class PerformanceTest < ApiTest
       expected_result.deep_sort!
       result.deep_sort!
 
-      diff = HashDiff.diff(expected_result, result)
+      diff = Hashdiff.diff(expected_result, result)
 
       if !diff.empty?
         output_dir = File.join(Rails.root, 'tmp', 'perf')
