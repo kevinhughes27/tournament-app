@@ -5,7 +5,7 @@ FactoryBot.define do
     game { FactoryBot.build(:game, tournament: tournament) }
     home { game.home }
     away { game.away }
-    home_score 15
-    away_score 13
+    home_score { 15 }
+    away_score { 13 }
   end
 end
