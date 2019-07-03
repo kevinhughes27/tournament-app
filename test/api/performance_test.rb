@@ -174,16 +174,20 @@ class PerformanceTest < ApiTest
         Dir.mkdir(output_dir) unless Dir.exist?(output_dir)
 
         File.write(
-          File.join(output_dir, "#{name.gsub('.ts', '')}_expected.json"),
+          File.join(output_dir, "#{name.gsub('.ts', '')}_pretty_expected.json"),
           JSON.pretty_generate(expected_result)
         )
         File.write(
-          File.join(output_dir, "#{name.gsub('.ts', '')}_result.json"),
+          File.join(output_dir, "#{name.gsub('.ts', '')}_pretty_result.json"),
           JSON.pretty_generate(result)
+        )
+        File.write(
+          File.join(output_dir, "#{name.gsub('.ts', '')}_result.json"),
+          result.to_json
         )
       end
 
-      assert_empty diff, 'Query result changed'
+      assert_empty diff, 'Query result changed. Check the output in tmp/perf'
     else
       File.write(expected_result_path, result.to_json)
     end
