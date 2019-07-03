@@ -29,13 +29,6 @@ module BracketDb
       end
     end
 
-    # remove when admin next ships
-    def options(teams:, days:)
-      @registry.select do |handle, bracket|
-        bracket.teams == teams && bracket.days == days
-      end
-    end
-
     def find(handle:)
       @registry[handle]
     end
