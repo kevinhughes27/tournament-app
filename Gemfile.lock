@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/amatsuda/kaminari
-  revision: a43335cc31b765f2e5a9fb0d8694fa707a6593c6
+  revision: 510b492e95427053d54495a31f856fe8f45e7f27
   specs:
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
