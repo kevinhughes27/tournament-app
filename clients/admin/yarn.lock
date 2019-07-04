@@ -1342,28 +1342,23 @@
     csstype "^2.0.0"
     indefinite-observable "^1.0.1"
 
-"@types/leaflet-editable@^0.7.33":
-  version "0.7.33"
-  resolved "https://registry.yarnpkg.com/@types/leaflet-editable/-/leaflet-editable-0.7.33.tgz#3f1e7d1731fc4aac9ef135cbdd15c23639327fe3"
+"@types/leaflet-editable@^0.7.34":
+  version "0.7.34"
+  resolved "https://registry.yarnpkg.com/@types/leaflet-editable/-/leaflet-editable-0.7.34.tgz#59e1d8640857539799bb1a2eae29169704c8c0e5"
+  integrity sha512-nI+twtmTywujxWMsDKxbBqKAhgpZPT3XeG/Ug8EK+AEY9jdBaT88UUJXmwE18fwUVJuyZ4vQ+F3Ek/9cuiX4bQ==
   dependencies:
     "@types/leaflet" "^0"
 
-"@types/leaflet@*":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.2.11.tgz#a80f6d49a200698a24351e93dae654308cacf239"
+"@types/leaflet@*", "@types/leaflet@^1.2.14":
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.2.14.tgz#912bcacdc2cfa62787573a27ca617ffb67f89614"
+  integrity sha512-acP2w5DygY0V7bwmjFmaen5I2iBl8RkWx9kon1IJA7k9mNFgBb6702WApjZSrM4AG1ucJVxFcTlS6nr4HvahEw==
   dependencies:
     "@types/geojson" "*"
 
 "@types/leaflet@^0":
   version "0.7.32"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-0.7.32.tgz#8694b719e989e5e1b8a6d269f136c11e9157f3ba"
-  dependencies:
-    "@types/geojson" "*"
-
-"@types/leaflet@^1.2.14":
-  version "1.2.14"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.2.14.tgz#912bcacdc2cfa62787573a27ca617ffb67f89614"
-  integrity sha512-acP2w5DygY0V7bwmjFmaen5I2iBl8RkWx9kon1IJA7k9mNFgBb6702WApjZSrM4AG1ucJVxFcTlS6nr4HvahEw==
   dependencies:
     "@types/geojson" "*"
 
