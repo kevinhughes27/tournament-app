@@ -9,8 +9,9 @@ jobs:
 
     environment:
       PGUSER: ubuntu
-      RAILS_ENV: test
       RACK_ENV: test
+      RAILS_ENV: test
+      REACT_APP_RAILS_ENV: test
       GENERATE_SOURCEMAP: false
 
     steps:

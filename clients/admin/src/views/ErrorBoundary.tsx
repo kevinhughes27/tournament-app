@@ -1,5 +1,6 @@
 import * as React from 'react';
 import BlankSlate from '../components/BlankSlate';
+import railsEnv from '../modules/railsEnv';
 import rollbar from 'rollbar';
 
 const rollbarConfig = {
@@ -7,7 +8,7 @@ const rollbarConfig = {
   captureUncaught: true,
   captureUnhandledRejections: true,
   payload: {
-    environment: process.env.NODE_ENV
+    environment: railsEnv()
   }
 };
 
