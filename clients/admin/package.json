@@ -59,7 +59,7 @@
     "csv": "^5.0.1",
     "d3": "5.9.7",
     "email-validator": "^2.0.4",
-    "formik": "^1.4.1",
+    "formik": "^1.5.7",
     "graphql": "^14.0.2",
     "graphql-ruby-client": "^1.6.2",
     "graphql-tag": "^2.10.1",
