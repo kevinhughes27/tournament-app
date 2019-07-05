@@ -57,7 +57,7 @@
     "apollo-link-logger": "^1.2.3",
     "browser-cookies": "^1.2.0",
     "csv": "^5.0.1",
-    "d3": "5.7.0",
+    "d3": "5.9.7",
     "email-validator": "^2.0.4",
     "formik": "^1.4.1",
     "graphql": "^14.0.2",
