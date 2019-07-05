@@ -12,6 +12,7 @@ interface Props {
   fields: FieldsEditorQuery['fields'];
   updateMap: (ev: any) => void;
   editField: (field: FieldsEditorQuery_fields) => void;
+  children: JSX.Element[] | JSX.Element;
 }
 
 type Ref = Map<any>;
