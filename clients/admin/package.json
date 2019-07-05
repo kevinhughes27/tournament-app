@@ -88,7 +88,7 @@
     "react-scripts": "^2.1.0",
     "react-stars": "^2.2.5",
     "rollbar": "^2.7.1",
-    "typescript": "^3.2.2"
+    "typescript": "^3.5.2"
   },
   "browserslist": {
     "development": [
