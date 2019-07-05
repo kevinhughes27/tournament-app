@@ -9603,10 +9603,10 @@ react-join@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/react-join/-/react-join-1.1.4.tgz#77c9c69b75ea596c1782a5e61426a104fda556a2"
 
-react-leaflet-control@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-leaflet-control/-/react-leaflet-control-2.0.0.tgz#3d9ac4c67e86032520bf581b7a1a0dc7b450f682"
-  integrity sha512-pUJsOJPfAvsI0PV9cjSV7Sj4DNKgaCmpBem9oC2qqyhH54d5HaQR90O45y1gGCX9ps8P1r4yR66TdDhWOlNDnw==
+react-leaflet-control@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet-control/-/react-leaflet-control-2.1.1.tgz#ed90006c9d285872a2788fe15c11fc30ad14cdb0"
+  integrity sha512-3fx4uSRFtDaFNa1yq62DCxdc9kR3Lk4V7R0lHqbKfPTEIOvPR7VFvk3xzcSnSB/0LAYO8R96Pwcs1c6knyL/Hw==
 
 react-leaflet-search@^0.6.0:
   version "0.6.0"
