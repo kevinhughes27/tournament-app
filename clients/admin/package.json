@@ -63,7 +63,7 @@
     "graphql": "^14.0.2",
     "graphql-ruby-client": "^1.6.2",
     "graphql-tag": "^2.10.1",
-    "gravatar-url": "^2.0.0",
+    "gravatar-url": "^3.0.1",
     "inflection": "^1.10.0",
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.5.1",
