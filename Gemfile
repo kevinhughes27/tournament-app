@@ -97,5 +97,4 @@ end
 group :ci do
   gem 'minitest-retry'
   gem 'minitest-ci'
-  gem 'bundler-audit', require: false
 end

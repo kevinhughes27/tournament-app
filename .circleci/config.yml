@@ -130,7 +130,7 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       # Run tests
-      - run: bundle exec rake ci:all
+      - run: bundle exec rails test
 
       # Store Artifacts
       - store_artifacts:

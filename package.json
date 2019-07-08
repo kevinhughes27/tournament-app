@@ -14,7 +14,6 @@
     "heroku-postbuild": "yarn build"
   },
   "dependencies": {
-    "nsp": "^3.2.1",
     "subpackage": "^1.1.0"
   },
   "cacheDirectories": [
