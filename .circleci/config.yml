@@ -11,7 +11,9 @@ jobs:
       # Yarn
       ## restore yarn cache
       - restore_cache:
-          key: yarn {{ checksum "yarn.lock" }}
+          keys:
+          - yarn {{ checksum "yarn.lock" }}
+          - yarn # fallback to using the latest cache if no exact match is found
 
       ## yarn install dependencies
       - run: yarn install --frozen-lockfile
@@ -20,6 +22,7 @@ jobs:
       - save_cache:
           key: yarn {{ checksum "yarn.lock" }}
           paths:
+            - node_modules
             - ~/.cache/yarn
 
       # Build
