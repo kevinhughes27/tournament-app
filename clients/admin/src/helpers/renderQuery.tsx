@@ -22,7 +22,7 @@ const renderQuery = (
 
   return (
     <Query query={query} variables={variables} fetchPolicy={fetchPolicy}>
-      {({ loading, error, data, subscribeToMore }) => {
+      {({ loading, error, data, subscribeToMore }: any) => {
         if (error) {
           if (
             error.networkError &&

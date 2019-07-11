@@ -1,4 +1,4 @@
-import ls from 'local-storage';
+import * as ls from 'local-storage';
 const lsKey = 'ScheduleEditorSettings';
 
 interface UpdateSettings {
