@@ -23,10 +23,10 @@ class FieldsTest < AdminTest
     assert_difference 'Field.count', +19 do
       submit
       assert_text 'Imported 19 fields'
+      click_on('Done')
       assert_text 'UPI2'
       assert_text 'UPI9'
       assert_text 'UPI18'
-      click_on('Done')
     end
   end
 end
