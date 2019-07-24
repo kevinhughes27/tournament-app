@@ -67,10 +67,10 @@ class TeamsTest < AdminTest
     assert_difference 'Team.count', +8 do
       submit
       assert_text 'Imported 8 teams'
+      click_on('Done')
       assert_text "Nor'easter"
       assert_text 'Fiasco'
       assert_text 'Ocho'
-      click_on('Done')
     end
   end
 end
