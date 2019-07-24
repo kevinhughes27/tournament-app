@@ -85,21 +85,21 @@
     "react-leaflet-control": "2.1.1",
     "react-leaflet-search": "^0.6.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "^2.1.0",
+    "react-scripts": "3.0.1",
     "react-stars": "^2.2.5",
     "rollbar": "^2.7.1",
     "typescript": "^3.5.2"
   },
   "browserslist": {
-    "development": [
-      "last 2 chrome versions",
-      "last 2 firefox versions",
-      "last 2 edge versions"
-    ],
     "production": [
-      "last 2 chrome versions",
-      "last 2 firefox versions",
-      "last 2 edge versions"
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }

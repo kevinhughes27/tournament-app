@@ -1,3 +1,3 @@
 export default () => {
-  process.env.REACT_APP_RAILS_ENV || 'development';
+  return process.env.REACT_APP_RAILS_ENV || 'development';
 };
