@@ -90,6 +90,10 @@
     "rollbar": "^2.7.1",
     "typescript": "^3.5.2"
   },
+  "resolutions": {
+    "@typescript-eslint/parser": "^1.11.0",
+    "@typescript-eslint/eslint-plugin": "^1.11.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
