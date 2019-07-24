@@ -21,7 +21,7 @@ class UnscheduledGames extends React.Component<Props, State> {
     tab: 0
   };
 
-  handleChange = ({}, value: number) => {
+  handleChange = (_: any, value: number) => {
     this.setState({ tab: value });
   };
 

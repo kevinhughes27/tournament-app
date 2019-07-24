@@ -12,6 +12,7 @@ class Device extends React.Component<Props> {
           <div className="device-content">
             <iframe
               src={this.props.src}
+              title="player-app-in-phone"
               scrolling="no"
               className="device-iframe"
             />

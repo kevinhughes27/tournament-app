@@ -18,7 +18,7 @@ class App extends React.Component {
       <>
         <p>
           Your app is available at{' '}
-          <a href={tournamentDomain} target="_blank">
+          <a href={tournamentDomain} target="_blank" rel="noopener noreferrer">
             {tournamentDomain}
           </a>{' '}
           (its the same as your admin url without the <mark>/admin</mark> part).

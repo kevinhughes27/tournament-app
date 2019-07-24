@@ -76,7 +76,7 @@ class ImportForm extends React.Component<Props, State> {
     });
   };
 
-  onSubmit = ({  }: FormikValues, actions: FormikActions<FormikValues>) => {
+  onSubmit = (_values: FormikValues, actions: FormikActions<FormikValues>) => {
     actions.resetForm();
     this.props.startImport(this.state.data);
   };
@@ -113,7 +113,7 @@ class ImportForm extends React.Component<Props, State> {
         <p>{this.state.error}</p>
 
         <p>
-          <a href="#" onClick={this.downloadSampleCSV}>
+          <a href="/sample_csv" onClick={this.downloadSampleCSV}>
             Download
           </a>{' '}
           a sample CSV template to see an example of the required format.

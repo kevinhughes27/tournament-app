@@ -33,11 +33,11 @@ interface State {
 }
 
 const target: DropTargetSpec<Props> = {
-  hover({}, monitor, component: FieldColumn) {
+  hover(_, monitor, component: FieldColumn) {
     component.hover(monitor);
   },
 
-  drop({}, monitor, component: FieldColumn) {
+  drop(_, monitor, component: FieldColumn) {
     const game = monitor.getItem() as ScheduledGame;
     component.schedule(game);
   }

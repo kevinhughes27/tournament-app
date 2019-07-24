@@ -14,7 +14,7 @@ class Form<T> extends React.Component<T> {
     throw new Error('You have to implement initialValues');
   };
 
-  validate = ({  }: FormikValues) => {
+  validate = (_: FormikValues) => {
     const errors: FormikErrors<FormikValues> = {};
     return errors;
   };
@@ -23,7 +23,7 @@ class Form<T> extends React.Component<T> {
     throw new Error('You have to implement mutation');
   };
 
-  mutationInput: any = ({  }: FormikValues) => {
+  mutationInput: any = (_: FormikValues) => {
     throw new Error('You have to implement mutationInput');
   };
 
@@ -41,7 +41,7 @@ class Form<T> extends React.Component<T> {
     );
   }
 
-  renderForm: any = ({  }: FormikProps<FormikValues>) => {
+  renderForm: any = (_: FormikProps<FormikValues>) => {
     throw new Error('You have to implement renderForm');
   };
 
