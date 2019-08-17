@@ -3,7 +3,7 @@ FactoryBot.define do
     tournament { Tournament.first || FactoryBot.build(:tournament) }
     division { Division.first || FactoryBot.build(:division, tournament: tournament) }
     round { 1 }
-    bracket_uid { Faker::Number.hexadecimal(3) }
+    bracket_uid { Faker::Number.hexadecimal(digits: 3) }
     pool { nil }
     home_prereq { '1' }
     away_prereq { '3' }
@@ -18,8 +18,8 @@ FactoryBot.define do
     end
 
     trait :finished do
-      home_score { Faker::Number.between(0,15) }
-      away_score { Faker::Number.between(0,15) }
+      home_score { Faker::Number.between(from: 0, to: 15) }
+      away_score { Faker::Number.between(from: 0, to: 15) }
       score_confirmed { true }
     end
 
