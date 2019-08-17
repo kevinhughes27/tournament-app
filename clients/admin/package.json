@@ -75,7 +75,7 @@
     "react": "^16.9.0",
     "react-apollo": "^3.0.0",
     "react-datepicker": "^0.51.0",
-    "react-dnd": "^7.1.0",
+    "react-dnd": "^9.3.4",
     "react-dnd-html5-backend": "^9.3.4",
     "react-dom": "^16.8.6",
     "react-file-download": "^0.3.5",
