@@ -73,11 +73,11 @@ class BracketSimulationTest < OperationTest
   end
 
   def gen_score
-    score1 = Faker::Number.between(1, 15)
-    score2 = Faker::Number.between(1, 15)
+    score1 = Faker::Number.between(from: 1, to: 15)
+    score2 = Faker::Number.between(from: 1, to: 15)
 
     while score2 == score1
-      score2 = Faker::Number.between(1, 15)
+      score2 = Faker::Number.between(from: 1, to: 15)
     end
 
     [score1, score2]
