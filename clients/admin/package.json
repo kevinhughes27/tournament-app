@@ -81,7 +81,7 @@
     "react-file-download": "^0.3.5",
     "react-ga": "^2.6.0",
     "react-join": "^1.1.4",
-    "react-leaflet": "^2.2.1",
+    "react-leaflet": "^2.4.0",
     "react-leaflet-control": "2.1.1",
     "react-leaflet-search": "^0.6.0",
     "react-router-dom": "^5.0.1",
