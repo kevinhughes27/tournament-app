@@ -11,12 +11,14 @@ Renewing SSL certificate
 
 1. Download latest `certbot-auto`. If you have an existing version it will auto-update itself when executed.
 
+  `wget https://dl.eff.org/certbot-auto`
+
 2. Login to Namecheap and get ready to add a TXT record on the Advanced DNS tab for ultimate-tournament
 
 3. Run:
 
   ```
-  sudo ./certbot-auto certonly --server https://acme-v02.api.letsencrypt.org/directory --manual --preferred-challenges dns -d '*.ultimate-tournament.io'
+  ./certbot-auto certonly --server https://acme-v02.api.letsencrypt.org/directory --manual --preferred-challenges dns -d '*.ultimate-tournament.io'
   ```
 
 4. Update the _acme-challenge txt record
