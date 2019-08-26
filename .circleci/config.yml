@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.6.3-node-browsers
-      - image: circleci/postgres:9.6.14-alpine
+      - image: circleci/postgres:11.5
       - image: redis:4.0.14
 
     environment:
