@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.6.3'
 
 # server
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.0'
 gem 'bootsnap'
 gem 'puma'
 gem 'config'
