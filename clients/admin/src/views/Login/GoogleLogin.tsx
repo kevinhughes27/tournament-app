@@ -22,11 +22,20 @@ class GoogleLogin extends React.Component<Props> {
     }
   };
 
+  csrf_token_field = () => {
+    const metaNodes = document.getElementsByTagName('meta');
+    const name = (metaNodes as any)['csrf-param'].content;
+    const token = (metaNodes as any)['csrf-token'].content;
+
+    return <input type="hidden" name={name} value={token} />;
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
       <form action="/auth/google_oauth2" method="post" onSubmit={this.submit}>
+        {this.csrf_token_field()}
         <Button type="submit" variant="contained" className={classes.google}>
           <FontAwesomeIcon
             icon={['fab', 'google']}
