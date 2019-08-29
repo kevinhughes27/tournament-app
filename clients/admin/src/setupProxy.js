@@ -8,14 +8,23 @@ const target = `${handle}.${domain}:${port}`;
 const httpOptions = { target: `http://${target}`, changeOrigin: true };
 const wsOptions = { target: `ws://${target}`, changeOrigin: true, ws: true };
 
+function proxyHttp(target) {
+  return proxy(target, httpOptions)
+};
+
+function proxySocket(target) {
+  return proxy(target, wsOptions)
+};
+
 module.exports = function(app) {
   app.use(
-    proxy('/graphql', httpOptions),
-    proxy('/user_token', httpOptions),
-    proxy('/subscriptions', wsOptions),
+    proxyHttp('/user_token'),
 
-    proxy('/fields.csv', httpOptions),
-    proxy('/score_reports.csv', httpOptions),
-    proxy('/schedule.pdf', httpOptions),
+    proxyHttp('/graphql'),
+    proxySocket('/subscriptions'),
+
+    proxyHttp('/fields.csv'),
+    proxyHttp('/score_reports.csv'),
+    proxyHttp('/schedule.pdf'),
   );
 };
