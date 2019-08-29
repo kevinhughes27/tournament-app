@@ -37,6 +37,7 @@ const Login = {
     width: '100%'
   },
   google: {
+    width: '100%',
     color: 'white',
     paddingRight: 30,
     backgroundColor: '#dd4b39',
@@ -45,6 +46,7 @@ const Login = {
     }
   },
   facebook: {
+    width: '100%',
     color: 'white',
     backgroundColor: '#3b5998',
     '&:hover': {

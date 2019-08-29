@@ -13,7 +13,9 @@ module ReactAppController
   end
 
   def index
-    render file: index_html
+    html = File.read(index_html)
+    html.gsub!("[CSRF_TOKEN]", form_authenticity_token)
+    render html: html.html_safe
   end
 
   def static

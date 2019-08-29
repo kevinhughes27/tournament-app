@@ -31,16 +31,18 @@
   </div>
 
   <div class="social">
-    <%= link_to user_google_oauth2_omniauth_authorize_url(subdomain: 'www'),
-      class: "waves-effect waves-light btn google" do %>
-      <i class="fa fa-google" style="padding-right: 15px"></i>
-      <span style="padding-left: 15px; padding-right: 15px">Sign in with Google</span>
+    <%= form_with(url: user_google_oauth2_omniauth_authorize_url(subdomain: 'www'), method: 'post') do %>
+      <%= button_tag(type: "submit", class: "waves-effect waves-light btn google") do %>
+        <i class="fa fa-google" style="padding-right: 15px"></i>
+        <span style="padding-left: 15px; padding-right: 15px">Sign in with Google</span>
+      <% end %>
     <% end %>
 
-    <%= link_to user_facebook_omniauth_authorize_path(subdomain: 'www'),
-          class: "waves-effect waves-light btn facebook" do %>
-      <i class="fa fa-facebook-f" style="padding-right: 15px"></i>
-      <span style="padding-left: 15px; padding-right: 15px">Sign in with Facebook</span>
+    <%= form_with(url: user_facebook_omniauth_authorize_path(subdomain: 'www'), method: 'post') do %>
+      <%= button_tag(type: "submit", class: "waves-effect waves-light btn facebook") do %>
+        <i class="fa fa-facebook-f" style="padding-right: 15px"></i>
+        <span style="padding-left: 15px; padding-right: 15px">Sign in with Facebook</span>
+      <% end %>
     <% end %>
   </div>
 </div>

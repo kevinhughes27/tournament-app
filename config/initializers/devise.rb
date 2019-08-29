@@ -251,6 +251,7 @@ Devise.setup do |config|
     Settings.google_client_secret,
     {
       redirect_uri: "#{protocol}://www.#{Settings.host}/auth/google_oauth2/callback",
+      skip_jwt: true
     }
 
   config.omniauth :facebook,
