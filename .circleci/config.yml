@@ -17,7 +17,6 @@ jobs:
     steps:
       # Checkout the source code
       - checkout
-      - run: git submodule update --init
 
       # Bundler
       ## restore bundle cache
