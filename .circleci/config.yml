@@ -86,8 +86,7 @@ jobs:
       # Player App
       ## generate checksum for player_app
       - type: shell
-        command: |
-          git submodule status > player_app-checksum.txt
+        command: ./.circleci/player_app_checksum.sh > player_app-checksum.txt
 
       ## restore player_app cache
       - restore_cache:
