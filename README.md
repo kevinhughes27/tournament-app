@@ -7,7 +7,6 @@ Ultimate Tournament
 Contents
 --------
 * **Setup**
-  * [**Submodules**](#submodules)
   * [**Ruby**](#ruby)
   * [**Node**](#node)
   * [**Dependencies**](#dependencies)
@@ -25,15 +24,6 @@ Contents
 
 
 ## Setup
-
-### Submodules
-
-Make sure to clone the submodules:
-
-```
-git submodule update --init
-```
-
 
 ### Ruby
 
@@ -87,7 +77,7 @@ Which will install the javascript dependencies for each client. The clients are 
 ### Docker
 
 We use docker and docker-compose to manage the required services for development:
-    
+
     * [Postgresql](https://www.postgresql.org/) for our database
     * [Redis](https://redis.io/) for a key value store
 
@@ -199,11 +189,7 @@ Admin uses Apollo to make queries to the GraphQL API. There is a compile step in
 
 ### Player App
 
-The public facing client for a tournament. It is developed as a stand alone React application that is compiled and served by Rails in production. Development takes place in a [separate repo](https://github.com/kevinhughes27/ut-player-app)
-
-It is connected using a git `submodule`. To initialize the module run `git submodule update --init`.
-
-If you need to update the player app to deploy a new version first enter the directory `cd clients/player_app`, checkout master `git checkout master` and run `git pull`. Check the status afterwards `git status` and it will show updates that you will need to commit like normal (it will look different than normal commit diff though because git knows it's a submodule).
+The public facing client for a tournament. It is developed as a stand alone React application that is compiled and served by Rails in production.
 
 
 ## Operating
