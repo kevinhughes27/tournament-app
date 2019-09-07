@@ -1,0 +1,29 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.16.0
+
+    steps:
+      - checkout
+
+      # Yarn
+      ## restore yarn cache
+      - restore_cache:
+          keys:
+          - yarn {{ checksum "yarn.lock" }}
+          - yarn # fallback to using the latest cache if no exact match is found
+
+      ## yarn install dependencies
+      - run: yarn install --frozen-lockfile
+
+      ## store yarn cache
+      - save_cache:
+          key: yarn {{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+            - ~/.cache/yarn
+
+      # Build
+      - run: yarn build
