@@ -34,8 +34,10 @@ class Calendar extends React.Component<Props, State> {
   };
 
   render() {
-    const fields = this.props.fields;
     const { games } = this.props;
+    const fields = sortBy(this.props.fields, f =>
+      parseInt(f.name.replace(/\D/g, ''))
+    );
     const dates = map(games, (g: any) => moment(g.startTime));
     const date = this.state.date;
 
