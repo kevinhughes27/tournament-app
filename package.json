@@ -11,7 +11,9 @@
   "scripts": {
     "postinstall": "subpkg install --frozen-lockfile",
     "build": "subpkg build",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "yarn build",
+    "dev:admin": "cd clients/admin && yarn start",
+    "dev:player_app": "cd clients/player_app && yarn start"
   },
   "dependencies": {
     "subpackage": "^1.1.0"

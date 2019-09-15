@@ -132,7 +132,7 @@ The API schema differs based on the current user's permissions. Parts of the API
 
 To develop on a client check the client's own readme for instructions on how to run the development version.
 
-Most clients will have a development server which supports fancy things like hot reloading and helpful crash handling. Generally a client will be started with `yarn start` and the output of this command will say where the app is accessible (e.g. localhost:4000)
+Most clients will have a development server which supports fancy things like hot reloading and helpful crash handling. Generally a client will be started with `yarn start` and the output of this command will say where the app is accessible (e.g. `localhost:4000`). Convience helpers to start clients may be added to the root `package.json` file (e.g. `yarn dev:admin`).
 
 Because the development server will run the development version on a new localhost port most clients are configured to proxy API calls back to the Rails server. You'll need to run the rails server as well and make sure the proxy matches the tournament you want (the default will be `no-borders`).
 
