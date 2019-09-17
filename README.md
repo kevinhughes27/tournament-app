@@ -81,7 +81,7 @@ We use docker and docker-compose to manage the required services for development
     * [Postgresql](https://www.postgresql.org/) for our database
     * [Redis](https://redis.io/) for a key value store
 
-To start the required services run `docker-compose up` (will require `sudo` on linux). You can `Ctrl-C` this process and then run `docker-compose start` if you want your terminal window free but the services still running.
+To start the required services run `docker-compose up -d` (will require `sudo` on linux).
 
 Afterwards run `bundle exec rails db:setup` to have Rails create the database.
 
