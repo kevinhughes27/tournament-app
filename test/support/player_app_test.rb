@@ -49,8 +49,12 @@ class PlayerAppTest < BrowserTest
     fill_in('comments', with: text)
   end
 
-  def submit_score
-    click_on('Submit')
+  def submit_win
+    click_on('Submit Win')
+  end
+
+  def submit_loss
+    click_on('Submit Loss')
   end
 
   def assert_submitted
