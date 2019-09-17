@@ -3,7 +3,8 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Login from './views/Login';
-import Dashboard from './views/Dashboard';
+import Layout from './components/Layout';
+import Routes from './views/Routes';
 import Analytics from './components/Analytics';
 
 import client from './modules/apollo';
@@ -13,7 +14,8 @@ const App = () => (
     <Router basename={process.env.PUBLIC_URL}>
       <Analytics>
         <Login>
-          <Dashboard />
+          <Layout />
+          <Routes />
         </Login>
       </Analytics>
     </Router>

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import TopBar from './TopBar';
 import SideBar from './SideBar';
-import Notice from '../../components/Notice';
-import Confirm from '../../components/Confirm';
-import Routes from '../../views/routes';
+import Notice from '../Notice';
+import Confirm from '../Confirm';
 
 interface State {
   navOpen: boolean;
@@ -33,7 +32,6 @@ class Admin extends React.Component<{}, State> {
         />
         <Confirm />
         <Notice />
-        <Routes />
       </>
     );
   }
