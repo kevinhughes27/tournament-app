@@ -83,6 +83,34 @@ class ScoreForm extends Component {
     handleClose();
   }
 
+  buttonCopy() {
+    const { team, game } = this.props;
+
+    if (this.state.homeScore == this.state.awayScore) {
+      return "Submit Tie";
+    }
+
+    const userIsHomeTeam =  game.homeName == team.name;
+    const homeTeamWins = this.state.homeScore > this.state.awayScore;
+
+    if (userIsHomeTeam) {
+      if (homeTeamWins) {
+        return "Submit Win";
+      // homeTeamLoses
+      } else {
+        return "Submit Loss";
+      }
+    // userIsAwayTeam
+    } else {
+      if (homeTeamWins) {
+        return "Submit Loss";
+      // homeTeamLoses
+      } else {
+        return "Submit Win";
+      }
+    }
+  }
+
   render() {
     const { game, handleClose } = this.props;
     const { homeScore, awayScore } = this.state;
@@ -120,7 +148,7 @@ class ScoreForm extends Component {
         >
           <Button onClick={handleClose}>Cancel</Button>
           <Button key="submit" type="submit">
-            Submit
+            {this.buttonCopy()}
           </Button>
         </div>
       </form>
