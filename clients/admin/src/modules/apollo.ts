@@ -14,8 +14,11 @@ const cable = ActionCable.createConsumer('/subscriptions');
 const cableLink = new ActionCableLink({ cable });
 
 const hasSubscriptionOperation = ({ query }: any) => {
-  const { kind, operation } = getMainDefinition(query);
-  return kind === 'OperationDefinition' && operation === 'subscription';
+  const definition = getMainDefinition(query);
+  return (
+    definition.kind === 'OperationDefinition' &&
+    definition.operation === 'subscription'
+  );
 };
 
 const httpLink = new HttpLink({
