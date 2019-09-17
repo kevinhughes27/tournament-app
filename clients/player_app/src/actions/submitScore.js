@@ -1,4 +1,4 @@
-import client from '../apollo';
+import client from '../modules/apollo';
 import gql from 'graphql-tag';
 
 const mutation = gql`

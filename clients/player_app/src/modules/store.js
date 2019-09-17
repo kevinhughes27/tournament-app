@@ -3,7 +3,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import history from './history';
-import reducers from './reducers';
+import reducers from '../reducers';
 
 const rootReducer = (history) => combineReducers({
   ...reducers,

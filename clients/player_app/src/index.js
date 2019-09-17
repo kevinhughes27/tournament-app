@@ -7,9 +7,9 @@ import { ConnectedRouter } from 'connected-react-router';
 
 import './index.css';
 
-import App from './components/App';
-import store from './store';
-import history from './history';
+import App from './App';
+import store from './modules/store';
+import history from './modules/history';
 
 ReactGA.initialize('UA-76316112-3');
 
