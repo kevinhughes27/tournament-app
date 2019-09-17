@@ -10,6 +10,7 @@ import UpdateScoreMutation from '../../mutations/UpdateScore';
 
 interface Props {
   input: UpdateScoreMutationVariables['input'];
+  game: GameListQuery_games;
   cancel: () => void;
 }
 
@@ -52,6 +53,7 @@ class ScoreForm extends Form<Props> {
   };
 
   renderForm = (formProps: FormikProps<FormikValues>) => {
+    const { game } = this.props;
     const {
       values,
       dirty,
@@ -66,7 +68,7 @@ class ScoreForm extends Form<Props> {
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <TextField
             name="homeScore"
-            label="Home Score"
+            label={game.homeName}
             type="number"
             margin="normal"
             autoComplete="off"
@@ -78,7 +80,7 @@ class ScoreForm extends Form<Props> {
           />
           <TextField
             name="awayScore"
-            label="Away Score"
+            label={game.awayName}
             type="number"
             margin="normal"
             autoComplete="off"

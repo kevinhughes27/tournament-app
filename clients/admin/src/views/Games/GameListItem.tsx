@@ -80,7 +80,7 @@ class GameListItem extends React.Component<Props> {
           onClose={this.handleClose}
           title={gameName}
         >
-          <ScoreForm input={input} cancel={this.handleClose} />
+          <ScoreForm input={input} game={game} cancel={this.handleClose} />
           <div style={{ paddingBottom: 24 }}>
             {game.scoreReports!.map(r => (
               <ScoreReport key={r.id} report={r} />
