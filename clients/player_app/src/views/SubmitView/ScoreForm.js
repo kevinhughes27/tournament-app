@@ -86,11 +86,11 @@ class ScoreForm extends Component {
   buttonCopy() {
     const { team, game } = this.props;
 
-    if (this.state.homeScore == this.state.awayScore) {
+    if (this.state.homeScore === this.state.awayScore) {
       return "Submit Tie";
     }
 
-    const userIsHomeTeam =  game.homeName == team.name;
+    const userIsHomeTeam =  game.homeName === team.name;
     const homeTeamWins = this.state.homeScore > this.state.awayScore;
 
     if (userIsHomeTeam) {
