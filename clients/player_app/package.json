@@ -24,7 +24,7 @@
     "apollo-boost": "^0.1.22",
     "apollo-client": "^2.6.4",
     "autosuggest-highlight": "^3.1.1",
-    "connected-react-router": "^6.0.0",
+    "connected-react-router": "^6.5.2",
     "fingerprintjs2sync": "^1.5.5",
     "graphql": "^14.5.6",
     "graphql-tag": "^2.10.1",
