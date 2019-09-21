@@ -51,4 +51,8 @@ class SubmitTest < PlayerAppTest
     assert_submitted
     assert_report('Swift', @game, 15, 11)
   end
+
+  test 're-submit a score (edit)' do
+    # only creates one entry in the db
+  end
 end

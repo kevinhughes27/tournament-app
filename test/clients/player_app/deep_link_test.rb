@@ -20,5 +20,8 @@ class DeepLinkTest < PlayerAppTest
 
     assert_submitted
     assert_confirmed_report(report, comment: 'Yup thats the score')
+    # does deep link submit clear the url?
   end
+
+  # test deep link overrides previously submitted score by the user
 end
