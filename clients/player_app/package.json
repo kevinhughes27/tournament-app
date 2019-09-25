@@ -54,7 +54,7 @@
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
     "wdio-mocha-framework": "^0.6.4",
-    "webdriverio": "^5.13.0"
+    "webdriverio": "^5.13.2"
   },
   "browserslist": [
     ">0.2%",
