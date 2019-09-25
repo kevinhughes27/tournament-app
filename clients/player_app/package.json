@@ -26,7 +26,7 @@
     "autosuggest-highlight": "^3.1.1",
     "connected-react-router": "^6.5.2",
     "fingerprintjs2sync": "^1.5.5",
-    "graphql": "^14.5.6",
+    "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "history": "^4.10.1",
     "leaflet": "^1.5.1",
