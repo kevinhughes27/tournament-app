@@ -26,6 +26,15 @@ class DeepLinkTest < PlayerAppTest
   end
 
   test 'deep link overrides previously submitted score by the user' do
+    report = FactoryBot.create(:score_report,
+      game: @game,
+      team: @opponent,
+      home_score: 15,
+      away_score: 12
+    )
+
+    deep_link = report.build_confirm_link
+
     visit_app
     search_for_team('Swift')
     navigate_to_submit
@@ -35,16 +44,6 @@ class DeepLinkTest < PlayerAppTest
 
     assert_submitted
     assert_report('Swift', @game, 15, 11)
-
-    # other team's report
-    report = FactoryBot.create(:score_report,
-      game: @game,
-      team: @opponent,
-      home_score: 15,
-      away_score: 12
-    )
-
-    deep_link = report.build_confirm_link
 
     visit(deep_link)
     enter_comment('Oops they did have 12')

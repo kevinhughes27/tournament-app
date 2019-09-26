@@ -53,8 +53,7 @@ class SubmitTest < PlayerAppTest
   end
 
   test 're-submit a score (edit)' do
-    # should only create one entry in the db
-    assert_difference 'ScoreReport.count', 2 do
+    assert_difference 'ScoreReport.count', 1 do
       visit_app
       search_for_team('Swift')
       navigate_to_submit
@@ -68,6 +67,8 @@ class SubmitTest < PlayerAppTest
       click_on_game(@game)
       enter_comment('Great game')
       submit_win
+
+      assert_submitted
       assert_comment('Great game')
     end
   end
