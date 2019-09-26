@@ -70,13 +70,18 @@ class PlayerAppTest < BrowserTest
     assert report.submitter_fingerprint
   end
 
+  def assert_comment(comment)
+    report = ScoreReport.last
+    assert_equal comment, report.comments
+  end
+
   def assert_confirmed_report(report, comment:)
     confirmed_report = ScoreReport.last
     assert_equal confirmed_report.team.name, report.other_team.name
     assert_equal confirmed_report.game, report.game
     assert_equal confirmed_report.home_score, report.home_score
     assert_equal confirmed_report.away_score, report.away_score
-    assert confirmed_report.comments, comment
+    assert_equal comment, confirmed_report.comments
     assert confirmed_report.submitter_fingerprint
   end
 end

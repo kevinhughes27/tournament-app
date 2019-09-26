@@ -3,8 +3,8 @@ require "test_helper"
 class GamesTest < AdminTest
   test 'game tabs' do
     on_now = FactoryBot.create(:game, :on_now)
-    missing_score = FactoryBot.create(:game, :missing_score)
-    disputed_score = FactoryBot.create(:game, :missing_score)
+    missing_score = FactoryBot.create(:game, :past)
+    disputed_score = FactoryBot.create(:game, :past)
     FactoryBot.create(:score_dispute, game: disputed_score)
     upcoming = FactoryBot.create(:game, :upcoming)
     finished = FactoryBot.create(:game, :finished)
@@ -32,7 +32,7 @@ class GamesTest < AdminTest
   end
 
   test 'update score' do
-    game = FactoryBot.create(:game, :missing_score)
+    game = FactoryBot.create(:game, :past)
 
     visit_app
     login
@@ -53,9 +53,9 @@ class GamesTest < AdminTest
   end
 
   test 'update score unsafe' do
-    game1 = FactoryBot.create(:game, :scheduled, :finished)
+    game1 = FactoryBot.create(:game, :scheduled, :past, :finished)
     winner = game1.winner
-    game2 = FactoryBot.create(:game, :scheduled, :finished, home: winner, home_prereq: "W#{game1.bracket_uid}")
+    game2 = FactoryBot.create(:game, :scheduled, :past, :finished, home: winner, home_prereq: "W#{game1.bracket_uid}")
 
     visit_app
     login

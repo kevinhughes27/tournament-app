@@ -27,8 +27,8 @@ FactoryBot.define do
       home_prereq { '2' }
       away_prereq { '4' }
       field { FactoryBot.create(:field, tournament: tournament) }
-      start_time { '2015-06-06 12:06:53 UTC' }
-      end_time { '2015-06-06 13:36:53 UTC' }
+      start_time { Faker::Time.forward }
+      end_time { start_time + 90.minutes }
     end
 
     trait :on_now do
@@ -37,7 +37,7 @@ FactoryBot.define do
       end_time { Time.now + 30.minutes }
     end
 
-    trait :missing_score do
+    trait :past do
       field { FactoryBot.create(:field, tournament: tournament) }
       start_time { Time.now - 120.minutes }
       end_time { Time.now - 30.minutes }

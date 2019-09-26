@@ -31,20 +31,54 @@ const HANDLES = [
   'communication'
 ];
 
+// init state with a report if present.
+// otherwise use default the default state.
+const defaultState = (props) => {
+  if (props.report) {
+    const {
+      homeScore,
+      awayScore,
+      rulesKnowledge,
+      fouls,
+      fairness,
+      attitude,
+      communication,
+    } = props.report
+
+    return {
+      homeScore,
+      awayScore,
+      rulesKnowledge,
+      fouls,
+      fairness,
+      attitude,
+      communication
+    };
+  } else {
+    return {
+      homeScore: '',
+      awayScore: '',
+      rulesKnowledge: 2,
+      fouls: 2,
+      fairness: 2,
+      attitude: 2,
+      communication: 2
+    };
+  }
+}
+
 class ScoreForm extends Component {
   constructor(props) {
     super(props);
 
-    let initialState = {};
-    HANDLES.forEach(h => {
-      initialState[h] = 2;
-    });
+    let state = defaultState(props);
 
-    this.state = {
-      homeScore: props.homeScore,
-      awayScore: props.awayScore,
-      ...initialState
-    };
+    if (props.deepLink) {
+      state.homeScore = props.deepLink.homeScore;
+      state.awayScore = props.deepLink.awayScore;
+    }
+
+    this.state = state;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

@@ -26,7 +26,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for home team time conflicts" do
-    game = FactoryBot.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
@@ -41,7 +41,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "finds home team time conflicts in games when the team is the away team in another game" do
-    game = FactoryBot.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, away_prereq: game.home_prereq)
 
     input = {
@@ -56,7 +56,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for home team time conflicts (uses uid if required)" do
-    game = FactoryBot.create(:game, :scheduled, home: nil)
+    game = FactoryBot.create(:game, :scheduled, home: nil, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
@@ -71,7 +71,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for away team time conflicts" do
-    game = FactoryBot.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, away_prereq: game.away_prereq)
 
     input = {
@@ -86,7 +86,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "finds away team time conflicts when the team is the home team in another game" do
-    game = FactoryBot.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, home_prereq: game.away_prereq)
 
     input = {
@@ -101,7 +101,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for away team time conflicts (uses uid if required)" do
-    game = FactoryBot.create(:game, :scheduled, away: nil)
+    game = FactoryBot.create(:game, :scheduled, away: nil, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, away_prereq: game.away_prereq)
 
     input = {
@@ -116,7 +116,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for team time conflicts (start_time)" do
-    game = FactoryBot.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
@@ -131,7 +131,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for team time conflicts (end_time)" do
-    game = FactoryBot.create(:game, :scheduled)
+    game = FactoryBot.create(:game, :scheduled, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, home_prereq: game.home_prereq)
 
     input = {
@@ -161,7 +161,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for field conflicts (exact overlap)" do
-    game = FactoryBot.create(:game, :scheduled, away: nil)
+    game = FactoryBot.create(:game, :scheduled, away: nil, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
     input = {
@@ -176,7 +176,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for field conflicts (start_time)" do
-    game = FactoryBot.create(:game, :scheduled, away: nil)
+    game = FactoryBot.create(:game, :scheduled, away: nil, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
     input = {
@@ -191,7 +191,7 @@ class ScheduleGameTest < ApiTest
   end
 
   test "checks for field conflicts (end_time)" do
-    game = FactoryBot.create(:game, :scheduled, away: nil)
+    game = FactoryBot.create(:game, :scheduled, away: nil, start_time: DateTime.parse('2015-06-06 12:06:53 UTC'))
     new_game = FactoryBot.create(:game, field: game.field, start_time: game.start_time, end_time: game.end_time)
 
     input = {

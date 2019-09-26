@@ -50,17 +50,12 @@ class SubmitModal extends React.Component {
   deepLinkScores = () => {
     const { game, params } = this.props;
 
-    let scores = {
-      homeScore: '',
-      awayScore: ''
-    };
-
     if (params['gameId'] === game.id) {
-      scores.homeScore = parseInt(params['homeScore'], 10);
-      scores.awayScore = parseInt(params['awayScore'], 10);
+      return {
+        homeScore: parseInt(params['homeScore'], 10),
+        awayScore: parseInt(params['awayScore'], 10)
+      }
     }
-
-    return scores;
   };
 
   handleOpen = () => {
@@ -88,7 +83,7 @@ class SubmitModal extends React.Component {
 
   render() {
     const { classes, team, game, report } = this.props;
-    const { homeScore, awayScore } = this.deepLinkScores();
+    const deepLink = this.deepLinkScores();
 
     return (
       <div>
@@ -124,8 +119,8 @@ class SubmitModal extends React.Component {
             <ScoreForm
               team={team}
               game={game}
-              homeScore={homeScore}
-              awayScore={awayScore}
+              report={report}
+              deepLink={deepLink}
               handleClose={this.handleClose}
             />
           </div>
