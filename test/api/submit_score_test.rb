@@ -6,7 +6,7 @@ class SubmitScoreTest < ApiTest
   end
 
   test "queries" do
-    assert_queries(25) do
+    assert_queries(26) do
       execute_graphql("submitScore", "SubmitScoreInput", input)
       assert_success
     end
@@ -46,6 +46,55 @@ class SubmitScoreTest < ApiTest
   test 'submitting a score report creates a score report' do
     assert_difference "ScoreReport.count", +1 do
       execute_graphql("submitScore", "SubmitScoreInput", input)
+    end
+  end
+
+  test 're-submitting a score-report updates the report' do
+    second_input = input.merge(
+      home_score: 15,
+      away_score: 14
+    )
+
+    assert_difference "ScoreReport.count", +1 do
+      execute_graphql("submitScore", "SubmitScoreInput", input)
+      execute_graphql("submitScore", "SubmitScoreInput", second_input)
+    end
+  end
+
+  test 're-submitting a score-report that changes the outcome (safe) updates the report' do
+    second_input = input.merge(
+      home_score: 13,
+      away_score: 15
+    )
+
+    assert_difference "ScoreReport.count", +1 do
+      execute_graphql("submitScore", "SubmitScoreInput", input)
+      execute_graphql("submitScore", "SubmitScoreInput", second_input)
+    end
+  end
+
+  test 're-submitting a score-report that changes the outcome (unsafe) creates dispute' do
+    game2 = FactoryBot.create(:game, home_prereq: "W#{@game.bracket_uid}")
+
+    assert_difference "ScoreReport.count", +1 do
+      execute_graphql("submitScore", "SubmitScoreInput", input)
+    end
+
+    # dependent game is now played and scored
+    game2.update_columns(score_confirmed: true)
+
+    # submitting a changing outcome for an earlier game
+    second_input = input.merge(
+      home_score: 13,
+      away_score: 15
+    )
+
+    # something has clearly gone wrong.
+    # Create a dispute to raise to the TD
+    assert_no_difference "ScoreReport.count" do
+      assert_difference "ScoreDispute.count", +1 do
+        execute_graphql("submitScore", "SubmitScoreInput", second_input)
+      end
     end
   end
 
@@ -118,7 +167,8 @@ class SubmitScoreTest < ApiTest
 
       second_input = input.merge(
         home_score: 3,
-        away_score: 15
+        away_score: 15,
+        submitter_fingerprint: 'fingerprint2',
       )
 
       assert_difference "ScoreDispute.count", +1 do
@@ -132,13 +182,20 @@ class SubmitScoreTest < ApiTest
 
     second_input = input.merge(
       home_score: 3,
-      away_score: 15
+      away_score: 15,
+      submitter_fingerprint: 'fingerprint2',
+    )
+
+    third_input = second_input.merge(
+      home_score: 8,
+      away_score: 12,
+      submitter_fingerprint: 'fingerprint3',
     )
 
     assert_difference "ScoreReport.count", +2 do
       assert_difference "ScoreDispute.count", +1 do
         execute_graphql("submitScore", "SubmitScoreInput", second_input)
-        execute_graphql("submitScore", "SubmitScoreInput", second_input)
+        execute_graphql("submitScore", "SubmitScoreInput", third_input)
       end
     end
   end
