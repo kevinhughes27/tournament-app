@@ -59,6 +59,8 @@ class SubmitScoreTest < ApiTest
       execute_graphql("submitScore", "SubmitScoreInput", input)
       execute_graphql("submitScore", "SubmitScoreInput", second_input)
     end
+
+    assert_equal 1, ScoreReport.last.versions.count
   end
 
   test 're-submitting a score-report that changes the outcome (safe) updates the report' do
@@ -71,6 +73,8 @@ class SubmitScoreTest < ApiTest
       execute_graphql("submitScore", "SubmitScoreInput", input)
       execute_graphql("submitScore", "SubmitScoreInput", second_input)
     end
+
+    assert_equal 1, ScoreReport.last.versions.count
   end
 
   test 're-submitting a score-report that changes the outcome (unsafe) creates dispute' do
@@ -96,6 +100,8 @@ class SubmitScoreTest < ApiTest
         execute_graphql("submitScore", "SubmitScoreInput", second_input)
       end
     end
+
+    assert_equal 1, ScoreReport.last.versions.count
   end
 
   test 'when tournament confirm_setting is automatic' do

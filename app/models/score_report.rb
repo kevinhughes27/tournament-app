@@ -4,6 +4,7 @@ class ScoreReport < ApplicationRecord
   belongs_to :team
 
   acts_as_paranoid
+  has_paper_trail on: [:update]
 
   validates_presence_of :submitter_fingerprint,
                         :home_score,
