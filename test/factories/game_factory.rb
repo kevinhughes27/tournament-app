@@ -37,7 +37,7 @@ FactoryBot.define do
       end_time { Time.now + 30.minutes }
     end
 
-    trait :missing_score do
+    trait :past do
       field { FactoryBot.create(:field, tournament: tournament) }
       start_time { Time.now - 120.minutes }
       end_time { Time.now - 30.minutes }
