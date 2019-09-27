@@ -43,6 +43,7 @@ const defaultState = (props) => {
       fairness,
       attitude,
       communication,
+      comments,
     } = props.report
 
     return {
@@ -52,7 +53,8 @@ const defaultState = (props) => {
       fouls,
       fairness,
       attitude,
-      communication
+      communication,
+      comments
     };
   } else {
     return {
@@ -62,7 +64,8 @@ const defaultState = (props) => {
       fouls: 2,
       fairness: 2,
       attitude: 2,
-      communication: 2
+      communication: 2,
+      comments: ''
     };
   }
 }
@@ -169,6 +172,7 @@ class ScoreForm extends Component {
             placeholder="Comments ..."
             name="comments"
             onChange={this.handleChange}
+            value={this.state.comments}
             multiline
             fullWidth
           />
