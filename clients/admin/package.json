@@ -34,7 +34,7 @@
     "@babel/preset-typescript": "^7.6.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-brands-svg-icons": "^5.11.1",
-    "@fortawesome/free-solid-svg-icons": "^5.11.1",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
