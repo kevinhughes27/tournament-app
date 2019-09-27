@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   draw :internal
 
+  get "*manifest.json", to: redirect('/manifest.json')
+
   constraints(Subdomain) do
     draw :api
     draw :files
