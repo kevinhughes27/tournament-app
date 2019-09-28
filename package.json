@@ -2,7 +2,7 @@
   "name": "ultimate-tournament",
   "private": true,
   "engines": {
-    "node": "10.16"
+    "node": "10.x"
   },
   "subPackages": [
     "clients/player_app",
