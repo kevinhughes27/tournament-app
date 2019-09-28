@@ -71,7 +71,7 @@ to install all the Ruby dependencies (gems). Then:
 yarn install
 ```
 
-Which will install the javascript dependencies for each client. The clients are configured in the root `package.json` file as `subPackages`.
+Which will install the javascript dependencies for each client. The clients are configured in the root `package.json` file as `subPackages`. To update yarn dependencies run yarn from the client's directory since the root yarn install specifies `--frozen-lockfile`.
 
 
 ### Docker
