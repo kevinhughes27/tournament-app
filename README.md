@@ -6,7 +6,7 @@ Ultimate Tournament
 
 Contents
 --------
-* **Setup**
+* [**Setup**](#setup)
   * [**Ruby**](#ruby)
   * [**Node**](#node)
   * [**Dependencies**](#dependencies)
@@ -17,7 +17,7 @@ Contents
   * [**Clients**](#clients)
   * [**Tests**](#tests)
   * [**Production Check**](#production-check)
-* **Clients**
+* [**Clients**](#clients)
   * [**Admin**](#admin)
   * [**Player App**](#player-app)
 * [**Operating**](#operating)
