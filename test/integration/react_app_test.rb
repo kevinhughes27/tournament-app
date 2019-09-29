@@ -12,9 +12,15 @@ class ReactAppTestTest < ActionDispatch::IntegrationTest
     assert_match /static\/js\/main\..{8}\.chunk.js/, response.redirect_url
   end
 
-  test "redirects runtime~main js file" do
+  test "redirects runtime-main js file" do
+    get "http://#{@tournament.handle}.lvh.me/static/js/runtime-main.12ac65e5.js"
+    assert_match /static\/js\/runtime-main\..{8}\.js/, response.redirect_url
+  end
+
+  # this happened when I changed to npm / that latest react-scripts
+  test "redirects runtime~main js file to runtime-main" do
     get "http://#{@tournament.handle}.lvh.me/static/js/runtime~main.12ac65e5.js"
-    assert_match /static\/js\/runtime~main\..{8}\.js/, response.redirect_url
+    assert_match /static\/js\/runtime-main\..{8}\.js/, response.redirect_url
   end
 
   test "redirects main css chunk" do

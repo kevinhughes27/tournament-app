@@ -52,6 +52,8 @@ module ReactAppController
       # chunk bundle
       found_latest_file = if requested_file_name.is_i?
         built_file_name.starts_with?(requested_file_name) || built_file_name.is_i?
+      elsif requested_file_name.include?('~')
+        requested_file_name.gsub('~', '-') == built_file_name
       # named bundle
       else
         built_file_name == requested_file_name
