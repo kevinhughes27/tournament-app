@@ -23,8 +23,8 @@ module ReactAppController
     if File.exist?(file)
       send_file file
     else
-      name = params[:file].split('.').first
-      redirect_to_latest(params[:dir], name, params[:format])
+      requested_file_name = params[:file].split('.').first
+      redirect_to_latest(params[:dir], requested_file_name, params[:format])
     end
   end
 
@@ -42,15 +42,25 @@ module ReactAppController
     Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, "#{file}.#{extension}")
   end
 
-  def redirect_to_latest(dir, name, extension)
+  def redirect_to_latest(dir, requested_file_name, extension)
     file_glob = Rails.root.join(clients_directory, app_directory, 'build', 'static', dir, "*.#{extension}")
 
-    new_file = Dir[file_glob].find do |file|
-      full_file_name = file.split('/').last
-      full_file_name.starts_with?(name)
+    latest_file = Dir[file_glob].find do |file|
+      built_file = file.split('/').last
+      built_file_name = built_file.split('.').first
+
+      # chunk bundle
+      found_latest_file = if requested_file_name.is_i?
+        built_file_name.starts_with?(requested_file_name) || built_file_name.is_i?
+      # named bundle
+      else
+        built_file_name == requested_file_name
+      end
+
+      found_latest_file
     end
 
-    redirect_to "/static/#{dir}/#{new_file}"
+    redirect_to "/static/#{dir}/#{latest_file}"
   end
 
   def service_worker_file
