@@ -11,7 +11,7 @@
   "scripts": {
     "postinstall": "subpkg install",
     "build": "subpkg build",
-    "heroku-postbuild": "yarn build",
+    "heroku-postbuild": "npm run build",
     "dev:admin": "cd clients/admin && yarn start",
     "dev:player_app": "cd clients/player_app && yarn start"
   },
