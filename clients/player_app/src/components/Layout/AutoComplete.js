@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
+import { omit } from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -46,7 +47,7 @@ class AutoComplete extends Component {
     };
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({ value: props.value });
   }
 
@@ -102,7 +103,8 @@ class AutoComplete extends Component {
 }
 
 function renderInput(inputProps) {
-  const { classes, value, ref, ...other } = inputProps;
+  const { classes, value, ref } = inputProps;
+  const otherProps = omit(inputProps, 'classes', 'value', 'ref')
 
   return (
     <TextField
@@ -114,7 +116,7 @@ function renderInput(inputProps) {
           input: classes.input
         },
         disableUnderline: true,
-        ...other
+        ...otherProps
       }}
     />
   );

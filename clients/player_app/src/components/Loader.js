@@ -7,7 +7,7 @@ import { loadApp } from '../actions/load';
 const pollingInterval = 5 * 60 * 1000 // 5 minutes in milliseconds
 
 class Loader extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.load();
     setInterval(this.load, pollingInterval);
   }
