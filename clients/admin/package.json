@@ -4,8 +4,8 @@
   "private": true,
   "homepage": "/admin",
   "scripts": {
-    "start": "concurrently \"yarn generate-types --watch \" \"PORT=4000 react-scripts start\"",
-    "build": "yarn generate-types && react-scripts build",
+    "start": "concurrently \"npm run generate-types --watch \" \"PORT=4000 react-scripts start\"",
+    "build": "npm run generate-types && react-scripts build",
     "generate-types": "node ./bin/generateTypes.js",
     "type-check": "tsc --noEmit --pretty"
   },
