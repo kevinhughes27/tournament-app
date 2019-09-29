@@ -8,8 +8,8 @@ class ReactAppTestTest < ActionDispatch::IntegrationTest
   end
 
   test "request for old asset redirects" do
-    get "http://#{@tournament.handle}.lvh.me/static/js/1.3e2437be.chunk.js"
-    assert_match /static\/js\/1\..{8}\.chunk.js/, response.redirect_url
+    get "http://#{@tournament.handle}.lvh.me/static/js/2.3e2437be.chunk.js"
+    assert_match /static\/js\/2\..{8}\.chunk.js/, response.redirect_url
 
     get "http://#{@tournament.handle}.lvh.me/static/js/main.12ac65e5.chunk.js"
     assert_match /static\/js\/main\..{8}\.chunk.js/, response.redirect_url
