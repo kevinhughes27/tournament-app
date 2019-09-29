@@ -37,7 +37,7 @@ interface CollectedProps {
   isDragging: boolean;
 }
 
-const collect: DragSourceCollector<CollectedProps> = (connect, monitor) => {
+const collect: DragSourceCollector<CollectedProps, {}> = (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()

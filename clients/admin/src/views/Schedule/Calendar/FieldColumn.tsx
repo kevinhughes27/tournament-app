@@ -48,7 +48,7 @@ interface CollectedProps {
   connectDropTarget: ConnectDropTarget;
 }
 
-const collect: DropTargetCollector<CollectedProps> = (connect, monitor) => {
+const collect: DropTargetCollector<CollectedProps, {}> = (connect, monitor) => {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
