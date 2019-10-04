@@ -79,7 +79,7 @@
     "react-dnd-html5-backend": "^9.4.0",
     "react-dom": "^16.9.0",
     "react-file-download": "^0.3.5",
-    "react-ga": "^2.6.0",
+    "react-ga": "^2.7.0",
     "react-join": "^1.1.4",
     "react-leaflet": "^2.4.0",
     "react-leaflet-control": "2.1.1",
