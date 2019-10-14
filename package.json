@@ -4,7 +4,7 @@
   "engines": {
     "node": "10.x"
   },
-  "subPackages": [
+  "workspaces": [
     "clients/player_app",
     "clients/admin"
   ],
@@ -24,18 +24,11 @@
     "lint-staged": "^9.4.2"
   },
   "scripts": {
-    "postinstall": "subpkg install",
-    "build": "subpkg run-script build",
-    "heroku-postbuild": "npm run build",
+    "build": "yarn build:all",
+    "build:all": "yarn build:admin && yarn build:player_app",
+    "build:admin": "cd clients/admin && yarn build",
+    "build:player_app": "cd clients/player_app && yarn build",
     "dev:admin": "cd clients/admin && yarn start",
     "dev:player_app": "cd clients/player_app && yarn start"
-  },
-  "dependencies": {
-    "subpackage": "^1.1.0"
-  },
-  "cacheDirectories": [
-    "node_modules",
-    "clients/player_app/node_modules",
-    "clients/admin/node_modules"
-  ]
+  }
 }
