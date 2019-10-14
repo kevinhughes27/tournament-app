@@ -6,5 +6,4 @@ class Mutations::ChangeUserPassword < Mutations::BaseMutation
   field :user, Types::User, null: false
   field :success, Boolean, null: false
   field :message, String, null: true
-  field :userErrors, [Types::Error], null: true
 end
