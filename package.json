@@ -21,7 +21,8 @@
   },
   "devDependencies": {
     "husky": "^3.0.8",
-    "lint-staged": "^9.4.2"
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2"
   },
   "scripts": {
     "build": "yarn build:all",

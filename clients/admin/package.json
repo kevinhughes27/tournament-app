@@ -4,14 +4,13 @@
   "private": true,
   "homepage": "/admin",
   "scripts": {
-    "start": "concurrently \"npm run generate-types --watch \" \"PORT=4000 react-scripts start\"",
-    "build": "npm run generate-types && react-scripts build",
+    "start": "concurrently \"yarn run generate-types --watch \" \"PORT=4000 react-scripts start\"",
+    "build": "yarn run generate-types && react-scripts build",
     "generate-types": "node ./bin/generateTypes.js",
     "type-check": "tsc --noEmit --pretty"
   },
   "devDependencies": {
     "concurrently": "^5.0.0",
-    "prettier": "^1.18.2",
     "tslint": "^5.20.0",
     "tslint-react": "^4.1.0"
   },

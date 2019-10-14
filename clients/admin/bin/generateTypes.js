@@ -6,7 +6,7 @@ const artifactPath = './src/generated.ts';
 
 /* Generate Types */
 console.log("Generating Graphql Types");
-const generator = spawn('./node_modules/apollo/bin/run',
+const generator = spawn('./node_modules/.bin/apollo',
   [
     'client:codegen',
     artifactPath,
