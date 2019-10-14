@@ -21,16 +21,16 @@ jobs:
       # Bundler
       ## restore bundle cache
       - restore_cache:
-        key: Gemfile-{{ checksum "Gemfile.lock" }}
+          key: Gemfile-{{ checksum "Gemfile.lock" }}
 
       ## bundle install dependencies
-      - run: bundle install --with ci --without production --without development --path vendor/bundle
+      - run: bundle install --with ci --without production --without development --path .bundle
 
       ## store bundle cache
       - save_cache:
-        key: Gemfile-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+          key: Gemfile-{{ checksum "Gemfile.lock" }}
+          paths:
+            - .bundle
 
       # Yarn
       ## restore yarn cache
