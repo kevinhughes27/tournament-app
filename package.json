@@ -8,6 +8,21 @@
     "clients/player_app",
     "clients/admin"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.2"
+  },
   "scripts": {
     "postinstall": "subpkg install",
     "build": "subpkg run-script build",
