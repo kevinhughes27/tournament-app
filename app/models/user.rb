@@ -5,7 +5,8 @@ class User < ApplicationRecord
   has_many :tournament_users, dependent: :destroy
   has_many :tournaments, through: :tournament_users
 
-  devise :omniauthable,
+  devise :invitable,
+         :omniauthable,
          :database_authenticatable,
          :registerable,
          :recoverable,
