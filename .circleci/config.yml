@@ -20,14 +20,14 @@ jobs:
 
       # Bundler
       ## restore bundle cache
-      - type: cache-restore
+      - restore_cache:
         key: Gemfile-{{ checksum "Gemfile.lock" }}
 
       ## bundle install dependencies
       - run: bundle install --with ci --without production --without development --path vendor/bundle
 
       ## store bundle cache
-      - type: cache-save
+      - save_cache:
         key: Gemfile-{{ checksum "Gemfile.lock" }}
         paths:
           - vendor/bundle
@@ -35,24 +35,16 @@ jobs:
       # Yarn
       ## restore yarn cache
       - restore_cache:
-          key: |
-            yarn
-            {{ checksum "package-lock.json" }}
-            {{ checksum "clients/admin/package-lock.json" }}
-            {{ checksum "clients/player_app/package-lock.json" }}
+          key: yarn-{{ checksum "yarn.lock" }}
 
       ## yarn install dependencies
       - run: npm install
 
       ## store yarn cache
       - save_cache:
-          key: |
-            yarn
-            {{ checksum "package-lock.json" }}
-            {{ checksum "clients/admin/package-lock.json" }}
-            {{ checksum "clients/player_app/package-lock.json" }}
+          key: yarn-{{ checksum "yarn.lock" }}
           paths:
-            - ~/usr/local/lib/node_modules
+            - ~/.cache/yarn
 
 
       # Admin
