@@ -4,21 +4,13 @@ class Resolvers::ChangeUserPassword < Resolvers::BaseResolver
     @password = inputs[:password]
     @password_confirmation = inputs[:password_confirmation]
 
-    if @password == @password_confirmation
-      update_user
-    else
-       {
+    if @password != @password_confirmation
+      {
         success: false,
         user: @user,
         user_errors: [FieldError.new('password', "Passwords don't match")]
       }
-    end
-  end
-
-  private
-
-  def update_user
-    if @user.update(password: @password)
+    elsif @user.update(password: @password)
       {
         success: true,
         message: 'Password changed',
