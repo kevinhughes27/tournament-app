@@ -19,7 +19,7 @@ class Resolvers::AddUser < Resolvers::BaseResolver
 
   def add_user
     TournamentUser.create!(tournament_id: @tournament.id, user_id: @user.id)
-    # send an email letting them know about the new tournament they have access too.
+    TournamentMailer.add_to_email(@user, @tournament).deliver_later
     {
       success: true,
       user: @user,

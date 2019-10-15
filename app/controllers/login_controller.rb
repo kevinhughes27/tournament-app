@@ -92,6 +92,6 @@ class LoginController < Devise::SessionsController
 
   def stored_url_for_user
     path = stored_location_for(current_user)
-    @tournament.domain + path if path
+    @tournament.url + path if path
   end
 end
