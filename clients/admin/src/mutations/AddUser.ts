@@ -1,5 +1,6 @@
 import client from '../modules/apollo';
 import mutationPromise from '../helpers/mutationPromise';
+import { query } from '../queries/SettingsQuery';
 import gql from 'graphql-tag';
 
 const mutation = gql`
@@ -7,6 +8,9 @@ const mutation = gql`
     addUser(input: $input) {
       success
       message
+      user {
+        email
+      }
       userErrors {
         field
         message
@@ -20,7 +24,8 @@ function commit(variables: AddUserMutationVariables) {
     client
       .mutate({
         mutation,
-        variables
+        variables,
+        refetchQueries: [{ query }]
       })
       .then(({ data: { addUser } }) => {
         resolve(addUser as MutationResult);
