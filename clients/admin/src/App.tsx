@@ -3,7 +3,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Login from './views/Login';
-import Layout from './components/Layout';
+import Layout from './layout';
 import Routes from './views/Routes';
 import Analytics from './components/Analytics';
 

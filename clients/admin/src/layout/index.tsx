@@ -1,8 +1,8 @@
 import * as React from 'react';
 import TopBar from './TopBar';
 import SideBar from './SideBar';
-import Notice from '../Notice';
-import Confirm from '../Confirm';
+import Notice from '../components/Notice';
+import Confirm from '../components/Confirm';
 
 interface State {
   navOpen: boolean;

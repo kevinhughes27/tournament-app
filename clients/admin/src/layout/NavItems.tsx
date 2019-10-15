@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { NavItems as styles } from '../../assets/jss/styles';
 
 import { NavLink } from 'react-router-dom';
 
@@ -22,6 +21,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 interface Props extends WithStyles<typeof styles> {}
+
+const styles = {
+  list: {
+    width: 250
+  }
+};
 
 const primaryItems = [
   { path: '/', icon: faHome, text: 'Home' },

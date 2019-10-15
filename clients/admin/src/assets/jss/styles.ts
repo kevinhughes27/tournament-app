@@ -55,24 +55,6 @@ const Login = {
   }
 };
 
-const TopBar = {
-  title: {
-    flex: 1,
-    color: 'white'
-  },
-  menuButton: {
-    color: 'white',
-    marginLeft: -12,
-    marginRight: 20
-  }
-};
-
-const NavItems = {
-  list: {
-    width: 250
-  }
-};
-
 const Loader = {
   container: {
     display: 'flex',
@@ -200,8 +182,6 @@ const ErrorBanner = {
 
 export {
   Login,
-  TopBar,
-  NavItems,
   Loader,
   Modal,
   ReportsBadge,
