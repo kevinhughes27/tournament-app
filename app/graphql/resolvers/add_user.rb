@@ -34,15 +34,22 @@ class Resolvers::AddUser < Resolvers::BaseResolver
   end
 
   def invite_user
-    User.transaction do
-      @user = User.invite!({ email: @email, skip_invitation: true }, @current_user)
+    @user = User.invite!({ email: @email, skip_invitation: true }, @current_user)
+
+    if @user.persisted?
       TournamentUser.create!(tournament_id: @tournament.id, user_id: @user.id)
       @user.deliver_invitation
+      {
+        success: true,
+        user: @user,
+        message: 'User invited'
+      }
+    else
+      {
+        success: false,
+        user: @user,
+        message: 'Invalid email'
+      }
     end
-    {
-      success: true,
-      user: @user,
-      message: 'User invited'
-    }
   end
 end

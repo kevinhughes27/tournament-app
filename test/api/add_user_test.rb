@@ -57,5 +57,10 @@ class AddUserPasswordTest < ApiTest
   end
 
   test "invalid email error" do
+    input = { email: "not an email" }
+
+    execute_graphql("addUser", "AddUserInput", input, @output)
+
+    assert_failure('Invalid email')
   end
 end
