@@ -26,6 +26,6 @@ class Types::Settings < Types::BaseObject
   end
 
   def admins
-    context[:tournament].users.map(&:email)
+    context[:tournament].users.pluck(:email)
   end
 end
