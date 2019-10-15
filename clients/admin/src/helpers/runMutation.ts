@@ -39,8 +39,8 @@ const runMutation = async (
     } else {
       mutationFailed(result, options.failed);
     }
-  } catch (error) {
-    mutationError(error, options.failed);
+  } catch (_error) {
+    mutationError(options.failed);
   }
 };
 
@@ -85,8 +85,9 @@ const mutationFailed = (result: MutationResult, failed?: MutationCallback) => {
   }
 };
 
-const mutationError = (error: Error, failed?: MutationCallback) => {
-  const message = error.message || 'Something went wrong.';
+const mutationError = (failed?: MutationCallback) => {
+  const message = 'Something went wrong.';
+
   const result = { success: false, message, userErrors: [] };
 
   /*
