@@ -4,7 +4,7 @@ class SettingsBrowserTest < AdminTest
   test 'update settings' do
     visit_app
     login
-    user_menu('Settings')
+    side_menu('Settings')
     edit_settings
     logout
   end
