@@ -1,7 +1,7 @@
 class DeviseMailer < Devise::Mailer
   def default_url_options
     {
-      protocol: 'https',
+      protocol: protocol,
       host: host,
       port: port
     }
@@ -17,6 +17,10 @@ class DeviseMailer < Devise::Mailer
   end
 
   private
+
+  def protocol
+    Rails.env.production? ? 'https' : 'http'
+  end
 
   def host
     Settings.host
