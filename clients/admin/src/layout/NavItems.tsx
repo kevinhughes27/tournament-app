@@ -17,7 +17,8 @@ import {
   faMapSigns,
   faCalendar,
   faList,
-  faMobile
+  faMobile,
+  faCogs
 } from '@fortawesome/free-solid-svg-icons';
 
 interface Props extends WithStyles<typeof styles> {}
@@ -25,6 +26,10 @@ interface Props extends WithStyles<typeof styles> {}
 const styles = {
   list: {
     width: 250
+  },
+  bottom: {
+    position: "absolute" as "absolute",
+    bottom: 0
   }
 };
 
@@ -39,6 +44,10 @@ const primaryItems = [
 const secondaryItems = [
   { path: '/games', icon: faList, text: 'Games' },
   { path: '/app', icon: faMobile, text: 'App' }
+];
+
+const bottomItems = [
+  { path: '/settings', icon: faCogs, text: 'Settings' },
 ];
 
 const NavItem = (path: string, icon: any, text: string) => (
@@ -65,6 +74,10 @@ const NavItems = (props: Props) => {
 
       <List>
         {secondaryItems.map(item => NavItem(item.path, item.icon, item.text))}
+      </List>
+
+      <List className={classes.bottom}>
+        {bottomItems.map(item => NavItem(item.path, item.icon, item.text))}
       </List>
     </div>
   );

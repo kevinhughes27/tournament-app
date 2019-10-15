@@ -61,15 +61,6 @@ class UserMenu extends React.Component<Props, State> {
               Profile
             </NavLink>
           </MenuItem>
-          <MenuItem>
-            <NavLink
-              to="/settings"
-              onClick={this.handleClose}
-              style={{ textDecoration: 'none', color: '#000000de' }}
-            >
-              Settings
-            </NavLink>
-          </MenuItem>
           <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
         </Menu>
       </div>
