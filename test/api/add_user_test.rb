@@ -23,6 +23,16 @@ class AddUserPasswordTest < ApiTest
 
     assert_success
     assert_message "User invited"
+
+    assert_equal @user, User.last.invited_by
+
+    email = ActionMailer::Base.deliveries.last
+
+    assert_equal "new_user@example.com", email.to[0]
+    assert_equal "You got an invitation!", email.subject
+
+    assert_match(/#{@tournament.domain}/, email.body.to_s)
+    assert_match(/#{@tournament.domain}\/invitation\/accept/, email.body.to_s)
   end
 
   test "add user that already has access" do

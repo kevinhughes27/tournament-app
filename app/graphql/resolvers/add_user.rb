@@ -2,6 +2,7 @@ class Resolvers::AddUser < Resolvers::BaseResolver
   def call(inputs, ctx)
     @email = inputs[:email]
     @tournament = ctx[:tournament]
+    @current_user = ctx[:current_user]
 
     if user_exists?
       add_user
@@ -34,10 +35,10 @@ class Resolvers::AddUser < Resolvers::BaseResolver
 
   def invite_user
     User.transaction do
-      @user = User.invite!(email: @email)
+      @user = User.invite!({ email: @email, skip_invitation: true }, @current_user)
       TournamentUser.create!(tournament_id: @tournament.id, user_id: @user.id)
+      @user.deliver_invitation
     end
-    # email sent. what are the contents? does it make sense.
     {
       success: true,
       user: @user,
