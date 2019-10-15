@@ -8,6 +8,7 @@ export const query = gql`
       timezone
       scoreSubmitPin
       gameConfirmSetting
+      admins
     }
   }
 `;

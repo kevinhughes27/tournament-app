@@ -7,8 +7,15 @@ import ConfirmOptions from './ConfirmOptions';
 import Form from '../../components/Form';
 import FormButtons from '../../components/FormButtons';
 import UpdateSettingsMutation from '../../mutations/UpdateSettings';
+import { Typography, withStyles, WithStyles } from '@material-ui/core';
 
-interface Props {
+const styles = {
+  heading: {
+    paddingTop: 10
+  }
+}
+
+interface Props extends WithStyles<typeof styles> {
   input: UpdateSettingsMutationVariables['input'];
 }
 
@@ -61,8 +68,14 @@ class SettingsForm extends Form<Props> {
       isSubmitting
     } = formProps;
 
+    const { classes } = this.props;
+
     return (
       <form onSubmit={handleSubmit}>
+        <Typography variant="h6" component="h2" className={classes.heading}>
+          Tournament Settings:
+        </Typography>
+
         <TextField
           name="name"
           label="Name"
@@ -84,6 +97,11 @@ class SettingsForm extends Form<Props> {
           helperText={errors.handle}
         />
         <TimezonePicker timezone={values.timezone} onChange={handleChange} />
+
+        <Typography variant="h6" component="h2" className={classes.heading}>
+          App Settings:
+        </Typography>
+
         <TextField
           name="scoreSubmitPin"
           label="Score Submit Pin Code"
@@ -108,4 +126,4 @@ class SettingsForm extends Form<Props> {
   };
 }
 
-export default SettingsForm;
+export default withStyles(styles)(SettingsForm);

@@ -55,4 +55,7 @@ class AddUserPasswordTest < ApiTest
     assert_success
     assert_message "User already added"
   end
+
+  test "invalid email error" do
+  end
 end
