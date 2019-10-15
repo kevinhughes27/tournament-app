@@ -1,8 +1,9 @@
 class DeviseMailer < Devise::Mailer
   def default_url_options
     {
-      :host => host,
-      :port => port
+      protocol: 'https',
+      host: host,
+      port: port
     }
   end
 
