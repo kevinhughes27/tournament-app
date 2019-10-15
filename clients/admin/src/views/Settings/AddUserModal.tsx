@@ -26,7 +26,11 @@ class AddUserModal extends React.Component<Props> {
   }
 
   submit = () => {
-    runMutation(AddUserMutation, {input: {email: this.state.email}})
+    runMutation(
+      AddUserMutation,
+      { input: {email: this.state.email} },
+      { complete: this.handleClose }
+    )
   }
 
   render() {
