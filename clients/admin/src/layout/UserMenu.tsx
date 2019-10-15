@@ -5,7 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import gravatarUrl from 'gravatar-url';
-import auth from '../../modules/auth';
+import auth from '../modules/auth';
 
 interface Props extends RouteComponentProps<{}> {
   viewer: UserMenuQuery['viewer'];
@@ -59,15 +59,6 @@ class UserMenu extends React.Component<Props, State> {
               style={{ textDecoration: 'none', color: '#000000de' }}
             >
               Profile
-            </NavLink>
-          </MenuItem>
-          <MenuItem>
-            <NavLink
-              to="/settings"
-              onClick={this.handleClose}
-              style={{ textDecoration: 'none', color: '#000000de' }}
-            >
-              Settings
             </NavLink>
           </MenuItem>
           <MenuItem onClick={this.handleLogout}>Logout</MenuItem>

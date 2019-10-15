@@ -64,13 +64,17 @@ class ApiTest < ActionDispatch::IntegrationTest
   end
 
   def assert_success
-    assert mutation_result['success']
+    assert mutation_result['success'], "Mutation did not succeed: #{mutation_result}"
+  end
+
+  def assert_message(message)
+    assert_equal message, mutation_result['message']
   end
 
   def assert_confirmation_required(message)
     refute mutation_result['success']
     assert mutation_result['confirm']
-    assert_equal message, mutation_result['message']
+    assert_message(message)
   end
 
   def assert_failure(expectation = nil)

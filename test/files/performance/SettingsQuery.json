@@ -1,1 +1,1 @@
-{"settings":{"name":"API Test","handle":"apitest","timezone":"Etc/UTC","scoreSubmitPin":null,"gameConfirmSetting":"single"}}
+{"settings":{"admins":["api_test@example.com"],"gameConfirmSetting":"single","handle":"apitest","name":"API Test","scoreSubmitPin":null,"timezone":"Etc/UTC"}}

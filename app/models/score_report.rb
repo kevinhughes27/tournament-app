@@ -62,7 +62,7 @@ class ScoreReport < ApplicationRecord
       awayScore: away_score
     }
 
-    "#{tournament.domain}/submit?#{params.to_query}"
+    "#{tournament.url}/submit?#{params.to_query}"
   end
 
   def build_dispute_link
@@ -71,6 +71,6 @@ class ScoreReport < ApplicationRecord
       gameId: game_id
     }
 
-    "#{tournament.domain}/submit?#{params.to_query}"
+    "#{tournament.url}/submit?#{params.to_query}"
   end
 end

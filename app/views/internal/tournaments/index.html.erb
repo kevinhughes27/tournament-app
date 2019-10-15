@@ -25,7 +25,7 @@
   <tbody>
     <% @tournaments.each do |tournament| %>
       <tr>
-        <td><%= link_to tournament.handle, "#{tournament.domain}/admin" %></td>
+        <td><%= link_to tournament.handle, "#{tournament.url}/admin" %></td>
         <td><%= tournament.users.first.email %></td>
         <td class="hide-on-small-only"><%= tournament.created_at.strftime("%d/%m/%Y") %></td>
         <td class="hide-on-small-only"><%= tournament.teams.count %></td>

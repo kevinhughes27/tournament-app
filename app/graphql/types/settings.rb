@@ -7,6 +7,7 @@ class Types::Settings < Types::BaseObject
   field :protectScoreSubmit, Boolean, null: false
   field :scoreSubmitPin, String, null: true
   field :gameConfirmSetting, String, null: false
+  field :admins, [String], null: false
 
   def timezone
     context[:tournament].timezone
@@ -22,5 +23,9 @@ class Types::Settings < Types::BaseObject
 
   def game_confirm_setting
     context[:tournament].game_confirm_setting
+  end
+
+  def admins
+    context[:tournament].users.pluck(:email)
   end
 end

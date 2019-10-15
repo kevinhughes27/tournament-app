@@ -49,6 +49,7 @@ class PerformanceTest < ApiTest
   end
 
   ALLOWED_QUERIES = {
+    'SettingsQuery.ts' => 3,
     'TeamShowQuery.ts' => 4,
     'FieldsEditorQuery.ts' => 4,
     'DivisionListQuery.ts' => 5,
@@ -201,7 +202,9 @@ class PerformanceTest < ApiTest
       elsif v.instance_of?(Hash)
         delete_key(v, key)
       elsif v.instance_of?(Array)
-        v.each { |v| delete_key(v, key) }
+        v.each do |v|
+          delete_key(v, key) if v.instance_of?(Hash)
+        end
       end
     end
   end

@@ -50,8 +50,23 @@ class Tournament < ApplicationRecord
     self.handle.downcase!
   end
 
+  def url
+    "#{protocol}://#{domain}"
+  end
+
+  def admin_url
+    "#{protocol}://#{domain}/admin"
+  end
+
+  def protocol
+    Rails.env.production? ? 'https' : 'http'
+  end
+
   def domain
-    protocol = Rails.env.production? ? 'https' : 'http'
-    "#{protocol}://#{handle}.#{Settings.host}"
+    "#{handle}.#{Settings.host}"
+  end
+
+  def subdomain
+    handle
   end
 end
