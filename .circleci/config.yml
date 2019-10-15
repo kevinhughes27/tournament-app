@@ -38,7 +38,7 @@ jobs:
           key: yarn-{{ checksum "yarn.lock" }}
 
       ## yarn install dependencies
-      - run: npm install
+      - run: yarn install
 
       ## store yarn cache
       - save_cache:
