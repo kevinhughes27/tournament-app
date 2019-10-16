@@ -47,6 +47,12 @@ class BracketSimulationTest < OperationTest
           play_game(game)
         end
       end
+
+      # simulation got stuck. this is bad
+      # the bracket logic has at least 1 unfinishable outcome
+      if unfinished_games.present?
+        raise "Not all games completed but none can be played\n#{unfinished_games.map(&:bracket_uid)}"
+      end
     end
 
   end
@@ -87,9 +93,13 @@ class BracketSimulationTest < OperationTest
     @division.games.with_teams.where(score_confirmed: false)
   end
 
+  def unfinished_games
+    @division.games.where(score_confirmed: false)
+  end
+
   def assert_winner
     place = @division.places.find_by(position: 1)
-    assert place.team
+    assert place.team, "No Winner found"
   end
 
   def assert_places
