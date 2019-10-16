@@ -31,8 +31,12 @@ module BracketDb
       @days = value
     end
 
-    def pool(template, identifier, seeds)
-      pool_games = Pools[template]
+    def pool(template_or_games, identifier, seeds)
+      pool_games = if template_or_games.instance_of?(String)
+        Pools[template_or_games]
+      else
+        template_or_games
+      end
 
       pool_games.each do |game|
         game[:pool] = identifier
