@@ -12,6 +12,7 @@ class OperationTest < ActiveSupport::TestCase
       mutation #{mutation}($input: #{input_type}!) {
         #{mutation}(input: $input) {
           success
+          message
         }
       }
       """
