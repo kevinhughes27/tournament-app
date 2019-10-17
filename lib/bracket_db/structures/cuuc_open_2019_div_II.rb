@@ -12,10 +12,57 @@ BracketDb.define "CUUC Open 2019 Div II" do
   pool '3.1', 'Q', [7, 10, 23]
   pool '3.1', 'R', [8, 9, 24]
 
-  pool '4.1', 'S', %w(J1 Q1 J2 Q2)
-  pool '4.1', 'U', %w(K1 R1 K2 R2)
-  pool '4.1', 'T', %w(M1 O1 M2 O2)
-  pool '4.1', 'V', %w(N1 P1 N2 P2)
+  # Pool S
+  pool(
+    [
+      {round: 1, home_pool_seed: 1, away_pool_seed: 4},
+      {round: 1, home_pool_seed: 2, away_pool_seed: 3},
+
+      {round: 2, home_pool_seed: 1, away_pool_seed: 2},
+      {round: 2, home_pool_seed: 3, away_pool_seed: 4}
+    ],
+    'S',
+    %w(J1 Q1 J2 Q2)
+  )
+
+  # Pool U
+  pool(
+    [
+      {round: 1, home_pool_seed: 1, away_pool_seed: 4},
+      {round: 1, home_pool_seed: 2, away_pool_seed: 3},
+
+      {round: 2, home_pool_seed: 1, away_pool_seed: 2},
+      {round: 2, home_pool_seed: 3, away_pool_seed: 4}
+    ],
+    'U',
+    %w(K1 R1 K2 R2)
+  )
+
+  # Pool T
+  pool(
+    [
+      {round: 1, home_pool_seed: 1, away_pool_seed: 4},
+      {round: 1, home_pool_seed: 2, away_pool_seed: 3},
+
+      {round: 2, home_pool_seed: 1, away_pool_seed: 2},
+      {round: 2, home_pool_seed: 3, away_pool_seed: 4}
+    ],
+    'T',
+    %w(M1 O1 M2 O2)
+  )
+
+  # Pool V
+  pool(
+    [
+      {round: 1, home_pool_seed: 1, away_pool_seed: 4},
+      {round: 1, home_pool_seed: 2, away_pool_seed: 3},
+
+      {round: 2, home_pool_seed: 1, away_pool_seed: 2},
+      {round: 2, home_pool_seed: 3, away_pool_seed: 4}
+    ],
+    'V',
+    %w(N1 P1 N2 P2)
+  )
 
   # Pool X
   games [
