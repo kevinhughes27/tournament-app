@@ -263,7 +263,7 @@ class FieldsEditor extends React.Component<Props, State> {
   mutationComplete = () => {
     EditableField.clear();
     this.setState({ mode: 'none', submitting: false, editing: newField });
-    setTimeout(() => this.setState({ mode: 'view' }), 1000);
+    setTimeout(() => this.setState({ mode: 'view' }), 100);
   };
 
   mutationFailed = (result: MutationResult) => {
