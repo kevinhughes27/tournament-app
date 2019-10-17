@@ -16,8 +16,8 @@ const styles = theme => ({
   },
   suggestionsContainerOpen: {
     position: 'absolute',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(),
+    marginBottom: theme.spacing(3),
     left: 0,
     right: 0
   },
@@ -45,10 +45,6 @@ class AutoComplete extends Component {
       value: this.props.value,
       suggestions: []
     };
-  }
-
-  UNSAFE_componentWillReceiveProps(props) {
-    this.setState({ value: props.value });
   }
 
   handleSuggestionsFetchRequested = ({ value }) => {

@@ -51,7 +51,7 @@ const bottomItems = [
 ];
 
 const NavItem = (path: string, icon: any, text: string) => (
-  <NavLink to={path} style={{ textDecoration: 'None' }} key={text}>
+  <NavLink to={path} style={{ color: 'black', textDecoration: 'None' }} key={text}>
     <ListItem button>
       <ListItemIcon>
         <FontAwesomeIcon icon={icon} />

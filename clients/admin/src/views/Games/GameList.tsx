@@ -71,7 +71,6 @@ class GameList extends React.Component<Props> {
             <Tabs
               value={tab}
               onChange={this.handleTab}
-              scrollable
               scrollButtons="auto"
             >
               {this.renderTab('On Now', currentGames.length, 'secondary')}

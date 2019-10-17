@@ -78,7 +78,7 @@ const Modal = (theme: Theme) =>
       maxWidth: '90%',
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
-      padding: theme.spacing.unit * 4
+      padding: theme.spacing(4)
     },
     title: {
       display: 'flex',
@@ -126,8 +126,8 @@ const ActionMenu = (theme: Theme) =>
   createStyles({
     fab: {
       position: 'fixed',
-      bottom: theme.spacing.unit * 2,
-      right: theme.spacing.unit * 2
+      bottom: theme.spacing(2),
+      right: theme.spacing(2)
     }
   });
 
@@ -135,8 +135,8 @@ const FormButtons = (theme: Theme) =>
   createStyles({
     fab: {
       position: 'fixed',
-      bottom: theme.spacing.unit * 2,
-      right: theme.spacing.unit * 2,
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
       zIndex: 1000
     },
     inline: {
