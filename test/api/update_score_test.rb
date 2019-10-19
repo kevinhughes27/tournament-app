@@ -140,7 +140,7 @@ class UpdateScoreTest < ApiTest
     dispute = ScoreDispute.create!(tournament: game.tournament, game_id: game.id)
     game.reload
 
-    input = {game_id: game.id, home_score: 15, away_score: 11, resolve: true}
+    input = {game_id: game.id, home_score: 15, away_score: 11}
     execute_graphql("updateScore", "UpdateScoreInput", input, @output)
     assert_success
     assert_equal 'resolved', dispute.reload.status

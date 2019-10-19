@@ -40,9 +40,7 @@ class Resolvers::UpdateScore < Resolvers::BaseResolver
 
     create_score_entry
 
-    if inputs[:resolve]
-      @game.resolve_disputes!
-    end
+    @game.resolve_disputes!
 
     return {
       game: @game,

@@ -484,7 +484,6 @@ input UpdateScoreInput {
   confirm: Boolean
   gameId: ID!
   homeScore: Int!
-  resolve: Boolean
 }
 
 """
