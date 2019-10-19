@@ -56,7 +56,6 @@ class ScoreForm extends Form<Props> {
     const { game } = this.props;
     const {
       values,
-      dirty,
       errors,
       handleChange,
       handleSubmit,
@@ -92,7 +91,6 @@ class ScoreForm extends Form<Props> {
           />
         </div>
         <FormButtons
-          formDirty={dirty}
           formValid={isEmpty(errors)}
           submitting={isSubmitting}
           cancel={this.props.cancel}
