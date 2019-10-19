@@ -54,7 +54,7 @@ jobs:
 
       ## restore admin cache
       - restore_cache:
-          key: admin-{{ checksum "admin-checksum.txt" }}-v6
+          key: admin-{{ checksum "admin-checksum.txt" }}
 
       ## build admin
       - run:
@@ -63,7 +63,7 @@ jobs:
 
       ## store admin cache
       - save_cache:
-          key: admin-{{ checksum "admin-checksum.txt" }}-v6
+          key: admin-{{ checksum "yarn.lock" }}-{{ checksum "app/graphql/schema.graphql" }}-{{ checksum "admin-checksum.txt" }}
           paths:
             - clients/admin/src/generated.ts
             - clients/admin/types/generated.d.ts
@@ -82,7 +82,7 @@ jobs:
 
       ## restore player_app cache
       - restore_cache:
-          key: player_app-{{ checksum "player_app-checksum.txt" }}
+          key: player_app-{{ checksum "yarn.lock" }}-{{ checksum "app/graphql/schema.graphql" }}-{{ checksum "player_app-checksum.txt" }}
 
       ## build player_app
       - run:
@@ -91,7 +91,7 @@ jobs:
 
       ## store player_app cache
       - save_cache:
-          key: player_app-{{ checksum "player_app-checksum.txt" }}
+          key: player_app-{{ checksum "yarn.lock" }}-{{ checksum "app/graphql/schema.graphql" }}-{{ checksum "player_app-checksum.txt" }}
           paths:
             - clients/player_app/build
 
@@ -103,14 +103,14 @@ jobs:
 
       ## restore assets cache
       - restore_cache:
-          key: assets-{{ checksum "assets-checksum.txt" }}-{{ checksum "Gemfile.lock" }}
+          key: assets-{{ checksum "Gemfile.lock" }}-{{ checksum "assets-checksum.txt" }}
 
       ## compile assets
       - run: bundle exec rake assets:precompile
 
       ## store assets cache
       - save_cache:
-          key: assets-{{ checksum "assets-checksum.txt" }}-{{ checksum "Gemfile.lock" }}
+          key: assets-{{ checksum "Gemfile.lock" }}-{{ checksum "assets-checksum.txt" }}
           paths:
             - tmp/cache/assets
 
