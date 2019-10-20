@@ -40,6 +40,7 @@ class GameListItem extends React.Component<Props> {
         <TableCell>{gameName}</TableCell>
         <TableCell>{game.division.name}</TableCell>
         <TableCell>{game.pool}</TableCell>
+        <TableCell>{game.bracketUid}</TableCell>
         {this.renderScoreCell()}
         {this.renderModal()}
       </TableRow>
