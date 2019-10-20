@@ -130,6 +130,7 @@ class GameList extends React.Component<Props> {
                 <TableCell>Name</TableCell>
                 <TableCell>Division</TableCell>
                 <TableCell>Pool</TableCell>
+                <TableCell>Bracket</TableCell>
                 <TableCell>Score</TableCell>
               </TableRow>
             </TableHead>

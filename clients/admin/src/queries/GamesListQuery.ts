@@ -9,6 +9,7 @@ export const query = gql`
         name
       }
       pool
+      bracketUid
       startTime
       endTime
       hasTeams
