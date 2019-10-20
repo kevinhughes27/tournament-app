@@ -73,17 +73,19 @@ class GameList extends React.Component<Props> {
               onChange={this.handleTab}
               scrollButtons="auto"
             >
+              {this.renderTab('All', games.length, 'secondary')}
               {this.renderTab('On Now', currentGames.length, 'secondary')}
               {this.renderTab('Need Scores', missingScores.length, 'error')}
               {this.renderTab('Upcoming', upcomingGames.length, 'secondary')}
               {this.renderTab('Finished', finishedGames.length, 'primary')}
             </Tabs>
           </AppBar>
-          {tab === 0 && this.renderList(currentGames, 'No Games happening now')}
-          {tab === 1 &&
+          {tab === 0 && this.renderList(games, 'No Games')}
+          {tab === 1 && this.renderList(currentGames, 'No Games happening now')}
+          {tab === 2 &&
             this.renderList(missingScores, 'No Games missing scores')}
-          {tab === 2 && this.renderList(upcomingGames, 'No Games coming up')}
-          {tab === 3 && this.renderList(finishedGames, 'No Games finished')}
+          {tab === 3 && this.renderList(upcomingGames, 'No Games coming up')}
+          {tab === 4 && this.renderList(finishedGames, 'No Games finished')}
           {this.renderActions()}
         </div>
       );
