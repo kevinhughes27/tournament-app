@@ -39,6 +39,7 @@ module Schedulable
   end
 
   def playing_time_range_string
+    return nil unless scheduled?
     formatted_start = start_time.strftime("%l:%M %p")
     formatted_end = end_time.strftime("%l:%M %p")
     "#{formatted_start} - #{formatted_end}"

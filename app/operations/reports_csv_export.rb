@@ -17,6 +17,8 @@ class ReportsCsvExport < ApplicationOperation
   def header
     [
       'Game',
+      'Pool / Bracket',
+      'Time',
       'Score',
       'Submitted By',
       'Team',
@@ -30,8 +32,12 @@ class ReportsCsvExport < ApplicationOperation
   end
 
   def row(report)
+    game = report.game
+
     [
-      "#{report.game.home_name} vs #{report.game.away_name}",
+      "#{game.home_name} vs #{game.away_name}",
+      "#{game.pool || game.bracket_uid}",
+      "#{report.game.playing_time_range_string}",
       report.score,
       report.submitted_by,
       report.other_team.name,
