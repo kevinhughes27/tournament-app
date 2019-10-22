@@ -10,7 +10,7 @@
       <% division.teams.sort_by{ |t| t.seed || 1000 }.each do |team| %>
         <tr>
           <td><%= team.name %></td>
-          <td><%= team.seed %></td>
+          <td><%= team.seed.rank %></td>
         </tr>
       <% end %>
     </tbody>
