@@ -5,6 +5,7 @@ const mutation = gql`
   mutation submitScore($input: SubmitScoreInput!) {
     submitScore(input: $input) {
       success
+      gameId
     }
   }
 `;
@@ -16,9 +17,12 @@ function submitScore(payload) {
     return client
       .mutate({ mutation: mutation, variables: { input: payload } })
       .then(response =>
-        dispatch({ type: 'SCORE_REPORT_RECIEVED', response: response })
+        dispatch({
+          type: 'SCORE_REPORT_RECIEVED',
+          response: response.data.submitScore
+        })
       )
-      .catch(error => dispatch({ type: 'SCORE_REPORT_FAILED', error }));
+      .catch(error => dispatch({ type: 'SCORE_REPORT_FAILED', gameId: payload.gameId }));
   };
 }
 

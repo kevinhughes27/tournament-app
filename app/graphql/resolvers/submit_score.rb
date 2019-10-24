@@ -5,15 +5,20 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
 
     @report = load_or_build_report(inputs)
 
-    if !(@game.teams_present?)
-      { success: false }
+    success = if !(@game.teams_present?)
+      false
     elsif !valid_submitter?
-      { success: false }
+      false
     elsif save_report
-      { success: true }
+      true
     else
-      { success: false }
+      false
     end
+
+    return {
+      success: success,
+      game_id: @game.id
+    }
   end
 
   private
