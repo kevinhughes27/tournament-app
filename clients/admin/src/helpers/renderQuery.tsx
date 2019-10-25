@@ -24,10 +24,7 @@ const renderQuery = (
     <Query query={query} variables={variables} fetchPolicy={fetchPolicy}>
       {({ loading, error, data, subscribeToMore }: any) => {
         if (error) {
-          if (
-            error.networkError &&
-            (error.networkError as any).response.status === 404
-          ) {
+          if (error.networkError && error.networkError.statusCode === 404) {
             return <NotFound />;
           } else {
             return <BlankSlate>{error.message}</BlankSlate>;
