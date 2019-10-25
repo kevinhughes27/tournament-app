@@ -33,6 +33,8 @@ class SafeToUpdateScoreCheck < ApplicationOperation
     (game.home_score > game.away_score) ^ (home_score > away_score)
   end
 
+  # actually calculate the dependent pool games?
+  # stages will help with this eventually
   def bracket_games_played?
     Game.where(
       tournament_id: game.tournament_id,

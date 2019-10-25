@@ -78,6 +78,7 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
   def save_report
     if @report.save
       notify_other_team
+      notify_td
       confirm_game
     end
   end
@@ -86,30 +87,35 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
     ScoreReportMailer.notify_team_email(@report).deliver_later
   end
 
-  def confirm_game
-    return if confirm_setting == 'multiple' && @game.score_reports.size < 2
+  def notify_td
+    return if matches_other_reports? && safe_to_update_score?
+    return if @game.score_disputes.present?
 
-    if matches_other_reports? && safe_to_update_score?
-      SaveScore.perform(
-        game: @game,
-        home_score: @report.home_score,
-        away_score: @report.away_score)
-    elsif @game.score_disputes.blank?
-      ScoreDispute.create!(
-        tournament_id: @report.tournament_id,
-        game_id: @report.game_id
-      )
-    end
-
-    @game.update(updated_at: Time.now)
+    ScoreDispute.create!(
+      tournament_id: @report.tournament_id,
+      game_id: @report.game_id
+    )
   end
 
-  def confirm_setting
-    @tournament.game_confirm_setting
+  def confirm_game
+    return unless should_confirm?
+    return unless safe_to_update_score?
+
+    SaveScore.perform(
+      game: @game,
+      home_score: @report.home_score,
+      away_score: @report.away_score
+    )
   end
 
   def matches_other_reports?
-    if confirm_setting == 'multiple'
+    @game.score_reports.all? { |r| @report.eql?(r) }
+  end
+
+  def should_confirm?
+    if @tournament.game_confirm_setting == 'multiple'
+      return false if @game.score_reports.size < 2
+
       both_teams_submitted = @game.score_reports.map(&:team_id).uniq.count == 2
       return false unless both_teams_submitted
 
@@ -117,11 +123,11 @@ class Resolvers::SubmitScore < Resolvers::BaseResolver
       return false unless multiple_devices_submitted
     end
 
-    @game.score_reports.all? { |r| @report.eql?(r) }
+    matches_other_reports?
   end
 
   def safe_to_update_score?
-    SafeToUpdateScoreCheck.perform(
+    @safe_to_update_score ||= SafeToUpdateScoreCheck.perform(
       game: @game,
       home_score: @report.home_score,
       away_score: @report.away_score
