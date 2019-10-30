@@ -78,7 +78,7 @@ group :development, :test do
   gem 'faker'
   gem 'spring'
   gem 'listen'
-  gem 'wkhtmltopdf-binary-edge', '~> 0.12.3.0'
+  gem 'wkhtmltopdf-binary-edge', '~> 0.12.5.1'
 end
 
 group :development do
