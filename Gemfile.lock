@@ -110,7 +110,7 @@ GEM
       activemodel
       activesupport
     deep_merge (1.2.1)
-    deepsort (0.4.2)
+    deepsort (0.4.3)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
