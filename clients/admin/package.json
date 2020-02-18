@@ -71,7 +71,7 @@
     "react-leaflet-control": "2.1.1",
     "react-leaflet-search": "^0.6.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "3.4.0",
     "react-stars": "^2.2.5",
     "rollbar": "^2.13.0",
     "typescript": "^3.6.4"
