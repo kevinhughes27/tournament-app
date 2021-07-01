@@ -1,7 +1,7 @@
 Ultimate Tournament
 ===================
 
-Ultimate Tournament is a side project I worked on from around 2015 to 2019. It was a great avenue to explore all the aspects of building and operating a software as a service (SASS) product on my own. About a dozen tournaments were organized and ran using Ultimate Tournament before I decided that I no longer wanted to support the application and shut it down.
+Ultimate Tournament is a side project I worked on from around 2015 to 2019. It was a great avenue to explore all the aspects of building and operating a software as a service (SASS) product on my own. About a dozen tournaments (including several by Ultimate Canada) were organized and ran using Ultimate Tournament before I decided that I no longer wanted to support the application and shut it down.
 
 During its lifetime I used Ultimate Tournament to explore many different software architectures and patterns. This project helped me gain experience, develop opinions and grow as an engineer. I have no doubt this project helped me arrive to where I am in my career today.
 
