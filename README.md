@@ -13,6 +13,7 @@ The project had a couple of other interesting features:
 * A custom GeoJSON editor for building field maps. It featured an "orthogonalize" button to square of a hand drawn field and undo/redo functionality
 * An offline/spotty connection friendly PWA for players at the tournament. Score submissions were saved to localstorage and marked submitted after the server acknowleded receipt
 * The BracketDb DSL for defining complicated tournament structures (from USAU). The frontend could visualize these using a D3 force graph. The structures were also tested in a number of ways including simulations to ensure they could be completed.
+* Highly performant CI builds with intelligent caching of frontend bundles
 
 By far the most challenging aspect of of Ultimate Tournament was the schedule editor. It underwent many iterations to try and find the best way to express the complexity of the tournament structure while making it easy for a TD to assign games to field and time slots. The original implementation was spreadsheet esque and may have been the best overall. Subsequent versions were more calendar like which was more flexible but less efficient to use. A final version that combined the best of both implementations was designed but never built.
 
