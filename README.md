@@ -1,7 +1,24 @@
 Ultimate Tournament
 ===================
 
-[![Circle CI](https://circleci.com/gh/kevinhughes27/ultimate-tournament/tree/master.svg?style=svg&circle-token=4cdbaf7bb8107c054bbb6d22c52aa6bef97eb8e3)](https://circleci.com/gh/kevinhughes27/ultimate-tournament/tree/master)
+Ultimate Tournament is a side project I worked on from around 2015 to 2019. It was a great avenue to explore all the aspects of building and operating a software as a service (SASS) product on my own. About a dozen tournaments were organized and ran using Ultimate Tournament before I decided that I no longer wanted to support the application and shut it down.
+
+During its lifetime I used Ultimate Tournament to explore many different software architectures and patterns. This project helped me gain experience, develop opinions and grow as an engineer. I have no doubt this project helped me arrive to where I am in my career today.
+
+It started off as a very traditional Rails application using turbolinks and javascript as necessary. After the initial backend was complete I became interested in making the user interface very rich in terms of filtering and live updating as scores were submitted. I ran into difficulties achieving what I wanted using what was available at the time for open source Rails UI - this led me to learn React and GraphQL to rebuild the interface. React did allow me to more easily leverage open source UI components but certainly added other complexities.
+
+Using Ultimate Tournament I also explored different approaches for organizing buisness logic. Initially I used ActiveModel callbacks and then transitioned to structured service objects using ActiveOperation before ultimately only having GraphQL mutations. I developed a primarily integration and e2e based testing approach which I still prefer on most projects today.
+
+The project had a couple of other interesting features:
+* A custom GeoJSON editor for building field maps. It featured an "orthogonalize" button to square of a hand drawn field and undo/redo functionality
+* An offline/spotty connection friendly PWA for players at the tournament. Score submissions were saved to localstorage and marked submitted after the server acknowleded receipt
+* The BracketDb DSL for defining complicated tournament structures (from USAU). The frontend could visualize these using a D3 force graph. The structures were also tested in a number of ways including simulations to ensure they could be completed.
+
+By far the most challenging aspect of of Ultimate Tournament was the schedule editor. It underwent many iterations to try and find the best way to express the complexity of the tournament structure while making it easy for a TD to assign games to field and time slots. The original implementation was spreadsheet esque and may have been the best overall. Subsequent versions were more calendar like which was more flexible but less efficient to use. A final version that combined the best of both implementations was designed but never built.
+
+Another difficult aspect of tournament software is balancing the complexity, editability and correctness of tournament formats. Ultimate Tournament never supported user editable formats although it was something I eventually planned to build. This feature is important because often tournaments are adjusted mid-way through for a variety of factors. Without this feature direct support was often required on the final day of the tournament or organizers had to improvise. The lack of this feature is one of the main reasons I decided to halt development.
+
+I've open sourced Ultimate Tournament because in a lot of ways it serves as a reference point for me personally on how I like to work with Rails. I learned a lot about web development on this project and frequently refer to it; now I can more easily share parts of it with others when desired.
 
 
 Contents
