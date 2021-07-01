@@ -94,9 +94,9 @@ Which will install the javascript dependencies for each client. The clients are 
 ### Docker
 
 We use docker and docker-compose to manage the required services for development:
-
-    * [Postgresql](https://www.postgresql.org/) for our database
-    * [Redis](https://redis.io/) for a key value store
+  
+  * [Postgresql](https://www.postgresql.org/) for our database
+  * [Redis](https://redis.io/) for a key value store
 
 To start the required services run `docker-compose up -d` (will require `sudo` on linux).
 
