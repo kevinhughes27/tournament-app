@@ -10,7 +10,7 @@ It started off as a very traditional Rails application using turbolinks and java
 Using Ultimate Tournament I also explored different approaches for organizing buisness logic. Initially I used ActiveModel callbacks and then transitioned to structured service objects using ActiveOperation before ultimately only having GraphQL mutations. I developed a primarily integration and e2e based testing approach which I still prefer on most projects today.
 
 The project had a couple of other interesting features:
-* A custom GeoJSON editor for building field maps. It featured an "orthogonalize" button to square of a hand drawn field and undo/redo functionality
+* A custom GeoJSON editor for building field maps. It featured an "orthogonalize" button to square off a hand drawn field and undo/redo functionality
 * An offline/spotty connection friendly PWA for players at the tournament. Score submissions were saved to localstorage and marked submitted after the server acknowleded receipt
 * The BracketDb DSL for defining complicated tournament structures (from USAU). The frontend could visualize these using a D3 force graph. The structures were also tested in a number of ways including simulations to ensure they could be completed.
 * Highly performant CI builds with intelligent caching of frontend bundles
